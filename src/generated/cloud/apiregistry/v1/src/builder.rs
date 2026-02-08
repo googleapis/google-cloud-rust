@@ -20,7 +20,7 @@ pub mod cloud_api_registry {
     /// A builder for [CloudApiRegistry][crate::client::CloudApiRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apiregistry_v1::*;
     /// # use builder::cloud_api_registry::ClientBuilder;
     /// # use client::CloudApiRegistry;
@@ -75,7 +75,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::GetMcpServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::ListMcpServers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -255,7 +255,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::GetMcpTool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -317,7 +317,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::ListMcpTools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -433,7 +433,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -546,7 +546,7 @@ pub mod cloud_api_registry {
     /// # Example
     /// ```
     /// # use google_cloud_apiregistry_v1::builder::cloud_api_registry::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apiregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

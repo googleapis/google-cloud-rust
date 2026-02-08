@@ -20,7 +20,7 @@ pub mod profiler_service {
     /// A builder for [ProfilerService][crate::client::ProfilerService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::profiler_service::ClientBuilder;
     /// # use client::ProfilerService;
@@ -75,7 +75,7 @@ pub mod profiler_service {
     /// # Example
     /// ```
     /// # use google_cloud_profiler_v2::builder::profiler_service::CreateProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_profiler_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -164,7 +164,7 @@ pub mod profiler_service {
     /// # Example
     /// ```
     /// # use google_cloud_profiler_v2::builder::profiler_service::CreateOfflineProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_profiler_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -245,7 +245,7 @@ pub mod profiler_service {
     /// # Example
     /// ```
     /// # use google_cloud_profiler_v2::builder::profiler_service::UpdateProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_profiler_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -337,7 +337,7 @@ pub mod export_service {
     /// A builder for [ExportService][crate::client::ExportService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::export_service::ClientBuilder;
     /// # use client::ExportService;
@@ -392,7 +392,7 @@ pub mod export_service {
     /// # Example
     /// ```
     /// # use google_cloud_profiler_v2::builder::export_service::ListProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_profiler_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

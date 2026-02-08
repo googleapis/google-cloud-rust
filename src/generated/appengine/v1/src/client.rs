@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Applications;
 /// let client = Applications::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -66,7 +66,7 @@ impl Applications {
     /// Returns a builder for [Applications].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Applications;
     /// let client = Applications::builder().build().await?;
     /// # Ok(()) }
@@ -207,7 +207,7 @@ impl Applications {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Services;
 /// let client = Services::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -253,7 +253,7 @@ impl Services {
     /// Returns a builder for [Services].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Services;
     /// let client = Services::builder().build().await?;
     /// # Ok(()) }
@@ -364,7 +364,7 @@ impl Services {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Versions;
 /// let client = Versions::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -410,7 +410,7 @@ impl Versions {
     /// Returns a builder for [Versions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Versions;
     /// let client = Versions::builder().build().await?;
     /// # Ok(()) }
@@ -573,7 +573,7 @@ impl Versions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -619,7 +619,7 @@ impl Instances {
     /// Returns a builder for [Instances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Instances;
     /// let client = Instances::builder().build().await?;
     /// # Ok(()) }
@@ -751,7 +751,7 @@ impl Instances {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Firewall;
 /// let client = Firewall::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -806,7 +806,7 @@ impl Firewall {
     /// Returns a builder for [Firewall].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Firewall;
     /// let client = Firewall::builder().build().await?;
     /// # Ok(()) }
@@ -911,7 +911,7 @@ impl Firewall {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
 /// let client = AuthorizedDomains::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -959,7 +959,7 @@ impl AuthorizedDomains {
     /// Returns a builder for [AuthorizedDomains].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
     /// let client = AuthorizedDomains::builder().build().await?;
     /// # Ok(()) }
@@ -1038,7 +1038,7 @@ impl AuthorizedDomains {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
 /// let client = AuthorizedCertificates::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -1085,7 +1085,7 @@ impl AuthorizedCertificates {
     /// Returns a builder for [AuthorizedCertificates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
     /// let client = AuthorizedCertificates::builder().build().await?;
     /// # Ok(()) }
@@ -1202,7 +1202,7 @@ impl AuthorizedCertificates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::DomainMappings;
 /// let client = DomainMappings::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
@@ -1248,7 +1248,7 @@ impl DomainMappings {
     /// Returns a builder for [DomainMappings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::DomainMappings;
     /// let client = DomainMappings::builder().build().await?;
     /// # Ok(()) }

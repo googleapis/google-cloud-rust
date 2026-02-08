@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
 /// let client = Environments::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
@@ -66,7 +66,7 @@ impl Environments {
     /// Returns a builder for [Environments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// let client = Environments::builder().build().await?;
     /// # Ok(()) }
@@ -399,7 +399,7 @@ impl Environments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
 /// let client = ImageVersions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
@@ -445,7 +445,7 @@ impl ImageVersions {
     /// Returns a builder for [ImageVersions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
     /// let client = ImageVersions::builder().build().await?;
     /// # Ok(()) }

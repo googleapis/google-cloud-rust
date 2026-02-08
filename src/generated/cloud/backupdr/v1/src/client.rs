@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDR;
 /// let client = BackupDR::builder().build().await?;
 /// // use `client` to make requests to the Backup and DR Service API.
@@ -66,7 +66,7 @@ impl BackupDR {
     /// Returns a builder for [BackupDR].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// let client = BackupDR::builder().build().await?;
     /// # Ok(()) }
@@ -564,7 +564,7 @@ impl BackupDR {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
 /// let client = BackupDrProtectionSummary::builder().build().await?;
 /// // use `client` to make requests to the Backup and DR Service API.
@@ -610,7 +610,7 @@ impl BackupDrProtectionSummary {
     /// Returns a builder for [BackupDrProtectionSummary].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
     /// let client = BackupDrProtectionSummary::builder().build().await?;
     /// # Ok(()) }

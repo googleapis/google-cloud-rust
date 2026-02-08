@@ -20,7 +20,7 @@ pub mod reservation_service {
     /// A builder for [ReservationService][crate::client::ReservationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_reservation_v1::*;
     /// # use builder::reservation_service::ClientBuilder;
     /// # use client::ReservationService;
@@ -75,7 +75,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::CreateReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -164,7 +164,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::ListReservations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -273,7 +273,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::GetReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -335,7 +335,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::DeleteReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -400,7 +400,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::UpdateReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -493,7 +493,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::FailoverReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -564,7 +564,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::CreateCapacityCommitment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -661,7 +661,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::ListCapacityCommitments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -772,7 +772,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::GetCapacityCommitment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -837,7 +837,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::DeleteCapacityCommitment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -910,7 +910,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::UpdateCapacityCommitment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1005,7 +1005,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::SplitCapacityCommitment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1078,7 +1078,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::MergeCapacityCommitments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1160,7 +1160,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::CreateAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1249,7 +1249,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::ListAssignments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1355,7 +1355,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::DeleteAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1420,7 +1420,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::SearchAssignments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1535,7 +1535,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::SearchAllAssignments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1650,7 +1650,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::MoveAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1724,7 +1724,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::UpdateAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1817,7 +1817,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::GetBiReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1882,7 +1882,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::UpdateBiReservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1975,7 +1975,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2058,7 +2058,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2163,7 +2163,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2243,7 +2243,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::CreateReservationGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2338,7 +2338,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::GetReservationGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2403,7 +2403,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::DeleteReservationGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2468,7 +2468,7 @@ pub mod reservation_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_reservation_v1::builder::reservation_service::ListReservationGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_reservation_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

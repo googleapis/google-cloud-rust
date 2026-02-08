@@ -20,7 +20,7 @@ pub mod license_management_service {
     /// A builder for [LicenseManagementService][crate::client::LicenseManagementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::*;
     /// # use builder::license_management_service::ClientBuilder;
     /// # use client::LicenseManagementService;
@@ -75,7 +75,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::GetLicensePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::UpdateLicensePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -238,7 +238,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::Assign;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -313,7 +313,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::Unassign;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -388,7 +388,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::EnumerateLicensedUsers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -497,7 +497,7 @@ pub mod license_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::license_management_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -562,7 +562,7 @@ pub mod consumer_procurement_service {
     /// A builder for [ConsumerProcurementService][crate::client::ConsumerProcurementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::*;
     /// # use builder::consumer_procurement_service::ClientBuilder;
     /// # use client::ConsumerProcurementService;
@@ -617,7 +617,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::PlaceOrder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -751,7 +751,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::GetOrder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::ListOrders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -923,7 +923,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::ModifyOrder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1055,7 +1055,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::CancelOrder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1181,7 +1181,7 @@ pub mod consumer_procurement_service {
     /// # Example
     /// ```
     /// # use google_cloud_commerce_consumer_procurement_v1::builder::consumer_procurement_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_commerce_consumer_procurement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

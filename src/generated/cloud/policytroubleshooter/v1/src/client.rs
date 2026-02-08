@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
 /// let client = IamChecker::builder().build().await?;
 /// // use `client` to make requests to the Policy Troubleshooter API.
@@ -68,7 +68,7 @@ impl IamChecker {
     /// Returns a builder for [IamChecker].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
     /// let client = IamChecker::builder().build().await?;
     /// # Ok(()) }

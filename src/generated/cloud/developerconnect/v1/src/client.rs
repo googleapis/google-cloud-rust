@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
 /// let client = DeveloperConnect::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
@@ -66,7 +66,7 @@ impl DeveloperConnect {
     /// Returns a builder for [DeveloperConnect].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// let client = DeveloperConnect::builder().build().await?;
     /// # Ok(()) }
@@ -410,7 +410,7 @@ impl DeveloperConnect {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
 /// let client = InsightsConfigService::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
@@ -464,7 +464,7 @@ impl InsightsConfigService {
     /// Returns a builder for [InsightsConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// let client = InsightsConfigService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod data_fusion {
     /// A builder for [DataFusion][crate::client::DataFusion].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datafusion_v1::*;
     /// # use builder::data_fusion::ClientBuilder;
     /// # use client::DataFusion;
@@ -75,7 +75,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::ListAvailableVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -190,7 +190,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -306,7 +306,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -368,7 +368,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -503,7 +503,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -607,7 +607,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -748,7 +748,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::RestartInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -857,7 +857,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -978,7 +978,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1041,7 +1041,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1106,7 +1106,7 @@ pub mod data_fusion {
     /// # Example
     /// ```
     /// # use google_cloud_datafusion_v1::builder::data_fusion::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datafusion_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

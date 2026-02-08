@@ -20,7 +20,7 @@ pub mod text_to_speech {
     /// A builder for [TextToSpeech][crate::client::TextToSpeech].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::*;
     /// # use builder::text_to_speech::ClientBuilder;
     /// # use client::TextToSpeech;
@@ -75,7 +75,7 @@ pub mod text_to_speech {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech::ListVoices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -135,7 +135,7 @@ pub mod text_to_speech {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech::SynthesizeSpeech;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -276,7 +276,7 @@ pub mod text_to_speech {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -397,7 +397,7 @@ pub mod text_to_speech {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -462,7 +462,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// A builder for [TextToSpeechLongAudioSynthesize][crate::client::TextToSpeechLongAudioSynthesize].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::*;
     /// # use builder::text_to_speech_long_audio_synthesize::ClientBuilder;
     /// # use client::TextToSpeechLongAudioSynthesize;
@@ -517,7 +517,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -703,7 +703,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech_long_audio_synthesize::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -824,7 +824,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// # Example
     /// ```
     /// # use google_cloud_texttospeech_v1::builder::text_to_speech_long_audio_synthesize::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_texttospeech_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

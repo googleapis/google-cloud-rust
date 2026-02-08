@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_memorystore_v1::client::Memorystore;
 /// let client = Memorystore::builder().build().await?;
 /// // use `client` to make requests to the Memorystore API.
@@ -66,7 +66,7 @@ impl Memorystore {
     /// Returns a builder for [Memorystore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_memorystore_v1::client::Memorystore;
     /// let client = Memorystore::builder().build().await?;
     /// # Ok(()) }

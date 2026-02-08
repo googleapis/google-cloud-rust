@@ -20,7 +20,7 @@ pub mod timeseries_insights_controller {
     /// A builder for [TimeseriesInsightsController][crate::client::TimeseriesInsightsController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_timeseriesinsights_v1::*;
     /// # use builder::timeseries_insights_controller::ClientBuilder;
     /// # use client::TimeseriesInsightsController;
@@ -75,7 +75,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::ListDataSets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -179,7 +179,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::CreateDataSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -263,7 +263,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::DeleteDataSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -325,7 +325,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::AppendEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -398,7 +398,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::QueryDataSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -560,7 +560,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::EvaluateSlice;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -693,7 +693,7 @@ pub mod timeseries_insights_controller {
     /// # Example
     /// ```
     /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::EvaluateTimeseries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_timeseriesinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod dataset_service {
     /// A builder for [DatasetService][crate::client::DatasetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::dataset_service::ClientBuilder;
     /// # use client::DatasetService;
@@ -75,7 +75,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::GetDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -160,7 +160,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::InsertDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -250,7 +250,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::PatchDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -362,7 +362,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::UpdateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -474,7 +474,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::DeleteDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -550,7 +550,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::ListDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -676,7 +676,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::dataset_service::UndeleteDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -766,7 +766,7 @@ pub mod job_service {
     /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::job_service::ClientBuilder;
     /// # use client::JobService;
@@ -821,7 +821,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::CancelJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -897,7 +897,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -973,7 +973,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::InsertJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1051,7 +1051,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1127,7 +1127,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1295,7 +1295,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::GetQueryResults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1449,7 +1449,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::job_service::Query;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1531,7 +1531,7 @@ pub mod model_service {
     /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::model_service::ClientBuilder;
     /// # use client::ModelService;
@@ -1586,7 +1586,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::model_service::GetModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1664,7 +1664,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::model_service::ListModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1788,7 +1788,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::model_service::PatchModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1888,7 +1888,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::model_service::DeleteModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1968,7 +1968,7 @@ pub mod project_service {
     /// A builder for [ProjectService][crate::client::ProjectService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::project_service::ClientBuilder;
     /// # use client::ProjectService;
@@ -2023,7 +2023,7 @@ pub mod project_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::project_service::GetServiceAccount;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2090,7 +2090,7 @@ pub mod routine_service {
     /// A builder for [RoutineService][crate::client::RoutineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::routine_service::ClientBuilder;
     /// # use client::RoutineService;
@@ -2145,7 +2145,7 @@ pub mod routine_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::routine_service::GetRoutine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2223,7 +2223,7 @@ pub mod routine_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::routine_service::InsertRoutine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2315,7 +2315,7 @@ pub mod routine_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::routine_service::UpdateRoutine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2415,7 +2415,7 @@ pub mod routine_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::routine_service::DeleteRoutine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2493,7 +2493,7 @@ pub mod routine_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::routine_service::ListRoutines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2625,7 +2625,7 @@ pub mod row_access_policy_service {
     /// A builder for [RowAccessPolicyService][crate::client::RowAccessPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::row_access_policy_service::ClientBuilder;
     /// # use client::RowAccessPolicyService;
@@ -2680,7 +2680,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::ListRowAccessPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2805,7 +2805,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::GetRowAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2894,7 +2894,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::CreateRowAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2997,7 +2997,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::UpdateRowAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3108,7 +3108,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::DeleteRowAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3215,7 +3215,7 @@ pub mod row_access_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::row_access_policy_service::BatchDeleteRowAccessPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3331,7 +3331,7 @@ pub mod table_service {
     /// A builder for [TableService][crate::client::TableService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::*;
     /// # use builder::table_service::ClientBuilder;
     /// # use client::TableService;
@@ -3386,7 +3386,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::GetTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3479,7 +3479,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::InsertTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3571,7 +3571,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::PatchTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3680,7 +3680,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::UpdateTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3789,7 +3789,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::DeleteTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3867,7 +3867,7 @@ pub mod table_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::builder::table_service::ListTables;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

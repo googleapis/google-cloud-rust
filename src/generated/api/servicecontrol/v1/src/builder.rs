@@ -20,7 +20,7 @@ pub mod quota_controller {
     /// A builder for [QuotaController][crate::client::QuotaController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::*;
     /// # use builder::quota_controller::ClientBuilder;
     /// # use client::QuotaController;
@@ -75,7 +75,7 @@ pub mod quota_controller {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicecontrol_v1::builder::quota_controller::AllocateQuota;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicecontrol_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -161,7 +161,7 @@ pub mod service_controller {
     /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::*;
     /// # use builder::service_controller::ClientBuilder;
     /// # use client::ServiceController;
@@ -216,7 +216,7 @@ pub mod service_controller {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicecontrol_v1::builder::service_controller::Check;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicecontrol_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -300,7 +300,7 @@ pub mod service_controller {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicecontrol_v1::builder::service_controller::Report;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicecontrol_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_redis_v1::client::CloudRedis;
 /// let client = CloudRedis::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Memorystore for Redis API.
@@ -82,7 +82,7 @@ impl CloudRedis {
     /// Returns a builder for [CloudRedis].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_redis_v1::client::CloudRedis;
     /// let client = CloudRedis::builder().build().await?;
     /// # Ok(()) }

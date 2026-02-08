@@ -20,7 +20,7 @@ pub mod api_keys {
     /// A builder for [ApiKeys][crate::client::ApiKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apikeys_v2::*;
     /// # use builder::api_keys::ClientBuilder;
     /// # use client::ApiKeys;
@@ -73,7 +73,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::CreateKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -202,7 +202,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::ListKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -308,7 +308,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::GetKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -368,7 +368,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::GetKeyString;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -428,7 +428,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UpdateKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -561,7 +561,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::DeleteKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -668,7 +668,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::UndeleteKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -769,7 +769,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::LookupKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -829,7 +829,7 @@ pub mod api_keys {
     /// # Example
     /// ```
     /// # use google_cloud_apikeys_v2::builder::api_keys::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apikeys_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

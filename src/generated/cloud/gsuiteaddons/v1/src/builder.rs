@@ -20,7 +20,7 @@ pub mod g_suite_add_ons {
     /// A builder for [GSuiteAddOns][crate::client::GSuiteAddOns].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gsuiteaddons_v1::*;
     /// # use builder::g_suite_add_ons::ClientBuilder;
     /// # use client::GSuiteAddOns;
@@ -75,7 +75,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetAuthorization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -140,7 +140,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::CreateDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -235,7 +235,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::ReplaceDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -314,7 +314,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -376,7 +376,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::ListDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -482,7 +482,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::DeleteDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -553,7 +553,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::InstallDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -618,7 +618,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::UninstallDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -683,7 +683,7 @@ pub mod g_suite_add_ons {
     /// # Example
     /// ```
     /// # use google_cloud_gsuiteaddons_v1::builder::g_suite_add_ons::GetInstallStatus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gsuiteaddons_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

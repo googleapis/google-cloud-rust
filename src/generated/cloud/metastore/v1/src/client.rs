@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_metastore_v1::client::DataprocMetastore;
 /// let client = DataprocMetastore::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
@@ -86,7 +86,7 @@ impl DataprocMetastore {
     /// Returns a builder for [DataprocMetastore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// let client = DataprocMetastore::builder().build().await?;
     /// # Ok(()) }
@@ -430,7 +430,7 @@ impl DataprocMetastore {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
 /// let client = DataprocMetastoreFederation::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
@@ -489,7 +489,7 @@ impl DataprocMetastoreFederation {
     /// Returns a builder for [DataprocMetastoreFederation].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
     /// let client = DataprocMetastoreFederation::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod cloud_location_finder {
     /// A builder for [CloudLocationFinder][crate::client::CloudLocationFinder].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_locationfinder_v1::*;
     /// # use builder::cloud_location_finder::ClientBuilder;
     /// # use client::CloudLocationFinder;
@@ -75,7 +75,7 @@ pub mod cloud_location_finder {
     /// # Example
     /// ```
     /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::ListCloudLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_locationfinder_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -190,7 +190,7 @@ pub mod cloud_location_finder {
     /// # Example
     /// ```
     /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::GetCloudLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_locationfinder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -255,7 +255,7 @@ pub mod cloud_location_finder {
     /// # Example
     /// ```
     /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::SearchCloudLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_locationfinder_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -378,7 +378,7 @@ pub mod cloud_location_finder {
     /// # Example
     /// ```
     /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_locationfinder_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -491,7 +491,7 @@ pub mod cloud_location_finder {
     /// # Example
     /// ```
     /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_locationfinder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

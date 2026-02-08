@@ -21,7 +21,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
 /// let client = DataFoundryService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -70,7 +70,7 @@ impl DataFoundryService {
     /// Returns a builder for [DataFoundryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
     /// let client = DataFoundryService::builder().build().await?;
     /// # Ok(()) }
@@ -206,7 +206,7 @@ impl DataFoundryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -255,7 +255,7 @@ impl DatasetService {
     /// Returns a builder for [DatasetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::DatasetService;
     /// let client = DatasetService::builder().build().await?;
     /// # Ok(()) }
@@ -560,7 +560,7 @@ impl DatasetService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
 /// let client = DeploymentResourcePoolService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -609,7 +609,7 @@ impl DeploymentResourcePoolService {
     /// Returns a builder for [DeploymentResourcePoolService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
     /// let client = DeploymentResourcePoolService::builder().build().await?;
     /// # Ok(()) }
@@ -837,7 +837,7 @@ impl DeploymentResourcePoolService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::EndpointService;
 /// let client = EndpointService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -886,7 +886,7 @@ impl EndpointService {
     /// Returns a builder for [EndpointService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::EndpointService;
     /// let client = EndpointService::builder().build().await?;
     /// # Ok(()) }
@@ -1125,7 +1125,7 @@ impl EndpointService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::EvaluationService;
 /// let client = EvaluationService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -1174,7 +1174,7 @@ impl EvaluationService {
     /// Returns a builder for [EvaluationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::EvaluationService;
     /// let client = EvaluationService::builder().build().await?;
     /// # Ok(()) }
@@ -1308,7 +1308,7 @@ impl EvaluationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
 /// let client = FeatureOnlineStoreAdminService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -1358,7 +1358,7 @@ impl FeatureOnlineStoreAdminService {
     /// Returns a builder for [FeatureOnlineStoreAdminService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
     /// let client = FeatureOnlineStoreAdminService::builder().build().await?;
     /// # Ok(()) }
@@ -1684,7 +1684,7 @@ impl FeatureOnlineStoreAdminService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
 /// let client = FeatureOnlineStoreService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -1733,7 +1733,7 @@ impl FeatureOnlineStoreService {
     /// Returns a builder for [FeatureOnlineStoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
     /// let client = FeatureOnlineStoreService::builder().build().await?;
     /// # Ok(()) }
@@ -1895,7 +1895,7 @@ impl FeatureOnlineStoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
 /// let client = FeatureRegistryService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -1945,7 +1945,7 @@ impl FeatureRegistryService {
     /// Returns a builder for [FeatureRegistryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
     /// let client = FeatureRegistryService::builder().build().await?;
     /// # Ok(()) }
@@ -2211,7 +2211,7 @@ impl FeatureRegistryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
 /// let client = FeaturestoreOnlineServingService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -2260,7 +2260,7 @@ impl FeaturestoreOnlineServingService {
     /// Returns a builder for [FeaturestoreOnlineServingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
     /// let client = FeaturestoreOnlineServingService::builder().build().await?;
     /// # Ok(()) }
@@ -2440,7 +2440,7 @@ impl FeaturestoreOnlineServingService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
 /// let client = FeaturestoreService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -2489,7 +2489,7 @@ impl FeaturestoreService {
     /// Returns a builder for [FeaturestoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
     /// let client = FeaturestoreService::builder().build().await?;
     /// # Ok(()) }
@@ -2888,7 +2888,7 @@ impl FeaturestoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
 /// let client = GenAiCacheService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -2937,7 +2937,7 @@ impl GenAiCacheService {
     /// Returns a builder for [GenAiCacheService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
     /// let client = GenAiCacheService::builder().build().await?;
     /// # Ok(()) }
@@ -3098,7 +3098,7 @@ impl GenAiCacheService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
 /// let client = GenAiTuningService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -3147,7 +3147,7 @@ impl GenAiTuningService {
     /// Returns a builder for [GenAiTuningService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
     /// let client = GenAiTuningService::builder().build().await?;
     /// # Ok(()) }
@@ -3330,7 +3330,7 @@ impl GenAiTuningService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
 /// let client = IndexEndpointService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -3379,7 +3379,7 @@ impl IndexEndpointService {
     /// Returns a builder for [IndexEndpointService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
     /// let client = IndexEndpointService::builder().build().await?;
     /// # Ok(()) }
@@ -3613,7 +3613,7 @@ impl IndexEndpointService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::IndexService;
 /// let client = IndexService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -3662,7 +3662,7 @@ impl IndexService {
     /// Returns a builder for [IndexService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::IndexService;
     /// let client = IndexService::builder().build().await?;
     /// # Ok(()) }
@@ -3860,7 +3860,7 @@ impl IndexService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -3909,7 +3909,7 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// let client = JobService::builder().build().await?;
     /// # Ok(()) }
@@ -4395,7 +4395,7 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
 /// let client = LlmUtilityService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -4444,7 +4444,7 @@ impl LlmUtilityService {
     /// Returns a builder for [LlmUtilityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
     /// let client = LlmUtilityService::builder().build().await?;
     /// # Ok(()) }
@@ -4583,7 +4583,7 @@ impl LlmUtilityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MatchService;
 /// let client = MatchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -4633,7 +4633,7 @@ impl MatchService {
     /// Returns a builder for [MatchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::MatchService;
     /// let client = MatchService::builder().build().await?;
     /// # Ok(()) }
@@ -4772,7 +4772,7 @@ impl MatchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -4821,7 +4821,7 @@ impl MetadataService {
     /// Returns a builder for [MetadataService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// let client = MetadataService::builder().build().await?;
     /// # Ok(()) }
@@ -5215,7 +5215,7 @@ impl MetadataService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -5265,7 +5265,7 @@ impl MigrationService {
     /// Returns a builder for [MigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::MigrationService;
     /// let client = MigrationService::builder().build().await?;
     /// # Ok(()) }
@@ -5421,7 +5421,7 @@ impl MigrationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
 /// let client = ModelGardenService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -5470,7 +5470,7 @@ impl ModelGardenService {
     /// Returns a builder for [ModelGardenService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
     /// let client = ModelGardenService::builder().build().await?;
     /// # Ok(()) }
@@ -5619,7 +5619,7 @@ impl ModelGardenService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -5668,7 +5668,7 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::ModelService;
     /// let client = ModelService::builder().build().await?;
     /// # Ok(()) }
@@ -5995,7 +5995,7 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::NotebookService;
 /// let client = NotebookService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -6044,7 +6044,7 @@ impl NotebookService {
     /// Returns a builder for [NotebookService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::NotebookService;
     /// let client = NotebookService::builder().build().await?;
     /// # Ok(()) }
@@ -6367,7 +6367,7 @@ impl NotebookService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
 /// let client = PersistentResourceService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -6416,7 +6416,7 @@ impl PersistentResourceService {
     /// Returns a builder for [PersistentResourceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
     /// let client = PersistentResourceService::builder().build().await?;
     /// # Ok(()) }
@@ -6640,7 +6640,7 @@ impl PersistentResourceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PipelineService;
 /// let client = PipelineService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -6691,7 +6691,7 @@ impl PipelineService {
     /// Returns a builder for [PipelineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::PipelineService;
     /// let client = PipelineService::builder().build().await?;
     /// # Ok(()) }
@@ -6975,7 +6975,7 @@ impl PipelineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -7024,7 +7024,7 @@ impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::PredictionService;
     /// let client = PredictionService::builder().build().await?;
     /// # Ok(()) }
@@ -7217,7 +7217,7 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
 /// let client = ReasoningEngineExecutionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -7266,7 +7266,7 @@ impl ReasoningEngineExecutionService {
     /// Returns a builder for [ReasoningEngineExecutionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
     /// let client = ReasoningEngineExecutionService::builder().build().await?;
     /// # Ok(()) }
@@ -7427,7 +7427,7 @@ impl ReasoningEngineExecutionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
 /// let client = ReasoningEngineService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -7476,7 +7476,7 @@ impl ReasoningEngineService {
     /// Returns a builder for [ReasoningEngineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
     /// let client = ReasoningEngineService::builder().build().await?;
     /// # Ok(()) }
@@ -7672,7 +7672,7 @@ impl ReasoningEngineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ScheduleService;
 /// let client = ScheduleService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -7722,7 +7722,7 @@ impl ScheduleService {
     /// Returns a builder for [ScheduleService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::ScheduleService;
     /// let client = ScheduleService::builder().build().await?;
     /// # Ok(()) }
@@ -7917,7 +7917,7 @@ impl ScheduleService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
 /// let client = SpecialistPoolService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -7971,7 +7971,7 @@ impl SpecialistPoolService {
     /// Returns a builder for [SpecialistPoolService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
     /// let client = SpecialistPoolService::builder().build().await?;
     /// # Ok(()) }
@@ -8167,7 +8167,7 @@ impl SpecialistPoolService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::TensorboardService;
 /// let client = TensorboardService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -8216,7 +8216,7 @@ impl TensorboardService {
     /// Returns a builder for [TensorboardService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::TensorboardService;
     /// let client = TensorboardService::builder().build().await?;
     /// # Ok(()) }
@@ -8613,7 +8613,7 @@ impl TensorboardService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
 /// let client = VertexRagDataService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -8662,7 +8662,7 @@ impl VertexRagDataService {
     /// Returns a builder for [VertexRagDataService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
     /// let client = VertexRagDataService::builder().build().await?;
     /// # Ok(()) }
@@ -8917,7 +8917,7 @@ impl VertexRagDataService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VertexRagService;
 /// let client = VertexRagService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -8966,7 +8966,7 @@ impl VertexRagService {
     /// Returns a builder for [VertexRagService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::VertexRagService;
     /// let client = VertexRagService::builder().build().await?;
     /// # Ok(()) }
@@ -9113,7 +9113,7 @@ impl VertexRagService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VizierService;
 /// let client = VizierService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI API.
@@ -9166,7 +9166,7 @@ impl VizierService {
     /// Returns a builder for [VizierService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::client::VizierService;
     /// let client = VizierService::builder().build().await?;
     /// # Ok(()) }

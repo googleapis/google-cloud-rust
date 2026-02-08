@@ -20,7 +20,7 @@ pub mod workflows {
     /// A builder for [Workflows][crate::client::Workflows].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_workflows_v1::*;
     /// # use builder::workflows::ClientBuilder;
     /// # use client::Workflows;
@@ -75,7 +75,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::ListWorkflows;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::GetWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -259,7 +259,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::CreateWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::DeleteWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -502,7 +502,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::UpdateWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -643,7 +643,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::ListWorkflowRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -752,7 +752,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -865,7 +865,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -928,7 +928,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1049,7 +1049,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1112,7 +1112,7 @@ pub mod workflows {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_v1::builder::workflows::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

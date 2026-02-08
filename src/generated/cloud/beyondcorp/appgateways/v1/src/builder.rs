@@ -20,7 +20,7 @@ pub mod app_gateways_service {
     /// A builder for [AppGatewaysService][crate::client::AppGatewaysService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_appgateways_v1::*;
     /// # use builder::app_gateways_service::ClientBuilder;
     /// # use client::AppGatewaysService;
@@ -75,7 +75,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::ListAppGateways;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -193,7 +193,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::GetAppGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -255,7 +255,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::CreateAppGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -409,7 +409,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::DeleteAppGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -532,7 +532,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -645,7 +645,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -708,7 +708,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -896,7 +896,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -976,7 +976,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1097,7 +1097,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1160,7 +1160,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1225,7 +1225,7 @@ pub mod app_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appgateways_v1::builder::app_gateways_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

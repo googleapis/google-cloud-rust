@@ -20,7 +20,7 @@ pub mod operations {
     /// A builder for [Operations][crate::client::Operations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_longrunning::*;
     /// # use builder::operations::ClientBuilder;
     /// # use client::Operations;
@@ -75,7 +75,7 @@ pub mod operations {
     /// # Example
     /// ```
     /// # use google_cloud_longrunning::builder::operations::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_longrunning::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod operations {
     /// # Example
     /// ```
     /// # use google_cloud_longrunning::builder::operations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_longrunning::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -251,7 +251,7 @@ pub mod operations {
     /// # Example
     /// ```
     /// # use google_cloud_longrunning::builder::operations::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_longrunning::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -311,7 +311,7 @@ pub mod operations {
     /// # Example
     /// ```
     /// # use google_cloud_longrunning::builder::operations::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_longrunning::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

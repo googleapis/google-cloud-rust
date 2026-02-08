@@ -20,7 +20,7 @@ pub mod analytics_service {
     /// A builder for [AnalyticsService][crate::client::AnalyticsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::analytics_service::ClientBuilder;
     /// # use client::AnalyticsService;
@@ -75,7 +75,7 @@ pub mod analytics_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::analytics_service::ExportAnalyticsMetrics;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -217,7 +217,7 @@ pub mod analytics_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::analytics_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -338,7 +338,7 @@ pub mod analytics_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::analytics_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -403,7 +403,7 @@ pub mod catalog_service {
     /// A builder for [CatalogService][crate::client::CatalogService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::catalog_service::ClientBuilder;
     /// # use client::CatalogService;
@@ -458,7 +458,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::ListCatalogs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -562,7 +562,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::UpdateCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -656,7 +656,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::SetDefaultBranch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -737,7 +737,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::GetDefaultBranch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -800,7 +800,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::GetCompletionConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -865,7 +865,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::UpdateCompletionConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -962,7 +962,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::GetAttributesConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1027,7 +1027,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::UpdateAttributesConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1124,7 +1124,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::AddCatalogAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1211,7 +1211,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::RemoveCatalogAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1284,7 +1284,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::ReplaceCatalogAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1391,7 +1391,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1512,7 +1512,7 @@ pub mod catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::catalog_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1577,7 +1577,7 @@ pub mod completion_service {
     /// A builder for [CompletionService][crate::client::CompletionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::completion_service::ClientBuilder;
     /// # use client::CompletionService;
@@ -1632,7 +1632,7 @@ pub mod completion_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::completion_service::CompleteQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1749,7 +1749,7 @@ pub mod completion_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::completion_service::ImportCompletionData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1891,7 +1891,7 @@ pub mod completion_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::completion_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2012,7 +2012,7 @@ pub mod completion_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::completion_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2077,7 +2077,7 @@ pub mod control_service {
     /// A builder for [ControlService][crate::client::ControlService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::control_service::ClientBuilder;
     /// # use client::ControlService;
@@ -2132,7 +2132,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::CreateControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2224,7 +2224,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::DeleteControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2286,7 +2286,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::UpdateControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2380,7 +2380,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::GetControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2442,7 +2442,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::ListControls;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2552,7 +2552,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2673,7 +2673,7 @@ pub mod control_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::control_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2738,7 +2738,7 @@ pub mod conversational_search_service {
     /// A builder for [ConversationalSearchService][crate::client::ConversationalSearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::conversational_search_service::ClientBuilder;
     /// # use client::ConversationalSearchService;
@@ -2793,7 +2793,7 @@ pub mod conversational_search_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::conversational_search_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2914,7 +2914,7 @@ pub mod conversational_search_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::conversational_search_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2979,7 +2979,7 @@ pub mod generative_question_service {
     /// A builder for [GenerativeQuestionService][crate::client::GenerativeQuestionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::generative_question_service::ClientBuilder;
     /// # use client::GenerativeQuestionService;
@@ -3034,7 +3034,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3139,7 +3139,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3206,7 +3206,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::ListGenerativeQuestionConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3273,7 +3273,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::UpdateGenerativeQuestionConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3375,7 +3375,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3455,7 +3455,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3576,7 +3576,7 @@ pub mod generative_question_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::generative_question_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3641,7 +3641,7 @@ pub mod model_service {
     /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::model_service::ClientBuilder;
     /// # use client::ModelService;
@@ -3696,7 +3696,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::CreateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3833,7 +3833,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::GetModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3895,7 +3895,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::PauseModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3957,7 +3957,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::ResumeModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4019,7 +4019,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::DeleteModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4081,7 +4081,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::ListModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4185,7 +4185,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::UpdateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4279,7 +4279,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::TuneModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4390,7 +4390,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4511,7 +4511,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::model_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4576,7 +4576,7 @@ pub mod prediction_service {
     /// A builder for [PredictionService][crate::client::PredictionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::prediction_service::ClientBuilder;
     /// # use client::PredictionService;
@@ -4631,7 +4631,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::prediction_service::Predict;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4762,7 +4762,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::prediction_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4883,7 +4883,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::prediction_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4948,7 +4948,7 @@ pub mod product_service {
     /// A builder for [ProductService][crate::client::ProductService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::product_service::ClientBuilder;
     /// # use client::ProductService;
@@ -5003,7 +5003,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::CreateProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5095,7 +5095,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::GetProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5157,7 +5157,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::ListProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5285,7 +5285,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::UpdateProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5385,7 +5385,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::DeleteProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5447,7 +5447,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::PurgeProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5572,7 +5572,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::ImportProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5765,7 +5765,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::SetInventory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5932,7 +5932,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::AddFulfillmentPlaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6091,7 +6091,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::RemoveFulfillmentPlaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6252,7 +6252,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::AddLocalInventories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6421,7 +6421,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::RemoveLocalInventories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6572,7 +6572,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6693,7 +6693,7 @@ pub mod product_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::product_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6758,7 +6758,7 @@ pub mod search_service {
     /// A builder for [SearchService][crate::client::SearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::search_service::ClientBuilder;
     /// # use client::SearchService;
@@ -6813,7 +6813,7 @@ pub mod search_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::search_service::Search;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7197,7 +7197,7 @@ pub mod search_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::search_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7318,7 +7318,7 @@ pub mod search_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::search_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7383,7 +7383,7 @@ pub mod serving_config_service {
     /// A builder for [ServingConfigService][crate::client::ServingConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::serving_config_service::ClientBuilder;
     /// # use client::ServingConfigService;
@@ -7438,7 +7438,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::CreateServingConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7533,7 +7533,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::DeleteServingConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7598,7 +7598,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::UpdateServingConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7695,7 +7695,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::GetServingConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7760,7 +7760,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::ListServingConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7869,7 +7869,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::AddControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7939,7 +7939,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::RemoveControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8009,7 +8009,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8130,7 +8130,7 @@ pub mod serving_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::serving_config_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8195,7 +8195,7 @@ pub mod user_event_service {
     /// A builder for [UserEventService][crate::client::UserEventService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::*;
     /// # use builder::user_event_service::ClientBuilder;
     /// # use client::UserEventService;
@@ -8250,7 +8250,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::WriteUserEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8340,7 +8340,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::CollectUserEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8458,7 +8458,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::PurgeUserEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8583,7 +8583,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::ImportUserEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8737,7 +8737,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::RejoinUserEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8862,7 +8862,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8983,7 +8983,7 @@ pub mod user_event_service {
     /// # Example
     /// ```
     /// # use google_cloud_retail_v2::builder::user_event_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

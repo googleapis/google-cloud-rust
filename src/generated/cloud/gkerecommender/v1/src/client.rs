@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
 /// let client = GkeInferenceQuickstart::builder().build().await?;
 /// // use `client` to make requests to the GKE Recommender API.
@@ -69,7 +69,7 @@ impl GkeInferenceQuickstart {
     /// Returns a builder for [GkeInferenceQuickstart].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
     /// let client = GkeInferenceQuickstart::builder().build().await?;
     /// # Ok(()) }

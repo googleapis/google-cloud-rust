@@ -20,7 +20,7 @@ pub mod aml {
     /// A builder for [Aml][crate::client::Aml].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_financialservices_v1::*;
     /// # use builder::aml::ClientBuilder;
     /// # use client::Aml;
@@ -73,7 +73,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -187,7 +187,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -247,7 +247,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -390,7 +390,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -535,7 +535,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -643,7 +643,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ImportRegisteredParties;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -793,7 +793,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ExportRegisteredParties;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -937,7 +937,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1051,7 +1051,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1111,7 +1111,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1254,7 +1254,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1399,7 +1399,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1507,7 +1507,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1621,7 +1621,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1681,7 +1681,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1824,7 +1824,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1969,7 +1969,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ExportModelMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2106,7 +2106,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2214,7 +2214,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListEngineConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2333,7 +2333,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2393,7 +2393,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreateEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2539,7 +2539,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdateEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2687,7 +2687,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ExportEngineConfigMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2826,7 +2826,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2937,7 +2937,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetEngineVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3000,7 +3000,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListEngineVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3119,7 +3119,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListPredictionResults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3238,7 +3238,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetPredictionResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3301,7 +3301,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreatePredictionResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3447,7 +3447,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdatePredictionResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3595,7 +3595,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ExportPredictionResultMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3734,7 +3734,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeletePredictionResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3845,7 +3845,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListBacktestResults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3964,7 +3964,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetBacktestResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4027,7 +4027,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CreateBacktestResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4173,7 +4173,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::UpdateBacktestResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4321,7 +4321,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ExportBacktestResultMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4460,7 +4460,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteBacktestResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4571,7 +4571,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4682,7 +4682,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4743,7 +4743,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4862,7 +4862,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4923,7 +4923,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4986,7 +4986,7 @@ pub mod aml {
     /// # Example
     /// ```
     /// # use google_cloud_financialservices_v1::builder::aml::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_financialservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

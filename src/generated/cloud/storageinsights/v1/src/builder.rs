@@ -20,7 +20,7 @@ pub mod storage_insights {
     /// A builder for [StorageInsights][crate::client::StorageInsights].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_storageinsights_v1::*;
     /// # use builder::storage_insights::ClientBuilder;
     /// # use client::StorageInsights;
@@ -75,7 +75,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListReportConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::CreateReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -351,7 +351,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::UpdateReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -458,7 +458,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -535,7 +535,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListReportDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -656,7 +656,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetReportDetail;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -718,7 +718,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListDatasetConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -839,7 +839,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetDatasetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -904,7 +904,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::CreateDatasetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1052,7 +1052,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::UpdateDatasetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1206,7 +1206,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteDatasetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1319,7 +1319,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::LinkDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1430,7 +1430,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::UnlinkDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1534,7 +1534,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1647,7 +1647,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1710,7 +1710,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1831,7 +1831,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1894,7 +1894,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1959,7 +1959,7 @@ pub mod storage_insights {
     /// # Example
     /// ```
     /// # use google_cloud_storageinsights_v1::builder::storage_insights::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storageinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

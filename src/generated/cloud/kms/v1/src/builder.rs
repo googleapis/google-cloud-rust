@@ -20,7 +20,7 @@ pub mod autokey {
     /// A builder for [Autokey][crate::client::Autokey].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::autokey::ClientBuilder;
     /// # use client::Autokey;
@@ -73,7 +73,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::CreateKeyHandle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -208,7 +208,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::GetKeyHandle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -268,7 +268,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::ListKeyHandles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -378,7 +378,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -489,7 +489,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -550,7 +550,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -653,7 +653,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -734,7 +734,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -812,7 +812,7 @@ pub mod autokey {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -875,7 +875,7 @@ pub mod autokey_admin {
     /// A builder for [AutokeyAdmin][crate::client::AutokeyAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::autokey_admin::ClientBuilder;
     /// # use client::AutokeyAdmin;
@@ -930,7 +930,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::UpdateAutokeyConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1031,7 +1031,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::GetAutokeyConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1096,7 +1096,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::ShowEffectiveAutokeyConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1163,7 +1163,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1276,7 +1276,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1339,7 +1339,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1444,7 +1444,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1527,7 +1527,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1607,7 +1607,7 @@ pub mod autokey_admin {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::autokey_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1672,7 +1672,7 @@ pub mod ekm_service {
     /// A builder for [EkmService][crate::client::EkmService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::ekm_service::ClientBuilder;
     /// # use client::EkmService;
@@ -1727,7 +1727,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::ListEkmConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1848,7 +1848,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::GetEkmConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1913,7 +1913,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::CreateEkmConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2008,7 +2008,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::UpdateEkmConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2109,7 +2109,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::GetEkmConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2171,7 +2171,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::UpdateEkmConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2269,7 +2269,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::VerifyConnectivity;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2334,7 +2334,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2447,7 +2447,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2510,7 +2510,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2615,7 +2615,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2698,7 +2698,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2778,7 +2778,7 @@ pub mod ekm_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::ekm_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2843,7 +2843,7 @@ pub mod hsm_management {
     /// A builder for [HsmManagement][crate::client::HsmManagement].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::hsm_management::ClientBuilder;
     /// # use client::HsmManagement;
@@ -2898,7 +2898,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ListSingleTenantHsmInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3027,7 +3027,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::GetSingleTenantHsmInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3094,7 +3094,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::CreateSingleTenantHsmInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3244,7 +3244,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::CreateSingleTenantHsmInstanceProposal;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3395,7 +3395,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ApproveSingleTenantHsmInstanceProposal;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3495,7 +3495,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ExecuteSingleTenantHsmInstanceProposal;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3613,7 +3613,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::GetSingleTenantHsmInstanceProposal;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3680,7 +3680,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ListSingleTenantHsmInstanceProposals;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3811,7 +3811,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::DeleteSingleTenantHsmInstanceProposal;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3878,7 +3878,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3991,7 +3991,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4054,7 +4054,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4159,7 +4159,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4242,7 +4242,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4322,7 +4322,7 @@ pub mod hsm_management {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::hsm_management::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4387,7 +4387,7 @@ pub mod key_management_service {
     /// A builder for [KeyManagementService][crate::client::KeyManagementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::key_management_service::ClientBuilder;
     /// # use client::KeyManagementService;
@@ -4442,7 +4442,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ListKeyRings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4558,7 +4558,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ListCryptoKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4685,7 +4685,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ListCryptoKeyVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4815,7 +4815,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ListImportJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4933,7 +4933,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetKeyRing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4995,7 +4995,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetCryptoKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5057,7 +5057,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5122,7 +5122,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5193,7 +5193,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5255,7 +5255,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::CreateKeyRing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5347,7 +5347,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::CreateCryptoKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5445,7 +5445,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::CreateCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5532,7 +5532,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ImportCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5657,7 +5657,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::CreateImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5749,7 +5749,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5847,7 +5847,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5948,7 +5948,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKeyPrimaryVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6023,7 +6023,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::DestroyCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6090,7 +6090,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::RestoreCryptoKeyVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6157,7 +6157,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::Encrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6273,7 +6273,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::Decrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6389,7 +6389,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::RawEncrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6532,7 +6532,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::RawDecrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6683,7 +6683,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::AsymmetricSign;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6805,7 +6805,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::AsymmetricDecrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6896,7 +6896,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::MacSign;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6984,7 +6984,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::MacVerify;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7098,7 +7098,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::Decapsulate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7186,7 +7186,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GenerateRandomBytes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7264,7 +7264,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7377,7 +7377,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7440,7 +7440,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7545,7 +7545,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7628,7 +7628,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7708,7 +7708,7 @@ pub mod key_management_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_v1::builder::key_management_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

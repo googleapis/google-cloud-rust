@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
 /// let client = SecurityCenter::builder().build().await?;
 /// // use `client` to make requests to the Security Command Center API.
@@ -66,7 +66,7 @@ impl SecurityCenter {
     /// Returns a builder for [SecurityCenter].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// let client = SecurityCenter::builder().build().await?;
     /// # Ok(()) }

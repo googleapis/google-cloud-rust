@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_location::client::Locations;
 /// let client = Locations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Metadata API.
@@ -70,7 +70,7 @@ impl Locations {
     /// Returns a builder for [Locations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_location::client::Locations;
     /// let client = Locations::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// let client = ProfilerService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
@@ -70,7 +70,7 @@ impl ProfilerService {
     /// Returns a builder for [ProfilerService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ProfilerService;
     /// let client = ProfilerService::builder().build().await?;
     /// # Ok(()) }
@@ -174,7 +174,7 @@ impl ProfilerService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ExportService;
 /// let client = ExportService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
@@ -221,7 +221,7 @@ impl ExportService {
     /// Returns a builder for [ExportService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ExportService;
     /// let client = ExportService::builder().build().await?;
     /// # Ok(()) }

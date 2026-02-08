@@ -20,7 +20,7 @@ pub mod livestream_service {
     /// A builder for [LivestreamService][crate::client::LivestreamService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_livestream_v1::*;
     /// # use builder::livestream_service::ClientBuilder;
     /// # use client::LivestreamService;
@@ -75,7 +75,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -220,7 +220,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListChannels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -336,7 +336,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -398,7 +398,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -514,7 +514,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -661,7 +661,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -778,7 +778,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -895,7 +895,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartDistribution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1026,7 +1026,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopDistribution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1157,7 +1157,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateInput;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1302,7 +1302,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListInputs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1418,7 +1418,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetInput;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1480,7 +1480,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteInput;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1590,7 +1590,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateInput;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1737,7 +1737,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::PreviewInput;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1799,7 +1799,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1897,7 +1897,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2013,7 +2013,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2075,7 +2075,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2143,7 +2143,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListClips;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2257,7 +2257,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetClip;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2319,7 +2319,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateClip;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2464,7 +2464,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteClip;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2574,7 +2574,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateDvrSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2722,7 +2722,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListDvrSessions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2840,7 +2840,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetDvrSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2902,7 +2902,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteDvrSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3015,7 +3015,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateDvrSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3169,7 +3169,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3314,7 +3314,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3424,7 +3424,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3486,7 +3486,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3602,7 +3602,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3664,7 +3664,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdatePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3811,7 +3811,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3924,7 +3924,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3987,7 +3987,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4108,7 +4108,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4171,7 +4171,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4236,7 +4236,7 @@ pub mod livestream_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_livestream_v1::builder::livestream_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_livestream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

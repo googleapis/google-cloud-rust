@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_asset_v1::client::AssetService;
 /// let client = AssetService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Asset API.
@@ -66,7 +66,7 @@ impl AssetService {
     /// Returns a builder for [AssetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// let client = AssetService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// let client = AssuredWorkloadsService::builder().build().await?;
 /// // use `client` to make requests to the Assured Workloads API.
@@ -66,7 +66,7 @@ impl AssuredWorkloadsService {
     /// Returns a builder for [AssuredWorkloadsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// let client = AssuredWorkloadsService::builder().build().await?;
     /// # Ok(()) }

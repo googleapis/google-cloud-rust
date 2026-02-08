@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_modelarmor_v1::client::ModelArmor;
 /// let client = ModelArmor::builder().build().await?;
 /// // use `client` to make requests to the Model Armor API.
@@ -66,7 +66,7 @@ impl ModelArmor {
     /// Returns a builder for [ModelArmor].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// let client = ModelArmor::builder().build().await?;
     /// # Ok(()) }

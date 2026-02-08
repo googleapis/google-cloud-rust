@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
 /// let client = BigtableInstanceAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
@@ -68,7 +68,7 @@ impl BigtableInstanceAdmin {
     /// Returns a builder for [BigtableInstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// let client = BigtableInstanceAdmin::builder().build().await?;
     /// # Ok(()) }
@@ -464,7 +464,7 @@ impl BigtableInstanceAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
 /// let client = BigtableTableAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
@@ -513,7 +513,7 @@ impl BigtableTableAdmin {
     /// Returns a builder for [BigtableTableAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// let client = BigtableTableAdmin::builder().build().await?;
     /// # Ok(()) }

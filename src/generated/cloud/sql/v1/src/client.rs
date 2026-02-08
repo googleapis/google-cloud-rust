@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
 /// let client = SqlBackupRunsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -66,7 +66,7 @@ impl SqlBackupRunsService {
     /// Returns a builder for [SqlBackupRunsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
     /// let client = SqlBackupRunsService::builder().build().await?;
     /// # Ok(()) }
@@ -146,7 +146,7 @@ impl SqlBackupRunsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlBackupsService;
 /// let client = SqlBackupsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -191,7 +191,7 @@ impl SqlBackupsService {
     /// Returns a builder for [SqlBackupsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlBackupsService;
     /// let client = SqlBackupsService::builder().build().await?;
     /// # Ok(()) }
@@ -276,7 +276,7 @@ impl SqlBackupsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// let client = SqlConnectService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -322,7 +322,7 @@ impl SqlConnectService {
     /// Returns a builder for [SqlConnectService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlConnectService;
     /// let client = SqlConnectService::builder().build().await?;
     /// # Ok(()) }
@@ -395,7 +395,7 @@ impl SqlConnectService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
 /// let client = SqlDatabasesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -441,7 +441,7 @@ impl SqlDatabasesService {
     /// Returns a builder for [SqlDatabasesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlDatabasesService;
     /// let client = SqlDatabasesService::builder().build().await?;
     /// # Ok(()) }
@@ -535,7 +535,7 @@ impl SqlDatabasesService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
 /// let client = SqlFlagsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -581,7 +581,7 @@ impl SqlFlagsService {
     /// Returns a builder for [SqlFlagsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlFlagsService;
     /// let client = SqlFlagsService::builder().build().await?;
     /// # Ok(()) }
@@ -643,7 +643,7 @@ impl SqlFlagsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
 /// let client = SqlInstancesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -688,7 +688,7 @@ impl SqlInstancesService {
     /// Returns a builder for [SqlInstancesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlInstancesService;
     /// let client = SqlInstancesService::builder().build().await?;
     /// # Ok(()) }
@@ -1042,7 +1042,7 @@ impl SqlInstancesService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
 /// let client = SqlOperationsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -1088,7 +1088,7 @@ impl SqlOperationsService {
     /// Returns a builder for [SqlOperationsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlOperationsService;
     /// let client = SqlOperationsService::builder().build().await?;
     /// # Ok(()) }
@@ -1162,7 +1162,7 @@ impl SqlOperationsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
 /// let client = SqlSslCertsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -1208,7 +1208,7 @@ impl SqlSslCertsService {
     /// Returns a builder for [SqlSslCertsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlSslCertsService;
     /// let client = SqlSslCertsService::builder().build().await?;
     /// # Ok(()) }
@@ -1291,7 +1291,7 @@ impl SqlSslCertsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlTiersService;
 /// let client = SqlTiersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -1337,7 +1337,7 @@ impl SqlTiersService {
     /// Returns a builder for [SqlTiersService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlTiersService;
     /// let client = SqlTiersService::builder().build().await?;
     /// # Ok(()) }
@@ -1401,7 +1401,7 @@ impl SqlTiersService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlUsersService;
 /// let client = SqlUsersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -1447,7 +1447,7 @@ impl SqlUsersService {
     /// Returns a builder for [SqlUsersService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlUsersService;
     /// let client = SqlUsersService::builder().build().await?;
     /// # Ok(()) }

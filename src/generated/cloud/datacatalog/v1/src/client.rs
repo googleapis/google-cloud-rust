@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// let client = DataCatalog::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
@@ -70,7 +70,7 @@ impl DataCatalog {
     /// Returns a builder for [DataCatalog].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// let client = DataCatalog::builder().build().await?;
     /// # Ok(()) }
@@ -660,7 +660,7 @@ impl DataCatalog {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// let client = PolicyTagManager::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
@@ -711,7 +711,7 @@ impl PolicyTagManager {
     /// Returns a builder for [PolicyTagManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// let client = PolicyTagManager::builder().build().await?;
     /// # Ok(()) }
@@ -875,7 +875,7 @@ impl PolicyTagManager {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
 /// let client = PolicyTagManagerSerialization::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
@@ -924,7 +924,7 @@ impl PolicyTagManagerSerialization {
     /// Returns a builder for [PolicyTagManagerSerialization].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
     /// let client = PolicyTagManagerSerialization::builder().build().await?;
     /// # Ok(()) }

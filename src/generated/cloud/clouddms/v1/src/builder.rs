@@ -20,7 +20,7 @@ pub mod data_migration_service {
     /// A builder for [DataMigrationService][crate::client::DataMigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_clouddms_v1::*;
     /// # use builder::data_migration_service::ClientBuilder;
     /// # use client::DataMigrationService;
@@ -75,7 +75,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListMigrationJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -406,7 +406,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -560,7 +560,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -679,7 +679,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::StartMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -795,7 +795,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::StopMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -905,7 +905,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ResumeMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1015,7 +1015,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::PromoteMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1125,7 +1125,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::VerifyMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1271,7 +1271,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::RestartMigrationJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1387,7 +1387,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GenerateSshScript;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1508,7 +1508,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GenerateTcpProxyScript;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1601,7 +1601,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListConnectionProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1722,7 +1722,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1787,7 +1787,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1951,7 +1951,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2121,7 +2121,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2242,7 +2242,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreatePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2400,7 +2400,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetPrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2465,7 +2465,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListPrivateConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2586,7 +2586,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeletePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2701,7 +2701,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2766,7 +2766,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListConversionWorkspaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2883,7 +2883,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3035,7 +3035,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::UpdateConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3193,7 +3193,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3314,7 +3314,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CreateMappingRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3415,7 +3415,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteMappingRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3486,7 +3486,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListMappingRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3595,7 +3595,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetMappingRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3657,7 +3657,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::SeedConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3817,7 +3817,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ImportMappingRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3963,7 +3963,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ConvertConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4095,7 +4095,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CommitConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4217,7 +4217,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::RollbackConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4333,7 +4333,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ApplyConversionWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4494,7 +4494,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DescribeDatabaseEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4640,7 +4640,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::SearchBackgroundJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4735,7 +4735,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DescribeConversionWorkspaceRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4810,7 +4810,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::FetchStaticIps;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4884,7 +4884,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4997,7 +4997,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5060,7 +5060,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5165,7 +5165,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5248,7 +5248,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5328,7 +5328,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5449,7 +5449,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5512,7 +5512,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5577,7 +5577,7 @@ pub mod data_migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_clouddms_v1::builder::data_migration_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_clouddms_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

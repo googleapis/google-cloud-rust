@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
 /// let client = ContainerAnalysis::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
@@ -78,7 +78,7 @@ impl ContainerAnalysis {
     /// Returns a builder for [ContainerAnalysis].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
     /// let client = ContainerAnalysis::builder().build().await?;
     /// # Ok(()) }

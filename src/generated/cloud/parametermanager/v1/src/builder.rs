@@ -20,7 +20,7 @@ pub mod parameter_manager {
     /// A builder for [ParameterManager][crate::client::ParameterManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_parametermanager_v1::*;
     /// # use builder::parameter_manager::ClientBuilder;
     /// # use client::ParameterManager;
@@ -75,7 +75,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListParameters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -193,7 +193,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetParameter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -255,7 +255,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::CreateParameter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -353,7 +353,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::UpdateParameter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -453,7 +453,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::DeleteParameter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -521,7 +521,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListParameterVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -642,7 +642,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetParameterVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -713,7 +713,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::RenderParameterVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -778,7 +778,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::CreateParameterVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -879,7 +879,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::UpdateParameterVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -982,7 +982,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::DeleteParameterVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1053,7 +1053,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1166,7 +1166,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

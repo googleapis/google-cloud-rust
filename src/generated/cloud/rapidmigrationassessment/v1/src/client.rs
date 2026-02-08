@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
 /// let client = RapidMigrationAssessment::builder().build().await?;
 /// // use `client` to make requests to the Rapid Migration Assessment API.
@@ -66,7 +66,7 @@ impl RapidMigrationAssessment {
     /// Returns a builder for [RapidMigrationAssessment].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// let client = RapidMigrationAssessment::builder().build().await?;
     /// # Ok(()) }

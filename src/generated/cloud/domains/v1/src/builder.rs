@@ -20,7 +20,7 @@ pub mod domains {
     /// A builder for [Domains][crate::client::Domains].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_domains_v1::*;
     /// # use builder::domains::ClientBuilder;
     /// # use client::Domains;
@@ -73,7 +73,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::SearchDomains;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -141,7 +141,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::RetrieveRegisterParameters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -214,7 +214,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::RegisterDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -393,7 +393,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::RetrieveTransferParameters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -466,7 +466,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::TransferDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -652,7 +652,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ListRegistrations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -765,7 +765,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::GetRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -825,7 +825,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::UpdateRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -967,7 +967,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureManagementSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1119,7 +1119,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureDnsSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1275,7 +1275,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ConfigureContactSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1444,7 +1444,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ExportRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1554,7 +1554,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::DeleteRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1659,7 +1659,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::RetrieveAuthorizationCode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1724,7 +1724,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ResetAuthorizationCode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1787,7 +1787,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1906,7 +1906,7 @@ pub mod domains {
     /// # Example
     /// ```
     /// # use google_cloud_domains_v1::builder::domains::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_domains_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

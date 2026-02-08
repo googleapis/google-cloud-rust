@@ -20,7 +20,7 @@ pub mod connectors {
     /// A builder for [Connectors][crate::client::Connectors].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_connectors_v1::*;
     /// # use builder::connectors::ClientBuilder;
     /// # use client::Connectors;
@@ -75,7 +75,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -199,7 +199,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -267,7 +267,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::CreateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -409,7 +409,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::UpdateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -557,7 +557,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::DeleteConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -664,7 +664,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListProviders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -768,7 +768,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetProvider;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -830,7 +830,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListConnectors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -936,7 +936,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -998,7 +998,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListConnectorVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1113,7 +1113,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetConnectorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1184,7 +1184,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetConnectionSchemaMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1251,7 +1251,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::RefreshConnectionSchemaMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1367,7 +1367,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListRuntimeEntitySchemas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1486,7 +1486,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListRuntimeActionSchemas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1605,7 +1605,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetRuntimeConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1670,7 +1670,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetGlobalSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1735,7 +1735,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1848,7 +1848,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1911,7 +1911,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2016,7 +2016,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2099,7 +2099,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2179,7 +2179,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2300,7 +2300,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2363,7 +2363,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2428,7 +2428,7 @@ pub mod connectors {
     /// # Example
     /// ```
     /// # use google_cloud_connectors_v1::builder::connectors::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_connectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

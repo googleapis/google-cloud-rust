@@ -20,7 +20,7 @@ pub mod locations {
     /// A builder for [Locations][crate::client::Locations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_location::*;
     /// # use builder::locations::ClientBuilder;
     /// # use client::Locations;
@@ -75,7 +75,7 @@ pub mod locations {
     /// # Example
     /// ```
     /// # use google_cloud_location::builder::locations::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_location::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -183,7 +183,7 @@ pub mod locations {
     /// # Example
     /// ```
     /// # use google_cloud_location::builder::locations::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_location::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

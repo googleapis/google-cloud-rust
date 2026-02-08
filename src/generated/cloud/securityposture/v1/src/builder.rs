@@ -20,7 +20,7 @@ pub mod security_posture {
     /// A builder for [SecurityPosture][crate::client::SecurityPosture].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securityposture_v1::*;
     /// # use builder::security_posture::ClientBuilder;
     /// # use client::SecurityPosture;
@@ -75,7 +75,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -179,7 +179,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -288,7 +288,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::GetPosture;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -356,7 +356,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePosture;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -495,7 +495,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePosture;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -648,7 +648,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePosture;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -758,7 +758,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ExtractPosture;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -883,7 +883,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -998,7 +998,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::GetPostureDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1063,7 +1063,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePostureDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1209,7 +1209,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePostureDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1361,7 +1361,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePostureDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1476,7 +1476,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1591,7 +1591,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::GetPostureTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1662,7 +1662,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1775,7 +1775,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1838,7 +1838,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1959,7 +1959,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2022,7 +2022,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2087,7 +2087,7 @@ pub mod security_posture {
     /// # Example
     /// ```
     /// # use google_cloud_securityposture_v1::builder::security_posture::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securityposture_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

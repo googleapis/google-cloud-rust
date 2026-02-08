@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// let client = ConfidentialComputing::builder().build().await?;
 /// // use `client` to make requests to the Confidential Computing API.
@@ -66,7 +66,7 @@ impl ConfidentialComputing {
     /// Returns a builder for [ConfidentialComputing].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
     /// let client = ConfidentialComputing::builder().build().await?;
     /// # Ok(()) }

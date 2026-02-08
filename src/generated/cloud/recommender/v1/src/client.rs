@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_recommender_v1::client::Recommender;
 /// let client = Recommender::builder().build().await?;
 /// // use `client` to make requests to the Recommender API.
@@ -69,7 +69,7 @@ impl Recommender {
     /// Returns a builder for [Recommender].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// let client = Recommender::builder().build().await?;
     /// # Ok(()) }

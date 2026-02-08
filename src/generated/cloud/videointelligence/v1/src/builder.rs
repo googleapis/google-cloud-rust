@@ -20,7 +20,7 @@ pub mod video_intelligence_service {
     /// A builder for [VideoIntelligenceService][crate::client::VideoIntelligenceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_videointelligence_v1::*;
     /// # use builder::video_intelligence_service::ClientBuilder;
     /// # use client::VideoIntelligenceService;
@@ -75,7 +75,7 @@ pub mod video_intelligence_service {
     /// # Example
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::AnnotateVideo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_videointelligence_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -233,7 +233,7 @@ pub mod video_intelligence_service {
     /// # Example
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_videointelligence_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -354,7 +354,7 @@ pub mod video_intelligence_service {
     /// # Example
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_videointelligence_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -417,7 +417,7 @@ pub mod video_intelligence_service {
     /// # Example
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_videointelligence_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -482,7 +482,7 @@ pub mod video_intelligence_service {
     /// # Example
     /// ```
     /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_videointelligence_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

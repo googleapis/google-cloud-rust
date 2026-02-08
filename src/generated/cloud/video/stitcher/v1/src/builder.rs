@@ -20,7 +20,7 @@ pub mod video_stitcher_service {
     /// A builder for [VideoStitcherService][crate::client::VideoStitcherService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_stitcher_v1::*;
     /// # use builder::video_stitcher_service::ClientBuilder;
     /// # use client::VideoStitcherService;
@@ -75,7 +75,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateCdnKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -214,7 +214,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListCdnKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -330,7 +330,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetCdnKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -392,7 +392,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteCdnKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -496,7 +496,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateCdnKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -641,7 +641,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateVodSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -728,7 +728,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -790,7 +790,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodStitchDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -899,7 +899,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodStitchDetail;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -964,7 +964,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodAdTagDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1073,7 +1073,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodAdTagDetail;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1138,7 +1138,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListLiveAdTagDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1247,7 +1247,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveAdTagDetail;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1312,7 +1312,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateSlate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1457,7 +1457,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListSlates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1573,7 +1573,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetSlate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1635,7 +1635,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateSlate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1780,7 +1780,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteSlate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1884,7 +1884,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateLiveSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1971,7 +1971,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2033,7 +2033,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateLiveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2181,7 +2181,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListLiveConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2299,7 +2299,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2361,7 +2361,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteLiveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2468,7 +2468,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateLiveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2616,7 +2616,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateVodConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2761,7 +2761,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2879,7 +2879,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2941,7 +2941,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteVodConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3045,7 +3045,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateVodConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3190,7 +3190,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3311,7 +3311,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3374,7 +3374,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3439,7 +3439,7 @@ pub mod video_stitcher_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_stitcher_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

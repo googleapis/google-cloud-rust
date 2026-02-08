@@ -20,7 +20,7 @@ pub mod service_health {
     /// A builder for [ServiceHealth][crate::client::ServiceHealth].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicehealth_v1::*;
     /// # use builder::service_health::ClientBuilder;
     /// # use client::ServiceHealth;
@@ -75,7 +75,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::ListEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::GetEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::ListOrganizationEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -374,7 +374,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::GetOrganizationEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -439,7 +439,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::ListOrganizationImpacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -556,7 +556,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::GetOrganizationImpact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -621,7 +621,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -734,7 +734,7 @@ pub mod service_health {
     /// # Example
     /// ```
     /// # use google_cloud_servicehealth_v1::builder::service_health::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicehealth_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

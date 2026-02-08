@@ -20,7 +20,7 @@ pub mod service_usage {
     /// A builder for [ServiceUsage][crate::client::ServiceUsage].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_serviceusage_v1::*;
     /// # use builder::service_usage::ClientBuilder;
     /// # use client::ServiceUsage;
@@ -75,7 +75,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::EnableService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -184,7 +184,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::DisableService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -310,7 +310,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -370,7 +370,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -478,7 +478,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::BatchEnableServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -601,7 +601,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::BatchGetServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -675,7 +675,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -796,7 +796,7 @@ pub mod service_usage {
     /// # Example
     /// ```
     /// # use google_cloud_api_serviceusage_v1::builder::service_usage::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_serviceusage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

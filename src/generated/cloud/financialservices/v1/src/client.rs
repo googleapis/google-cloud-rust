@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_financialservices_v1::client::Aml;
 /// let client = Aml::builder().build().await?;
 /// // use `client` to make requests to the Financial Services API.
@@ -67,7 +67,7 @@ impl Aml {
     /// Returns a builder for [Aml].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// let client = Aml::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod iam_checker {
     /// A builder for [IamChecker][crate::client::IamChecker].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_v1::*;
     /// # use builder::iam_checker::ClientBuilder;
     /// # use client::IamChecker;
@@ -75,7 +75,7 @@ pub mod iam_checker {
     /// # Example
     /// ```
     /// # use google_cloud_policytroubleshooter_v1::builder::iam_checker::TroubleshootIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policytroubleshooter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod autoscaling_policy_service {
     /// A builder for [AutoscalingPolicyService][crate::client::AutoscalingPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::autoscaling_policy_service::ClientBuilder;
     /// # use client::AutoscalingPolicyService;
@@ -75,7 +75,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::CreateAutoscalingPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -164,7 +164,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -245,7 +245,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetAutoscalingPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -310,7 +310,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::ListAutoscalingPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -421,7 +421,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -488,7 +488,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -593,7 +593,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -676,7 +676,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -756,7 +756,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -877,7 +877,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -940,7 +940,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1005,7 +1005,7 @@ pub mod autoscaling_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1072,7 +1072,7 @@ pub mod batch_controller {
     /// A builder for [BatchController][crate::client::BatchController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::batch_controller::ClientBuilder;
     /// # use client::BatchController;
@@ -1127,7 +1127,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::CreateBatch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1270,7 +1270,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::GetBatch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1332,7 +1332,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::ListBatches;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1448,7 +1448,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::DeleteBatch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1510,7 +1510,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1615,7 +1615,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1698,7 +1698,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1778,7 +1778,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1899,7 +1899,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1962,7 +1962,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2027,7 +2027,7 @@ pub mod batch_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::batch_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2094,7 +2094,7 @@ pub mod cluster_controller {
     /// A builder for [ClusterController][crate::client::ClusterController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::cluster_controller::ClientBuilder;
     /// # use client::ClusterController;
@@ -2149,7 +2149,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::CreateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2303,7 +2303,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::UpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2499,7 +2499,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::StopCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2636,7 +2636,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::StartCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2773,7 +2773,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::DeleteCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2909,7 +2909,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2987,7 +2987,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::ListClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3105,7 +3105,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::DiagnoseCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3289,7 +3289,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3394,7 +3394,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3477,7 +3477,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3557,7 +3557,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3678,7 +3678,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3741,7 +3741,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3806,7 +3806,7 @@ pub mod cluster_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::cluster_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3873,7 +3873,7 @@ pub mod job_controller {
     /// A builder for [JobController][crate::client::JobController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::job_controller::ClientBuilder;
     /// # use client::JobController;
@@ -3928,7 +3928,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::SubmitJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4026,7 +4026,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::SubmitJobAsOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4168,7 +4168,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4246,7 +4246,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4377,7 +4377,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::UpdateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4499,7 +4499,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::CancelJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4577,7 +4577,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4655,7 +4655,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4760,7 +4760,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4843,7 +4843,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4923,7 +4923,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5044,7 +5044,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5107,7 +5107,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5172,7 +5172,7 @@ pub mod job_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::job_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5239,7 +5239,7 @@ pub mod node_group_controller {
     /// A builder for [NodeGroupController][crate::client::NodeGroupController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::node_group_controller::ClientBuilder;
     /// # use client::NodeGroupController;
@@ -5294,7 +5294,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::CreateNodeGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5439,7 +5439,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::ResizeNodeGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5585,7 +5585,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetNodeGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5647,7 +5647,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5752,7 +5752,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5835,7 +5835,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5915,7 +5915,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6036,7 +6036,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6099,7 +6099,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6164,7 +6164,7 @@ pub mod node_group_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::node_group_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6231,7 +6231,7 @@ pub mod session_template_controller {
     /// A builder for [SessionTemplateController][crate::client::SessionTemplateController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::session_template_controller::ClientBuilder;
     /// # use client::SessionTemplateController;
@@ -6286,7 +6286,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::CreateSessionTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6373,7 +6373,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::UpdateSessionTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6452,7 +6452,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetSessionTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6517,7 +6517,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::ListSessionTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6632,7 +6632,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::DeleteSessionTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6697,7 +6697,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6802,7 +6802,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6885,7 +6885,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6965,7 +6965,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7086,7 +7086,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7149,7 +7149,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7214,7 +7214,7 @@ pub mod session_template_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_template_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7281,7 +7281,7 @@ pub mod session_controller {
     /// A builder for [SessionController][crate::client::SessionController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::session_controller::ClientBuilder;
     /// # use client::SessionController;
@@ -7336,7 +7336,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::CreateSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7481,7 +7481,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::GetSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7543,7 +7543,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::ListSessions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7653,7 +7653,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::TerminateSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7771,7 +7771,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::DeleteSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7886,7 +7886,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7991,7 +7991,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8074,7 +8074,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8154,7 +8154,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8275,7 +8275,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8338,7 +8338,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8403,7 +8403,7 @@ pub mod session_controller {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::session_controller::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8470,7 +8470,7 @@ pub mod workflow_template_service {
     /// A builder for [WorkflowTemplateService][crate::client::WorkflowTemplateService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::workflow_template_service::ClientBuilder;
     /// # use client::WorkflowTemplateService;
@@ -8525,7 +8525,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::CreateWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8612,7 +8612,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8683,7 +8683,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::InstantiateWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8815,7 +8815,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8952,7 +8952,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::UpdateWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9031,7 +9031,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::ListWorkflowTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9140,7 +9140,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::DeleteWorkflowTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9211,7 +9211,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9316,7 +9316,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9399,7 +9399,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9479,7 +9479,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9600,7 +9600,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9663,7 +9663,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9728,7 +9728,7 @@ pub mod workflow_template_service {
     /// # Example
     /// ```
     /// # use google_cloud_dataproc_v1::builder::workflow_template_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataproc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

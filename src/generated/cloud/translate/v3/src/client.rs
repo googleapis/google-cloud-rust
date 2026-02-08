@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_translation_v3::client::TranslationService;
 /// let client = TranslationService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Translation API.
@@ -66,7 +66,7 @@ impl TranslationService {
     /// Returns a builder for [TranslationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// let client = TranslationService::builder().build().await?;
     /// # Ok(()) }

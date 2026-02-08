@@ -20,7 +20,7 @@ pub mod executions {
     /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_workflows_executions_v1::*;
     /// # use builder::executions::ClientBuilder;
     /// # use client::Executions;
@@ -75,7 +75,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_executions_v1::builder::executions::ListExecutions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_executions_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -199,7 +199,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_executions_v1::builder::executions::CreateExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_executions_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -283,7 +283,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_executions_v1::builder::executions::GetExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_executions_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -351,7 +351,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_workflows_executions_v1::builder::executions::CancelExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workflows_executions_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod storage_batch_operations {
     /// A builder for [StorageBatchOperations][crate::client::StorageBatchOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_storagebatchoperations_v1::*;
     /// # use builder::storage_batch_operations::ClientBuilder;
     /// # use client::StorageBatchOperations;
@@ -75,7 +75,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -189,7 +189,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -251,7 +251,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CreateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -396,7 +396,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -464,7 +464,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CancelJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -532,7 +532,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -645,7 +645,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -708,7 +708,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -829,7 +829,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -892,7 +892,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -957,7 +957,7 @@ pub mod storage_batch_operations {
     /// # Example
     /// ```
     /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod trace_service {
     /// A builder for [TraceService][crate::client::TraceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v2::*;
     /// # use builder::trace_service::ClientBuilder;
     /// # use client::TraceService;
@@ -75,7 +75,7 @@ pub mod trace_service {
     /// # Example
     /// ```
     /// # use google_cloud_trace_v2::builder::trace_service::BatchWriteSpans;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_trace_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -150,7 +150,7 @@ pub mod trace_service {
     /// # Example
     /// ```
     /// # use google_cloud_trace_v2::builder::trace_service::CreateSpan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_trace_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

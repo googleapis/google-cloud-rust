@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
 /// let client = QuotaController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
@@ -69,7 +69,7 @@ impl QuotaController {
     /// Returns a builder for [QuotaController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
     /// let client = QuotaController::builder().build().await?;
     /// # Ok(()) }
@@ -141,7 +141,7 @@ impl QuotaController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
@@ -190,7 +190,7 @@ impl ServiceController {
     /// Returns a builder for [ServiceController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
     /// let client = ServiceController::builder().build().await?;
     /// # Ok(()) }

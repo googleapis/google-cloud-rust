@@ -20,7 +20,7 @@ pub mod container_analysis {
     /// A builder for [ContainerAnalysis][crate::client::ContainerAnalysis].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_containeranalysis_v1::*;
     /// # use builder::container_analysis::ClientBuilder;
     /// # use client::ContainerAnalysis;
@@ -75,7 +75,7 @@ pub mod container_analysis {
     /// # Example
     /// ```
     /// # use google_cloud_containeranalysis_v1::builder::container_analysis::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_containeranalysis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -180,7 +180,7 @@ pub mod container_analysis {
     /// # Example
     /// ```
     /// # use google_cloud_containeranalysis_v1::builder::container_analysis::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_containeranalysis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -263,7 +263,7 @@ pub mod container_analysis {
     /// # Example
     /// ```
     /// # use google_cloud_containeranalysis_v1::builder::container_analysis::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_containeranalysis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -343,7 +343,7 @@ pub mod container_analysis {
     /// # Example
     /// ```
     /// # use google_cloud_containeranalysis_v1::builder::container_analysis::GetVulnerabilityOccurrencesSummary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_containeranalysis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -416,7 +416,7 @@ pub mod container_analysis {
     /// # Example
     /// ```
     /// # use google_cloud_containeranalysis_v1::builder::container_analysis::ExportSBOM;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_containeranalysis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

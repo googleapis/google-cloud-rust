@@ -21,7 +21,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::AcceleratorTypes;
 /// let client = AcceleratorTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -70,7 +70,7 @@ impl AcceleratorTypes {
     /// Returns a builder for [AcceleratorTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::AcceleratorTypes;
     /// let client = AcceleratorTypes::builder().build().await?;
     /// # Ok(()) }
@@ -147,7 +147,7 @@ impl AcceleratorTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Addresses;
 /// let client = Addresses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -196,7 +196,7 @@ impl Addresses {
     /// Returns a builder for [Addresses].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Addresses;
     /// let client = Addresses::builder().build().await?;
     /// # Ok(()) }
@@ -304,7 +304,7 @@ impl Addresses {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Advice;
 /// let client = Advice::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -353,7 +353,7 @@ impl Advice {
     /// Returns a builder for [Advice].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Advice;
     /// let client = Advice::builder().build().await?;
     /// # Ok(()) }
@@ -418,7 +418,7 @@ impl Advice {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Autoscalers;
 /// let client = Autoscalers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -467,7 +467,7 @@ impl Autoscalers {
     /// Returns a builder for [Autoscalers].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Autoscalers;
     /// let client = Autoscalers::builder().build().await?;
     /// # Ok(()) }
@@ -578,7 +578,7 @@ impl Autoscalers {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::BackendBuckets;
 /// let client = BackendBuckets::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -627,7 +627,7 @@ impl BackendBuckets {
     /// Returns a builder for [BackendBuckets].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::BackendBuckets;
     /// let client = BackendBuckets::builder().build().await?;
     /// # Ok(()) }
@@ -761,7 +761,7 @@ impl BackendBuckets {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::BackendServices;
 /// let client = BackendServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -810,7 +810,7 @@ impl BackendServices {
     /// Returns a builder for [BackendServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::BackendServices;
     /// let client = BackendServices::builder().build().await?;
     /// # Ok(()) }
@@ -987,7 +987,7 @@ impl BackendServices {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
 /// let client = CrossSiteNetworks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1036,7 +1036,7 @@ impl CrossSiteNetworks {
     /// Returns a builder for [CrossSiteNetworks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
     /// let client = CrossSiteNetworks::builder().build().await?;
     /// # Ok(()) }
@@ -1128,7 +1128,7 @@ impl CrossSiteNetworks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::DiskTypes;
 /// let client = DiskTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1177,7 +1177,7 @@ impl DiskTypes {
     /// Returns a builder for [DiskTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::DiskTypes;
     /// let client = DiskTypes::builder().build().await?;
     /// # Ok(()) }
@@ -1253,7 +1253,7 @@ impl DiskTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Disks;
 /// let client = Disks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1302,7 +1302,7 @@ impl Disks {
     /// Returns a builder for [Disks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Disks;
     /// let client = Disks::builder().build().await?;
     /// # Ok(()) }
@@ -1486,7 +1486,7 @@ impl Disks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
 /// let client = ExternalVpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1535,7 +1535,7 @@ impl ExternalVpnGateways {
     /// Returns a builder for [ExternalVpnGateways].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
     /// let client = ExternalVpnGateways::builder().build().await?;
     /// # Ok(()) }
@@ -1635,7 +1635,7 @@ impl ExternalVpnGateways {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::FirewallPolicies;
 /// let client = FirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1684,7 +1684,7 @@ impl FirewallPolicies {
     /// Returns a builder for [FirewallPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::FirewallPolicies;
     /// let client = FirewallPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -1842,7 +1842,7 @@ impl FirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Firewalls;
 /// let client = Firewalls::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -1891,7 +1891,7 @@ impl Firewalls {
     /// Returns a builder for [Firewalls].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Firewalls;
     /// let client = Firewalls::builder().build().await?;
     /// # Ok(()) }
@@ -1996,7 +1996,7 @@ impl Firewalls {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ForwardingRules;
 /// let client = ForwardingRules::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2045,7 +2045,7 @@ impl ForwardingRules {
     /// Returns a builder for [ForwardingRules].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ForwardingRules;
     /// let client = ForwardingRules::builder().build().await?;
     /// # Ok(()) }
@@ -2159,7 +2159,7 @@ impl ForwardingRules {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::FutureReservations;
 /// let client = FutureReservations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2208,7 +2208,7 @@ impl FutureReservations {
     /// Returns a builder for [FutureReservations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::FutureReservations;
     /// let client = FutureReservations::builder().build().await?;
     /// # Ok(()) }
@@ -2310,7 +2310,7 @@ impl FutureReservations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalAddresses;
 /// let client = GlobalAddresses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2359,7 +2359,7 @@ impl GlobalAddresses {
     /// Returns a builder for [GlobalAddresses].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalAddresses;
     /// let client = GlobalAddresses::builder().build().await?;
     /// # Ok(()) }
@@ -2458,7 +2458,7 @@ impl GlobalAddresses {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
 /// let client = GlobalForwardingRules::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2507,7 +2507,7 @@ impl GlobalForwardingRules {
     /// Returns a builder for [GlobalForwardingRules].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
     /// let client = GlobalForwardingRules::builder().build().await?;
     /// # Ok(()) }
@@ -2615,7 +2615,7 @@ impl GlobalForwardingRules {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
 /// let client = GlobalNetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2664,7 +2664,7 @@ impl GlobalNetworkEndpointGroups {
     /// Returns a builder for [GlobalNetworkEndpointGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
     /// let client = GlobalNetworkEndpointGroups::builder().build().await?;
     /// # Ok(()) }
@@ -2778,7 +2778,7 @@ impl GlobalNetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalOperations;
 /// let client = GlobalOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2827,7 +2827,7 @@ impl GlobalOperations {
     /// Returns a builder for [GlobalOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalOperations;
     /// let client = GlobalOperations::builder().build().await?;
     /// # Ok(()) }
@@ -2931,7 +2931,7 @@ impl GlobalOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
 /// let client = GlobalOrganizationOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -2980,7 +2980,7 @@ impl GlobalOrganizationOperations {
     /// Returns a builder for [GlobalOrganizationOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
     /// let client = GlobalOrganizationOperations::builder().build().await?;
     /// # Ok(()) }
@@ -3056,7 +3056,7 @@ impl GlobalOrganizationOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
 /// let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3105,7 +3105,7 @@ impl GlobalPublicDelegatedPrefixes {
     /// Returns a builder for [GlobalPublicDelegatedPrefixes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
     /// let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
     /// # Ok(()) }
@@ -3198,7 +3198,7 @@ impl GlobalPublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HealthChecks;
 /// let client = HealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3247,7 +3247,7 @@ impl HealthChecks {
     /// Returns a builder for [HealthChecks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HealthChecks;
     /// let client = HealthChecks::builder().build().await?;
     /// # Ok(()) }
@@ -3359,7 +3359,7 @@ impl HealthChecks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HttpHealthChecks;
 /// let client = HttpHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3408,7 +3408,7 @@ impl HttpHealthChecks {
     /// Returns a builder for [HttpHealthChecks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HttpHealthChecks;
     /// let client = HttpHealthChecks::builder().build().await?;
     /// # Ok(()) }
@@ -3512,7 +3512,7 @@ impl HttpHealthChecks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
 /// let client = HttpsHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3561,7 +3561,7 @@ impl HttpsHealthChecks {
     /// Returns a builder for [HttpsHealthChecks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
     /// let client = HttpsHealthChecks::builder().build().await?;
     /// # Ok(()) }
@@ -3665,7 +3665,7 @@ impl HttpsHealthChecks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ImageFamilyViews;
 /// let client = ImageFamilyViews::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3714,7 +3714,7 @@ impl ImageFamilyViews {
     /// Returns a builder for [ImageFamilyViews].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ImageFamilyViews;
     /// let client = ImageFamilyViews::builder().build().await?;
     /// # Ok(()) }
@@ -3778,7 +3778,7 @@ impl ImageFamilyViews {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Images;
 /// let client = Images::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -3827,7 +3827,7 @@ impl Images {
     /// Returns a builder for [Images].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Images;
     /// let client = Images::builder().build().await?;
     /// # Ok(()) }
@@ -3960,7 +3960,7 @@ impl Images {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
 /// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -4009,7 +4009,7 @@ impl InstanceGroupManagerResizeRequests {
     /// Returns a builder for [InstanceGroupManagerResizeRequests].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
     /// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
     /// # Ok(()) }
@@ -4111,7 +4111,7 @@ impl InstanceGroupManagerResizeRequests {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
 /// let client = InstanceGroupManagers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -4160,7 +4160,7 @@ impl InstanceGroupManagers {
     /// Returns a builder for [InstanceGroupManagers].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
     /// let client = InstanceGroupManagers::builder().build().await?;
     /// # Ok(()) }
@@ -4555,7 +4555,7 @@ impl InstanceGroupManagers {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroups;
 /// let client = InstanceGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -4604,7 +4604,7 @@ impl InstanceGroups {
     /// Returns a builder for [InstanceGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroups;
     /// let client = InstanceGroups::builder().build().await?;
     /// # Ok(()) }
@@ -4745,7 +4745,7 @@ impl InstanceGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceSettings;
 /// let client = InstanceSettings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -4794,7 +4794,7 @@ impl InstanceSettings {
     /// Returns a builder for [InstanceSettings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceSettings;
     /// let client = InstanceSettings::builder().build().await?;
     /// # Ok(()) }
@@ -4867,7 +4867,7 @@ impl InstanceSettings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceTemplates;
 /// let client = InstanceTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -4916,7 +4916,7 @@ impl InstanceTemplates {
     /// Returns a builder for [InstanceTemplates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceTemplates;
     /// let client = InstanceTemplates::builder().build().await?;
     /// # Ok(()) }
@@ -5032,7 +5032,7 @@ impl InstanceTemplates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -5081,7 +5081,7 @@ impl Instances {
     /// Returns a builder for [Instances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Instances;
     /// let client = Instances::builder().build().await?;
     /// # Ok(()) }
@@ -5490,7 +5490,7 @@ impl Instances {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstantSnapshots;
 /// let client = InstantSnapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -5539,7 +5539,7 @@ impl InstantSnapshots {
     /// Returns a builder for [InstantSnapshots].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstantSnapshots;
     /// let client = InstantSnapshots::builder().build().await?;
     /// # Ok(()) }
@@ -5662,7 +5662,7 @@ impl InstantSnapshots {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
 /// let client = InterconnectAttachmentGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -5711,7 +5711,7 @@ impl InterconnectAttachmentGroups {
     /// Returns a builder for [InterconnectAttachmentGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
     /// let client = InterconnectAttachmentGroups::builder().build().await?;
     /// # Ok(()) }
@@ -5834,7 +5834,7 @@ impl InterconnectAttachmentGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectAttachments;
 /// let client = InterconnectAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -5883,7 +5883,7 @@ impl InterconnectAttachments {
     /// Returns a builder for [InterconnectAttachments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectAttachments;
     /// let client = InterconnectAttachments::builder().build().await?;
     /// # Ok(()) }
@@ -5991,7 +5991,7 @@ impl InterconnectAttachments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectGroups;
 /// let client = InterconnectGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6040,7 +6040,7 @@ impl InterconnectGroups {
     /// Returns a builder for [InterconnectGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectGroups;
     /// let client = InterconnectGroups::builder().build().await?;
     /// # Ok(()) }
@@ -6163,7 +6163,7 @@ impl InterconnectGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectLocations;
 /// let client = InterconnectLocations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6212,7 +6212,7 @@ impl InterconnectLocations {
     /// Returns a builder for [InterconnectLocations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectLocations;
     /// let client = InterconnectLocations::builder().build().await?;
     /// # Ok(()) }
@@ -6282,7 +6282,7 @@ impl InterconnectLocations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
 /// let client = InterconnectRemoteLocations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6331,7 +6331,7 @@ impl InterconnectRemoteLocations {
     /// Returns a builder for [InterconnectRemoteLocations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
     /// let client = InterconnectRemoteLocations::builder().build().await?;
     /// # Ok(()) }
@@ -6402,7 +6402,7 @@ impl InterconnectRemoteLocations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Interconnects;
 /// let client = Interconnects::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6451,7 +6451,7 @@ impl Interconnects {
     /// Returns a builder for [Interconnects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Interconnects;
     /// let client = Interconnects::builder().build().await?;
     /// # Ok(()) }
@@ -6570,7 +6570,7 @@ impl Interconnects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::LicenseCodes;
 /// let client = LicenseCodes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6619,7 +6619,7 @@ impl LicenseCodes {
     /// Returns a builder for [LicenseCodes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::LicenseCodes;
     /// let client = LicenseCodes::builder().build().await?;
     /// # Ok(()) }
@@ -6693,7 +6693,7 @@ impl LicenseCodes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Licenses;
 /// let client = Licenses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6742,7 +6742,7 @@ impl Licenses {
     /// Returns a builder for [Licenses].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Licenses;
     /// let client = Licenses::builder().build().await?;
     /// # Ok(()) }
@@ -6875,7 +6875,7 @@ impl Licenses {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::MachineImages;
 /// let client = MachineImages::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -6924,7 +6924,7 @@ impl MachineImages {
     /// Returns a builder for [MachineImages].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::MachineImages;
     /// let client = MachineImages::builder().build().await?;
     /// # Ok(()) }
@@ -7035,7 +7035,7 @@ impl MachineImages {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::MachineTypes;
 /// let client = MachineTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7084,7 +7084,7 @@ impl MachineTypes {
     /// Returns a builder for [MachineTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::MachineTypes;
     /// let client = MachineTypes::builder().build().await?;
     /// # Ok(()) }
@@ -7160,7 +7160,7 @@ impl MachineTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkAttachments;
 /// let client = NetworkAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7209,7 +7209,7 @@ impl NetworkAttachments {
     /// Returns a builder for [NetworkAttachments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkAttachments;
     /// let client = NetworkAttachments::builder().build().await?;
     /// # Ok(()) }
@@ -7327,7 +7327,7 @@ impl NetworkAttachments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
 /// let client = NetworkEdgeSecurityServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7376,7 +7376,7 @@ impl NetworkEdgeSecurityServices {
     /// Returns a builder for [NetworkEdgeSecurityServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
     /// let client = NetworkEdgeSecurityServices::builder().build().await?;
     /// # Ok(()) }
@@ -7472,7 +7472,7 @@ impl NetworkEdgeSecurityServices {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
 /// let client = NetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7521,7 +7521,7 @@ impl NetworkEndpointGroups {
     /// Returns a builder for [NetworkEndpointGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
     /// let client = NetworkEndpointGroups::builder().build().await?;
     /// # Ok(()) }
@@ -7646,7 +7646,7 @@ impl NetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
 /// let client = NetworkFirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7695,7 +7695,7 @@ impl NetworkFirewallPolicies {
     /// Returns a builder for [NetworkFirewallPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
     /// let client = NetworkFirewallPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -7885,7 +7885,7 @@ impl NetworkFirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkProfiles;
 /// let client = NetworkProfiles::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -7934,7 +7934,7 @@ impl NetworkProfiles {
     /// Returns a builder for [NetworkProfiles].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkProfiles;
     /// let client = NetworkProfiles::builder().build().await?;
     /// # Ok(()) }
@@ -8002,7 +8002,7 @@ impl NetworkProfiles {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Networks;
 /// let client = Networks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8051,7 +8051,7 @@ impl Networks {
     /// Returns a builder for [Networks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Networks;
     /// let client = Networks::builder().build().await?;
     /// # Ok(()) }
@@ -8178,7 +8178,7 @@ impl Networks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeGroups;
 /// let client = NodeGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8227,7 +8227,7 @@ impl NodeGroups {
     /// Returns a builder for [NodeGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeGroups;
     /// let client = NodeGroups::builder().build().await?;
     /// # Ok(()) }
@@ -8377,7 +8377,7 @@ impl NodeGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeTemplates;
 /// let client = NodeTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8426,7 +8426,7 @@ impl NodeTemplates {
     /// Returns a builder for [NodeTemplates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeTemplates;
     /// let client = NodeTemplates::builder().build().await?;
     /// # Ok(()) }
@@ -8535,7 +8535,7 @@ impl NodeTemplates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeTypes;
 /// let client = NodeTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8584,7 +8584,7 @@ impl NodeTypes {
     /// Returns a builder for [NodeTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeTypes;
     /// let client = NodeTypes::builder().build().await?;
     /// # Ok(()) }
@@ -8660,7 +8660,7 @@ impl NodeTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
 /// let client = OrganizationSecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8709,7 +8709,7 @@ impl OrganizationSecurityPolicies {
     /// Returns a builder for [OrganizationSecurityPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
     /// let client = OrganizationSecurityPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -8940,7 +8940,7 @@ impl OrganizationSecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PacketMirrorings;
 /// let client = PacketMirrorings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -8989,7 +8989,7 @@ impl PacketMirrorings {
     /// Returns a builder for [PacketMirrorings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PacketMirrorings;
     /// let client = PacketMirrorings::builder().build().await?;
     /// # Ok(()) }
@@ -9095,7 +9095,7 @@ impl PacketMirrorings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PreviewFeatures;
 /// let client = PreviewFeatures::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9144,7 +9144,7 @@ impl PreviewFeatures {
     /// Returns a builder for [PreviewFeatures].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PreviewFeatures;
     /// let client = PreviewFeatures::builder().build().await?;
     /// # Ok(()) }
@@ -9222,7 +9222,7 @@ impl PreviewFeatures {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9271,7 +9271,7 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Projects;
     /// let client = Projects::builder().build().await?;
     /// # Ok(()) }
@@ -9447,7 +9447,7 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
 /// let client = PublicAdvertisedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9496,7 +9496,7 @@ impl PublicAdvertisedPrefixes {
     /// Returns a builder for [PublicAdvertisedPrefixes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
     /// let client = PublicAdvertisedPrefixes::builder().build().await?;
     /// # Ok(()) }
@@ -9599,7 +9599,7 @@ impl PublicAdvertisedPrefixes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
 /// let client = PublicDelegatedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9648,7 +9648,7 @@ impl PublicDelegatedPrefixes {
     /// Returns a builder for [PublicDelegatedPrefixes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
     /// let client = PublicDelegatedPrefixes::builder().build().await?;
     /// # Ok(()) }
@@ -9759,7 +9759,7 @@ impl PublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionAutoscalers;
 /// let client = RegionAutoscalers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9808,7 +9808,7 @@ impl RegionAutoscalers {
     /// Returns a builder for [RegionAutoscalers].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionAutoscalers;
     /// let client = RegionAutoscalers::builder().build().await?;
     /// # Ok(()) }
@@ -9912,7 +9912,7 @@ impl RegionAutoscalers {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionBackendServices;
 /// let client = RegionBackendServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -9961,7 +9961,7 @@ impl RegionBackendServices {
     /// Returns a builder for [RegionBackendServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionBackendServices;
     /// let client = RegionBackendServices::builder().build().await?;
     /// # Ok(()) }
@@ -10104,7 +10104,7 @@ impl RegionBackendServices {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionCommitments;
 /// let client = RegionCommitments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10153,7 +10153,7 @@ impl RegionCommitments {
     /// Returns a builder for [RegionCommitments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionCommitments;
     /// let client = RegionCommitments::builder().build().await?;
     /// # Ok(()) }
@@ -10248,7 +10248,7 @@ impl RegionCommitments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionDiskTypes;
 /// let client = RegionDiskTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10297,7 +10297,7 @@ impl RegionDiskTypes {
     /// Returns a builder for [RegionDiskTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionDiskTypes;
     /// let client = RegionDiskTypes::builder().build().await?;
     /// # Ok(()) }
@@ -10364,7 +10364,7 @@ impl RegionDiskTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionDisks;
 /// let client = RegionDisks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10413,7 +10413,7 @@ impl RegionDisks {
     /// Returns a builder for [RegionDisks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionDisks;
     /// let client = RegionDisks::builder().build().await?;
     /// # Ok(()) }
@@ -10580,7 +10580,7 @@ impl RegionDisks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
 /// let client = RegionHealthCheckServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10629,7 +10629,7 @@ impl RegionHealthCheckServices {
     /// Returns a builder for [RegionHealthCheckServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
     /// let client = RegionHealthCheckServices::builder().build().await?;
     /// # Ok(()) }
@@ -10730,7 +10730,7 @@ impl RegionHealthCheckServices {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionHealthChecks;
 /// let client = RegionHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10779,7 +10779,7 @@ impl RegionHealthChecks {
     /// Returns a builder for [RegionHealthChecks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionHealthChecks;
     /// let client = RegionHealthChecks::builder().build().await?;
     /// # Ok(()) }
@@ -10883,7 +10883,7 @@ impl RegionHealthChecks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
 /// let client = RegionInstanceGroupManagers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -10932,7 +10932,7 @@ impl RegionInstanceGroupManagers {
     /// Returns a builder for [RegionInstanceGroupManagers].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
     /// let client = RegionInstanceGroupManagers::builder().build().await?;
     /// # Ok(()) }
@@ -11326,7 +11326,7 @@ impl RegionInstanceGroupManagers {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
 /// let client = RegionInstanceGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -11375,7 +11375,7 @@ impl RegionInstanceGroups {
     /// Returns a builder for [RegionInstanceGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
     /// let client = RegionInstanceGroups::builder().build().await?;
     /// # Ok(()) }
@@ -11469,7 +11469,7 @@ impl RegionInstanceGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
 /// let client = RegionInstanceTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -11518,7 +11518,7 @@ impl RegionInstanceTemplates {
     /// Returns a builder for [RegionInstanceTemplates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
     /// let client = RegionInstanceTemplates::builder().build().await?;
     /// # Ok(()) }
@@ -11604,7 +11604,7 @@ impl RegionInstanceTemplates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstances;
 /// let client = RegionInstances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -11653,7 +11653,7 @@ impl RegionInstances {
     /// Returns a builder for [RegionInstances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstances;
     /// let client = RegionInstances::builder().build().await?;
     /// # Ok(()) }
@@ -11721,7 +11721,7 @@ impl RegionInstances {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
 /// let client = RegionInstantSnapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -11770,7 +11770,7 @@ impl RegionInstantSnapshots {
     /// Returns a builder for [RegionInstantSnapshots].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
     /// let client = RegionInstantSnapshots::builder().build().await?;
     /// # Ok(()) }
@@ -11887,7 +11887,7 @@ impl RegionInstantSnapshots {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
 /// let client = RegionNetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -11936,7 +11936,7 @@ impl RegionNetworkEndpointGroups {
     /// Returns a builder for [RegionNetworkEndpointGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
     /// let client = RegionNetworkEndpointGroups::builder().build().await?;
     /// # Ok(()) }
@@ -12050,7 +12050,7 @@ impl RegionNetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
 /// let client = RegionNetworkFirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12099,7 +12099,7 @@ impl RegionNetworkFirewallPolicies {
     /// Returns a builder for [RegionNetworkFirewallPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
     /// let client = RegionNetworkFirewallPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -12265,7 +12265,7 @@ impl RegionNetworkFirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
 /// let client = RegionNotificationEndpoints::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12314,7 +12314,7 @@ impl RegionNotificationEndpoints {
     /// Returns a builder for [RegionNotificationEndpoints].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
     /// let client = RegionNotificationEndpoints::builder().build().await?;
     /// # Ok(()) }
@@ -12406,7 +12406,7 @@ impl RegionNotificationEndpoints {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionOperations;
 /// let client = RegionOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12455,7 +12455,7 @@ impl RegionOperations {
     /// Returns a builder for [RegionOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionOperations;
     /// let client = RegionOperations::builder().build().await?;
     /// # Ok(()) }
@@ -12551,7 +12551,7 @@ impl RegionOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
 /// let client = RegionSecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12600,7 +12600,7 @@ impl RegionSecurityPolicies {
     /// Returns a builder for [RegionSecurityPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
     /// let client = RegionSecurityPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -12722,7 +12722,7 @@ impl RegionSecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSslCertificates;
 /// let client = RegionSslCertificates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12771,7 +12771,7 @@ impl RegionSslCertificates {
     /// Returns a builder for [RegionSslCertificates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSslCertificates;
     /// let client = RegionSslCertificates::builder().build().await?;
     /// # Ok(()) }
@@ -12858,7 +12858,7 @@ impl RegionSslCertificates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSslPolicies;
 /// let client = RegionSslPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -12907,7 +12907,7 @@ impl RegionSslPolicies {
     /// Returns a builder for [RegionSslPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSslPolicies;
     /// let client = RegionSslPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -13007,7 +13007,7 @@ impl RegionSslPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
 /// let client = RegionTargetHttpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13056,7 +13056,7 @@ impl RegionTargetHttpProxies {
     /// Returns a builder for [RegionTargetHttpProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
     /// let client = RegionTargetHttpProxies::builder().build().await?;
     /// # Ok(()) }
@@ -13146,7 +13146,7 @@ impl RegionTargetHttpProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
 /// let client = RegionTargetHttpsProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13195,7 +13195,7 @@ impl RegionTargetHttpsProxies {
     /// Returns a builder for [RegionTargetHttpsProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
     /// let client = RegionTargetHttpsProxies::builder().build().await?;
     /// # Ok(()) }
@@ -13301,7 +13301,7 @@ impl RegionTargetHttpsProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
 /// let client = RegionTargetTcpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13350,7 +13350,7 @@ impl RegionTargetTcpProxies {
     /// Returns a builder for [RegionTargetTcpProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
     /// let client = RegionTargetTcpProxies::builder().build().await?;
     /// # Ok(()) }
@@ -13435,7 +13435,7 @@ impl RegionTargetTcpProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionUrlMaps;
 /// let client = RegionUrlMaps::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13484,7 +13484,7 @@ impl RegionUrlMaps {
     /// Returns a builder for [RegionUrlMaps].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionUrlMaps;
     /// let client = RegionUrlMaps::builder().build().await?;
     /// # Ok(()) }
@@ -13589,7 +13589,7 @@ impl RegionUrlMaps {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionZones;
 /// let client = RegionZones::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13638,7 +13638,7 @@ impl RegionZones {
     /// Returns a builder for [RegionZones].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionZones;
     /// let client = RegionZones::builder().build().await?;
     /// # Ok(()) }
@@ -13701,7 +13701,7 @@ impl RegionZones {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Regions;
 /// let client = Regions::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13750,7 +13750,7 @@ impl Regions {
     /// Returns a builder for [Regions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Regions;
     /// let client = Regions::builder().build().await?;
     /// # Ok(()) }
@@ -13852,7 +13852,7 @@ impl Regions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationBlocks;
 /// let client = ReservationBlocks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -13901,7 +13901,7 @@ impl ReservationBlocks {
     /// Returns a builder for [ReservationBlocks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ReservationBlocks;
     /// let client = ReservationBlocks::builder().build().await?;
     /// # Ok(()) }
@@ -13996,7 +13996,7 @@ impl ReservationBlocks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationSlots;
 /// let client = ReservationSlots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14045,7 +14045,7 @@ impl ReservationSlots {
     /// Returns a builder for [ReservationSlots].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ReservationSlots;
     /// let client = ReservationSlots::builder().build().await?;
     /// # Ok(()) }
@@ -14123,7 +14123,7 @@ impl ReservationSlots {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
 /// let client = ReservationSubBlocks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14172,7 +14172,7 @@ impl ReservationSubBlocks {
     /// Returns a builder for [ReservationSubBlocks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
     /// let client = ReservationSubBlocks::builder().build().await?;
     /// # Ok(()) }
@@ -14276,7 +14276,7 @@ impl ReservationSubBlocks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Reservations;
 /// let client = Reservations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14325,7 +14325,7 @@ impl Reservations {
     /// Returns a builder for [Reservations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Reservations;
     /// let client = Reservations::builder().build().await?;
     /// # Ok(()) }
@@ -14451,7 +14451,7 @@ impl Reservations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ResourcePolicies;
 /// let client = ResourcePolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14500,7 +14500,7 @@ impl ResourcePolicies {
     /// Returns a builder for [ResourcePolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ResourcePolicies;
     /// let client = ResourcePolicies::builder().build().await?;
     /// # Ok(()) }
@@ -14614,7 +14614,7 @@ impl ResourcePolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Routers;
 /// let client = Routers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14663,7 +14663,7 @@ impl Routers {
     /// Returns a builder for [Routers].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Routers;
     /// let client = Routers::builder().build().await?;
     /// # Ok(()) }
@@ -14822,7 +14822,7 @@ impl Routers {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Routes;
 /// let client = Routes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14871,7 +14871,7 @@ impl Routes {
     /// Returns a builder for [Routes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Routes;
     /// let client = Routes::builder().build().await?;
     /// # Ok(()) }
@@ -14959,7 +14959,7 @@ impl Routes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SecurityPolicies;
 /// let client = SecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15008,7 +15008,7 @@ impl SecurityPolicies {
     /// Returns a builder for [SecurityPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SecurityPolicies;
     /// let client = SecurityPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -15146,7 +15146,7 @@ impl SecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ServiceAttachments;
 /// let client = ServiceAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15195,7 +15195,7 @@ impl ServiceAttachments {
     /// Returns a builder for [ServiceAttachments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ServiceAttachments;
     /// let client = ServiceAttachments::builder().build().await?;
     /// # Ok(()) }
@@ -15313,7 +15313,7 @@ impl ServiceAttachments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SnapshotSettings;
 /// let client = SnapshotSettings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15362,7 +15362,7 @@ impl SnapshotSettings {
     /// Returns a builder for [SnapshotSettings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SnapshotSettings;
     /// let client = SnapshotSettings::builder().build().await?;
     /// # Ok(()) }
@@ -15435,7 +15435,7 @@ impl SnapshotSettings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Snapshots;
 /// let client = Snapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15484,7 +15484,7 @@ impl Snapshots {
     /// Returns a builder for [Snapshots].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Snapshots;
     /// let client = Snapshots::builder().build().await?;
     /// # Ok(()) }
@@ -15601,7 +15601,7 @@ impl Snapshots {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SslCertificates;
 /// let client = SslCertificates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15650,7 +15650,7 @@ impl SslCertificates {
     /// Returns a builder for [SslCertificates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SslCertificates;
     /// let client = SslCertificates::builder().build().await?;
     /// # Ok(()) }
@@ -15743,7 +15743,7 @@ impl SslCertificates {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SslPolicies;
 /// let client = SslPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15792,7 +15792,7 @@ impl SslPolicies {
     /// Returns a builder for [SslPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SslPolicies;
     /// let client = SslPolicies::builder().build().await?;
     /// # Ok(()) }
@@ -15897,7 +15897,7 @@ impl SslPolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::StoragePoolTypes;
 /// let client = StoragePoolTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -15946,7 +15946,7 @@ impl StoragePoolTypes {
     /// Returns a builder for [StoragePoolTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::StoragePoolTypes;
     /// let client = StoragePoolTypes::builder().build().await?;
     /// # Ok(()) }
@@ -16023,7 +16023,7 @@ impl StoragePoolTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::StoragePools;
 /// let client = StoragePools::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16072,7 +16072,7 @@ impl StoragePools {
     /// Returns a builder for [StoragePools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::StoragePools;
     /// let client = StoragePools::builder().build().await?;
     /// # Ok(()) }
@@ -16200,7 +16200,7 @@ impl StoragePools {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Subnetworks;
 /// let client = Subnetworks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16249,7 +16249,7 @@ impl Subnetworks {
     /// Returns a builder for [Subnetworks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Subnetworks;
     /// let client = Subnetworks::builder().build().await?;
     /// # Ok(()) }
@@ -16385,7 +16385,7 @@ impl Subnetworks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
 /// let client = TargetGrpcProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16434,7 +16434,7 @@ impl TargetGrpcProxies {
     /// Returns a builder for [TargetGrpcProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
     /// let client = TargetGrpcProxies::builder().build().await?;
     /// # Ok(()) }
@@ -16526,7 +16526,7 @@ impl TargetGrpcProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetHttpProxies;
 /// let client = TargetHttpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16575,7 +16575,7 @@ impl TargetHttpProxies {
     /// Returns a builder for [TargetHttpProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetHttpProxies;
     /// let client = TargetHttpProxies::builder().build().await?;
     /// # Ok(()) }
@@ -16682,7 +16682,7 @@ impl TargetHttpProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
 /// let client = TargetHttpsProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16731,7 +16731,7 @@ impl TargetHttpsProxies {
     /// Returns a builder for [TargetHttpsProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
     /// let client = TargetHttpsProxies::builder().build().await?;
     /// # Ok(()) }
@@ -16861,7 +16861,7 @@ impl TargetHttpsProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetInstances;
 /// let client = TargetInstances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -16910,7 +16910,7 @@ impl TargetInstances {
     /// Returns a builder for [TargetInstances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetInstances;
     /// let client = TargetInstances::builder().build().await?;
     /// # Ok(()) }
@@ -17014,7 +17014,7 @@ impl TargetInstances {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetPools;
 /// let client = TargetPools::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17063,7 +17063,7 @@ impl TargetPools {
     /// Returns a builder for [TargetPools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetPools;
     /// let client = TargetPools::builder().build().await?;
     /// # Ok(()) }
@@ -17198,7 +17198,7 @@ impl TargetPools {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetSslProxies;
 /// let client = TargetSslProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17247,7 +17247,7 @@ impl TargetSslProxies {
     /// Returns a builder for [TargetSslProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetSslProxies;
     /// let client = TargetSslProxies::builder().build().await?;
     /// # Ok(()) }
@@ -17365,7 +17365,7 @@ impl TargetSslProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetTcpProxies;
 /// let client = TargetTcpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17414,7 +17414,7 @@ impl TargetTcpProxies {
     /// Returns a builder for [TargetTcpProxies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetTcpProxies;
     /// let client = TargetTcpProxies::builder().build().await?;
     /// # Ok(()) }
@@ -17523,7 +17523,7 @@ impl TargetTcpProxies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetVpnGateways;
 /// let client = TargetVpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17572,7 +17572,7 @@ impl TargetVpnGateways {
     /// Returns a builder for [TargetVpnGateways].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetVpnGateways;
     /// let client = TargetVpnGateways::builder().build().await?;
     /// # Ok(()) }
@@ -17671,7 +17671,7 @@ impl TargetVpnGateways {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::UrlMaps;
 /// let client = UrlMaps::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17720,7 +17720,7 @@ impl UrlMaps {
     /// Returns a builder for [UrlMaps].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::UrlMaps;
     /// let client = UrlMaps::builder().build().await?;
     /// # Ok(()) }
@@ -17848,7 +17848,7 @@ impl UrlMaps {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::VpnGateways;
 /// let client = VpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -17897,7 +17897,7 @@ impl VpnGateways {
     /// Returns a builder for [VpnGateways].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::VpnGateways;
     /// let client = VpnGateways::builder().build().await?;
     /// # Ok(()) }
@@ -18005,7 +18005,7 @@ impl VpnGateways {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::VpnTunnels;
 /// let client = VpnTunnels::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -18054,7 +18054,7 @@ impl VpnTunnels {
     /// Returns a builder for [VpnTunnels].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::VpnTunnels;
     /// let client = VpnTunnels::builder().build().await?;
     /// # Ok(()) }
@@ -18152,7 +18152,7 @@ impl VpnTunnels {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::WireGroups;
 /// let client = WireGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -18201,7 +18201,7 @@ impl WireGroups {
     /// Returns a builder for [WireGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::WireGroups;
     /// let client = WireGroups::builder().build().await?;
     /// # Ok(()) }
@@ -18292,7 +18292,7 @@ impl WireGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ZoneOperations;
 /// let client = ZoneOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -18341,7 +18341,7 @@ impl ZoneOperations {
     /// Returns a builder for [ZoneOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ZoneOperations;
     /// let client = ZoneOperations::builder().build().await?;
     /// # Ok(()) }
@@ -18435,7 +18435,7 @@ impl ZoneOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Zones;
 /// let client = Zones::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -18484,7 +18484,7 @@ impl Zones {
     /// Returns a builder for [Zones].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Zones;
     /// let client = Zones::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod speech {
     /// A builder for [Speech][crate::client::Speech].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_speech_v2::*;
     /// # use builder::speech::ClientBuilder;
     /// # use client::Speech;
@@ -73,7 +73,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreateRecognizer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -217,7 +217,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::ListRecognizers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -327,7 +327,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetRecognizer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -387,7 +387,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdateRecognizer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -535,7 +535,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeleteRecognizer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -663,7 +663,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeleteRecognizer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -785,7 +785,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::Recognize;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -913,7 +913,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::BatchRecognize;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1101,7 +1101,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1161,7 +1161,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdateConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1253,7 +1253,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreateCustomClass;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1397,7 +1397,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::ListCustomClasses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1510,7 +1510,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetCustomClass;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1570,7 +1570,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdateCustomClass;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1718,7 +1718,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeleteCustomClass;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1846,7 +1846,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeleteCustomClass;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1968,7 +1968,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CreatePhraseSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2109,7 +2109,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::ListPhraseSets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2219,7 +2219,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetPhraseSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2279,7 +2279,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UpdatePhraseSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2424,7 +2424,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeletePhraseSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2549,7 +2549,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::UndeletePhraseSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2671,7 +2671,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2782,7 +2782,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2843,7 +2843,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2962,7 +2962,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3023,7 +3023,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3086,7 +3086,7 @@ pub mod speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::builder::speech::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_speech_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

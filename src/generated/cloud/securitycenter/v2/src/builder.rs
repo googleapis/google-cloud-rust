@@ -20,7 +20,7 @@ pub mod security_center {
     /// A builder for [SecurityCenter][crate::client::SecurityCenter].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securitycenter_v2::*;
     /// # use builder::security_center::ClientBuilder;
     /// # use client::SecurityCenter;
@@ -75,7 +75,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::BatchCreateResourceValueConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -155,7 +155,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::BulkMuteFindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -281,7 +281,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateBigQueryExport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -376,7 +376,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateFinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -468,7 +468,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateMuteConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -563,7 +563,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateNotificationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -660,7 +660,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -744,7 +744,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteBigQueryExport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -809,7 +809,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteMuteConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -874,7 +874,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteNotificationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -941,7 +941,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteResourceValueConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1008,7 +1008,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetBigQueryExport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1073,7 +1073,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetSimulation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1135,7 +1135,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetValuedResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1200,7 +1200,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1283,7 +1283,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetMuteConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1345,7 +1345,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetNotificationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1410,7 +1410,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetResourceValueConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1475,7 +1475,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1537,7 +1537,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GroupFindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1655,7 +1655,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListAttackPaths;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1767,7 +1767,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListBigQueryExports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1876,7 +1876,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListFindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2010,7 +2010,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListMuteConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2116,7 +2116,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListNotificationConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2227,7 +2227,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListResourceValueConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2338,7 +2338,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2442,7 +2442,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListValuedResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2563,7 +2563,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetFindingState;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2633,7 +2633,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2738,7 +2738,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetMute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2808,7 +2808,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2888,7 +2888,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateBigQueryExport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2985,7 +2985,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateExternalSystem;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3082,7 +3082,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateFinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3176,7 +3176,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateMuteConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3273,7 +3273,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateNotificationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3372,7 +3372,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateResourceValueConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3471,7 +3471,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateSecurityMarks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3568,7 +3568,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3662,7 +3662,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3783,7 +3783,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3846,7 +3846,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3911,7 +3911,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

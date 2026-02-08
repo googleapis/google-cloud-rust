@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// let client = CertificateManager::builder().build().await?;
 /// // use `client` to make requests to the Certificate Manager API.
@@ -92,7 +92,7 @@ impl CertificateManager {
     /// Returns a builder for [CertificateManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// let client = CertificateManager::builder().build().await?;
     /// # Ok(()) }

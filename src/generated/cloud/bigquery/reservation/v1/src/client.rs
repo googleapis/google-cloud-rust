@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
 /// let client = ReservationService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Reservation API.
@@ -80,7 +80,7 @@ impl ReservationService {
     /// Returns a builder for [ReservationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// let client = ReservationService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_longrunning::client::Operations;
 /// let client = Operations::builder().build().await?;
 /// // use `client` to make requests to the Long Running Operations API.
@@ -76,7 +76,7 @@ impl Operations {
     /// Returns a builder for [Operations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_longrunning::client::Operations;
     /// let client = Operations::builder().build().await?;
     /// # Ok(()) }

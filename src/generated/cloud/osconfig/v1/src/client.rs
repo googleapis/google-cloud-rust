@@ -22,7 +22,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_osconfig_v1::client::OsConfigService;
 /// let client = OsConfigService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
@@ -71,7 +71,7 @@ impl OsConfigService {
     /// Returns a builder for [OsConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// let client = OsConfigService::builder().build().await?;
     /// # Ok(()) }
@@ -220,7 +220,7 @@ impl OsConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
 /// let client = OsConfigZonalService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
@@ -269,7 +269,7 @@ impl OsConfigZonalService {
     /// Returns a builder for [OsConfigZonalService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// let client = OsConfigZonalService::builder().build().await?;
     /// # Ok(()) }

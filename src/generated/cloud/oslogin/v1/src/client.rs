@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_oslogin_v1::client::OsLoginService;
 /// let client = OsLoginService::builder().build().await?;
 /// // use `client` to make requests to the Cloud OS Login API.
@@ -69,7 +69,7 @@ impl OsLoginService {
     /// Returns a builder for [OsLoginService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::client::OsLoginService;
     /// let client = OsLoginService::builder().build().await?;
     /// # Ok(()) }

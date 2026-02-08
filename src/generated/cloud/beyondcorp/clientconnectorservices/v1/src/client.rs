@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
 /// let client = ClientConnectorServicesService::builder().build().await?;
 /// // use `client` to make requests to the BeyondCorp API.
@@ -76,7 +76,7 @@ impl ClientConnectorServicesService {
     /// Returns a builder for [ClientConnectorServicesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
     /// let client = ClientConnectorServicesService::builder().build().await?;
     /// # Ok(()) }

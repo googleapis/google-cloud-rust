@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::Autokey;
 /// let client = Autokey::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -88,7 +88,7 @@ impl Autokey {
     /// Returns a builder for [Autokey].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::Autokey;
     /// let client = Autokey::builder().build().await?;
     /// # Ok(()) }
@@ -226,7 +226,7 @@ impl Autokey {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::AutokeyAdmin;
 /// let client = AutokeyAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -281,7 +281,7 @@ impl AutokeyAdmin {
     /// Returns a builder for [AutokeyAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::AutokeyAdmin;
     /// let client = AutokeyAdmin::builder().build().await?;
     /// # Ok(()) }
@@ -411,7 +411,7 @@ impl AutokeyAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::EkmService;
 /// let client = EkmService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -464,7 +464,7 @@ impl EkmService {
     /// Returns a builder for [EkmService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::EkmService;
     /// let client = EkmService::builder().build().await?;
     /// # Ok(()) }
@@ -621,7 +621,7 @@ impl EkmService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::HsmManagement;
 /// let client = HsmManagement::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -677,7 +677,7 @@ impl HsmManagement {
     /// Returns a builder for [HsmManagement].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::HsmManagement;
     /// let client = HsmManagement::builder().build().await?;
     /// # Ok(()) }
@@ -927,7 +927,7 @@ impl HsmManagement {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
 /// let client = KeyManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
@@ -989,7 +989,7 @@ impl KeyManagementService {
     /// Returns a builder for [KeyManagementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// let client = KeyManagementService::builder().build().await?;
     /// # Ok(()) }

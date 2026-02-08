@@ -20,7 +20,7 @@ pub mod edge_container {
     /// A builder for [EdgeContainer][crate::client::EdgeContainer].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_edgecontainer_v1::*;
     /// # use builder::edge_container::ClientBuilder;
     /// # use client::EdgeContainer;
@@ -75,7 +75,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -541,7 +541,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpgradeCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -673,7 +673,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -783,7 +783,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GenerateAccessToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -848,7 +848,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GenerateOfflineCredential;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -915,7 +915,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListNodePools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1031,7 +1031,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1093,7 +1093,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1238,7 +1238,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::UpdateNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1381,7 +1381,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1491,7 +1491,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListMachines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1607,7 +1607,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetMachine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1669,7 +1669,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListVpnConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1790,7 +1790,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetVpnConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1855,7 +1855,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CreateVpnConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2003,7 +2003,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteVpnConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2116,7 +2116,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetServerConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2178,7 +2178,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2291,7 +2291,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2354,7 +2354,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2475,7 +2475,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2538,7 +2538,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2603,7 +2603,7 @@ pub mod edge_container {
     /// # Example
     /// ```
     /// # use google_cloud_edgecontainer_v1::builder::edge_container::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgecontainer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

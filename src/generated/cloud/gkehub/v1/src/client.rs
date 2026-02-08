@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkehub_v1::client::GkeHub;
 /// let client = GkeHub::builder().build().await?;
 /// // use `client` to make requests to the GKE Hub.
@@ -85,7 +85,7 @@ impl GkeHub {
     /// Returns a builder for [GkeHub].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// let client = GkeHub::builder().build().await?;
     /// # Ok(()) }

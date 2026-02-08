@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
 /// let client = PublicCertificateAuthorityService::builder().build().await?;
 /// // use `client` to make requests to the Public Certificate Authority API.
@@ -68,7 +68,7 @@ impl PublicCertificateAuthorityService {
     /// Returns a builder for [PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
     /// let client = PublicCertificateAuthorityService::builder().build().await?;
     /// # Ok(()) }

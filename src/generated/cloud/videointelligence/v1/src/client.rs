@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
 /// let client = VideoIntelligenceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Video Intelligence API.
@@ -66,7 +66,7 @@ impl VideoIntelligenceService {
     /// Returns a builder for [VideoIntelligenceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
     /// let client = VideoIntelligenceService::builder().build().await?;
     /// # Ok(()) }

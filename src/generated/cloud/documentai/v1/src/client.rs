@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
 /// let client = DocumentProcessorService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Document AI API.
@@ -69,7 +69,7 @@ impl DocumentProcessorService {
     /// Returns a builder for [DocumentProcessorService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// let client = DocumentProcessorService::builder().build().await?;
     /// # Ok(()) }

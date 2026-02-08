@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_parametermanager_v1::client::ParameterManager;
 /// let client = ParameterManager::builder().build().await?;
 /// // use `client` to make requests to the Parameter Manager API.
@@ -66,7 +66,7 @@ impl ParameterManager {
     /// Returns a builder for [ParameterManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// let client = ParameterManager::builder().build().await?;
     /// # Ok(()) }

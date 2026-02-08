@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::AssistantService;
 /// let client = AssistantService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -69,7 +69,7 @@ impl AssistantService {
     /// Returns a builder for [AssistantService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::AssistantService;
     /// let client = AssistantService::builder().build().await?;
     /// # Ok(()) }
@@ -148,7 +148,7 @@ impl AssistantService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
 /// let client = CmekConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -197,7 +197,7 @@ impl CmekConfigService {
     /// Returns a builder for [CmekConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
     /// let client = CmekConfigService::builder().build().await?;
     /// # Ok(()) }
@@ -324,7 +324,7 @@ impl CmekConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -373,7 +373,7 @@ impl CompletionService {
     /// Returns a builder for [CompletionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
     /// # Ok(()) }
@@ -541,7 +541,7 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -593,7 +593,7 @@ impl ControlService {
     /// Returns a builder for [ControlService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// let client = ControlService::builder().build().await?;
     /// # Ok(()) }
@@ -717,7 +717,7 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -766,7 +766,7 @@ impl ConversationalSearchService {
     /// Returns a builder for [ConversationalSearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
     /// # Ok(()) }
@@ -964,7 +964,7 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// let client = DataStoreService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1016,7 +1016,7 @@ impl DataStoreService {
     /// Returns a builder for [DataStoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
     /// let client = DataStoreService::builder().build().await?;
     /// # Ok(()) }
@@ -1159,7 +1159,7 @@ impl DataStoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
 /// let client = DocumentService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1211,7 +1211,7 @@ impl DocumentService {
     /// Returns a builder for [DocumentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// let client = DocumentService::builder().build().await?;
     /// # Ok(()) }
@@ -1393,7 +1393,7 @@ impl DocumentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// let client = EngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1445,7 +1445,7 @@ impl EngineService {
     /// Returns a builder for [EngineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::EngineService;
     /// let client = EngineService::builder().build().await?;
     /// # Ok(()) }
@@ -1579,7 +1579,7 @@ impl EngineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
 /// let client = GroundedGenerationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1628,7 +1628,7 @@ impl GroundedGenerationService {
     /// Returns a builder for [GroundedGenerationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
     /// let client = GroundedGenerationService::builder().build().await?;
     /// # Ok(()) }
@@ -1722,7 +1722,7 @@ impl GroundedGenerationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
 /// let client = IdentityMappingStoreService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1771,7 +1771,7 @@ impl IdentityMappingStoreService {
     /// Returns a builder for [IdentityMappingStoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
     /// let client = IdentityMappingStoreService::builder().build().await?;
     /// # Ok(()) }
@@ -1949,7 +1949,7 @@ impl IdentityMappingStoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2001,7 +2001,7 @@ impl ProjectService {
     /// Returns a builder for [ProjectService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
     /// # Ok(()) }
@@ -2099,7 +2099,7 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RankService;
 /// let client = RankService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2148,7 +2148,7 @@ impl RankService {
     /// Returns a builder for [RankService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::RankService;
     /// let client = RankService::builder().build().await?;
     /// # Ok(()) }
@@ -2231,7 +2231,7 @@ impl RankService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
 /// let client = RecommendationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2280,7 +2280,7 @@ impl RecommendationService {
     /// Returns a builder for [RecommendationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
     /// let client = RecommendationService::builder().build().await?;
     /// # Ok(()) }
@@ -2364,7 +2364,7 @@ impl RecommendationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2415,7 +2415,7 @@ impl SchemaService {
     /// Returns a builder for [SchemaService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SchemaService;
     /// let client = SchemaService::builder().build().await?;
     /// # Ok(()) }
@@ -2558,7 +2558,7 @@ impl SchemaService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2607,7 +2607,7 @@ impl SearchService {
     /// Returns a builder for [SearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SearchService;
     /// let client = SearchService::builder().build().await?;
     /// # Ok(()) }
@@ -2709,7 +2709,7 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
 /// let client = SearchTuningService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2758,7 +2758,7 @@ impl SearchTuningService {
     /// Returns a builder for [SearchTuningService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
     /// let client = SearchTuningService::builder().build().await?;
     /// # Ok(()) }
@@ -2857,7 +2857,7 @@ impl SearchTuningService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -2909,7 +2909,7 @@ impl ServingConfigService {
     /// Returns a builder for [ServingConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
     /// # Ok(()) }
@@ -2997,7 +2997,7 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SessionService;
 /// let client = SessionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -3046,7 +3046,7 @@ impl SessionService {
     /// Returns a builder for [SessionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// let client = SessionService::builder().build().await?;
     /// # Ok(()) }
@@ -3168,7 +3168,7 @@ impl SessionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
 /// let client = SiteSearchEngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -3217,7 +3217,7 @@ impl SiteSearchEngineService {
     /// Returns a builder for [SiteSearchEngineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// let client = SiteSearchEngineService::builder().build().await?;
     /// # Ok(()) }
@@ -3523,7 +3523,7 @@ impl SiteSearchEngineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -3572,7 +3572,7 @@ impl UserEventService {
     /// Returns a builder for [UserEventService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
     /// # Ok(()) }
@@ -3704,7 +3704,7 @@ impl UserEventService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
 /// let client = UserLicenseService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -3753,7 +3753,7 @@ impl UserLicenseService {
     /// Returns a builder for [UserLicenseService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
     /// let client = UserLicenseService::builder().build().await?;
     /// # Ok(()) }

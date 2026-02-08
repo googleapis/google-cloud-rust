@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
 /// let client = CrossNetworkAutomationService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
@@ -66,7 +66,7 @@ impl CrossNetworkAutomationService {
     /// Returns a builder for [CrossNetworkAutomationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// let client = CrossNetworkAutomationService::builder().build().await?;
     /// # Ok(()) }
@@ -461,7 +461,7 @@ impl CrossNetworkAutomationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
 /// let client = DataTransferService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
@@ -507,7 +507,7 @@ impl DataTransferService {
     /// Returns a builder for [DataTransferService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// let client = DataTransferService::builder().build().await?;
     /// # Ok(()) }
@@ -784,7 +784,7 @@ impl DataTransferService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// let client = HubService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
@@ -832,7 +832,7 @@ impl HubService {
     /// Returns a builder for [HubService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// let client = HubService::builder().build().await?;
     /// # Ok(()) }
@@ -1187,7 +1187,7 @@ impl HubService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
 /// let client = InternalRangeService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
@@ -1234,7 +1234,7 @@ impl InternalRangeService {
     /// Returns a builder for [InternalRangeService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
     /// let client = InternalRangeService::builder().build().await?;
     /// # Ok(()) }
@@ -1421,7 +1421,7 @@ impl InternalRangeService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// let client = PolicyBasedRoutingService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
@@ -1468,7 +1468,7 @@ impl PolicyBasedRoutingService {
     /// Returns a builder for [PolicyBasedRoutingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
     /// let client = PolicyBasedRoutingService::builder().build().await?;
     /// # Ok(()) }

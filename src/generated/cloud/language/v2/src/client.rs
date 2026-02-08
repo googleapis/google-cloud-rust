@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_language_v2::client::LanguageService;
 /// let client = LanguageService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Natural Language API.
@@ -67,7 +67,7 @@ impl LanguageService {
     /// Returns a builder for [LanguageService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_language_v2::client::LanguageService;
     /// let client = LanguageService::builder().build().await?;
     /// # Ok(()) }

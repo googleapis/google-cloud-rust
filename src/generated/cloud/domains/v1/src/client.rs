@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_domains_v1::client::Domains;
 /// let client = Domains::builder().build().await?;
 /// // use `client` to make requests to the Cloud Domains API.
@@ -66,7 +66,7 @@ impl Domains {
     /// Returns a builder for [Domains].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_domains_v1::client::Domains;
     /// let client = Domains::builder().build().await?;
     /// # Ok(()) }

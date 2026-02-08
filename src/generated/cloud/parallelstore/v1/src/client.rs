@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_parallelstore_v1::client::Parallelstore;
 /// let client = Parallelstore::builder().build().await?;
 /// // use `client` to make requests to the Parallelstore API.
@@ -82,7 +82,7 @@ impl Parallelstore {
     /// Returns a builder for [Parallelstore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_parallelstore_v1::client::Parallelstore;
     /// let client = Parallelstore::builder().build().await?;
     /// # Ok(()) }

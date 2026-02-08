@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_container_v1::client::ClusterManager;
 /// let client = ClusterManager::builder().build().await?;
 /// // use `client` to make requests to the Kubernetes Engine API.
@@ -66,7 +66,7 @@ impl ClusterManager {
     /// Returns a builder for [ClusterManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_container_v1::client::ClusterManager;
     /// let client = ClusterManager::builder().build().await?;
     /// # Ok(()) }

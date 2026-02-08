@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_tasks_v2::client::CloudTasks;
 /// let client = CloudTasks::builder().build().await?;
 /// // use `client` to make requests to the Cloud Tasks API.
@@ -67,7 +67,7 @@ impl CloudTasks {
     /// Returns a builder for [CloudTasks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// let client = CloudTasks::builder().build().await?;
     /// # Ok(()) }

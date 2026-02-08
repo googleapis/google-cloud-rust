@@ -20,7 +20,7 @@ pub mod document_processor_service {
     /// A builder for [DocumentProcessorService][crate::client::DocumentProcessorService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_documentai_v1::*;
     /// # use builder::document_processor_service::ClientBuilder;
     /// # use client::DocumentProcessorService;
@@ -75,7 +75,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ProcessDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::BatchProcessDocuments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -435,7 +435,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::FetchProcessorTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -500,7 +500,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListProcessorTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -609,7 +609,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetProcessorType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -674,7 +674,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListProcessors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -780,7 +780,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetProcessor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -842,7 +842,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::TrainProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1063,7 +1063,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1128,7 +1128,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListProcessorVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1237,7 +1237,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1349,7 +1349,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeployProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1463,7 +1463,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::UndeployProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1579,7 +1579,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::CreateProcessor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1663,7 +1663,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DeleteProcessor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1771,7 +1771,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EnableProcessor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1882,7 +1882,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::DisableProcessor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1996,7 +1996,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::SetDefaultProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2120,7 +2120,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ReviewDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2291,7 +2291,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::EvaluateProcessorVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2425,7 +2425,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2487,7 +2487,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListEvaluations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2593,7 +2593,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2706,7 +2706,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2769,7 +2769,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2890,7 +2890,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2953,7 +2953,7 @@ pub mod document_processor_service {
     /// # Example
     /// ```
     /// # use google_cloud_documentai_v1::builder::document_processor_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_documentai_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod managed_identities_service {
     /// A builder for [ManagedIdentitiesService][crate::client::ManagedIdentitiesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedidentities_v1::*;
     /// # use builder::managed_identities_service::ClientBuilder;
     /// # use client::ManagedIdentitiesService;
@@ -75,7 +75,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::CreateMicrosoftAdDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -218,7 +218,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ResetAdminPassword;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -283,7 +283,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ListDomains;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -399,7 +399,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::GetDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -461,7 +461,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::UpdateDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -605,7 +605,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DeleteDomain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -709,7 +709,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::AttachTrust;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -839,7 +839,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ReconfigureTrust;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -971,7 +971,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DetachTrust;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1101,7 +1101,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ValidateTrust;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1231,7 +1231,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1352,7 +1352,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1415,7 +1415,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1480,7 +1480,7 @@ pub mod managed_identities_service {
     /// # Example
     /// ```
     /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedidentities_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

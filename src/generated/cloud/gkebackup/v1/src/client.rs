@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
 /// let client = BackupForGKE::builder().build().await?;
 /// // use `client` to make requests to the Backup for GKE API.
@@ -67,7 +67,7 @@ impl BackupForGKE {
     /// Returns a builder for [BackupForGKE].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// let client = BackupForGKE::builder().build().await?;
     /// # Ok(()) }

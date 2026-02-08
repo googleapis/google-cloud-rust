@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
 /// let client = Publisher::builder().build().await?;
 /// // use `client` to make requests to the Eventarc Publishing API.
@@ -94,7 +94,7 @@ impl Publisher {
     /// Returns a builder for [Publisher].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
     /// let client = Publisher::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod artifact_registry {
     /// A builder for [ArtifactRegistry][crate::client::ArtifactRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_artifactregistry_v1::*;
     /// # use builder::artifact_registry::ClientBuilder;
     /// # use client::ArtifactRegistry;
@@ -75,7 +75,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListDockerImages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -190,7 +190,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetDockerImage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -252,7 +252,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListMavenArtifacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -361,7 +361,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetMavenArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -426,7 +426,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListNpmPackages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -532,7 +532,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetNpmPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -594,7 +594,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListPythonPackages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -703,7 +703,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetPythonPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -768,7 +768,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportAptArtifacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -907,7 +907,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportYumArtifacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1046,7 +1046,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1167,7 +1167,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1229,7 +1229,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1371,7 +1371,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1464,7 +1464,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1571,7 +1571,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListPackages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1687,7 +1687,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1749,7 +1749,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeletePackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1853,7 +1853,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1973,7 +1973,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2039,7 +2039,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2147,7 +2147,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::BatchDeleteVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2275,7 +2275,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2369,7 +2369,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2483,7 +2483,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2545,7 +2545,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2649,7 +2649,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2747,7 +2747,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListTags;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2853,7 +2853,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2913,7 +2913,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2997,7 +2997,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3087,7 +3087,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3147,7 +3147,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3233,7 +3233,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3335,7 +3335,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3397,7 +3397,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3487,7 +3487,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3549,7 +3549,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3654,7 +3654,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3737,7 +3737,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3817,7 +3817,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetProjectSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3882,7 +3882,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateProjectSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3975,7 +3975,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetVPCSCConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4037,7 +4037,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateVPCSCConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4130,7 +4130,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdatePackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4220,7 +4220,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListAttachments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4332,7 +4332,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4394,7 +4394,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4536,7 +4536,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4643,7 +4643,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ExportArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4815,7 +4815,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4928,7 +4928,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4991,7 +4991,7 @@ pub mod artifact_registry {
     /// # Example
     /// ```
     /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_artifactregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod notebook_service {
     /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_notebooks_v2::*;
     /// # use builder::notebook_service::ClientBuilder;
     /// # use client::NotebookService;
@@ -75,7 +75,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -549,7 +549,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -659,7 +659,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::StartInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -768,7 +768,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::StopInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -877,7 +877,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::ResetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -986,7 +986,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::CheckInstanceUpgradability;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1053,7 +1053,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::UpgradeInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1162,7 +1162,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::RollbackInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1290,7 +1290,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::DiagnoseInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1430,7 +1430,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1543,7 +1543,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1606,7 +1606,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1711,7 +1711,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1794,7 +1794,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1874,7 +1874,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1995,7 +1995,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2058,7 +2058,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2123,7 +2123,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_notebooks_v2::builder::notebook_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_notebooks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod client_gateways_service {
     /// A builder for [ClientGatewaysService][crate::client::ClientGatewaysService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_clientgateways_v1::*;
     /// # use builder::client_gateways_service::ClientBuilder;
     /// # use client::ClientGatewaysService;
@@ -75,7 +75,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListClientGateways;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetClientGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::CreateClientGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -415,7 +415,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::DeleteClientGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -539,7 +539,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -652,7 +652,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -715,7 +715,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -820,7 +820,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -903,7 +903,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -983,7 +983,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1104,7 +1104,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1167,7 +1167,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1232,7 +1232,7 @@ pub mod client_gateways_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientgateways_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

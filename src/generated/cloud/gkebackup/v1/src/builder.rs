@@ -20,7 +20,7 @@ pub mod backup_for_gke {
     /// A builder for [BackupForGKE][crate::client::BackupForGKE].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkebackup_v1::*;
     /// # use builder::backup_for_gke::ClientBuilder;
     /// # use client::BackupForGKE;
@@ -75,7 +75,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -217,7 +217,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListBackupPlans;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -335,7 +335,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -397,7 +397,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -541,7 +541,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -654,7 +654,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackupChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -794,7 +794,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListBackupChannels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -915,7 +915,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetBackupChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -980,7 +980,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackupChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1124,7 +1124,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackupChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1243,7 +1243,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListBackupPlanBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1364,7 +1364,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetBackupPlanBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1429,7 +1429,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1562,7 +1562,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1684,7 +1684,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1746,7 +1746,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1887,7 +1887,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2003,7 +2003,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListVolumeBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2124,7 +2124,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetVolumeBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2186,7 +2186,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestorePlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2328,7 +2328,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListRestorePlans;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2449,7 +2449,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetRestorePlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2511,7 +2511,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestorePlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2655,7 +2655,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestorePlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2774,7 +2774,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestoreChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2914,7 +2914,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListRestoreChannels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3035,7 +3035,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetRestoreChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3100,7 +3100,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestoreChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3244,7 +3244,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestoreChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3357,7 +3357,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListRestorePlanBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3480,7 +3480,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetRestorePlanBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3545,7 +3545,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CreateRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3684,7 +3684,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListRestores;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3800,7 +3800,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3862,7 +3862,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::UpdateRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4003,7 +4003,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4119,7 +4119,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListVolumeRestores;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4240,7 +4240,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetVolumeRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4305,7 +4305,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetBackupIndexDownloadUrl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4372,7 +4372,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4485,7 +4485,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4548,7 +4548,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4653,7 +4653,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4736,7 +4736,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4816,7 +4816,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4937,7 +4937,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5000,7 +5000,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5065,7 +5065,7 @@ pub mod backup_for_gke {
     /// # Example
     /// ```
     /// # use google_cloud_gkebackup_v1::builder::backup_for_gke::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkebackup_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

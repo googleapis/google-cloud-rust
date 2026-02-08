@@ -20,7 +20,7 @@ pub mod secret_manager_service {
     /// A builder for [SecretManagerService][crate::client::SecretManagerService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_secretmanager_v1::*;
     /// # use builder::secret_manager_service::ClientBuilder;
     /// # use client::SecretManagerService;
@@ -75,7 +75,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::ListSecrets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -185,7 +185,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::CreateSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -277,7 +277,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::AddSecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -364,7 +364,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::GetSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -426,7 +426,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::UpdateSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -524,7 +524,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::DeleteSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -592,7 +592,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::ListSecretVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -707,7 +707,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::GetSecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -772,7 +772,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::AccessSecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -837,7 +837,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::DisableSecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -908,7 +908,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::EnableSecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -979,7 +979,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::DestroySecretVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1050,7 +1050,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1155,7 +1155,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1238,7 +1238,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1318,7 +1318,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1431,7 +1431,7 @@ pub mod secret_manager_service {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::builder::secret_manager_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_secretmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// let client = CaseAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -66,7 +66,7 @@ impl CaseAttachmentService {
     /// Returns a builder for [CaseAttachmentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseAttachmentService;
     /// let client = CaseAttachmentService::builder().build().await?;
     /// # Ok(()) }
@@ -129,7 +129,7 @@ impl CaseAttachmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseService;
 /// let client = CaseService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -175,7 +175,7 @@ impl CaseService {
     /// Returns a builder for [CaseService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseService;
     /// let client = CaseService::builder().build().await?;
     /// # Ok(()) }
@@ -297,7 +297,7 @@ impl CaseService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CommentService;
 /// let client = CommentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -343,7 +343,7 @@ impl CommentService {
     /// Returns a builder for [CommentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CommentService;
     /// let client = CommentService::builder().build().await?;
     /// # Ok(()) }

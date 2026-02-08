@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v2::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -66,7 +66,7 @@ impl Policies {
     /// Returns a builder for [Policies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v2::client::Policies;
     /// let client = Policies::builder().build().await?;
     /// # Ok(()) }

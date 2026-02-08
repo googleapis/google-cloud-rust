@@ -20,7 +20,7 @@ pub mod gke_inference_quickstart {
     /// A builder for [GkeInferenceQuickstart][crate::client::GkeInferenceQuickstart].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkerecommender_v1::*;
     /// # use builder::gke_inference_quickstart::ClientBuilder;
     /// # use client::GkeInferenceQuickstart;
@@ -75,7 +75,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::FetchModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -165,7 +165,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::FetchModelServers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -266,7 +266,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::FetchModelServerVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -377,7 +377,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::FetchProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -533,7 +533,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::GenerateOptimizedManifest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -664,7 +664,7 @@ pub mod gke_inference_quickstart {
     /// # Example
     /// ```
     /// # use google_cloud_gkerecommender_v1::builder::gke_inference_quickstart::FetchBenchmarkingData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkerecommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

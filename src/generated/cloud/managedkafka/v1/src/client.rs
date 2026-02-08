@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
 /// let client = ManagedKafka::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -67,7 +67,7 @@ impl ManagedKafka {
     /// Returns a builder for [ManagedKafka].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// let client = ManagedKafka::builder().build().await?;
     /// # Ok(()) }
@@ -300,7 +300,7 @@ impl ManagedKafka {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
 /// let client = ManagedKafkaConnect::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -347,7 +347,7 @@ impl ManagedKafkaConnect {
     /// Returns a builder for [ManagedKafkaConnect].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// let client = ManagedKafkaConnect::builder().build().await?;
     /// # Ok(()) }

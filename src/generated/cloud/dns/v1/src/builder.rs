@@ -20,7 +20,7 @@ pub mod changes {
     /// A builder for [Changes][crate::client::Changes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::changes::ClientBuilder;
     /// # use client::Changes;
@@ -73,7 +73,7 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -173,7 +173,7 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -429,7 +429,7 @@ pub mod dns_keys {
     /// A builder for [DnsKeys][crate::client::DnsKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::dns_keys::ClientBuilder;
     /// # use client::DnsKeys;
@@ -482,7 +482,7 @@ pub mod dns_keys {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::dns_keys::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -588,7 +588,7 @@ pub mod dns_keys {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::dns_keys::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -738,7 +738,7 @@ pub mod managed_zone_operations {
     /// A builder for [ManagedZoneOperations][crate::client::ManagedZoneOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::managed_zone_operations::ClientBuilder;
     /// # use client::ManagedZoneOperations;
@@ -793,7 +793,7 @@ pub mod managed_zone_operations {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zone_operations::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -886,7 +886,7 @@ pub mod managed_zone_operations {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zone_operations::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1043,7 +1043,7 @@ pub mod managed_zones {
     /// A builder for [ManagedZones][crate::client::ManagedZones].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::managed_zones::ClientBuilder;
     /// # use client::ManagedZones;
@@ -1098,7 +1098,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1197,7 +1197,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1284,7 +1284,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1371,7 +1371,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1452,7 +1452,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1601,7 +1601,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1745,7 +1745,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1826,7 +1826,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1909,7 +1909,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2053,7 +2053,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2148,7 +2148,7 @@ pub mod policies {
     /// A builder for [Policies][crate::client::Policies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::policies::ClientBuilder;
     /// # use client::Policies;
@@ -2201,7 +2201,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2298,7 +2298,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2383,7 +2383,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2465,7 +2465,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2589,7 +2589,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2689,7 +2689,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2794,7 +2794,7 @@ pub mod projects {
     /// A builder for [Projects][crate::client::Projects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::projects::ClientBuilder;
     /// # use client::Projects;
@@ -2847,7 +2847,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::projects::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2925,7 +2925,7 @@ pub mod resource_record_sets {
     /// A builder for [ResourceRecordSets][crate::client::ResourceRecordSets].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::resource_record_sets::ClientBuilder;
     /// # use client::ResourceRecordSets;
@@ -2980,7 +2980,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3085,7 +3085,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3184,7 +3184,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3283,7 +3283,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3456,7 +3456,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3575,7 +3575,7 @@ pub mod response_policies {
     /// A builder for [ResponsePolicies][crate::client::ResponsePolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::response_policies::ClientBuilder;
     /// # use client::ResponsePolicies;
@@ -3630,7 +3630,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3729,7 +3729,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3816,7 +3816,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3903,7 +3903,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4034,7 +4034,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4139,7 +4139,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4246,7 +4246,7 @@ pub mod response_policy_rules {
     /// A builder for [ResponsePolicyRules][crate::client::ResponsePolicyRules].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::response_policy_rules::ClientBuilder;
     /// # use client::ResponsePolicyRules;
@@ -4301,7 +4301,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Create;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4406,7 +4406,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4499,7 +4499,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4592,7 +4592,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4729,7 +4729,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4840,7 +4840,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

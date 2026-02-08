@@ -20,7 +20,7 @@ pub mod transcoder_service {
     /// A builder for [TranscoderService][crate::client::TranscoderService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_transcoder_v1::*;
     /// # use builder::transcoder_service::ClientBuilder;
     /// # use client::TranscoderService;
@@ -75,7 +75,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::CreateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -159,7 +159,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -273,7 +273,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -335,7 +335,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -403,7 +403,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::CreateJobTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -498,7 +498,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::ListJobTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -619,7 +619,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::GetJobTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -681,7 +681,7 @@ pub mod transcoder_service {
     /// # Example
     /// ```
     /// # use google_cloud_video_transcoder_v1::builder::transcoder_service::DeleteJobTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_video_transcoder_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

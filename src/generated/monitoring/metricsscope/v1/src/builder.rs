@@ -20,7 +20,7 @@ pub mod metrics_scopes {
     /// A builder for [MetricsScopes][crate::client::MetricsScopes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_metricsscope_v1::*;
     /// # use builder::metrics_scopes::ClientBuilder;
     /// # use client::MetricsScopes;
@@ -75,7 +75,7 @@ pub mod metrics_scopes {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::GetMetricsScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_metricsscope_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod metrics_scopes {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_metricsscope_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -209,7 +209,7 @@ pub mod metrics_scopes {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::CreateMonitoredProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_metricsscope_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -343,7 +343,7 @@ pub mod metrics_scopes {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::DeleteMonitoredProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_metricsscope_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -450,7 +450,7 @@ pub mod metrics_scopes {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_metricsscope_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

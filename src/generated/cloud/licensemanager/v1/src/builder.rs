@@ -20,7 +20,7 @@ pub mod license_manager {
     /// A builder for [LicenseManager][crate::client::LicenseManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_licensemanager_v1::*;
     /// # use builder::license_manager::ClientBuilder;
     /// # use client::LicenseManager;
@@ -75,7 +75,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ListConfigurations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::GetConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::CreateConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -409,7 +409,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::UpdateConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -559,7 +559,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::DeleteConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -672,7 +672,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -788,7 +788,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -850,7 +850,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::DeactivateConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -970,7 +970,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ReactivateConfiguration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1090,7 +1090,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::QueryConfigurationLicenseUsage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1201,7 +1201,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::AggregateUsage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1363,7 +1363,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ListProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1479,7 +1479,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::GetProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1541,7 +1541,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1654,7 +1654,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1717,7 +1717,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1838,7 +1838,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1901,7 +1901,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1966,7 +1966,7 @@ pub mod license_manager {
     /// # Example
     /// ```
     /// # use google_cloud_licensemanager_v1::builder::license_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_licensemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

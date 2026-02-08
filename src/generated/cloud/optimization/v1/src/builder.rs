@@ -20,7 +20,7 @@ pub mod fleet_routing {
     /// A builder for [FleetRouting][crate::client::FleetRouting].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_optimization_v1::*;
     /// # use builder::fleet_routing::ClientBuilder;
     /// # use client::FleetRouting;
@@ -75,7 +75,7 @@ pub mod fleet_routing {
     /// # Example
     /// ```
     /// # use google_cloud_optimization_v1::builder::fleet_routing::OptimizeTours;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_optimization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -331,7 +331,7 @@ pub mod fleet_routing {
     /// # Example
     /// ```
     /// # use google_cloud_optimization_v1::builder::fleet_routing::BatchOptimizeTours;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_optimization_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -458,7 +458,7 @@ pub mod fleet_routing {
     /// # Example
     /// ```
     /// # use google_cloud_optimization_v1::builder::fleet_routing::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_optimization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

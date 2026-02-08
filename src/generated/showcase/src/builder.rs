@@ -20,7 +20,7 @@ pub mod compliance {
     /// A builder for [Compliance][crate::client::Compliance].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::compliance::ClientBuilder;
     /// # use client::Compliance;
@@ -75,7 +75,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataBody;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -249,7 +249,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataBodyInfo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -423,7 +423,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -597,7 +597,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataSimplePath;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -771,7 +771,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataPathResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -945,7 +945,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataPathTrailingResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1119,7 +1119,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataBodyPut;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1293,7 +1293,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::RepeatDataBodyPatch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1467,7 +1467,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::GetEnum;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1527,7 +1527,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::VerifyEnum;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1605,7 +1605,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1718,7 +1718,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1781,7 +1781,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1886,7 +1886,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1969,7 +1969,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2049,7 +2049,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2170,7 +2170,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2233,7 +2233,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2298,7 +2298,7 @@ pub mod compliance {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::compliance::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2365,7 +2365,7 @@ pub mod echo {
     /// A builder for [Echo][crate::client::Echo].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::echo::ClientBuilder;
     /// # use client::Echo;
@@ -2418,7 +2418,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Echo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2563,7 +2563,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::EchoErrorDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2635,7 +2635,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::FailEchoWithDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2696,7 +2696,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::PagedExpand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2798,7 +2798,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::PagedExpandLegacy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2903,7 +2903,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::PagedExpandLegacyMapped;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3007,7 +3007,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Wait;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3181,7 +3181,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Block;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3291,7 +3291,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3402,7 +3402,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3463,7 +3463,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3566,7 +3566,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3647,7 +3647,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3725,7 +3725,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3844,7 +3844,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3905,7 +3905,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3968,7 +3968,7 @@ pub mod echo {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4033,7 +4033,7 @@ pub mod identity {
     /// A builder for [Identity][crate::client::Identity].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::identity::ClientBuilder;
     /// # use client::Identity;
@@ -4086,7 +4086,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::CreateUser;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4156,7 +4156,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::GetUser;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4216,7 +4216,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::UpdateUser;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4304,7 +4304,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::DeleteUser;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4364,7 +4364,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::ListUsers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4456,7 +4456,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4567,7 +4567,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4628,7 +4628,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4731,7 +4731,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4812,7 +4812,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4890,7 +4890,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5009,7 +5009,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5070,7 +5070,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5133,7 +5133,7 @@ pub mod identity {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::identity::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5198,7 +5198,7 @@ pub mod messaging {
     /// A builder for [Messaging][crate::client::Messaging].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::messaging::ClientBuilder;
     /// # use client::Messaging;
@@ -5253,7 +5253,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::CreateRoom;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5325,7 +5325,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::GetRoom;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5387,7 +5387,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::UpdateRoom;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5477,7 +5477,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::DeleteRoom;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5539,7 +5539,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::ListRooms;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5633,7 +5633,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::CreateBlurb;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5713,7 +5713,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::GetBlurb;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5775,7 +5775,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::UpdateBlurb;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5865,7 +5865,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::DeleteBlurb;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5927,7 +5927,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::ListBlurbs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6031,7 +6031,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::SearchBlurbs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6160,7 +6160,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6273,7 +6273,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6336,7 +6336,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6441,7 +6441,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6524,7 +6524,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6604,7 +6604,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6725,7 +6725,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6788,7 +6788,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6853,7 +6853,7 @@ pub mod messaging {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6920,7 +6920,7 @@ pub mod sequence_service {
     /// A builder for [SequenceService][crate::client::SequenceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::sequence_service::ClientBuilder;
     /// # use client::SequenceService;
@@ -6975,7 +6975,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::CreateSequence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7047,7 +7047,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::CreateStreamingSequence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7124,7 +7124,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::GetSequenceReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7189,7 +7189,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::GetStreamingSequenceReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7256,7 +7256,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::AttemptSequence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7318,7 +7318,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7431,7 +7431,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7494,7 +7494,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7599,7 +7599,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7682,7 +7682,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7762,7 +7762,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7883,7 +7883,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7946,7 +7946,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8011,7 +8011,7 @@ pub mod sequence_service {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8078,7 +8078,7 @@ pub mod testing {
     /// A builder for [Testing][crate::client::Testing].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::*;
     /// # use builder::testing::ClientBuilder;
     /// # use client::Testing;
@@ -8131,7 +8131,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::CreateSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8201,7 +8201,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::GetSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8259,7 +8259,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::ListSessions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8353,7 +8353,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::DeleteSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8411,7 +8411,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::ReportSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8469,7 +8469,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::ListTests;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8567,7 +8567,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::DeleteTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8625,7 +8625,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::VerifyTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8700,7 +8700,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8811,7 +8811,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8872,7 +8872,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8975,7 +8975,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9056,7 +9056,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9134,7 +9134,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9253,7 +9253,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9314,7 +9314,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9377,7 +9377,7 @@ pub mod testing {
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::testing::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
 /// let client = BinauthzManagementServiceV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
@@ -75,7 +75,7 @@ impl BinauthzManagementServiceV1 {
     /// Returns a builder for [BinauthzManagementServiceV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// let client = BinauthzManagementServiceV1::builder().build().await?;
     /// # Ok(()) }
@@ -207,7 +207,7 @@ impl BinauthzManagementServiceV1 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
 /// let client = SystemPolicyV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
@@ -253,7 +253,7 @@ impl SystemPolicyV1 {
     /// Returns a builder for [SystemPolicyV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
     /// let client = SystemPolicyV1::builder().build().await?;
     /// # Ok(()) }
@@ -315,7 +315,7 @@ impl SystemPolicyV1 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
 /// let client = ValidationHelperV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
@@ -361,7 +361,7 @@ impl ValidationHelperV1 {
     /// Returns a builder for [ValidationHelperV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
     /// let client = ValidationHelperV1::builder().build().await?;
     /// # Ok(()) }

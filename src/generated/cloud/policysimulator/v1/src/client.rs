@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
 /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
@@ -78,7 +78,7 @@ impl OrgPolicyViolationsPreviewService {
     /// Returns a builder for [OrgPolicyViolationsPreviewService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
     /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
     /// # Ok(()) }
@@ -230,7 +230,7 @@ impl OrgPolicyViolationsPreviewService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_policysimulator_v1::client::Simulator;
 /// let client = Simulator::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
@@ -289,7 +289,7 @@ impl Simulator {
     /// Returns a builder for [Simulator].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::client::Simulator;
     /// let client = Simulator::builder().build().await?;
     /// # Ok(()) }

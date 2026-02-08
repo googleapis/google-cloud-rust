@@ -20,7 +20,7 @@ pub mod public_certificate_authority_service {
     /// A builder for [PublicCertificateAuthorityService][crate::client::PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_security_publicca_v1::*;
     /// # use builder::public_certificate_authority_service::ClientBuilder;
     /// # use client::PublicCertificateAuthorityService;
@@ -77,7 +77,7 @@ pub mod public_certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_publicca_v1::builder::public_certificate_authority_service::CreateExternalAccountKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_publicca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

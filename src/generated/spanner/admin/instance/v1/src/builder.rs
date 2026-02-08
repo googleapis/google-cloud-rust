@@ -20,7 +20,7 @@ pub mod instance_admin {
     /// A builder for [InstanceAdmin][crate::client::InstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_instance_v1::*;
     /// # use builder::instance_admin::ClientBuilder;
     /// # use client::InstanceAdmin;
@@ -75,7 +75,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstanceConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -184,7 +184,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -249,7 +249,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -399,7 +399,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -555,7 +555,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -632,7 +632,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstanceConfigOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -749,7 +749,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -877,7 +877,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstancePartitions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1007,7 +1007,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1087,7 +1087,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1226,7 +1226,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1371,7 +1371,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1433,7 +1433,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1538,7 +1538,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1621,7 +1621,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1701,7 +1701,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstancePartition;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1766,7 +1766,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstancePartition;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1912,7 +1912,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstancePartition;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1985,7 +1985,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstancePartition;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2137,7 +2137,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstancePartitionOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2275,7 +2275,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::MoveInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2394,7 +2394,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2515,7 +2515,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2578,7 +2578,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2643,7 +2643,7 @@ pub mod instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_instance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

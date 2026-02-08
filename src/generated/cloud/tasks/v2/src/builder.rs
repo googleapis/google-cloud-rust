@@ -20,7 +20,7 @@ pub mod cloud_tasks {
     /// A builder for [CloudTasks][crate::client::CloudTasks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_tasks_v2::*;
     /// # use builder::cloud_tasks::ClientBuilder;
     /// # use client::CloudTasks;
@@ -75,7 +75,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListQueues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -185,7 +185,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -247,7 +247,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::CreateQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -331,7 +331,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::UpdateQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -425,7 +425,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::DeleteQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -487,7 +487,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::PurgeQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -549,7 +549,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::PauseQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -611,7 +611,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::ResumeQueue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -673,7 +673,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -756,7 +756,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -861,7 +861,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -941,7 +941,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListTasks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1049,7 +1049,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetTask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1117,7 +1117,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::CreateTask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1207,7 +1207,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::DeleteTask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1269,7 +1269,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::RunTask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1337,7 +1337,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1450,7 +1450,7 @@ pub mod cloud_tasks {
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tasks_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

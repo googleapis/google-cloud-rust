@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_functions_v2::client::FunctionService;
 /// let client = FunctionService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Functions API.
@@ -71,7 +71,7 @@ impl FunctionService {
     /// Returns a builder for [FunctionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_functions_v2::client::FunctionService;
     /// let client = FunctionService::builder().build().await?;
     /// # Ok(()) }

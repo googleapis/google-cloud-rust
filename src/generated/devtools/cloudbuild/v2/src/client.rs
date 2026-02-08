@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_build_v2::client::RepositoryManager;
 /// let client = RepositoryManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
@@ -66,7 +66,7 @@ impl RepositoryManager {
     /// Returns a builder for [RepositoryManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// let client = RepositoryManager::builder().build().await?;
     /// # Ok(()) }

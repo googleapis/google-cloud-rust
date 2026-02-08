@@ -20,7 +20,7 @@ pub mod workstations {
     /// A builder for [Workstations][crate::client::Workstations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_workstations_v1::*;
     /// # use builder::workstations::ClientBuilder;
     /// # use client::Workstations;
@@ -75,7 +75,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstationCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -140,7 +140,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstationClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -251,7 +251,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -403,7 +403,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -567,7 +567,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -701,7 +701,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -766,7 +766,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstationConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -875,7 +875,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListUsableWorkstationConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -986,7 +986,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1138,7 +1138,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1302,7 +1302,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1436,7 +1436,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1498,7 +1498,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1607,7 +1607,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListUsableWorkstations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1716,7 +1716,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1864,7 +1864,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2024,7 +2024,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2148,7 +2148,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::StartWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2272,7 +2272,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::StopWorkstation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2393,7 +2393,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GenerateAccessToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2498,7 +2498,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2603,7 +2603,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2686,7 +2686,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2766,7 +2766,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2887,7 +2887,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2950,7 +2950,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3015,7 +3015,7 @@ pub mod workstations {
     /// # Example
     /// ```
     /// # use google_cloud_workstations_v1::builder::workstations::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_workstations_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

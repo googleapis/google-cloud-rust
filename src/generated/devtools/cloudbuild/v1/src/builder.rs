@@ -20,7 +20,7 @@ pub mod cloud_build {
     /// A builder for [CloudBuild][crate::client::CloudBuild].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v1::*;
     /// # use builder::cloud_build::ClientBuilder;
     /// # use client::CloudBuild;
@@ -75,7 +75,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CreateBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -212,7 +212,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::GetBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -288,7 +288,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ListBuilds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -404,7 +404,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CancelBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -480,7 +480,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::RetryBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -603,7 +603,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ApproveBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -730,7 +730,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CreateBuildTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -823,7 +823,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::GetBuildTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -899,7 +899,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ListBuildTriggers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1014,7 +1014,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::DeleteBuildTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1093,7 +1093,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::UpdateBuildTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1206,7 +1206,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::RunBuildTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1347,7 +1347,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ReceiveTriggerWebhook;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1446,7 +1446,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CreateWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1596,7 +1596,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::GetWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1658,7 +1658,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::DeleteWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1788,7 +1788,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::UpdateWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1940,7 +1940,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::ListWorkerPools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2046,7 +2046,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::GetDefaultServiceAccount;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2113,7 +2113,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2176,7 +2176,7 @@ pub mod cloud_build {
     /// # Example
     /// ```
     /// # use google_cloud_build_v1::builder::cloud_build::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

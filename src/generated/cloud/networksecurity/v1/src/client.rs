@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
 /// let client = AddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -68,7 +68,7 @@ impl AddressGroupService {
     /// Returns a builder for [AddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
     /// let client = AddressGroupService::builder().build().await?;
     /// # Ok(()) }
@@ -311,7 +311,7 @@ impl AddressGroupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
 /// let client = OrganizationAddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -359,7 +359,7 @@ impl OrganizationAddressGroupService {
     /// Returns a builder for [OrganizationAddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
     /// let client = OrganizationAddressGroupService::builder().build().await?;
     /// # Ok(()) }
@@ -641,7 +641,7 @@ impl OrganizationAddressGroupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
 /// let client = NetworkSecurity::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -689,7 +689,7 @@ impl NetworkSecurity {
     /// Returns a builder for [NetworkSecurity].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// let client = NetworkSecurity::builder().build().await?;
     /// # Ok(()) }

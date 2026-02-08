@@ -20,7 +20,7 @@ pub mod language_service {
     /// A builder for [LanguageService][crate::client::LanguageService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_language_v2::*;
     /// # use builder::language_service::ClientBuilder;
     /// # use client::LanguageService;
@@ -75,7 +75,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnalyzeSentiment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -160,7 +160,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnalyzeEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -242,7 +242,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::ClassifyText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -318,7 +318,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::ModerateText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -403,7 +403,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnnotateText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

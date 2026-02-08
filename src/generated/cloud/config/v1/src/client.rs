@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_config_v1::client::Config;
 /// let client = Config::builder().build().await?;
 /// // use `client` to make requests to the Infrastructure Manager API.
@@ -67,7 +67,7 @@ impl Config {
     /// Returns a builder for [Config].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_config_v1::client::Config;
     /// let client = Config::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod builds {
     /// A builder for [Builds][crate::client::Builds].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::builds::ClientBuilder;
     /// # use client::Builds;
@@ -73,7 +73,7 @@ pub mod builds {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::builds::SubmitBuild;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -256,7 +256,7 @@ pub mod builds {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::builds::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -375,7 +375,7 @@ pub mod builds {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::builds::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -436,7 +436,7 @@ pub mod builds {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::builds::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -499,7 +499,7 @@ pub mod builds {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::builds::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -580,7 +580,7 @@ pub mod executions {
     /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::executions::ClientBuilder;
     /// # use client::Executions;
@@ -635,7 +635,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::GetExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -697,7 +697,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::ListExecutions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -809,7 +809,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::DeleteExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -930,7 +930,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::CancelExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1051,7 +1051,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1172,7 +1172,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1235,7 +1235,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1300,7 +1300,7 @@ pub mod executions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::executions::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1383,7 +1383,7 @@ pub mod instances {
     /// A builder for [Instances][crate::client::Instances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::instances::ClientBuilder;
     /// # use client::Instances;
@@ -1438,7 +1438,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1582,7 +1582,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1702,7 +1702,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1764,7 +1764,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1874,7 +1874,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::StopInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1994,7 +1994,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::StartInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2114,7 +2114,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2235,7 +2235,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2298,7 +2298,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2363,7 +2363,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::instances::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2446,7 +2446,7 @@ pub mod jobs {
     /// A builder for [Jobs][crate::client::Jobs].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::jobs::ClientBuilder;
     /// # use client::Jobs;
@@ -2499,7 +2499,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::CreateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2637,7 +2637,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2697,7 +2697,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2803,7 +2803,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::UpdateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2931,7 +2931,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3045,7 +3045,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::RunJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3182,7 +3182,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3263,7 +3263,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3366,7 +3366,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3444,7 +3444,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3563,7 +3563,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3624,7 +3624,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3687,7 +3687,7 @@ pub mod jobs {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::jobs::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3768,7 +3768,7 @@ pub mod revisions {
     /// A builder for [Revisions][crate::client::Revisions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::revisions::ClientBuilder;
     /// # use client::Revisions;
@@ -3823,7 +3823,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::GetRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3885,7 +3885,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::ListRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3995,7 +3995,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::DeleteRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4115,7 +4115,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4236,7 +4236,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4299,7 +4299,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4364,7 +4364,7 @@ pub mod revisions {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::revisions::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4447,7 +4447,7 @@ pub mod services {
     /// A builder for [Services][crate::client::Services].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::services::ClientBuilder;
     /// # use client::Services;
@@ -4500,7 +4500,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::CreateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4640,7 +4640,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4700,7 +4700,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4808,7 +4808,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::UpdateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4956,7 +4956,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5072,7 +5072,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5153,7 +5153,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5256,7 +5256,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5334,7 +5334,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5453,7 +5453,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5514,7 +5514,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5577,7 +5577,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::services::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5658,7 +5658,7 @@ pub mod tasks {
     /// A builder for [Tasks][crate::client::Tasks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::tasks::ClientBuilder;
     /// # use client::Tasks;
@@ -5711,7 +5711,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::GetTask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5771,7 +5771,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::ListTasks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5877,7 +5877,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5996,7 +5996,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6057,7 +6057,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6120,7 +6120,7 @@ pub mod tasks {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::tasks::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6201,7 +6201,7 @@ pub mod worker_pools {
     /// A builder for [WorkerPools][crate::client::WorkerPools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::*;
     /// # use builder::worker_pools::ClientBuilder;
     /// # use client::WorkerPools;
@@ -6256,7 +6256,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::CreateWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6404,7 +6404,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::GetWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6466,7 +6466,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::ListWorkerPools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6578,7 +6578,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::UpdateWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6740,7 +6740,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::DeleteWorkerPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6864,7 +6864,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6947,7 +6947,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7052,7 +7052,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7132,7 +7132,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7253,7 +7253,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7316,7 +7316,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7381,7 +7381,7 @@ pub mod worker_pools {
     /// # Example
     /// ```
     /// # use google_cloud_run_v2::builder::worker_pools::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_run_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

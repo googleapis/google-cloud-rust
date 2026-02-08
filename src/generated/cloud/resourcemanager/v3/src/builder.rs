@@ -20,7 +20,7 @@ pub mod folders {
     /// A builder for [Folders][crate::client::Folders].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::folders::ClientBuilder;
     /// # use client::Folders;
@@ -73,7 +73,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::GetFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -133,7 +133,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::ListFolders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -241,7 +241,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::SearchFolders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -341,7 +341,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::CreateFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -462,7 +462,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::UpdateFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -605,7 +605,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::MoveFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -720,7 +720,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::DeleteFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -827,7 +827,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::UndeleteFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -934,7 +934,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1015,7 +1015,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1118,7 +1118,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1196,7 +1196,7 @@ pub mod folders {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::folders::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1259,7 +1259,7 @@ pub mod organizations {
     /// A builder for [Organizations][crate::client::Organizations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::organizations::ClientBuilder;
     /// # use client::Organizations;
@@ -1314,7 +1314,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::GetOrganization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1376,7 +1376,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::SearchOrganizations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1483,7 +1483,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1566,7 +1566,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1671,7 +1671,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1751,7 +1751,7 @@ pub mod organizations {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::organizations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1816,7 +1816,7 @@ pub mod projects {
     /// A builder for [Projects][crate::client::Projects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::projects::ClientBuilder;
     /// # use client::Projects;
@@ -1869,7 +1869,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::GetProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1929,7 +1929,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::ListProjects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2037,7 +2037,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::SearchProjects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2139,7 +2139,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::CreateProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2260,7 +2260,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::UpdateProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2399,7 +2399,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::MoveProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2514,7 +2514,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::DeleteProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2621,7 +2621,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::UndeleteProject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2728,7 +2728,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2809,7 +2809,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2912,7 +2912,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2990,7 +2990,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::projects::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3053,7 +3053,7 @@ pub mod tag_bindings {
     /// A builder for [TagBindings][crate::client::TagBindings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_bindings::ClientBuilder;
     /// # use client::TagBindings;
@@ -3108,7 +3108,7 @@ pub mod tag_bindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::ListTagBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3214,7 +3214,7 @@ pub mod tag_bindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::CreateTagBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3348,7 +3348,7 @@ pub mod tag_bindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::DeleteTagBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3459,7 +3459,7 @@ pub mod tag_bindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::ListEffectiveTags;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3568,7 +3568,7 @@ pub mod tag_bindings {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3633,7 +3633,7 @@ pub mod tag_holds {
     /// A builder for [TagHolds][crate::client::TagHolds].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_holds::ClientBuilder;
     /// # use client::TagHolds;
@@ -3686,7 +3686,7 @@ pub mod tag_holds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::CreateTagHold;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3821,7 +3821,7 @@ pub mod tag_holds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::DeleteTagHold;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3933,7 +3933,7 @@ pub mod tag_holds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::ListTagHolds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4041,7 +4041,7 @@ pub mod tag_holds {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_holds::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4104,7 +4104,7 @@ pub mod tag_keys {
     /// A builder for [TagKeys][crate::client::TagKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_keys::ClientBuilder;
     /// # use client::TagKeys;
@@ -4157,7 +4157,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::ListTagKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4259,7 +4259,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetTagKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4319,7 +4319,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetNamespacedTagKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4382,7 +4382,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::CreateTagKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4509,7 +4509,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::UpdateTagKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4654,7 +4654,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::DeleteTagKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4773,7 +4773,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4854,7 +4854,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4957,7 +4957,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5035,7 +5035,7 @@ pub mod tag_keys {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5098,7 +5098,7 @@ pub mod tag_values {
     /// A builder for [TagValues][crate::client::TagValues].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_values::ClientBuilder;
     /// # use client::TagValues;
@@ -5153,7 +5153,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::ListTagValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5257,7 +5257,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetTagValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5319,7 +5319,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetNamespacedTagValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5384,7 +5384,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::CreateTagValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5513,7 +5513,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::UpdateTagValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5660,7 +5660,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::DeleteTagValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5781,7 +5781,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5864,7 +5864,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5969,7 +5969,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6049,7 +6049,7 @@ pub mod tag_values {
     /// # Example
     /// ```
     /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_resourcemanager_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

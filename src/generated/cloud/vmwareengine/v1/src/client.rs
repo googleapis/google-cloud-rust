@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
 /// let client = VmwareEngine::builder().build().await?;
 /// // use `client` to make requests to the VMware Engine API.
@@ -66,7 +66,7 @@ impl VmwareEngine {
     /// Returns a builder for [VmwareEngine].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// let client = VmwareEngine::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
 /// let client = AutoscalingPolicyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -67,7 +67,7 @@ impl AutoscalingPolicyService {
     /// Returns a builder for [AutoscalingPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// let client = AutoscalingPolicyService::builder().build().await?;
     /// # Ok(()) }
@@ -221,7 +221,7 @@ impl AutoscalingPolicyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::BatchController;
 /// let client = BatchController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -267,7 +267,7 @@ impl BatchController {
     /// Returns a builder for [BatchController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// let client = BatchController::builder().build().await?;
     /// # Ok(()) }
@@ -409,7 +409,7 @@ impl BatchController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::ClusterController;
 /// let client = ClusterController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -456,7 +456,7 @@ impl ClusterController {
     /// Returns a builder for [ClusterController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::ClusterController;
     /// let client = ClusterController::builder().build().await?;
     /// # Ok(()) }
@@ -693,7 +693,7 @@ impl ClusterController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::JobController;
 /// let client = JobController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -739,7 +739,7 @@ impl JobController {
     /// Returns a builder for [JobController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::JobController;
     /// let client = JobController::builder().build().await?;
     /// # Ok(()) }
@@ -900,7 +900,7 @@ impl JobController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
 /// let client = NodeGroupController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -947,7 +947,7 @@ impl NodeGroupController {
     /// Returns a builder for [NodeGroupController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::NodeGroupController;
     /// let client = NodeGroupController::builder().build().await?;
     /// # Ok(()) }
@@ -1105,7 +1105,7 @@ impl NodeGroupController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
 /// let client = SessionTemplateController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1151,7 +1151,7 @@ impl SessionTemplateController {
     /// Returns a builder for [SessionTemplateController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// let client = SessionTemplateController::builder().build().await?;
     /// # Ok(()) }
@@ -1301,7 +1301,7 @@ impl SessionTemplateController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionController;
 /// let client = SessionController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1347,7 +1347,7 @@ impl SessionController {
     /// Returns a builder for [SessionController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::SessionController;
     /// let client = SessionController::builder().build().await?;
     /// # Ok(()) }
@@ -1515,7 +1515,7 @@ impl SessionController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
 /// let client = WorkflowTemplateService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
@@ -1562,7 +1562,7 @@ impl WorkflowTemplateService {
     /// Returns a builder for [WorkflowTemplateService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// let client = WorkflowTemplateService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod dep_service {
     /// A builder for [DepService][crate::client::DepService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::*;
     /// # use builder::dep_service::ClientBuilder;
     /// # use client::DepService;
@@ -75,7 +75,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListLbTrafficExtensions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -198,7 +198,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetLbTrafficExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -263,7 +263,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::CreateLbTrafficExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -415,7 +415,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::UpdateLbTrafficExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -569,7 +569,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::DeleteLbTrafficExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -684,7 +684,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListLbRouteExtensions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -805,7 +805,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetLbRouteExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -870,7 +870,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::CreateLbRouteExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1018,7 +1018,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::UpdateLbRouteExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1168,7 +1168,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::DeleteLbRouteExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1281,7 +1281,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListLbEdgeExtensions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1402,7 +1402,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetLbEdgeExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1467,7 +1467,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::CreateLbEdgeExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1615,7 +1615,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::UpdateLbEdgeExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1765,7 +1765,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::DeleteLbEdgeExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1878,7 +1878,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListAuthzExtensions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1999,7 +1999,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetAuthzExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2064,7 +2064,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::CreateAuthzExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2212,7 +2212,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::UpdateAuthzExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2366,7 +2366,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::DeleteAuthzExtension;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2479,7 +2479,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2592,7 +2592,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2655,7 +2655,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2760,7 +2760,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2843,7 +2843,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2923,7 +2923,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3044,7 +3044,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3107,7 +3107,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3172,7 +3172,7 @@ pub mod dep_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::dep_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3239,7 +3239,7 @@ pub mod network_services {
     /// A builder for [NetworkServices][crate::client::NetworkServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::*;
     /// # use builder::network_services::ClientBuilder;
     /// # use client::NetworkServices;
@@ -3294,7 +3294,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListEndpointPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3409,7 +3409,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetEndpointPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3474,7 +3474,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateEndpointPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3616,7 +3616,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateEndpointPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3760,7 +3760,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteEndpointPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3867,7 +3867,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListWasmPluginVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3976,7 +3976,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetWasmPluginVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4041,7 +4041,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateWasmPluginVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4187,7 +4187,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteWasmPluginVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4296,7 +4296,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListWasmPlugins;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4402,7 +4402,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetWasmPlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4470,7 +4470,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateWasmPlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4612,7 +4612,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateWasmPlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4756,7 +4756,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteWasmPlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4863,7 +4863,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListGateways;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4967,7 +4967,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5029,7 +5029,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5168,7 +5168,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5309,7 +5309,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5413,7 +5413,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListGrpcRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5525,7 +5525,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetGrpcRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5587,7 +5587,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateGrpcRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5726,7 +5726,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateGrpcRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5867,7 +5867,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteGrpcRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5971,7 +5971,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListHttpRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6083,7 +6083,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetHttpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6145,7 +6145,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateHttpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6284,7 +6284,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateHttpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6425,7 +6425,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteHttpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6529,7 +6529,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListTcpRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6639,7 +6639,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetTcpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6701,7 +6701,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateTcpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6840,7 +6840,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateTcpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6981,7 +6981,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteTcpRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7085,7 +7085,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListTlsRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7195,7 +7195,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetTlsRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7257,7 +7257,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateTlsRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7396,7 +7396,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateTlsRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7537,7 +7537,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteTlsRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7641,7 +7641,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListServiceBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7750,7 +7750,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetServiceBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7815,7 +7815,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateServiceBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7957,7 +7957,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateServiceBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8101,7 +8101,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteServiceBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8208,7 +8208,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListMeshes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8318,7 +8318,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetMesh;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8380,7 +8380,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateMesh;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8519,7 +8519,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateMesh;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8660,7 +8660,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteMesh;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8764,7 +8764,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListServiceLbPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8873,7 +8873,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetServiceLbPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8938,7 +8938,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CreateServiceLbPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9080,7 +9080,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::UpdateServiceLbPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9224,7 +9224,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteServiceLbPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9331,7 +9331,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetGatewayRouteView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9396,7 +9396,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetMeshRouteView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9461,7 +9461,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListGatewayRouteViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9570,7 +9570,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListMeshRouteViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9679,7 +9679,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9792,7 +9792,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9855,7 +9855,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9960,7 +9960,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10043,7 +10043,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10123,7 +10123,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10244,7 +10244,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10307,7 +10307,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10372,7 +10372,7 @@ pub mod network_services {
     /// # Example
     /// ```
     /// # use google_cloud_networkservices_v1::builder::network_services::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

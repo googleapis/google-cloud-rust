@@ -20,7 +20,7 @@ pub mod advisory_notifications_service {
     /// A builder for [AdvisoryNotificationsService][crate::client::AdvisoryNotificationsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_advisorynotifications_v1::*;
     /// # use builder::advisory_notifications_service::ClientBuilder;
     /// # use client::AdvisoryNotificationsService;
@@ -75,7 +75,7 @@ pub mod advisory_notifications_service {
     /// # Example
     /// ```
     /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::ListNotifications;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_advisorynotifications_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod advisory_notifications_service {
     /// # Example
     /// ```
     /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::GetNotification;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_advisorynotifications_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -264,7 +264,7 @@ pub mod advisory_notifications_service {
     /// # Example
     /// ```
     /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::GetSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_advisorynotifications_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -326,7 +326,7 @@ pub mod advisory_notifications_service {
     /// # Example
     /// ```
     /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::UpdateSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_advisorynotifications_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -68,7 +68,7 @@ impl Folders {
     /// Returns a builder for [Folders].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// let client = Folders::builder().build().await?;
     /// # Ok(()) }
@@ -535,7 +535,7 @@ impl Folders {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -581,7 +581,7 @@ impl Organizations {
     /// Returns a builder for [Organizations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// let client = Organizations::builder().build().await?;
     /// # Ok(()) }
@@ -776,7 +776,7 @@ impl Organizations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -822,7 +822,7 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// let client = Projects::builder().build().await?;
     /// # Ok(()) }
@@ -1304,7 +1304,7 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1351,7 +1351,7 @@ impl TagBindings {
     /// Returns a builder for [TagBindings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
     /// let client = TagBindings::builder().build().await?;
     /// # Ok(()) }
@@ -1515,7 +1515,7 @@ impl TagBindings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1565,7 +1565,7 @@ impl TagHolds {
     /// Returns a builder for [TagHolds].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
     /// let client = TagHolds::builder().build().await?;
     /// # Ok(()) }
@@ -1720,7 +1720,7 @@ impl TagHolds {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1766,7 +1766,7 @@ impl TagKeys {
     /// Returns a builder for [TagKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// let client = TagKeys::builder().build().await?;
     /// # Ok(()) }
@@ -2087,7 +2087,7 @@ impl TagKeys {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -2133,7 +2133,7 @@ impl TagValues {
     /// Returns a builder for [TagValues].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// let client = TagValues::builder().build().await?;
     /// # Ok(()) }

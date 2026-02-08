@@ -20,7 +20,7 @@ pub mod contact_center_insights {
     /// A builder for [ContactCenterInsights][crate::client::ContactCenterInsights].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_contactcenterinsights_v1::*;
     /// # use builder::contact_center_insights::ClientBuilder;
     /// # use client::ContactCenterInsights;
@@ -75,7 +75,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -168,7 +168,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UploadConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -346,7 +346,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -443,7 +443,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -511,7 +511,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListConversations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -638,7 +638,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -709,7 +709,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateAnalysis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -842,7 +842,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetAnalysis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -904,7 +904,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAnalyses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1014,7 +1014,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteAnalysis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1076,7 +1076,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkAnalyzeConversations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1226,7 +1226,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDeleteConversations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1360,7 +1360,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::IngestConversations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1608,7 +1608,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportInsightsData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1778,7 +1778,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1914,7 +1914,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2011,7 +2011,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2073,7 +2073,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListIssueModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2135,7 +2135,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2246,7 +2246,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeployIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2360,7 +2360,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UndeployIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2474,7 +2474,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2619,7 +2619,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ImportIssueModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2768,7 +2768,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2830,7 +2830,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListIssues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2892,7 +2892,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2986,7 +2986,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3048,7 +3048,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CalculateIssueModelStats;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3115,7 +3115,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreatePhraseMatcher;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3202,7 +3202,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetPhraseMatcher;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3267,7 +3267,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListPhraseMatchers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3382,7 +3382,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeletePhraseMatcher;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3447,7 +3447,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdatePhraseMatcher;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3544,7 +3544,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CalculateStats;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3612,7 +3612,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3674,7 +3674,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3772,7 +3772,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateAnalysisRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3859,7 +3859,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetAnalysisRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3921,7 +3921,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAnalysisRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4030,7 +4030,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateAnalysisRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4127,7 +4127,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteAnalysisRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4192,7 +4192,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetEncryptionSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4257,7 +4257,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::InitializeEncryptionSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4387,7 +4387,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4471,7 +4471,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4533,7 +4533,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4635,7 +4635,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4729,7 +4729,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4791,7 +4791,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::QueryMetrics;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4950,7 +4950,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaQuestion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5043,7 +5043,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaQuestion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5105,7 +5105,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateQaQuestion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5206,7 +5206,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaQuestion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5271,7 +5271,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaQuestions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5377,7 +5377,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaScorecard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5470,7 +5470,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaScorecard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5532,7 +5532,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateQaScorecard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5633,7 +5633,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaScorecard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5704,7 +5704,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaScorecards;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5813,7 +5813,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5908,7 +5908,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5973,7 +5973,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::TuneQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6103,7 +6103,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeployQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6170,7 +6170,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UndeployQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6237,7 +6237,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaScorecardRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6310,7 +6310,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaScorecardRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6427,7 +6427,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateFeedbackLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6520,7 +6520,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListFeedbackLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6635,7 +6635,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetFeedbackLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6700,7 +6700,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateFeedbackLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6801,7 +6801,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteFeedbackLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6866,7 +6866,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAllFeedbackLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6981,7 +6981,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkUploadFeedbackLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7134,7 +7134,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDownloadFeedbackLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7323,7 +7323,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7444,7 +7444,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7507,7 +7507,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

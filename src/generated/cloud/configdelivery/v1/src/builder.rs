@@ -20,7 +20,7 @@ pub mod config_delivery {
     /// A builder for [ConfigDelivery][crate::client::ConfigDelivery].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_configdelivery_v1::*;
     /// # use builder::config_delivery::ClientBuilder;
     /// # use client::ConfigDelivery;
@@ -75,7 +75,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListResourceBundles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetResourceBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateResourceBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -409,7 +409,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateResourceBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -563,7 +563,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteResourceBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -682,7 +682,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListFleetPackages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -803,7 +803,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetFleetPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -865,7 +865,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateFleetPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1013,7 +1013,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateFleetPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1167,7 +1167,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteFleetPackage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1292,7 +1292,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListReleases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1408,7 +1408,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1470,7 +1470,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1615,7 +1615,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1766,7 +1766,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1882,7 +1882,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListVariants;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1998,7 +1998,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetVariant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2060,7 +2060,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateVariant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2205,7 +2205,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateVariant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2352,7 +2352,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteVariant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2462,7 +2462,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListRollouts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2578,7 +2578,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2640,7 +2640,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::SuspendRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2755,7 +2755,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ResumeRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2870,7 +2870,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::AbortRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2985,7 +2985,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3098,7 +3098,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3161,7 +3161,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3282,7 +3282,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3345,7 +3345,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3410,7 +3410,7 @@ pub mod config_delivery {
     /// # Example
     /// ```
     /// # use google_cloud_configdelivery_v1::builder::config_delivery::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_configdelivery_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

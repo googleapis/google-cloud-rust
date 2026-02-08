@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
 /// let client = TextToSpeech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
@@ -66,7 +66,7 @@ impl TextToSpeech {
     /// Returns a builder for [TextToSpeech].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
     /// let client = TextToSpeech::builder().build().await?;
     /// # Ok(()) }
@@ -148,7 +148,7 @@ impl TextToSpeech {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
@@ -194,7 +194,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// Returns a builder for [TextToSpeechLongAudioSynthesize].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
     /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod rapid_migration_assessment {
     /// A builder for [RapidMigrationAssessment][crate::client::RapidMigrationAssessment].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_rapidmigrationassessment_v1::*;
     /// # use builder::rapid_migration_assessment::ClientBuilder;
     /// # use client::RapidMigrationAssessment;
@@ -75,7 +75,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::CreateCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -220,7 +220,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::CreateAnnotation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -360,7 +360,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::GetAnnotation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -422,7 +422,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::ListCollectors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -540,7 +540,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::GetCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -602,7 +602,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::UpdateCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -753,7 +753,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::DeleteCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -868,7 +868,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::ResumeCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -983,7 +983,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::RegisterCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1101,7 +1101,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::PauseCollector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1216,7 +1216,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1329,7 +1329,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1392,7 +1392,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1513,7 +1513,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1576,7 +1576,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1641,7 +1641,7 @@ pub mod rapid_migration_assessment {
     /// # Example
     /// ```
     /// # use google_cloud_rapidmigrationassessment_v1::builder::rapid_migration_assessment::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_rapidmigrationassessment_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

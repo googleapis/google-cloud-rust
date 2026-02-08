@@ -20,7 +20,7 @@ pub mod translation_service {
     /// A builder for [TranslationService][crate::client::TranslationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_translation_v3::*;
     /// # use builder::translation_service::ClientBuilder;
     /// # use client::TranslationService;
@@ -75,7 +75,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::TranslateText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -223,7 +223,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::RomanizeText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -304,7 +304,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DetectLanguage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -411,7 +411,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetSupportedLanguages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -488,7 +488,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::TranslateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -666,7 +666,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateText;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -869,7 +869,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1091,7 +1091,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateGlossary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1222,7 +1222,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::UpdateGlossary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1363,7 +1363,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListGlossaries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1475,7 +1475,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetGlossary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1537,7 +1537,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteGlossary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1648,7 +1648,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetGlossaryEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1713,7 +1713,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListGlossaryEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1822,7 +1822,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateGlossaryEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1909,7 +1909,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::UpdateGlossaryEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1988,7 +1988,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteGlossaryEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2053,7 +2053,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2184,7 +2184,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2246,7 +2246,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2350,7 +2350,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2458,7 +2458,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateAdaptiveMtDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2547,7 +2547,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteAdaptiveMtDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2614,7 +2614,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetAdaptiveMtDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2679,7 +2679,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2794,7 +2794,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::AdaptiveMtTranslate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2923,7 +2923,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetAdaptiveMtFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2988,7 +2988,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteAdaptiveMtFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3053,7 +3053,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ImportAdaptiveMtFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3162,7 +3162,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3271,7 +3271,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtSentences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3382,7 +3382,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ImportData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3508,7 +3508,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ExportData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3634,7 +3634,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListExamples;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3744,7 +3744,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CreateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3875,7 +3875,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3985,7 +3985,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4047,7 +4047,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4155,7 +4155,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4268,7 +4268,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4331,7 +4331,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4452,7 +4452,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4515,7 +4515,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4580,7 +4580,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4645,7 +4645,7 @@ pub mod translation_service {
     /// # Example
     /// ```
     /// # use google_cloud_translation_v3::builder::translation_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_translation_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

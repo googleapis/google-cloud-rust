@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_netapp_v1::client::NetApp;
 /// let client = NetApp::builder().build().await?;
 /// // use `client` to make requests to the NetApp API.
@@ -66,7 +66,7 @@ impl NetApp {
     /// Returns a builder for [NetApp].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// let client = NetApp::builder().build().await?;
     /// # Ok(()) }

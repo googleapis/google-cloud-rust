@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
 /// let client = TimeseriesInsightsController::builder().build().await?;
 /// // use `client` to make requests to the Timeseries Insights API.
@@ -65,7 +65,7 @@ impl TimeseriesInsightsController {
     /// Returns a builder for [TimeseriesInsightsController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
     /// let client = TimeseriesInsightsController::builder().build().await?;
     /// # Ok(()) }

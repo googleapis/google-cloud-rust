@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// let client = AnalyticsService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -67,7 +67,7 @@ impl AnalyticsService {
     /// Returns a builder for [AnalyticsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::AnalyticsService;
     /// let client = AnalyticsService::builder().build().await?;
     /// # Ok(()) }
@@ -159,7 +159,7 @@ impl AnalyticsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -205,7 +205,7 @@ impl CatalogService {
     /// Returns a builder for [CatalogService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
     /// # Ok(()) }
@@ -428,7 +428,7 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -477,7 +477,7 @@ impl CompletionService {
     /// Returns a builder for [CompletionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
     /// # Ok(()) }
@@ -582,7 +582,7 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -628,7 +628,7 @@ impl ControlService {
     /// Returns a builder for [ControlService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// let client = ControlService::builder().build().await?;
     /// # Ok(()) }
@@ -744,7 +744,7 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -794,7 +794,7 @@ impl ConversationalSearchService {
     /// Returns a builder for [ConversationalSearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
     /// # Ok(()) }
@@ -867,7 +867,7 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -913,7 +913,7 @@ impl GenerativeQuestionService {
     /// Returns a builder for [GenerativeQuestionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
     /// let client = GenerativeQuestionService::builder().build().await?;
     /// # Ok(()) }
@@ -1033,7 +1033,7 @@ impl GenerativeQuestionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1090,7 +1090,7 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
     /// # Ok(()) }
@@ -1224,7 +1224,7 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1270,7 +1270,7 @@ impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::PredictionService;
     /// let client = PredictionService::builder().build().await?;
     /// # Ok(()) }
@@ -1347,7 +1347,7 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ProductService;
 /// let client = ProductService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1396,7 +1396,7 @@ impl ProductService {
     /// Returns a builder for [ProductService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// let client = ProductService::builder().build().await?;
     /// # Ok(()) }
@@ -1845,7 +1845,7 @@ impl ProductService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1894,7 +1894,7 @@ impl SearchService {
     /// Returns a builder for [SearchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::SearchService;
     /// let client = SearchService::builder().build().await?;
     /// # Ok(()) }
@@ -1973,7 +1973,7 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -2019,7 +2019,7 @@ impl ServingConfigService {
     /// Returns a builder for [ServingConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
     /// # Ok(()) }
@@ -2154,7 +2154,7 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -2200,7 +2200,7 @@ impl UserEventService {
     /// Returns a builder for [UserEventService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
     /// # Ok(()) }

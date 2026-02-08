@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_eventarc_v1::client::Eventarc;
 /// let client = Eventarc::builder().build().await?;
 /// // use `client` to make requests to the Eventarc API.
@@ -67,7 +67,7 @@ impl Eventarc {
     /// Returns a builder for [Eventarc].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// let client = Eventarc::builder().build().await?;
     /// # Ok(()) }

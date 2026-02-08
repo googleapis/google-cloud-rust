@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_shell_v1::client::CloudShellService;
 /// let client = CloudShellService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Shell API.
@@ -72,7 +72,7 @@ impl CloudShellService {
     /// Returns a builder for [CloudShellService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_shell_v1::client::CloudShellService;
     /// let client = CloudShellService::builder().build().await?;
     /// # Ok(()) }

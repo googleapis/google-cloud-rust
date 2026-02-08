@@ -20,7 +20,7 @@ pub mod recommender {
     /// A builder for [Recommender][crate::client::Recommender].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_recommender_v1::*;
     /// # use builder::recommender::ClientBuilder;
     /// # use client::Recommender;
@@ -75,7 +75,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::ListInsights;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -185,7 +185,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetInsight;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -247,7 +247,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkInsightAccepted;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -332,7 +332,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::ListRecommendations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -447,7 +447,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetRecommendation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -512,7 +512,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationDismissed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -585,7 +585,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationClaimed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -672,7 +672,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationSucceeded;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -759,7 +759,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationFailed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -846,7 +846,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetRecommenderConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -911,7 +911,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::UpdateRecommenderConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1016,7 +1016,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetInsightTypeConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1081,7 +1081,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::UpdateInsightTypeConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

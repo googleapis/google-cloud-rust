@@ -20,7 +20,7 @@ pub mod cloud_filestore_manager {
     /// A builder for [CloudFilestoreManager][crate::client::CloudFilestoreManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_filestore_v1::*;
     /// # use builder::cloud_filestore_manager::ClientBuilder;
     /// # use client::CloudFilestoreManager;
@@ -75,7 +75,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -394,7 +394,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -533,7 +533,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::RestoreInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -677,7 +677,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::RevertInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -796,7 +796,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -911,7 +911,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::ListSnapshots;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1033,7 +1033,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::GetSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1095,7 +1095,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1236,7 +1236,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1345,7 +1345,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1492,7 +1492,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1608,7 +1608,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1670,7 +1670,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1811,7 +1811,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1920,7 +1920,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2067,7 +2067,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::PromoteReplica;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2184,7 +2184,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2297,7 +2297,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2360,7 +2360,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2481,7 +2481,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2544,7 +2544,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2609,7 +2609,7 @@ pub mod cloud_filestore_manager {
     /// # Example
     /// ```
     /// # use google_cloud_filestore_v1::builder::cloud_filestore_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_filestore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

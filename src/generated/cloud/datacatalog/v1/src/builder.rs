@@ -20,7 +20,7 @@ pub mod data_catalog {
     /// A builder for [DataCatalog][crate::client::DataCatalog].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::data_catalog::ClientBuilder;
     /// # use client::DataCatalog;
@@ -75,7 +75,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SearchCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -211,7 +211,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateEntryGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -302,7 +302,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetEntryGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -382,7 +382,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateEntryGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -479,7 +479,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteEntryGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -550,7 +550,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListEntryGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -656,7 +656,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -748,7 +748,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -842,7 +842,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -904,7 +904,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -966,7 +966,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::LookupEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1083,7 +1083,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1205,7 +1205,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ModifyEntryOverview;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1292,7 +1292,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ModifyEntryContacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1379,7 +1379,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTagTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1474,7 +1474,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetTagTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1536,7 +1536,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTagTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1633,7 +1633,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTagTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1706,7 +1706,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTagTemplateField;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1801,7 +1801,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTagTemplateField;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1906,7 +1906,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RenameTagTemplateField;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1979,7 +1979,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RenameTagTemplateFieldEnumValue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2057,7 +2057,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTagTemplateField;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2130,7 +2130,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CreateTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2214,7 +2214,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UpdateTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2308,7 +2308,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2370,7 +2370,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListTags;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2472,7 +2472,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ReconcileTags;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2608,7 +2608,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::StarEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2670,7 +2670,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::UnstarEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2732,7 +2732,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2837,7 +2837,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2920,7 +2920,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3000,7 +3000,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ImportEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3142,7 +3142,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::SetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3248,7 +3248,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RetrieveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3310,7 +3310,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::RetrieveEffectiveConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3377,7 +3377,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3498,7 +3498,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3561,7 +3561,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3626,7 +3626,7 @@ pub mod data_catalog {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::data_catalog::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3693,7 +3693,7 @@ pub mod policy_tag_manager {
     /// A builder for [PolicyTagManager][crate::client::PolicyTagManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::policy_tag_manager::ClientBuilder;
     /// # use client::PolicyTagManager;
@@ -3748,7 +3748,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CreateTaxonomy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3828,7 +3828,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeleteTaxonomy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3890,7 +3890,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::UpdateTaxonomy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3980,7 +3980,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListTaxonomies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4092,7 +4092,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetTaxonomy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4154,7 +4154,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CreatePolicyTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4234,7 +4234,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeletePolicyTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4296,7 +4296,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::UpdatePolicyTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4386,7 +4386,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListPolicyTags;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4492,7 +4492,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetPolicyTag;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4554,7 +4554,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4637,7 +4637,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4742,7 +4742,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4822,7 +4822,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4943,7 +4943,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5006,7 +5006,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5071,7 +5071,7 @@ pub mod policy_tag_manager {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5138,7 +5138,7 @@ pub mod policy_tag_manager_serialization {
     /// A builder for [PolicyTagManagerSerialization][crate::client::PolicyTagManagerSerialization].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::*;
     /// # use builder::policy_tag_manager_serialization::ClientBuilder;
     /// # use client::PolicyTagManagerSerialization;
@@ -5193,7 +5193,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ReplaceTaxonomy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5277,7 +5277,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ImportTaxonomies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5384,7 +5384,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ExportTaxonomies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5486,7 +5486,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5607,7 +5607,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5670,7 +5670,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5735,7 +5735,7 @@ pub mod policy_tag_manager_serialization {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_v1::builder::policy_tag_manager_serialization::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
 /// let client = PolicyTroubleshooter::builder().build().await?;
 /// // use `client` to make requests to the Policy Troubleshooter API.
@@ -68,7 +68,7 @@ impl PolicyTroubleshooter {
     /// Returns a builder for [PolicyTroubleshooter].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
     /// let client = PolicyTroubleshooter::builder().build().await?;
     /// # Ok(()) }

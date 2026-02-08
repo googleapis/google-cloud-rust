@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_maintenance_api_v1::client::Maintenance;
 /// let client = Maintenance::builder().build().await?;
 /// // use `client` to make requests to the Maintenance API.
@@ -66,7 +66,7 @@ impl Maintenance {
     /// Returns a builder for [Maintenance].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_maintenance_api_v1::client::Maintenance;
     /// let client = Maintenance::builder().build().await?;
     /// # Ok(()) }

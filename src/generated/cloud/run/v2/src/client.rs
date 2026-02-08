@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Builds;
 /// let client = Builds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -66,7 +66,7 @@ impl Builds {
     /// Returns a builder for [Builds].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Builds;
     /// let client = Builds::builder().build().await?;
     /// # Ok(()) }
@@ -156,7 +156,7 @@ impl Builds {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Executions;
 /// let client = Executions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -202,7 +202,7 @@ impl Executions {
     /// Returns a builder for [Executions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Executions;
     /// let client = Executions::builder().build().await?;
     /// # Ok(()) }
@@ -328,7 +328,7 @@ impl Executions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -374,7 +374,7 @@ impl Instances {
     /// Returns a builder for [Instances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Instances;
     /// let client = Instances::builder().build().await?;
     /// # Ok(()) }
@@ -529,7 +529,7 @@ impl Instances {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Jobs;
 /// let client = Jobs::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -575,7 +575,7 @@ impl Jobs {
     /// Returns a builder for [Jobs].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Jobs;
     /// let client = Jobs::builder().build().await?;
     /// # Ok(()) }
@@ -749,7 +749,7 @@ impl Jobs {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Revisions;
 /// let client = Revisions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -795,7 +795,7 @@ impl Revisions {
     /// Returns a builder for [Revisions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Revisions;
     /// let client = Revisions::builder().build().await?;
     /// # Ok(()) }
@@ -906,7 +906,7 @@ impl Revisions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Services;
 /// let client = Services::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -952,7 +952,7 @@ impl Services {
     /// Returns a builder for [Services].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Services;
     /// let client = Services::builder().build().await?;
     /// # Ok(()) }
@@ -1113,7 +1113,7 @@ impl Services {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Tasks;
 /// let client = Tasks::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -1159,7 +1159,7 @@ impl Tasks {
     /// Returns a builder for [Tasks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Tasks;
     /// let client = Tasks::builder().build().await?;
     /// # Ok(()) }
@@ -1254,7 +1254,7 @@ impl Tasks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::WorkerPools;
 /// let client = WorkerPools::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
@@ -1300,7 +1300,7 @@ impl WorkerPools {
     /// Returns a builder for [WorkerPools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::WorkerPools;
     /// let client = WorkerPools::builder().build().await?;
     /// # Ok(()) }

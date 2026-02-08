@@ -20,7 +20,7 @@ pub mod repository_manager {
     /// A builder for [RepositoryManager][crate::client::RepositoryManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::*;
     /// # use builder::repository_manager::ClientBuilder;
     /// # use client::RepositoryManager;
@@ -75,7 +75,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CreateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -217,7 +217,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -279,7 +279,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::ListConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -385,7 +385,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::UpdateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -541,7 +541,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::DeleteConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -660,7 +660,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CreateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -802,7 +802,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::BatchCreateRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -931,7 +931,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -993,7 +993,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::ListRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1108,7 +1108,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::DeleteRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1227,7 +1227,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchReadWriteToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1292,7 +1292,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchReadToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1354,7 +1354,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchLinkableRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1465,7 +1465,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchGitRefs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1536,7 +1536,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1641,7 +1641,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1724,7 +1724,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1804,7 +1804,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1867,7 +1867,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

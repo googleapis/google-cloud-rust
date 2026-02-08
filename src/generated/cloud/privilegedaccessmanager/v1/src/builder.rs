@@ -20,7 +20,7 @@ pub mod privileged_access_manager {
     /// A builder for [PrivilegedAccessManager][crate::client::PrivilegedAccessManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_privilegedaccessmanager_v1::*;
     /// # use builder::privileged_access_manager::ClientBuilder;
     /// # use client::PrivilegedAccessManager;
@@ -75,7 +75,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::CheckOnboardingStatus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -140,7 +140,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::ListEntitlements;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -261,7 +261,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::SearchEntitlements;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -389,7 +389,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::GetEntitlement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -451,7 +451,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::CreateEntitlement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -599,7 +599,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::DeleteEntitlement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -723,7 +723,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::UpdateEntitlement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -871,7 +871,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::ListGrants;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -987,7 +987,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::SearchGrants;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1110,7 +1110,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::GetGrant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1172,7 +1172,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::CreateGrant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1262,7 +1262,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::ApproveGrant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1330,7 +1330,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::DenyGrant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1398,7 +1398,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::RevokeGrant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1513,7 +1513,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1626,7 +1626,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1689,7 +1689,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1810,7 +1810,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1873,7 +1873,7 @@ pub mod privileged_access_manager {
     /// # Example
     /// ```
     /// # use google_cloud_privilegedaccessmanager_v1::builder::privileged_access_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_privilegedaccessmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

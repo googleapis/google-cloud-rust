@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
 /// let client = LivestreamService::builder().build().await?;
 /// // use `client` to make requests to the Live Stream API.
@@ -70,7 +70,7 @@ impl LivestreamService {
     /// Returns a builder for [LivestreamService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// let client = LivestreamService::builder().build().await?;
     /// # Ok(()) }

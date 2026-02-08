@@ -45,7 +45,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -146,7 +146,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -265,7 +265,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -374,7 +374,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListBuckets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -508,7 +508,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::LockBucketRetentionPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -583,7 +583,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -735,7 +735,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ComposeObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -930,7 +930,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1102,7 +1102,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::RestoreObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1300,7 +1300,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1514,7 +1514,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1720,7 +1720,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListObjects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1902,7 +1902,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::RewriteObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2264,7 +2264,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::MoveObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

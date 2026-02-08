@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
 /// let client = DataPolicyService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Data Policy API.
@@ -66,7 +66,7 @@ impl DataPolicyService {
     /// Returns a builder for [DataPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
     /// let client = DataPolicyService::builder().build().await?;
     /// # Ok(()) }

@@ -45,7 +45,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -160,7 +160,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -278,7 +278,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -396,7 +396,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListFolders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -530,7 +530,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::RenameFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -703,7 +703,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetStorageLayout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -791,7 +791,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateManagedFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -903,7 +903,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DeleteManagedFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1030,7 +1030,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetManagedFolder;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1151,7 +1151,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListManagedFolders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1285,7 +1285,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::CreateAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1438,7 +1438,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1605,7 +1605,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::DisableAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1687,7 +1687,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::PauseAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1769,7 +1769,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ResumeAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1851,7 +1851,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetAnywhereCache;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1933,7 +1933,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::ListAnywhereCaches;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2061,7 +2061,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetProjectIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2128,7 +2128,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateProjectIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2237,7 +2237,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetFolderIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2304,7 +2304,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateFolderIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2413,7 +2413,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetOrganizationIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2480,7 +2480,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::UpdateOrganizationIntelligenceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2589,7 +2589,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2672,7 +2672,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2777,7 +2777,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2857,7 +2857,7 @@ pub mod storage_control {
     /// # Example
     /// ```
     /// # use google_cloud_storage::builder::storage_control::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

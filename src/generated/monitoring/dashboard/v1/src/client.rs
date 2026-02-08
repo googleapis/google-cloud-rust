@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
 /// let client = DashboardsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -67,7 +67,7 @@ impl DashboardsService {
     /// Returns a builder for [DashboardsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// let client = DashboardsService::builder().build().await?;
     /// # Ok(()) }

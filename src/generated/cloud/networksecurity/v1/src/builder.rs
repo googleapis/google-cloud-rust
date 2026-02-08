@@ -20,7 +20,7 @@ pub mod address_group_service {
     /// A builder for [AddressGroupService][crate::client::AddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::address_group_service::ClientBuilder;
     /// # use client::AddressGroupService;
@@ -75,7 +75,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListAddressGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -190,7 +190,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -252,7 +252,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::CreateAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -400,7 +400,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::UpdateAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -550,7 +550,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::AddAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -681,7 +681,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::RemoveAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -814,7 +814,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::CloneAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -940,7 +940,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::DeleteAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1053,7 +1053,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListAddressGroupReferences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1164,7 +1164,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1277,7 +1277,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1340,7 +1340,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1445,7 +1445,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1528,7 +1528,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1608,7 +1608,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1729,7 +1729,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1792,7 +1792,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1857,7 +1857,7 @@ pub mod address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::address_group_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1924,7 +1924,7 @@ pub mod organization_address_group_service {
     /// A builder for [OrganizationAddressGroupService][crate::client::OrganizationAddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::organization_address_group_service::ClientBuilder;
     /// # use client::OrganizationAddressGroupService;
@@ -1979,7 +1979,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListAddressGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2094,7 +2094,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2156,7 +2156,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CreateAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2304,7 +2304,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::UpdateAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2454,7 +2454,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::AddAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2585,7 +2585,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::RemoveAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2718,7 +2718,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CloneAddressGroupItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2844,7 +2844,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::DeleteAddressGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2957,7 +2957,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListAddressGroupReferences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3068,7 +3068,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3181,7 +3181,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3244,7 +3244,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3349,7 +3349,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3432,7 +3432,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3512,7 +3512,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3633,7 +3633,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3696,7 +3696,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3761,7 +3761,7 @@ pub mod organization_address_group_service {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3828,7 +3828,7 @@ pub mod network_security {
     /// A builder for [NetworkSecurity][crate::client::NetworkSecurity].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::network_security::ClientBuilder;
     /// # use client::NetworkSecurity;
@@ -3883,7 +3883,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::ListAuthorizationPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3994,7 +3994,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetAuthorizationPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4059,7 +4059,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::CreateAuthorizationPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4205,7 +4205,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateAuthorizationPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4353,7 +4353,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteAuthorizationPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4462,7 +4462,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::ListServerTlsPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4571,7 +4571,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetServerTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4636,7 +4636,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::CreateServerTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4778,7 +4778,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateServerTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4922,7 +4922,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteServerTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5029,7 +5029,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::ListClientTlsPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5138,7 +5138,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetClientTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5203,7 +5203,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::CreateClientTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5345,7 +5345,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateClientTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5489,7 +5489,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteClientTlsPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5596,7 +5596,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5709,7 +5709,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5772,7 +5772,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5877,7 +5877,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5960,7 +5960,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6040,7 +6040,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6161,7 +6161,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6224,7 +6224,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6289,7 +6289,7 @@ pub mod network_security {
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::builder::network_security::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod lookup_service {
     /// A builder for [LookupService][crate::client::LookupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::*;
     /// # use builder::lookup_service::ClientBuilder;
     /// # use client::LookupService;
@@ -75,7 +75,7 @@ pub mod lookup_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::lookup_service::ResolveService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -149,7 +149,7 @@ pub mod lookup_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::lookup_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -262,7 +262,7 @@ pub mod lookup_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::lookup_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -327,7 +327,7 @@ pub mod registration_service {
     /// A builder for [RegistrationService][crate::client::RegistrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::*;
     /// # use builder::registration_service::ClientBuilder;
     /// # use client::RegistrationService;
@@ -382,7 +382,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -474,7 +474,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListNamespaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -592,7 +592,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -654,7 +654,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -752,7 +752,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -814,7 +814,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -906,7 +906,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1022,7 +1022,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1084,7 +1084,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1182,7 +1182,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1244,7 +1244,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1336,7 +1336,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListEndpoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1452,7 +1452,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1514,7 +1514,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1612,7 +1612,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1674,7 +1674,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1757,7 +1757,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1862,7 +1862,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1942,7 +1942,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2055,7 +2055,7 @@ pub mod registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_servicedirectory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

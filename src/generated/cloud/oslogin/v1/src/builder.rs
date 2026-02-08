@@ -20,7 +20,7 @@ pub mod os_login_service {
     /// A builder for [OsLoginService][crate::client::OsLoginService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::*;
     /// # use builder::os_login_service::ClientBuilder;
     /// # use client::OsLoginService;
@@ -75,7 +75,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::CreateSshPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -162,7 +162,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::DeletePosixAccount;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -227,7 +227,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::DeleteSshPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -292,7 +292,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::GetLoginProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -366,7 +366,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::GetSshPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -428,7 +428,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::ImportSshPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -528,7 +528,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::UpdateSshPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

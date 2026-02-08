@@ -22,7 +22,7 @@ pub mod data_foundry_service {
     /// A builder for [DataFoundryService][crate::client::DataFoundryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::data_foundry_service::ClientBuilder;
     /// # use client::DataFoundryService;
@@ -77,7 +77,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GenerateSyntheticData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -203,7 +203,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -316,7 +316,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -379,7 +379,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -484,7 +484,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -567,7 +567,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -647,7 +647,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -768,7 +768,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -831,7 +831,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -896,7 +896,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -961,7 +961,7 @@ pub mod data_foundry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1046,7 +1046,7 @@ pub mod dataset_service {
     /// A builder for [DatasetService][crate::client::DatasetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::dataset_service::ClientBuilder;
     /// # use client::DatasetService;
@@ -1101,7 +1101,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1234,7 +1234,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1314,7 +1314,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::UpdateDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1412,7 +1412,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1546,7 +1546,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1654,7 +1654,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ImportData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1778,7 +1778,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ExportData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1911,7 +1911,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDatasetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2047,7 +2047,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::UpdateDatasetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2148,7 +2148,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDatasetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2259,7 +2259,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetDatasetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2342,7 +2342,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDatasetVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2481,7 +2481,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::RestoreDatasetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2595,7 +2595,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDataItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2729,7 +2729,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::SearchDataItems;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2945,7 +2945,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListSavedQueries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3084,7 +3084,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteSavedQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3195,7 +3195,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetAnnotationSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3278,7 +3278,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListAnnotations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3414,7 +3414,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3527,7 +3527,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3590,7 +3590,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3695,7 +3695,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3778,7 +3778,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3858,7 +3858,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3979,7 +3979,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4042,7 +4042,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4107,7 +4107,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4172,7 +4172,7 @@ pub mod dataset_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::dataset_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4257,7 +4257,7 @@ pub mod deployment_resource_pool_service {
     /// A builder for [DeploymentResourcePoolService][crate::client::DeploymentResourcePoolService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::deployment_resource_pool_service::ClientBuilder;
     /// # use client::DeploymentResourcePoolService;
@@ -4312,7 +4312,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::CreateDeploymentResourcePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4461,7 +4461,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetDeploymentResourcePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4528,7 +4528,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListDeploymentResourcePools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4639,7 +4639,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4791,7 +4791,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4904,7 +4904,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::QueryDeployedModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5013,7 +5013,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5126,7 +5126,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5189,7 +5189,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5294,7 +5294,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5377,7 +5377,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5457,7 +5457,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5578,7 +5578,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5641,7 +5641,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5706,7 +5706,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5771,7 +5771,7 @@ pub mod deployment_resource_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5856,7 +5856,7 @@ pub mod endpoint_service {
     /// A builder for [EndpointService][crate::client::EndpointService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::endpoint_service::ClientBuilder;
     /// # use client::EndpointService;
@@ -5911,7 +5911,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::CreateEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6050,7 +6050,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6112,7 +6112,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListEndpoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6246,7 +6246,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UpdateEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6344,7 +6344,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UpdateEndpointLongRunning;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6474,7 +6474,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeleteEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6582,7 +6582,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeployModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6727,7 +6727,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UndeployModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6858,7 +6858,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::MutateDeployedModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7016,7 +7016,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7129,7 +7129,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7192,7 +7192,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7297,7 +7297,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7380,7 +7380,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7460,7 +7460,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7581,7 +7581,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7644,7 +7644,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7709,7 +7709,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7774,7 +7774,7 @@ pub mod endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::endpoint_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7859,7 +7859,7 @@ pub mod evaluation_service {
     /// A builder for [EvaluationService][crate::client::EvaluationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::evaluation_service::ClientBuilder;
     /// # use client::EvaluationService;
@@ -7914,7 +7914,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::EvaluateInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8367,7 +8367,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8480,7 +8480,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8543,7 +8543,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8648,7 +8648,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8731,7 +8731,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8811,7 +8811,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8932,7 +8932,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8995,7 +8995,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9060,7 +9060,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9125,7 +9125,7 @@ pub mod evaluation_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::evaluation_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9210,7 +9210,7 @@ pub mod feature_online_store_admin_service {
     /// A builder for [FeatureOnlineStoreAdminService][crate::client::FeatureOnlineStoreAdminService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_online_store_admin_service::ClientBuilder;
     /// # use client::FeatureOnlineStoreAdminService;
@@ -9265,7 +9265,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureOnlineStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9411,7 +9411,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureOnlineStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9476,7 +9476,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureOnlineStores;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9599,7 +9599,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9747,7 +9747,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9866,7 +9866,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10016,7 +10016,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10078,7 +10078,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10199,7 +10199,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10345,7 +10345,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10456,7 +10456,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::SyncFeatureView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10518,7 +10518,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureViewSync;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10583,7 +10583,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureViewSyncs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10704,7 +10704,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10817,7 +10817,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10880,7 +10880,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10985,7 +10985,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11068,7 +11068,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11148,7 +11148,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11269,7 +11269,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11332,7 +11332,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11397,7 +11397,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11462,7 +11462,7 @@ pub mod feature_online_store_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11547,7 +11547,7 @@ pub mod feature_online_store_service {
     /// A builder for [FeatureOnlineStoreService][crate::client::FeatureOnlineStoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_online_store_service::ClientBuilder;
     /// # use client::FeatureOnlineStoreService;
@@ -11602,7 +11602,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::FetchFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11694,7 +11694,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::SearchNearestEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11787,7 +11787,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GenerateFetchAccessToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11852,7 +11852,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11965,7 +11965,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12028,7 +12028,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12133,7 +12133,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12216,7 +12216,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12296,7 +12296,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12417,7 +12417,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12480,7 +12480,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12545,7 +12545,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12610,7 +12610,7 @@ pub mod feature_online_store_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12695,7 +12695,7 @@ pub mod feature_registry_service {
     /// A builder for [FeatureRegistryService][crate::client::FeatureRegistryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_registry_service::ClientBuilder;
     /// # use client::FeatureRegistryService;
@@ -12750,7 +12750,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeatureGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -12894,7 +12894,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetFeatureGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12956,7 +12956,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListFeatureGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13077,7 +13077,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeatureGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -13223,7 +13223,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeatureGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -13340,7 +13340,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -13481,7 +13481,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::BatchCreateFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -13608,7 +13608,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13670,7 +13670,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13810,7 +13810,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -13953,7 +13953,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -14061,7 +14061,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14174,7 +14174,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14237,7 +14237,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14342,7 +14342,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14425,7 +14425,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14505,7 +14505,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14626,7 +14626,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14689,7 +14689,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14754,7 +14754,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14819,7 +14819,7 @@ pub mod feature_registry_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14904,7 +14904,7 @@ pub mod featurestore_online_serving_service {
     /// A builder for [FeaturestoreOnlineServingService][crate::client::FeaturestoreOnlineServingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::featurestore_online_serving_service::ClientBuilder;
     /// # use client::FeaturestoreOnlineServingService;
@@ -14959,7 +14959,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ReadFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15054,7 +15054,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::WriteFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15132,7 +15132,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15245,7 +15245,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15308,7 +15308,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15413,7 +15413,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15496,7 +15496,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15576,7 +15576,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15697,7 +15697,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15760,7 +15760,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15825,7 +15825,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15890,7 +15890,7 @@ pub mod featurestore_online_serving_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15975,7 +15975,7 @@ pub mod featurestore_service {
     /// A builder for [FeaturestoreService][crate::client::FeaturestoreService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::featurestore_service::ClientBuilder;
     /// # use client::FeaturestoreService;
@@ -16030,7 +16030,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeaturestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16174,7 +16174,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetFeaturestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16236,7 +16236,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListFeaturestores;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16375,7 +16375,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateFeaturestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16521,7 +16521,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeaturestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16638,7 +16638,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16778,7 +16778,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16840,7 +16840,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListEntityTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16976,7 +16976,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17073,7 +17073,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -17190,7 +17190,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -17331,7 +17331,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchCreateFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -17458,7 +17458,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17520,7 +17520,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17660,7 +17660,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17754,7 +17754,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -17862,7 +17862,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ImportFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -18106,7 +18106,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchReadFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -18330,7 +18330,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ExportFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -18545,7 +18545,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeatureValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -18709,7 +18709,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::SearchFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18821,7 +18821,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18934,7 +18934,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18997,7 +18997,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19102,7 +19102,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19185,7 +19185,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19265,7 +19265,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19386,7 +19386,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19449,7 +19449,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19514,7 +19514,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19579,7 +19579,7 @@ pub mod featurestore_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::featurestore_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19664,7 +19664,7 @@ pub mod gen_ai_cache_service {
     /// A builder for [GenAiCacheService][crate::client::GenAiCacheService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::gen_ai_cache_service::ClientBuilder;
     /// # use client::GenAiCacheService;
@@ -19719,7 +19719,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::CreateCachedContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19806,7 +19806,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetCachedContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19871,7 +19871,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::UpdateCachedContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19972,7 +19972,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::DeleteCachedContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20037,7 +20037,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListCachedContents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20146,7 +20146,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20259,7 +20259,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20322,7 +20322,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20427,7 +20427,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20510,7 +20510,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20590,7 +20590,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20711,7 +20711,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20774,7 +20774,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20839,7 +20839,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20904,7 +20904,7 @@ pub mod gen_ai_cache_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20989,7 +20989,7 @@ pub mod gen_ai_tuning_service {
     /// A builder for [GenAiTuningService][crate::client::GenAiTuningService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::gen_ai_tuning_service::ClientBuilder;
     /// # use client::GenAiTuningService;
@@ -21044,7 +21044,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CreateTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21128,7 +21128,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21190,7 +21190,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListTuningJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21302,7 +21302,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CancelTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21364,7 +21364,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::RebaseTunedModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -21542,7 +21542,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21655,7 +21655,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21718,7 +21718,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21823,7 +21823,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21906,7 +21906,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21986,7 +21986,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22107,7 +22107,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22170,7 +22170,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22235,7 +22235,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22300,7 +22300,7 @@ pub mod gen_ai_tuning_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22385,7 +22385,7 @@ pub mod index_endpoint_service {
     /// A builder for [IndexEndpointService][crate::client::IndexEndpointService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::index_endpoint_service::ClientBuilder;
     /// # use client::IndexEndpointService;
@@ -22440,7 +22440,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::CreateIndexEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -22576,7 +22576,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetIndexEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22641,7 +22641,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListIndexEndpoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22774,7 +22774,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::UpdateIndexEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22875,7 +22875,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeleteIndexEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -22986,7 +22986,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeployIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -23119,7 +23119,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::UndeployIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -23238,7 +23238,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::MutateDeployedIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -23374,7 +23374,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -23487,7 +23487,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23550,7 +23550,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23655,7 +23655,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23738,7 +23738,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23818,7 +23818,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -23939,7 +23939,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24002,7 +24002,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24067,7 +24067,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24132,7 +24132,7 @@ pub mod index_endpoint_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24217,7 +24217,7 @@ pub mod index_service {
     /// A builder for [IndexService][crate::client::IndexService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::index_service::ClientBuilder;
     /// # use client::IndexService;
@@ -24272,7 +24272,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::CreateIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -24403,7 +24403,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::GetIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24465,7 +24465,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::ListIndexes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -24593,7 +24593,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::UpdateIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -24734,7 +24734,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::DeleteIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -24842,7 +24842,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::UpsertDatapoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -24936,7 +24936,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::RemoveDatapoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25012,7 +25012,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -25125,7 +25125,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25188,7 +25188,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25293,7 +25293,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25376,7 +25376,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25456,7 +25456,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -25577,7 +25577,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25640,7 +25640,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25705,7 +25705,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25770,7 +25770,7 @@ pub mod index_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::index_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25855,7 +25855,7 @@ pub mod job_service {
     /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::job_service::ClientBuilder;
     /// # use client::JobService;
@@ -25910,7 +25910,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateCustomJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -25994,7 +25994,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetCustomJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26056,7 +26056,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListCustomJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -26186,7 +26186,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteCustomJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -26294,7 +26294,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelCustomJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26356,7 +26356,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateDataLabelingJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26443,7 +26443,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetDataLabelingJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26508,7 +26508,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListDataLabelingJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -26647,7 +26647,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteDataLabelingJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -26758,7 +26758,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelDataLabelingJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26823,7 +26823,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateHyperparameterTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26915,7 +26915,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetHyperparameterTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -26982,7 +26982,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListHyperparameterTuningJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27117,7 +27117,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteHyperparameterTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -27230,7 +27230,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelHyperparameterTuningJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -27297,7 +27297,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateNasJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -27381,7 +27381,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetNasJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -27443,7 +27443,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListNasJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27571,7 +27571,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteNasJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -27679,7 +27679,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelNasJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -27741,7 +27741,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetNasTrialDetail;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -27806,7 +27806,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListNasTrialDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27915,7 +27915,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateBatchPredictionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -28004,7 +28004,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetBatchPredictionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -28069,7 +28069,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListBatchPredictionJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28204,7 +28204,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteBatchPredictionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -28317,7 +28317,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelBatchPredictionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -28384,7 +28384,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CreateModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -28476,7 +28476,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28657,7 +28657,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -28724,7 +28724,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListModelDeploymentMonitoringJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28859,7 +28859,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::UpdateModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -29014,7 +29014,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -29127,7 +29127,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::PauseModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29194,7 +29194,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ResumeModelDeploymentMonitoringJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29261,7 +29261,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -29374,7 +29374,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29437,7 +29437,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29542,7 +29542,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29625,7 +29625,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29705,7 +29705,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -29826,7 +29826,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29889,7 +29889,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -29954,7 +29954,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30019,7 +30019,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::job_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30104,7 +30104,7 @@ pub mod llm_utility_service {
     /// A builder for [LlmUtilityService][crate::client::LlmUtilityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::llm_utility_service::ClientBuilder;
     /// # use client::LlmUtilityService;
@@ -30159,7 +30159,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::CountTokens;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30296,7 +30296,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ComputeTokens;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30386,7 +30386,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -30499,7 +30499,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30562,7 +30562,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30667,7 +30667,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30750,7 +30750,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -30830,7 +30830,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -30951,7 +30951,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31014,7 +31014,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31079,7 +31079,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31144,7 +31144,7 @@ pub mod llm_utility_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31229,7 +31229,7 @@ pub mod match_service {
     /// A builder for [MatchService][crate::client::MatchService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::match_service::ClientBuilder;
     /// # use client::MatchService;
@@ -31284,7 +31284,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::FindNeighbors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31369,7 +31369,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::ReadIndexDatapoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31451,7 +31451,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -31564,7 +31564,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31627,7 +31627,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31732,7 +31732,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31815,7 +31815,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -31895,7 +31895,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -32016,7 +32016,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32079,7 +32079,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32144,7 +32144,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32209,7 +32209,7 @@ pub mod match_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::match_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32294,7 +32294,7 @@ pub mod metadata_service {
     /// A builder for [MetadataService][crate::client::MetadataService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::metadata_service::ClientBuilder;
     /// # use client::MetadataService;
@@ -32349,7 +32349,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateMetadataStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -32491,7 +32491,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetMetadataStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32556,7 +32556,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListMetadataStores;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -32665,7 +32665,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteMetadataStore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -32784,7 +32784,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32874,7 +32874,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -32936,7 +32936,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListArtifacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -33052,7 +33052,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -33152,7 +33152,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteArtifact;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -33266,7 +33266,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeArtifacts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -33391,7 +33391,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -33481,7 +33481,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -33543,7 +33543,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -33659,7 +33659,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -33759,7 +33759,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -33879,7 +33879,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -34004,7 +34004,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddContextArtifactsAndExecutions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34093,7 +34093,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddContextChildren;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34169,7 +34169,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::RemoveContextChildren;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34245,7 +34245,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryContextLineageSubgraph;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34312,7 +34312,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34402,7 +34402,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34464,7 +34464,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListExecutions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -34582,7 +34582,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34682,7 +34682,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteExecution;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -34796,7 +34796,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeExecutions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -34921,7 +34921,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddExecutionEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -34997,7 +34997,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryExecutionInputsAndOutputs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35064,7 +35064,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateMetadataSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35157,7 +35157,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetMetadataSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35222,7 +35222,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListMetadataSchemas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -35337,7 +35337,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryArtifactLineageSubgraph;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35416,7 +35416,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -35529,7 +35529,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35592,7 +35592,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35697,7 +35697,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35780,7 +35780,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -35860,7 +35860,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -35981,7 +35981,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36044,7 +36044,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36109,7 +36109,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36174,7 +36174,7 @@ pub mod metadata_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::metadata_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36259,7 +36259,7 @@ pub mod migration_service {
     /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::migration_service::ClientBuilder;
     /// # use client::MigrationService;
@@ -36314,7 +36314,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::SearchMigratableResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -36431,7 +36431,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::BatchMigrateResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -36558,7 +36558,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -36671,7 +36671,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36734,7 +36734,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36839,7 +36839,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -36922,7 +36922,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37002,7 +37002,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -37123,7 +37123,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37186,7 +37186,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37251,7 +37251,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37316,7 +37316,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::migration_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37401,7 +37401,7 @@ pub mod model_garden_service {
     /// A builder for [ModelGardenService][crate::client::ModelGardenService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::model_garden_service::ClientBuilder;
     /// # use client::ModelGardenService;
@@ -37456,7 +37456,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetPublisherModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37545,7 +37545,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::Deploy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -37748,7 +37748,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -37861,7 +37861,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -37924,7 +37924,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38029,7 +38029,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38112,7 +38112,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38192,7 +38192,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -38313,7 +38313,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38376,7 +38376,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38441,7 +38441,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38506,7 +38506,7 @@ pub mod model_garden_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_garden_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38591,7 +38591,7 @@ pub mod model_service {
     /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::model_service::ClientBuilder;
     /// # use client::ModelService;
@@ -38646,7 +38646,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::UploadModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -38797,7 +38797,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -38859,7 +38859,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -38993,7 +38993,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -39132,7 +39132,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelVersionCheckpoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -39243,7 +39243,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::UpdateModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -39341,7 +39341,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::UpdateExplanationDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -39475,7 +39475,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -39583,7 +39583,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModelVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -39694,7 +39694,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::MergeVersionAliases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -39772,7 +39772,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ExportModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -39905,7 +39905,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::CopyModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -40079,7 +40079,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ImportModelEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40166,7 +40166,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::BatchImportModelEvaluationSlices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40246,7 +40246,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::BatchImportEvaluatedAnnotations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40326,7 +40326,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetModelEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40391,7 +40391,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelEvaluations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40524,7 +40524,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetModelEvaluationSlice;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40591,7 +40591,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelEvaluationSlices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40726,7 +40726,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40839,7 +40839,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -40902,7 +40902,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41007,7 +41007,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41090,7 +41090,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41170,7 +41170,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -41291,7 +41291,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41354,7 +41354,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41419,7 +41419,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41484,7 +41484,7 @@ pub mod model_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::model_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41569,7 +41569,7 @@ pub mod notebook_service {
     /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::notebook_service::ClientBuilder;
     /// # use client::NotebookService;
@@ -41624,7 +41624,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookRuntimeTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -41774,7 +41774,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookRuntimeTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -41841,7 +41841,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookRuntimeTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -41982,7 +41982,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntimeTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -42095,7 +42095,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::UpdateNotebookRuntimeTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -42201,7 +42201,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::AssignNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -42351,7 +42351,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -42416,7 +42416,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookRuntimes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -42555,7 +42555,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -42666,7 +42666,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::UpgradeNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -42780,7 +42780,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::StartNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -42894,7 +42894,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::StopNotebookRuntime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -43008,7 +43008,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookExecutionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -43152,7 +43152,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookExecutionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -43225,7 +43225,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookExecutionJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -43354,7 +43354,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookExecutionJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -43467,7 +43467,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -43580,7 +43580,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -43643,7 +43643,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -43748,7 +43748,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -43831,7 +43831,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -43911,7 +43911,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -44032,7 +44032,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -44095,7 +44095,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -44160,7 +44160,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -44225,7 +44225,7 @@ pub mod notebook_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::notebook_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -44310,7 +44310,7 @@ pub mod persistent_resource_service {
     /// A builder for [PersistentResourceService][crate::client::PersistentResourceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::persistent_resource_service::ClientBuilder;
     /// # use client::PersistentResourceService;
@@ -44365,7 +44365,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::CreatePersistentResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -44511,7 +44511,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetPersistentResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -44576,7 +44576,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListPersistentResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -44687,7 +44687,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::DeletePersistentResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -44800,7 +44800,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::UpdatePersistentResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -44952,7 +44952,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::RebootPersistentResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -45068,7 +45068,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -45181,7 +45181,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45244,7 +45244,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45349,7 +45349,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45432,7 +45432,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45512,7 +45512,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -45633,7 +45633,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45696,7 +45696,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45761,7 +45761,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45826,7 +45826,7 @@ pub mod persistent_resource_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -45911,7 +45911,7 @@ pub mod pipeline_service {
     /// A builder for [PipelineService][crate::client::PipelineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::pipeline_service::ClientBuilder;
     /// # use client::PipelineService;
@@ -45966,7 +45966,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CreateTrainingPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -46053,7 +46053,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetTrainingPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -46118,7 +46118,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListTrainingPipelines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -46251,7 +46251,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeleteTrainingPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -46362,7 +46362,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelTrainingPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -46427,7 +46427,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CreatePipelineJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -46520,7 +46520,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetPipelineJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -46582,7 +46582,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListPipelineJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -46721,7 +46721,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeletePipelineJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -46832,7 +46832,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchDeletePipelineJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -46961,7 +46961,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelPipelineJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47026,7 +47026,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchCancelPipelineJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -47155,7 +47155,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -47268,7 +47268,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47331,7 +47331,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47436,7 +47436,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47519,7 +47519,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47599,7 +47599,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -47720,7 +47720,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47783,7 +47783,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47848,7 +47848,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47913,7 +47913,7 @@ pub mod pipeline_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::pipeline_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -47998,7 +47998,7 @@ pub mod prediction_service {
     /// A builder for [PredictionService][crate::client::PredictionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::prediction_service::ClientBuilder;
     /// # use client::PredictionService;
@@ -48053,7 +48053,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::Predict;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48157,7 +48157,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::RawPredict;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48237,7 +48237,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::DirectPredict;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48328,7 +48328,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::DirectRawPredict;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48405,7 +48405,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::Explain;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48525,7 +48525,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::GenerateContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48711,7 +48711,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::EmbedContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -48873,7 +48873,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -48986,7 +48986,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49049,7 +49049,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49154,7 +49154,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49237,7 +49237,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49317,7 +49317,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -49438,7 +49438,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49501,7 +49501,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49566,7 +49566,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49631,7 +49631,7 @@ pub mod prediction_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49716,7 +49716,7 @@ pub mod reasoning_engine_execution_service {
     /// A builder for [ReasoningEngineExecutionService][crate::client::ReasoningEngineExecutionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::reasoning_engine_execution_service::ClientBuilder;
     /// # use client::ReasoningEngineExecutionService;
@@ -49771,7 +49771,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::QueryReasoningEngine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -49860,7 +49860,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -49973,7 +49973,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50036,7 +50036,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50141,7 +50141,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50224,7 +50224,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50304,7 +50304,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -50425,7 +50425,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50488,7 +50488,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50553,7 +50553,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50618,7 +50618,7 @@ pub mod reasoning_engine_execution_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50703,7 +50703,7 @@ pub mod reasoning_engine_service {
     /// A builder for [ReasoningEngineService][crate::client::ReasoningEngineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::reasoning_engine_service::ClientBuilder;
     /// # use client::ReasoningEngineService;
@@ -50758,7 +50758,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::CreateReasoningEngine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -50894,7 +50894,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetReasoningEngine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -50959,7 +50959,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListReasoningEngines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -51074,7 +51074,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::UpdateReasoningEngine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -51220,7 +51220,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::DeleteReasoningEngine;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -51337,7 +51337,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -51450,7 +51450,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -51513,7 +51513,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -51618,7 +51618,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -51701,7 +51701,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -51781,7 +51781,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -51902,7 +51902,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -51965,7 +51965,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52030,7 +52030,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52095,7 +52095,7 @@ pub mod reasoning_engine_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52180,7 +52180,7 @@ pub mod schedule_service {
     /// A builder for [ScheduleService][crate::client::ScheduleService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::schedule_service::ClientBuilder;
     /// # use client::ScheduleService;
@@ -52235,7 +52235,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::CreateSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52319,7 +52319,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::DeleteSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -52427,7 +52427,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52489,7 +52489,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListSchedules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -52605,7 +52605,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::PauseSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52667,7 +52667,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::ResumeSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52735,7 +52735,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::UpdateSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -52833,7 +52833,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -52946,7 +52946,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53009,7 +53009,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53114,7 +53114,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53197,7 +53197,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53277,7 +53277,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -53398,7 +53398,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53461,7 +53461,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53526,7 +53526,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53591,7 +53591,7 @@ pub mod schedule_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::schedule_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53676,7 +53676,7 @@ pub mod specialist_pool_service {
     /// A builder for [SpecialistPoolService][crate::client::SpecialistPoolService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::specialist_pool_service::ClientBuilder;
     /// # use client::SpecialistPoolService;
@@ -53731,7 +53731,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::CreateSpecialistPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -53867,7 +53867,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetSpecialistPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -53932,7 +53932,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListSpecialistPools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -54059,7 +54059,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::DeleteSpecialistPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -54176,7 +54176,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::UpdateSpecialistPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -54326,7 +54326,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -54439,7 +54439,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -54502,7 +54502,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -54607,7 +54607,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -54690,7 +54690,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -54770,7 +54770,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -54891,7 +54891,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -54954,7 +54954,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55019,7 +55019,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55084,7 +55084,7 @@ pub mod specialist_pool_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55169,7 +55169,7 @@ pub mod tensorboard_service {
     /// A builder for [TensorboardService][crate::client::TensorboardService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::tensorboard_service::ClientBuilder;
     /// # use client::TensorboardService;
@@ -55224,7 +55224,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -55360,7 +55360,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55422,7 +55422,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -55572,7 +55572,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboards;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -55711,7 +55711,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -55822,7 +55822,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardUsage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55887,7 +55887,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardSize;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -55952,7 +55952,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardExperiment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56045,7 +56045,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardExperiment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56112,7 +56112,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardExperiment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56215,7 +56215,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardExperiments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -56356,7 +56356,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardExperiment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -56469,7 +56469,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56564,7 +56564,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchCreateTensorboardRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56644,7 +56644,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56709,7 +56709,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -56810,7 +56810,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -56949,7 +56949,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -57060,7 +57060,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchCreateTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57140,7 +57140,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57238,7 +57238,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57305,7 +57305,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57408,7 +57408,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -57549,7 +57549,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -57662,7 +57662,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57744,7 +57744,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardTimeSeriesData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57823,7 +57823,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WriteTensorboardExperimentData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57903,7 +57903,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WriteTensorboardRunData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -57983,7 +57983,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ExportTensorboardTimeSeriesData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -58106,7 +58106,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -58219,7 +58219,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58282,7 +58282,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58387,7 +58387,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58470,7 +58470,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58550,7 +58550,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -58671,7 +58671,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58734,7 +58734,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58799,7 +58799,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58864,7 +58864,7 @@ pub mod tensorboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -58949,7 +58949,7 @@ pub mod vertex_rag_data_service {
     /// A builder for [VertexRagDataService][crate::client::VertexRagDataService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vertex_rag_data_service::ClientBuilder;
     /// # use client::VertexRagDataService;
@@ -59004,7 +59004,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::CreateRagCorpus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -59137,7 +59137,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagCorpus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -59262,7 +59262,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagCorpus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -59324,7 +59324,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListRagCorpora;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -59430,7 +59430,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagCorpus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -59544,7 +59544,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UploadRagFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -59650,7 +59650,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ImportRagFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -59783,7 +59783,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -59845,7 +59845,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListRagFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -59949,7 +59949,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -60057,7 +60057,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -60185,7 +60185,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagEngineConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60250,7 +60250,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -60363,7 +60363,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60426,7 +60426,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60531,7 +60531,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60614,7 +60614,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60694,7 +60694,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -60815,7 +60815,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60878,7 +60878,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -60943,7 +60943,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61008,7 +61008,7 @@ pub mod vertex_rag_data_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61093,7 +61093,7 @@ pub mod vertex_rag_service {
     /// A builder for [VertexRagService][crate::client::VertexRagService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vertex_rag_service::ClientBuilder;
     /// # use client::VertexRagService;
@@ -61148,7 +61148,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::RetrieveContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61266,7 +61266,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::AugmentPrompt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61386,7 +61386,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::CorroborateContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61498,7 +61498,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -61611,7 +61611,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61674,7 +61674,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61779,7 +61779,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61862,7 +61862,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -61942,7 +61942,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -62063,7 +62063,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62126,7 +62126,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62191,7 +62191,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62256,7 +62256,7 @@ pub mod vertex_rag_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62341,7 +62341,7 @@ pub mod vizier_service {
     /// A builder for [VizierService][crate::client::VizierService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vizier_service::ClientBuilder;
     /// # use client::VizierService;
@@ -62396,7 +62396,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CreateStudy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62480,7 +62480,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetStudy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62542,7 +62542,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListStudies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -62646,7 +62646,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteStudy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62708,7 +62708,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::LookupStudy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -62778,7 +62778,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::SuggestTrials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -62916,7 +62916,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CreateTrial;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63000,7 +63000,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetTrial;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63062,7 +63062,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListTrials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -63166,7 +63166,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::AddTrialMeasurement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63253,7 +63253,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CompleteTrial;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63345,7 +63345,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteTrial;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63407,7 +63407,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CheckTrialEarlyStoppingState;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -63523,7 +63523,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::StopTrial;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63585,7 +63585,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListOptimalTrials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63650,7 +63650,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -63763,7 +63763,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63826,7 +63826,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -63931,7 +63931,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -64014,7 +64014,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -64094,7 +64094,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -64215,7 +64215,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -64278,7 +64278,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -64343,7 +64343,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -64408,7 +64408,7 @@ pub mod vizier_service {
     /// # Example
     /// ```
     /// # use google_cloud_aiplatform_v1::builder::vizier_service::WaitOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

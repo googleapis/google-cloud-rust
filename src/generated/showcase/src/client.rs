@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
 /// let client = Compliance::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -68,7 +68,7 @@ impl Compliance {
     /// Returns a builder for [Compliance].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Compliance;
     /// let client = Compliance::builder().build().await?;
     /// # Ok(()) }
@@ -256,7 +256,7 @@ impl Compliance {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Echo;
 /// let client = Echo::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -308,7 +308,7 @@ impl Echo {
     /// Returns a builder for [Echo].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// let client = Echo::builder().build().await?;
     /// # Ok(()) }
@@ -499,7 +499,7 @@ impl Echo {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Identity;
 /// let client = Identity::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -545,7 +545,7 @@ impl Identity {
     /// Returns a builder for [Identity].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// let client = Identity::builder().build().await?;
     /// # Ok(()) }
@@ -690,7 +690,7 @@ impl Identity {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
 /// let client = Messaging::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -739,7 +739,7 @@ impl Messaging {
     /// Returns a builder for [Messaging].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// let client = Messaging::builder().build().await?;
     /// # Ok(()) }
@@ -929,7 +929,7 @@ impl Messaging {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
 /// let client = SequenceService::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -974,7 +974,7 @@ impl SequenceService {
     /// Returns a builder for [SequenceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// let client = SequenceService::builder().build().await?;
     /// # Ok(()) }
@@ -1123,7 +1123,7 @@ impl SequenceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Testing;
 /// let client = Testing::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -1175,7 +1175,7 @@ impl Testing {
     /// Returns a builder for [Testing].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// let client = Testing::builder().build().await?;
     /// # Ok(()) }

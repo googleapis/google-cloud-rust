@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
 /// let client = StorageTransferService::builder().build().await?;
 /// // use `client` to make requests to the Storage Transfer API.
@@ -68,7 +68,7 @@ impl StorageTransferService {
     /// Returns a builder for [StorageTransferService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
     /// let client = StorageTransferService::builder().build().await?;
     /// # Ok(()) }

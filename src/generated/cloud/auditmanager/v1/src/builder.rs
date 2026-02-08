@@ -20,7 +20,7 @@ pub mod audit_manager {
     /// A builder for [AuditManager][crate::client::AuditManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_auditmanager_v1::*;
     /// # use builder::audit_manager::ClientBuilder;
     /// # use client::AuditManager;
@@ -75,7 +75,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::EnrollResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -150,7 +150,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GenerateAuditScopeReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -246,7 +246,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GenerateAuditReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -411,7 +411,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListAuditReports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -520,7 +520,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GetAuditReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -582,7 +582,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GetResourceEnrollmentStatus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -649,7 +649,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListResourceEnrollmentStatuses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -760,7 +760,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListControls;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -864,7 +864,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -977,7 +977,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1040,7 +1040,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1161,7 +1161,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1224,7 +1224,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1289,7 +1289,7 @@ pub mod audit_manager {
     /// # Example
     /// ```
     /// # use google_cloud_auditmanager_v1::builder::audit_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

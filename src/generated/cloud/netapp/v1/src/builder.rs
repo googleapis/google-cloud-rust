@@ -20,7 +20,7 @@ pub mod net_app {
     /// A builder for [NetApp][crate::client::NetApp].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_netapp_v1::*;
     /// # use builder::net_app::ClientBuilder;
     /// # use client::NetApp;
@@ -73,7 +73,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListStoragePools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -192,7 +192,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateStoragePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -332,7 +332,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetStoragePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -392,7 +392,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateStoragePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -538,7 +538,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteStoragePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -643,7 +643,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ValidateDirectoryService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -759,7 +759,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::SwitchActiveReplicaZone;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -871,7 +871,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListVolumes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -985,7 +985,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetVolume;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1045,7 +1045,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateVolume;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1182,7 +1182,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateVolume;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1325,7 +1325,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteVolume;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1433,7 +1433,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::RevertVolume;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1548,7 +1548,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListSnapshots;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1662,7 +1662,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1722,7 +1722,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1859,7 +1859,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1961,7 +1961,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2104,7 +2104,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListActiveDirectories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2223,7 +2223,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetActiveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2286,7 +2286,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateActiveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2426,7 +2426,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateActiveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2572,7 +2572,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteActiveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2677,7 +2677,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListKmsConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2793,7 +2793,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateKmsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2930,7 +2930,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetKmsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2990,7 +2990,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateKmsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3133,7 +3133,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::EncryptVolumes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3240,7 +3240,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::VerifyKmsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3300,7 +3300,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteKmsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3402,7 +3402,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListReplications;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3521,7 +3521,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3581,7 +3581,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3721,7 +3721,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3826,7 +3826,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3972,7 +3972,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::StopReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4085,7 +4085,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ResumeReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4195,7 +4195,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ReverseReplicationDirection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4307,7 +4307,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::EstablishPeering;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4452,7 +4452,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::SyncReplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4559,7 +4559,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4699,7 +4699,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4759,7 +4759,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackupVaults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4878,7 +4878,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5024,7 +5024,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5129,7 +5129,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5266,7 +5266,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5326,7 +5326,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5440,7 +5440,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5542,7 +5542,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5685,7 +5685,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5825,7 +5825,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackupPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5885,7 +5885,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackupPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6004,7 +6004,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6150,7 +6150,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6255,7 +6255,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListQuotaRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6371,7 +6371,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetQuotaRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6431,7 +6431,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateQuotaRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6568,7 +6568,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateQuotaRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6707,7 +6707,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteQuotaRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6809,7 +6809,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::RestoreBackupFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6948,7 +6948,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListHostGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7064,7 +7064,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetHostGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7124,7 +7124,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateHostGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7261,7 +7261,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateHostGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7400,7 +7400,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteHostGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7502,7 +7502,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7613,7 +7613,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7674,7 +7674,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7793,7 +7793,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7854,7 +7854,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7917,7 +7917,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

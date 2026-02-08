@@ -20,7 +20,7 @@ pub mod recaptcha_enterprise_service {
     /// A builder for [RecaptchaEnterpriseService][crate::client::RecaptchaEnterpriseService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_recaptchaenterprise_v1::*;
     /// # use builder::recaptcha_enterprise_service::ClientBuilder;
     /// # use client::RecaptchaEnterpriseService;
@@ -75,7 +75,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateAssessment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -162,7 +162,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AnnotateAssessment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -298,7 +298,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -382,7 +382,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -484,7 +484,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -551,7 +551,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -613,7 +613,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -707,7 +707,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -769,7 +769,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::MigrateKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -837,7 +837,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AddIpOverride;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -921,7 +921,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RemoveIpOverride;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1008,7 +1008,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListIpOverrides;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1114,7 +1114,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetMetrics;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1176,7 +1176,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateFirewallPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1263,7 +1263,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListFirewallPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1372,7 +1372,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetFirewallPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1437,7 +1437,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1534,7 +1534,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1599,7 +1599,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1679,7 +1679,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1790,7 +1790,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1903,7 +1903,7 @@ pub mod recaptcha_enterprise_service {
     /// # Example
     /// ```
     /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_recaptchaenterprise_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

@@ -20,7 +20,7 @@ pub mod os_config_service {
     /// A builder for [OsConfigService][crate::client::OsConfigService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::*;
     /// # use builder::os_config_service::ClientBuilder;
     /// # use client::OsConfigService;
@@ -75,7 +75,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ExecutePatchJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -231,7 +231,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetPatchJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -293,7 +293,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CancelPatchJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -355,7 +355,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -465,7 +465,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchJobInstanceDetails;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -582,7 +582,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CreatePatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -677,7 +677,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetPatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -742,7 +742,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -851,7 +851,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::DeletePatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -916,7 +916,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::UpdatePatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1013,7 +1013,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::PausePatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1078,7 +1078,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ResumePatchDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1143,7 +1143,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1206,7 +1206,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1273,7 +1273,7 @@ pub mod os_config_zonal_service {
     /// A builder for [OsConfigZonalService][crate::client::OsConfigZonalService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::*;
     /// # use builder::os_config_zonal_service::ClientBuilder;
     /// # use client::OsConfigZonalService;
@@ -1328,7 +1328,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::CreateOSPolicyAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1474,7 +1474,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::UpdateOSPolicyAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1622,7 +1622,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOSPolicyAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1687,7 +1687,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1798,7 +1798,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1909,7 +1909,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::DeleteOSPolicyAssignment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2023,7 +2023,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOSPolicyAssignmentReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2090,7 +2090,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignmentReports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2207,7 +2207,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetInventory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2275,7 +2275,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListInventories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2393,7 +2393,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetVulnerabilityReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2458,7 +2458,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListVulnerabilityReports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2575,7 +2575,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2638,7 +2638,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

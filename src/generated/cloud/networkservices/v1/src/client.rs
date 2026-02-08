@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::DepService;
 /// let client = DepService::builder().build().await?;
 /// // use `client` to make requests to the Network Services API.
@@ -66,7 +66,7 @@ impl DepService {
     /// Returns a builder for [DepService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// let client = DepService::builder().build().await?;
     /// # Ok(()) }
@@ -418,7 +418,7 @@ impl DepService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::NetworkServices;
 /// let client = NetworkServices::builder().build().await?;
 /// // use `client` to make requests to the Network Services API.
@@ -464,7 +464,7 @@ impl NetworkServices {
     /// Returns a builder for [NetworkServices].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// let client = NetworkServices::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
 /// let client = AttachedClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -68,7 +68,7 @@ impl AttachedClusters {
     /// Returns a builder for [AttachedClusters].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// let client = AttachedClusters::builder().build().await?;
     /// # Ok(()) }
@@ -298,7 +298,7 @@ impl AttachedClusters {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
 /// let client = AwsClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -346,7 +346,7 @@ impl AwsClusters {
     /// Returns a builder for [AwsClusters].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// let client = AwsClusters::builder().build().await?;
     /// # Ok(()) }
@@ -674,7 +674,7 @@ impl AwsClusters {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
 /// let client = AzureClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
@@ -722,7 +722,7 @@ impl AzureClusters {
     /// Returns a builder for [AzureClusters].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// let client = AzureClusters::builder().build().await?;
     /// # Ok(()) }

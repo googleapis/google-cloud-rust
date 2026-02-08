@@ -20,7 +20,7 @@ pub mod dashboards_service {
     /// A builder for [DashboardsService][crate::client::DashboardsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_dashboard_v1::*;
     /// # use builder::dashboards_service::ClientBuilder;
     /// # use client::DashboardsService;
@@ -75,7 +75,7 @@ pub mod dashboards_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::CreateDashboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_dashboard_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -165,7 +165,7 @@ pub mod dashboards_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::ListDashboards;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_dashboard_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -271,7 +271,7 @@ pub mod dashboards_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::GetDashboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_dashboard_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -333,7 +333,7 @@ pub mod dashboards_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::DeleteDashboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_dashboard_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -395,7 +395,7 @@ pub mod dashboards_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::UpdateDashboard;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_dashboard_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_build_v1::client::CloudBuild;
 /// let client = CloudBuild::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
@@ -73,7 +73,7 @@ impl CloudBuild {
     /// Returns a builder for [CloudBuild].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// let client = CloudBuild::builder().build().await?;
     /// # Ok(()) }

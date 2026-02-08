@@ -20,7 +20,7 @@ pub mod connection_service {
     /// A builder for [ConnectionService][crate::client::ConnectionService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_connection_v1::*;
     /// # use builder::connection_service::ClientBuilder;
     /// # use client::ConnectionService;
@@ -75,7 +75,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::CreateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -168,7 +168,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::GetConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -230,7 +230,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::ListConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -338,7 +338,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::UpdateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -447,7 +447,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::DeleteConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -512,7 +512,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -595,7 +595,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -700,7 +700,7 @@ pub mod connection_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_connection_v1::builder::connection_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_connection_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
 /// let client = BusinessGlossaryService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -72,7 +72,7 @@ impl BusinessGlossaryService {
     /// Returns a builder for [BusinessGlossaryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
     /// let client = BusinessGlossaryService::builder().build().await?;
     /// # Ok(()) }
@@ -322,7 +322,7 @@ impl BusinessGlossaryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -372,7 +372,7 @@ impl CatalogService {
     /// Returns a builder for [CatalogService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
     /// # Ok(()) }
@@ -759,7 +759,7 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CmekService;
 /// let client = CmekService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -805,7 +805,7 @@ impl CmekService {
     /// Returns a builder for [CmekService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::CmekService;
     /// let client = CmekService::builder().build().await?;
     /// # Ok(()) }
@@ -981,7 +981,7 @@ impl CmekService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::ContentService;
 /// let client = ContentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -1028,7 +1028,7 @@ impl ContentService {
     /// Returns a builder for [ContentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::ContentService;
     /// let client = ContentService::builder().build().await?;
     /// # Ok(()) }
@@ -1181,7 +1181,7 @@ impl ContentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
 /// let client = DataTaxonomyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -1229,7 +1229,7 @@ impl DataTaxonomyService {
     /// Returns a builder for [DataTaxonomyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// let client = DataTaxonomyService::builder().build().await?;
     /// # Ok(()) }
@@ -1562,7 +1562,7 @@ impl DataTaxonomyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataScanService;
 /// let client = DataScanService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -1610,7 +1610,7 @@ impl DataScanService {
     /// Returns a builder for [DataScanService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// let client = DataScanService::builder().build().await?;
     /// # Ok(()) }
@@ -1811,7 +1811,7 @@ impl DataScanService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -1858,7 +1858,7 @@ impl MetadataService {
     /// Returns a builder for [MetadataService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// let client = MetadataService::builder().build().await?;
     /// # Ok(()) }
@@ -2024,7 +2024,7 @@ impl MetadataService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataplexService;
 /// let client = DataplexService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
@@ -2074,7 +2074,7 @@ impl DataplexService {
     /// Returns a builder for [DataplexService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// let client = DataplexService::builder().build().await?;
     /// # Ok(()) }

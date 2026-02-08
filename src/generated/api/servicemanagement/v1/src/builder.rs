@@ -20,7 +20,7 @@ pub mod service_manager {
     /// A builder for [ServiceManager][crate::client::ServiceManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicemanagement_v1::*;
     /// # use builder::service_manager::ClientBuilder;
     /// # use client::ServiceManager;
@@ -75,7 +75,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -184,7 +184,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -246,7 +246,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::CreateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -369,7 +369,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -473,7 +473,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::UndeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -584,7 +584,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::ListServiceConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -693,7 +693,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GetServiceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -775,7 +775,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::CreateServiceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -862,7 +862,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::SubmitConfigSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1004,7 +1004,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::ListServiceRollouts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1121,7 +1121,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GetServiceRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1194,7 +1194,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::CreateServiceRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1328,7 +1328,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GenerateConfigReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1425,7 +1425,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1530,7 +1530,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1613,7 +1613,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1693,7 +1693,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1814,7 +1814,7 @@ pub mod service_manager {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicemanagement_v1::builder::service_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicemanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

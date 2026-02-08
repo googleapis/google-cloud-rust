@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// let client = CloudBilling::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
@@ -67,7 +67,7 @@ impl CloudBilling {
     /// Returns a builder for [CloudBilling].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// let client = CloudBilling::builder().build().await?;
     /// # Ok(()) }
@@ -253,7 +253,7 @@ impl CloudBilling {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// let client = CloudCatalog::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
@@ -301,7 +301,7 @@ impl CloudCatalog {
     /// Returns a builder for [CloudCatalog].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_billing_v1::client::CloudCatalog;
     /// let client = CloudCatalog::builder().build().await?;
     /// # Ok(()) }

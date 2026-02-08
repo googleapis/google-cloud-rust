@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
@@ -71,7 +71,7 @@ impl ServiceController {
     /// Returns a builder for [ServiceController].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
     /// let client = ServiceController::builder().build().await?;
     /// # Ok(()) }

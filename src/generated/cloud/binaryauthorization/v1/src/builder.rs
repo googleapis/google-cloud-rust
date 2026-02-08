@@ -20,7 +20,7 @@ pub mod binauthz_management_service_v_1 {
     /// A builder for [BinauthzManagementServiceV1][crate::client::BinauthzManagementServiceV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::binauthz_management_service_v_1::ClientBuilder;
     /// # use client::BinauthzManagementServiceV1;
@@ -75,7 +75,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::GetPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::UpdatePolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -213,7 +213,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::CreateAttestor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -305,7 +305,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::GetAttestor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -367,7 +367,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::UpdateAttestor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -443,7 +443,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::ListAttestors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -547,7 +547,7 @@ pub mod binauthz_management_service_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::DeleteAttestor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -611,7 +611,7 @@ pub mod system_policy_v_1 {
     /// A builder for [SystemPolicyV1][crate::client::SystemPolicyV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::system_policy_v_1::ClientBuilder;
     /// # use client::SystemPolicyV1;
@@ -666,7 +666,7 @@ pub mod system_policy_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::system_policy_v_1::GetSystemPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -730,7 +730,7 @@ pub mod validation_helper_v_1 {
     /// A builder for [ValidationHelperV1][crate::client::ValidationHelperV1].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::validation_helper_v_1::ClientBuilder;
     /// # use client::ValidationHelperV1;
@@ -785,7 +785,7 @@ pub mod validation_helper_v_1 {
     /// # Example
     /// ```
     /// # use google_cloud_binaryauthorization_v1::builder::validation_helper_v_1::ValidateAttestationOccurrence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_binaryauthorization_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

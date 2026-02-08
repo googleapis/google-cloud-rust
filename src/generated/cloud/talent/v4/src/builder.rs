@@ -20,7 +20,7 @@ pub mod company_service {
     /// A builder for [CompanyService][crate::client::CompanyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::company_service::ClientBuilder;
     /// # use client::CompanyService;
@@ -75,7 +75,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::CreateCompany;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -159,7 +159,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::GetCompany;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -221,7 +221,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::UpdateCompany;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -315,7 +315,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::DeleteCompany;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -377,7 +377,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::ListCompanies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -487,7 +487,7 @@ pub mod company_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::company_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -552,7 +552,7 @@ pub mod completion {
     /// A builder for [Completion][crate::client::Completion].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::completion::ClientBuilder;
     /// # use client::Completion;
@@ -607,7 +607,7 @@ pub mod completion {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::completion::CompleteQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -720,7 +720,7 @@ pub mod completion {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::completion::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -785,7 +785,7 @@ pub mod event_service {
     /// A builder for [EventService][crate::client::EventService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::event_service::ClientBuilder;
     /// # use client::EventService;
@@ -840,7 +840,7 @@ pub mod event_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::event_service::CreateClientEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -927,7 +927,7 @@ pub mod event_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::event_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -992,7 +992,7 @@ pub mod job_service {
     /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::job_service::ClientBuilder;
     /// # use client::JobService;
@@ -1047,7 +1047,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::CreateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1131,7 +1131,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchCreateJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1255,7 +1255,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1317,7 +1317,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::UpdateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1411,7 +1411,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchUpdateJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1553,7 +1553,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1615,7 +1615,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::BatchDeleteJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1737,7 +1737,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1853,7 +1853,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::SearchJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2069,7 +2069,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::SearchJobsForAlert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2285,7 +2285,7 @@ pub mod job_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::job_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2350,7 +2350,7 @@ pub mod tenant_service {
     /// A builder for [TenantService][crate::client::TenantService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::tenant_service::ClientBuilder;
     /// # use client::TenantService;
@@ -2405,7 +2405,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::CreateTenant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2489,7 +2489,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::GetTenant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2551,7 +2551,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::UpdateTenant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2645,7 +2645,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::DeleteTenant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2707,7 +2707,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::ListTenants;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2811,7 +2811,7 @@ pub mod tenant_service {
     /// # Example
     /// ```
     /// # use google_cloud_talent_v4::builder::tenant_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_talent_v4::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod web_security_scanner {
     /// A builder for [WebSecurityScanner][crate::client::WebSecurityScanner].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_websecurityscanner_v1::*;
     /// # use builder::web_security_scanner::ClientBuilder;
     /// # use client::WebSecurityScanner;
@@ -75,7 +75,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::CreateScanConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -156,7 +156,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::DeleteScanConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -219,7 +219,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -279,7 +279,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -383,7 +383,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::UpdateScanConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -476,7 +476,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StartScanRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -536,7 +536,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -596,7 +596,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -698,7 +698,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StopScanRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -758,7 +758,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListCrawledUrls;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -862,7 +862,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetFinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -922,7 +922,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1030,7 +1030,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindingTypeStats;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod app_connectors_service {
     /// A builder for [AppConnectorsService][crate::client::AppConnectorsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_appconnectors_v1::*;
     /// # use builder::app_connectors_service::ClientBuilder;
     /// # use client::AppConnectorsService;
@@ -75,7 +75,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ListAppConnectors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::GetAppConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::CreateAppConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -412,7 +412,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::UpdateAppConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -574,7 +574,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::DeleteAppConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -698,7 +698,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ReportStatus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -843,7 +843,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -956,7 +956,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1019,7 +1019,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1124,7 +1124,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1207,7 +1207,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1287,7 +1287,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1408,7 +1408,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1471,7 +1471,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1536,7 +1536,7 @@ pub mod app_connectors_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder::app_connectors_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_appconnectors_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

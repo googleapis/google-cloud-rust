@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v1::client::IAMPolicy;
 /// let client = IAMPolicy::builder().build().await?;
 /// // use `client` to make requests to the IAM Meta API.
@@ -90,7 +90,7 @@ impl IAMPolicy {
     /// Returns a builder for [IAMPolicy].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v1::client::IAMPolicy;
     /// let client = IAMPolicy::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod certificate_authority_service {
     /// A builder for [CertificateAuthorityService][crate::client::CertificateAuthorityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_security_privateca_v1::*;
     /// # use builder::certificate_authority_service::ClientBuilder;
     /// # use client::CertificateAuthorityService;
@@ -75,7 +75,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::CreateCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -189,7 +189,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -251,7 +251,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListCertificates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -372,7 +372,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::RevokeCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -451,7 +451,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UpdateCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -558,7 +558,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ActivateCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -710,7 +710,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::CreateCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -862,7 +862,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::DisableCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -990,7 +990,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::EnableCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1112,7 +1112,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::FetchCertificateAuthorityCsr;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1179,7 +1179,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1246,7 +1246,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListCertificateAuthorities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1369,7 +1369,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UndeleteCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1491,7 +1491,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::DeleteCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1631,7 +1631,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UpdateCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1789,7 +1789,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::CreateCaPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1934,7 +1934,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UpdateCaPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2085,7 +2085,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetCaPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2147,7 +2147,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListCaPools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2263,7 +2263,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::DeleteCaPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2379,7 +2379,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::FetchCaCerts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2447,7 +2447,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetCertificateRevocationList;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2514,7 +2514,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListCertificateRevocationLists;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2637,7 +2637,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UpdateCertificateRevocationList;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2798,7 +2798,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::CreateCertificateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2950,7 +2950,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::DeleteCertificateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3065,7 +3065,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetCertificateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3130,7 +3130,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListCertificateTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3253,7 +3253,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::UpdateCertificateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3411,7 +3411,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3524,7 +3524,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3587,7 +3587,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3692,7 +3692,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3775,7 +3775,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3855,7 +3855,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3976,7 +3976,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4039,7 +4039,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4104,7 +4104,7 @@ pub mod certificate_authority_service {
     /// # Example
     /// ```
     /// # use google_cloud_security_privateca_v1::builder::certificate_authority_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_security_privateca_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

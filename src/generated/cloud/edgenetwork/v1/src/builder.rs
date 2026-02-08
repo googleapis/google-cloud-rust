@@ -20,7 +20,7 @@ pub mod edge_network {
     /// A builder for [EdgeNetwork][crate::client::EdgeNetwork].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_edgenetwork_v1::*;
     /// # use builder::edge_network::ClientBuilder;
     /// # use client::EdgeNetwork;
@@ -75,7 +75,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::InitializeZone;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListZones;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -251,7 +251,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetZone;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -313,7 +313,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListNetworks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -429,7 +429,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -491,7 +491,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DiagnoseNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -553,7 +553,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::CreateNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -698,7 +698,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DeleteNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -808,7 +808,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListSubnets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -924,7 +924,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -986,7 +986,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::CreateSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1131,7 +1131,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::UpdateSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1282,7 +1282,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DeleteSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1392,7 +1392,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListInterconnects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1513,7 +1513,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetInterconnect;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1575,7 +1575,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DiagnoseInterconnect;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1640,7 +1640,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListInterconnectAttachments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1763,7 +1763,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetInterconnectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1830,7 +1830,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::CreateInterconnectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1985,7 +1985,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DeleteInterconnectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2100,7 +2100,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListRouters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2216,7 +2216,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetRouter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2278,7 +2278,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DiagnoseRouter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2340,7 +2340,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::CreateRouter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2485,7 +2485,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::UpdateRouter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2636,7 +2636,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DeleteRouter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2746,7 +2746,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2859,7 +2859,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2922,7 +2922,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3043,7 +3043,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3106,7 +3106,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3171,7 +3171,7 @@ pub mod edge_network {
     /// # Example
     /// ```
     /// # use google_cloud_edgenetwork_v1::builder::edge_network::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_edgenetwork_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

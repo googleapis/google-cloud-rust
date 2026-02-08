@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datastream_v1::client::Datastream;
 /// let client = Datastream::builder().build().await?;
 /// // use `client` to make requests to the Datastream API.
@@ -66,7 +66,7 @@ impl Datastream {
     /// Returns a builder for [Datastream].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// let client = Datastream::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod direct_access_service {
     /// A builder for [DirectAccessService][crate::client::DirectAccessService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_devicestreaming_v1::*;
     /// # use builder::direct_access_service::ClientBuilder;
     /// # use client::DirectAccessService;
@@ -75,7 +75,7 @@ pub mod direct_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::CreateDeviceSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_devicestreaming_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -168,7 +168,7 @@ pub mod direct_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::ListDeviceSessions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_devicestreaming_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -283,7 +283,7 @@ pub mod direct_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::GetDeviceSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_devicestreaming_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -348,7 +348,7 @@ pub mod direct_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::CancelDeviceSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_devicestreaming_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -413,7 +413,7 @@ pub mod direct_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::UpdateDeviceSession;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_devicestreaming_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

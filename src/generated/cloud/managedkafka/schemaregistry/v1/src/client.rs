@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
 /// let client = ManagedSchemaRegistry::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
@@ -115,7 +115,7 @@ impl ManagedSchemaRegistry {
     /// Returns a builder for [ManagedSchemaRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// let client = ManagedSchemaRegistry::builder().build().await?;
     /// # Ok(()) }

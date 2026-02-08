@@ -20,7 +20,7 @@ pub mod bigtable_instance_admin {
     /// A builder for [BigtableInstanceAdmin][crate::client::BigtableInstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_instance_admin::ClientBuilder;
     /// # use client::BigtableInstanceAdmin;
@@ -75,7 +75,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -227,7 +227,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -289,7 +289,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -357,7 +357,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -513,7 +513,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -661,7 +661,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -723,7 +723,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -862,7 +862,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -924,7 +924,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -992,7 +992,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1177,7 +1177,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1327,7 +1327,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1389,7 +1389,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateAppProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1490,7 +1490,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetAppProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1552,7 +1552,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListAppProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1658,7 +1658,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateAppProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1814,7 +1814,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteAppProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1887,7 +1887,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1970,7 +1970,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2075,7 +2075,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2155,7 +2155,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListHotTablets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2297,7 +2297,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateLogicalView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2441,7 +2441,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetLogicalView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2503,7 +2503,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListLogicalViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2612,7 +2612,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateLogicalView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2758,7 +2758,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteLogicalView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2829,7 +2829,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateMaterializedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2973,7 +2973,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetMaterializedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3038,7 +3038,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListMaterializedViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3147,7 +3147,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateMaterializedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3293,7 +3293,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteMaterializedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3364,7 +3364,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3485,7 +3485,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3548,7 +3548,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3613,7 +3613,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3680,7 +3680,7 @@ pub mod bigtable_table_admin {
     /// A builder for [BigtableTableAdmin][crate::client::BigtableTableAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_table_admin::ClientBuilder;
     /// # use client::BigtableTableAdmin;
@@ -3735,7 +3735,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3838,7 +3838,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTableFromSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3970,7 +3970,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListTables;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4080,7 +4080,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4148,7 +4148,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4299,7 +4299,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4361,7 +4361,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UndeleteTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4470,7 +4470,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateAuthorizedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4614,7 +4614,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListAuthorizedViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4732,7 +4732,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetAuthorizedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4806,7 +4806,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateAuthorizedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4958,7 +4958,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteAuthorizedView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5029,7 +5029,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ModifyColumnFamilies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5113,7 +5113,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DropRowRange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5207,7 +5207,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GenerateConsistencyToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5274,7 +5274,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CheckConsistency;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5389,7 +5389,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SnapshotTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5538,7 +5538,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5600,7 +5600,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSnapshots;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5704,7 +5704,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5766,7 +5766,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5905,7 +5905,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5967,7 +5967,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6065,7 +6065,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6127,7 +6127,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6243,7 +6243,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::RestoreTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6382,7 +6382,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CopyBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6529,7 +6529,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6612,7 +6612,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6717,7 +6717,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6797,7 +6797,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateSchemaBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6941,7 +6941,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateSchemaBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7093,7 +7093,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSchemaBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7155,7 +7155,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSchemaBundles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7264,7 +7264,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSchemaBundle;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7335,7 +7335,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7456,7 +7456,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7519,7 +7519,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7584,7 +7584,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

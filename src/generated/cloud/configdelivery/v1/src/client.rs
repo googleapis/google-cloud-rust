@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
 /// let client = ConfigDelivery::builder().build().await?;
 /// // use `client` to make requests to the Config Delivery API.
@@ -67,7 +67,7 @@ impl ConfigDelivery {
     /// Returns a builder for [ConfigDelivery].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// let client = ConfigDelivery::builder().build().await?;
     /// # Ok(()) }

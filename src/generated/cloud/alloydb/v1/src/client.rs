@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
 /// let client = AlloyDBCSQLAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
@@ -66,7 +66,7 @@ impl AlloyDBCSQLAdmin {
     /// Returns a builder for [AlloyDBCSQLAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
     /// let client = AlloyDBCSQLAdmin::builder().build().await?;
     /// # Ok(()) }
@@ -179,7 +179,7 @@ impl AlloyDBCSQLAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// let client = AlloyDBAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
@@ -225,7 +225,7 @@ impl AlloyDBAdmin {
     /// Returns a builder for [AlloyDBAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// let client = AlloyDBAdmin::builder().build().await?;
     /// # Ok(()) }

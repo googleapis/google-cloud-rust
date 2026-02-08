@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_clouddms_v1::client::DataMigrationService;
 /// let client = DataMigrationService::builder().build().await?;
 /// // use `client` to make requests to the Database Migration API.
@@ -66,7 +66,7 @@ impl DataMigrationService {
     /// Returns a builder for [DataMigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// let client = DataMigrationService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
 /// let client = KeyDashboardService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
@@ -66,7 +66,7 @@ impl KeyDashboardService {
     /// Returns a builder for [KeyDashboardService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
     /// let client = KeyDashboardService::builder().build().await?;
     /// # Ok(()) }
@@ -131,7 +131,7 @@ impl KeyDashboardService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
 /// let client = KeyTrackingService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
@@ -178,7 +178,7 @@ impl KeyTrackingService {
     /// Returns a builder for [KeyTrackingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
     /// let client = KeyTrackingService::builder().build().await?;
     /// # Ok(()) }

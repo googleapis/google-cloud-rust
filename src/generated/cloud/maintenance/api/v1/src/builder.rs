@@ -20,7 +20,7 @@ pub mod maintenance {
     /// A builder for [Maintenance][crate::client::Maintenance].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_maintenance_api_v1::*;
     /// # use builder::maintenance::ClientBuilder;
     /// # use client::Maintenance;
@@ -75,7 +75,7 @@ pub mod maintenance {
     /// # Example
     /// ```
     /// # use google_cloud_maintenance_api_v1::builder::maintenance::SummarizeMaintenances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_maintenance_api_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod maintenance {
     /// # Example
     /// ```
     /// # use google_cloud_maintenance_api_v1::builder::maintenance::ListResourceMaintenances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_maintenance_api_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -319,7 +319,7 @@ pub mod maintenance {
     /// # Example
     /// ```
     /// # use google_cloud_maintenance_api_v1::builder::maintenance::GetResourceMaintenance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_maintenance_api_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -384,7 +384,7 @@ pub mod maintenance {
     /// # Example
     /// ```
     /// # use google_cloud_maintenance_api_v1::builder::maintenance::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_maintenance_api_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -497,7 +497,7 @@ pub mod maintenance {
     /// # Example
     /// ```
     /// # use google_cloud_maintenance_api_v1::builder::maintenance::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_maintenance_api_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

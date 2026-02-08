@@ -20,7 +20,7 @@ pub mod memorystore {
     /// A builder for [Memorystore][crate::client::Memorystore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_memorystore_v1::*;
     /// # use builder::memorystore::ClientBuilder;
     /// # use client::Memorystore;
@@ -75,7 +75,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -545,7 +545,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -655,7 +655,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetCertificateAuthority;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -722,7 +722,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::RescheduleMaintenance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -865,7 +865,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ListBackupCollections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -974,7 +974,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetBackupCollection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1039,7 +1039,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1143,7 +1143,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1205,7 +1205,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1315,7 +1315,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ExportBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1448,7 +1448,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::BackupInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1593,7 +1593,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1706,7 +1706,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1769,7 +1769,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1890,7 +1890,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1953,7 +1953,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2018,7 +2018,7 @@ pub mod memorystore {
     /// # Example
     /// ```
     /// # use google_cloud_memorystore_v1::builder::memorystore::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memorystore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

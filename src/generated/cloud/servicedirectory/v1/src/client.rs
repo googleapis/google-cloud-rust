@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::LookupService;
 /// let client = LookupService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
@@ -66,7 +66,7 @@ impl LookupService {
     /// Returns a builder for [LookupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::LookupService;
     /// let client = LookupService::builder().build().await?;
     /// # Ok(()) }
@@ -142,7 +142,7 @@ impl LookupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
 /// let client = RegistrationService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
@@ -207,7 +207,7 @@ impl RegistrationService {
     /// Returns a builder for [RegistrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// let client = RegistrationService::builder().build().await?;
     /// # Ok(()) }

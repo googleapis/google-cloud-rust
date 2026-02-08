@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_scheduler_v1::client::CloudScheduler;
 /// let client = CloudScheduler::builder().build().await?;
 /// // use `client` to make requests to the Cloud Scheduler API.
@@ -67,7 +67,7 @@ impl CloudScheduler {
     /// Returns a builder for [CloudScheduler].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// let client = CloudScheduler::builder().build().await?;
     /// # Ok(()) }

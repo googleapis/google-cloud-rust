@@ -20,7 +20,7 @@ pub mod environments {
     /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::environments::ClientBuilder;
     /// # use client::Environments;
@@ -75,7 +75,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -203,7 +203,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -263,7 +263,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListEnvironments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -370,7 +370,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -516,7 +516,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -621,7 +621,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ExecuteAirflowCommand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -707,7 +707,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::StopAirflowCommand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -794,7 +794,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::PollAirflowCommand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -881,7 +881,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListWorkloads;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -991,7 +991,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CheckUpgrade;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1108,7 +1108,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1197,7 +1197,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1262,7 +1262,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsSecrets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1373,7 +1373,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1450,7 +1450,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1517,7 +1517,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsConfigMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1609,7 +1609,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsConfigMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1676,7 +1676,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsConfigMaps;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1787,7 +1787,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsConfigMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1867,7 +1867,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsConfigMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1934,7 +1934,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::SaveSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2049,7 +2049,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::LoadSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2188,7 +2188,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DatabaseFailover;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2300,7 +2300,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::FetchDatabaseProperties;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2367,7 +2367,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2488,7 +2488,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2551,7 +2551,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2618,7 +2618,7 @@ pub mod image_versions {
     /// A builder for [ImageVersions][crate::client::ImageVersions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::image_versions::ClientBuilder;
     /// # use client::ImageVersions;
@@ -2673,7 +2673,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListImageVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2786,7 +2786,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2907,7 +2907,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2970,7 +2970,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

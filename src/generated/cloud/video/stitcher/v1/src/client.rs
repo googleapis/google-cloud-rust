@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
 /// let client = VideoStitcherService::builder().build().await?;
 /// // use `client` to make requests to the Video Stitcher API.
@@ -70,7 +70,7 @@ impl VideoStitcherService {
     /// Returns a builder for [VideoStitcherService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// let client = VideoStitcherService::builder().build().await?;
     /// # Ok(()) }

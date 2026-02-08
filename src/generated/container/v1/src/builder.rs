@@ -20,7 +20,7 @@ pub mod cluster_manager {
     /// A builder for [ClusterManager][crate::client::ClusterManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_container_v1::*;
     /// # use builder::cluster_manager::ClientBuilder;
     /// # use client::ClusterManager;
@@ -75,7 +75,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -149,7 +149,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -230,7 +230,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CreateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -326,7 +326,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -429,7 +429,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1004,7 +1004,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolAutoscaling;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1117,7 +1117,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLoggingService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1209,7 +1209,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMonitoringService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1301,7 +1301,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetAddonsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1404,7 +1404,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1498,7 +1498,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::UpdateMaster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1587,7 +1587,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMasterAuth;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1701,7 +1701,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::DeleteCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1782,7 +1782,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1856,7 +1856,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1937,7 +1937,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2018,7 +2018,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetServerConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2092,7 +2092,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetJSONWebKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2152,7 +2152,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListNodePools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2233,7 +2233,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::GetNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2321,7 +2321,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CreateNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2424,7 +2424,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::DeleteNodePool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2512,7 +2512,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CompleteNodePoolUpgrade;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2577,7 +2577,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::RollbackNodePoolUpgrade;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2676,7 +2676,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolManagement;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2789,7 +2789,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2892,7 +2892,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetLegacyAbac;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2981,7 +2981,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::StartIPRotation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3068,7 +3068,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CompleteIPRotation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3152,7 +3152,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolSize;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3248,7 +3248,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetNetworkPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3354,7 +3354,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::SetMaintenancePolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3463,7 +3463,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::ListUsableSubnetworks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3576,7 +3576,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::CheckAutopilotCompatibility;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3641,7 +3641,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::FetchClusterUpgradeInfo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3714,7 +3714,7 @@ pub mod cluster_manager {
     /// # Example
     /// ```
     /// # use google_cloud_container_v1::builder::cluster_manager::FetchNodePoolUpgradeInfo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

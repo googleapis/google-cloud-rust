@@ -20,7 +20,7 @@ pub mod dataform {
     /// A builder for [Dataform][crate::client::Dataform].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dataform_v1::*;
     /// # use builder::dataform::ClientBuilder;
     /// # use client::Dataform;
@@ -73,7 +73,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -192,7 +192,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -252,7 +252,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -345,7 +345,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::UpdateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -440,7 +440,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::DeleteRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -509,7 +509,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CommitRepositoryChanges;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -614,7 +614,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ReadRepositoryFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -691,7 +691,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::QueryRepositoryDirectoryContents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -812,7 +812,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::FetchRepositoryHistory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -919,7 +919,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ComputeRepositoryAccessTokenStatus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -986,7 +986,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::FetchRemoteBranches;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1049,7 +1049,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListWorkspaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1165,7 +1165,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1225,7 +1225,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1315,7 +1315,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkspace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1375,7 +1375,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::InstallNpmPackages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1438,7 +1438,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::PullGitCommits;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1526,7 +1526,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::PushGitCommits;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1592,7 +1592,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::FetchFileGitStatuses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1655,7 +1655,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::FetchGitAheadBehind;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1724,7 +1724,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CommitWorkspaceChanges;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1826,7 +1826,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ResetWorkspaceChanges;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1906,7 +1906,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::FetchFileDiff;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1974,7 +1974,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::QueryDirectoryContents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2087,7 +2087,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::SearchFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2195,7 +2195,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::MakeDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2263,7 +2263,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::RemoveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2331,7 +2331,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::MoveDirectory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2407,7 +2407,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ReadFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2481,7 +2481,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::RemoveFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2549,7 +2549,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::MoveFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2625,7 +2625,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::WriteFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2701,7 +2701,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListReleaseConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2808,7 +2808,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetReleaseConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2871,7 +2871,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateReleaseConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2964,7 +2964,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::UpdateReleaseConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3059,7 +3059,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::DeleteReleaseConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3122,7 +3122,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListCompilationResults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3241,7 +3241,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetCompilationResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3304,7 +3304,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateCompilationResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3391,7 +3391,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::QueryCompilationResultActions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3506,7 +3506,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListWorkflowConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3613,7 +3613,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetWorkflowConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3676,7 +3676,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkflowConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3769,7 +3769,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::UpdateWorkflowConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3864,7 +3864,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkflowConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3927,7 +3927,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListWorkflowInvocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4048,7 +4048,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetWorkflowInvocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4111,7 +4111,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkflowInvocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4198,7 +4198,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkflowInvocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4263,7 +4263,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::CancelWorkflowInvocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4328,7 +4328,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::QueryWorkflowInvocationActions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4437,7 +4437,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4497,7 +4497,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::UpdateConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4589,7 +4589,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4700,7 +4700,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4761,7 +4761,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4864,7 +4864,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4945,7 +4945,7 @@ pub mod dataform {
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::builder::dataform::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dataform_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

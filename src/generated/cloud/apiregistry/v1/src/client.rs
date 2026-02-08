@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
 /// let client = CloudApiRegistry::builder().build().await?;
 /// // use `client` to make requests to the Cloud API Registry API.
@@ -67,7 +67,7 @@ impl CloudApiRegistry {
     /// Returns a builder for [CloudApiRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
     /// let client = CloudApiRegistry::builder().build().await?;
     /// # Ok(()) }

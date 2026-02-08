@@ -20,7 +20,7 @@ pub mod cloud_quotas {
     /// A builder for [CloudQuotas][crate::client::CloudQuotas].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_cloudquotas_v1::*;
     /// # use builder::cloud_quotas::ClientBuilder;
     /// # use client::CloudQuotas;
@@ -75,7 +75,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaInfos;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -181,7 +181,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaInfo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -243,7 +243,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaPreferences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -364,7 +364,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaPreference;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -429,7 +429,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::CreateQuotaPreference;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -533,7 +533,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::UpdateQuotaPreference;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

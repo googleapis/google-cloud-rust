@@ -20,7 +20,7 @@ pub mod gke_hub {
     /// A builder for [GkeHub][crate::client::GkeHub].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkehub_v1::*;
     /// # use builder::gke_hub::ClientBuilder;
     /// # use client::GkeHub;
@@ -73,7 +73,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMemberships;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -189,7 +189,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListBoundMemberships;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -302,7 +302,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListFeatures;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -420,7 +420,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembership;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -480,7 +480,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -544,7 +544,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembership;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -690,7 +690,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -825,7 +825,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembership;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -942,7 +942,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1054,7 +1054,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembership;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1214,7 +1214,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFeature;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1361,7 +1361,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GenerateConnectManifest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1462,7 +1462,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFleet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1591,7 +1591,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetFleet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1651,7 +1651,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFleet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1794,7 +1794,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFleet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1896,7 +1896,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListFleets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1998,7 +1998,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScopeNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2061,7 +2061,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScopeNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2201,7 +2201,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScopeNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2347,7 +2347,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScopeNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2452,7 +2452,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopeNamespaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2559,7 +2559,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScopeRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2624,7 +2624,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScopeRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2766,7 +2766,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScopeRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2914,7 +2914,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScopeRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3021,7 +3021,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopeRBACRoleBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3130,7 +3130,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3190,7 +3190,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3327,7 +3327,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3470,7 +3470,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3572,7 +3572,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3674,7 +3674,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListPermittedScopes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3781,7 +3781,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembershipBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3844,7 +3844,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembershipBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3988,7 +3988,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembershipBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4138,7 +4138,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembershipBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4245,7 +4245,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMembershipBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4358,7 +4358,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembershipRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4423,7 +4423,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembershipRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4565,7 +4565,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembershipRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4713,7 +4713,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembershipRBACRoleBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4820,7 +4820,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMembershipRBACRoleBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4929,7 +4929,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GenerateMembershipRBACRoleBindingYAML;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5026,7 +5026,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5145,7 +5145,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5206,7 +5206,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5269,7 +5269,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

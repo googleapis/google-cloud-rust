@@ -20,7 +20,7 @@ pub mod tpu {
     /// A builder for [Tpu][crate::client::Tpu].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_tpu_v2::*;
     /// # use builder::tpu::ClientBuilder;
     /// # use client::Tpu;
@@ -73,7 +73,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListNodes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -173,7 +173,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -233,7 +233,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::CreateNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -368,7 +368,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::DeleteNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -470,7 +470,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::StopNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -577,7 +577,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::StartNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -684,7 +684,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::UpdateNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -827,7 +827,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListQueuedResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -934,7 +934,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetQueuedResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -997,7 +997,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::CreateQueuedResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1141,7 +1141,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::DeleteQueuedResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1258,7 +1258,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ResetQueuedResource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1368,7 +1368,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GenerateServiceIdentity;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1433,7 +1433,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListAcceleratorTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1552,7 +1552,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetAcceleratorType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1615,7 +1615,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListRuntimeVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1734,7 +1734,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetRuntimeVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1797,7 +1797,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetGuestAttributes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1877,7 +1877,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1988,7 +1988,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2049,7 +2049,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2168,7 +2168,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2229,7 +2229,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2292,7 +2292,7 @@ pub mod tpu {
     /// # Example
     /// ```
     /// # use google_cloud_tpu_v2::builder::tpu::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_tpu_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

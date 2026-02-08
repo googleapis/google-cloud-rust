@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_logging_v2::client::LoggingServiceV2;
 /// let client = LoggingServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
@@ -66,7 +66,7 @@ impl LoggingServiceV2 {
     /// Returns a builder for [LoggingServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::client::LoggingServiceV2;
     /// let client = LoggingServiceV2::builder().build().await?;
     /// # Ok(()) }
@@ -187,7 +187,7 @@ impl LoggingServiceV2 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_logging_v2::client::ConfigServiceV2;
 /// let client = ConfigServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
@@ -233,7 +233,7 @@ impl ConfigServiceV2 {
     /// Returns a builder for [ConfigServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::client::ConfigServiceV2;
     /// let client = ConfigServiceV2::builder().build().await?;
     /// # Ok(()) }
@@ -612,7 +612,7 @@ impl ConfigServiceV2 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_logging_v2::client::MetricsServiceV2;
 /// let client = MetricsServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
@@ -658,7 +658,7 @@ impl MetricsServiceV2 {
     /// Returns a builder for [MetricsServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::client::MetricsServiceV2;
     /// let client = MetricsServiceV2::builder().build().await?;
     /// # Ok(()) }

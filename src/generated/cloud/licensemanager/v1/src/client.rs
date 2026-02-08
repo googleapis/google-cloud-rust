@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_licensemanager_v1::client::LicenseManager;
 /// let client = LicenseManager::builder().build().await?;
 /// // use `client` to make requests to the License Manager API.
@@ -66,7 +66,7 @@ impl LicenseManager {
     /// Returns a builder for [LicenseManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// let client = LicenseManager::builder().build().await?;
     /// # Ok(()) }

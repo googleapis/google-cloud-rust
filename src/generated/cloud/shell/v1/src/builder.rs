@@ -20,7 +20,7 @@ pub mod cloud_shell_service {
     /// A builder for [CloudShellService][crate::client::CloudShellService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_shell_v1::*;
     /// # use builder::cloud_shell_service::ClientBuilder;
     /// # use client::CloudShellService;
@@ -75,7 +75,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::StartEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -266,7 +266,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AuthorizeEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -408,7 +408,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AddPublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -523,7 +523,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::RemovePublicKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -638,7 +638,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

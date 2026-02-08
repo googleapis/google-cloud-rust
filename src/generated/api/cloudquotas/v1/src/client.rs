@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
 /// let client = CloudQuotas::builder().build().await?;
 /// // use `client` to make requests to the Cloud Quotas API.
@@ -72,7 +72,7 @@ impl CloudQuotas {
     /// Returns a builder for [CloudQuotas].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// let client = CloudQuotas::builder().build().await?;
     /// # Ok(()) }

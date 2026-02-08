@@ -20,7 +20,7 @@ pub mod cloud_deploy {
     /// A builder for [CloudDeploy][crate::client::CloudDeploy].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_deploy_v1::*;
     /// # use builder::cloud_deploy::ClientBuilder;
     /// # use client::CloudDeploy;
@@ -75,7 +75,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeliveryPipelines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeliveryPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeliveryPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -415,7 +415,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeliveryPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -581,7 +581,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeliveryPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -718,7 +718,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListTargets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -834,7 +834,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::RollbackTarget;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -959,7 +959,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetTarget;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1021,7 +1021,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateTarget;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1172,7 +1172,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateTarget;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1335,7 +1335,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteTarget;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1463,7 +1463,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListCustomTargetTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1584,7 +1584,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetCustomTargetType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1649,7 +1649,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateCustomTargetType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1803,7 +1803,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateCustomTargetType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1969,7 +1969,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteCustomTargetType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2100,7 +2100,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListReleases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2216,7 +2216,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2278,7 +2278,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2440,7 +2440,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::AbandonRelease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2502,7 +2502,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeployPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2656,7 +2656,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeployPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2822,7 +2822,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeployPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2953,7 +2953,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeployPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3074,7 +3074,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeployPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3136,7 +3136,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ApproveRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3217,7 +3217,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::AdvanceRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3298,7 +3298,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3371,7 +3371,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListRollouts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3487,7 +3487,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3549,7 +3549,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRollout;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3717,7 +3717,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::IgnoreJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3806,7 +3806,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::RetryJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3895,7 +3895,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListJobRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4011,7 +4011,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetJobRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4073,7 +4073,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::TerminateJobRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4146,7 +4146,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4208,7 +4208,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateAutomation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4362,7 +4362,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateAutomation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4528,7 +4528,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteAutomation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4659,7 +4659,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4721,7 +4721,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4839,7 +4839,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomationRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4904,7 +4904,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomationRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5025,7 +5025,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelAutomationRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5090,7 +5090,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5203,7 +5203,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5266,7 +5266,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5371,7 +5371,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5454,7 +5454,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5534,7 +5534,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5655,7 +5655,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5718,7 +5718,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5783,7 +5783,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

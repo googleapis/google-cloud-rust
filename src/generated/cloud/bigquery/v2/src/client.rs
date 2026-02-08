@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -66,7 +66,7 @@ impl DatasetService {
     /// Returns a builder for [DatasetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::DatasetService;
     /// let client = DatasetService::builder().build().await?;
     /// # Ok(()) }
@@ -169,7 +169,7 @@ impl DatasetService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -214,7 +214,7 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::JobService;
     /// let client = JobService::builder().build().await?;
     /// # Ok(()) }
@@ -326,7 +326,7 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -372,7 +372,7 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
     /// # Ok(()) }
@@ -451,7 +451,7 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -497,7 +497,7 @@ impl ProjectService {
     /// Returns a builder for [ProjectService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
     /// # Ok(()) }
@@ -560,7 +560,7 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RoutineService;
 /// let client = RoutineService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -606,7 +606,7 @@ impl RoutineService {
     /// Returns a builder for [RoutineService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::RoutineService;
     /// let client = RoutineService::builder().build().await?;
     /// # Ok(()) }
@@ -690,7 +690,7 @@ impl RoutineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
 /// let client = RowAccessPolicyService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -736,7 +736,7 @@ impl RowAccessPolicyService {
     /// Returns a builder for [RowAccessPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
     /// let client = RowAccessPolicyService::builder().build().await?;
     /// # Ok(()) }
@@ -838,7 +838,7 @@ impl RowAccessPolicyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::TableService;
 /// let client = TableService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -885,7 +885,7 @@ impl TableService {
     /// Returns a builder for [TableService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::TableService;
     /// let client = TableService::builder().build().await?;
     /// # Ok(()) }

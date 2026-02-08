@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_notebooks_v2::client::NotebookService;
 /// let client = NotebookService::builder().build().await?;
 /// // use `client` to make requests to the Notebooks API.
@@ -66,7 +66,7 @@ impl NotebookService {
     /// Returns a builder for [NotebookService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_notebooks_v2::client::NotebookService;
     /// let client = NotebookService::builder().build().await?;
     /// # Ok(()) }

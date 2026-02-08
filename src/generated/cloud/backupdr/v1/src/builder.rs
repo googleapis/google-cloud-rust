@@ -20,7 +20,7 @@ pub mod backup_dr {
     /// A builder for [BackupDR][crate::client::BackupDR].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::*;
     /// # use builder::backup_dr::ClientBuilder;
     /// # use client::BackupDR;
@@ -73,7 +73,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListManagementServers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -216,7 +216,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetManagementServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -279,7 +279,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateManagementServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -425,7 +425,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteManagementServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -536,7 +536,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -688,7 +688,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupVaults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -813,7 +813,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchUsableBackupVaults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -934,7 +934,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1000,7 +1000,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1170,7 +1170,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupVault;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1311,7 +1311,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListDataSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1427,7 +1427,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetDataSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1487,7 +1487,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateDataSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1645,7 +1645,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1765,7 +1765,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchBackupsForResourceType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1900,7 +1900,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1966,7 +1966,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2115,7 +2115,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2228,7 +2228,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::RestoreBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2467,7 +2467,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2613,7 +2613,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2765,7 +2765,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2825,7 +2825,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlans;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2941,7 +2941,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupPlan;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3052,7 +3052,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlanRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3115,7 +3115,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlanRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3224,7 +3224,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupPlanAssociation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3377,7 +3377,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupPlanAssociation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3533,7 +3533,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlanAssociation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3598,7 +3598,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlanAssociations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3713,7 +3713,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchBackupPlanAssociationsForResourceType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3846,7 +3846,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupPlanAssociation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3959,7 +3959,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::TriggerBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4082,7 +4082,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetDataSourceReference;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4145,7 +4145,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListDataSourceReferences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4266,7 +4266,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchDataSourceReferencesForResourceType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4399,7 +4399,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::InitializeService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4557,7 +4557,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4668,7 +4668,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4729,7 +4729,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4832,7 +4832,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4913,7 +4913,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4991,7 +4991,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5110,7 +5110,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5171,7 +5171,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5234,7 +5234,7 @@ pub mod backup_dr {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5299,7 +5299,7 @@ pub mod backup_dr_protection_summary {
     /// A builder for [BackupDrProtectionSummary][crate::client::BackupDrProtectionSummary].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::*;
     /// # use builder::backup_dr_protection_summary::ClientBuilder;
     /// # use client::BackupDrProtectionSummary;
@@ -5354,7 +5354,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::ListResourceBackupConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5477,7 +5477,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5590,7 +5590,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5653,7 +5653,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5758,7 +5758,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5841,7 +5841,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5921,7 +5921,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6042,7 +6042,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6105,7 +6105,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6170,7 +6170,7 @@ pub mod backup_dr_protection_summary {
     /// # Example
     /// ```
     /// # use google_cloud_backupdr_v1::builder::backup_dr_protection_summary::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_backupdr_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

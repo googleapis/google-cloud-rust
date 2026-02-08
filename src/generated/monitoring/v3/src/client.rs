@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
 /// let client = AlertPolicyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -74,7 +74,7 @@ impl AlertPolicyService {
     /// Returns a builder for [AlertPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// let client = AlertPolicyService::builder().build().await?;
     /// # Ok(()) }
@@ -172,7 +172,7 @@ impl AlertPolicyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::GroupService;
 /// let client = GroupService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -229,7 +229,7 @@ impl GroupService {
     /// Returns a builder for [GroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// let client = GroupService::builder().build().await?;
     /// # Ok(()) }
@@ -317,7 +317,7 @@ impl GroupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::MetricService;
 /// let client = MetricService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -364,7 +364,7 @@ impl MetricService {
     /// Returns a builder for [MetricService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::MetricService;
     /// let client = MetricService::builder().build().await?;
     /// # Ok(()) }
@@ -499,7 +499,7 @@ impl MetricService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
 /// let client = NotificationChannelService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -546,7 +546,7 @@ impl NotificationChannelService {
     /// Returns a builder for [NotificationChannelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// let client = NotificationChannelService::builder().build().await?;
     /// # Ok(()) }
@@ -743,7 +743,7 @@ impl NotificationChannelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::QueryService;
 /// let client = QueryService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -791,7 +791,7 @@ impl QueryService {
     /// Returns a builder for [QueryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::QueryService;
     /// let client = QueryService::builder().build().await?;
     /// # Ok(()) }
@@ -857,7 +857,7 @@ impl QueryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
 /// let client = ServiceMonitoringService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -906,7 +906,7 @@ impl ServiceMonitoringService {
     /// Returns a builder for [ServiceMonitoringService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// let client = ServiceMonitoringService::builder().build().await?;
     /// # Ok(()) }
@@ -1035,7 +1035,7 @@ impl ServiceMonitoringService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::SnoozeService;
 /// let client = SnoozeService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -1083,7 +1083,7 @@ impl SnoozeService {
     /// Returns a builder for [SnoozeService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::SnoozeService;
     /// let client = SnoozeService::builder().build().await?;
     /// # Ok(()) }
@@ -1164,7 +1164,7 @@ impl SnoozeService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
 /// let client = UptimeCheckService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -1217,7 +1217,7 @@ impl UptimeCheckService {
     /// Returns a builder for [UptimeCheckService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// let client = UptimeCheckService::builder().build().await?;
     /// # Ok(()) }

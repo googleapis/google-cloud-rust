@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_memcache_v1::client::CloudMemcache;
 /// let client = CloudMemcache::builder().build().await?;
 /// // use `client` to make requests to the Cloud Memorystore for Memcached API.
@@ -81,7 +81,7 @@ impl CloudMemcache {
     /// Returns a builder for [CloudMemcache].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_memcache_v1::client::CloudMemcache;
     /// let client = CloudMemcache::builder().build().await?;
     /// # Ok(()) }

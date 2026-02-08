@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
 /// let client = BareMetalSolution::builder().build().await?;
 /// // use `client` to make requests to the Bare Metal Solution API.
@@ -73,7 +73,7 @@ impl BareMetalSolution {
     /// Returns a builder for [BareMetalSolution].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// let client = BareMetalSolution::builder().build().await?;
     /// # Ok(()) }

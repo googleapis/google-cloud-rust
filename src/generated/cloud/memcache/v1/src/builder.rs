@@ -20,7 +20,7 @@ pub mod cloud_memcache {
     /// A builder for [CloudMemcache][crate::client::CloudMemcache].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_memcache_v1::*;
     /// # use builder::cloud_memcache::ClientBuilder;
     /// # use client::CloudMemcache;
@@ -75,7 +75,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -392,7 +392,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -537,7 +537,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::UpdateParameters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -689,7 +689,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -793,7 +793,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::ApplyParameters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -919,7 +919,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::RescheduleMaintenance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1062,7 +1062,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1175,7 +1175,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1238,7 +1238,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1359,7 +1359,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1422,7 +1422,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1487,7 +1487,7 @@ pub mod cloud_memcache {
     /// # Example
     /// ```
     /// # use google_cloud_memcache_v1::builder::cloud_memcache::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_memcache_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

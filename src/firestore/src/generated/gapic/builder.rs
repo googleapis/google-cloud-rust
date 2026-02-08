@@ -20,7 +20,7 @@ pub mod firestore {
     /// A builder for [Firestore][crate::client::Firestore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_firestore::*;
     /// # use builder::firestore::ClientBuilder;
     /// # use client::Firestore;
@@ -75,7 +75,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::GetDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -192,7 +192,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::ListDocuments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -369,7 +369,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::UpdateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -499,7 +499,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::DeleteDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -579,7 +579,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::BeginTransaction;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -662,7 +662,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::Commit;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -741,7 +741,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::Rollback;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -811,7 +811,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::PartitionQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -977,7 +977,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::ListCollectionIds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1081,7 +1081,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::BatchWrite;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1165,7 +1165,7 @@ pub mod firestore {
     /// # Example
     /// ```
     /// # use google_cloud_firestore::builder::firestore::CreateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

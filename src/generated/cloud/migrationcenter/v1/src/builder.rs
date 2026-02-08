@@ -20,7 +20,7 @@ pub mod migration_center {
     /// A builder for [MigrationCenter][crate::client::MigrationCenter].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_migrationcenter_v1::*;
     /// # use builder::migration_center::ClientBuilder;
     /// # use client::MigrationCenter;
@@ -75,7 +75,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -197,7 +197,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -265,7 +265,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdateAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -369,7 +369,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::BatchUpdateAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -447,7 +447,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteAsset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -515,7 +515,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::BatchDeleteAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -599,7 +599,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ReportAssetFrames;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -690,7 +690,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::AggregateAssetsValues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -772,7 +772,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -917,7 +917,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListImportJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1041,7 +1041,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1109,7 +1109,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1225,7 +1225,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdateImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1376,7 +1376,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ValidateImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1489,7 +1489,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::RunImportJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1599,7 +1599,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetImportDataFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1664,7 +1664,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListImportDataFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1785,7 +1785,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateImportDataFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1933,7 +1933,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteImportDataFile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2046,7 +2046,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2162,7 +2162,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2224,7 +2224,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2369,7 +2369,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdateGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2520,7 +2520,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2630,7 +2630,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::AddAssetsToGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2776,7 +2776,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::RemoveAssetsFromGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2922,7 +2922,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListErrorFrames;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3034,7 +3034,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetErrorFrame;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3102,7 +3102,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3218,7 +3218,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3280,7 +3280,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3425,7 +3425,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdateSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3576,7 +3576,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3686,7 +3686,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListPreferenceSets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3801,7 +3801,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetPreferenceSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3866,7 +3866,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreatePreferenceSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4014,7 +4014,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdatePreferenceSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4168,7 +4168,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeletePreferenceSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4281,7 +4281,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4343,7 +4343,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::UpdateSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4494,7 +4494,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4642,7 +4642,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4704,7 +4704,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListReportConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4825,7 +4825,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteReportConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4944,7 +4944,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CreateReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5089,7 +5089,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5157,7 +5157,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListReports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5279,7 +5279,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5389,7 +5389,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5502,7 +5502,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5565,7 +5565,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5686,7 +5686,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5749,7 +5749,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5814,7 +5814,7 @@ pub mod migration_center {
     /// # Example
     /// ```
     /// # use google_cloud_migrationcenter_v1::builder::migration_center::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_migrationcenter_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

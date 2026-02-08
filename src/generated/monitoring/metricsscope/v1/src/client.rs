@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
 /// let client = MetricsScopes::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -67,7 +67,7 @@ impl MetricsScopes {
     /// Returns a builder for [MetricsScopes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
     /// let client = MetricsScopes::builder().build().await?;
     /// # Ok(()) }

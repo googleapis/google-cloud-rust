@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_privacy_dlp_v2::client::DlpService;
 /// let client = DlpService::builder().build().await?;
 /// // use `client` to make requests to the Sensitive Data Protection (DLP).
@@ -70,7 +70,7 @@ impl DlpService {
     /// Returns a builder for [DlpService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// let client = DlpService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
 /// let client = IdentityAwareProxyAdminService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
@@ -66,7 +66,7 @@ impl IdentityAwareProxyAdminService {
     /// Returns a builder for [IdentityAwareProxyAdminService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// let client = IdentityAwareProxyAdminService::builder().build().await?;
     /// # Ok(()) }
@@ -232,7 +232,7 @@ impl IdentityAwareProxyAdminService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
 /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
@@ -280,7 +280,7 @@ impl IdentityAwareProxyOAuthService {
     /// Returns a builder for [IdentityAwareProxyOAuthService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
     /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
     /// # Ok(()) }

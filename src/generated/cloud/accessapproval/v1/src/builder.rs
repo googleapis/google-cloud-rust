@@ -20,7 +20,7 @@ pub mod access_approval {
     /// A builder for [AccessApproval][crate::client::AccessApproval].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_accessapproval_v1::*;
     /// # use builder::access_approval::ClientBuilder;
     /// # use client::AccessApproval;
@@ -75,7 +75,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::ListApprovalRequests;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -188,7 +188,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetApprovalRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -251,7 +251,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::ApproveApprovalRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -332,7 +332,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::DismissApprovalRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -395,7 +395,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::InvalidateApprovalRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -460,7 +460,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetAccessApprovalSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -525,7 +525,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::UpdateAccessApprovalSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -620,7 +620,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::DeleteAccessApprovalSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -685,7 +685,7 @@ pub mod access_approval {
     /// # Example
     /// ```
     /// # use google_cloud_accessapproval_v1::builder::access_approval::GetAccessApprovalServiceAccount;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_accessapproval_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

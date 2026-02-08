@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
 /// let client = StorageBatchOperations::builder().build().await?;
 /// // use `client` to make requests to the Storage Batch Operations API.
@@ -69,7 +69,7 @@ impl StorageBatchOperations {
     /// Returns a builder for [StorageBatchOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// let client = StorageBatchOperations::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod org_policy_violations_preview_service {
     /// A builder for [OrgPolicyViolationsPreviewService][crate::client::OrgPolicyViolationsPreviewService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::*;
     /// # use builder::org_policy_violations_preview_service::ClientBuilder;
     /// # use client::OrgPolicyViolationsPreviewService;
@@ -77,7 +77,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -190,7 +190,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -259,7 +259,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -411,7 +411,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOrgPolicyViolations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -524,7 +524,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -647,7 +647,7 @@ pub mod org_policy_violations_preview_service {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -714,7 +714,7 @@ pub mod simulator {
     /// A builder for [Simulator][crate::client::Simulator].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::*;
     /// # use builder::simulator::ClientBuilder;
     /// # use client::Simulator;
@@ -769,7 +769,7 @@ pub mod simulator {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::GetReplay;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -831,7 +831,7 @@ pub mod simulator {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::CreateReplay;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -962,7 +962,7 @@ pub mod simulator {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::ListReplayResults;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1071,7 +1071,7 @@ pub mod simulator {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1192,7 +1192,7 @@ pub mod simulator {
     /// # Example
     /// ```
     /// # use google_cloud_policysimulator_v1::builder::simulator::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policysimulator_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_ids_v1::client::Ids;
 /// let client = Ids::builder().build().await?;
 /// // use `client` to make requests to the Cloud IDS API.
@@ -66,7 +66,7 @@ impl Ids {
     /// Returns a builder for [Ids].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_ids_v1::client::Ids;
     /// let client = Ids::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod api_gateway_service {
     /// A builder for [ApiGatewayService][crate::client::ApiGatewayService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apigateway_v1::*;
     /// # use builder::api_gateway_service::ClientBuilder;
     /// # use client::ApiGatewayService;
@@ -75,7 +75,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::ListGateways;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::GetGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::CreateGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -392,7 +392,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::UpdateGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -533,7 +533,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::DeleteGateway;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -637,7 +637,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::ListApis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -751,7 +751,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::GetApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::CreateApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -952,7 +952,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::UpdateApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1093,7 +1093,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::DeleteApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1197,7 +1197,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::ListApiConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1315,7 +1315,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::GetApiConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1386,7 +1386,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::CreateApiConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1525,7 +1525,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::UpdateApiConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1666,7 +1666,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::DeleteApiConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1770,7 +1770,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1891,7 +1891,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1954,7 +1954,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2019,7 +2019,7 @@ pub mod api_gateway_service {
     /// # Example
     /// ```
     /// # use google_cloud_apigateway_v1::builder::api_gateway_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apigateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

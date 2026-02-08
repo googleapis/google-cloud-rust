@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// let client = ReachabilityService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
@@ -73,7 +73,7 @@ impl ReachabilityService {
     /// Returns a builder for [ReachabilityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// let client = ReachabilityService::builder().build().await?;
     /// # Ok(()) }
@@ -313,7 +313,7 @@ impl ReachabilityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// let client = VpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
@@ -361,7 +361,7 @@ impl VpcFlowLogsService {
     /// Returns a builder for [VpcFlowLogsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// let client = VpcFlowLogsService::builder().build().await?;
     /// # Ok(()) }
@@ -594,7 +594,7 @@ impl VpcFlowLogsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
 /// let client = OrganizationVpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
@@ -643,7 +643,7 @@ impl OrganizationVpcFlowLogsService {
     /// Returns a builder for [OrganizationVpcFlowLogsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
     /// let client = OrganizationVpcFlowLogsService::builder().build().await?;
     /// # Ok(()) }

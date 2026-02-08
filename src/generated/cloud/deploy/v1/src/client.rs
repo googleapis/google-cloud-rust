@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_deploy_v1::client::CloudDeploy;
 /// let client = CloudDeploy::builder().build().await?;
 /// // use `client` to make requests to the Cloud Deploy API.
@@ -67,7 +67,7 @@ impl CloudDeploy {
     /// Returns a builder for [CloudDeploy].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// let client = CloudDeploy::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
 /// let client = CloudControlsPartnerCore::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
@@ -66,7 +66,7 @@ impl CloudControlsPartnerCore {
     /// Returns a builder for [CloudControlsPartnerCore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// let client = CloudControlsPartnerCore::builder().build().await?;
     /// # Ok(()) }
@@ -190,7 +190,7 @@ impl CloudControlsPartnerCore {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
 /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
@@ -236,7 +236,7 @@ impl CloudControlsPartnerMonitoring {
     /// Returns a builder for [CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
     /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
     /// # Ok(()) }

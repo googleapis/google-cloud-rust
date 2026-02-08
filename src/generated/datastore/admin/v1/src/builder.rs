@@ -20,7 +20,7 @@ pub mod datastore_admin {
     /// A builder for [DatastoreAdmin][crate::client::DatastoreAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datastore_admin_v1::*;
     /// # use builder::datastore_admin::ClientBuilder;
     /// # use client::DatastoreAdmin;
@@ -75,7 +75,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ExportEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -223,7 +223,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ImportEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -368,7 +368,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::CreateIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -493,7 +493,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::DeleteIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -606,7 +606,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::GetIndex;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -672,7 +672,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ListIndexes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -780,7 +780,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -901,7 +901,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -964,7 +964,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1029,7 +1029,7 @@ pub mod datastore_admin {
     /// # Example
     /// ```
     /// # use google_cloud_datastore_admin_v1::builder::datastore_admin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastore_admin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

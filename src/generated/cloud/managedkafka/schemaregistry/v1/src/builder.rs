@@ -20,7 +20,7 @@ pub mod managed_schema_registry {
     /// A builder for [ManagedSchemaRegistry][crate::client::ManagedSchemaRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::*;
     /// # use builder::managed_schema_registry::ClientBuilder;
     /// # use client::ManagedSchemaRegistry;
@@ -75,7 +75,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaRegistry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -140,7 +140,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaRegistries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -205,7 +205,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateSchemaRegistry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -300,7 +300,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaRegistry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -365,7 +365,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -427,7 +427,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -489,7 +489,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -569,7 +569,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -649,7 +649,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -750,7 +750,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -812,7 +812,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -910,7 +910,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjectsBySchemaId;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1011,7 +1011,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSubject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1091,7 +1091,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::LookupVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1226,7 +1226,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1306,7 +1306,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchemaVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1386,7 +1386,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1466,7 +1466,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1619,7 +1619,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1699,7 +1699,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListReferencedSchemas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1764,7 +1764,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CheckCompatibility;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1884,7 +1884,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1964,7 +1964,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2069,7 +2069,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2134,7 +2134,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaMode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2196,7 +2196,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaMode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2269,7 +2269,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaMode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2334,7 +2334,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2447,7 +2447,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2510,7 +2510,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2631,7 +2631,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2694,7 +2694,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2759,7 +2759,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

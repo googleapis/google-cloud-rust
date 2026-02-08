@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vmmigration_v1::client::VmMigration;
 /// let client = VmMigration::builder().build().await?;
 /// // use `client` to make requests to the VM Migration API.
@@ -66,7 +66,7 @@ impl VmMigration {
     /// Returns a builder for [VmMigration].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// let client = VmMigration::builder().build().await?;
     /// # Ok(()) }

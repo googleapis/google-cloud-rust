@@ -20,7 +20,7 @@ pub mod identity_aware_proxy_admin_service {
     /// A builder for [IdentityAwareProxyAdminService][crate::client::IdentityAwareProxyAdminService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::*;
     /// # use builder::identity_aware_proxy_admin_service::ClientBuilder;
     /// # use client::IdentityAwareProxyAdminService;
@@ -75,7 +75,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -180,7 +180,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -263,7 +263,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -343,7 +343,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetIapSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -405,7 +405,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::UpdateIapSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -502,7 +502,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -577,7 +577,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -686,7 +686,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -781,7 +781,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -846,7 +846,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -911,7 +911,7 @@ pub mod identity_aware_proxy_admin_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1010,7 +1010,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// A builder for [IdentityAwareProxyOAuthService][crate::client::IdentityAwareProxyOAuthService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::*;
     /// # use builder::identity_aware_proxy_o_auth_service::ClientBuilder;
     /// # use client::IdentityAwareProxyOAuthService;
@@ -1065,7 +1065,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ListBrands;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1127,7 +1127,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::CreateBrand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1211,7 +1211,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::GetBrand;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1273,7 +1273,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1365,7 +1365,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1476,7 +1476,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1543,7 +1543,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1610,7 +1610,7 @@ pub mod identity_aware_proxy_o_auth_service {
     /// # Example
     /// ```
     /// # use google_cloud_iap_v1::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iap_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

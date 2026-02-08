@@ -20,7 +20,7 @@ pub mod iam_policy {
     /// A builder for [IAMPolicy][crate::client::IAMPolicy].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v1::*;
     /// # use builder::iam_policy::ClientBuilder;
     /// # use client::IAMPolicy;
@@ -75,7 +75,7 @@ pub mod iam_policy {
     /// # Example
     /// ```
     /// # use google_cloud_iam_v1::builder::iam_policy::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -177,7 +177,7 @@ pub mod iam_policy {
     /// # Example
     /// ```
     /// # use google_cloud_iam_v1::builder::iam_policy::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -257,7 +257,7 @@ pub mod iam_policy {
     /// # Example
     /// ```
     /// # use google_cloud_iam_v1::builder::iam_policy::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Changes;
 /// let client = Changes::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -66,7 +66,7 @@ impl Changes {
     /// Returns a builder for [Changes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Changes;
     /// let client = Changes::builder().build().await?;
     /// # Ok(()) }
@@ -138,7 +138,7 @@ impl Changes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::DnsKeys;
 /// let client = DnsKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -184,7 +184,7 @@ impl DnsKeys {
     /// Returns a builder for [DnsKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::DnsKeys;
     /// let client = DnsKeys::builder().build().await?;
     /// # Ok(()) }
@@ -251,7 +251,7 @@ impl DnsKeys {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
 /// let client = ManagedZoneOperations::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -297,7 +297,7 @@ impl ManagedZoneOperations {
     /// Returns a builder for [ManagedZoneOperations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
     /// let client = ManagedZoneOperations::builder().build().await?;
     /// # Ok(()) }
@@ -365,7 +365,7 @@ impl ManagedZoneOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZones;
 /// let client = ManagedZones::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -411,7 +411,7 @@ impl ManagedZones {
     /// Returns a builder for [ManagedZones].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ManagedZones;
     /// let client = ManagedZones::builder().build().await?;
     /// # Ok(()) }
@@ -518,7 +518,7 @@ impl ManagedZones {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -564,7 +564,7 @@ impl Policies {
     /// Returns a builder for [Policies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Policies;
     /// let client = Policies::builder().build().await?;
     /// # Ok(()) }
@@ -651,7 +651,7 @@ impl Policies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -697,7 +697,7 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Projects;
     /// let client = Projects::builder().build().await?;
     /// # Ok(()) }
@@ -759,7 +759,7 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResourceRecordSets;
 /// let client = ResourceRecordSets::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -805,7 +805,7 @@ impl ResourceRecordSets {
     /// Returns a builder for [ResourceRecordSets].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResourceRecordSets;
     /// let client = ResourceRecordSets::builder().build().await?;
     /// # Ok(()) }
@@ -888,7 +888,7 @@ impl ResourceRecordSets {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicies;
 /// let client = ResponsePolicies::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -934,7 +934,7 @@ impl ResponsePolicies {
     /// Returns a builder for [ResponsePolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResponsePolicies;
     /// let client = ResponsePolicies::builder().build().await?;
     /// # Ok(()) }
@@ -1022,7 +1022,7 @@ impl ResponsePolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
 /// let client = ResponsePolicyRules::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -1068,7 +1068,7 @@ impl ResponsePolicyRules {
     /// Returns a builder for [ResponsePolicyRules].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
     /// let client = ResponsePolicyRules::builder().build().await?;
     /// # Ok(()) }

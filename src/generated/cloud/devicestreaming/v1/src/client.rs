@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
 /// let client = DirectAccessService::builder().build().await?;
 /// // use `client` to make requests to the Device Streaming API.
@@ -75,7 +75,7 @@ impl DirectAccessService {
     /// Returns a builder for [DirectAccessService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
     /// let client = DirectAccessService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod case_attachment_service {
     /// A builder for [CaseAttachmentService][crate::client::CaseAttachmentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_attachment_service::ClientBuilder;
     /// # use client::CaseAttachmentService;
@@ -75,7 +75,7 @@ pub mod case_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_attachment_service::ListAttachments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -183,7 +183,7 @@ pub mod case_service {
     /// A builder for [CaseService][crate::client::CaseService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_service::ClientBuilder;
     /// # use client::CaseService;
@@ -238,7 +238,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::GetCase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -300,7 +300,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::ListCases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -408,7 +408,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::SearchCases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -516,7 +516,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::CreateCase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -600,7 +600,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::UpdateCase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -694,7 +694,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::EscalateCase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -774,7 +774,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::CloseCase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -836,7 +836,7 @@ pub mod case_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::case_service::SearchCaseClassifications;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -947,7 +947,7 @@ pub mod comment_service {
     /// A builder for [CommentService][crate::client::CommentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::comment_service::ClientBuilder;
     /// # use client::CommentService;
@@ -1002,7 +1002,7 @@ pub mod comment_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::comment_service::ListComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1106,7 +1106,7 @@ pub mod comment_service {
     /// # Example
     /// ```
     /// # use google_cloud_support_v2::builder::comment_service::CreateComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_support_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

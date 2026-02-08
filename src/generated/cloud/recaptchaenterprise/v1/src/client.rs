@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
 /// let client = RecaptchaEnterpriseService::builder().build().await?;
 /// // use `client` to make requests to the reCAPTCHA Enterprise API.
@@ -66,7 +66,7 @@ impl RecaptchaEnterpriseService {
     /// Returns a builder for [RecaptchaEnterpriseService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// let client = RecaptchaEnterpriseService::builder().build().await?;
     /// # Ok(()) }

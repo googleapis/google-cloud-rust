@@ -20,7 +20,7 @@ pub mod eventarc {
     /// A builder for [Eventarc][crate::client::Eventarc].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_v1::*;
     /// # use builder::eventarc::ClientBuilder;
     /// # use client::Eventarc;
@@ -73,7 +73,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -133,7 +133,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListTriggers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -247,7 +247,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -390,7 +390,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -537,7 +537,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteTrigger;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -662,7 +662,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -722,7 +722,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListChannels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -830,7 +830,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -973,7 +973,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1114,7 +1114,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1227,7 +1227,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetProvider;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1287,7 +1287,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListProviders;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1401,7 +1401,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetChannelConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1464,7 +1464,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListChannelConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1571,7 +1571,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateChannelConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1715,7 +1715,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteChannelConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1829,7 +1829,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetGoogleChannelConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1892,7 +1892,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateGoogleChannelConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1989,7 +1989,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetMessageBus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2049,7 +2049,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListMessageBuses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2168,7 +2168,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListMessageBusEnrollments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2245,7 +2245,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateMessageBus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2391,7 +2391,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateMessageBus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2545,7 +2545,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteMessageBus;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2673,7 +2673,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2733,7 +2733,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListEnrollments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2849,7 +2849,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2995,7 +2995,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3149,7 +3149,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3277,7 +3277,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetPipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3337,7 +3337,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListPipelines;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3451,7 +3451,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreatePipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3594,7 +3594,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdatePipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3745,7 +3745,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeletePipeline;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3870,7 +3870,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetGoogleApiSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3933,7 +3933,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListGoogleApiSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4052,7 +4052,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CreateGoogleApiSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4198,7 +4198,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateGoogleApiSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4352,7 +4352,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteGoogleApiSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4480,7 +4480,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4591,7 +4591,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4652,7 +4652,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4755,7 +4755,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4836,7 +4836,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4914,7 +4914,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5033,7 +5033,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5094,7 +5094,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5157,7 +5157,7 @@ pub mod eventarc {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_v1::builder::eventarc::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

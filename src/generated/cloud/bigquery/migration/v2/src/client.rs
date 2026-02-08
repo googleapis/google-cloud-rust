@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Migration API.
@@ -66,7 +66,7 @@ impl MigrationService {
     /// Returns a builder for [MigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// let client = MigrationService::builder().build().await?;
     /// # Ok(()) }

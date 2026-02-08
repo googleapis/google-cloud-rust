@@ -22,7 +22,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_workflows_v1::client::Workflows;
 /// let client = Workflows::builder().build().await?;
 /// // use `client` to make requests to the Workflows API.
@@ -70,7 +70,7 @@ impl Workflows {
     /// Returns a builder for [Workflows].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_workflows_v1::client::Workflows;
     /// let client = Workflows::builder().build().await?;
     /// # Ok(()) }

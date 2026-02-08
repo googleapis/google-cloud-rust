@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
 /// let client = SecureSourceManager::builder().build().await?;
 /// // use `client` to make requests to the Secure Source Manager API.
@@ -68,7 +68,7 @@ impl SecureSourceManager {
     /// Returns a builder for [SecureSourceManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// let client = SecureSourceManager::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
 /// let client = FirestoreAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Firestore API.
@@ -93,7 +93,7 @@ impl FirestoreAdmin {
     /// Returns a builder for [FirestoreAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// let client = FirestoreAdmin::builder().build().await?;
     /// # Ok(()) }

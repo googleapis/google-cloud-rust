@@ -20,7 +20,7 @@ pub mod client_connector_services_service {
     /// A builder for [ClientConnectorServicesService][crate::client::ClientConnectorServicesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::*;
     /// # use builder::client_connector_services_service::ClientBuilder;
     /// # use client::ClientConnectorServicesService;
@@ -75,7 +75,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListClientConnectorServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -198,7 +198,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetClientConnectorService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -265,7 +265,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::CreateClientConnectorService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -424,7 +424,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::UpdateClientConnectorService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -594,7 +594,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::DeleteClientConnectorService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -720,7 +720,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -833,7 +833,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -896,7 +896,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1001,7 +1001,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1084,7 +1084,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1164,7 +1164,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1285,7 +1285,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1348,7 +1348,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1413,7 +1413,7 @@ pub mod client_connector_services_service {
     /// # Example
     /// ```
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_beyondcorp_clientconnectorservices_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod model_armor {
     /// A builder for [ModelArmor][crate::client::ModelArmor].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_modelarmor_v1::*;
     /// # use builder::model_armor::ClientBuilder;
     /// # use client::ModelArmor;
@@ -75,7 +75,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::ListTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::GetTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::CreateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -351,7 +351,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::UpdateTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -455,7 +455,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::DeleteTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -523,7 +523,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::GetFloorSetting;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -585,7 +585,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::UpdateFloorSetting;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -682,7 +682,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::SanitizeUserPrompt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -790,7 +790,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::SanitizeModelResponse;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -904,7 +904,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1017,7 +1017,7 @@ pub mod model_armor {
     /// # Example
     /// ```
     /// # use google_cloud_modelarmor_v1::builder::model_armor::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_modelarmor_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

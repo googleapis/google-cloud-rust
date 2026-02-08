@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
 /// let client = WebSecurityScanner::builder().build().await?;
 /// // use `client` to make requests to the Web Security Scanner API.
@@ -68,7 +68,7 @@ impl WebSecurityScanner {
     /// Returns a builder for [WebSecurityScanner].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
     /// let client = WebSecurityScanner::builder().build().await?;
     /// # Ok(()) }

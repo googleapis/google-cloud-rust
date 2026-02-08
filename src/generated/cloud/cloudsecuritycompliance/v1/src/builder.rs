@@ -20,7 +20,7 @@ pub mod audit {
     /// A builder for [Audit][crate::client::Audit].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::*;
     /// # use builder::audit::ClientBuilder;
     /// # use client::Audit;
@@ -73,7 +73,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::GenerateFrameworkAuditScopeReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -159,7 +159,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::CreateFrameworkAudit;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -297,7 +297,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::ListFrameworkAudits;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -410,7 +410,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::GetFrameworkAudit;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -473,7 +473,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -584,7 +584,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -645,7 +645,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -764,7 +764,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -825,7 +825,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -888,7 +888,7 @@ pub mod audit {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::audit::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -953,7 +953,7 @@ pub mod cm_enrollment_service {
     /// A builder for [CmEnrollmentService][crate::client::CmEnrollmentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::*;
     /// # use builder::cm_enrollment_service::ClientBuilder;
     /// # use client::CmEnrollmentService;
@@ -1008,7 +1008,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::UpdateCmEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1105,7 +1105,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1172,7 +1172,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1285,7 +1285,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1348,7 +1348,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1469,7 +1469,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1532,7 +1532,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1597,7 +1597,7 @@ pub mod cm_enrollment_service {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::cm_enrollment_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1664,7 +1664,7 @@ pub mod config {
     /// A builder for [Config][crate::client::Config].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::*;
     /// # use builder::config::ClientBuilder;
     /// # use client::Config;
@@ -1717,7 +1717,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::ListFrameworks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1821,7 +1821,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::GetFramework;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1887,7 +1887,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::CreateFramework;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1977,7 +1977,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::UpdateFramework;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2075,7 +2075,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::DeleteFramework;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2135,7 +2135,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::ListCloudControls;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2242,7 +2242,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::GetCloudControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2308,7 +2308,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::CreateCloudControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2401,7 +2401,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::UpdateCloudControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2496,7 +2496,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::DeleteCloudControl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2559,7 +2559,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2670,7 +2670,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2731,7 +2731,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2850,7 +2850,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2911,7 +2911,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2974,7 +2974,7 @@ pub mod config {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::config::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3039,7 +3039,7 @@ pub mod deployment {
     /// A builder for [Deployment][crate::client::Deployment].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::*;
     /// # use builder::deployment::ClientBuilder;
     /// # use client::Deployment;
@@ -3094,7 +3094,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::CreateFrameworkDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3238,7 +3238,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::DeleteFrameworkDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3353,7 +3353,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::GetFrameworkDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3418,7 +3418,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::ListFrameworkDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3541,7 +3541,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::GetCloudControlDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3608,7 +3608,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::ListCloudControlDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3731,7 +3731,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3844,7 +3844,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3907,7 +3907,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4028,7 +4028,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4091,7 +4091,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4156,7 +4156,7 @@ pub mod deployment {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::deployment::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4223,7 +4223,7 @@ pub mod monitoring {
     /// A builder for [Monitoring][crate::client::Monitoring].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::*;
     /// # use builder::monitoring::ClientBuilder;
     /// # use client::Monitoring;
@@ -4278,7 +4278,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::ListFrameworkComplianceSummaries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4395,7 +4395,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::ListFindingSummaries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4530,7 +4530,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::FetchFrameworkComplianceReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4615,7 +4615,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::ListControlComplianceSummaries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4752,7 +4752,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::AggregateFrameworkComplianceReport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4845,7 +4845,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4958,7 +4958,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5021,7 +5021,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5142,7 +5142,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5205,7 +5205,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5270,7 +5270,7 @@ pub mod monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudsecuritycompliance_v1::builder::monitoring::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudsecuritycompliance_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
 /// let client = ImageAnnotator::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
@@ -68,7 +68,7 @@ impl ImageAnnotator {
     /// Returns a builder for [ImageAnnotator].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::client::ImageAnnotator;
     /// let client = ImageAnnotator::builder().build().await?;
     /// # Ok(()) }
@@ -195,7 +195,7 @@ impl ImageAnnotator {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// let client = ProductSearch::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
@@ -261,7 +261,7 @@ impl ProductSearch {
     /// Returns a builder for [ProductSearch].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// let client = ProductSearch::builder().build().await?;
     /// # Ok(()) }

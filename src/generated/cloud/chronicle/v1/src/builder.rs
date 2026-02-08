@@ -20,7 +20,7 @@ pub mod data_access_control_service {
     /// A builder for [DataAccessControlService][crate::client::DataAccessControlService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::*;
     /// # use builder::data_access_control_service::ClientBuilder;
     /// # use client::DataAccessControlService;
@@ -75,7 +75,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::CreateDataAccessLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -170,7 +170,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::GetDataAccessLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -235,7 +235,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::ListDataAccessLabels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -350,7 +350,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::UpdateDataAccessLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -447,7 +447,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::DeleteDataAccessLabel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -512,7 +512,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::CreateDataAccessScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -607,7 +607,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::GetDataAccessScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -672,7 +672,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::ListDataAccessScopes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -787,7 +787,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::UpdateDataAccessScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -884,7 +884,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::DeleteDataAccessScope;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -949,7 +949,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1070,7 +1070,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1133,7 +1133,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1198,7 +1198,7 @@ pub mod data_access_control_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::data_access_control_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1265,7 +1265,7 @@ pub mod entity_service {
     /// A builder for [EntityService][crate::client::EntityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::*;
     /// # use builder::entity_service::ClientBuilder;
     /// # use client::EntityService;
@@ -1320,7 +1320,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::GetWatchlist;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1382,7 +1382,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::ListWatchlists;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1494,7 +1494,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::CreateWatchlist;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1584,7 +1584,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::UpdateWatchlist;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1678,7 +1678,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::DeleteWatchlist;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1746,7 +1746,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1867,7 +1867,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1930,7 +1930,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1995,7 +1995,7 @@ pub mod entity_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::entity_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2062,7 +2062,7 @@ pub mod instance_service {
     /// A builder for [InstanceService][crate::client::InstanceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::*;
     /// # use builder::instance_service::ClientBuilder;
     /// # use client::InstanceService;
@@ -2117,7 +2117,7 @@ pub mod instance_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::instance_service::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2179,7 +2179,7 @@ pub mod instance_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::instance_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2300,7 +2300,7 @@ pub mod instance_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::instance_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2363,7 +2363,7 @@ pub mod instance_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::instance_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2428,7 +2428,7 @@ pub mod instance_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::instance_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2495,7 +2495,7 @@ pub mod reference_list_service {
     /// A builder for [ReferenceListService][crate::client::ReferenceListService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::*;
     /// # use builder::reference_list_service::ClientBuilder;
     /// # use client::ReferenceListService;
@@ -2550,7 +2550,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::GetReferenceList;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2621,7 +2621,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::ListReferenceLists;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2736,7 +2736,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::CreateReferenceList;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2831,7 +2831,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::UpdateReferenceList;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2928,7 +2928,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3049,7 +3049,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3112,7 +3112,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3177,7 +3177,7 @@ pub mod reference_list_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::reference_list_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3244,7 +3244,7 @@ pub mod rule_service {
     /// A builder for [RuleService][crate::client::RuleService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::*;
     /// # use builder::rule_service::ClientBuilder;
     /// # use client::RuleService;
@@ -3299,7 +3299,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::CreateRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3383,7 +3383,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::GetRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3451,7 +3451,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::ListRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3565,7 +3565,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::UpdateRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3659,7 +3659,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::DeleteRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3727,7 +3727,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::ListRuleRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3842,7 +3842,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::CreateRetrohunt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3973,7 +3973,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::GetRetrohunt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4035,7 +4035,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::ListRetrohunts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4147,7 +4147,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::GetRuleDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4212,7 +4212,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::ListRuleDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4327,7 +4327,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::UpdateRuleDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4428,7 +4428,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4549,7 +4549,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4612,7 +4612,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4677,7 +4677,7 @@ pub mod rule_service {
     /// # Example
     /// ```
     /// # use google_cloud_chronicle_v1::builder::rule_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

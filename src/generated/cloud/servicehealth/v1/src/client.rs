@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
 /// let client = ServiceHealth::builder().build().await?;
 /// // use `client` to make requests to the Service Health API.
@@ -66,7 +66,7 @@ impl ServiceHealth {
     /// Returns a builder for [ServiceHealth].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// let client = ServiceHealth::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod cloud_redis {
     /// A builder for [CloudRedis][crate::client::CloudRedis].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_redis_v1::*;
     /// # use builder::cloud_redis::ClientBuilder;
     /// # use client::CloudRedis;
@@ -75,7 +75,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -179,7 +179,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -241,7 +241,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::GetInstanceAuthString;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -306,7 +306,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -445,7 +445,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::UpdateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -590,7 +590,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::UpgradeInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -707,7 +707,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::ImportInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -838,7 +838,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::ExportInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -969,7 +969,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::FailoverInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1092,7 +1092,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1196,7 +1196,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::RescheduleMaintenance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1339,7 +1339,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1452,7 +1452,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1515,7 +1515,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1636,7 +1636,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1699,7 +1699,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1764,7 +1764,7 @@ pub mod cloud_redis {
     /// # Example
     /// ```
     /// # use google_cloud_redis_v1::builder::cloud_redis::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_redis_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

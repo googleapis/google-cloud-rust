@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
 /// let client = ContactCenterInsights::builder().build().await?;
 /// // use `client` to make requests to the Contact Center AI Insights API.
@@ -66,7 +66,7 @@ impl ContactCenterInsights {
     /// Returns a builder for [ContactCenterInsights].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// let client = ContactCenterInsights::builder().build().await?;
     /// # Ok(()) }

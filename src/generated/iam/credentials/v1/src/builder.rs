@@ -20,7 +20,7 @@ pub mod iam_credentials {
     /// A builder for [IAMCredentials][crate::client::IAMCredentials].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_credentials_v1::*;
     /// # use builder::iam_credentials::ClientBuilder;
     /// # use client::IAMCredentials;
@@ -75,7 +75,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateAccessToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -182,7 +182,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateIdToken;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -269,7 +269,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignBlob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -350,7 +350,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignJwt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

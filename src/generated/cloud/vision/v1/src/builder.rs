@@ -20,7 +20,7 @@ pub mod image_annotator {
     /// A builder for [ImageAnnotator][crate::client::ImageAnnotator].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::*;
     /// # use builder::image_annotator::ClientBuilder;
     /// # use client::ImageAnnotator;
@@ -75,7 +75,7 @@ pub mod image_annotator {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::BatchAnnotateImages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -162,7 +162,7 @@ pub mod image_annotator {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::BatchAnnotateFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -249,7 +249,7 @@ pub mod image_annotator {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateImages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -409,7 +409,7 @@ pub mod image_annotator {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::AsyncBatchAnnotateFiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -547,7 +547,7 @@ pub mod image_annotator {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::image_annotator::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -612,7 +612,7 @@ pub mod product_search {
     /// A builder for [ProductSearch][crate::client::ProductSearch].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::*;
     /// # use builder::product_search::ClientBuilder;
     /// # use client::ProductSearch;
@@ -667,7 +667,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::CreateProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -760,7 +760,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ListProductSets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -866,7 +866,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::GetProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -928,7 +928,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::UpdateProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1025,7 +1025,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::DeleteProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1090,7 +1090,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::CreateProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1180,7 +1180,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ListProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1284,7 +1284,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::GetProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1346,7 +1346,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::UpdateProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1440,7 +1440,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::DeleteProduct;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1502,7 +1502,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::CreateReferenceImage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1595,7 +1595,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::DeleteReferenceImage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1660,7 +1660,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ListReferenceImages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1769,7 +1769,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::GetReferenceImage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1834,7 +1834,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::AddProductToProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1907,7 +1907,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::RemoveProductFromProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1982,7 +1982,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ListProductsInProductSet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2093,7 +2093,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::ImportProductSets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2229,7 +2229,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::PurgeProducts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2380,7 +2380,7 @@ pub mod product_search {
     /// # Example
     /// ```
     /// # use google_cloud_vision_v1::builder::product_search::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vision_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

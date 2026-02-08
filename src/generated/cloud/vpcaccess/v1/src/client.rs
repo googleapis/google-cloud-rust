@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
 /// let client = VpcAccessService::builder().build().await?;
 /// // use `client` to make requests to the Serverless VPC Access API.
@@ -68,7 +68,7 @@ impl VpcAccessService {
     /// Returns a builder for [VpcAccessService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
     /// let client = VpcAccessService::builder().build().await?;
     /// # Ok(()) }

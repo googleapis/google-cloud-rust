@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// let client = CompanyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -66,7 +66,7 @@ impl CompanyService {
     /// Returns a builder for [CompanyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// let client = CompanyService::builder().build().await?;
     /// # Ok(()) }
@@ -156,7 +156,7 @@ impl CompanyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::Completion;
 /// let client = Completion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -202,7 +202,7 @@ impl Completion {
     /// Returns a builder for [Completion].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::Completion;
     /// let client = Completion::builder().build().await?;
     /// # Ok(()) }
@@ -272,7 +272,7 @@ impl Completion {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::EventService;
 /// let client = EventService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -318,7 +318,7 @@ impl EventService {
     /// Returns a builder for [EventService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::EventService;
     /// let client = EventService::builder().build().await?;
     /// # Ok(()) }
@@ -393,7 +393,7 @@ impl EventService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -439,7 +439,7 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::JobService;
     /// let client = JobService::builder().build().await?;
     /// # Ok(()) }
@@ -616,7 +616,7 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::TenantService;
 /// let client = TenantService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
@@ -662,7 +662,7 @@ impl TenantService {
     /// Returns a builder for [TenantService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// let client = TenantService::builder().build().await?;
     /// # Ok(()) }

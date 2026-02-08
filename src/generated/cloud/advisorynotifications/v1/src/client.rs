@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
 /// let client = AdvisoryNotificationsService::builder().build().await?;
 /// // use `client` to make requests to the Advisory Notifications API.
@@ -66,7 +66,7 @@ impl AdvisoryNotificationsService {
     /// Returns a builder for [AdvisoryNotificationsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// let client = AdvisoryNotificationsService::builder().build().await?;
     /// # Ok(()) }

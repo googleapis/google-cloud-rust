@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// let client = PolicyBindings::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -67,7 +67,7 @@ impl PolicyBindings {
     /// Returns a builder for [PolicyBindings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// let client = PolicyBindings::builder().build().await?;
     /// # Ok(()) }
@@ -202,7 +202,7 @@ impl PolicyBindings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -249,7 +249,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// Returns a builder for [PrincipalAccessBoundaryPolicies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
     /// # Ok(()) }

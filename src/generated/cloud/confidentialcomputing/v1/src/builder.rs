@@ -20,7 +20,7 @@ pub mod confidential_computing {
     /// A builder for [ConfidentialComputing][crate::client::ConfidentialComputing].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_confidentialcomputing_v1::*;
     /// # use builder::confidential_computing::ClientBuilder;
     /// # use client::ConfidentialComputing;
@@ -75,7 +75,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::CreateChallenge;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -159,7 +159,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyAttestation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -350,7 +350,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialSpace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -530,7 +530,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialGke;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -624,7 +624,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -737,7 +737,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

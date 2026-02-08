@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_auditmanager_v1::client::AuditManager;
 /// let client = AuditManager::builder().build().await?;
 /// // use `client` to make requests to the Audit Manager API.
@@ -66,7 +66,7 @@ impl AuditManager {
     /// Returns a builder for [AuditManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// let client = AuditManager::builder().build().await?;
     /// # Ok(()) }

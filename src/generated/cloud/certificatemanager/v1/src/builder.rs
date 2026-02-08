@@ -20,7 +20,7 @@ pub mod certificate_manager {
     /// A builder for [CertificateManager][crate::client::CertificateManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_certificatemanager_v1::*;
     /// # use builder::certificate_manager::ClientBuilder;
     /// # use client::CertificateManager;
@@ -75,7 +75,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListCertificates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -400,7 +400,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -548,7 +548,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -655,7 +655,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListCertificateMaps;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -776,7 +776,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetCertificateMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -841,7 +841,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -983,7 +983,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificateMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1131,7 +1131,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateMap;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1238,7 +1238,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListCertificateMapEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1361,7 +1361,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetCertificateMapEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1426,7 +1426,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateMapEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1572,7 +1572,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateCertificateMapEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1724,7 +1724,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateMapEntry;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1833,7 +1833,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListDnsAuthorizations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1954,7 +1954,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetDnsAuthorization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2019,7 +2019,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateDnsAuthorization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2161,7 +2161,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateDnsAuthorization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2309,7 +2309,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteDnsAuthorization;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2416,7 +2416,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListCertificateIssuanceConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2539,7 +2539,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetCertificateIssuanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2606,7 +2606,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateCertificateIssuanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2758,7 +2758,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteCertificateIssuanceConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2867,7 +2867,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListTrustConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2988,7 +2988,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetTrustConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3050,7 +3050,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CreateTrustConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3192,7 +3192,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::UpdateTrustConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3340,7 +3340,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteTrustConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3453,7 +3453,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3566,7 +3566,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3629,7 +3629,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3750,7 +3750,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3813,7 +3813,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3878,7 +3878,7 @@ pub mod certificate_manager {
     /// # Example
     /// ```
     /// # use google_cloud_certificatemanager_v1::builder::certificate_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_certificatemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

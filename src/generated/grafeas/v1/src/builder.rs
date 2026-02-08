@@ -20,7 +20,7 @@ pub mod grafeas {
     /// A builder for [Grafeas][crate::client::Grafeas].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_grafeas_v1::*;
     /// # use builder::grafeas::ClientBuilder;
     /// # use client::Grafeas;
@@ -73,7 +73,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::GetOccurrence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -133,7 +133,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::ListOccurrences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -249,7 +249,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::DeleteOccurrence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -312,7 +312,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::CreateOccurrence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -397,7 +397,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::BatchCreateOccurrences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -473,7 +473,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::UpdateOccurrence;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -576,7 +576,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::GetOccurrenceNote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -639,7 +639,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::GetNote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -699,7 +699,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::ListNotes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -811,7 +811,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::DeleteNote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -871,7 +871,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::CreateNote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -961,7 +961,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::BatchCreateNotes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1037,7 +1037,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::UpdateNote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1137,7 +1137,7 @@ pub mod grafeas {
     /// # Example
     /// ```
     /// # use google_cloud_grafeas_v1::builder::grafeas::ListNoteOccurrences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_grafeas_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

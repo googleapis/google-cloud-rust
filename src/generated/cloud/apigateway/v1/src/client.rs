@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
 /// let client = ApiGatewayService::builder().build().await?;
 /// // use `client` to make requests to the API Gateway API.
@@ -66,7 +66,7 @@ impl ApiGatewayService {
     /// Returns a builder for [ApiGatewayService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// let client = ApiGatewayService::builder().build().await?;
     /// # Ok(()) }

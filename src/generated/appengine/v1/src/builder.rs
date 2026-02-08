@@ -20,7 +20,7 @@ pub mod applications {
     /// A builder for [Applications][crate::client::Applications].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::applications::ClientBuilder;
     /// # use client::Applications;
@@ -75,7 +75,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::GetApplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -135,7 +135,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::CreateApplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -257,7 +257,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::UpdateApplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -403,7 +403,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::RepairApplication;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -513,7 +513,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -634,7 +634,7 @@ pub mod applications {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::applications::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -699,7 +699,7 @@ pub mod services {
     /// A builder for [Services][crate::client::Services].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::services::ClientBuilder;
     /// # use client::Services;
@@ -752,7 +752,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -852,7 +852,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -910,7 +910,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::UpdateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1057,7 +1057,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1161,7 +1161,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1280,7 +1280,7 @@ pub mod services {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::services::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1343,7 +1343,7 @@ pub mod versions {
     /// A builder for [Versions][crate::client::Versions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::versions::ClientBuilder;
     /// # use client::Versions;
@@ -1396,7 +1396,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::ListVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1502,7 +1502,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::GetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1566,7 +1566,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::CreateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1689,7 +1689,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::UpdateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1830,7 +1830,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::DeleteVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1934,7 +1934,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2053,7 +2053,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::versions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2116,7 +2116,7 @@ pub mod instances {
     /// A builder for [Instances][crate::client::Instances].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::instances::ClientBuilder;
     /// # use client::Instances;
@@ -2171,7 +2171,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2273,7 +2273,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2333,7 +2333,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2439,7 +2439,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::DebugInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2552,7 +2552,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2673,7 +2673,7 @@ pub mod instances {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::instances::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2738,7 +2738,7 @@ pub mod firewall {
     /// A builder for [Firewall][crate::client::Firewall].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::firewall::ClientBuilder;
     /// # use client::Firewall;
@@ -2791,7 +2791,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::ListIngressRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2902,7 +2902,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::BatchUpdateIngressRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2976,7 +2976,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::CreateIngressRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3055,7 +3055,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::GetIngressRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3113,7 +3113,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::UpdateIngressRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3210,7 +3210,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::DeleteIngressRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3271,7 +3271,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3390,7 +3390,7 @@ pub mod firewall {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::firewall::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3453,7 +3453,7 @@ pub mod authorized_domains {
     /// A builder for [AuthorizedDomains][crate::client::AuthorizedDomains].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::authorized_domains::ClientBuilder;
     /// # use client::AuthorizedDomains;
@@ -3508,7 +3508,7 @@ pub mod authorized_domains {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_domains::ListAuthorizedDomains;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3615,7 +3615,7 @@ pub mod authorized_domains {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_domains::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3736,7 +3736,7 @@ pub mod authorized_domains {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_domains::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3801,7 +3801,7 @@ pub mod authorized_certificates {
     /// A builder for [AuthorizedCertificates][crate::client::AuthorizedCertificates].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::authorized_certificates::ClientBuilder;
     /// # use client::AuthorizedCertificates;
@@ -3856,7 +3856,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::ListAuthorizedCertificates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3971,7 +3971,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::GetAuthorizedCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4042,7 +4042,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::CreateAuthorizedCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4125,7 +4125,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::UpdateAuthorizedCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4226,7 +4226,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::DeleteAuthorizedCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4291,7 +4291,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4412,7 +4412,7 @@ pub mod authorized_certificates {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::authorized_certificates::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4477,7 +4477,7 @@ pub mod domain_mappings {
     /// A builder for [DomainMappings][crate::client::DomainMappings].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::*;
     /// # use builder::domain_mappings::ClientBuilder;
     /// # use client::DomainMappings;
@@ -4532,7 +4532,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::ListDomainMappings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4639,7 +4639,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::GetDomainMapping;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4702,7 +4702,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::CreateDomainMapping;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4839,7 +4839,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::UpdateDomainMapping;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4985,7 +4985,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::DeleteDomainMapping;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5094,7 +5094,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5215,7 +5215,7 @@ pub mod domain_mappings {
     /// # Example
     /// ```
     /// # use google_cloud_appengine_v1::builder::domain_mappings::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_appengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
 /// let client = AnalyticsHubService::builder().build().await?;
 /// // use `client` to make requests to the Analytics Hub API.
@@ -71,7 +71,7 @@ impl AnalyticsHubService {
     /// Returns a builder for [AnalyticsHubService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// let client = AnalyticsHubService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use secretmanager_openapi_v1::client::SecretManagerService;
 /// let client = SecretManagerService::builder().build().await?;
 /// // use `client` to make requests to the Secret Manager API.
@@ -67,7 +67,7 @@ impl SecretManagerService {
     /// Returns a builder for [SecretManagerService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use secretmanager_openapi_v1::client::SecretManagerService;
     /// let client = SecretManagerService::builder().build().await?;
     /// # Ok(()) }

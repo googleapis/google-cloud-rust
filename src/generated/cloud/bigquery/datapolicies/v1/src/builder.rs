@@ -20,7 +20,7 @@ pub mod data_policy_service {
     /// A builder for [DataPolicyService][crate::client::DataPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datapolicies_v1::*;
     /// # use builder::data_policy_service::ClientBuilder;
     /// # use client::DataPolicyService;
@@ -75,7 +75,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::CreateDataPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -162,7 +162,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::UpdateDataPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -259,7 +259,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::RenameDataPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -332,7 +332,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::DeleteDataPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -397,7 +397,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::GetDataPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -459,7 +459,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::ListDataPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -574,7 +574,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -657,7 +657,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -762,7 +762,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

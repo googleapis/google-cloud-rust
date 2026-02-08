@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// let client = EssentialContactsService::builder().build().await?;
 /// // use `client` to make requests to the Essential Contacts API.
@@ -66,7 +66,7 @@ impl EssentialContactsService {
     /// Returns a builder for [EssentialContactsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// let client = EssentialContactsService::builder().build().await?;
     /// # Ok(()) }

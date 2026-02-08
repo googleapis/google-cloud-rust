@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_optimization_v1::client::FleetRouting;
 /// let client = FleetRouting::builder().build().await?;
 /// // use `client` to make requests to the Cloud Optimization API.
@@ -82,7 +82,7 @@ impl FleetRouting {
     /// Returns a builder for [FleetRouting].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_optimization_v1::client::FleetRouting;
     /// let client = FleetRouting::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
 /// let client = EdgeNetwork::builder().build().await?;
 /// // use `client` to make requests to the Distributed Cloud Edge Network API.
@@ -69,7 +69,7 @@ impl EdgeNetwork {
     /// Returns a builder for [EdgeNetwork].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// let client = EdgeNetwork::builder().build().await?;
     /// # Ok(()) }

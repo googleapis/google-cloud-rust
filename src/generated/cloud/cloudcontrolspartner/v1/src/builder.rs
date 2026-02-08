@@ -20,7 +20,7 @@ pub mod cloud_controls_partner_core {
     /// A builder for [CloudControlsPartnerCore][crate::client::CloudControlsPartnerCore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_core::ClientBuilder;
     /// # use client::CloudControlsPartnerCore;
@@ -75,7 +75,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetWorkload;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListWorkloads;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -253,7 +253,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetCustomer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -315,7 +315,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListCustomers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -431,7 +431,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetEkmConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -496,7 +496,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartnerPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -561,7 +561,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListAccessApprovalRequests;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -684,7 +684,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartner;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -746,7 +746,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::CreateCustomer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -838,7 +838,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::UpdateCustomer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -932,7 +932,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::DeleteCustomer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -996,7 +996,7 @@ pub mod cloud_controls_partner_monitoring {
     /// A builder for [CloudControlsPartnerMonitoring][crate::client::CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_monitoring::ClientBuilder;
     /// # use client::CloudControlsPartnerMonitoring;
@@ -1051,7 +1051,7 @@ pub mod cloud_controls_partner_monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::ListViolations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1187,7 +1187,7 @@ pub mod cloud_controls_partner_monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::GetViolation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

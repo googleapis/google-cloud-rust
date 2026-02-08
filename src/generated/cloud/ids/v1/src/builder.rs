@@ -20,7 +20,7 @@ pub mod ids {
     /// A builder for [Ids][crate::client::Ids].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_ids_v1::*;
     /// # use builder::ids::ClientBuilder;
     /// # use client::Ids;
@@ -73,7 +73,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::ListEndpoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -187,7 +187,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::GetEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -247,7 +247,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::CreateEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -390,7 +390,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::DeleteEndpoint;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -498,7 +498,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -617,7 +617,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -678,7 +678,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -741,7 +741,7 @@ pub mod ids {
     /// # Example
     /// ```
     /// # use google_cloud_ids_v1::builder::ids::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_ids_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

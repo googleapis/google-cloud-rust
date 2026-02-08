@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_securityposture_v1::client::SecurityPosture;
 /// let client = SecurityPosture::builder().build().await?;
 /// // use `client` to make requests to the Security Posture API.
@@ -66,7 +66,7 @@ impl SecurityPosture {
     /// Returns a builder for [SecurityPosture].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// let client = SecurityPosture::builder().build().await?;
     /// # Ok(()) }

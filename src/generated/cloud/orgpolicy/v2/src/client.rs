@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
 /// let client = OrgPolicy::builder().build().await?;
 /// // use `client` to make requests to the Organization Policy API.
@@ -85,7 +85,7 @@ impl OrgPolicy {
     /// Returns a builder for [OrgPolicy].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// let client = OrgPolicy::builder().build().await?;
     /// # Ok(()) }

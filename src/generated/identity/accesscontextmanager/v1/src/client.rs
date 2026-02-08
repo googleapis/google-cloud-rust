@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
 /// let client = AccessContextManager::builder().build().await?;
 /// // use `client` to make requests to the Access Context Manager API.
@@ -76,7 +76,7 @@ impl AccessContextManager {
     /// Returns a builder for [AccessContextManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// let client = AccessContextManager::builder().build().await?;
     /// # Ok(()) }

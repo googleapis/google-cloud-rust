@@ -20,7 +20,7 @@ pub mod analytics_hub_service {
     /// A builder for [AnalyticsHubService][crate::client::AnalyticsHubService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_analyticshub_v1::*;
     /// # use builder::analytics_hub_service::ClientBuilder;
     /// # use client::AnalyticsHubService;
@@ -75,7 +75,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListDataExchanges;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -184,7 +184,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListOrgDataExchanges;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -293,7 +293,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetDataExchange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -355,7 +355,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateDataExchange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -450,7 +450,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateDataExchange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -551,7 +551,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteDataExchange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -616,7 +616,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListListings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -720,7 +720,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetListing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -782,7 +782,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateListing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -874,7 +874,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateListing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -972,7 +972,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteListing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1040,7 +1040,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubscribeListing;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1149,7 +1149,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubscribeDataExchange;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1303,7 +1303,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::RefreshSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1417,7 +1417,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1479,7 +1479,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListSubscriptions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1594,7 +1594,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListSharedResourceSubscriptions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1711,7 +1711,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::RevokeSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1782,7 +1782,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1889,7 +1889,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1972,7 +1972,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2077,7 +2077,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2157,7 +2157,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2252,7 +2252,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2317,7 +2317,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListQueryTemplates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2426,7 +2426,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2523,7 +2523,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2588,7 +2588,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubmitQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2653,7 +2653,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ApproveQueryTemplate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2718,7 +2718,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

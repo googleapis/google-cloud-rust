@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_lustre_v1::client::Lustre;
 /// let client = Lustre::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Managed Lustre API.
@@ -66,7 +66,7 @@ impl Lustre {
     /// Returns a builder for [Lustre].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_lustre_v1::client::Lustre;
     /// let client = Lustre::builder().build().await?;
     /// # Ok(()) }

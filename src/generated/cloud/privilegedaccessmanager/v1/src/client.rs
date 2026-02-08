@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
 /// let client = PrivilegedAccessManager::builder().build().await?;
 /// // use `client` to make requests to the Privileged Access Manager API.
@@ -85,7 +85,7 @@ impl PrivilegedAccessManager {
     /// Returns a builder for [PrivilegedAccessManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// let client = PrivilegedAccessManager::builder().build().await?;
     /// # Ok(()) }

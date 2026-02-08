@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apikeys_v2::client::ApiKeys;
 /// let client = ApiKeys::builder().build().await?;
 /// // use `client` to make requests to the API Keys API.
@@ -66,7 +66,7 @@ impl ApiKeys {
     /// Returns a builder for [ApiKeys].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apikeys_v2::client::ApiKeys;
     /// let client = ApiKeys::builder().build().await?;
     /// # Ok(()) }

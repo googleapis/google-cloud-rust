@@ -20,7 +20,7 @@ pub mod storage_transfer_service {
     /// A builder for [StorageTransferService][crate::client::StorageTransferService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_storagetransfer_v1::*;
     /// # use builder::storage_transfer_service::ClientBuilder;
     /// # use client::StorageTransferService;
@@ -75,7 +75,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetGoogleServiceAccount;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -142,7 +142,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CreateTransferJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -221,7 +221,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::UpdateTransferJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -337,7 +337,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetTransferJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -407,7 +407,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListTransferJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -516,7 +516,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::PauseTransferOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -581,7 +581,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ResumeTransferOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -648,7 +648,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::RunTransferJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -760,7 +760,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::DeleteTransferJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -833,7 +833,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CreateAgentPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -925,7 +925,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::UpdateAgentPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1019,7 +1019,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetAgentPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1081,7 +1081,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListAgentPools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1193,7 +1193,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::DeleteAgentPool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1255,7 +1255,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1376,7 +1376,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1439,7 +1439,7 @@ pub mod storage_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_storagetransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

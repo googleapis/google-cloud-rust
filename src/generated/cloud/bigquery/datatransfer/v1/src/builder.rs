@@ -20,7 +20,7 @@ pub mod data_transfer_service {
     /// A builder for [DataTransferService][crate::client::DataTransferService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datatransfer_v1::*;
     /// # use builder::data_transfer_service::ClientBuilder;
     /// # use client::DataTransferService;
@@ -75,7 +75,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::GetDataSource;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ListDataSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -243,7 +243,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::CreateTransferConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -349,7 +349,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::UpdateTransferConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -469,7 +469,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::DeleteTransferConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -534,7 +534,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::GetTransferConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -599,7 +599,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ListTransferConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -719,7 +719,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ScheduleTransferRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -828,7 +828,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::StartManualTransferRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -937,7 +937,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::GetTransferRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -999,7 +999,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::DeleteTransferRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1064,7 +1064,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ListTransferRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1193,7 +1193,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ListTransferLogs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1313,7 +1313,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::CheckValidCreds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1375,7 +1375,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::EnrollDataSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1451,7 +1451,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::UnenrollDataSources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1527,7 +1527,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1640,7 +1640,7 @@ pub mod data_transfer_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datatransfer_v1::builder::data_transfer_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datatransfer_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

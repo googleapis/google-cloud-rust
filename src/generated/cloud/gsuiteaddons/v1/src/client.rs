@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
 /// let client = GSuiteAddOns::builder().build().await?;
 /// // use `client` to make requests to the Google Workspace add-ons API.
@@ -93,7 +93,7 @@ impl GSuiteAddOns {
     /// Returns a builder for [GSuiteAddOns].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// let client = GSuiteAddOns::builder().build().await?;
     /// # Ok(()) }

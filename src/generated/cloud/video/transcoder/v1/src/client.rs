@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
 /// let client = TranscoderService::builder().build().await?;
 /// // use `client` to make requests to the Transcoder API.
@@ -71,7 +71,7 @@ impl TranscoderService {
     /// Returns a builder for [TranscoderService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// let client = TranscoderService::builder().build().await?;
     /// # Ok(()) }

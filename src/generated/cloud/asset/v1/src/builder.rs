@@ -20,7 +20,7 @@ pub mod asset_service {
     /// A builder for [AssetService][crate::client::AssetService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_asset_v1::*;
     /// # use builder::asset_service::ClientBuilder;
     /// # use client::AssetService;
@@ -75,7 +75,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ExportAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -254,7 +254,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -404,7 +404,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::BatchGetAssetsHistory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -515,7 +515,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::CreateFeed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -607,7 +607,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetFeed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -669,7 +669,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListFeeds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -731,7 +731,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::UpdateFeed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -829,7 +829,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::DeleteFeed;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -891,7 +891,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::SearchAllResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1041,7 +1041,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::SearchAllIamPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1173,7 +1173,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1276,7 +1276,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeIamPolicyLongrunning;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1434,7 +1434,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeMove;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1513,7 +1513,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::QueryAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1698,7 +1698,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::CreateSavedQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1793,7 +1793,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetSavedQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1855,7 +1855,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::ListSavedQueries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1970,7 +1970,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::UpdateSavedQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2071,7 +2071,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::DeleteSavedQuery;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2136,7 +2136,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::BatchGetEffectiveIamPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2216,7 +2216,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2351,7 +2351,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicyGovernedContainers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2490,7 +2490,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::AnalyzeOrgPolicyGovernedAssets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2627,7 +2627,7 @@ pub mod asset_service {
     /// # Example
     /// ```
     /// # use google_cloud_asset_v1::builder::asset_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_asset_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

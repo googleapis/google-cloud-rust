@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
 /// let client = OracleDatabase::builder().build().await?;
 /// // use `client` to make requests to the Oracle Database@Google Cloud API.
@@ -66,7 +66,7 @@ impl OracleDatabase {
     /// Returns a builder for [OracleDatabase].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// let client = OracleDatabase::builder().build().await?;
     /// # Ok(()) }

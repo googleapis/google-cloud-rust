@@ -20,7 +20,7 @@ pub mod reachability_service {
     /// A builder for [ReachabilityService][crate::client::ReachabilityService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::reachability_service::ClientBuilder;
     /// # use client::ReachabilityService;
@@ -75,7 +75,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListConnectivityTests;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetConnectivityTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::CreateConnectivityTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -403,7 +403,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::UpdateConnectivityTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -551,7 +551,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::RerunConnectivityTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -663,7 +663,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::DeleteConnectivityTest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -770,7 +770,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -883,7 +883,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -946,7 +946,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1051,7 +1051,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1134,7 +1134,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1214,7 +1214,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1335,7 +1335,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1398,7 +1398,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1463,7 +1463,7 @@ pub mod reachability_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::reachability_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1530,7 +1530,7 @@ pub mod vpc_flow_logs_service {
     /// A builder for [VpcFlowLogsService][crate::client::VpcFlowLogsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::vpc_flow_logs_service::ClientBuilder;
     /// # use client::VpcFlowLogsService;
@@ -1585,7 +1585,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1706,7 +1706,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1771,7 +1771,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1917,7 +1917,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2069,7 +2069,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2178,7 +2178,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2295,7 +2295,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2420,7 +2420,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2533,7 +2533,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2596,7 +2596,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2701,7 +2701,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2784,7 +2784,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2864,7 +2864,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2985,7 +2985,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3048,7 +3048,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3113,7 +3113,7 @@ pub mod vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3180,7 +3180,7 @@ pub mod organization_vpc_flow_logs_service {
     /// A builder for [OrganizationVpcFlowLogsService][crate::client::OrganizationVpcFlowLogsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::organization_vpc_flow_logs_service::ClientBuilder;
     /// # use client::OrganizationVpcFlowLogsService;
@@ -3235,7 +3235,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3356,7 +3356,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3421,7 +3421,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3567,7 +3567,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3719,7 +3719,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3828,7 +3828,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3941,7 +3941,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4004,7 +4004,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4109,7 +4109,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4192,7 +4192,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4272,7 +4272,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4393,7 +4393,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4456,7 +4456,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4521,7 +4521,7 @@ pub mod organization_vpc_flow_logs_service {
     /// # Example
     /// ```
     /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_networkmanagement_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

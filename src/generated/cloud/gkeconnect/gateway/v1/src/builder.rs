@@ -20,7 +20,7 @@ pub mod gateway_control {
     /// A builder for [GatewayControl][crate::client::GatewayControl].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkeconnect_gateway_v1::*;
     /// # use builder::gateway_control::ClientBuilder;
     /// # use client::GatewayControl;
@@ -75,7 +75,7 @@ pub mod gateway_control {
     /// # Example
     /// ```
     /// # use google_cloud_gkeconnect_gateway_v1::builder::gateway_control::GenerateCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_gkeconnect_gateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

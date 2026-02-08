@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
 /// let client = LicenseManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
@@ -66,7 +66,7 @@ impl LicenseManagementService {
     /// Returns a builder for [LicenseManagementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
     /// let client = LicenseManagementService::builder().build().await?;
     /// # Ok(()) }
@@ -161,7 +161,7 @@ impl LicenseManagementService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// let client = ConsumerProcurementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
@@ -216,7 +216,7 @@ impl ConsumerProcurementService {
     /// Returns a builder for [ConsumerProcurementService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
     /// let client = ConsumerProcurementService::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod database_admin {
     /// A builder for [DatabaseAdmin][crate::client::DatabaseAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_database_v1::*;
     /// # use builder::database_admin::ClientBuilder;
     /// # use client::DatabaseAdmin;
@@ -75,7 +75,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -179,7 +179,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -340,7 +340,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -402,7 +402,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -547,7 +547,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabaseDdl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -689,7 +689,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DropDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -751,7 +751,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetDatabaseDdl;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -918,7 +918,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1001,7 +1001,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1081,7 +1081,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1238,7 +1238,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CopyBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1403,7 +1403,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1465,7 +1465,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1563,7 +1563,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1625,7 +1625,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1735,7 +1735,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::RestoreDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1892,7 +1892,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabaseOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2007,7 +2007,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackupOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2122,7 +2122,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabaseRoles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2231,7 +2231,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::AddSplitPoints;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2312,7 +2312,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateBackupSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2407,7 +2407,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetBackupSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2472,7 +2472,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateBackupSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2573,7 +2573,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteBackupSchedule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2638,7 +2638,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackupSchedules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2747,7 +2747,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2868,7 +2868,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2931,7 +2931,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2996,7 +2996,7 @@ pub mod database_admin {
     /// # Example
     /// ```
     /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_spanner_admin_database_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

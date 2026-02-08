@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
 /// let client = IcebergCatalogService::builder().build().await?;
 /// // use `client` to make requests to the BigLake API.
@@ -94,7 +94,7 @@ impl IcebergCatalogService {
     /// Returns a builder for [IcebergCatalogService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
     /// let client = IcebergCatalogService::builder().build().await?;
     /// # Ok(()) }

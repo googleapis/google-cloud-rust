@@ -20,7 +20,7 @@ pub mod cloud_scheduler {
     /// A builder for [CloudScheduler][crate::client::CloudScheduler].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_scheduler_v1::*;
     /// # use builder::cloud_scheduler::ClientBuilder;
     /// # use client::CloudScheduler;
@@ -75,7 +75,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ListJobs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -177,7 +177,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::GetJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -239,7 +239,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::CreateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -323,7 +323,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::UpdateJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -417,7 +417,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::DeleteJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -479,7 +479,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::PauseJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -541,7 +541,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ResumeJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -603,7 +603,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::RunJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -665,7 +665,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -778,7 +778,7 @@ pub mod cloud_scheduler {
     /// # Example
     /// ```
     /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_scheduler_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

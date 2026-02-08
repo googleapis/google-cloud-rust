@@ -20,7 +20,7 @@ pub mod trace_service {
     /// A builder for [TraceService][crate::client::TraceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v1::*;
     /// # use builder::trace_service::ClientBuilder;
     /// # use client::TraceService;
@@ -75,7 +75,7 @@ pub mod trace_service {
     /// # Example
     /// ```
     /// # use google_cloud_trace_v1::builder::trace_service::ListTraces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_trace_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -236,7 +236,7 @@ pub mod trace_service {
     /// # Example
     /// ```
     /// # use google_cloud_trace_v1::builder::trace_service::GetTrace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_trace_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -306,7 +306,7 @@ pub mod trace_service {
     /// # Example
     /// ```
     /// # use google_cloud_trace_v1::builder::trace_service::PatchTraces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_trace_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

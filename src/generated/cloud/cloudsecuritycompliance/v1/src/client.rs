@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
 /// let client = Audit::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -66,7 +66,7 @@ impl Audit {
     /// Returns a builder for [Audit].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
     /// let client = Audit::builder().build().await?;
     /// # Ok(()) }
@@ -193,7 +193,7 @@ impl Audit {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
 /// let client = CmEnrollmentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -240,7 +240,7 @@ impl CmEnrollmentService {
     /// Returns a builder for [CmEnrollmentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
     /// let client = CmEnrollmentService::builder().build().await?;
     /// # Ok(()) }
@@ -358,7 +358,7 @@ impl CmEnrollmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
 /// let client = Config::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -405,7 +405,7 @@ impl Config {
     /// Returns a builder for [Config].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// let client = Config::builder().build().await?;
     /// # Ok(()) }
@@ -606,7 +606,7 @@ impl Config {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
 /// let client = Deployment::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -653,7 +653,7 @@ impl Deployment {
     /// Returns a builder for [Deployment].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// let client = Deployment::builder().build().await?;
     /// # Ok(()) }
@@ -811,7 +811,7 @@ impl Deployment {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
 /// let client = Monitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
@@ -857,7 +857,7 @@ impl Monitoring {
     /// Returns a builder for [Monitoring].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
     /// let client = Monitoring::builder().build().await?;
     /// # Ok(()) }

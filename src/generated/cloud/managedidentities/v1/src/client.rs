@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
 /// let client = ManagedIdentitiesService::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Microsoft Active Directory API.
@@ -98,7 +98,7 @@ impl ManagedIdentitiesService {
     /// Returns a builder for [ManagedIdentitiesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
     /// let client = ManagedIdentitiesService::builder().build().await?;
     /// # Ok(()) }

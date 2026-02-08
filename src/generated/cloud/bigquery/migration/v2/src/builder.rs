@@ -20,7 +20,7 @@ pub mod migration_service {
     /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_migration_v2::*;
     /// # use builder::migration_service::ClientBuilder;
     /// # use client::MigrationService;
@@ -75,7 +75,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::CreateMigrationWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -164,7 +164,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -247,7 +247,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationWorkflows;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -374,7 +374,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::DeleteMigrationWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -441,7 +441,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::StartMigrationWorkflow;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -506,7 +506,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationSubtask;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -589,7 +589,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationSubtasks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_workstations_v1::client::Workstations;
 /// let client = Workstations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Workstations API.
@@ -66,7 +66,7 @@ impl Workstations {
     /// Returns a builder for [Workstations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// let client = Workstations::builder().build().await?;
     /// # Ok(()) }

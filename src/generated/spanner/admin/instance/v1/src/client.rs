@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 /// let client = InstanceAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Spanner API.
@@ -86,7 +86,7 @@ impl InstanceAdmin {
     /// Returns a builder for [InstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// let client = InstanceAdmin::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
 /// let client = DataTransferService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Data Transfer API.
@@ -66,7 +66,7 @@ impl DataTransferService {
     /// Returns a builder for [DataTransferService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// let client = DataTransferService::builder().build().await?;
     /// # Ok(()) }

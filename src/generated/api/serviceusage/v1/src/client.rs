@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
 /// let client = ServiceUsage::builder().build().await?;
 /// // use `client` to make requests to the Service Usage API.
@@ -70,7 +70,7 @@ impl ServiceUsage {
     /// Returns a builder for [ServiceUsage].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
     /// let client = ServiceUsage::builder().build().await?;
     /// # Ok(()) }

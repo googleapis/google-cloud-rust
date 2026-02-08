@@ -20,7 +20,7 @@ pub mod iceberg_catalog_service {
     /// A builder for [IcebergCatalogService][crate::client::IcebergCatalogService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_biglake_v1::*;
     /// # use builder::iceberg_catalog_service::ClientBuilder;
     /// # use client::IcebergCatalogService;
@@ -75,7 +75,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalogConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -142,7 +142,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergNamespaces;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -225,7 +225,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -290,7 +290,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -377,7 +377,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -442,7 +442,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergNamespace;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -529,7 +529,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergTableIdentifiers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -608,7 +608,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -695,7 +695,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -766,7 +766,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -834,7 +834,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::LoadIcebergTableCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -902,7 +902,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -989,7 +989,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::RegisterIcebergTable;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1076,7 +1076,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1141,7 +1141,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergCatalogs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1227,7 +1227,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1292,7 +1292,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1389,7 +1389,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1484,7 +1484,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::FailoverIcebergCatalog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

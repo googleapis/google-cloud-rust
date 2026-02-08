@@ -20,7 +20,7 @@ pub mod sql_backup_runs_service {
     /// A builder for [SqlBackupRunsService][crate::client::SqlBackupRunsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_backup_runs_service::ClientBuilder;
     /// # use client::SqlBackupRunsService;
@@ -75,7 +75,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -150,7 +150,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -225,7 +225,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Insert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -312,7 +312,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -427,7 +427,7 @@ pub mod sql_backups_service {
     /// A builder for [SqlBackupsService][crate::client::SqlBackupsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_backups_service::ClientBuilder;
     /// # use client::SqlBackupsService;
@@ -482,7 +482,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -566,7 +566,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -628,7 +628,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -738,7 +738,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::UpdateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -832,7 +832,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -896,7 +896,7 @@ pub mod sql_connect_service {
     /// A builder for [SqlConnectService][crate::client::SqlConnectService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_connect_service::ClientBuilder;
     /// # use client::SqlConnectService;
@@ -951,7 +951,7 @@ pub mod sql_connect_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_connect_service::GetConnectSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1038,7 +1038,7 @@ pub mod sql_connect_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_connect_service::GenerateEphemeralCert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1157,7 +1157,7 @@ pub mod sql_databases_service {
     /// A builder for [SqlDatabasesService][crate::client::SqlDatabasesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_databases_service::ClientBuilder;
     /// # use client::SqlDatabasesService;
@@ -1212,7 +1212,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1287,7 +1287,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1359,7 +1359,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Insert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1446,7 +1446,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1515,7 +1515,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1608,7 +1608,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1703,7 +1703,7 @@ pub mod sql_flags_service {
     /// A builder for [SqlFlagsService][crate::client::SqlFlagsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_flags_service::ClientBuilder;
     /// # use client::SqlFlagsService;
@@ -1758,7 +1758,7 @@ pub mod sql_flags_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_flags_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1838,7 +1838,7 @@ pub mod sql_instances_service {
     /// A builder for [SqlInstancesService][crate::client::SqlInstancesService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_instances_service::ClientBuilder;
     /// # use client::SqlInstancesService;
@@ -1893,7 +1893,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddServerCa;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1962,7 +1962,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddServerCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2033,7 +2033,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddEntraIdCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2108,7 +2108,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Clone;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2203,7 +2203,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2335,7 +2335,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::DemoteMaster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2422,7 +2422,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Demote;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2517,7 +2517,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Export;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2604,7 +2604,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Failover;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2691,7 +2691,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Reencrypt;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2778,7 +2778,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2848,7 +2848,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Import;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2935,7 +2935,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Insert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3016,7 +3016,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3127,7 +3127,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListServerCas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3196,7 +3196,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListServerCertificates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3271,7 +3271,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListEntraIdCertificates;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3346,7 +3346,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Patch;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3433,7 +3433,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PromoteReplica;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3508,7 +3508,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Switchover;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3595,7 +3595,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ResetSslConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3675,7 +3675,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Restart;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3744,7 +3744,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RestoreBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3831,7 +3831,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateServerCa;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3918,7 +3918,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateServerCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4011,7 +4011,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateEntraIdCertificate;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4104,7 +4104,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StartReplica;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4173,7 +4173,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StopReplica;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4242,7 +4242,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::TruncateLog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4329,7 +4329,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4416,7 +4416,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::CreateEphemeral;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4505,7 +4505,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RescheduleMaintenance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4594,7 +4594,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::VerifyExternalSyncSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4758,7 +4758,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StartExternalSync;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4903,7 +4903,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PerformDiskShrink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4992,7 +4992,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::GetDiskShrinkConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5063,7 +5063,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ResetReplicaSize;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5132,7 +5132,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::GetLatestRecoveryTime;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5224,7 +5224,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ExecuteSql;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5315,7 +5315,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AcquireSsrsLease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5410,7 +5410,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ReleaseSsrsLease;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5483,7 +5483,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PreCheckMajorVersionUpgrade;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5582,7 +5582,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PointInTimeRestore;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5673,7 +5673,7 @@ pub mod sql_operations_service {
     /// A builder for [SqlOperationsService][crate::client::SqlOperationsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_operations_service::ClientBuilder;
     /// # use client::SqlOperationsService;
@@ -5728,7 +5728,7 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5801,7 +5801,7 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5914,7 +5914,7 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::Cancel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5985,7 +5985,7 @@ pub mod sql_ssl_certs_service {
     /// A builder for [SqlSslCertsService][crate::client::SqlSslCertsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_ssl_certs_service::ClientBuilder;
     /// # use client::SqlSslCertsService;
@@ -6040,7 +6040,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6115,7 +6115,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6187,7 +6187,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Insert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6274,7 +6274,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6342,7 +6342,7 @@ pub mod sql_tiers_service {
     /// A builder for [SqlTiersService][crate::client::SqlTiersService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_tiers_service::ClientBuilder;
     /// # use client::SqlTiersService;
@@ -6397,7 +6397,7 @@ pub mod sql_tiers_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_tiers_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6459,7 +6459,7 @@ pub mod sql_users_service {
     /// A builder for [SqlUsersService][crate::client::SqlUsersService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_users_service::ClientBuilder;
     /// # use client::SqlUsersService;
@@ -6514,7 +6514,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Delete;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6592,7 +6592,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Get;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6670,7 +6670,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Insert;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6754,7 +6754,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::List;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6820,7 +6820,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Update;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

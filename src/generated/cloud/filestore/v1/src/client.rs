@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
 /// let client = CloudFilestoreManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Filestore API.
@@ -86,7 +86,7 @@ impl CloudFilestoreManager {
     /// Returns a builder for [CloudFilestoreManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// let client = CloudFilestoreManager::builder().build().await?;
     /// # Ok(()) }

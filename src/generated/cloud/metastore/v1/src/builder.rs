@@ -20,7 +20,7 @@ pub mod dataproc_metastore {
     /// A builder for [DataprocMetastore][crate::client::DataprocMetastore].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::*;
     /// # use builder::dataproc_metastore::ClientBuilder;
     /// # use client::DataprocMetastore;
@@ -75,7 +75,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::UpdateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -549,7 +549,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -659,7 +659,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListMetadataImports;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -780,7 +780,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetMetadataImport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -845,7 +845,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateMetadataImport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -993,7 +993,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::UpdateMetadataImport;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1147,7 +1147,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ExportMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1298,7 +1298,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::RestoreService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1430,7 +1430,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListBackups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1546,7 +1546,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1608,7 +1608,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1753,7 +1753,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteBackup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1863,7 +1863,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::QueryMetadata;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1982,7 +1982,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::MoveTableToDatabase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2120,7 +2120,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::AlterMetadataResourceLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2252,7 +2252,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2365,7 +2365,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2428,7 +2428,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2533,7 +2533,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2616,7 +2616,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2696,7 +2696,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2817,7 +2817,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2880,7 +2880,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2945,7 +2945,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3012,7 +3012,7 @@ pub mod dataproc_metastore_federation {
     /// A builder for [DataprocMetastoreFederation][crate::client::DataprocMetastoreFederation].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::*;
     /// # use builder::dataproc_metastore_federation::ClientBuilder;
     /// # use client::DataprocMetastoreFederation;
@@ -3067,7 +3067,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListFederations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3185,7 +3185,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetFederation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3247,7 +3247,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::CreateFederation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3395,7 +3395,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::UpdateFederation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3549,7 +3549,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::DeleteFederation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3662,7 +3662,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3775,7 +3775,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3838,7 +3838,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3943,7 +3943,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4026,7 +4026,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4106,7 +4106,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4227,7 +4227,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4290,7 +4290,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4355,7 +4355,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

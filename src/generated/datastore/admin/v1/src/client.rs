@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
 /// let client = DatastoreAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Datastore API.
@@ -112,7 +112,7 @@ impl DatastoreAdmin {
     /// Returns a builder for [DatastoreAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
     /// let client = DatastoreAdmin::builder().build().await?;
     /// # Ok(()) }

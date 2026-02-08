@@ -20,7 +20,7 @@ pub mod key_dashboard_service {
     /// A builder for [KeyDashboardService][crate::client::KeyDashboardService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_dashboard_service::ClientBuilder;
     /// # use client::KeyDashboardService;
@@ -75,7 +75,7 @@ pub mod key_dashboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_dashboard_service::ListCryptoKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -183,7 +183,7 @@ pub mod key_tracking_service {
     /// A builder for [KeyTrackingService][crate::client::KeyTrackingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_tracking_service::ClientBuilder;
     /// # use client::KeyTrackingService;
@@ -238,7 +238,7 @@ pub mod key_tracking_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_tracking_service::GetProtectedResourcesSummary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -305,7 +305,7 @@ pub mod key_tracking_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_tracking_service::SearchProtectedResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

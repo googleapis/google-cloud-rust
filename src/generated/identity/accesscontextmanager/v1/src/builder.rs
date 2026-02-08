@@ -20,7 +20,7 @@ pub mod access_context_manager {
     /// A builder for [AccessContextManager][crate::client::AccessContextManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_identity_accesscontextmanager_v1::*;
     /// # use builder::access_context_manager::ClientBuilder;
     /// # use client::AccessContextManager;
@@ -75,7 +75,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ListAccessPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -184,7 +184,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -246,7 +246,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -420,7 +420,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -570,7 +570,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteAccessPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -682,7 +682,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ListAccessLevels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -797,7 +797,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetAccessLevel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -865,7 +865,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateAccessLevel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1001,7 +1001,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateAccessLevel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1151,7 +1151,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteAccessLevel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1263,7 +1263,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ReplaceAccessLevels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1396,7 +1396,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ListServicePerimeters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1505,7 +1505,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetServicePerimeter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1570,7 +1570,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateServicePerimeter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1706,7 +1706,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateServicePerimeter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1856,7 +1856,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteServicePerimeter;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1968,7 +1968,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ReplaceServicePerimeters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2103,7 +2103,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CommitServicePerimeters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2225,7 +2225,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::ListGcpUserAccessBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2336,7 +2336,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetGcpUserAccessBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2403,7 +2403,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::CreateGcpUserAccessBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2541,7 +2541,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::UpdateGcpUserAccessBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2693,7 +2693,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::DeleteGcpUserAccessBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2807,7 +2807,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2912,7 +2912,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2995,7 +2995,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3075,7 +3075,7 @@ pub mod access_context_manager {
     /// # Example
     /// ```
     /// # use google_cloud_identity_accesscontextmanager_v1::builder::access_context_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_identity_accesscontextmanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

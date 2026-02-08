@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_webrisk_v1::client::WebRiskService;
 /// let client = WebRiskService::builder().build().await?;
 /// // use `client` to make requests to the Web Risk API.
@@ -67,7 +67,7 @@ impl WebRiskService {
     /// Returns a builder for [WebRiskService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_webrisk_v1::client::WebRiskService;
     /// let client = WebRiskService::builder().build().await?;
     /// # Ok(()) }

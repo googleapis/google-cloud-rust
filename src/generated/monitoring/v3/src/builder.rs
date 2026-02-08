@@ -20,7 +20,7 @@ pub mod alert_policy_service {
     /// A builder for [AlertPolicyService][crate::client::AlertPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::alert_policy_service::ClientBuilder;
     /// # use client::AlertPolicyService;
@@ -75,7 +75,7 @@ pub mod alert_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::alert_policy_service::ListAlertPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod alert_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::alert_policy_service::GetAlertPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod alert_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::alert_policy_service::CreateAlertPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -345,7 +345,7 @@ pub mod alert_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::alert_policy_service::DeleteAlertPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -410,7 +410,7 @@ pub mod alert_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::alert_policy_service::UpdateAlertPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -509,7 +509,7 @@ pub mod group_service {
     /// A builder for [GroupService][crate::client::GroupService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::group_service::ClientBuilder;
     /// # use client::GroupService;
@@ -564,7 +564,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::ListGroups;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -719,7 +719,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::GetGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -781,7 +781,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::CreateGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -871,7 +871,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::UpdateGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -953,7 +953,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::DeleteGroup;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1021,7 +1021,7 @@ pub mod group_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::group_service::ListGroupMembers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1156,7 +1156,7 @@ pub mod metric_service {
     /// A builder for [MetricService][crate::client::MetricService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::metric_service::ClientBuilder;
     /// # use client::MetricService;
@@ -1211,7 +1211,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::ListMonitoredResourceDescriptors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1328,7 +1328,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::GetMonitoredResourceDescriptor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1395,7 +1395,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::ListMetricDescriptors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1516,7 +1516,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::GetMetricDescriptor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1581,7 +1581,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::CreateMetricDescriptor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1668,7 +1668,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::DeleteMetricDescriptor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1733,7 +1733,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::ListTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1922,7 +1922,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::CreateTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2000,7 +2000,7 @@ pub mod metric_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::metric_service::CreateServiceTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2080,7 +2080,7 @@ pub mod notification_channel_service {
     /// A builder for [NotificationChannelService][crate::client::NotificationChannelService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::notification_channel_service::ClientBuilder;
     /// # use client::NotificationChannelService;
@@ -2135,7 +2135,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::ListNotificationChannelDescriptors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2248,7 +2248,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannelDescriptor;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2315,7 +2315,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::ListNotificationChannels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2438,7 +2438,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2503,7 +2503,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::CreateNotificationChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2592,7 +2592,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::UpdateNotificationChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2691,7 +2691,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::DeleteNotificationChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2764,7 +2764,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::SendNotificationChannelVerificationCode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2833,7 +2833,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannelVerificationCode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2922,7 +2922,7 @@ pub mod notification_channel_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::notification_channel_service::VerifyNotificationChannel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2999,7 +2999,7 @@ pub mod query_service {
     /// A builder for [QueryService][crate::client::QueryService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::query_service::ClientBuilder;
     /// # use client::QueryService;
@@ -3054,7 +3054,7 @@ pub mod query_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::query_service::QueryTimeSeries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3170,7 +3170,7 @@ pub mod service_monitoring_service {
     /// A builder for [ServiceMonitoringService][crate::client::ServiceMonitoringService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::service_monitoring_service::ClientBuilder;
     /// # use client::ServiceMonitoringService;
@@ -3225,7 +3225,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::CreateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3315,7 +3315,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::GetService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3377,7 +3377,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::ListServices;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3487,7 +3487,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::UpdateService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3581,7 +3581,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::DeleteService;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3643,7 +3643,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::CreateServiceLevelObjective;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3741,7 +3741,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::GetServiceLevelObjective;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3817,7 +3817,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::ListServiceLevelObjectives;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3943,7 +3943,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::UpdateServiceLevelObjective;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4042,7 +4042,7 @@ pub mod service_monitoring_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::DeleteServiceLevelObjective;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4111,7 +4111,7 @@ pub mod snooze_service {
     /// A builder for [SnoozeService][crate::client::SnoozeService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::snooze_service::ClientBuilder;
     /// # use client::SnoozeService;
@@ -4166,7 +4166,7 @@ pub mod snooze_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::snooze_service::CreateSnooze;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4250,7 +4250,7 @@ pub mod snooze_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::snooze_service::ListSnoozes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4360,7 +4360,7 @@ pub mod snooze_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::snooze_service::GetSnooze;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4422,7 +4422,7 @@ pub mod snooze_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::snooze_service::UpdateSnooze;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4522,7 +4522,7 @@ pub mod uptime_check_service {
     /// A builder for [UptimeCheckService][crate::client::UptimeCheckService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::uptime_check_service::ClientBuilder;
     /// # use client::UptimeCheckService;
@@ -4577,7 +4577,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::ListUptimeCheckConfigs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4692,7 +4692,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::GetUptimeCheckConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4757,7 +4757,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::CreateUptimeCheckConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4846,7 +4846,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::UpdateUptimeCheckConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4945,7 +4945,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::DeleteUptimeCheckConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5012,7 +5012,7 @@ pub mod uptime_check_service {
     /// # Example
     /// ```
     /// # use google_cloud_monitoring_v3::builder::uptime_check_service::ListUptimeCheckIps;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_monitoring_v3::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();

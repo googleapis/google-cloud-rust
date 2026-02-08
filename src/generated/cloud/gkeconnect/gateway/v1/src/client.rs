@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
 /// let client = GatewayControl::builder().build().await?;
 /// // use `client` to make requests to the Connect Gateway API.
@@ -66,7 +66,7 @@ impl GatewayControl {
     /// Returns a builder for [GatewayControl].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
     /// let client = GatewayControl::builder().build().await?;
     /// # Ok(()) }

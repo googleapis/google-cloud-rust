@@ -20,7 +20,7 @@ pub mod policy_troubleshooter {
     /// A builder for [PolicyTroubleshooter][crate::client::PolicyTroubleshooter].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_iam_v3::*;
     /// # use builder::policy_troubleshooter::ClientBuilder;
     /// # use client::PolicyTroubleshooter;
@@ -75,7 +75,7 @@ pub mod policy_troubleshooter {
     /// # Example
     /// ```
     /// # use google_cloud_policytroubleshooter_iam_v3::builder::policy_troubleshooter::TroubleshootIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_policytroubleshooter_iam_v3::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

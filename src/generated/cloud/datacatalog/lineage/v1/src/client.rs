@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
 /// let client = Lineage::builder().build().await?;
 /// // use `client` to make requests to the Data Lineage API.
@@ -71,7 +71,7 @@ impl Lineage {
     /// Returns a builder for [Lineage].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// let client = Lineage::builder().build().await?;
     /// # Ok(()) }

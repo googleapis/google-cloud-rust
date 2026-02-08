@@ -20,7 +20,7 @@ pub mod vpc_access_service {
     /// A builder for [VpcAccessService][crate::client::VpcAccessService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vpcaccess_v1::*;
     /// # use builder::vpc_access_service::ClientBuilder;
     /// # use client::VpcAccessService;
@@ -75,7 +75,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::CreateConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -214,7 +214,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::GetConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -276,7 +276,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListConnectors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -382,7 +382,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::DeleteConnector;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -486,7 +486,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -599,7 +599,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -720,7 +720,7 @@ pub mod vpc_access_service {
     /// # Example
     /// ```
     /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vpcaccess_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

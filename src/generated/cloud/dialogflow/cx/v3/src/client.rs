@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Agents;
 /// let client = Agents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -71,7 +71,7 @@ impl Agents {
     /// Returns a builder for [Agents].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
     /// let client = Agents::builder().build().await?;
     /// # Ok(()) }
@@ -272,7 +272,7 @@ impl Agents {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
 /// let client = Changelogs::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -323,7 +323,7 @@ impl Changelogs {
     /// Returns a builder for [Changelogs].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Changelogs;
     /// let client = Changelogs::builder().build().await?;
     /// # Ok(()) }
@@ -421,7 +421,7 @@ impl Changelogs {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
 /// let client = Deployments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -472,7 +472,7 @@ impl Deployments {
     /// Returns a builder for [Deployments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Deployments;
     /// let client = Deployments::builder().build().await?;
     /// # Ok(()) }
@@ -576,7 +576,7 @@ impl Deployments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
 /// let client = EntityTypes::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -627,7 +627,7 @@ impl EntityTypes {
     /// Returns a builder for [EntityTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::EntityTypes;
     /// let client = EntityTypes::builder().build().await?;
     /// # Ok(()) }
@@ -782,7 +782,7 @@ impl EntityTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Environments;
 /// let client = Environments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -834,7 +834,7 @@ impl Environments {
     /// Returns a builder for [Environments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Environments;
     /// let client = Environments::builder().build().await?;
     /// # Ok(()) }
@@ -1074,7 +1074,7 @@ impl Environments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Examples;
 /// let client = Examples::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -1125,7 +1125,7 @@ impl Examples {
     /// Returns a builder for [Examples].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Examples;
     /// let client = Examples::builder().build().await?;
     /// # Ok(()) }
@@ -1238,7 +1238,7 @@ impl Examples {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
 /// let client = Experiments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -1289,7 +1289,7 @@ impl Experiments {
     /// Returns a builder for [Experiments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
     /// let client = Experiments::builder().build().await?;
     /// # Ok(()) }
@@ -1435,7 +1435,7 @@ impl Experiments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Flows;
 /// let client = Flows::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -1486,7 +1486,7 @@ impl Flows {
     /// Returns a builder for [Flows].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Flows;
     /// let client = Flows::builder().build().await?;
     /// # Ok(()) }
@@ -1708,7 +1708,7 @@ impl Flows {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Generators;
 /// let client = Generators::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -1759,7 +1759,7 @@ impl Generators {
     /// Returns a builder for [Generators].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Generators;
     /// let client = Generators::builder().build().await?;
     /// # Ok(()) }
@@ -1872,7 +1872,7 @@ impl Generators {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Intents;
 /// let client = Intents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -1923,7 +1923,7 @@ impl Intents {
     /// Returns a builder for [Intents].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Intents;
     /// let client = Intents::builder().build().await?;
     /// # Ok(()) }
@@ -2102,7 +2102,7 @@ impl Intents {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Pages;
 /// let client = Pages::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2153,7 +2153,7 @@ impl Pages {
     /// Returns a builder for [Pages].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Pages;
     /// let client = Pages::builder().build().await?;
     /// # Ok(()) }
@@ -2278,7 +2278,7 @@ impl Pages {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
 /// let client = Playbooks::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2329,7 +2329,7 @@ impl Playbooks {
     /// Returns a builder for [Playbooks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
     /// let client = Playbooks::builder().build().await?;
     /// # Ok(()) }
@@ -2501,7 +2501,7 @@ impl Playbooks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
 /// let client = SecuritySettingsService::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2550,7 +2550,7 @@ impl SecuritySettingsService {
     /// Returns a builder for [SecuritySettingsService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
     /// let client = SecuritySettingsService::builder().build().await?;
     /// # Ok(()) }
@@ -2684,7 +2684,7 @@ impl SecuritySettingsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
 /// let client = Sessions::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2738,7 +2738,7 @@ impl Sessions {
     /// Returns a builder for [Sessions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
     /// let client = Sessions::builder().build().await?;
     /// # Ok(()) }
@@ -2864,7 +2864,7 @@ impl Sessions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
 /// let client = SessionEntityTypes::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2916,7 +2916,7 @@ impl SessionEntityTypes {
     /// Returns a builder for [SessionEntityTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::SessionEntityTypes;
     /// let client = SessionEntityTypes::builder().build().await?;
     /// # Ok(()) }
@@ -3040,7 +3040,7 @@ impl SessionEntityTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
 /// let client = TestCases::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -3093,7 +3093,7 @@ impl TestCases {
     /// Returns a builder for [TestCases].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
     /// let client = TestCases::builder().build().await?;
     /// # Ok(()) }
@@ -3333,7 +3333,7 @@ impl TestCases {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Tools;
 /// let client = Tools::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -3384,7 +3384,7 @@ impl Tools {
     /// Returns a builder for [Tools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
     /// let client = Tools::builder().build().await?;
     /// # Ok(()) }
@@ -3546,7 +3546,7 @@ impl Tools {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
 /// let client = TransitionRouteGroups::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -3598,7 +3598,7 @@ impl TransitionRouteGroups {
     /// Returns a builder for [TransitionRouteGroups].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::TransitionRouteGroups;
     /// let client = TransitionRouteGroups::builder().build().await?;
     /// # Ok(()) }
@@ -3747,7 +3747,7 @@ impl TransitionRouteGroups {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Versions;
 /// let client = Versions::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -3798,7 +3798,7 @@ impl Versions {
     /// Returns a builder for [Versions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Versions;
     /// let client = Versions::builder().build().await?;
     /// # Ok(()) }
@@ -3972,7 +3972,7 @@ impl Versions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
 /// let client = Webhooks::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -4023,7 +4023,7 @@ impl Webhooks {
     /// Returns a builder for [Webhooks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_cx_v3::client::Webhooks;
     /// let client = Webhooks::builder().build().await?;
     /// # Ok(()) }

@@ -20,7 +20,7 @@ pub mod vmware_engine {
     /// A builder for [VmwareEngine][crate::client::VmwareEngine].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_vmwareengine_v1::*;
     /// # use builder::vmware_engine::ClientBuilder;
     /// # use client::VmwareEngine;
@@ -75,7 +75,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListPrivateClouds;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetPrivateCloud;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -258,7 +258,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreatePrivateCloud;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -412,7 +412,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdatePrivateCloud;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -566,7 +566,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeletePrivateCloud;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -708,7 +708,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UndeletePrivateCloud;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -826,7 +826,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListClusters;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -942,7 +942,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1004,7 +1004,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1155,7 +1155,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1312,7 +1312,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteCluster;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1422,7 +1422,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListNodes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1524,7 +1524,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetNode;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1586,7 +1586,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListExternalAddresses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1707,7 +1707,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::FetchNetworkPolicyExternalAddresses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1820,7 +1820,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetExternalAddress;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1885,7 +1885,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateExternalAddress;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2033,7 +2033,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateExternalAddress;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2187,7 +2187,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteExternalAddress;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2300,7 +2300,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListSubnets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2404,7 +2404,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2466,7 +2466,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateSubnet;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2611,7 +2611,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListExternalAccessRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2734,7 +2734,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetExternalAccessRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2799,7 +2799,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateExternalAccessRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2951,7 +2951,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateExternalAccessRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3109,7 +3109,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteExternalAccessRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3224,7 +3224,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListLoggingServers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3345,7 +3345,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetLoggingServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3410,7 +3410,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateLoggingServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3558,7 +3558,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateLoggingServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3712,7 +3712,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteLoggingServer;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3825,7 +3825,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListNodeTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3935,7 +3935,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetNodeType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3997,7 +3997,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ShowNsxCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4062,7 +4062,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ShowVcenterCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4133,7 +4133,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ResetNsxCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4251,7 +4251,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ResetVcenterCredentials;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4377,7 +4377,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetDnsForwarding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4442,7 +4442,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateDnsForwarding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4596,7 +4596,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetNetworkPeering;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4661,7 +4661,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListNetworkPeerings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4782,7 +4782,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateNetworkPeering;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4930,7 +4930,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteNetworkPeering;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5043,7 +5043,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateNetworkPeering;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5197,7 +5197,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListPeeringRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5312,7 +5312,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateHcxActivationKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5460,7 +5460,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListHcxActivationKeys;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5569,7 +5569,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetHcxActivationKey;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5634,7 +5634,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetNetworkPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5699,7 +5699,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListNetworkPolicies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5820,7 +5820,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateNetworkPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5968,7 +5968,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateNetworkPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6122,7 +6122,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteNetworkPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6235,7 +6235,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListManagementDnsZoneBindings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6358,7 +6358,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetManagementDnsZoneBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6425,7 +6425,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateManagementDnsZoneBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6583,7 +6583,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateManagementDnsZoneBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6744,7 +6744,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteManagementDnsZoneBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6859,7 +6859,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::RepairManagementDnsZoneBinding;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6981,7 +6981,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreateVmwareEngineNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7133,7 +7133,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdateVmwareEngineNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7291,7 +7291,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteVmwareEngineNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7412,7 +7412,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetVmwareEngineNetwork;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7477,7 +7477,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListVmwareEngineNetworks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7600,7 +7600,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::CreatePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7752,7 +7752,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetPrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7817,7 +7817,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListPrivateConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7938,7 +7938,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::UpdatePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8096,7 +8096,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeletePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8211,7 +8211,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListPrivateConnectionPeeringRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8324,7 +8324,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GrantDnsBindPermission;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8466,7 +8466,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetDnsBindPermission;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8531,7 +8531,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::RevokeDnsBindPermission;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8675,7 +8675,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8788,7 +8788,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8851,7 +8851,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8956,7 +8956,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9039,7 +9039,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9119,7 +9119,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9240,7 +9240,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9303,7 +9303,7 @@ pub mod vmware_engine {
     /// # Example
     /// ```
     /// # use google_cloud_vmwareengine_v1::builder::vmware_engine::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_vmwareengine_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod logging_service_v_2 {
     /// A builder for [LoggingServiceV2][crate::client::LoggingServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::logging_service_v_2::ClientBuilder;
     /// # use client::LoggingServiceV2;
@@ -75,7 +75,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::DeleteLog;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -137,7 +137,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::WriteLogEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -251,7 +251,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -374,7 +374,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListMonitoredResourceDescriptors;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -477,7 +477,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -562,7 +562,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -683,7 +683,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -746,7 +746,7 @@ pub mod logging_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::logging_service_v_2::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod config_service_v_2 {
     /// A builder for [ConfigServiceV2][crate::client::ConfigServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::config_service_v_2::ClientBuilder;
     /// # use client::ConfigServiceV2;
@@ -868,7 +868,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListBuckets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -972,7 +972,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1034,7 +1034,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucketAsync;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1173,7 +1173,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucketAsync;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1326,7 +1326,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1418,7 +1418,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1524,7 +1524,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1586,7 +1586,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UndeleteBucket;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1648,7 +1648,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListViews;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1750,7 +1750,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1812,7 +1812,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1904,7 +1904,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2006,7 +2006,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteView;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2068,7 +2068,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListSinks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2170,7 +2170,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2232,7 +2232,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateSink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2322,7 +2322,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2430,7 +2430,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteSink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2492,7 +2492,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateLink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2630,7 +2630,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteLink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2734,7 +2734,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListLinks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2836,7 +2836,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetLink;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2898,7 +2898,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListExclusions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3004,7 +3004,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetExclusion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3066,7 +3066,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateExclusion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3150,7 +3150,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateExclusion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3256,7 +3256,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteExclusion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3318,7 +3318,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetCmekSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3380,7 +3380,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateCmekSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3485,7 +3485,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3547,7 +3547,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSettings;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3649,7 +3649,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CopyLogEntries;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3774,7 +3774,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3895,7 +3895,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3958,7 +3958,7 @@ pub mod config_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::config_service_v_2::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4025,7 +4025,7 @@ pub mod metrics_service_v_2 {
     /// A builder for [MetricsServiceV2][crate::client::MetricsServiceV2].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::metrics_service_v_2::ClientBuilder;
     /// # use client::MetricsServiceV2;
@@ -4080,7 +4080,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListLogMetrics;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4186,7 +4186,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetLogMetric;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4248,7 +4248,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CreateLogMetric;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4332,7 +4332,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::UpdateLogMetric;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4416,7 +4416,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::DeleteLogMetric;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4478,7 +4478,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4599,7 +4599,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4662,7 +4662,7 @@ pub mod metrics_service_v_2 {
     /// # Example
     /// ```
     /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_logging_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

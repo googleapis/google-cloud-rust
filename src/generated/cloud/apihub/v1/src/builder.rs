@@ -20,7 +20,7 @@ pub mod api_hub {
     /// A builder for [ApiHub][crate::client::ApiHub].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub::ClientBuilder;
     /// # use client::ApiHub;
@@ -73,7 +73,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -161,7 +161,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -221,7 +221,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListApis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -327,7 +327,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -423,7 +423,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -489,7 +489,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -577,7 +577,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -637,7 +637,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -745,7 +745,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -841,7 +841,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -907,7 +907,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -995,7 +995,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1055,7 +1055,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetSpecContents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1115,7 +1115,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListSpecs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1221,7 +1221,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1317,7 +1317,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1377,7 +1377,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateApiOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1468,7 +1468,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetApiOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1528,7 +1528,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListApiOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1641,7 +1641,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateApiOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1740,7 +1740,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteApiOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1803,7 +1803,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetDefinition;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1863,7 +1863,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1954,7 +1954,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2014,7 +2014,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListDeployments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2124,7 +2124,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2223,7 +2223,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteDeployment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2286,7 +2286,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2374,7 +2374,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2434,7 +2434,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2530,7 +2530,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteAttribute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2590,7 +2590,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListAttributes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2700,7 +2700,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::SearchResources;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2818,7 +2818,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CreateExternalApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2909,7 +2909,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetExternalApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2969,7 +2969,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::UpdateExternalApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3068,7 +3068,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteExternalApi;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3131,7 +3131,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListExternalApis;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3238,7 +3238,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3349,7 +3349,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3410,7 +3410,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3529,7 +3529,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3590,7 +3590,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3653,7 +3653,7 @@ pub mod api_hub {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3718,7 +3718,7 @@ pub mod api_hub_dependencies {
     /// A builder for [ApiHubDependencies][crate::client::ApiHubDependencies].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub_dependencies::ClientBuilder;
     /// # use client::ApiHubDependencies;
@@ -3773,7 +3773,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::CreateDependency;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3866,7 +3866,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::GetDependency;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3928,7 +3928,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::UpdateDependency;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4029,7 +4029,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::DeleteDependency;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4094,7 +4094,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::ListDependencies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4209,7 +4209,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4322,7 +4322,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4385,7 +4385,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4506,7 +4506,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4569,7 +4569,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4634,7 +4634,7 @@ pub mod api_hub_dependencies {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_dependencies::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4701,7 +4701,7 @@ pub mod api_hub_collect {
     /// A builder for [ApiHubCollect][crate::client::ApiHubCollect].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub_collect::ClientBuilder;
     /// # use client::ApiHubCollect;
@@ -4756,7 +4756,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::CollectApiData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4913,7 +4913,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5026,7 +5026,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5089,7 +5089,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5210,7 +5210,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5273,7 +5273,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5338,7 +5338,7 @@ pub mod api_hub_collect {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_collect::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5405,7 +5405,7 @@ pub mod api_hub_curate {
     /// A builder for [ApiHubCurate][crate::client::ApiHubCurate].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub_curate::ClientBuilder;
     /// # use client::ApiHubCurate;
@@ -5460,7 +5460,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::CreateCuration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5550,7 +5550,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::GetCuration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5612,7 +5612,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::ListCurations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5722,7 +5722,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::UpdateCuration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5816,7 +5816,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::DeleteCuration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5878,7 +5878,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5991,7 +5991,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6054,7 +6054,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6175,7 +6175,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6238,7 +6238,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6303,7 +6303,7 @@ pub mod api_hub_curate {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_curate::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6370,7 +6370,7 @@ pub mod api_hub_discovery {
     /// A builder for [ApiHubDiscovery][crate::client::ApiHubDiscovery].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub_discovery::ClientBuilder;
     /// # use client::ApiHubDiscovery;
@@ -6425,7 +6425,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::ListDiscoveredApiObservations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6536,7 +6536,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::GetDiscoveredApiObservation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6603,7 +6603,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::ListDiscoveredApiOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6714,7 +6714,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::GetDiscoveredApiOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6781,7 +6781,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6894,7 +6894,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6957,7 +6957,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7078,7 +7078,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7141,7 +7141,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7206,7 +7206,7 @@ pub mod api_hub_discovery {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_discovery::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7273,7 +7273,7 @@ pub mod host_project_registration_service {
     /// A builder for [HostProjectRegistrationService][crate::client::HostProjectRegistrationService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::host_project_registration_service::ClientBuilder;
     /// # use client::HostProjectRegistrationService;
@@ -7328,7 +7328,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::CreateHostProjectRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7431,7 +7431,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::GetHostProjectRegistration;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7498,7 +7498,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::ListHostProjectRegistrations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7621,7 +7621,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7734,7 +7734,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7797,7 +7797,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7918,7 +7918,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7981,7 +7981,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8046,7 +8046,7 @@ pub mod host_project_registration_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::host_project_registration_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8113,7 +8113,7 @@ pub mod linting_service {
     /// A builder for [LintingService][crate::client::LintingService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::linting_service::ClientBuilder;
     /// # use client::LintingService;
@@ -8168,7 +8168,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::GetStyleGuide;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8230,7 +8230,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::UpdateStyleGuide;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8327,7 +8327,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::GetStyleGuideContents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8392,7 +8392,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::LintSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8454,7 +8454,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8567,7 +8567,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8630,7 +8630,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8751,7 +8751,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8814,7 +8814,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8879,7 +8879,7 @@ pub mod linting_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::linting_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8946,7 +8946,7 @@ pub mod api_hub_plugin {
     /// A builder for [ApiHubPlugin][crate::client::ApiHubPlugin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::api_hub_plugin::ClientBuilder;
     /// # use client::ApiHubPlugin;
@@ -9001,7 +9001,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::GetPlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9063,7 +9063,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::EnablePlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9125,7 +9125,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::DisablePlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9187,7 +9187,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::CreatePlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9277,7 +9277,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::ListPlugins;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9387,7 +9387,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::DeletePlugin;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9491,7 +9491,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::CreatePluginInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9631,7 +9631,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::ExecutePluginInstanceAction;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9769,7 +9769,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::GetPluginInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9834,7 +9834,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::ListPluginInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9949,7 +9949,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::EnablePluginInstanceAction;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10073,7 +10073,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::DisablePluginInstanceAction;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10197,7 +10197,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::UpdatePluginInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10294,7 +10294,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::DeletePluginInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10401,7 +10401,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10514,7 +10514,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10577,7 +10577,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10698,7 +10698,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10761,7 +10761,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10826,7 +10826,7 @@ pub mod api_hub_plugin {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::api_hub_plugin::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10893,7 +10893,7 @@ pub mod provisioning {
     /// A builder for [Provisioning][crate::client::Provisioning].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::provisioning::ClientBuilder;
     /// # use client::Provisioning;
@@ -10948,7 +10948,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::CreateApiHubInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11088,7 +11088,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::DeleteApiHubInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11195,7 +11195,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::GetApiHubInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11260,7 +11260,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::LookupApiHubInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11325,7 +11325,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11438,7 +11438,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11501,7 +11501,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11622,7 +11622,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11685,7 +11685,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11750,7 +11750,7 @@ pub mod provisioning {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::provisioning::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11817,7 +11817,7 @@ pub mod runtime_project_attachment_service {
     /// A builder for [RuntimeProjectAttachmentService][crate::client::RuntimeProjectAttachmentService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::*;
     /// # use builder::runtime_project_attachment_service::ClientBuilder;
     /// # use client::RuntimeProjectAttachmentService;
@@ -11872,7 +11872,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11975,7 +11975,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12042,7 +12042,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12165,7 +12165,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12232,7 +12232,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12299,7 +12299,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12412,7 +12412,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12475,7 +12475,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12596,7 +12596,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12659,7 +12659,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12724,7 +12724,7 @@ pub mod runtime_project_attachment_service {
     /// # Example
     /// ```
     /// # use google_cloud_apihub_v1::builder::runtime_project_attachment_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_apihub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -20,7 +20,7 @@ pub mod lineage {
     /// A builder for [Lineage][crate::client::Lineage].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_lineage_v1::*;
     /// # use builder::lineage::ClientBuilder;
     /// # use client::Lineage;
@@ -73,7 +73,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ProcessOpenLineageRunEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -166,7 +166,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateProcess;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -254,7 +254,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::UpdateProcess;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -352,7 +352,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetProcess;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -412,7 +412,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListProcesses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -514,7 +514,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteProcess;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -622,7 +622,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -710,7 +710,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::UpdateRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -808,7 +808,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -868,7 +868,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListRuns;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -968,7 +968,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteRun;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1076,7 +1076,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateLineageEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1167,7 +1167,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetLineageEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1227,7 +1227,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListLineageEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1334,7 +1334,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteLineageEvent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1403,7 +1403,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::SearchLinks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1543,7 +1543,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::BatchSearchLinkProcesses;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1665,7 +1665,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1784,7 +1784,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1845,7 +1845,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1908,7 +1908,7 @@ pub mod lineage {
     /// # Example
     /// ```
     /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

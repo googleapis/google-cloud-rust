@@ -20,7 +20,7 @@ pub mod secure_source_manager {
     /// A builder for [SecureSourceManager][crate::client::SecureSourceManager].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securesourcemanager_v1::*;
     /// # use builder::secure_source_manager::ClientBuilder;
     /// # use client::SecureSourceManager;
@@ -75,7 +75,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListInstances;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -191,7 +191,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -253,7 +253,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -398,7 +398,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteInstance;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -508,7 +508,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListRepositories;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -629,7 +629,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -691,7 +691,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -833,7 +833,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -983,7 +983,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteRepository;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1096,7 +1096,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListHooks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1198,7 +1198,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetHook;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1260,7 +1260,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateHook;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1399,7 +1399,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateHook;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1544,7 +1544,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteHook;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1648,7 +1648,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIamPolicyRepo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1731,7 +1731,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::SetIamPolicyRepo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1836,7 +1836,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::TestIamPermissionsRepo;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1916,7 +1916,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateBranchRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2058,7 +2058,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListBranchRules;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2164,7 +2164,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetBranchRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2226,7 +2226,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateBranchRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2380,7 +2380,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteBranchRule;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2493,7 +2493,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2627,7 +2627,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetPullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2689,7 +2689,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequests;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2798,7 +2798,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2942,7 +2942,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::MergePullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3054,7 +3054,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenPullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3163,7 +3163,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ClosePullRequest;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3275,7 +3275,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequestFileDiffs;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3386,7 +3386,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::FetchTree;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3500,7 +3500,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::FetchBlob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3570,7 +3570,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3701,7 +3701,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3763,7 +3763,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListIssues;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3873,7 +3873,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4014,7 +4014,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4124,7 +4124,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4239,7 +4239,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CloseIssue;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4354,7 +4354,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetPullRequestComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4419,7 +4419,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequestComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4530,7 +4530,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequestComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4668,7 +4668,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequestComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4816,7 +4816,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeletePullRequestComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4925,7 +4925,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::BatchCreatePullRequestComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5054,7 +5054,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ResolvePullRequestComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5189,7 +5189,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UnresolvePullRequestComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5324,7 +5324,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssueComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5458,7 +5458,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIssueComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5520,7 +5520,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListIssueComments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5629,7 +5629,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssueComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5773,7 +5773,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssueComment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5880,7 +5880,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5993,7 +5993,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6056,7 +6056,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6161,7 +6161,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6244,7 +6244,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6324,7 +6324,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6445,7 +6445,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6508,7 +6508,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6573,7 +6573,7 @@ pub mod secure_source_manager {
     /// # Example
     /// ```
     /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

@@ -22,7 +22,7 @@ pub mod agents {
     /// A builder for [Agents][crate::client::Agents].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::agents::ClientBuilder;
     /// # use client::Agents;
@@ -75,7 +75,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::GetAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -135,7 +135,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::SetAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -227,7 +227,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::DeleteAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -287,7 +287,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::SearchAgents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -389,7 +389,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::TrainAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -490,7 +490,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::ExportAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -604,7 +604,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::ImportAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -737,7 +737,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::RestoreAgent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -870,7 +870,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::GetValidationResult;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -939,7 +939,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1050,7 +1050,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1111,7 +1111,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1230,7 +1230,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1291,7 +1291,7 @@ pub mod agents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::agents::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1358,7 +1358,7 @@ pub mod answer_records {
     /// A builder for [AnswerRecords][crate::client::AnswerRecords].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::answer_records::ClientBuilder;
     /// # use client::AnswerRecords;
@@ -1413,7 +1413,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::ListAnswerRecords;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1528,7 +1528,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::UpdateAnswerRecord;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1629,7 +1629,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1742,7 +1742,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1805,7 +1805,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1926,7 +1926,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1989,7 +1989,7 @@ pub mod answer_records {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::answer_records::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2058,7 +2058,7 @@ pub mod contexts {
     /// A builder for [Contexts][crate::client::Contexts].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::contexts::ClientBuilder;
     /// # use client::Contexts;
@@ -2111,7 +2111,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::ListContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2213,7 +2213,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::GetContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2273,7 +2273,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::CreateContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2355,7 +2355,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::UpdateContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2447,7 +2447,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::DeleteContext;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2507,7 +2507,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::DeleteAllContexts;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2570,7 +2570,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2681,7 +2681,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2742,7 +2742,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2861,7 +2861,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2922,7 +2922,7 @@ pub mod contexts {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::contexts::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2989,7 +2989,7 @@ pub mod conversations {
     /// A builder for [Conversations][crate::client::Conversations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversations::ClientBuilder;
     /// # use client::Conversations;
@@ -3044,7 +3044,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::CreateConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3137,7 +3137,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::ListConversations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3252,7 +3252,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GetConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3314,7 +3314,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::CompleteConversation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3379,7 +3379,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::IngestContextReferences;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3460,7 +3460,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::ListMessages;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3570,7 +3570,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::SuggestConversationSummary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3667,7 +3667,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateStatelessSummary;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3786,7 +3786,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateStatelessSuggestion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3940,7 +3940,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::SearchKnowledge;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4103,7 +4103,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateSuggestions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4185,7 +4185,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4298,7 +4298,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4361,7 +4361,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4482,7 +4482,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4545,7 +4545,7 @@ pub mod conversations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversations::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4614,7 +4614,7 @@ pub mod conversation_datasets {
     /// A builder for [ConversationDatasets][crate::client::ConversationDatasets].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_datasets::ClientBuilder;
     /// # use client::ConversationDatasets;
@@ -4669,7 +4669,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::CreateConversationDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4807,7 +4807,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetConversationDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4872,7 +4872,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListConversationDatasets;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4983,7 +4983,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::DeleteConversationDataset;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5097,7 +5097,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ImportConversationData;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5233,7 +5233,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5346,7 +5346,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5409,7 +5409,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5530,7 +5530,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5593,7 +5593,7 @@ pub mod conversation_datasets {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5662,7 +5662,7 @@ pub mod conversation_models {
     /// A builder for [ConversationModels][crate::client::ConversationModels].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_models::ClientBuilder;
     /// # use client::ConversationModels;
@@ -5717,7 +5717,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::CreateConversationModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5853,7 +5853,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetConversationModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5918,7 +5918,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListConversationModels;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6027,7 +6027,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::DeleteConversationModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6141,7 +6141,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::DeployConversationModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6255,7 +6255,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::UndeployConversationModel;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6369,7 +6369,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetConversationModelEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6436,7 +6436,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListConversationModelEvaluations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6547,7 +6547,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::CreateConversationModelEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6688,7 +6688,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6801,7 +6801,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6864,7 +6864,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6985,7 +6985,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7048,7 +7048,7 @@ pub mod conversation_models {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_models::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7117,7 +7117,7 @@ pub mod conversation_profiles {
     /// A builder for [ConversationProfiles][crate::client::ConversationProfiles].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_profiles::ClientBuilder;
     /// # use client::ConversationProfiles;
@@ -7172,7 +7172,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListConversationProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7283,7 +7283,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetConversationProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7348,7 +7348,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::CreateConversationProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7437,7 +7437,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::UpdateConversationProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7540,7 +7540,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::DeleteConversationProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7607,7 +7607,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::SetSuggestionFeatureConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7763,7 +7763,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ClearSuggestionFeatureConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7901,7 +7901,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8014,7 +8014,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8077,7 +8077,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8198,7 +8198,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8261,7 +8261,7 @@ pub mod conversation_profiles {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8330,7 +8330,7 @@ pub mod documents {
     /// A builder for [Documents][crate::client::Documents].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::documents::ClientBuilder;
     /// # use client::Documents;
@@ -8385,7 +8385,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ListDocuments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8495,7 +8495,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::GetDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -8557,7 +8557,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::CreateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8690,7 +8690,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ImportDocuments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8854,7 +8854,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::DeleteDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -8962,7 +8962,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::UpdateDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9105,7 +9105,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ReloadDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9250,7 +9250,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ExportDocument;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -9402,7 +9402,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9515,7 +9515,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9578,7 +9578,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9699,7 +9699,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9762,7 +9762,7 @@ pub mod documents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::documents::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9831,7 +9831,7 @@ pub mod encryption_spec_service {
     /// A builder for [EncryptionSpecService][crate::client::EncryptionSpecService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::encryption_spec_service::ClientBuilder;
     /// # use client::EncryptionSpecService;
@@ -9886,7 +9886,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetEncryptionSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -9951,7 +9951,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::InitializeEncryptionSpec;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -10081,7 +10081,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10194,7 +10194,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10257,7 +10257,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10378,7 +10378,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10441,7 +10441,7 @@ pub mod encryption_spec_service {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10510,7 +10510,7 @@ pub mod entity_types {
     /// A builder for [EntityTypes][crate::client::EntityTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::entity_types::ClientBuilder;
     /// # use client::EntityTypes;
@@ -10565,7 +10565,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::ListEntityTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10677,7 +10677,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::GetEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10745,7 +10745,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::CreateEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10838,7 +10838,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::UpdateEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -10941,7 +10941,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::DeleteEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11006,7 +11006,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchUpdateEntityTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11184,7 +11184,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchDeleteEntityTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11303,7 +11303,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchCreateEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11428,7 +11428,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchUpdateEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11571,7 +11571,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchDeleteEntities;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -11696,7 +11696,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11809,7 +11809,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -11872,7 +11872,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11993,7 +11993,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12056,7 +12056,7 @@ pub mod entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::entity_types::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12125,7 +12125,7 @@ pub mod environments {
     /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::environments::ClientBuilder;
     /// # use client::Environments;
@@ -12180,7 +12180,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::ListEnvironments;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12289,7 +12289,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::GetEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12351,7 +12351,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::CreateEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12446,7 +12446,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::UpdateEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12553,7 +12553,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::DeleteEnvironment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12618,7 +12618,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::GetEnvironmentHistory;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12725,7 +12725,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12838,7 +12838,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -12901,7 +12901,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13022,7 +13022,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13085,7 +13085,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::environments::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13154,7 +13154,7 @@ pub mod fulfillments {
     /// A builder for [Fulfillments][crate::client::Fulfillments].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::fulfillments::ClientBuilder;
     /// # use client::Fulfillments;
@@ -13209,7 +13209,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetFulfillment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13271,7 +13271,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::UpdateFulfillment;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13372,7 +13372,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13485,7 +13485,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13548,7 +13548,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13669,7 +13669,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13732,7 +13732,7 @@ pub mod fulfillments {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::fulfillments::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13801,7 +13801,7 @@ pub mod generators {
     /// A builder for [Generators][crate::client::Generators].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::generators::ClientBuilder;
     /// # use client::Generators;
@@ -13856,7 +13856,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::CreateGenerator;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -13946,7 +13946,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::GetGenerator;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14008,7 +14008,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::ListGenerators;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14114,7 +14114,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::DeleteGenerator;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14176,7 +14176,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::UpdateGenerator;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14270,7 +14270,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14383,7 +14383,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14446,7 +14446,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14567,7 +14567,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14630,7 +14630,7 @@ pub mod generators {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generators::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14699,7 +14699,7 @@ pub mod generator_evaluations {
     /// A builder for [GeneratorEvaluations][crate::client::GeneratorEvaluations].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::generator_evaluations::ClientBuilder;
     /// # use client::GeneratorEvaluations;
@@ -14754,7 +14754,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::CreateGeneratorEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -14892,7 +14892,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetGeneratorEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -14957,7 +14957,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListGeneratorEvaluations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15068,7 +15068,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::DeleteGeneratorEvaluation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15135,7 +15135,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15248,7 +15248,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15311,7 +15311,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15432,7 +15432,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15495,7 +15495,7 @@ pub mod generator_evaluations {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15564,7 +15564,7 @@ pub mod intents {
     /// A builder for [Intents][crate::client::Intents].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::intents::ClientBuilder;
     /// # use client::Intents;
@@ -15617,7 +15617,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::ListIntents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15731,7 +15731,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::GetIntent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15803,7 +15803,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::CreateIntent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -15897,7 +15897,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::UpdateIntent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16001,7 +16001,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::DeleteIntent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16061,7 +16061,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::BatchUpdateIntents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16243,7 +16243,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::BatchDeleteIntents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -16360,7 +16360,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16471,7 +16471,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16532,7 +16532,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16651,7 +16651,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16712,7 +16712,7 @@ pub mod intents {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::intents::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -16779,7 +16779,7 @@ pub mod knowledge_bases {
     /// A builder for [KnowledgeBases][crate::client::KnowledgeBases].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::knowledge_bases::ClientBuilder;
     /// # use client::KnowledgeBases;
@@ -16834,7 +16834,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListKnowledgeBases;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16949,7 +16949,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetKnowledgeBase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17014,7 +17014,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::CreateKnowledgeBase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17101,7 +17101,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::DeleteKnowledgeBase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17172,7 +17172,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::UpdateKnowledgeBase;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17269,7 +17269,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17382,7 +17382,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17445,7 +17445,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17566,7 +17566,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17629,7 +17629,7 @@ pub mod knowledge_bases {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17698,7 +17698,7 @@ pub mod participants {
     /// A builder for [Participants][crate::client::Participants].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::participants::ClientBuilder;
     /// # use client::Participants;
@@ -17753,7 +17753,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::CreateParticipant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17840,7 +17840,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::GetParticipant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -17902,7 +17902,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::ListParticipants;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18011,7 +18011,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::UpdateParticipant;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18112,7 +18112,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::AnalyzeContent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18318,7 +18318,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::SuggestArticles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18410,7 +18410,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::SuggestFaqAnswers;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18505,7 +18505,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::SuggestSmartReplies;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18600,7 +18600,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::SuggestKnowledgeAssist;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18683,7 +18683,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18796,7 +18796,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -18859,7 +18859,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18980,7 +18980,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19043,7 +19043,7 @@ pub mod participants {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::participants::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19112,7 +19112,7 @@ pub mod sessions {
     /// A builder for [Sessions][crate::client::Sessions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::sessions::ClientBuilder;
     /// # use client::Sessions;
@@ -19165,7 +19165,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::DetectIntent;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19307,7 +19307,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19418,7 +19418,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19479,7 +19479,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19598,7 +19598,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19659,7 +19659,7 @@ pub mod sessions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sessions::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19726,7 +19726,7 @@ pub mod session_entity_types {
     /// A builder for [SessionEntityTypes][crate::client::SessionEntityTypes].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::session_entity_types::ClientBuilder;
     /// # use client::SessionEntityTypes;
@@ -19781,7 +19781,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListSessionEntityTypes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19890,7 +19890,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetSessionEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -19955,7 +19955,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::CreateSessionEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20044,7 +20044,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::UpdateSessionEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20143,7 +20143,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::DeleteSessionEntityType;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20210,7 +20210,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20323,7 +20323,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20386,7 +20386,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20507,7 +20507,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20570,7 +20570,7 @@ pub mod session_entity_types {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::session_entity_types::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20639,7 +20639,7 @@ pub mod sip_trunks {
     /// A builder for [SipTrunks][crate::client::SipTrunks].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::sip_trunks::ClientBuilder;
     /// # use client::SipTrunks;
@@ -20694,7 +20694,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::CreateSipTrunk;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20778,7 +20778,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::DeleteSipTrunk;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -20840,7 +20840,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListSipTrunks;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20944,7 +20944,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetSipTrunk;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21006,7 +21006,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::UpdateSipTrunk;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21100,7 +21100,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21213,7 +21213,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21276,7 +21276,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21397,7 +21397,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21460,7 +21460,7 @@ pub mod sip_trunks {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::sip_trunks::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21529,7 +21529,7 @@ pub mod tools {
     /// A builder for [Tools][crate::client::Tools].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::tools::ClientBuilder;
     /// # use client::Tools;
@@ -21582,7 +21582,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::CreateTool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21670,7 +21670,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::GetTool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21730,7 +21730,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::ListTools;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21830,7 +21830,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::DeleteTool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21890,7 +21890,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::UpdateTool;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -21982,7 +21982,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22093,7 +22093,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22154,7 +22154,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22273,7 +22273,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22334,7 +22334,7 @@ pub mod tools {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::tools::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22401,7 +22401,7 @@ pub mod versions {
     /// A builder for [Versions][crate::client::Versions].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::versions::ClientBuilder;
     /// # use client::Versions;
@@ -22454,7 +22454,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::ListVersions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22556,7 +22556,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::GetVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22616,7 +22616,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::CreateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22698,7 +22698,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::UpdateVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22794,7 +22794,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::DeleteVersion;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -22854,7 +22854,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22965,7 +22965,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23026,7 +23026,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -23145,7 +23145,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -23206,7 +23206,7 @@ pub mod versions {
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_v2::builder::versions::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_dialogflow_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

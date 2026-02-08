@@ -20,7 +20,7 @@ pub mod publisher {
     /// A builder for [Publisher][crate::client::Publisher].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_publishing_v1::*;
     /// # use builder::publisher::ClientBuilder;
     /// # use client::Publisher;
@@ -75,7 +75,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishChannelConnectionEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_publishing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -162,7 +162,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishEvents;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_publishing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -244,7 +244,7 @@ pub mod publisher {
     /// # Example
     /// ```
     /// # use google_cloud_eventarc_publishing_v1::builder::publisher::Publish;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_eventarc_publishing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

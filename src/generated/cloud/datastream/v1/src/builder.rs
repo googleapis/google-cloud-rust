@@ -20,7 +20,7 @@ pub mod datastream {
     /// A builder for [Datastream][crate::client::Datastream].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datastream_v1::*;
     /// # use builder::datastream::ClientBuilder;
     /// # use client::Datastream;
@@ -75,7 +75,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListConnectionProfiles;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +196,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -261,7 +261,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -425,7 +425,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::UpdateConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -591,7 +591,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -706,7 +706,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DiscoverConnectionProfile;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -951,7 +951,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListStreams;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1067,7 +1067,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetStream;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1129,7 +1129,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateStream;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1286,7 +1286,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::UpdateStream;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1445,7 +1445,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteStream;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1555,7 +1555,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::RunStream;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1688,7 +1688,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetStreamObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1750,7 +1750,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::LookupStreamObject;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1837,7 +1837,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListStreamObjects;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1946,7 +1946,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::StartBackfillJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2011,7 +2011,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::StopBackfillJob;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2073,7 +2073,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::FetchStaticIps;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2147,7 +2147,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreatePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2311,7 +2311,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetPrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2376,7 +2376,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListPrivateConnections;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2497,7 +2497,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeletePrivateConnection;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2618,7 +2618,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2763,7 +2763,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2825,7 +2825,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListRoutes;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2941,7 +2941,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteRoute;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3051,7 +3051,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListLocations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3164,7 +3164,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetLocation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3227,7 +3227,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListOperations;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3348,7 +3348,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3411,7 +3411,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3476,7 +3476,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CancelOperation;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

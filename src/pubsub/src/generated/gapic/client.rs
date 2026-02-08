@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::TopicAdmin;
 /// let client = TopicAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
@@ -66,7 +66,7 @@ impl TopicAdmin {
     /// Returns a builder for [TopicAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// let client = TopicAdmin::builder().build().await?;
     /// # Ok(()) }
@@ -176,7 +176,7 @@ impl TopicAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SubscriptionAdmin;
 /// let client = SubscriptionAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
@@ -222,7 +222,7 @@ impl SubscriptionAdmin {
     /// Returns a builder for [SubscriptionAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// let client = SubscriptionAdmin::builder().build().await?;
     /// # Ok(()) }
@@ -403,7 +403,7 @@ impl SubscriptionAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
@@ -449,7 +449,7 @@ impl SchemaService {
     /// Returns a builder for [SchemaService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// let client = SchemaService::builder().build().await?;
     /// # Ok(()) }

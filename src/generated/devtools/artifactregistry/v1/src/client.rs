@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
 /// let client = ArtifactRegistry::builder().build().await?;
 /// // use `client` to make requests to the Artifact Registry API.
@@ -78,7 +78,7 @@ impl ArtifactRegistry {
     /// Returns a builder for [ArtifactRegistry].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// let client = ArtifactRegistry::builder().build().await?;
     /// # Ok(()) }

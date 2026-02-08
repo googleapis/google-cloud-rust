@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_speech_v2::client::Speech;
 /// let client = Speech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Speech-to-Text API.
@@ -66,7 +66,7 @@ impl Speech {
     /// Returns a builder for [Speech].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_speech_v2::client::Speech;
     /// let client = Speech::builder().build().await?;
     /// # Ok(()) }

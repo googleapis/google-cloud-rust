@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datafusion_v1::client::DataFusion;
 /// let client = DataFusion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Data Fusion API.
@@ -68,7 +68,7 @@ impl DataFusion {
     /// Returns a builder for [DataFusion].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datafusion_v1::client::DataFusion;
     /// let client = DataFusion::builder().build().await?;
     /// # Ok(()) }

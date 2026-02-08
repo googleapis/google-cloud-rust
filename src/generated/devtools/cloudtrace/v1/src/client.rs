@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_trace_v1::client::TraceService;
 /// let client = TraceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Trace API.
@@ -70,7 +70,7 @@ impl TraceService {
     /// Returns a builder for [TraceService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v1::client::TraceService;
     /// let client = TraceService::builder().build().await?;
     /// # Ok(()) }

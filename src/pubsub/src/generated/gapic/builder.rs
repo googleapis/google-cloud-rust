@@ -20,7 +20,7 @@ pub mod topic_admin {
     /// A builder for [TopicAdmin][crate::client::TopicAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::topic_admin::ClientBuilder;
     /// # use client::TopicAdmin;
@@ -75,7 +75,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::CreateTopic;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -266,7 +266,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::UpdateTopic;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -364,7 +364,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::GetTopic;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -426,7 +426,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopics;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -530,7 +530,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSubscriptions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -607,7 +607,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSnapshots;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -684,7 +684,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::DeleteTopic;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -746,7 +746,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::DetachSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -813,7 +813,7 @@ pub mod subscription_admin {
     /// A builder for [SubscriptionAdmin][crate::client::SubscriptionAdmin].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::subscription_admin::ClientBuilder;
     /// # use client::SubscriptionAdmin;
@@ -868,7 +868,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::CreateSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1184,7 +1184,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::GetSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1246,7 +1246,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1347,7 +1347,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ListSubscriptions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1456,7 +1456,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSubscription;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1521,7 +1521,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ModifyPushConfig;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1608,7 +1608,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::GetSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1670,7 +1670,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ListSnapshots;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1774,7 +1774,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::CreateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1866,7 +1866,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1964,7 +1964,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSnapshot;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2026,7 +2026,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::Seek;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2125,7 +2125,7 @@ pub mod schema_service {
     /// A builder for [SchemaService][crate::client::SchemaService].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::schema_service::ClientBuilder;
     /// # use client::SchemaService;
@@ -2180,7 +2180,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::CreateSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2270,7 +2270,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::GetSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2338,7 +2338,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ListSchemas;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2448,7 +2448,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ListSchemaRevisions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2563,7 +2563,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::CommitSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2647,7 +2647,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::RollbackSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2717,7 +2717,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::DeleteSchemaRevision;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2789,7 +2789,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::DeleteSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2851,7 +2851,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ValidateSchema;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2935,7 +2935,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ValidateMessage;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3046,7 +3046,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::SetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3151,7 +3151,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::GetIamPolicy;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3234,7 +3234,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::TestIamPermissions;
-    /// # async fn sample() -> crate::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;

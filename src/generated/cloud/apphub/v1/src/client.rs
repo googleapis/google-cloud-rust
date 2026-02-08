@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> crate::ClientBuilderResult<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apphub_v1::client::AppHub;
 /// let client = AppHub::builder().build().await?;
 /// // use `client` to make requests to the App Hub API.
@@ -66,7 +66,7 @@ impl AppHub {
     /// Returns a builder for [AppHub].
     ///
     /// ```
-    /// # async fn sample() -> crate::ClientBuilderResult<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// let client = AppHub::builder().build().await?;
     /// # Ok(()) }
