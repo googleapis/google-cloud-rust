@@ -67,16 +67,14 @@ impl BasePublisher {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// let client = BasePublisher::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # google_cloud_gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> BasePublisherBuilder {
         BasePublisherBuilder::new()
     }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
-    pub(crate) async fn new(
-        builder: BasePublisherBuilder,
-    ) -> Result<Self, gax::client_builder::Error> {
+    pub(crate) async fn new(builder: BasePublisherBuilder) -> crate::ClientBuilderResult<Self> {
         let inner =
             crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
         std::result::Result::Ok(Self { inner })

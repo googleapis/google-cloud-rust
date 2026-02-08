@@ -49,7 +49,7 @@ impl Stub for Transport {
         &self,
         request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>> {
         use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let request = ReceiverStream::new(request_rx);
@@ -78,16 +78,16 @@ impl Stub for Transport {
     async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         GapicStub::modify_ack_deadline(self, req, options).await
     }
 
     async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         GapicStub::acknowledge(self, req, options).await
     }
 }
@@ -148,7 +148,7 @@ pub(super) mod tests {
             &transport,
             "subscription=projects/p/subscriptions/s",
             request_rx,
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?
         .into_inner();
@@ -171,7 +171,7 @@ pub(super) mod tests {
         let _ = Stub::modify_ack_deadline(
             &transport,
             crate::model::ModifyAckDeadlineRequest::new(),
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?;
         Ok(())
@@ -187,7 +187,7 @@ pub(super) mod tests {
         let _ = Stub::acknowledge(
             &transport,
             crate::model::AcknowledgeRequest::new(),
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?;
         Ok(())

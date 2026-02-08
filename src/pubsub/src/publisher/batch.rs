@@ -73,7 +73,7 @@ impl Batch {
         &mut self,
         client: GapicPublisher,
         topic: String,
-        inflight: &mut JoinSet<Result<(), gax::error::Error>>,
+        inflight: &mut JoinSet<crate::Result<()>>,
     ) {
         let batch_to_send = Self {
             initial_size: self.initial_size,
@@ -85,7 +85,7 @@ impl Batch {
     }
 
     /// Send the batch to the service and process the results.
-    async fn send(self, client: GapicPublisher, topic: String) -> Result<(), gax::error::Error> {
+    async fn send(self, client: GapicPublisher, topic: String) -> crate::Result<()> {
         let (msgs, txs): (Vec<_>, Vec<_>) = self
             .messages
             .into_iter()
@@ -103,7 +103,7 @@ impl Batch {
                     // The user may have dropped the handle, so it is ok if this fails.
                     let _ = tx.send(Err(PublishError::SendError(e.clone())));
                 }
-                Err(gax::error::Error::io(e))
+                Err(crate::Error::io(e))
             }
             Ok(result) => {
                 txs.into_iter()
@@ -132,7 +132,7 @@ mod tests {
         #[derive(Debug)]
         GapicPublisher {}
         impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
-            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+            async fn publish(&self, req: crate::model::PublishRequest, _options: crate::RequestOptions) -> crate::Result<crate::Response<crate::model::PublishResponse>>;
         }
     }
 
@@ -158,7 +158,7 @@ mod tests {
             |r, _| {
                 assert_eq!(r.topic, "topic");
                 assert_eq!(r.messages.len(), 3);
-                Ok(gax::response::Response::from(PublishResponse::new()))
+                Ok(crate::Response::from(PublishResponse::new()))
             }
         });
         let client = GapicPublisher::from_stub(mock);
@@ -201,7 +201,7 @@ mod tests {
             |r, _| {
                 assert_eq!(r.topic, "topic");
                 assert_eq!(r.messages.len(), 3);
-                Ok(gax::response::Response::from(PublishResponse::new()))
+                Ok(crate::Response::from(PublishResponse::new()))
             }
         });
         let client = GapicPublisher::from_stub(mock);

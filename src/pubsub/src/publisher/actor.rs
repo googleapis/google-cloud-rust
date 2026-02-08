@@ -300,7 +300,7 @@ impl ConcurrentBatchActor {
     }
 
     // Flush the pending batch if it's not empty.
-    pub(crate) fn flush(&mut self, inflight: &mut JoinSet<Result<(), gax::error::Error>>) {
+    pub(crate) fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>) {
         if !self.context.pending_batch.is_empty() {
             self.context.pending_batch.flush(
                 self.context.client.clone(),
@@ -360,7 +360,7 @@ impl SequentialBatchActor {
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
-        let mut inflight: JoinSet<Result<(), gax::error::Error>> = JoinSet::new();
+        let mut inflight: JoinSet<crate::Result<()>> = JoinSet::new();
         loop {
             if self.paused {
                 // When paused, we do not need to check inflight as handle_inflight_join()
@@ -428,7 +428,7 @@ impl SequentialBatchActor {
     }
 
     // Flush the pending messages by sending the messages in sequential batches.
-    async fn flush(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
+    async fn flush(&mut self, mut inflight: JoinSet<crate::Result<()>>) {
         self.handle_inflight_join(inflight.join_next().await);
         while !self.context.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
             self.move_to_batch();
@@ -464,7 +464,7 @@ impl SequentialBatchActor {
 
     pub(crate) fn handle_inflight_join(
         &mut self,
-        join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
+        join_next_option: Option<Result<crate::Result<()>, tokio::task::JoinError>>,
     ) {
         // If there was a JoinError or non-retryable error:
         // 1. We need to pause publishing and send out errors for pending_msgs.
@@ -500,7 +500,7 @@ mod tests {
         #[derive(Debug)]
         GapicPublisher {}
         impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
-            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+            async fn publish(&self, req: crate::model::PublishRequest, _options: google_cloud_gax::options::RequestOptions) -> google_cloud_gax::Result<google_cloud_gax::response::Response<crate::model::PublishResponse>>;
         }
     }
 
@@ -514,19 +514,19 @@ mod tests {
         #[derive(Debug)]
         GapicPublisherWithFuture {}
         impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisherWithFuture {
-            fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> impl Future<Output=gax::Result<gax::response::Response<crate::model::PublishResponse>>> + Send;
+            fn publish(&self, req: crate::model::PublishRequest, _options: google_cloud_gax::options::RequestOptions) -> impl Future<Output=google_cloud_gax::Result<google_cloud_gax::response::Response<crate::model::PublishResponse>>> + Send;
         }
     }
 
     fn publish_ok(
         req: crate::model::PublishRequest,
-        _options: gax::options::RequestOptions,
-    ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
+        _options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
         let ids = req
             .messages
             .iter()
             .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-        Ok(gax::response::Response::from(
+        Ok(crate::Response::from(
             PublishResponse::new().set_message_ids(ids),
         ))
     }
@@ -544,11 +544,11 @@ mod tests {
 
     fn publish_err(
         _req: crate::model::PublishRequest,
-        _options: gax::options::RequestOptions,
-    ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
-        Err(gax::error::Error::service(
-            gax::error::rpc::Status::default()
-                .set_code(gax::error::rpc::Code::Unknown)
+        _options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
+        Err(crate::Error::service(
+            google_cloud_gax::error::rpc::Status::default()
+                .set_code(google_cloud_gax::error::rpc::Code::Unknown)
                 .set_message("unknown error has occurred"),
         ))
     }
