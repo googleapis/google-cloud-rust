@@ -1519,7 +1519,7 @@ dependencies = [
  "mutants",
  "p256",
  "regex",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "rsa",
  "rustc_version",
  "rustls",
@@ -2858,7 +2858,7 @@ dependencies = [
  "pin-project",
  "prost",
  "prost-types",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "rustc_version",
  "scoped-env",
  "serde",
@@ -5701,7 +5701,7 @@ dependencies = [
  "httptest",
  "mockall",
  "rand 0.10.0",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "serde",
  "serde_json",
  "serde_with",
@@ -5726,7 +5726,7 @@ dependencies = [
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
  "httptest",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "scoped-env",
  "serde_json",
  "serial_test",
@@ -5993,7 +5993,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "http",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "storage-samples",
  "test-case",
  "tokio",
@@ -7048,9 +7048,9 @@ dependencies = [
 
 [[package]]
 name = "reqwest"
-version = "0.13.1"
+version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04e9018c9d814e5f30cc16a0f03271aeab3571e609612d9fe78c1aa8d11c2f62"
+checksum = "ab3f43e3283ab1488b624b44b0e988d0acea0b3214e694730a055cb6b2efa801"
 dependencies = [
  "base64",
  "bytes",
@@ -7868,7 +7868,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "google-cloud-auth",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
 ]
 
 [[package]]
@@ -8453,7 +8453,7 @@ dependencies = [
  "httptest",
  "mockall",
  "rand 0.10.0",
- "reqwest 0.13.1",
+ "reqwest 0.13.2",
  "serde_json",
  "storage-samples",
  "tempfile",
@@ -8623,9 +8623,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-streams"
-version = "0.4.2"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15053d8d85c7eccdbefef60f06769760a563c7f0a9d6902a13d35c7800b0ad65"
+checksum = "9d1ec4f6517c9e11ae630e200b2b65d193279042e28edd4a2cda233e46670bbb"
 dependencies = [
  "futures-util",
  "js-sys",

@@ -411,7 +411,7 @@ prost       = { default-features = false, version = "0.14", features = ["std"] }
 prost-build = { default-features = false, version = "0.14" }
 prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
-reqwest = { default-features = false, version = "0.13.0" }
+reqwest = { default-features = false, version = "0.13.2" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
 tonic             = { default-features = false, version = "0.14.3", features = ["tls-native-roots"] }
 tonic-prost       = { default-features = false, version = "0.14.3" }
