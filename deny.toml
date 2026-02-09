@@ -50,6 +50,11 @@ crate = "webpki-root-certs"
 allow = ["Zlib"]
 crate = "zlib-rs"
 
+# Used indirectly via `prost-build` and `tonic-prost-build`.
+[[licenses.exceptions]]
+allow = ["Zlib"]
+crate = "foldhash"
+
 # Visually inspected by coryan circa 2026-01-31
 #     https://github.com/Nokel81/scoped-env/blob/master/LICENSE
 [[licenses.clarify]]

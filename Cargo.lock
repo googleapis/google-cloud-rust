@@ -5230,6 +5230,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "http",
  "prost",
+ "prost-build",
  "serde_json",
  "tokio",
  "tokio-stream",

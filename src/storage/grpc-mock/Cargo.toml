@@ -21,8 +21,8 @@ publish           = false
 edition.workspace = true
 license.workspace = true
 
-[features]
-_generate-protos = ["dep:prost-build", "dep:tonic-prost-build"]
+[lints]
+workspace = true
 
 [dependencies]
 async-trait.workspace = true
@@ -42,5 +42,5 @@ pastey.workspace    = true
 test-case.workspace = true
 
 [build-dependencies]
-prost-build       = { workspace = true, optional = true }
-tonic-prost-build = { workspace = true, optional = true }
+prost-build       = { workspace = true }
+tonic-prost-build = { workspace = true }
