@@ -23,7 +23,7 @@ use google_cloud_gax::{
 };
 use std::time::Duration;
 
-/// A builder for a `Publisher`.
+/// A builder for a [`Publisher`].
 #[derive(Clone, Debug)]
 pub struct PublisherBuilder {
     topic: String,
@@ -270,7 +270,7 @@ impl PublisherBuilder {
     }
 }
 
-/// Creates `Publisher`s with a preconfigured client.
+/// Creates [`Publisher`]s with a preconfigured client.
 ///
 /// # Example
 ///
