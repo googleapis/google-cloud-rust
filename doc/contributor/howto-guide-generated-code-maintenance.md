@@ -32,7 +32,7 @@ You need to look at the [API list] for the pinned version of librarian, if the
 API is not in the list:
 
 1. Send a PR adding the API to librarian.
-1. Send a PR to update `.librarian-version.txt`.
+1. Send a PR to update the `version` field in `librarian.yaml`.
 
 ### Generate
 
@@ -53,7 +53,7 @@ This command will generate the library, add the library to Cargo and git, and
 run the necessary tests:
 
 ```bash
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 # add library to librarian.yaml
 go run github.com/googleapis/librarian/cmd/librarian@${V} add ${library}
 # generate library
@@ -73,7 +73,7 @@ Run:
 
 ```bash
 git checkout -b chore-update-shas-circa-$(date +%Y-%m-%d)
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
 go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
@@ -108,7 +108,7 @@ Run:
 ```bash
 git fetch upstream
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} bump --all
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
 # It is safe to commit everything because `bump` stops you from updating a
@@ -210,7 +210,7 @@ Commit all these changes and send a PR.
 Run:
 
 ```bash
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all 
 ```
 
@@ -224,7 +224,7 @@ the library name from librarian.yaml.
 Run:
 
 ```bash
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-secretmanager-v1
 ```
 
@@ -234,7 +234,7 @@ Someday `librarian` will be stable enough that we will be able to install it. At
 that point we will be able to say:
 
 ```bash
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go install github.com/googleapis/librarian/cmd/librarian@${V}
 ```
 
@@ -271,18 +271,17 @@ Wait for the PR to be approved and merged.
 
 Then finish your PR in `google-cloud-rust`.
 
-1. Update the default librarian version:
+1. Update the librarian version in `librarian.yaml`:
 
    ```bash
-   GOPROXY=direct go list -m -u -f '{{.Version}}' github.com/googleapis/librarian@main >.librarian-version.txt
-   V=$(cat .librarian-version.txt)
-   sed -i.bak  "s;^version: .*;version: ${V};" librarian.yaml
+   V=$(GOPROXY=direct go list -m -f '{{.Version}}' github.com/googleapis/librarian@main)
+   sed -i.bak "s;^version: .*;version: ${V};" librarian.yaml && rm librarian.yaml.bak
    ```
 
 1. Update the generated code:
 
    ```bash
-   V=$(cat .librarian-version.txt)
+   V=$(sed -n 's/^version: *//p' librarian.yaml)
    go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
    ```
 
@@ -319,7 +318,7 @@ example:
 
 ```
 bash
-V=$(cat .librarian-version.txt)
+V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-apps-script-type
 ```
 

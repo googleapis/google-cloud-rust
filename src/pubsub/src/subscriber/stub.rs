@@ -29,6 +29,7 @@ pub(super) trait Stub: std::fmt::Debug + Send + Sync {
     type Stream: Sized + std::fmt::Debug;
     async fn streaming_pull(
         &self,
+        request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
         _options: gax::options::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>>;
@@ -68,6 +69,7 @@ pub(super) mod tests {
             type Stream = MockStream;
             async fn streaming_pull(
                 &self,
+                request_params: &str,
                 request_rx: Receiver<StreamingPullRequest>,
                 _options: gax::options::RequestOptions,
             ) -> Result<TonicResponse<MockStream>>;

@@ -51,7 +51,7 @@ jsonwebtoken          = { workspace = true, optional = true }
 # See: https://github.com/Keats/jsonwebtoken/pull/481
 aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
-gax.workspace = true
+google-cloud-gax.workspace = true
 
 [dev-dependencies]
 anyhow.workspace      = true

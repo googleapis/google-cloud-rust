@@ -17,7 +17,7 @@
 use http::StatusCode;
 use std::error::Error;
 
-pub use gax::error::CredentialsError;
+pub use google_cloud_gax::error::CredentialsError;
 
 /// Represents an error using [SubjectTokenProvider].
 ///

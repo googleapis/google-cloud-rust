@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_enable_lifecycle_management]
+// [START storage_enable_bucket_lifecycle_management]
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::bucket::Lifecycle;
 use google_cloud_storage::model::bucket::lifecycle::{
@@ -42,4 +42,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     println!("Lifecycle management enabled for bucket {bucket_id}: {bucket:?}");
     Ok(())
 }
-// [END storage_enable_lifecycle_management]
+// [END storage_enable_bucket_lifecycle_management]

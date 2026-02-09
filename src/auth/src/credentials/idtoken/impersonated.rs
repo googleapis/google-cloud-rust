@@ -27,7 +27,7 @@
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use serde_json::json;
-//! # use reqwest;    
+//! # use reqwest;
 //! # tokio_test::block_on(async {
 //! let source_credentials = json!({
 //!     "type": "authorized_user",
@@ -83,10 +83,10 @@ use crate::{
     token_cache::TokenCache,
 };
 use async_trait::async_trait;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::error::CredentialsError;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::error::CredentialsError;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
@@ -128,7 +128,7 @@ impl Builder {
     /// [application default login] with the [impersonation flag].
     ///
     /// [impersonation flag]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
-    /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login  
+    /// [application default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     pub fn new<S: Into<String>>(target_audience: S, impersonated_credential: Value) -> Self {
         Self {
             source: BuilderSource::FromJson(impersonated_credential),
@@ -158,7 +158,7 @@ impl Builder {
     /// # Ok::<(), anyhow::Error>(())
     /// # }
     /// // Now you can use credentials.id_token().await to fetch the token.
-    /// ```    
+    /// ```
     pub fn from_source_credentials<SA: Into<String>, SP: Into<String>>(
         target_audience: SA,
         target_principal: SP,
@@ -200,7 +200,7 @@ impl Builder {
     ///     .with_include_email()
     ///     .build();
     /// // Now you can use credentials.id_token().await to fetch the token.
-    /// ```    
+    /// ```
     pub fn with_include_email(mut self) -> Self {
         self.include_email = Some(true);
         self
@@ -240,7 +240,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     ///
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
@@ -263,7 +263,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     ///
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
@@ -293,7 +293,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     ///
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
