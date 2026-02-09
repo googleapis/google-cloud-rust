@@ -13,13 +13,15 @@
 // limitations under the License.
 
 use anyhow::Result;
-use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::options::RequestOptionsBuilder;
-use gax::paginator::ItemPaginator as _;
+use google_cloud_gax::error::{Error, rpc::Status};
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_longrunning::model::operation::Result as OperationResult;
 use google_cloud_lro::{Poller, PollingResult};
 use google_cloud_test_utils::resource_names::random_workflow_id;
 use google_cloud_test_utils::runtime_config::{project_id, region_id, test_service_account};
+use google_cloud_wkt::Timestamp;
 use google_cloud_workflows_v1::client::Workflows;
 use google_cloud_workflows_v1::model::{OperationMetadata, Workflow, workflow::SourceCode};
 use std::time::Duration;
@@ -171,7 +173,7 @@ async fn cleanup_stale_workflows(
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut paginator = client
         .list_workflows()
@@ -232,8 +234,8 @@ pub async fn manual(
         match result {
             OperationResult::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let status = gax::error::rpc::Status::from(*status);
-                return Err(anyhow::Error::from(gax::error::Error::service(status)));
+                let status = Status::from(*status);
+                return Err(anyhow::Error::from(Error::service(status)));
             }
             OperationResult::Response(any) => {
                 println!("LRO completed successfully {any:?}");
@@ -268,8 +270,8 @@ pub async fn manual(
         match result {
             OperationResult::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let status = gax::error::rpc::Status::from(&*status);
-                return Err(anyhow::Error::from(gax::error::Error::service(status)));
+                let status = Status::from(&*status);
+                return Err(anyhow::Error::from(Error::service(status)));
             }
             OperationResult::Response(any) => {
                 println!("LRO completed successfully {any:?}");
