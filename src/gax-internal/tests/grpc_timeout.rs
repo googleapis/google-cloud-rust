@@ -14,12 +14,14 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use anyhow::Result;
-    use gax::options::*;
-    use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-    use gax::retry_state::RetryState;
-    use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::Result;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use std::sync::{Arc, Mutex};
@@ -30,7 +32,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_no_timeout() -> Result<()> {
+    async fn test_no_timeout() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
 
@@ -57,7 +59,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_timeout_does_not_expire() -> Result<()> {
+    async fn test_timeout_does_not_expire() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
 
@@ -86,7 +88,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_timeout_expires() -> Result<()> {
+    async fn test_timeout_expires() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
         let mut server = connect_client(client.clone(), server).await?;
@@ -124,7 +126,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_effective_timeout() -> Result<()> {
+    async fn test_effective_timeout() -> anyhow::Result<()> {
         let (endpoint, server) = start_echo_server().await?;
         let client = test_client(endpoint).await?;
         let mut server = connect_client(client.clone(), server).await?;
@@ -142,7 +144,7 @@ mod tests {
             pub elapsed_on_failure: Arc<Mutex<Option<Duration>>>,
         }
 
-        impl gax::backoff_policy::BackoffPolicy for TestBackoffPolicy {
+        impl BackoffPolicy for TestBackoffPolicy {
             fn on_failure(&self, state: &RetryState) -> std::time::Duration {
                 if state.attempt_count == 1 {
                     *self.elapsed_on_failure.lock().unwrap() =
@@ -195,7 +197,7 @@ mod tests {
         Ok(())
     }
 
-    async fn test_client(endpoint: String) -> gax::client_builder::Result<grpc::Client> {
+    async fn test_client(endpoint: String) -> ClientBuilderResult<grpc::Client> {
         builder(endpoint)
             .with_credentials(test_credentials())
             .build()
@@ -238,7 +240,7 @@ mod tests {
         request_options: RequestOptions,
         msg: &str,
         delay: Option<Duration>,
-    ) -> gax::Result<google::test::v1::EchoResponse> {
+    ) -> Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

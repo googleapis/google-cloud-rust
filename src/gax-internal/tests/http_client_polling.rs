@@ -14,8 +14,13 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::polling_state::PollingState;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+    use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
+    use google_cloud_gax::polling_state::PollingState;
+    use google_cloud_gax::retry_result::RetryResult;
 
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
@@ -29,13 +34,9 @@ mod tests {
     struct TestErrorPolicy {
         pub _name: String,
     }
-    impl gax::polling_error_policy::PollingErrorPolicy for TestErrorPolicy {
-        fn on_error(
-            &self,
-            _state: &PollingState,
-            error: gax::error::Error,
-        ) -> gax::retry_result::RetryResult {
-            gax::retry_result::RetryResult::Continue(error)
+    impl PollingErrorPolicy for TestErrorPolicy {
+        fn on_error(&self, _state: &PollingState, error: Error) -> RetryResult {
+            RetryResult::Continue(error)
         }
     }
 
@@ -43,7 +44,7 @@ mod tests {
     struct TestBackoffPolicy {
         pub _name: String,
     }
-    impl gax::polling_backoff_policy::PollingBackoffPolicy for TestBackoffPolicy {
+    impl PollingBackoffPolicy for TestBackoffPolicy {
         fn wait_period(&self, _state: &PollingState) -> std::time::Duration {
             std::time::Duration::from_millis(1)
         }
@@ -57,7 +58,7 @@ mod tests {
             .build()
             .await?;
 
-        let options = gax::options::RequestOptions::default();
+        let options = RequestOptions::default();
         // Verify the functions are callable from outside the crate.
         let _ = client.get_polling_error_policy(&options);
         let _ = client.get_polling_backoff_policy(&options);
@@ -79,7 +80,7 @@ mod tests {
             .build()
             .await?;
 
-        let options = gax::options::RequestOptions::default();
+        let options = RequestOptions::default();
         let polling = client.get_polling_error_policy(&options);
         let fmt = format!("{polling:?}");
         assert!(fmt.contains("client-polling-error"), "{polling:?}");
@@ -104,7 +105,7 @@ mod tests {
             .build()
             .await?;
 
-        let mut options = gax::options::RequestOptions::default();
+        let mut options = RequestOptions::default();
         options.set_polling_error_policy(TestErrorPolicy {
             _name: "request-options-polling-error".to_string(),
         });

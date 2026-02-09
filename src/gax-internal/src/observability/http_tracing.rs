@@ -16,7 +16,10 @@ use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
-use gax::options::RequestOptions;
+use google_cloud_gax::options::{
+    RequestOptions,
+    internal::{get_path_template, get_resource_name},
+};
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use tracing::{Span, field};
 
@@ -33,8 +36,8 @@ pub(crate) fn create_http_attempt_span(
     let url = request.url();
     let method = request.method();
 
-    let url_template = gax::options::internal::get_path_template(options);
-    let resource_name = gax::options::internal::get_resource_name(options);
+    let url_template = get_path_template(options);
+    let resource_name = get_resource_name(options);
     let otel_name = url_template.map_or_else(
         || method.to_string(),
         |template| format!("{} {}", method, template),
@@ -89,12 +92,14 @@ pub(crate) fn create_http_attempt_span(
     )
 }
 
-/// Records additional attributes to the span based on the intermediate gax::Result.
+/// Records additional attributes to the span based on the intermediate
+/// google_cloud_gax::Result.
+///
 /// This should be called *before* the response body is downloaded and decoded and
 /// *after* any errors are processed.
 pub(crate) fn record_http_response_attributes(
     span: &Span,
-    result: Result<&reqwest::Response, &gax::error::Error>,
+    result: Result<&reqwest::Response, &google_cloud_gax::error::Error>,
 ) {
     match result {
         Ok(response) => {
@@ -129,7 +134,7 @@ pub(crate) fn record_http_response_attributes(
 /// This function is used to enrich the Client Request Span (T3) with attributes
 /// from the transport attempt that are only available before the response is consumed.
 pub(crate) fn record_intermediate_client_request(
-    result: Result<&reqwest::Response, &gax::error::Error>,
+    result: Result<&reqwest::Response, &google_cloud_gax::error::Error>,
     prior_attempt_count: u32,
     method: &http::Method,
     request_url: &reqwest::Url,
@@ -198,7 +203,12 @@ mod tests {
     use super::*;
     use crate::observability::client_tracing::create_client_request_span;
     use crate::options::InstrumentationClientInfo;
-    use gax::options::RequestOptions;
+    use google_cloud_gax::error::{
+        Error,
+        rpc::{Code, Status, StatusDetails},
+    };
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::options::internal::{set_path_template, set_resource_name};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -218,11 +228,9 @@ mod tests {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
-        let options = gax::options::internal::set_resource_name(
-            options,
-            "//example.com/projects/p/resources/r".to_string(),
-        );
+        let options = set_path_template(RequestOptions::default(), "/test");
+        let options =
+            set_resource_name(options, "//example.com/projects/p/resources/r".to_string());
         let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
 
         let expected_attributes: HashMap<String, AttributeValue> = [
@@ -345,7 +353,7 @@ mod tests {
         let _enter = span.enter();
 
         // Simulate a timeout error as a gax::Error
-        let error = gax::error::Error::timeout("test timeout");
+        let error = Error::timeout("test timeout");
         record_http_response_attributes(&span, Err(&error));
 
         let expected_attributes: HashMap<String, AttributeValue> = [
@@ -396,7 +404,7 @@ mod tests {
         let _enter = span.enter();
 
         // Simulate what to_http_error would return: a gax::Error with HTTP metadata
-        let error = gax::error::Error::http(
+        let error = Error::http(
             status_code.as_u16(),
             http::HeaderMap::new(),
             bytes::Bytes::new(),
@@ -456,11 +464,11 @@ mod tests {
         let error_info = google_cloud_rpc::model::ErrorInfo::default()
             .set_reason("API_KEY_INVALID")
             .set_domain("googleapis.com");
-        let status = gax::error::rpc::Status::default()
-            .set_code(gax::error::rpc::Code::InvalidArgument)
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
             .set_message("Invalid API Key")
-            .set_details(vec![gax::error::rpc::StatusDetails::ErrorInfo(error_info)]);
-        let error = gax::error::Error::service(status);
+            .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
+        let error = Error::service(status);
 
         record_http_response_attributes(&span, Err(&error));
 
@@ -610,7 +618,7 @@ mod tests {
 
         let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
         // Simulate a 404 error
-        let error = gax::error::Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
+        let error = Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
         record_intermediate_client_request(Err(&error), 1, &Method::POST, &url);
 
         let captured = TestLayer::capture(&guard);

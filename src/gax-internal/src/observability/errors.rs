@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use http::StatusCode;
-
 use super::attributes::error_type_values::*;
+use google_cloud_gax::error::{Error, rpc::Code, rpc::StatusDetails};
+use http::StatusCode;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ErrorType {
@@ -23,7 +23,7 @@ pub enum ErrorType {
         reason: Option<String>,
     },
     RpcError {
-        code: gax::error::rpc::Code,
+        code: Code,
         reason: Option<String>,
     },
     ClientTimeout,
@@ -36,7 +36,7 @@ pub enum ErrorType {
 }
 
 impl ErrorType {
-    pub(crate) fn from_gax_error(err: &gax::error::Error) -> Self {
+    pub(crate) fn from_gax_error(err: &Error) -> Self {
         match err {
             e if e.is_timeout() => ErrorType::ClientTimeout,
             e if e.is_exhausted() => ErrorType::ClientRetryExhausted,
@@ -48,7 +48,7 @@ impl ErrorType {
             e if e.status().is_some() => {
                 let status = e.status().unwrap();
                 let reason = status.details.iter().find_map(|d| match d {
-                    gax::error::rpc::StatusDetails::ErrorInfo(info) => Some(info.reason.clone()),
+                    StatusDetails::ErrorInfo(info) => Some(info.reason.clone()),
                     _ => None,
                 });
                 ErrorType::RpcError {
@@ -89,7 +89,10 @@ impl ErrorType {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use gax::error::Error;
+    use google_cloud_gax::error::{
+        CredentialsError, Error,
+        rpc::{Code, Status, StatusDetails},
+    };
     use http::{HeaderMap, StatusCode};
     use test_case::test_case;
 
@@ -110,9 +113,9 @@ pub(crate) mod tests {
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502"; "Bad Gateway")]
     #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499"; "Client Closed Request")]
     #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON"; "Bad Request with Reason")]
-    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::NotFound, reason: None }, "NOT_FOUND"; "RPC Not Found")]
-    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::Unavailable, reason: None }, "UNAVAILABLE"; "RPC Unavailable")]
-    #[test_case(ErrorType::RpcError { code: gax::error::rpc::Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()) }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
+    #[test_case(ErrorType::RpcError { code: Code::NotFound, reason: None }, "NOT_FOUND"; "RPC Not Found")]
+    #[test_case(ErrorType::RpcError { code: Code::Unavailable, reason: None }, "UNAVAILABLE"; "RPC Unavailable")]
+    #[test_case(ErrorType::RpcError { code: Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()) }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
     #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
     #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
     #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
@@ -134,13 +137,13 @@ pub(crate) mod tests {
     #[test_case(Error::binding("test"), CLIENT_REQUEST_ERROR; "Binding")]
     #[test_case(Error::ser("test"), CLIENT_REQUEST_ERROR; "Serialization")]
     #[test_case(Error::deser("test"), CLIENT_RESPONSE_DECODE_ERROR; "Deserialization")]
-    #[test_case(Error::authentication(gax::error::CredentialsError::from_msg(false, "test")), CLIENT_AUTHENTICATION_ERROR; "Authentication")]
+    #[test_case(Error::authentication(CredentialsError::from_msg(false, "test")), CLIENT_AUTHENTICATION_ERROR; "Authentication")]
     #[test_case(Error::io("test"), CLIENT_CONNECTION_ERROR; "IO")]
     #[test_case(Error::http(404, HeaderMap::new(), bytes::Bytes::new()), "404"; "HTTP 404")]
     #[test_case(Error::http(503, HeaderMap::new(), bytes::Bytes::new()), "503"; "HTTP 503")]
     #[test_case(Error::http(1000, HeaderMap::new(), bytes::Bytes::new()), UNKNOWN; "Invalid HTTP Status")]
-    #[test_case(Error::service(gax::error::rpc::Status::default().set_code(5).set_message("not found")), "NOT_FOUND"; "Service Error")]
-    #[test_case(Error::service(gax::error::rpc::Status::default()), UNKNOWN; "Service Error Default")]
+    #[test_case(Error::service(Status::default().set_code(5).set_message("not found")), "NOT_FOUND"; "Service Error")]
+    #[test_case(Error::service(Status::default()), UNKNOWN; "Service Error Default")]
     fn test_from_gax_error(err: Error, expected: &str) {
         assert_eq!(ErrorType::from_gax_error(&err).as_str(), expected);
     }
@@ -150,10 +153,10 @@ pub(crate) mod tests {
         let error_info = google_cloud_rpc::model::ErrorInfo::default()
             .set_reason("API_KEY_INVALID")
             .set_domain("googleapis.com");
-        let status = gax::error::rpc::Status::default()
-            .set_code(gax::error::rpc::Code::InvalidArgument)
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
             .set_message("Invalid API Key")
-            .set_details(vec![gax::error::rpc::StatusDetails::ErrorInfo(error_info)]);
+            .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
         let err = Error::service(status);
 
         assert_eq!(ErrorType::from_gax_error(&err).as_str(), "API_KEY_INVALID");

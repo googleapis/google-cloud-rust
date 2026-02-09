@@ -14,8 +14,9 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use gax::options::*;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::Result;
+    use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
 
@@ -52,8 +53,8 @@ mod tests {
 
     async fn send_request(
         client: grpc::Client,
-        options: gax::options::RequestOptions,
-    ) -> gax::Result<google::test::v1::EchoResponse> {
+        options: RequestOptions,
+    ) -> Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

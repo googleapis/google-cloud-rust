@@ -21,18 +21,26 @@ pub mod tonic;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
-use gax::Result;
-use gax::backoff_policy::BackoffPolicy;
-use gax::client_builder::Error as BuilderError;
-use gax::error::Error;
-use gax::exponential_backoff::ExponentialBackoff;
-use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
-use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
-use gax::retry_throttler::SharedRetryThrottler;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
+use google_cloud_gax::Result;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::client_builder::Error as BuilderError;
+use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+use google_cloud_gax::polling_error_policy::{
+    Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
+};
+use google_cloud_gax::response::{Parts, Response};
+use google_cloud_gax::retry_loop_internal::{effective_timeout, retry_loop};
+use google_cloud_gax::retry_policy::{
+    Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
+};
+use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
@@ -68,7 +76,7 @@ impl Client {
     pub async fn new(
         config: crate::options::ClientConfig,
         default_endpoint: &str,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> ClientBuilderResult<Self> {
         Self::build(
             config,
             default_endpoint,
@@ -84,7 +92,7 @@ impl Client {
         config: crate::options::ClientConfig,
         default_endpoint: &str,
         instrumentation: &'static crate::options::InstrumentationClientInfo,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> ClientBuilderResult<Self> {
         Self::build(config, default_endpoint, Some(instrumentation)).await
     }
 
@@ -94,7 +102,7 @@ impl Client {
         #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
             &'static crate::options::InstrumentationClientInfo,
         >,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
@@ -137,7 +145,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<tonic::Response<Response>>
@@ -156,7 +164,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<tonic::Response<tonic::Streaming<Response>>>
@@ -186,7 +194,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<tonic::Result<tonic::Response<tonic::Streaming<Response>>>>
@@ -213,7 +221,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
         headers: HeaderMap,
     ) -> Result<tonic::Response<Response>>
     where
@@ -242,7 +250,7 @@ impl Client {
                 .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
-        gax::retry_loop_internal::retry_loop(
+        retry_loop(
             inner,
             sleep,
             idempotent,
@@ -260,7 +268,7 @@ impl Client {
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
         prior_attempt_count: i64,
@@ -280,7 +288,8 @@ impl Client {
                 .extensions_mut()
                 .insert(AttemptCount::new(prior_attempt_count));
             if let Some(resource_name) =
-                gax::options::internal::get_resource_name(options).map(|s| s.to_string())
+                google_cloud_gax::options::internal::get_resource_name(options)
+                    .map(|s| s.to_string())
             {
                 request
                     .extensions_mut()
@@ -290,8 +299,7 @@ impl Client {
         #[cfg(not(google_cloud_unstable_tracing))]
         let _ = prior_attempt_count;
 
-        if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
-        {
+        if let Some(timeout) = effective_timeout(options, remaining_time) {
             request.set_timeout(timeout);
         }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -310,7 +318,7 @@ impl Client {
         #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
             &'static crate::options::InstrumentationClientInfo,
         >,
-    ) -> gax::client_builder::Result<InnerClient> {
+    ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
         let (channel, tx) = Channel::balance_channel(
@@ -355,7 +363,7 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
-    ) -> gax::client_builder::Result<::tonic::transport::Endpoint> {
+    ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
         let origin =
@@ -382,7 +390,7 @@ impl Client {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> gax::client_builder::Result<Credentials> {
+    ) -> ClientBuilderResult<Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
@@ -409,7 +417,7 @@ impl Client {
     async fn make_headers(
         api_client_header: &'static str,
         request_params: &str,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
         if let Some(user_agent) = options.user_agent() {
@@ -437,27 +445,21 @@ impl Client {
         Ok(headers)
     }
 
-    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
+    fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
             .unwrap_or_else(|| self.retry_policy.clone())
     }
 
-    pub(crate) fn get_backoff_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Arc<dyn BackoffPolicy> {
+    pub(crate) fn get_backoff_policy(&self, options: &RequestOptions) -> Arc<dyn BackoffPolicy> {
         options
             .backoff_policy()
             .clone()
             .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
-    pub(crate) fn get_retry_throttler(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> SharedRetryThrottler {
+    pub(crate) fn get_retry_throttler(&self, options: &RequestOptions) -> SharedRetryThrottler {
         options
             .retry_throttler()
             .clone()
@@ -466,7 +468,7 @@ impl Client {
 
     pub fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingErrorPolicy> {
         options
             .polling_error_policy()
@@ -476,7 +478,7 @@ impl Client {
 
     pub fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingBackoffPolicy> {
         options
             .polling_backoff_policy()
@@ -486,14 +488,14 @@ impl Client {
 }
 
 /// Convert a `tonic::Response` wrapping a prost message into a
-/// `gax::response::Response` wrapping our equivalent message
-pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> Result<gax::response::Response<G>>
+/// `google_cloud_gax::response::Response` wrapping our equivalent message
+pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> Result<Response<G>>
 where
     T: crate::prost::FromProto<G>,
 {
     let (metadata, body, _extensions) = response.into_parts();
-    Ok(gax::response::Response::from_parts(
-        gax::response::Parts::new().set_headers(metadata.into_headers()),
+    Ok(Response::from_parts(
+        Parts::new().set_headers(metadata.into_headers()),
         body.cnv().map_err(Error::deser)?,
     ))
 }

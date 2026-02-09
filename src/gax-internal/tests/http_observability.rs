@@ -14,9 +14,11 @@
 
 #[cfg(all(test, feature = "_internal-http-client", google_cloud_unstable_tracing))]
 mod tests {
-    use gax::options::RequestOptions;
-    use gax::response::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::Result;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::options::internal::set_path_template;
+    use google_cloud_gax::response::Response;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
     use google_cloud_gax_internal::observability::attributes::keys::*;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
@@ -77,9 +79,9 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = set_path_template(RequestOptions::default(), "/test");
         let request = client.builder(Method::GET, "/test".to_string());
-        let _response: gax::Result<Response<TestResponse>> =
+        let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
 
         let captured = TestLayer::capture(&guard);
@@ -130,7 +132,7 @@ mod tests {
         let guard = TestLayer::initialize();
 
         let request = client.builder(Method::GET, "/test".to_string());
-        let _response: gax::Result<Response<TestResponse>> = client
+        let _response: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, RequestOptions::default())
             .await;
 
@@ -161,10 +163,9 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options =
-            gax::options::internal::set_path_template(RequestOptions::default(), "/error");
+        let options = set_path_template(RequestOptions::default(), "/error");
         let request = client.builder(Method::GET, "/error".to_string());
-        let _response: gax::Result<Response<TestResponse>> =
+        let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
 
         let captured = TestLayer::capture(&guard);
@@ -220,10 +221,10 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = set_path_template(RequestOptions::default(), "/test");
         let request = client.builder(Method::POST, "/test".to_string());
         let body = serde_json::json!({"name": "test"});
-        let _response: gax::Result<Response<TestResponse>> =
+        let _response: Result<Response<TestResponse>> =
             client.execute(request, Some(body), options).await;
 
         let captured = TestLayer::capture(&guard);
@@ -294,10 +295,9 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options =
-            gax::options::internal::set_path_template(RequestOptions::default(), "/error-info");
+        let options = set_path_template(RequestOptions::default(), "/error-info");
         let request = client.builder(Method::GET, "/error-info".to_string());
-        let result: gax::Result<Response<TestResponse>> =
+        let result: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
 
         assert!(result.is_err(), "{result:?}");
@@ -361,7 +361,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = set_path_template(RequestOptions::default(), "/test");
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a parent span (T3) with the marker field
@@ -373,7 +373,7 @@ mod tests {
         );
 
         // Execute the request within the T3 span
-        let _response: gax::Result<Response<TestResponse>> = client
+        let _response: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, options)
             .instrument(t3_span.clone())
             .await;
@@ -424,7 +424,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = set_path_template(RequestOptions::default(), "/test");
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a user span that happens to have the same fields, but NO marker
@@ -435,7 +435,7 @@ mod tests {
         );
 
         // Execute the request within the user span
-        let _response: gax::Result<Response<TestResponse>> = client
+        let _response: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, options)
             .instrument(user_span.clone())
             .await;
@@ -471,7 +471,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = gax::options::internal::set_path_template(RequestOptions::default(), "/test");
+        let options = set_path_template(RequestOptions::default(), "/test");
         let request = client.builder(Method::GET, "/test".to_string());
 
         // 1. Create the T3 span using the helper
@@ -482,7 +482,7 @@ mod tests {
         );
 
         // 2. Execute the request within the T3 span
-        let result: gax::Result<Response<TestResponse>> = client
+        let result: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, options)
             .instrument(t3_span.clone())
             .await;
