@@ -57,9 +57,9 @@ impl Future for PublishFuture {
         // which can happen when the background worker is dropped.
         match result {
             Ok(result) => Poll::Ready(result.map_err(convert_error)),
-            Err(_) => Poll::Ready(Err(google_cloud_gax::error::Error::io(
+            Err(_) => Poll::Ready(Err(Arc::new(google_cloud_gax::error::Error::io(
                 "publisher is shutdown",
-            ))),
+            )))),
         }
     }
 }

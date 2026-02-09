@@ -325,13 +325,13 @@ mod tests {
         ];
         let mut handles = Vec::new();
         for msg in messages {
-            let handle = publisher.publish(msg.clone());
-            handles.push((msg, handle));
+            let handle = publisher.publish(msg);
+            handles.push(handle);
         }
 
         background_task_handle.abort();
 
-        for (_, rx) in handles.into_iter() {
+        for rx in handles.into_iter() {
             rx.await
                 .expect_err("expected error when background task canceled");
         }
