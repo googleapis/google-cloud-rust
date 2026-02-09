@@ -182,6 +182,23 @@ impl Session {
         }
     }
 
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the session to a [Stream][futures::Stream].
+    pub fn into_stream(
+        self,
+    ) -> impl futures::Stream<Item = Result<(PubsubMessage, Handler)>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+
     /// Returns a mutable reference to the underlying stream.
     ///
     /// If a stream is not yet open, this method opens the stream.
@@ -1077,6 +1094,53 @@ mod tests {
             .start()
             .next()
             .await;
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio::test(start_paused = true)]
+    async fn into_stream() -> anyhow::Result<()> {
+        use futures::TryStreamExt;
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+
+        let stream = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .into_stream();
+
+        response_tx.send(Ok(test_response(1..3))).await?;
+        drop(response_tx);
+
+        let got: Vec<_> = stream
+            .map_ok(|(m, h)| {
+                h.ack();
+                m.data
+            })
+            .try_collect()
+            .await?;
+        assert_eq!(got, vec![test_data(1), test_data(2)]);
+
+        let ack_req = ack_rx
+            .recv()
+            .await
+            .expect("should receive acknowledgements");
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..3));
 
         Ok(())
     }

@@ -4066,6 +4066,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
+ "google-cloud-pubsub",
  "google-cloud-wkt",
  "http",
  "lazy_static",
