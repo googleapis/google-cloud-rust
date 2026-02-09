@@ -231,6 +231,33 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
     }
 }
 
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Empty {}
+
+impl ::prost::Name for Empty {
+    const NAME: &'static str = "Empty";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.protobuf.Empty".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.protobuf.Empty".into()
+    }
+}
+
+impl ToProto<Empty> for wkt::Empty {
+    type Output = Empty;
+    fn to_proto(self) -> Result<Self::Output> {
+        Ok(Empty {})
+    }
+}
+
+impl FromProto<wkt::Empty> for Empty {
+    fn cnv(self) -> Result<wkt::Empty> {
+        Ok(wkt::Empty::default())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -454,6 +481,33 @@ mod tests {
         let input = prost_types::NullValue::NullValue;
         let got = input.cnv()?;
         assert_eq!(got, wkt::NullValue);
+        Ok(())
+    }
+
+    #[test]
+    fn to_proto_empty() -> anyhow::Result<()> {
+        let input = wkt::Empty::default();
+        let got: super::Empty = input.to_proto()?;
+        assert_eq!(got, super::Empty {});
+        Ok(())
+    }
+
+    #[test]
+    fn from_prost_empty() -> anyhow::Result<()> {
+        let input = super::Empty {};
+        let got = input.cnv()?;
+        assert_eq!(got, wkt::Empty::default());
+        Ok(())
+    }
+
+    #[test]
+    fn prost_empty_and_any() -> anyhow::Result<()> {
+        use prost::Name as _;
+        let input = super::Empty {};
+        let any = prost_types::Any::from_msg(&input)?;
+        assert_eq!(any.type_url, super::Empty::type_url());
+        let got = any.to_msg::<super::Empty>()?;
+        assert_eq!(input, got);
         Ok(())
     }
 }
