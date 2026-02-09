@@ -126,17 +126,17 @@ pub mod model_ext {
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
-/// let mut handles = Vec::new();
+/// let mut futures = Vec::new();
 /// for i in 0..10 {
 ///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
-///     handles.push(publisher.publish(msg));
+///     futures.push(publisher.publish(msg));
 /// }
 ///
-/// // The handles are futures that resolve to the server-assigned message IDs.
+/// // The futures resolve to the server-assigned message IDs.
 /// // You can await them to get the results. Messages will still be sent even
-/// // if the handles are dropped.
-/// for (i, handle) in handles.into_iter().enumerate() {
-///     let message_id = handle.await?;
+/// // if the futures are dropped.
+/// for (i, future) in futures.into_iter().enumerate() {
+///     let message_id = future.await?;
 ///     println!("Message {} sent with ID: {}", i, message_id);
 /// }
 /// # Ok(())
