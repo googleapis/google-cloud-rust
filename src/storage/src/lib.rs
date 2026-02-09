@@ -151,4 +151,8 @@ pub(crate) mod google {
             }
         }
     }
+    #[allow(unused_imports)]
+    pub mod protobuf {
+        pub use gaxi::prost::Empty;
+    }
 }
