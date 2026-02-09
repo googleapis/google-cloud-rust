@@ -77,12 +77,14 @@ fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
 
 #[cfg(test)]
 mod tests {
+    use crate::generated::gapic_dataplane::builder::publisher::Publish;
+
     use super::*;
 
     #[tokio::test]
     async fn resolve_publish_handle_success() {
         let (tx, rx) = oneshot::channel();
-        let handle = PublishHandle { rx };
+        let handle = PublishFuture { rx };
         let _ = tx.send(Ok("message_id".to_string()));
         let id = handle.await.expect("should have received a message ID");
         assert_eq!(id, "message_id");
@@ -93,9 +95,9 @@ mod tests {
         use std::error::Error as _;
 
         let (tx, rx) = oneshot::channel();
-        let handle = PublishHandle { rx };
+        let fut = PublishFuture { rx };
         let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
-        let err = handle
+        let err = fut
             .await
             .expect_err("errors on channel should resolve to error");
         let err = err
@@ -112,9 +114,9 @@ mod tests {
     #[tokio::test]
     async fn resolve_publish_handle_error_send_error() {
         let (tx, rx) = oneshot::channel();
-        let handle = PublishHandle { rx };
+        let fut = PublishFuture { rx };
         drop(tx);
-        let err = handle
+        let err = fut
             .await
             .expect_err("dropped channel should resolve to error");
         assert!(err.to_string().contains("shutdown"));
