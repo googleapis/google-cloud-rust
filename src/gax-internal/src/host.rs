@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::client_builder::Error as BuilderError;
+use google_cloud_gax::client_builder::{Error as BuilderError, Result as ClientBuilderResult};
 use http::Uri;
 use std::str::FromStr;
 
@@ -32,7 +32,7 @@ pub(crate) fn from_endpoint<T>(
     endpoint: Option<&str>,
     default_endpoint: &str,
     f: impl FnOnce(Uri, String) -> T,
-) -> gax::client_builder::Result<T> {
+) -> ClientBuilderResult<T> {
     let default_origin = Uri::from_str(default_endpoint).map_err(BuilderError::transport)?;
     let default_host = default_origin
         .authority()

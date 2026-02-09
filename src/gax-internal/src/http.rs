@@ -28,19 +28,26 @@ use crate::as_inner::as_inner;
 use crate::observability::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
 };
-use gax::Result;
-use gax::backoff_policy::BackoffPolicy;
-use gax::client_builder::Error as BuilderError;
-use gax::error::Error;
-use gax::exponential_backoff::ExponentialBackoff;
-use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
-use gax::response::{Parts, Response};
-use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
-use gax::retry_throttler::SharedRetryThrottler;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
+use google_cloud_gax::Result;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::client_builder::Error as BuilderError;
+use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+use google_cloud_gax::error::{Error, rpc::Status};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+use google_cloud_gax::polling_error_policy::{
+    Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
+};
+use google_cloud_gax::response::{Parts, Response};
+use google_cloud_gax::retry_loop_internal::{effective_timeout, retry_loop};
+use google_cloud_gax::retry_policy::{
+    Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
+};
+use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::Extensions;
 use reqwest::Method;
 use std::sync::Arc;
@@ -67,7 +74,7 @@ impl ReqwestClient {
     pub async fn new(
         config: crate::options::ClientConfig,
         default_endpoint: &str,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> ClientBuilderResult<Self> {
         let cred = Self::make_credentials(&config).await?;
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
@@ -143,7 +150,7 @@ impl ReqwestClient {
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
     ) -> Result<Response<O>> {
         builder = self.configure_builder(builder, &options)?;
         if let Some(body) = body {
@@ -162,7 +169,7 @@ impl ReqwestClient {
     pub async fn execute_streaming_once(
         &self,
         mut builder: reqwest::RequestBuilder,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
         remaining_time: Option<std::time::Duration>,
         attempt_count: u32,
     ) -> Result<Response<impl futures::Stream<Item = Result<bytes::Bytes>>>> {
@@ -188,7 +195,7 @@ impl ReqwestClient {
     fn configure_builder(
         &self,
         mut builder: reqwest::RequestBuilder,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Result<reqwest::RequestBuilder> {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
@@ -202,7 +209,7 @@ impl ReqwestClient {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> gax::client_builder::Result<Credentials> {
+    ) -> ClientBuilderResult<Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
@@ -214,7 +221,7 @@ impl ReqwestClient {
     async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
         &self,
         builder: reqwest::RequestBuilder,
-        options: gax::options::RequestOptions,
+        options: RequestOptions,
     ) -> Result<Response<O>> {
         let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.get_retry_throttler(&options);
@@ -238,18 +245,17 @@ impl ReqwestClient {
             self::to_http_response(response).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
-        gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
-            .await
+        retry_loop(inner, sleep, idempotent, throttler, retry, backoff).await
     }
 
     async fn request_attempt(
         &self,
         mut builder: reqwest::RequestBuilder,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
         _attempt_count: u32,
     ) -> Result<reqwest::Response> {
-        builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
+        builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
 
@@ -302,27 +308,21 @@ impl ReqwestClient {
         intermediate_result
     }
 
-    fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
+    fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
         options
             .retry_policy()
             .clone()
             .unwrap_or_else(|| self.retry_policy.clone())
     }
 
-    pub(crate) fn get_backoff_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Arc<dyn BackoffPolicy> {
+    pub(crate) fn get_backoff_policy(&self, options: &RequestOptions) -> Arc<dyn BackoffPolicy> {
         options
             .backoff_policy()
             .clone()
             .unwrap_or_else(|| self.backoff_policy.clone())
     }
 
-    pub(crate) fn get_retry_throttler(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> SharedRetryThrottler {
+    pub(crate) fn get_retry_throttler(&self, options: &RequestOptions) -> SharedRetryThrottler {
         options
             .retry_throttler()
             .clone()
@@ -331,7 +331,7 @@ impl ReqwestClient {
 
     pub fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingErrorPolicy> {
         options
             .polling_error_policy()
@@ -341,7 +341,7 @@ impl ReqwestClient {
 
     pub fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
+        options: &RequestOptions,
     ) -> Arc<dyn PollingBackoffPolicy> {
         options
             .polling_backoff_policy()
@@ -391,7 +391,7 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
         .map_err(Error::io)?
         .to_bytes();
 
-    let error = match gax::error::rpc::Status::try_from(&body) {
+    let error = match Status::try_from(&body) {
         Ok(status) => {
             Error::service_with_http_metadata(status, Some(status_code), Some(parts.headers))
         }
@@ -466,7 +466,7 @@ mod tests {
 
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
-        use gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
+        use google_cloud_gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
         let body = serde_json::json!({"error": {
             "code": 404,
             "message": "The thing is not there, oh noes!",
@@ -731,7 +731,7 @@ mod tests {
         config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
         let builder = client.builder(Method::GET, "foo".to_string());
-        let options = gax::options::RequestOptions::default();
+        let options = RequestOptions::default();
 
         let response = client
             .execute_streaming_once(builder, options, None, 0)
@@ -770,7 +770,7 @@ mod tests {
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
 
         let builder = client.builder(Method::PUT, "upload".to_string());
-        let options = gax::options::RequestOptions::default();
+        let options = RequestOptions::default();
 
         let result = client
             .execute_streaming_once(builder, options, None, 0)

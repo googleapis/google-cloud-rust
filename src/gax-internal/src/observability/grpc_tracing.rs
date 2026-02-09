@@ -355,7 +355,7 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
 
 fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &Error) {
     span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
-    let gax_error = gax::error::Error::io(error.to_string());
+    let gax_error = google_cloud_gax::error::Error::io(error.to_string());
     span.record(
         otel_trace::ERROR_TYPE,
         ErrorType::from_gax_error(&gax_error).as_str(),

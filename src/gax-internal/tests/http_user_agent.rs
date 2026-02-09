@@ -14,8 +14,8 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::options::*;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::options::*;
     use serde_json::json;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;

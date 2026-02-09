@@ -20,7 +20,7 @@
 //! a small helper function makes the generated code easier to read.
 
 use crate::routing_parameter::Segment;
-use gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
+use google_cloud_gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
 
 /// A trait to simplify generated code for path fields
 ///
@@ -174,8 +174,8 @@ pub enum Error {
     MissingRequiredParameter(String),
 }
 
-pub fn missing(name: &str) -> gax::error::Error {
-    gax::error::Error::binding(Error::MissingRequiredParameter(name.to_string()))
+pub fn missing(name: &str) -> google_cloud_gax::error::Error {
+    google_cloud_gax::error::Error::binding(Error::MissingRequiredParameter(name.to_string()))
 }
 
 #[cfg(test)]
