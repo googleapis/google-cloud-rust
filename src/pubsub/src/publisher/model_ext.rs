@@ -14,6 +14,7 @@
 
 use std::future::Future;
 use std::pin::Pin;
+use std::sync::Arc;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
@@ -49,8 +50,8 @@ pub struct PublishHandle {
 impl Future for PublishHandle {
     /// The result of the publish operation.
     /// - `Ok(String)`: The server-assigned message ID.
-    /// - `Err(Error)`: An error indicating the publish failed.
-    type Output = crate::Result<String>;
+    /// - `Err(Arc<Error>)`: An error indicating the publish failed.
+    type Output = std::result::Result<String, Arc<crate::Error>>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
@@ -64,11 +65,13 @@ impl Future for PublishHandle {
     }
 }
 
-fn convert_error(e: crate::error::PublishError) -> crate::Error {
+fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
     // TODO(#3689): The error type for these are not ideal, we will need will
     // need to handle error propagation better.
     match e {
-        crate::error::PublishError::SendError(s) => crate::Error::io(s.clone()),
-        crate::error::PublishError::OrderingKeyPaused(()) => crate::Error::io(e),
+        crate::error::PublishError::SendError(s) => s,
+        crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
+            crate::error::PublishError::OrderingKeyPaused(e),
+        )),
     }
 }
