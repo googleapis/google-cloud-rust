@@ -20,9 +20,9 @@ mod tests {
     use super::responses;
     use super::service::*;
     use anyhow::Result;
-    use gax::error::rpc::Code;
-    use gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_longrunning::model::operation::Result as OperationResult;
     use google_cloud_lro::{Poller, PollingResult};
     use google_cloud_workflows_v1::client::Workflows;
