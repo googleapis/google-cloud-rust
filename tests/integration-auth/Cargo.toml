@@ -35,7 +35,7 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-gax.workspace                   = true
+google-cloud-gax.workspace      = true
 google-cloud-auth               = { workspace = true, features = ["default", "idtoken"] }
 google-cloud-bigquery-v2        = { workspace = true, features = ["default"] }
 google-cloud-iam-credentials-v1 = { workspace = true, features = ["default"] }

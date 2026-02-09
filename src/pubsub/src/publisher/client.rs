@@ -167,7 +167,7 @@ mod tests {
         model::{PublishResponse, PubsubMessage},
     };
     use mockall::Sequence;
-    use rand::{Rng, distr::Alphanumeric};
+    use rand::{RngExt, distr::Alphanumeric};
     use std::error::Error;
     use std::time::Duration;
 

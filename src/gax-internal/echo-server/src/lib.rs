@@ -22,6 +22,10 @@ use axum::{
     http::{HeaderMap, StatusCode},
 };
 use google_cloud_auth::credentials::Credentials;
+use google_cloud_gax::client_builder::internal::{ClientFactory, new_builder};
+use google_cloud_gax::client_builder::{ClientBuilder, Result as ClientBuilderResult};
+use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
+use google_cloud_rpc::model::{BadRequest, bad_request::FieldViolation};
 use serde_json::json;
 use std::collections::HashMap;
 use tokio::task::JoinHandle;
@@ -41,28 +45,23 @@ pub async fn start() -> Result<(String, JoinHandle<()>)> {
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
 }
 
-pub fn builder(
-    endpoint: impl Into<String>,
-) -> gax::client_builder::ClientBuilder<Factory, Credentials> {
-    gax::client_builder::internal::new_builder(Factory(endpoint.into()))
+pub fn builder(endpoint: impl Into<String>) -> ClientBuilder<Factory, Credentials> {
+    new_builder(Factory(endpoint.into()))
 }
 
 pub struct Factory(String);
-impl gax::client_builder::internal::ClientFactory for Factory {
+impl ClientFactory for Factory {
     type Client = gaxi::http::ReqwestClient;
     type Credentials = Credentials;
-    async fn build(
-        self,
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self::Client> {
+    async fn build(self, config: gaxi::options::ClientConfig) -> ClientBuilderResult<Self::Client> {
         Self::Client::new(config, &self.0).await
     }
 }
 
-pub fn make_status() -> Result<gax::error::rpc::Status> {
+pub fn make_status() -> Result<Status> {
     let value = make_status_value()?;
     let payload = bytes::Bytes::from_owner(value.to_string());
-    let status = gax::error::rpc::Status::try_from(&payload)?;
+    let status = Status::try_from(&payload)?;
     Ok(status)
 }
 
@@ -121,9 +120,6 @@ async fn error_impl(
 }
 
 fn make_status_value() -> Result<serde_json::Value> {
-    use gax::error::rpc::StatusDetails;
-    use google_cloud_rpc::model::BadRequest;
-    use google_cloud_rpc::model::bad_request::FieldViolation;
     let details = StatusDetails::BadRequest(BadRequest::default().set_field_violations(
         vec![FieldViolation::default()
             .set_field( "field" )
@@ -133,7 +129,7 @@ fn make_status_value() -> Result<serde_json::Value> {
     let details = serde_json::to_value(&details)?;
     let status = json!({"error": {
         "code": StatusCode::BAD_REQUEST.as_u16(),
-        "status": gax::error::rpc::Code::InvalidArgument.name(),
+        "status": Code::InvalidArgument.name(),
         "message": "this path always returns an error",
         "details": [details],
     }});

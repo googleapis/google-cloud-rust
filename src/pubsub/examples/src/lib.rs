@@ -20,7 +20,7 @@ mod topic;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_pubsub::{client::SubscriptionAdmin, model::Subscription};
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
-use rand::{Rng, distr::Alphanumeric};
+use rand::{RngExt, distr::Alphanumeric};
 use tokio::task::JoinSet;
 
 pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
