@@ -36,7 +36,7 @@ tonic                 = { workspace = true, default-features = true }
 tonic-prost.workspace = true
 # Local dependencies
 google-cloud-auth.workspace = true
-gax.workspace               = true
+google-cloud-gax.workspace  = true
 gaxi                        = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
