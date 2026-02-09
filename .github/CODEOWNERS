@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-*           @googleapis/rust-cloud-sdk
-/src/auth/  @googleapis/rust-cloud-sdk @googleapis/googleapis-auth
+*           @googleapis/cloud-sdk-rust-team
+/src/auth/  @googleapis/cloud-sdk-rust-team @googleapis/googleapis-auth
