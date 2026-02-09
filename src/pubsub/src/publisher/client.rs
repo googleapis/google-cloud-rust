@@ -219,16 +219,14 @@ mod tests {
         ))
     }
 
-    macro_rules! assert_publish_err {
-        ($got_err:expr) => {
-            let got_err = $got_err;
-            assert!(got_err.status().is_some(), "{got_err:?}");
-            assert_eq!(
-                got_err.status().unwrap().code,
-                google_cloud_gax::error::rpc::Code::Unknown,
-                "{got_err:?}"
-            );
-        };
+    #[track_caller]
+    fn assert_publish_err(got_err: std::sync::Arc<google_cloud_gax::error::Error>) {
+        assert!(got_err.status().is_some(), "{got_err:?}");
+        assert_eq!(
+            got_err.status().unwrap().code,
+            google_cloud_gax::error::rpc::Code::Unknown,
+            "{got_err:?}"
+        );
     }
 
     fn generate_random_data() -> String {
@@ -889,7 +887,7 @@ mod tests {
 
         // Assert the error is caused by the Publish send operation.
         let mut got_err = msg_0_handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Assert that the pending message error is caused by the Publisher being paused.
         got_err = msg_1_handle.await.unwrap_err();
@@ -938,9 +936,9 @@ mod tests {
 
         // Validate that they both receives the Send error.
         let mut got_err = msg_0_handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
         got_err = msg_1_handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Assert that new publish messages returns an error because the Publisher is paused.
         assert_publishing_is_paused!(publisher, key);
@@ -973,7 +971,7 @@ mod tests {
         publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Validate that new Publish on the paused ordering key will result in an error.
         assert_publishing_is_paused!(publisher, key);
@@ -1036,7 +1034,7 @@ mod tests {
             publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Validate that new Publish on the paused ordering key will result in an error.
         assert_publishing_is_paused!(publisher, key);
@@ -1076,7 +1074,7 @@ mod tests {
         publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Validate that new Publish on the paused ordering key will result in an error.
         assert_publishing_is_paused!(publisher, key);
@@ -1122,9 +1120,9 @@ mod tests {
         );
         publisher.flush().await;
         let mut got_err = handle_0.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
         got_err = handle_1.await.unwrap_err();
-        assert_publish_err!(got_err);
+        assert_publish_err(got_err);
 
         // Assert that both ordering keys are paused.
         assert_publishing_is_paused!(publisher, key_0, key_1);
