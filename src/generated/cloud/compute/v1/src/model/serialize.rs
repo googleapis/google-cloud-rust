@@ -653,11 +653,9 @@ impl serde::ser::Serialize for super::Address {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -3262,11 +3260,9 @@ impl serde::ser::Serialize for super::BackendService {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -5399,11 +5395,9 @@ impl serde::ser::Serialize for super::BulkSetLabelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -6764,11 +6758,9 @@ impl serde::ser::Serialize for super::Disk {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -8416,11 +8408,9 @@ impl serde::ser::Serialize for super::ExternalVpnGateway {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -8608,11 +8598,9 @@ impl serde::ser::Serialize for super::FileContentBuffer {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("content", &__With(&self.content))?;
@@ -9091,11 +9079,9 @@ impl serde::ser::Serialize for super::FirewallPolicy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -9715,11 +9701,9 @@ impl serde::ser::Serialize for super::ForwardingRule {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -9757,11 +9741,9 @@ impl serde::ser::Serialize for super::ForwardingRule {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -11327,11 +11309,9 @@ impl serde::ser::Serialize for super::GlobalOrganizationSetPolicyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;
@@ -11375,11 +11355,9 @@ impl serde::ser::Serialize for super::GlobalSetLabelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -11428,11 +11406,9 @@ impl serde::ser::Serialize for super::GlobalSetPolicyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;
@@ -12168,11 +12144,9 @@ impl serde::ser::Serialize for super::HealthCheckService {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -13906,11 +13880,9 @@ impl serde::ser::Serialize for super::Image {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -14266,11 +14238,9 @@ impl serde::ser::Serialize for super::Instance {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -14311,11 +14281,9 @@ impl serde::ser::Serialize for super::Instance {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -14707,11 +14675,9 @@ impl serde::ser::Serialize for super::InstanceGroup {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -15008,11 +14974,9 @@ impl serde::ser::Serialize for super::InstanceGroupManager {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -16872,11 +16836,9 @@ impl serde::ser::Serialize for super::InstanceGroupManagersSetTargetPoolsRequest
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -17252,11 +17214,9 @@ impl serde::ser::Serialize for super::InstanceGroupsSetNamedPortsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -17766,11 +17726,9 @@ impl serde::ser::Serialize for super::InstanceSettings {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -18574,11 +18532,9 @@ impl serde::ser::Serialize for super::InstancesSetLabelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -18823,11 +18779,9 @@ impl serde::ser::Serialize for super::InstantSnapshot {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -19309,11 +19263,9 @@ impl serde::ser::Serialize for super::Interconnect {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -19668,11 +19620,9 @@ impl serde::ser::Serialize for super::InterconnectAttachment {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -23360,11 +23310,9 @@ impl serde::ser::Serialize for super::MachineImage {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -24313,11 +24261,9 @@ impl serde::ser::Serialize for super::Metadata {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -24687,11 +24633,9 @@ impl serde::ser::Serialize for super::NetworkAttachment {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -25078,11 +25022,9 @@ impl serde::ser::Serialize for super::NetworkEdgeSecurityService {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -26260,11 +26202,9 @@ impl serde::ser::Serialize for super::NetworkInterface {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -27340,11 +27280,9 @@ impl serde::ser::Serialize for super::NodeGroup {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -31075,11 +31013,9 @@ impl serde::ser::Serialize for super::PerInstanceConfig {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -31155,11 +31091,9 @@ impl serde::ser::Serialize for super::Policy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;
@@ -31846,11 +31780,9 @@ impl serde::ser::Serialize for super::PublicAdvertisedPrefix {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -32086,11 +32018,9 @@ impl serde::ser::Serialize for super::PublicDelegatedPrefix {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -33756,11 +33686,9 @@ impl serde::ser::Serialize for super::RegionInstanceGroupManagersSetTargetPoolsR
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -34012,11 +33940,9 @@ impl serde::ser::Serialize for super::RegionInstanceGroupsSetNamedPortsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -34277,11 +34203,9 @@ impl serde::ser::Serialize for super::RegionSetLabelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -34329,11 +34253,9 @@ impl serde::ser::Serialize for super::RegionSetPolicyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;
@@ -37484,11 +37406,9 @@ impl serde::ser::Serialize for super::RoutePolicy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -39898,11 +39818,9 @@ impl serde::ser::Serialize for super::SecurityPolicy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -39931,11 +39849,9 @@ impl serde::ser::Serialize for super::SecurityPolicy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -41381,11 +41297,9 @@ impl serde::ser::Serialize for super::ServiceAttachment {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -42396,11 +42310,9 @@ impl serde::ser::Serialize for super::Snapshot {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -43551,11 +43463,9 @@ impl serde::ser::Serialize for super::SslPolicy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -43980,11 +43890,9 @@ impl serde::ser::Serialize for super::StoragePool {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -45354,11 +45262,9 @@ impl serde::ser::Serialize for super::Subnetwork {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -46179,11 +46085,9 @@ impl serde::ser::Serialize for super::Tags {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -46224,11 +46128,9 @@ impl serde::ser::Serialize for super::TargetGrpcProxy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -46475,11 +46377,9 @@ impl serde::ser::Serialize for super::TargetHttpProxy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -46865,11 +46765,9 @@ impl serde::ser::Serialize for super::TargetHttpsProxy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -48645,11 +48543,9 @@ impl serde::ser::Serialize for super::TargetVpnGateway {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -49319,11 +49215,9 @@ impl serde::ser::Serialize for super::UrlMap {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
@@ -50365,11 +50259,9 @@ impl serde::ser::Serialize for super::VpnGateway {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -50939,11 +50831,9 @@ impl serde::ser::Serialize for super::VpnTunnel {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -52180,11 +52070,9 @@ impl serde::ser::Serialize for super::ZoneSetLabelsRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("labelFingerprint", &__With(&self.label_fingerprint))?;
@@ -52222,11 +52110,9 @@ impl serde::ser::Serialize for super::ZoneSetNestedPolicyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;
@@ -52271,11 +52157,9 @@ impl serde::ser::Serialize for super::ZoneSetPolicyRequest {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;

@@ -444,11 +444,9 @@ impl serde::ser::Serialize for super::GoogleIamV1Policy {
                 where
                     S: serde::ser::Serializer,
                 {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
                 }
             }
             state.serialize_entry("etag", &__With(&self.etag))?;

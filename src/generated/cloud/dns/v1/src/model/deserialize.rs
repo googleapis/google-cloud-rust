@@ -1451,12 +1451,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GoogleIamV1Policy {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<
-                                        std::option::Option<
-                                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                                        >,
-                                    >::deserialize(deserializer)
-                                    .map(__With)
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             result.etag = map.next_value::<__With>()?.0;
