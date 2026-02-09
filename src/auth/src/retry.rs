@@ -17,11 +17,13 @@
 use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
 use crate::{Result, constants};
-use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
-use gax::exponential_backoff::ExponentialBackoff;
-use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
-use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use std::error::Error;
 use std::panic::{RefUnwindSafe, UnwindSafe};
 use std::sync::{Arc, Mutex};
@@ -112,7 +114,7 @@ where
                 inner
                     .token()
                     .await
-                    .map_err(gax::error::Error::authentication)
+                    .map_err(google_cloud_gax::error::Error::authentication)
             }
         };
 
@@ -128,7 +130,7 @@ where
         .map_err(Self::map_retry_error)
     }
 
-    fn map_retry_error(e: gax::error::Error) -> CredentialsError {
+    fn map_retry_error(e: google_cloud_gax::error::Error) -> CredentialsError {
         if !e.is_authentication() {
             return CredentialsError::from_source(false, e);
         }
@@ -150,10 +152,10 @@ mod tests {
     use super::*;
     use crate::credentials::tests::find_source_error;
     use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
-    use gax::retry_policy::RetryPolicy;
-    use gax::retry_result::RetryResult;
-    use gax::retry_state::RetryState;
-    use gax::retry_throttler::RetryThrottler;
+    use google_cloud_gax::retry_policy::RetryPolicy;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_gax::retry_throttler::RetryThrottler;
     use mockall::{Sequence, mock};
     use static_assertions::assert_impl_all;
     use std::error::Error;
@@ -178,7 +180,11 @@ mod tests {
     }
 
     impl RetryPolicy for AuthRetryPolicy {
-        fn on_error(&self, state: &RetryState, error: gax::error::Error) -> RetryResult {
+        fn on_error(
+            &self,
+            state: &RetryState,
+            error: google_cloud_gax::error::Error,
+        ) -> RetryResult {
             if state.attempt_count >= self.max_attempts {
                 return RetryResult::Exhausted(error);
             }
@@ -479,7 +485,7 @@ mod tests {
     #[test]
     fn test_map_retry_error_non_auth_error() {
         // 1. Create a non-authentication error.
-        let original_error = gax::error::Error::io("test-io-error");
+        let original_error = google_cloud_gax::error::Error::io("test-io-error");
         let original_error_string = original_error.to_string();
 
         // 2. Call the function under test.

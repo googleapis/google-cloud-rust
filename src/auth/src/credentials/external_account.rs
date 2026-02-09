@@ -69,8 +69,8 @@
 //! # use http::Extensions;
 //! # use std::time::Duration;
 //! # tokio_test::block_on(async {
-//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! use gax::exponential_backoff::ExponentialBackoff;
+//! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! # let project_id = "your-gcp-project-id";
 //! # let pool_id = "your-workload-identity-pool-id";
 //! # let provider_id = "your-provider-id";
@@ -126,9 +126,9 @@ use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -555,7 +555,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::external_account::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let config = serde_json::json!({
     ///     "type": "external_account",
     ///     "audience": "audience",
@@ -581,7 +581,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::external_account::Builder;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let config = serde_json::json!({
     ///     "type": "external_account",
     ///     "audience": "audience",
@@ -614,7 +614,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::external_account::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let config = serde_json::json!({
     ///     "type": "external_account",
     ///     "audience": "audience",
@@ -1124,7 +1124,7 @@ impl ProgrammaticBuilder {
     /// # }
     /// #
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let provider = Arc::new(MyTokenProvider);
     /// let credentials = ProgrammaticBuilder::new(provider)
     ///     .with_audience("test-audience")
@@ -1167,7 +1167,7 @@ impl ProgrammaticBuilder {
     /// # }
     /// #
     /// # tokio_test::block_on(async {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let provider = Arc::new(MyTokenProvider);
     /// let policy = ExponentialBackoff::default();
     /// let credentials = ProgrammaticBuilder::new(provider)
@@ -1218,7 +1218,7 @@ impl ProgrammaticBuilder {
     /// # }
     /// #
     /// # tokio_test::block_on(async {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let provider = Arc::new(MyTokenProvider);
     /// let credentials = ProgrammaticBuilder::new(provider)
     ///     .with_audience("test-audience")

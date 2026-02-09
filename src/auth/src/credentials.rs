@@ -115,7 +115,7 @@ pub struct Credentials {
     // will not do.
     //
     // They also need to derive `Clone`, as the
-    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `google_cloud_gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
     // `Box` will not do.
     inner: Arc<dyn dynamic::CredentialsProvider>,
 }
@@ -156,7 +156,7 @@ pub struct AccessTokenCredentials {
     // will not do.
     //
     // They also need to derive `Clone`, as the
-    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `google_cloud_gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
     // `Box` will not do.
     inner: Arc<dyn dynamic::AccessTokenCredentialsProvider>,
 }
@@ -856,11 +856,11 @@ pub mod testing {
 pub(crate) mod tests {
     use super::*;
     use base64::Engine;
-    use gax::backoff_policy::BackoffPolicy;
-    use gax::retry_policy::RetryPolicy;
-    use gax::retry_result::RetryResult;
-    use gax::retry_state::RetryState;
-    use gax::retry_throttler::RetryThrottler;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::retry_policy::RetryPolicy;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_gax::retry_throttler::RetryThrottler;
     use mockall::mock;
     use reqwest::header::AUTHORIZATION;
     use rsa::BigUint;
@@ -893,7 +893,7 @@ pub(crate) mod tests {
             fn on_error(
                 &self,
                 state: &RetryState,
-                error: gax::error::Error,
+                error: google_cloud_gax::error::Error,
             ) -> RetryResult;
         }
     }

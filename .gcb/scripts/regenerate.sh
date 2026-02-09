@@ -35,7 +35,7 @@ rustup component add rustfmt
 rustup show active-toolchain -v
 
 echo "Regenerate all the code"
-version=$(cat /workspace/.librarian-version.txt)
+version=$(sed -n 's/^version: *//p' /workspace/librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the

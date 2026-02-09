@@ -55,7 +55,7 @@ mod tests {
     async fn quickstart_publisher() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let topic_id = topic.name.split('/').last().unwrap();
+        let topic_id = topic.name.split('/').next_back().unwrap();
 
         let result = quickstart_publisher::sample(&project_id, topic_id).await;
 
@@ -73,7 +73,7 @@ mod tests {
         let (subscription_admin, subscription) =
             pubsub_samples::create_test_subscription(topic.name.clone()).await?;
 
-        let subscription_id = subscription.name.split('/').last().unwrap();
+        let subscription_id = subscription.name.split('/').next_back().unwrap();
 
         let result = quickstart_subscriber::sample(&project_id, subscription_id).await;
 

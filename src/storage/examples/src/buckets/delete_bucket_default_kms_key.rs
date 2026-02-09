@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_delete_bucket_default_kms_key]
+// [START storage_bucket_delete_default_kms_key]
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::bucket::Encryption;
 use google_cloud_wkt::FieldMask;
@@ -37,4 +37,4 @@ pub async fn sample(client: &StorageControl, bucket_id: &str) -> anyhow::Result<
     );
     Ok(())
 }
-// [END storage_delete_bucket_default_kms_key]
+// [END storage_bucket_delete_default_kms_key]

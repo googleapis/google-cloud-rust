@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::CredentialsError;
+use google_cloud_gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 

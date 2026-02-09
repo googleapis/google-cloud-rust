@@ -47,6 +47,7 @@ impl Stub for Transport {
     type Stream = Streaming<StreamingPullResponse>;
     async fn streaming_pull(
         &self,
+        request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
         options: gax::options::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>> {
@@ -69,7 +70,7 @@ impl Stub for Transport {
                 request,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
-                "",
+                request_params,
             )
             .await
     }
@@ -131,12 +132,21 @@ pub(super) mod tests {
         request_tx.send(StreamingPullRequest::default()).await?;
 
         let mut mock = MockSubscriber::new();
-        mock.expect_streaming_pull()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_streaming_pull().return_once(|request| {
+            let metadata = request.metadata();
+            assert_eq!(
+                metadata
+                    .get("x-goog-request-params")
+                    .expect("routing header missing"),
+                "subscription=projects/p/subscriptions/s"
+            );
+            Ok(TonicResponse::from(response_rx))
+        });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let mut stream = Stub::streaming_pull(
             &transport,
+            "subscription=projects/p/subscriptions/s",
             request_rx,
             gax::options::RequestOptions::default(),
         )
