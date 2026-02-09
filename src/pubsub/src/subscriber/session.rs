@@ -22,7 +22,7 @@ use super::stream::Stream;
 use super::stub::TonicStreaming as _;
 use super::transport::Transport;
 use crate::google::pubsub::v1::StreamingPullRequest;
-use crate::model::PubsubMessage;
+use crate::model::Message;
 use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
@@ -73,7 +73,7 @@ pub struct Session {
     /// while we wait to serve them to applications.
     ///
     /// A FIFO queue is necessary to preserve ordering.
-    pool: VecDeque<(PubsubMessage, Handler)>,
+    pool: VecDeque<(Message, Handler)>,
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
@@ -152,7 +152,7 @@ impl Session {
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn next(&mut self) -> Option<Result<(PubsubMessage, Handler)>> {
+    pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
             if let Some(item) = self.pool.pop_front() {
@@ -185,9 +185,7 @@ impl Session {
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Converts the session to a [Stream][futures::Stream].
-    pub fn into_stream(
-        self,
-    ) -> impl futures::Stream<Item = Result<(PubsubMessage, Handler)>> + Unpin {
+    pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
         use futures::stream::unfold;
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut this) = state {

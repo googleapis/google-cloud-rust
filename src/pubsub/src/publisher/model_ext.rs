@@ -28,10 +28,10 @@ use tokio::sync::oneshot;
 ///
 /// ```
 /// # use google_cloud_pubsub::client::Publisher;
-/// # use google_cloud_pubsub::model::PubsubMessage;
+/// # use google_cloud_pubsub::model::Message;
 /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
 /// // publish() returns a future immediately.
-/// let publish_future = publisher.publish(PubsubMessage::new().set_data("hello world"));
+/// let publish_future = publisher.publish(Message::new().set_data("hello world"));
 ///
 /// // The future can be awaited to get the result.
 /// match publish_future.await {
