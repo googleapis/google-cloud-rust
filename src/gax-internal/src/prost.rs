@@ -231,6 +231,7 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
     }
 }
 
+/// A placeholder for `google.protobuf.Empty`.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Empty {}
 
@@ -508,6 +509,18 @@ mod tests {
         assert_eq!(any.type_url, super::Empty::type_url());
         let got = any.to_msg::<super::Empty>()?;
         assert_eq!(input, got);
+        Ok(())
+    }
+
+    #[test]
+    fn prost_empty_names() -> anyhow::Result<()> {
+        use prost::Name as _;
+        let full = super::Empty::full_name();
+        let want = format!("{}.{}", super::Empty::PACKAGE, super::Empty::NAME);
+        assert_eq!(full, want);
+        let url = super::Empty::type_url();
+        let want = format!("type.googleapis.com/{full}");
+        assert_eq!(url, want);
         Ok(())
     }
 }
