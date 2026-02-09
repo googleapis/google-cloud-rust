@@ -28,5 +28,5 @@ tokio                = { workspace = true, features = ["macros"] }
 # Local dependencies
 google-cloud-auth.workspace = true
 google-cloud-rpc.workspace  = true
-gax.workspace               = true
+google-cloud-gax.workspace  = true
 gaxi                        = { workspace = true, features = ["_internal-http-client"] }
