@@ -67,11 +67,11 @@ impl Publisher {
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishHandle {
+    pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
         // If this fails, the Dispatcher is gone, which indicates something bad has happened.
-        // The PublishHandle will automatically receive an error when `tx` is dropped.
+        // The PublishFuture will automatically receive an error when `tx` is dropped.
         if self
             .tx
             .send(ToDispatcher::Publish(BundledMessage { msg, tx }))
@@ -79,7 +79,7 @@ impl Publisher {
         {
             // `tx` is dropped here if the send errors.
         }
-        crate::model_ext::PublishHandle { rx }
+        crate::model_ext::PublishFuture { rx }
     }
 
     /// Flushes all outstanding messages.
@@ -94,7 +94,7 @@ impl Publisher {
     ///
     /// After flush()` returns, the final result of each individual publish
     /// operation (i.e., a success with a message ID or a terminal error) will
-    /// be available on its corresponding [PublishHandle](crate::model_ext::PublishHandle).
+    /// be available on its corresponding [PublishFuture](crate::model_ext::PublishFuture).
     ///
     /// Messages published after `flush()` is called will be buffered for a
     /// subsequent batch and are not included in this flush operation.

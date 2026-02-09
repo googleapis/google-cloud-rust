@@ -42,7 +42,7 @@ pub(crate) enum ToBatchActor {
 
 /// Object that is passed to the actor tasks over the
 /// main channel. This represents a single message and the sender
-/// half of the channel to resolve the [PublishHandle].
+/// half of the channel to resolve the [PublishFuture].
 #[derive(Debug)]
 pub(crate) struct BundledMessage {
     pub msg: crate::model::PubsubMessage,
@@ -288,7 +288,7 @@ impl ConcurrentBatchActor {
                         }
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles.
+                            // corresponding PublishFutures.
                             self.flush(&mut inflight);
                             inflight.join_all().await;
                             break;
@@ -417,7 +417,7 @@ impl SequentialBatchActor {
                         },
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles.
+                            // corresponding PublishFutures.
                             self.flush(inflight).await;
                             break;
                         }
