@@ -16,8 +16,13 @@ pub(crate) mod actor;
 pub(crate) mod base_publisher;
 pub(crate) mod batch;
 pub(crate) mod builder;
-pub(crate) mod client;
 pub(crate) mod client_builder;
 pub(crate) mod constants;
+pub(crate) mod implementation;
 pub(crate) mod model_ext;
 pub(crate) mod options;
+
+/// Contains clients for publishing messages.
+pub mod client {
+    pub use super::base_publisher::BasePublisher;
+}
