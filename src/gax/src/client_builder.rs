@@ -199,6 +199,25 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
+    /// Sets the user-agent.
+    ///
+    /// The user-agent header is set in all requests made by the client.
+    ///
+    /// ```
+    /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::client_builder::Result;
+    /// # tokio_test::block_on(async {
+    /// use examples::Client; // Placeholder for examples
+    /// let client = Client::builder()
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
+    /// ```
+    pub fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.user_agent = Some(v.into());
+        self
+    }
+
     /// Enables tracing.
     ///
     /// The client libraries can be dynamically instrumented with the Tokio
@@ -427,6 +446,7 @@ pub mod internal {
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
+        pub user_agent: Option<String>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -446,6 +466,7 @@ pub mod internal {
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
+                user_agent: None,
             }
         }
     }
@@ -704,6 +725,18 @@ pub mod examples {
                 .unwrap();
             let config = client.0;
             assert!(config.polling_backoff_policy.is_some(), "{config:?}");
+        }
+
+        #[tokio::test]
+        async fn user_agent() {
+            let agent = "test-agent/1.0.0";
+            let client = Client::builder()
+                .with_user_agent(agent)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert_eq!(config.user_agent, Some(agent.to_string()));
         }
     }
 }

@@ -86,6 +86,9 @@ impl ReqwestClient {
         if config.disable_follow_redirects {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
+        if let Some(ref user_agent) = config.user_agent {
+            builder = builder.user_agent(user_agent);
+        }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
             config.endpoint.as_deref(),
@@ -784,6 +787,34 @@ mod tests {
             }
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
+        Ok(())
+    }
+    #[tokio::test]
+    async fn test_user_agent_header() -> TestResult {
+        let agent = "test-agent/1.0.0";
+        let server = httptest::Server::run();
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::all_of![
+                httptest::matchers::request::method_path("GET", "/foo"),
+                httptest::matchers::request::headers(httptest::matchers::contains((
+                    "user-agent",
+                    agent
+                ))),
+            ])
+            .respond_with(httptest::responders::status_code(200)),
+        );
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.user_agent = Some(agent.to_string());
+
+        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let options = gax::options::RequestOptions::default();
+
+        let _ = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await?;
         Ok(())
     }
 }

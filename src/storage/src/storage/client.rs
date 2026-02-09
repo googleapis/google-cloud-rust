@@ -421,6 +421,25 @@ impl ClientBuilder {
         self
     }
 
+    /// Sets the user-agent.
+    ///
+    /// The user-agent header is set in all requests made by the client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.user_agent = Some(v.into());
+        self
+    }
+
     /// Configures the authentication credentials.
     ///
     /// Google Cloud Storage requires authentication for most buckets. Use this
@@ -781,6 +800,16 @@ pub(crate) mod tests {
             config.grpc_subchannel_count.is_some_and(|v| v == 42),
             "{config:?}"
         );
+    }
+
+    #[test]
+    fn user_agent() {
+        let agent = "test-agent/1.0.0";
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_user_agent(agent);
+        let config = builder.config;
+        assert_eq!(config.user_agent, Some(agent.to_string()));
     }
 
     pub(crate) fn test_builder() -> ClientBuilder {
