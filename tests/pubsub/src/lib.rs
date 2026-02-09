@@ -16,16 +16,16 @@ use anyhow::Result;
 use bytes::Bytes;
 use futures::future::join_all;
 use google_cloud_pubsub::client::{Publisher, Subscriber};
-use google_cloud_pubsub::model::PubsubMessage;
+use google_cloud_pubsub::model::Message;
 use pubsub_samples::{cleanup_test_topic, create_test_topic};
 use std::collections::HashSet;
 
 pub async fn basic_publisher(topic_name: String) -> Result<()> {
     tracing::info!("testing publish()");
     let publisher = Publisher::builder(topic_name).build().await?;
-    let messages: [PubsubMessage; 2] = [
-        PubsubMessage::new().set_data("Hello"),
-        PubsubMessage::new().set_data("World"),
+    let messages: [Message; 2] = [
+        Message::new().set_data("Hello"),
+        Message::new().set_data("World"),
     ];
 
     let mut handles = Vec::new();
