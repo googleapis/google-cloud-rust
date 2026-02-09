@@ -425,15 +425,15 @@ mod tests {
         assert!(val.is_none(), "should be None on startup/error");
 
         // advance 15 minutes, next call fails
-        tokio::time::advance(Duration::from_mins(15)).await;
+        tokio::time::advance(COOLDOWN_INTERVAL).await;
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
         assert!(val.is_none(), "should still be None after second error");
 
         // advance 30 minutes, third call succeeds
-        tokio::time::advance(Duration::from_mins(30)).await;
-        for _ in 0..100 {
+        tokio::time::advance(2 * COOLDOWN_INTERVAL).await;
+        for _ in 0..1000 {
             tokio::task::yield_now().await;
         }
 
