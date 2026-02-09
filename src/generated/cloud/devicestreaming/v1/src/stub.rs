@@ -42,9 +42,9 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     fn create_device_session(
         &self,
         _req: crate::model::CreateDeviceSessionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
+        Output = crate::Result<crate::Response<crate::model::DeviceSession>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     fn list_device_sessions(
         &self,
         _req: crate::model::ListDeviceSessionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDeviceSessionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     fn get_device_session(
         &self,
         _req: crate::model::GetDeviceSessionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
+        Output = crate::Result<crate::Response<crate::model::DeviceSession>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,8 +75,8 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     fn cancel_device_session(
         &self,
         _req: crate::model::CancelDeviceSessionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -84,9 +84,9 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     fn update_device_session(
         &self,
         _req: crate::model::UpdateDeviceSessionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DeviceSession>>,
+        Output = crate::Result<crate::Response<crate::model::DeviceSession>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

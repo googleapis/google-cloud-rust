@@ -98,8 +98,8 @@ mod tests {
         BidiReadHandle, BidiReadObjectRedirectedError, ReadRange as ProtoRange,
     };
     use crate::request_options::RequestOptions;
-    use gax::error::rpc::{Code, Status};
     use gaxi::grpc::tonic::{Code as TonicCode, Status as TonicStatus};
+    use google_cloud_gax::error::rpc::{Code, Status};
     use prost::Message as _;
     use std::sync::Arc;
 
@@ -151,9 +151,9 @@ mod tests {
         options
     }
 
-    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+    fn test_backoff() -> impl google_cloud_gax::backoff_policy::BackoffPolicy {
         use std::time::Duration;
-        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_micros(1))
             .with_maximum_delay(Duration::from_micros(1))
             .build()

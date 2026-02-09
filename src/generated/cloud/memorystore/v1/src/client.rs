@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_memorystore_v1::client::Memorystore;
 /// let client = Memorystore::builder().build().await?;
 /// // use `client` to make requests to the Memorystore API.
@@ -66,13 +66,13 @@ impl Memorystore {
     /// Returns a builder for [Memorystore].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_memorystore_v1::client::Memorystore;
     /// let client = Memorystore::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::memorystore::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::memorystore::client::Factory)
+        crate::new_client_builder(super::builder::memorystore::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Memorystore {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Memorystore>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Memorystore>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Memorystore {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Memorystore> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Memorystore> {
         super::transport::Memorystore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Memorystore> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Memorystore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Memorystore::new)

@@ -15,7 +15,7 @@
 use super::builder::StreamingPull;
 use super::client_builder::ClientBuilder;
 use super::transport::Transport;
-use gax::client_builder::Result as BuilderResult;
+use crate::ClientBuilderResult as BuilderResult;
 use std::sync::Arc;
 
 /// A Subscriber client for the [Cloud Pub/Sub] API.
@@ -172,7 +172,10 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         Ok(())

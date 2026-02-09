@@ -20,7 +20,7 @@ pub mod language_service {
     /// A builder for [LanguageService][crate::client::LanguageService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_language_v2::*;
     /// # use builder::language_service::ClientBuilder;
     /// # use client::LanguageService;
@@ -30,19 +30,18 @@ pub mod language_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::LanguageService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = LanguageService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod language_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod language_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnalyzeSentiment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod language_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod language_service {
             (*self.0.stub)
                 .analyze_sentiment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
@@ -150,8 +149,8 @@ pub mod language_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeSentiment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeSentiment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -161,7 +160,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnalyzeEntities;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -189,7 +188,7 @@ pub mod language_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -199,7 +198,7 @@ pub mod language_service {
             (*self.0.stub)
                 .analyze_entities(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
@@ -232,8 +231,8 @@ pub mod language_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnalyzeEntities {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnalyzeEntities {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -243,7 +242,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::ClassifyText;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -271,7 +270,7 @@ pub mod language_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -281,7 +280,7 @@ pub mod language_service {
             (*self.0.stub)
                 .classify_text(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
@@ -308,8 +307,8 @@ pub mod language_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ClassifyText {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ClassifyText {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -319,7 +318,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::ModerateText;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -347,7 +346,7 @@ pub mod language_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -357,7 +356,7 @@ pub mod language_service {
             (*self.0.stub)
                 .moderate_text(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
@@ -393,8 +392,8 @@ pub mod language_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModerateText {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModerateText {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -404,7 +403,7 @@ pub mod language_service {
     /// # Example
     /// ```
     /// # use google_cloud_language_v2::builder::language_service::AnnotateText;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_language_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -432,7 +431,7 @@ pub mod language_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -442,7 +441,7 @@ pub mod language_service {
             (*self.0.stub)
                 .annotate_text(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
@@ -497,8 +496,8 @@ pub mod language_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AnnotateText {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AnnotateText {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

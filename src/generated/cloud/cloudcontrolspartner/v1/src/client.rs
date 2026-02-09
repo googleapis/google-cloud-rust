@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
 /// let client = CloudControlsPartnerCore::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
@@ -66,15 +66,13 @@ impl CloudControlsPartnerCore {
     /// Returns a builder for [CloudControlsPartnerCore].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// let client = CloudControlsPartnerCore::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_core::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_controls_partner_core::client::Factory,
-        )
+        crate::new_client_builder(super::builder::cloud_controls_partner_core::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl CloudControlsPartnerCore {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerCore>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +108,13 @@ impl CloudControlsPartnerCore {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudControlsPartnerCore> {
         super::transport::CloudControlsPartnerCore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudControlsPartnerCore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudControlsPartnerCore::new)
@@ -192,7 +190,7 @@ impl CloudControlsPartnerCore {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
 /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
@@ -238,13 +236,13 @@ impl CloudControlsPartnerMonitoring {
     /// Returns a builder for [CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
     /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_monitoring::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::cloud_controls_partner_monitoring::client::Factory,
         )
     }
@@ -264,14 +262,14 @@ impl CloudControlsPartnerMonitoring {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerMonitoring>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -282,13 +280,13 @@ impl CloudControlsPartnerMonitoring {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudControlsPartnerMonitoring> {
         super::transport::CloudControlsPartnerMonitoring::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CloudControlsPartnerMonitoring> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudControlsPartnerMonitoring::new)

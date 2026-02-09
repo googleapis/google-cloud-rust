@@ -41,8 +41,8 @@ where
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Profile>> {
         self.inner.create_profile(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_offline_profile(
         &self,
         req: crate::model::CreateOfflineProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Profile>> {
         self.inner.create_offline_profile(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn update_profile(
         &self,
         req: crate::model::UpdateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Profile>> {
         self.inner.update_profile(req, options).await
     }
 }
@@ -91,8 +91,8 @@ where
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListProfilesResponse>> {
         self.inner.list_profiles(req, options).await
     }
 }

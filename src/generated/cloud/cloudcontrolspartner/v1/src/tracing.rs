@@ -41,8 +41,8 @@ where
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Workload>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Workload>> {
         self.inner.get_workload(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkloadsResponse>> {
         self.inner.list_workloads(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_customer(
         &self,
         req: crate::model::GetCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Customer>> {
         self.inner.get_customer(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_customers(
         &self,
         req: crate::model::ListCustomersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCustomersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCustomersResponse>> {
         self.inner.list_customers(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn get_ekm_connections(
         &self,
         req: crate::model::GetEkmConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EkmConnections>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EkmConnections>> {
         self.inner.get_ekm_connections(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_partner_permissions(
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PartnerPermissions>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartnerPermissions>> {
         self.inner.get_partner_permissions(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_access_approval_requests(
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAccessApprovalRequestsResponse>> {
         self.inner.list_access_approval_requests(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_partner(
         &self,
         req: crate::model::GetPartnerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Partner>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Partner>> {
         self.inner.get_partner(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn create_customer(
         &self,
         req: crate::model::CreateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Customer>> {
         self.inner.create_customer(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn update_customer(
         &self,
         req: crate::model::UpdateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Customer>> {
         self.inner.update_customer(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn delete_customer(
         &self,
         req: crate::model::DeleteCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_customer(req, options).await
     }
 }
@@ -163,8 +163,8 @@ where
     async fn list_violations(
         &self,
         req: crate::model::ListViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListViolationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListViolationsResponse>> {
         self.inner.list_violations(req, options).await
     }
 
@@ -172,8 +172,8 @@ where
     async fn get_violation(
         &self,
         req: crate::model::GetViolationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Violation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Violation>> {
         self.inner.get_violation(req, options).await
     }
 }

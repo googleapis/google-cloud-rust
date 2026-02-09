@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -2754,7 +2754,7 @@ impl wkt::message::Message for ListAttachedClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAttachedClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAttachedClustersResponse {
     type PageItem = crate::model::AttachedCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7687,7 +7687,7 @@ impl wkt::message::Message for ListAwsClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAwsClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAwsClustersResponse {
     type PageItem = crate::model::AwsCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8354,7 +8354,7 @@ impl wkt::message::Message for ListAwsNodePoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAwsNodePoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAwsNodePoolsResponse {
     type PageItem = crate::model::AwsNodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13072,7 +13072,7 @@ impl wkt::message::Message for ListAzureClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAzureClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAzureClustersResponse {
     type PageItem = crate::model::AzureCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13656,7 +13656,7 @@ impl wkt::message::Message for ListAzureNodePoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAzureNodePoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAzureNodePoolsResponse {
     type PageItem = crate::model::AzureNodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14238,7 +14238,7 @@ impl wkt::message::Message for ListAzureClientsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAzureClientsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAzureClientsResponse {
     type PageItem = crate::model::AzureClient;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

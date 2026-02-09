@@ -20,7 +20,7 @@ pub mod migration_service {
     /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_migration_v2::*;
     /// # use builder::migration_service::ClientBuilder;
     /// # use client::MigrationService;
@@ -30,19 +30,18 @@ pub mod migration_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::MigrationService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = MigrationService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod migration_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod migration_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::CreateMigrationWorkflow;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -109,7 +108,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -119,7 +118,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .create_migration_workflow(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMigrationWorkflowRequest::parent].
@@ -154,8 +153,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateMigrationWorkflow {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateMigrationWorkflow {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -165,7 +164,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationWorkflow;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -196,7 +195,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -206,7 +205,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .get_migration_workflow(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigrationWorkflowRequest::name].
@@ -237,8 +236,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMigrationWorkflow {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMigrationWorkflow {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -248,8 +247,8 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationWorkflows;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -283,7 +282,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -293,15 +292,15 @@ pub mod migration_service {
             (*self.0.stub)
                 .list_migration_workflows(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListMigrationWorkflowsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -310,17 +309,17 @@ pub mod migration_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListMigrationWorkflowsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -364,8 +363,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMigrationWorkflows {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMigrationWorkflows {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -375,7 +374,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::DeleteMigrationWorkflow;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -408,7 +407,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -418,7 +417,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .delete_migration_workflow(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMigrationWorkflowRequest::name].
@@ -431,8 +430,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteMigrationWorkflow {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteMigrationWorkflow {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -442,7 +441,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::StartMigrationWorkflow;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -473,7 +472,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -483,7 +482,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .start_migration_workflow(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartMigrationWorkflowRequest::name].
@@ -496,8 +495,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartMigrationWorkflow {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartMigrationWorkflow {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -507,7 +506,7 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationSubtask;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -538,7 +537,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -548,7 +547,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .get_migration_subtask(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigrationSubtaskRequest::name].
@@ -579,8 +578,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMigrationSubtask {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMigrationSubtask {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -590,8 +589,8 @@ pub mod migration_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationSubtasks;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_migration_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -625,7 +624,7 @@ pub mod migration_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -635,14 +634,16 @@ pub mod migration_service {
             (*self.0.stub)
                 .list_migration_subtasks(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMigrationSubtasksResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMigrationSubtasksResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -650,17 +651,17 @@ pub mod migration_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListMigrationSubtasksResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -710,8 +711,8 @@ pub mod migration_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMigrationSubtasks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMigrationSubtasks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
 /// let client = DocumentProcessorService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Document AI API.
@@ -69,15 +69,13 @@ impl DocumentProcessorService {
     /// Returns a builder for [DocumentProcessorService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// let client = DocumentProcessorService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::document_processor_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::document_processor_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::document_processor_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -95,14 +93,14 @@ impl DocumentProcessorService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::DocumentProcessorService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -113,13 +111,13 @@ impl DocumentProcessorService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DocumentProcessorService> {
         super::transport::DocumentProcessorService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DocumentProcessorService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DocumentProcessorService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DocumentProcessorService::new)

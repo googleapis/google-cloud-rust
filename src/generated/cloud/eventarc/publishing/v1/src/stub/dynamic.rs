@@ -20,20 +20,20 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     async fn publish_channel_connection_events(
         &self,
         req: crate::model::PublishChannelConnectionEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishChannelConnectionEventsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishChannelConnectionEventsResponse>>;
 
     async fn publish_events(
         &self,
         req: crate::model::PublishEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishEventsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishEventsResponse>>;
 
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>>;
 }
 
 /// All implementations of [super::Publisher] also implement [Publisher].
@@ -43,9 +43,8 @@ impl<T: super::Publisher> Publisher for T {
     async fn publish_channel_connection_events(
         &self,
         req: crate::model::PublishChannelConnectionEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishChannelConnectionEventsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishChannelConnectionEventsResponse>> {
         T::publish_channel_connection_events(self, req, options).await
     }
 
@@ -53,8 +52,8 @@ impl<T: super::Publisher> Publisher for T {
     async fn publish_events(
         &self,
         req: crate::model::PublishEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishEventsResponse>> {
         T::publish_events(self, req, options).await
     }
 
@@ -62,8 +61,8 @@ impl<T: super::Publisher> Publisher for T {
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
         T::publish(self, req, options).await
     }
 }

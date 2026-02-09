@@ -20,56 +20,56 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     async fn get_authorization(
         &self,
         req: crate::model::GetAuthorizationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Authorization>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Authorization>>;
 
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn replace_deployment(
         &self,
         req: crate::model::ReplaceDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentsResponse>>;
 
     async fn delete_deployment(
         &self,
         req: crate::model::DeleteDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn install_deployment(
         &self,
         req: crate::model::InstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn uninstall_deployment(
         &self,
         req: crate::model::UninstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_install_status(
         &self,
         req: crate::model::GetInstallStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstallStatus>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstallStatus>>;
 }
 
 /// All implementations of [super::GSuiteAddOns] also implement [GSuiteAddOns].
@@ -79,8 +79,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn get_authorization(
         &self,
         req: crate::model::GetAuthorizationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Authorization>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Authorization>> {
         T::get_authorization(self, req, options).await
     }
 
@@ -88,8 +88,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::create_deployment(self, req, options).await
     }
 
@@ -97,8 +97,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn replace_deployment(
         &self,
         req: crate::model::ReplaceDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::replace_deployment(self, req, options).await
     }
 
@@ -106,8 +106,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::get_deployment(self, req, options).await
     }
 
@@ -115,8 +115,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentsResponse>> {
         T::list_deployments(self, req, options).await
     }
 
@@ -124,8 +124,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn delete_deployment(
         &self,
         req: crate::model::DeleteDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_deployment(self, req, options).await
     }
 
@@ -133,8 +133,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn install_deployment(
         &self,
         req: crate::model::InstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::install_deployment(self, req, options).await
     }
 
@@ -142,8 +142,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn uninstall_deployment(
         &self,
         req: crate::model::UninstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::uninstall_deployment(self, req, options).await
     }
 
@@ -151,8 +151,8 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     async fn get_install_status(
         &self,
         req: crate::model::GetInstallStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstallStatus>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstallStatus>> {
         T::get_install_status(self, req, options).await
     }
 }

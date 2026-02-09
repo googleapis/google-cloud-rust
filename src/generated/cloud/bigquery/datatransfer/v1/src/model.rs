@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_rpc;
 extern crate lazy_static;
@@ -1364,7 +1364,7 @@ impl wkt::message::Message for ListDataSourcesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2034,7 +2034,7 @@ impl wkt::message::Message for ListTransferConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTransferConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTransferConfigsResponse {
     type PageItem = crate::model::TransferConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2358,7 +2358,7 @@ impl wkt::message::Message for ListTransferRunsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTransferRunsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTransferRunsResponse {
     type PageItem = crate::model::TransferRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2530,7 +2530,7 @@ impl wkt::message::Message for ListTransferLogsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTransferLogsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTransferLogsResponse {
     type PageItem = crate::model::TransferMessage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

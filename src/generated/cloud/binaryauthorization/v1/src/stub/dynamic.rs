@@ -20,44 +20,44 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn create_attestor(
         &self,
         req: crate::model::CreateAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>>;
 
     async fn get_attestor(
         &self,
         req: crate::model::GetAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>>;
 
     async fn update_attestor(
         &self,
         req: crate::model::UpdateAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>>;
 
     async fn list_attestors(
         &self,
         req: crate::model::ListAttestorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttestorsResponse>>;
 
     async fn delete_attestor(
         &self,
         req: crate::model::DeleteAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::BinauthzManagementServiceV1] also implement [BinauthzManagementServiceV1].
@@ -67,8 +67,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get_policy(self, req, options).await
     }
 
@@ -76,8 +76,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::update_policy(self, req, options).await
     }
 
@@ -85,8 +85,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn create_attestor(
         &self,
         req: crate::model::CreateAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>> {
         T::create_attestor(self, req, options).await
     }
 
@@ -94,8 +94,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn get_attestor(
         &self,
         req: crate::model::GetAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>> {
         T::get_attestor(self, req, options).await
     }
 
@@ -103,8 +103,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn update_attestor(
         &self,
         req: crate::model::UpdateAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attestor>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attestor>> {
         T::update_attestor(self, req, options).await
     }
 
@@ -112,8 +112,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn list_attestors(
         &self,
         req: crate::model::ListAttestorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttestorsResponse>> {
         T::list_attestors(self, req, options).await
     }
 
@@ -121,8 +121,8 @@ impl<T: super::BinauthzManagementServiceV1> BinauthzManagementServiceV1 for T {
     async fn delete_attestor(
         &self,
         req: crate::model::DeleteAttestorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_attestor(self, req, options).await
     }
 }
@@ -133,8 +133,8 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 }
 
 /// All implementations of [super::SystemPolicyV1] also implement [SystemPolicyV1].
@@ -144,8 +144,8 @@ impl<T: super::SystemPolicyV1> SystemPolicyV1 for T {
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get_system_policy(self, req, options).await
     }
 }
@@ -156,8 +156,8 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateAttestationOccurrenceResponse>>;
 }
 
 /// All implementations of [super::ValidationHelperV1] also implement [ValidationHelperV1].
@@ -167,9 +167,8 @@ impl<T: super::ValidationHelperV1> ValidationHelperV1 for T {
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
         T::validate_attestation_occurrence(self, req, options).await
     }
 }

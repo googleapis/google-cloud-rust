@@ -41,8 +41,8 @@ where
     async fn list_cloud_locations(
         &self,
         req: crate::model::ListCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCloudLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCloudLocationsResponse>> {
         self.inner.list_cloud_locations(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_cloud_location(
         &self,
         req: crate::model::GetCloudLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CloudLocation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CloudLocation>> {
         self.inner.get_cloud_location(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn search_cloud_locations(
         &self,
         req: crate::model::SearchCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchCloudLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchCloudLocationsResponse>> {
         self.inner.search_cloud_locations(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

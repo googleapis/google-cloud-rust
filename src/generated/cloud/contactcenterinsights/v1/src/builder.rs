@@ -20,7 +20,7 @@ pub mod contact_center_insights {
     /// A builder for [ContactCenterInsights][crate::client::ContactCenterInsights].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_contactcenterinsights_v1::*;
     /// # use builder::contact_center_insights::ClientBuilder;
     /// # use client::ContactCenterInsights;
@@ -30,19 +30,18 @@ pub mod contact_center_insights {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ContactCenterInsights;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ContactCenterInsights;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod contact_center_insights {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod contact_center_insights {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateConversation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_conversation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationRequest::parent].
@@ -158,8 +157,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateConversation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -169,7 +168,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UploadConversation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -201,7 +200,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -216,7 +215,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .upload_conversation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `upload_conversation`.
@@ -235,7 +234,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -336,8 +335,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UploadConversation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UploadConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -347,7 +346,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateConversation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -378,7 +377,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -388,7 +387,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_conversation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
@@ -433,8 +432,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateConversation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -444,7 +443,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetConversation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -472,7 +471,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -482,7 +481,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_conversation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConversationRequest::name].
@@ -501,8 +500,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetConversation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -512,8 +511,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListConversations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -547,7 +546,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -557,14 +556,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_conversations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListConversationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -572,15 +573,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConversationsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListConversationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -624,8 +627,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListConversations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListConversations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -635,7 +638,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteConversation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -666,7 +669,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -676,7 +679,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_conversation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationRequest::name].
@@ -695,8 +698,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteConversation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -706,7 +709,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateAnalysis;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -735,7 +738,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -750,7 +753,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_analysis(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_analysis`.
@@ -769,7 +772,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -828,8 +831,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAnalysis {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAnalysis {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -839,7 +842,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetAnalysis;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -867,7 +870,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -877,7 +880,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_analysis(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRequest::name].
@@ -890,8 +893,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAnalysis {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAnalysis {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -901,8 +904,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAnalyses;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -933,7 +936,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -943,13 +946,13 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_analyses(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListAnalysesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -958,15 +961,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAnalysesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -998,8 +1003,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAnalyses {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAnalyses {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1009,7 +1014,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteAnalysis;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1037,7 +1042,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1047,7 +1052,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_analysis(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRequest::name].
@@ -1060,8 +1065,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAnalysis {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAnalysis {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1071,7 +1076,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkAnalyzeConversations;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1105,7 +1110,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1120,7 +1125,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_analyze_conversations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_analyze_conversations`.
@@ -1139,7 +1144,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1210,8 +1215,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BulkAnalyzeConversations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BulkAnalyzeConversations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1221,7 +1226,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDeleteConversations;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1255,7 +1260,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1270,7 +1275,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_delete_conversations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_delete_conversations`.
@@ -1289,7 +1294,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1344,8 +1349,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BulkDeleteConversations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BulkDeleteConversations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1355,7 +1360,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::IngestConversations;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1387,7 +1392,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1402,7 +1407,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .ingest_conversations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `ingest_conversations`.
@@ -1421,7 +1426,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1592,8 +1597,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for IngestConversations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for IngestConversations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1603,7 +1608,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportInsightsData;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1635,7 +1640,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1650,7 +1655,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .export_insights_data(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_insights_data`.
@@ -1669,7 +1674,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1762,8 +1767,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExportInsightsData {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExportInsightsData {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1773,7 +1778,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1805,7 +1810,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1820,7 +1825,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_issue_model`.
@@ -1839,7 +1844,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1898,8 +1903,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1909,7 +1914,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1940,7 +1945,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1950,7 +1955,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
@@ -1995,8 +2000,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2006,7 +2011,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2034,7 +2039,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2044,7 +2049,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueModelRequest::name].
@@ -2057,8 +2062,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2068,7 +2073,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListIssueModels;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2096,7 +2101,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2106,7 +2111,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_issue_models(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssueModelsRequest::parent].
@@ -2119,8 +2124,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIssueModels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIssueModels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2130,7 +2135,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2162,7 +2167,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2177,7 +2182,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_issue_model`.
@@ -2193,7 +2198,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2230,8 +2235,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2241,7 +2246,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeployIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2273,7 +2278,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2288,7 +2293,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .deploy_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `deploy_issue_model`.
@@ -2307,7 +2312,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2344,8 +2349,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeployIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeployIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2355,7 +2360,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UndeployIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2387,7 +2392,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2402,7 +2407,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .undeploy_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `undeploy_issue_model`.
@@ -2421,7 +2426,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2458,8 +2463,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UndeployIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UndeployIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2469,7 +2474,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ExportIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2501,7 +2506,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2516,7 +2521,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .export_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_issue_model`.
@@ -2535,7 +2540,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2603,8 +2608,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExportIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExportIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2614,7 +2619,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ImportIssueModel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2646,7 +2651,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2661,7 +2666,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .import_issue_model(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_issue_model`.
@@ -2680,7 +2685,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2752,8 +2757,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ImportIssueModel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ImportIssueModel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2763,7 +2768,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetIssue;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2791,7 +2796,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2801,7 +2806,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_issue(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueRequest::name].
@@ -2814,8 +2819,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIssue {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIssue {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2825,7 +2830,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListIssues;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2853,7 +2858,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2863,7 +2868,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_issues(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
@@ -2876,8 +2881,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIssues {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIssues {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2887,7 +2892,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateIssue;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2915,7 +2920,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2925,7 +2930,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_issue(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
@@ -2970,8 +2975,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIssue {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIssue {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2981,7 +2986,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteIssue;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3009,7 +3014,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3019,7 +3024,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_issue(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
@@ -3032,8 +3037,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIssue {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIssue {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3043,7 +3048,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CalculateIssueModelStats;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3076,7 +3081,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3086,7 +3091,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .calculate_issue_model_stats(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::CalculateIssueModelStatsRequest::issue_model].
@@ -3099,8 +3104,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CalculateIssueModelStats {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CalculateIssueModelStats {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3110,7 +3115,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreatePhraseMatcher;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3141,7 +3146,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3151,7 +3156,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_phrase_matcher(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePhraseMatcherRequest::parent].
@@ -3186,8 +3191,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreatePhraseMatcher {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreatePhraseMatcher {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3197,7 +3202,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetPhraseMatcher;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3228,7 +3233,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3238,7 +3243,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_phrase_matcher(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPhraseMatcherRequest::name].
@@ -3251,8 +3256,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPhraseMatcher {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPhraseMatcher {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3262,8 +3267,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListPhraseMatchers;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3297,7 +3302,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3307,14 +3312,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_phrase_matchers(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListPhraseMatchersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3322,17 +3329,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListPhraseMatchersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3364,8 +3371,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPhraseMatchers {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPhraseMatchers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3375,7 +3382,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeletePhraseMatcher;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3406,7 +3413,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3416,7 +3423,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_phrase_matcher(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseMatcherRequest::name].
@@ -3429,8 +3436,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePhraseMatcher {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePhraseMatcher {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3440,7 +3447,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdatePhraseMatcher;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3471,7 +3478,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3481,7 +3488,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_phrase_matcher(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
@@ -3526,8 +3533,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdatePhraseMatcher {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdatePhraseMatcher {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3537,7 +3544,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CalculateStats;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3565,7 +3572,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3575,7 +3582,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .calculate_stats(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::CalculateStatsRequest::location].
@@ -3594,8 +3601,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CalculateStats {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CalculateStats {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3605,7 +3612,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3633,7 +3640,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3643,7 +3650,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -3656,8 +3663,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3667,7 +3674,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3695,7 +3702,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3705,7 +3712,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
@@ -3754,8 +3761,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3765,7 +3772,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateAnalysisRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3796,7 +3803,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3806,7 +3813,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_analysis_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRuleRequest::parent].
@@ -3841,8 +3848,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAnalysisRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAnalysisRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3852,7 +3859,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetAnalysisRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3880,7 +3887,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3890,7 +3897,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_analysis_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRuleRequest::name].
@@ -3903,8 +3910,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAnalysisRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAnalysisRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3914,8 +3921,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAnalysisRules;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3949,7 +3956,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3959,14 +3966,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_analysis_rules(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAnalysisRulesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3974,15 +3983,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAnalysisRulesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4008,8 +4019,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAnalysisRules {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAnalysisRules {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4019,7 +4030,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateAnalysisRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4050,7 +4061,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4060,7 +4071,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_analysis_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
@@ -4105,8 +4116,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAnalysisRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAnalysisRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4116,7 +4127,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteAnalysisRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4147,7 +4158,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4157,7 +4168,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_analysis_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRuleRequest::name].
@@ -4170,8 +4181,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAnalysisRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAnalysisRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4181,7 +4192,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetEncryptionSpec;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4212,7 +4223,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4222,7 +4233,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_encryption_spec(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEncryptionSpecRequest::name].
@@ -4235,8 +4246,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEncryptionSpec {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEncryptionSpec {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4246,7 +4257,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::InitializeEncryptionSpec;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4280,7 +4291,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4295,7 +4306,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .initialize_encryption_spec(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `initialize_encryption_spec`.
@@ -4314,7 +4325,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4365,8 +4376,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for InitializeEncryptionSpec {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for InitializeEncryptionSpec {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4376,7 +4387,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4404,7 +4415,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4414,7 +4425,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
@@ -4449,8 +4460,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4460,7 +4471,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4488,7 +4499,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4498,7 +4509,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
@@ -4511,8 +4522,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4522,8 +4533,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListViews;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4554,7 +4565,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4564,13 +4575,13 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_views(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListViewsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4579,15 +4590,15 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListViewsResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4613,8 +4624,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListViews {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListViews {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4624,7 +4635,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4652,7 +4663,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4662,7 +4673,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
@@ -4707,8 +4718,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4718,7 +4729,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4746,7 +4757,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4756,7 +4767,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
@@ -4769,8 +4780,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4780,7 +4791,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::QueryMetrics;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4809,7 +4820,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4824,7 +4835,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .query_metrics(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `query_metrics`.
@@ -4843,7 +4854,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4928,8 +4939,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for QueryMetrics {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for QueryMetrics {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4939,7 +4950,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaQuestion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4970,7 +4981,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4980,7 +4991,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_question(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaQuestionRequest::parent].
@@ -5021,8 +5032,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQaQuestion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQaQuestion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5032,7 +5043,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaQuestion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5060,7 +5071,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5070,7 +5081,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_question(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaQuestionRequest::name].
@@ -5083,8 +5094,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQaQuestion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQaQuestion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5094,7 +5105,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateQaQuestion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5125,7 +5136,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5135,7 +5146,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_qa_question(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
@@ -5184,8 +5195,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateQaQuestion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateQaQuestion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5195,7 +5206,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaQuestion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5226,7 +5237,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5236,7 +5247,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_question(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaQuestionRequest::name].
@@ -5249,8 +5260,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteQaQuestion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteQaQuestion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5260,8 +5271,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaQuestions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5292,7 +5303,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5302,14 +5313,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_questions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQaQuestionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5317,15 +5330,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListQaQuestionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5351,8 +5366,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQaQuestions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQaQuestions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5362,7 +5377,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaScorecard;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5393,7 +5408,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5403,7 +5418,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_scorecard(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRequest::parent].
@@ -5444,8 +5459,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQaScorecard {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQaScorecard {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5455,7 +5470,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaScorecard;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5483,7 +5498,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5493,7 +5508,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_scorecard(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRequest::name].
@@ -5506,8 +5521,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQaScorecard {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQaScorecard {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5517,7 +5532,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateQaScorecard;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5548,7 +5563,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5558,7 +5573,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_qa_scorecard(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
@@ -5607,8 +5622,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateQaScorecard {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateQaScorecard {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5618,7 +5633,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaScorecard;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5649,7 +5664,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5659,7 +5674,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_scorecard(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRequest::name].
@@ -5678,8 +5693,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteQaScorecard {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteQaScorecard {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5689,8 +5704,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaScorecards;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5724,7 +5739,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5734,14 +5749,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_scorecards(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQaScorecardsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5749,15 +5766,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListQaScorecardsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5783,8 +5802,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQaScorecards {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQaScorecards {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5794,7 +5813,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5827,7 +5846,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5837,7 +5856,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRevisionRequest::parent].
@@ -5878,8 +5897,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5889,7 +5908,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5920,7 +5939,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5930,7 +5949,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRevisionRequest::name].
@@ -5943,8 +5962,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5954,7 +5973,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::TuneQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5988,7 +6007,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6003,7 +6022,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .tune_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `tune_qa_scorecard_revision`.
@@ -6022,7 +6041,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6073,8 +6092,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TuneQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TuneQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6084,7 +6103,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeployQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6117,7 +6136,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6127,7 +6146,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .deploy_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeployQaScorecardRevisionRequest::name].
@@ -6140,8 +6159,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeployQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeployQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6151,7 +6170,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UndeployQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6184,7 +6203,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6194,7 +6213,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .undeploy_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeployQaScorecardRevisionRequest::name].
@@ -6207,8 +6226,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UndeployQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UndeployQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6218,7 +6237,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteQaScorecardRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6251,7 +6270,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6261,7 +6280,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRevisionRequest::name].
@@ -6280,8 +6299,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteQaScorecardRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteQaScorecardRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6291,8 +6310,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListQaScorecardRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6328,7 +6347,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6338,15 +6357,15 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_scorecard_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListQaScorecardRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -6355,17 +6374,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListQaScorecardRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -6397,8 +6416,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQaScorecardRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQaScorecardRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6408,7 +6427,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CreateFeedbackLabel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6439,7 +6458,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6449,7 +6468,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_feedback_label(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedbackLabelRequest::parent].
@@ -6490,8 +6509,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFeedbackLabel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFeedbackLabel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6501,8 +6520,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListFeedbackLabels;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6536,7 +6555,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6546,14 +6565,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_feedback_labels(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFeedbackLabelsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6561,17 +6582,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListFeedbackLabelsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -6603,8 +6624,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFeedbackLabels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFeedbackLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6614,7 +6635,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetFeedbackLabel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6645,7 +6666,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6655,7 +6676,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_feedback_label(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedbackLabelRequest::name].
@@ -6668,8 +6689,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFeedbackLabel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFeedbackLabel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6679,7 +6700,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::UpdateFeedbackLabel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6710,7 +6731,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6720,7 +6741,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_feedback_label(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
@@ -6769,8 +6790,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFeedbackLabel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFeedbackLabel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6780,7 +6801,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::DeleteFeedbackLabel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6811,7 +6832,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6821,7 +6842,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_feedback_label(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedbackLabelRequest::name].
@@ -6834,8 +6855,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFeedbackLabel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFeedbackLabel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6845,8 +6866,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListAllFeedbackLabels;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6880,7 +6901,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6890,14 +6911,16 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_all_feedback_labels(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAllFeedbackLabelsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6905,17 +6928,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAllFeedbackLabelsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -6947,8 +6970,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAllFeedbackLabels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAllFeedbackLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6958,7 +6981,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkUploadFeedbackLabels;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6992,7 +7015,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7007,7 +7030,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_upload_feedback_labels(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_upload_feedback_labels`.
@@ -7026,7 +7049,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7100,8 +7123,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BulkUploadFeedbackLabels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BulkUploadFeedbackLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7111,7 +7134,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::BulkDownloadFeedbackLabels;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7145,7 +7168,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7160,7 +7183,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_download_feedback_labels(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_download_feedback_labels`.
@@ -7179,7 +7202,7 @@ pub mod contact_center_insights {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7289,8 +7312,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BulkDownloadFeedbackLabels {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BulkDownloadFeedbackLabels {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7300,8 +7323,8 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -7337,7 +7360,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7347,15 +7370,15 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -7364,17 +7387,17 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7410,8 +7433,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7421,7 +7444,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7452,7 +7475,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7462,7 +7485,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -7473,8 +7496,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7484,7 +7507,7 @@ pub mod contact_center_insights {
     /// # Example
     /// ```
     /// # use google_cloud_contactcenterinsights_v1::builder::contact_center_insights::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_contactcenterinsights_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7517,7 +7540,7 @@ pub mod contact_center_insights {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7527,7 +7550,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -7538,8 +7561,8 @@ pub mod contact_center_insights {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

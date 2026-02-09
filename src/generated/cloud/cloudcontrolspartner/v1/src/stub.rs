@@ -42,10 +42,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn get_workload(
         &self,
         _req: crate::model::GetWorkloadRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Workload>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Workload>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn list_workloads(
         &self,
         _req: crate::model::ListWorkloadsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListWorkloadsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +63,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn get_customer(
         &self,
         _req: crate::model::GetCustomerRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Customer>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Customer>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +73,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn list_customers(
         &self,
         _req: crate::model::ListCustomersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCustomersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCustomersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +84,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn get_ekm_connections(
         &self,
         _req: crate::model::GetEkmConnectionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnections>>,
+        Output = crate::Result<crate::Response<crate::model::EkmConnections>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +95,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn get_partner_permissions(
         &self,
         _req: crate::model::GetPartnerPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PartnerPermissions>>,
+        Output = crate::Result<crate::Response<crate::model::PartnerPermissions>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,11 +106,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn list_access_approval_requests(
         &self,
         _req: crate::model::ListAccessApprovalRequestsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListAccessApprovalRequestsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,10 +117,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn get_partner(
         &self,
         _req: crate::model::GetPartnerRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Partner>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Partner>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -132,10 +127,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn create_customer(
         &self,
         _req: crate::model::CreateCustomerRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Customer>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Customer>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,10 +137,9 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn update_customer(
         &self,
         _req: crate::model::UpdateCustomerRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Customer>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Customer>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -154,8 +147,8 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     fn delete_customer(
         &self,
         _req: crate::model::DeleteCustomerRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -176,9 +169,9 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
     fn list_violations(
         &self,
         _req: crate::model::ListViolationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListViolationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListViolationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -187,10 +180,9 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
     fn get_violation(
         &self,
         _req: crate::model::GetViolationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Violation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Violation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

@@ -41,8 +41,8 @@ where
     async fn get_mcp_server(
         &self,
         req: crate::model::GetMcpServerRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::McpServer>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::McpServer>> {
         self.inner.get_mcp_server(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_mcp_servers(
         &self,
         req: crate::model::ListMcpServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMcpServersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMcpServersResponse>> {
         self.inner.list_mcp_servers(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_mcp_tool(
         &self,
         req: crate::model::GetMcpToolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::McpTool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::McpTool>> {
         self.inner.get_mcp_tool(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_mcp_tools(
         &self,
         req: crate::model::ListMcpToolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMcpToolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMcpToolsResponse>> {
         self.inner.list_mcp_tools(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

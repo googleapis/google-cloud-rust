@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -4489,7 +4489,7 @@ impl wkt::message::Message for ListIndexesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListIndexesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIndexesResponse {
     type PageItem = crate::model::Index;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4870,7 +4870,7 @@ impl wkt::message::Message for ListFieldsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFieldsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFieldsResponse {
     type PageItem = crate::model::Field;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

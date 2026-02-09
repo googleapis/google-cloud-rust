@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_type;
 extern crate lazy_static;
@@ -584,7 +584,7 @@ impl wkt::message::Message for ListServiceAccountsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServiceAccountsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServiceAccountsResponse {
     type PageItem = crate::model::ServiceAccount;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2495,7 +2495,7 @@ impl wkt::message::Message for QueryGrantableRolesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for QueryGrantableRolesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryGrantableRolesResponse {
     type PageItem = crate::model::Role;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2699,7 +2699,7 @@ impl wkt::message::Message for ListRolesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRolesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRolesResponse {
     type PageItem = crate::model::Role;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3735,7 +3735,7 @@ impl wkt::message::Message for QueryTestablePermissionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for QueryTestablePermissionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryTestablePermissionsResponse {
     type PageItem = crate::model::Permission;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

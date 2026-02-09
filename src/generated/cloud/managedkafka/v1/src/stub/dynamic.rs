@@ -20,176 +20,174 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListClustersResponse>>;
 
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Cluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Cluster>>;
 
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_topics(
         &self,
         req: crate::model::ListTopicsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicsResponse>>;
 
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn create_topic(
         &self,
         req: crate::model::CreateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn update_topic(
         &self,
         req: crate::model::UpdateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn delete_topic(
         &self,
         req: crate::model::DeleteTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_consumer_groups(
         &self,
         req: crate::model::ListConsumerGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConsumerGroupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConsumerGroupsResponse>>;
 
     async fn get_consumer_group(
         &self,
         req: crate::model::GetConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConsumerGroup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConsumerGroup>>;
 
     async fn update_consumer_group(
         &self,
         req: crate::model::UpdateConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConsumerGroup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConsumerGroup>>;
 
     async fn delete_consumer_group(
         &self,
         req: crate::model::DeleteConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_acls(
         &self,
         req: crate::model::ListAclsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAclsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclsResponse>>;
 
     async fn get_acl(
         &self,
         req: crate::model::GetAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>>;
 
     async fn create_acl(
         &self,
         req: crate::model::CreateAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>>;
 
     async fn update_acl(
         &self,
         req: crate::model::UpdateAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>>;
 
     async fn delete_acl(
         &self,
         req: crate::model::DeleteAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn add_acl_entry(
         &self,
         req: crate::model::AddAclEntryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddAclEntryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddAclEntryResponse>>;
 
     async fn remove_acl_entry(
         &self,
         req: crate::model::RemoveAclEntryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveAclEntryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveAclEntryResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ManagedKafka] also implement [ManagedKafka].
@@ -199,8 +197,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListClustersResponse>> {
         T::list_clusters(self, req, options).await
     }
 
@@ -208,8 +206,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Cluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Cluster>> {
         T::get_cluster(self, req, options).await
     }
 
@@ -217,8 +215,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cluster(self, req, options).await
     }
 
@@ -226,8 +224,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_cluster(self, req, options).await
     }
 
@@ -235,8 +233,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cluster(self, req, options).await
     }
 
@@ -244,8 +242,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_topics(
         &self,
         req: crate::model::ListTopicsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicsResponse>> {
         T::list_topics(self, req, options).await
     }
 
@@ -253,8 +251,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::get_topic(self, req, options).await
     }
 
@@ -262,8 +260,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn create_topic(
         &self,
         req: crate::model::CreateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::create_topic(self, req, options).await
     }
 
@@ -271,8 +269,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn update_topic(
         &self,
         req: crate::model::UpdateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::update_topic(self, req, options).await
     }
 
@@ -280,8 +278,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn delete_topic(
         &self,
         req: crate::model::DeleteTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_topic(self, req, options).await
     }
 
@@ -289,8 +287,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_consumer_groups(
         &self,
         req: crate::model::ListConsumerGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConsumerGroupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConsumerGroupsResponse>> {
         T::list_consumer_groups(self, req, options).await
     }
 
@@ -298,8 +296,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_consumer_group(
         &self,
         req: crate::model::GetConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConsumerGroup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConsumerGroup>> {
         T::get_consumer_group(self, req, options).await
     }
 
@@ -307,8 +305,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn update_consumer_group(
         &self,
         req: crate::model::UpdateConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConsumerGroup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConsumerGroup>> {
         T::update_consumer_group(self, req, options).await
     }
 
@@ -316,8 +314,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn delete_consumer_group(
         &self,
         req: crate::model::DeleteConsumerGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_consumer_group(self, req, options).await
     }
 
@@ -325,8 +323,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_acls(
         &self,
         req: crate::model::ListAclsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAclsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAclsResponse>> {
         T::list_acls(self, req, options).await
     }
 
@@ -334,8 +332,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_acl(
         &self,
         req: crate::model::GetAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>> {
         T::get_acl(self, req, options).await
     }
 
@@ -343,8 +341,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn create_acl(
         &self,
         req: crate::model::CreateAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>> {
         T::create_acl(self, req, options).await
     }
 
@@ -352,8 +350,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn update_acl(
         &self,
         req: crate::model::UpdateAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Acl>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Acl>> {
         T::update_acl(self, req, options).await
     }
 
@@ -361,8 +359,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn delete_acl(
         &self,
         req: crate::model::DeleteAclRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_acl(self, req, options).await
     }
 
@@ -370,8 +368,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn add_acl_entry(
         &self,
         req: crate::model::AddAclEntryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddAclEntryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddAclEntryResponse>> {
         T::add_acl_entry(self, req, options).await
     }
 
@@ -379,8 +377,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn remove_acl_entry(
         &self,
         req: crate::model::RemoveAclEntryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveAclEntryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveAclEntryResponse>> {
         T::remove_acl_entry(self, req, options).await
     }
 
@@ -388,9 +386,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -398,8 +395,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -407,10 +404,9 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -418,8 +414,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -427,8 +423,8 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -436,22 +432,22 @@ impl<T: super::ManagedKafka> ManagedKafka for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -462,134 +458,132 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     async fn list_connect_clusters(
         &self,
         req: crate::model::ListConnectClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConnectClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConnectClustersResponse>>;
 
     async fn get_connect_cluster(
         &self,
         req: crate::model::GetConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConnectCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConnectCluster>>;
 
     async fn create_connect_cluster(
         &self,
         req: crate::model::CreateConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_connect_cluster(
         &self,
         req: crate::model::UpdateConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_connect_cluster(
         &self,
         req: crate::model::DeleteConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_connectors(
         &self,
         req: crate::model::ListConnectorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConnectorsResponse>>;
 
     async fn get_connector(
         &self,
         req: crate::model::GetConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>>;
 
     async fn create_connector(
         &self,
         req: crate::model::CreateConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>>;
 
     async fn update_connector(
         &self,
         req: crate::model::UpdateConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>>;
 
     async fn delete_connector(
         &self,
         req: crate::model::DeleteConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn pause_connector(
         &self,
         req: crate::model::PauseConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PauseConnectorResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PauseConnectorResponse>>;
 
     async fn resume_connector(
         &self,
         req: crate::model::ResumeConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResumeConnectorResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResumeConnectorResponse>>;
 
     async fn restart_connector(
         &self,
         req: crate::model::RestartConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestartConnectorResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestartConnectorResponse>>;
 
     async fn stop_connector(
         &self,
         req: crate::model::StopConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StopConnectorResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StopConnectorResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ManagedKafkaConnect] also implement [ManagedKafkaConnect].
@@ -599,8 +593,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn list_connect_clusters(
         &self,
         req: crate::model::ListConnectClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConnectClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConnectClustersResponse>> {
         T::list_connect_clusters(self, req, options).await
     }
 
@@ -608,8 +602,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn get_connect_cluster(
         &self,
         req: crate::model::GetConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ConnectCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ConnectCluster>> {
         T::get_connect_cluster(self, req, options).await
     }
 
@@ -617,8 +611,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn create_connect_cluster(
         &self,
         req: crate::model::CreateConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_connect_cluster(self, req, options).await
     }
 
@@ -626,8 +620,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn update_connect_cluster(
         &self,
         req: crate::model::UpdateConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_connect_cluster(self, req, options).await
     }
 
@@ -635,8 +629,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn delete_connect_cluster(
         &self,
         req: crate::model::DeleteConnectClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_connect_cluster(self, req, options).await
     }
 
@@ -644,8 +638,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn list_connectors(
         &self,
         req: crate::model::ListConnectorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConnectorsResponse>> {
         T::list_connectors(self, req, options).await
     }
 
@@ -653,8 +647,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn get_connector(
         &self,
         req: crate::model::GetConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>> {
         T::get_connector(self, req, options).await
     }
 
@@ -662,8 +656,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn create_connector(
         &self,
         req: crate::model::CreateConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>> {
         T::create_connector(self, req, options).await
     }
 
@@ -671,8 +665,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn update_connector(
         &self,
         req: crate::model::UpdateConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Connector>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Connector>> {
         T::update_connector(self, req, options).await
     }
 
@@ -680,8 +674,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn delete_connector(
         &self,
         req: crate::model::DeleteConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_connector(self, req, options).await
     }
 
@@ -689,8 +683,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn pause_connector(
         &self,
         req: crate::model::PauseConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PauseConnectorResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PauseConnectorResponse>> {
         T::pause_connector(self, req, options).await
     }
 
@@ -698,8 +692,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn resume_connector(
         &self,
         req: crate::model::ResumeConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResumeConnectorResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResumeConnectorResponse>> {
         T::resume_connector(self, req, options).await
     }
 
@@ -707,8 +701,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn restart_connector(
         &self,
         req: crate::model::RestartConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestartConnectorResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestartConnectorResponse>> {
         T::restart_connector(self, req, options).await
     }
 
@@ -716,8 +710,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn stop_connector(
         &self,
         req: crate::model::StopConnectorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StopConnectorResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StopConnectorResponse>> {
         T::stop_connector(self, req, options).await
     }
 
@@ -725,9 +719,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -735,8 +728,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -744,10 +737,9 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -755,8 +747,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -764,8 +756,8 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -773,22 +765,22 @@ impl<T: super::ManagedKafkaConnect> ManagedKafkaConnect for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

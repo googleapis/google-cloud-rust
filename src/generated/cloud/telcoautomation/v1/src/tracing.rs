@@ -41,8 +41,8 @@ where
     async fn list_orchestration_clusters(
         &self,
         req: crate::model::ListOrchestrationClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrchestrationClustersResponse>> {
         self.inner.list_orchestration_clusters(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_orchestration_cluster(
         &self,
         req: crate::model::GetOrchestrationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OrchestrationCluster>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OrchestrationCluster>> {
         self.inner.get_orchestration_cluster(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_orchestration_cluster(
         &self,
         req: crate::model::CreateOrchestrationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_orchestration_cluster(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_orchestration_cluster(
         &self,
         req: crate::model::DeleteOrchestrationClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_orchestration_cluster(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_edge_slms(
         &self,
         req: crate::model::ListEdgeSlmsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListEdgeSlmsResponse>> {
         self.inner.list_edge_slms(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_edge_slm(
         &self,
         req: crate::model::GetEdgeSlmRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EdgeSlm>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EdgeSlm>> {
         self.inner.get_edge_slm(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn create_edge_slm(
         &self,
         req: crate::model::CreateEdgeSlmRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_edge_slm(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn delete_edge_slm(
         &self,
         req: crate::model::DeleteEdgeSlmRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_edge_slm(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn create_blueprint(
         &self,
         req: crate::model::CreateBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.create_blueprint(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn update_blueprint(
         &self,
         req: crate::model::UpdateBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.update_blueprint(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn get_blueprint(
         &self,
         req: crate::model::GetBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.get_blueprint(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn delete_blueprint(
         &self,
         req: crate::model::DeleteBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_blueprint(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn list_blueprints(
         &self,
         req: crate::model::ListBlueprintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBlueprintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBlueprintsResponse>> {
         self.inner.list_blueprints(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn approve_blueprint(
         &self,
         req: crate::model::ApproveBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.approve_blueprint(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn propose_blueprint(
         &self,
         req: crate::model::ProposeBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.propose_blueprint(req, options).await
     }
 
@@ -176,8 +176,8 @@ where
     async fn reject_blueprint(
         &self,
         req: crate::model::RejectBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blueprint>> {
         self.inner.reject_blueprint(req, options).await
     }
 
@@ -185,8 +185,8 @@ where
     async fn list_blueprint_revisions(
         &self,
         req: crate::model::ListBlueprintRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBlueprintRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBlueprintRevisionsResponse>> {
         self.inner.list_blueprint_revisions(req, options).await
     }
 
@@ -194,8 +194,8 @@ where
     async fn search_blueprint_revisions(
         &self,
         req: crate::model::SearchBlueprintRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchBlueprintRevisionsResponse>> {
         self.inner.search_blueprint_revisions(req, options).await
     }
 
@@ -203,8 +203,8 @@ where
     async fn search_deployment_revisions(
         &self,
         req: crate::model::SearchDeploymentRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchDeploymentRevisionsResponse>> {
         self.inner.search_deployment_revisions(req, options).await
     }
 
@@ -212,8 +212,8 @@ where
     async fn discard_blueprint_changes(
         &self,
         req: crate::model::DiscardBlueprintChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiscardBlueprintChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiscardBlueprintChangesResponse>> {
         self.inner.discard_blueprint_changes(req, options).await
     }
 
@@ -221,8 +221,8 @@ where
     async fn list_public_blueprints(
         &self,
         req: crate::model::ListPublicBlueprintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListPublicBlueprintsResponse>> {
         self.inner.list_public_blueprints(req, options).await
     }
 
@@ -230,8 +230,8 @@ where
     async fn get_public_blueprint(
         &self,
         req: crate::model::GetPublicBlueprintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicBlueprint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicBlueprint>> {
         self.inner.get_public_blueprint(req, options).await
     }
 
@@ -239,8 +239,8 @@ where
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.create_deployment(req, options).await
     }
 
@@ -248,8 +248,8 @@ where
     async fn update_deployment(
         &self,
         req: crate::model::UpdateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.update_deployment(req, options).await
     }
 
@@ -257,8 +257,8 @@ where
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.get_deployment(req, options).await
     }
 
@@ -266,8 +266,8 @@ where
     async fn remove_deployment(
         &self,
         req: crate::model::RemoveDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.remove_deployment(req, options).await
     }
 
@@ -275,8 +275,8 @@ where
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDeploymentsResponse>> {
         self.inner.list_deployments(req, options).await
     }
 
@@ -284,8 +284,8 @@ where
     async fn list_deployment_revisions(
         &self,
         req: crate::model::ListDeploymentRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDeploymentRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDeploymentRevisionsResponse>> {
         self.inner.list_deployment_revisions(req, options).await
     }
 
@@ -293,8 +293,8 @@ where
     async fn discard_deployment_changes(
         &self,
         req: crate::model::DiscardDeploymentChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiscardDeploymentChangesResponse>> {
         self.inner.discard_deployment_changes(req, options).await
     }
 
@@ -302,8 +302,8 @@ where
     async fn apply_deployment(
         &self,
         req: crate::model::ApplyDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.apply_deployment(req, options).await
     }
 
@@ -311,8 +311,8 @@ where
     async fn compute_deployment_status(
         &self,
         req: crate::model::ComputeDeploymentStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ComputeDeploymentStatusResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeDeploymentStatusResponse>> {
         self.inner.compute_deployment_status(req, options).await
     }
 
@@ -320,8 +320,8 @@ where
     async fn rollback_deployment(
         &self,
         req: crate::model::RollbackDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.rollback_deployment(req, options).await
     }
 
@@ -329,8 +329,8 @@ where
     async fn get_hydrated_deployment(
         &self,
         req: crate::model::GetHydratedDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HydratedDeployment>> {
         self.inner.get_hydrated_deployment(req, options).await
     }
 
@@ -338,8 +338,8 @@ where
     async fn list_hydrated_deployments(
         &self,
         req: crate::model::ListHydratedDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListHydratedDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListHydratedDeploymentsResponse>> {
         self.inner.list_hydrated_deployments(req, options).await
     }
 
@@ -347,8 +347,8 @@ where
     async fn update_hydrated_deployment(
         &self,
         req: crate::model::UpdateHydratedDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HydratedDeployment>> {
         self.inner.update_hydrated_deployment(req, options).await
     }
 
@@ -356,8 +356,8 @@ where
     async fn apply_hydrated_deployment(
         &self,
         req: crate::model::ApplyHydratedDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HydratedDeployment>> {
         self.inner.apply_hydrated_deployment(req, options).await
     }
 
@@ -365,8 +365,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -374,8 +374,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -383,9 +383,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -393,8 +392,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -402,8 +401,8 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -411,22 +410,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

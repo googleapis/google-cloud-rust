@@ -24,9 +24,9 @@ use super::transport::Transport;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::model::PubsubMessage;
 use crate::{Error, Result};
-use gax::retry_result::RetryResult;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
+use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
@@ -321,7 +321,10 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -702,7 +705,10 @@ mod tests {
             .expect_err("expected an error from stream");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -884,7 +890,10 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         let elapsed = start_time.elapsed();
@@ -1025,7 +1034,10 @@ mod tests {
             .expect_err("expected an error from stream");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         // Wait for the session to join its background tasks.

@@ -42,9 +42,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn create_attached_cluster(
         &self,
         _req: crate::model::CreateAttachedClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn update_attached_cluster(
         &self,
         _req: crate::model::UpdateAttachedClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn import_attached_cluster(
         &self,
         _req: crate::model::ImportAttachedClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn get_attached_cluster(
         &self,
         _req: crate::model::GetAttachedClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AttachedCluster>>,
+        Output = crate::Result<crate::Response<crate::model::AttachedCluster>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +86,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn list_attached_clusters(
         &self,
         _req: crate::model::ListAttachedClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAttachedClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAttachedClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +97,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn delete_attached_cluster(
         &self,
         _req: crate::model::DeleteAttachedClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +108,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn get_attached_server_config(
         &self,
         _req: crate::model::GetAttachedServerConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AttachedServerConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AttachedServerConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,10 +119,10 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn generate_attached_cluster_install_manifest(
         &self,
         _req: crate::model::GenerateAttachedClusterInstallManifestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+            crate::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -132,10 +132,10 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn generate_attached_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAttachedClusterAgentTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+            crate::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -145,10 +145,10 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -158,9 +158,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -169,8 +169,8 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -178,8 +178,8 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -189,9 +189,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -200,9 +200,9 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -222,9 +222,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn create_aws_cluster(
         &self,
         _req: crate::model::CreateAwsClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -233,9 +233,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn update_aws_cluster(
         &self,
         _req: crate::model::UpdateAwsClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -244,10 +244,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_aws_cluster(
         &self,
         _req: crate::model::GetAwsClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AwsCluster>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AwsCluster>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -255,9 +254,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn list_aws_clusters(
         &self,
         _req: crate::model::ListAwsClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAwsClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAwsClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -266,9 +265,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn delete_aws_cluster(
         &self,
         _req: crate::model::DeleteAwsClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -277,11 +276,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn generate_aws_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAwsClusterAgentTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::GenerateAwsClusterAgentTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -290,11 +287,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn generate_aws_access_token(
         &self,
         _req: crate::model::GenerateAwsAccessTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::GenerateAwsAccessTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -303,9 +298,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn create_aws_node_pool(
         &self,
         _req: crate::model::CreateAwsNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -314,9 +309,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn update_aws_node_pool(
         &self,
         _req: crate::model::UpdateAwsNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -325,9 +320,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn rollback_aws_node_pool_update(
         &self,
         _req: crate::model::RollbackAwsNodePoolUpdateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -336,10 +331,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_aws_node_pool(
         &self,
         _req: crate::model::GetAwsNodePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AwsNodePool>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AwsNodePool>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -347,9 +341,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn list_aws_node_pools(
         &self,
         _req: crate::model::ListAwsNodePoolsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAwsNodePoolsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -358,9 +352,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn delete_aws_node_pool(
         &self,
         _req: crate::model::DeleteAwsNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -369,9 +363,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_aws_open_id_config(
         &self,
         _req: crate::model::GetAwsOpenIdConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AwsOpenIdConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AwsOpenIdConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -380,9 +374,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_aws_json_web_keys(
         &self,
         _req: crate::model::GetAwsJsonWebKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AwsJsonWebKeys>>,
+        Output = crate::Result<crate::Response<crate::model::AwsJsonWebKeys>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -391,9 +385,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_aws_server_config(
         &self,
         _req: crate::model::GetAwsServerConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AwsServerConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AwsServerConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -402,10 +396,10 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -415,9 +409,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -426,8 +420,8 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -435,8 +429,8 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -446,9 +440,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -457,9 +451,9 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -479,9 +473,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn create_azure_client(
         &self,
         _req: crate::model::CreateAzureClientRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -490,10 +484,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_client(
         &self,
         _req: crate::model::GetAzureClientRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureClient>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AzureClient>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -501,9 +494,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn list_azure_clients(
         &self,
         _req: crate::model::ListAzureClientsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAzureClientsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAzureClientsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -512,9 +505,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn delete_azure_client(
         &self,
         _req: crate::model::DeleteAzureClientRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -523,9 +516,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn create_azure_cluster(
         &self,
         _req: crate::model::CreateAzureClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -534,9 +527,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn update_azure_cluster(
         &self,
         _req: crate::model::UpdateAzureClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -545,9 +538,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_cluster(
         &self,
         _req: crate::model::GetAzureClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureCluster>>,
+        Output = crate::Result<crate::Response<crate::model::AzureCluster>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -556,9 +549,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn list_azure_clusters(
         &self,
         _req: crate::model::ListAzureClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAzureClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAzureClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -567,9 +560,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn delete_azure_cluster(
         &self,
         _req: crate::model::DeleteAzureClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -578,10 +571,10 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn generate_azure_cluster_agent_token(
         &self,
         _req: crate::model::GenerateAzureClusterAgentTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>,
+            crate::Response<crate::model::GenerateAzureClusterAgentTokenResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -591,11 +584,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn generate_azure_access_token(
         &self,
         _req: crate::model::GenerateAzureAccessTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::GenerateAzureAccessTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -604,9 +595,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn create_azure_node_pool(
         &self,
         _req: crate::model::CreateAzureNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -615,9 +606,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn update_azure_node_pool(
         &self,
         _req: crate::model::UpdateAzureNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -626,9 +617,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_node_pool(
         &self,
         _req: crate::model::GetAzureNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureNodePool>>,
+        Output = crate::Result<crate::Response<crate::model::AzureNodePool>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -637,9 +628,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn list_azure_node_pools(
         &self,
         _req: crate::model::ListAzureNodePoolsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAzureNodePoolsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -648,9 +639,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn delete_azure_node_pool(
         &self,
         _req: crate::model::DeleteAzureNodePoolRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -659,9 +650,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_open_id_config(
         &self,
         _req: crate::model::GetAzureOpenIdConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureOpenIdConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AzureOpenIdConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -670,9 +661,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_json_web_keys(
         &self,
         _req: crate::model::GetAzureJsonWebKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureJsonWebKeys>>,
+        Output = crate::Result<crate::Response<crate::model::AzureJsonWebKeys>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -681,9 +672,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_azure_server_config(
         &self,
         _req: crate::model::GetAzureServerConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AzureServerConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AzureServerConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -692,10 +683,10 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -705,9 +696,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -716,8 +707,8 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -725,8 +716,8 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -736,9 +727,9 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -747,8 +738,8 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

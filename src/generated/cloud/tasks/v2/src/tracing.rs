@@ -41,8 +41,8 @@ where
     async fn list_queues(
         &self,
         req: crate::model::ListQueuesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListQueuesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListQueuesResponse>> {
         self.inner.list_queues(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_queue(
         &self,
         req: crate::model::GetQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.get_queue(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_queue(
         &self,
         req: crate::model::CreateQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.create_queue(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_queue(
         &self,
         req: crate::model::UpdateQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.update_queue(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_queue(
         &self,
         req: crate::model::DeleteQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_queue(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn purge_queue(
         &self,
         req: crate::model::PurgeQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.purge_queue(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn pause_queue(
         &self,
         req: crate::model::PauseQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.pause_queue(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn resume_queue(
         &self,
         req: crate::model::ResumeQueueRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Queue>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Queue>> {
         self.inner.resume_queue(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -131,9 +131,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -141,8 +140,8 @@ where
     async fn list_tasks(
         &self,
         req: crate::model::ListTasksRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTasksResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTasksResponse>> {
         self.inner.list_tasks(req, options).await
     }
 
@@ -150,8 +149,8 @@ where
     async fn get_task(
         &self,
         req: crate::model::GetTaskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Task>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Task>> {
         self.inner.get_task(req, options).await
     }
 
@@ -159,8 +158,8 @@ where
     async fn create_task(
         &self,
         req: crate::model::CreateTaskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Task>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Task>> {
         self.inner.create_task(req, options).await
     }
 
@@ -168,8 +167,8 @@ where
     async fn delete_task(
         &self,
         req: crate::model::DeleteTaskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_task(req, options).await
     }
 
@@ -177,8 +176,8 @@ where
     async fn run_task(
         &self,
         req: crate::model::RunTaskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Task>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Task>> {
         self.inner.run_task(req, options).await
     }
 
@@ -186,8 +185,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -195,8 +194,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

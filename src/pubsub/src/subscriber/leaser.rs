@@ -14,8 +14,8 @@
 
 use super::retry_policy::at_least_once_options;
 use super::stub::Stub;
+use crate::RequestOptions;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
-use gax::options::RequestOptions;
 use std::sync::Arc;
 
 /// A trait representing leaser actions.
@@ -115,7 +115,7 @@ pub(super) mod tests {
     use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
-    use gax::response::Response;
+    use crate::Response;
     use std::sync::Arc;
     use tokio::sync::Mutex;
 

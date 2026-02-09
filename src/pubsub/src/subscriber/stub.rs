@@ -31,20 +31,20 @@ pub(super) trait Stub: std::fmt::Debug + Send + Sync {
         &self,
         request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>>;
 
     async fn modify_ack_deadline(
         &self,
         _req: crate::model::ModifyAckDeadlineRequest,
-        _options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>>;
+        _options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>>;
 
     async fn acknowledge(
         &self,
         _req: crate::model::AcknowledgeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>>;
+        _options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>>;
 }
 
 #[cfg(test)]
@@ -71,17 +71,17 @@ pub(super) mod tests {
                 &self,
                 request_params: &str,
                 request_rx: Receiver<StreamingPullRequest>,
-                _options: gax::options::RequestOptions,
+                _options: crate::RequestOptions,
             ) -> Result<TonicResponse<MockStream>>;
             async fn modify_ack_deadline(&self,
                 _req: crate::model::ModifyAckDeadlineRequest,
-                _options: gax::options::RequestOptions,
-            ) -> Result<gax::response::Response<()>>;
+                _options: crate::RequestOptions,
+            ) -> Result<crate::Response<()>>;
             async fn acknowledge(
                 &self,
                 _req: crate::model::AcknowledgeRequest,
-                _options: gax::options::RequestOptions,
-            ) -> Result<gax::response::Response<()>>;
+                _options: crate::RequestOptions,
+            ) -> Result<crate::Response<()>>;
         }
     }
 }

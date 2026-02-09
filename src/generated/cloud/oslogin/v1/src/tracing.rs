@@ -41,8 +41,8 @@ where
     async fn create_ssh_public_key(
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.create_ssh_public_key(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn delete_posix_account(
         &self,
         req: crate::model::DeletePosixAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_posix_account(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_ssh_public_key(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_login_profile(
         &self,
         req: crate::model::GetLoginProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LoginProfile>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LoginProfile>> {
         self.inner.get_login_profile(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn get_ssh_public_key(
         &self,
         req: crate::model::GetSshPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.get_ssh_public_key(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn import_ssh_public_key(
         &self,
         req: crate::model::ImportSshPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ImportSshPublicKeyResponse>> {
         self.inner.import_ssh_public_key(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn update_ssh_public_key(
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
         self.inner.update_ssh_public_key(req, options).await
     }
 }

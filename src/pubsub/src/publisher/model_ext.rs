@@ -64,11 +64,11 @@ impl Future for PublishHandle {
     }
 }
 
-fn convert_error(e: crate::error::PublishError) -> gax::error::Error {
+fn convert_error(e: crate::error::PublishError) -> crate::Error {
     // TODO(#3689): The error type for these are not ideal, we will need will
     // need to handle error propagation better.
     match e {
-        crate::error::PublishError::SendError(s) => gax::error::Error::io(s.clone()),
-        crate::error::PublishError::OrderingKeyPaused(()) => gax::error::Error::io(e),
+        crate::error::PublishError::SendError(s) => crate::Error::io(s.clone()),
+        crate::error::PublishError::OrderingKeyPaused(()) => crate::Error::io(e),
     }
 }

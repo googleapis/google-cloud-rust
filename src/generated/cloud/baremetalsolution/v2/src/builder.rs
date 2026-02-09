@@ -20,7 +20,7 @@ pub mod bare_metal_solution {
     /// A builder for [BareMetalSolution][crate::client::BareMetalSolution].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_baremetalsolution_v2::*;
     /// # use builder::bare_metal_solution::ClientBuilder;
     /// # use client::BareMetalSolution;
@@ -30,19 +30,18 @@ pub mod bare_metal_solution {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::BareMetalSolution;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = BareMetalSolution;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod bare_metal_solution {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod bare_metal_solution {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListInstances;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,13 +117,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListInstancesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -133,15 +132,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInstancesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -173,8 +174,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListInstances {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListInstances {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -184,7 +185,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -212,7 +213,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -222,7 +223,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -235,8 +236,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -246,7 +247,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -275,7 +276,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -290,7 +291,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_instance`.
@@ -307,7 +308,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -376,8 +377,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -387,7 +388,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RenameInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -415,7 +416,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -425,7 +426,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameInstanceRequest::name].
@@ -446,8 +447,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -457,7 +458,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ResetInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -486,7 +487,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -501,7 +502,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `reset_instance`.
@@ -520,7 +521,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -557,8 +558,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResetInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResetInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -568,7 +569,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::StartInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -597,7 +598,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -612,7 +613,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_instance`.
@@ -631,7 +632,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -668,8 +669,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -679,7 +680,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::StopInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -708,7 +709,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -723,7 +724,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_instance`.
@@ -742,7 +743,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -779,8 +780,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -790,7 +791,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EnableInteractiveSerialConsole;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -824,7 +825,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -839,7 +840,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `enable_interactive_serial_console`.
@@ -858,7 +859,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -895,8 +896,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for EnableInteractiveSerialConsole {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for EnableInteractiveSerialConsole {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -906,7 +907,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DisableInteractiveSerialConsole;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -940,7 +941,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -955,7 +956,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `disable_interactive_serial_console`.
@@ -974,7 +975,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1011,8 +1012,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DisableInteractiveSerialConsole {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DisableInteractiveSerialConsole {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1022,7 +1023,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DetachLun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1051,7 +1052,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1066,7 +1067,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `detach_lun`.
@@ -1083,7 +1084,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1134,8 +1135,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DetachLun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DetachLun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1145,8 +1146,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListSSHKeys;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1177,7 +1178,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1187,13 +1188,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_ssh_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSSHKeysResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1202,15 +1203,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSSHKeysResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSSHKeysResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1236,8 +1239,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSSHKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSSHKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1247,7 +1250,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::CreateSSHKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1275,7 +1278,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1285,7 +1288,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_ssh_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSSHKeyRequest::parent].
@@ -1328,8 +1331,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSSHKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSSHKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1339,7 +1342,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DeleteSSHKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1367,7 +1370,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1377,7 +1380,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_ssh_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSSHKeyRequest::name].
@@ -1390,8 +1393,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSSHKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSSHKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1401,8 +1404,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListVolumes;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1433,7 +1436,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1443,13 +1446,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_volumes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListVolumesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1458,15 +1461,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListVolumesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1498,8 +1503,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListVolumes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListVolumes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1509,7 +1514,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1537,7 +1542,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1547,7 +1552,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
@@ -1560,8 +1565,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1571,7 +1576,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1600,7 +1605,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1615,7 +1620,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_volume`.
@@ -1632,7 +1637,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1701,8 +1706,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1712,7 +1717,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RenameVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1740,7 +1745,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1750,7 +1755,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameVolumeRequest::name].
@@ -1771,8 +1776,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1782,7 +1787,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EvictVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1811,7 +1816,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1826,7 +1831,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `evict_volume`.
@@ -1838,7 +1843,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1875,8 +1880,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for EvictVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for EvictVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1886,7 +1891,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ResizeVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1915,7 +1920,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1930,7 +1935,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `resize_volume`.
@@ -1947,7 +1952,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1990,8 +1995,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResizeVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResizeVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2001,8 +2006,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListNetworks;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2033,7 +2038,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2043,13 +2048,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_networks(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListNetworksResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2058,15 +2063,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListNetworksResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2098,8 +2105,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListNetworks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListNetworks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2109,7 +2116,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListNetworkUsage;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2140,7 +2147,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2150,7 +2157,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_network_usage(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::ListNetworkUsageRequest::location].
@@ -2163,8 +2170,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListNetworkUsage {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListNetworkUsage {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2174,7 +2181,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetNetwork;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2202,7 +2209,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2212,7 +2219,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_network(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
@@ -2225,8 +2232,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetNetwork {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetNetwork {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2236,7 +2243,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateNetwork;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2265,7 +2272,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2280,7 +2287,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_network`.
@@ -2297,7 +2304,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2366,8 +2373,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateNetwork {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateNetwork {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2377,7 +2384,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::CreateVolumeSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2408,7 +2415,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2418,7 +2425,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_volume_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeSnapshotRequest::parent].
@@ -2453,8 +2460,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateVolumeSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateVolumeSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2464,7 +2471,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RestoreVolumeSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2496,7 +2503,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2511,7 +2518,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_volume_snapshot`.
@@ -2528,7 +2535,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2565,8 +2572,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RestoreVolumeSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RestoreVolumeSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2576,7 +2583,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DeleteVolumeSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2607,7 +2614,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2617,7 +2624,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_volume_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeSnapshotRequest::name].
@@ -2630,8 +2637,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteVolumeSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteVolumeSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2641,7 +2648,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetVolumeSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2672,7 +2679,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2682,7 +2689,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_volume_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeSnapshotRequest::name].
@@ -2695,8 +2702,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetVolumeSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetVolumeSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2706,8 +2713,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListVolumeSnapshots;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2741,7 +2748,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2751,14 +2758,16 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_volume_snapshots(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListVolumeSnapshotsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2766,17 +2775,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListVolumeSnapshotsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2802,8 +2811,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListVolumeSnapshots {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListVolumeSnapshots {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2813,7 +2822,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetLun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2841,7 +2850,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2851,7 +2860,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_lun(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLunRequest::name].
@@ -2864,8 +2873,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2875,8 +2884,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListLuns;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2907,7 +2916,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2917,13 +2926,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_luns(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListLunsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2932,15 +2941,15 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLunsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::ListLunsResponse, crate::Error>
         {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2966,8 +2975,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLuns {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLuns {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2977,7 +2986,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::EvictLun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3006,7 +3015,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3021,7 +3030,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `evict_lun`.
@@ -3033,7 +3042,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3070,8 +3079,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for EvictLun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for EvictLun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3081,7 +3090,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetNfsShare;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3109,7 +3118,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3119,7 +3128,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_nfs_share(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNfsShareRequest::name].
@@ -3132,8 +3141,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetNfsShare {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetNfsShare {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3143,8 +3152,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListNfsShares;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3175,7 +3184,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3185,13 +3194,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_nfs_shares(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListNfsSharesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3200,15 +3209,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNfsSharesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListNfsSharesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3240,8 +3251,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListNfsShares {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListNfsShares {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3251,7 +3262,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateNfsShare;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3280,7 +3291,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3295,7 +3306,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_nfs_share`.
@@ -3312,7 +3323,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3381,8 +3392,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateNfsShare {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateNfsShare {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3392,7 +3403,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::CreateNfsShare;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3421,7 +3432,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3436,7 +3447,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_nfs_share`.
@@ -3453,7 +3464,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3512,8 +3523,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateNfsShare {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateNfsShare {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3523,7 +3534,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RenameNfsShare;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3551,7 +3562,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3561,7 +3572,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_nfs_share(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNfsShareRequest::name].
@@ -3582,8 +3593,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameNfsShare {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameNfsShare {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3593,7 +3604,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::DeleteNfsShare;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3622,7 +3633,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3637,7 +3648,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_nfs_share`.
@@ -3649,7 +3660,7 @@ pub mod bare_metal_solution {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3686,8 +3697,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteNfsShare {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteNfsShare {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3697,8 +3708,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListProvisioningQuotas;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3732,7 +3743,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3742,15 +3753,15 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_provisioning_quotas(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListProvisioningQuotasResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3759,17 +3770,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListProvisioningQuotasResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3795,8 +3806,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListProvisioningQuotas {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListProvisioningQuotas {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3806,7 +3817,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::SubmitProvisioningConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3839,7 +3850,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3849,7 +3860,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .submit_provisioning_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SubmitProvisioningConfigRequest::parent].
@@ -3890,8 +3901,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SubmitProvisioningConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SubmitProvisioningConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3901,7 +3912,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetProvisioningConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3932,7 +3943,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3942,7 +3953,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_provisioning_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProvisioningConfigRequest::name].
@@ -3955,8 +3966,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetProvisioningConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetProvisioningConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3966,7 +3977,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::CreateProvisioningConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3999,7 +4010,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4009,7 +4020,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_provisioning_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProvisioningConfigRequest::parent].
@@ -4050,8 +4061,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateProvisioningConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateProvisioningConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4061,7 +4072,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::UpdateProvisioningConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4094,7 +4105,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4104,7 +4115,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_provisioning_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
@@ -4159,8 +4170,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateProvisioningConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateProvisioningConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4170,7 +4181,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::RenameNetwork;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4198,7 +4209,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4208,7 +4219,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_network(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNetworkRequest::name].
@@ -4229,8 +4240,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameNetwork {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameNetwork {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4240,8 +4251,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListOSImages;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4272,7 +4283,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4282,13 +4293,13 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_os_images(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListOSImagesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4297,15 +4308,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOSImagesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListOSImagesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4331,8 +4344,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOSImages {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOSImages {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4342,8 +4355,8 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4377,7 +4390,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4387,15 +4400,15 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4404,17 +4417,17 @@ pub mod bare_metal_solution {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4444,8 +4457,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4455,7 +4468,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4486,7 +4499,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4496,7 +4509,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -4507,8 +4520,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4518,7 +4531,7 @@ pub mod bare_metal_solution {
     /// # Example
     /// ```
     /// # use google_cloud_baremetalsolution_v2::builder::bare_metal_solution::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_baremetalsolution_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4549,7 +4562,7 @@ pub mod bare_metal_solution {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4559,7 +4572,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -4570,8 +4583,8 @@ pub mod bare_metal_solution {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

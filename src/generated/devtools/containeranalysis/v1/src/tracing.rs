@@ -41,8 +41,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -59,9 +59,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -69,8 +68,8 @@ where
     async fn get_vulnerability_occurrences_summary(
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VulnerabilityOccurrencesSummary>> {
         self.inner
             .get_vulnerability_occurrences_summary(req, options)
             .await
@@ -80,8 +79,8 @@ where
     async fn export_sbom(
         &self,
         req: crate::model::ExportSBOMRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExportSBOMResponse>> {
         self.inner.export_sbom(req, options).await
     }
 }

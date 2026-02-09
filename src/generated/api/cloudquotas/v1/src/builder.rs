@@ -20,7 +20,7 @@ pub mod cloud_quotas {
     /// A builder for [CloudQuotas][crate::client::CloudQuotas].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_cloudquotas_v1::*;
     /// # use builder::cloud_quotas::ClientBuilder;
     /// # use client::CloudQuotas;
@@ -30,19 +30,18 @@ pub mod cloud_quotas {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::CloudQuotas;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = CloudQuotas;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod cloud_quotas {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod cloud_quotas {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaInfos;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,14 +117,16 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .list_quota_infos(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQuotaInfosResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQuotaInfosResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -133,15 +134,17 @@ pub mod cloud_quotas {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaInfosResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListQuotaInfosResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -167,8 +170,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQuotaInfos {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQuotaInfos {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -178,7 +181,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaInfo;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -206,7 +209,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -216,7 +219,7 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .get_quota_info(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaInfoRequest::name].
@@ -229,8 +232,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQuotaInfo {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQuotaInfo {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -240,8 +243,8 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaPreferences;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -275,7 +278,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -285,14 +288,16 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .list_quota_preferences(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQuotaPreferencesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQuotaPreferencesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -300,17 +305,17 @@ pub mod cloud_quotas {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListQuotaPreferencesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -348,8 +353,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQuotaPreferences {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQuotaPreferences {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -359,7 +364,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaPreference;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -390,7 +395,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -400,7 +405,7 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .get_quota_preference(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaPreferenceRequest::name].
@@ -413,8 +418,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQuotaPreference {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQuotaPreference {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -424,7 +429,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::CreateQuotaPreference;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -455,7 +460,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -465,7 +470,7 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .create_quota_preference(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQuotaPreferenceRequest::parent].
@@ -517,8 +522,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQuotaPreference {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQuotaPreference {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -528,7 +533,7 @@ pub mod cloud_quotas {
     /// # Example
     /// ```
     /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::UpdateQuotaPreference;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_cloudquotas_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -559,7 +564,7 @@ pub mod cloud_quotas {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -569,7 +574,7 @@ pub mod cloud_quotas {
             (*self.0.stub)
                 .update_quota_preference(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
@@ -637,8 +642,8 @@ pub mod cloud_quotas {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateQuotaPreference {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateQuotaPreference {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

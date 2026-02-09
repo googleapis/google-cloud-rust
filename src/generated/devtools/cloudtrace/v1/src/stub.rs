@@ -42,9 +42,9 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     fn list_traces(
         &self,
         _req: crate::model::ListTracesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTracesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTracesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     fn get_trace(
         &self,
         _req: crate::model::GetTraceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Trace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Trace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,8 +63,8 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     fn patch_traces(
         &self,
         _req: crate::model::PatchTracesRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

@@ -42,9 +42,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Cluster>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,10 +83,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn update_node_pool(
         &self,
         _req: crate::model::UpdateNodePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -97,10 +93,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_node_pool_autoscaling(
         &self,
         _req: crate::model::SetNodePoolAutoscalingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -108,10 +103,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_logging_service(
         &self,
         _req: crate::model::SetLoggingServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -119,10 +113,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_monitoring_service(
         &self,
         _req: crate::model::SetMonitoringServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -130,10 +123,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_addons_config(
         &self,
         _req: crate::model::SetAddonsConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -141,10 +133,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_locations(
         &self,
         _req: crate::model::SetLocationsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -152,10 +143,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn update_master(
         &self,
         _req: crate::model::UpdateMasterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -163,10 +153,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_master_auth(
         &self,
         _req: crate::model::SetMasterAuthRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -174,10 +163,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -185,9 +173,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: crate::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListOperationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -196,10 +184,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: crate::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -207,8 +194,8 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: crate::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -216,9 +203,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn get_server_config(
         &self,
         _req: crate::model::GetServerConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ServerConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ServerConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -227,9 +214,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn get_json_web_keys(
         &self,
         _req: crate::model::GetJSONWebKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GetJSONWebKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -238,9 +225,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn list_node_pools(
         &self,
         _req: crate::model::ListNodePoolsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNodePoolsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -249,10 +236,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn get_node_pool(
         &self,
         _req: crate::model::GetNodePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::NodePool>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::NodePool>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -260,10 +246,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn create_node_pool(
         &self,
         _req: crate::model::CreateNodePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -271,10 +256,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn delete_node_pool(
         &self,
         _req: crate::model::DeleteNodePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -282,8 +266,8 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn complete_node_pool_upgrade(
         &self,
         _req: crate::model::CompleteNodePoolUpgradeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -291,10 +275,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn rollback_node_pool_upgrade(
         &self,
         _req: crate::model::RollbackNodePoolUpgradeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -302,10 +285,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_node_pool_management(
         &self,
         _req: crate::model::SetNodePoolManagementRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -313,10 +295,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_labels(
         &self,
         _req: crate::model::SetLabelsRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -324,10 +305,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_legacy_abac(
         &self,
         _req: crate::model::SetLegacyAbacRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -335,10 +315,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn start_ip_rotation(
         &self,
         _req: crate::model::StartIPRotationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -346,10 +325,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn complete_ip_rotation(
         &self,
         _req: crate::model::CompleteIPRotationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -357,10 +335,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_node_pool_size(
         &self,
         _req: crate::model::SetNodePoolSizeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -368,10 +345,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_network_policy(
         &self,
         _req: crate::model::SetNetworkPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -379,10 +355,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn set_maintenance_policy(
         &self,
         _req: crate::model::SetMaintenancePolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -390,11 +365,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn list_usable_subnetworks(
         &self,
         _req: crate::model::ListUsableSubnetworksRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListUsableSubnetworksResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListUsableSubnetworksResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -403,11 +376,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn check_autopilot_compatibility(
         &self,
         _req: crate::model::CheckAutopilotCompatibilityRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::CheckAutopilotCompatibilityResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -416,9 +387,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn fetch_cluster_upgrade_info(
         &self,
         _req: crate::model::FetchClusterUpgradeInfoRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ClusterUpgradeInfo>>,
+        Output = crate::Result<crate::Response<crate::model::ClusterUpgradeInfo>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -427,9 +398,9 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     fn fetch_node_pool_upgrade_info(
         &self,
         _req: crate::model::FetchNodePoolUpgradeInfoRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>>,
+        Output = crate::Result<crate::Response<crate::model::NodePoolUpgradeInfo>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

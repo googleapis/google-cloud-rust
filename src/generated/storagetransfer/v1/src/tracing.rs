@@ -41,8 +41,8 @@ where
     async fn get_google_service_account(
         &self,
         req: crate::model::GetGoogleServiceAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GoogleServiceAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GoogleServiceAccount>> {
         self.inner.get_google_service_account(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_transfer_job(
         &self,
         req: crate::model::CreateTransferJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferJob>> {
         self.inner.create_transfer_job(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn update_transfer_job(
         &self,
         req: crate::model::UpdateTransferJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferJob>> {
         self.inner.update_transfer_job(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_transfer_job(
         &self,
         req: crate::model::GetTransferJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferJob>> {
         self.inner.get_transfer_job(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_transfer_jobs(
         &self,
         req: crate::model::ListTransferJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTransferJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTransferJobsResponse>> {
         self.inner.list_transfer_jobs(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn pause_transfer_operation(
         &self,
         req: crate::model::PauseTransferOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.pause_transfer_operation(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn resume_transfer_operation(
         &self,
         req: crate::model::ResumeTransferOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.resume_transfer_operation(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn run_transfer_job(
         &self,
         req: crate::model::RunTransferJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.run_transfer_job(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn delete_transfer_job(
         &self,
         req: crate::model::DeleteTransferJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_transfer_job(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn create_agent_pool(
         &self,
         req: crate::model::CreateAgentPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AgentPool>> {
         self.inner.create_agent_pool(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn update_agent_pool(
         &self,
         req: crate::model::UpdateAgentPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AgentPool>> {
         self.inner.update_agent_pool(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn get_agent_pool(
         &self,
         req: crate::model::GetAgentPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AgentPool>> {
         self.inner.get_agent_pool(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn list_agent_pools(
         &self,
         req: crate::model::ListAgentPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListAgentPoolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAgentPoolsResponse>> {
         self.inner.list_agent_pools(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn delete_agent_pool(
         &self,
         req: crate::model::DeleteAgentPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_agent_pool(req, options).await
     }
 
@@ -167,9 +167,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -177,8 +176,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -186,22 +185,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

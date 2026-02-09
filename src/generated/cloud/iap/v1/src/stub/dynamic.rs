@@ -20,70 +20,68 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_iap_settings(
         &self,
         req: crate::model::GetIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IapSettings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IapSettings>>;
 
     async fn update_iap_settings(
         &self,
         req: crate::model::UpdateIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IapSettings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IapSettings>>;
 
     async fn validate_iap_attribute_expression(
         &self,
         req: crate::model::ValidateIapAttributeExpressionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateIapAttributeExpressionResponse>>;
 
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTunnelDestGroupsResponse>>;
 
     async fn create_tunnel_dest_group(
         &self,
         req: crate::model::CreateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>>;
 
     async fn get_tunnel_dest_group(
         &self,
         req: crate::model::GetTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>>;
 
     async fn delete_tunnel_dest_group(
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_tunnel_dest_group(
         &self,
         req: crate::model::UpdateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>>;
 }
 
 /// All implementations of [super::IdentityAwareProxyAdminService] also implement [IdentityAwareProxyAdminService].
@@ -93,8 +91,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -102,8 +100,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -111,10 +109,9 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -122,8 +119,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn get_iap_settings(
         &self,
         req: crate::model::GetIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IapSettings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IapSettings>> {
         T::get_iap_settings(self, req, options).await
     }
 
@@ -131,8 +128,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn update_iap_settings(
         &self,
         req: crate::model::UpdateIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IapSettings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IapSettings>> {
         T::update_iap_settings(self, req, options).await
     }
 
@@ -140,9 +137,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn validate_iap_attribute_expression(
         &self,
         req: crate::model::ValidateIapAttributeExpressionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
         T::validate_iap_attribute_expression(self, req, options).await
     }
 
@@ -150,8 +146,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTunnelDestGroupsResponse>> {
         T::list_tunnel_dest_groups(self, req, options).await
     }
 
@@ -159,8 +155,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn create_tunnel_dest_group(
         &self,
         req: crate::model::CreateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>> {
         T::create_tunnel_dest_group(self, req, options).await
     }
 
@@ -168,8 +164,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn get_tunnel_dest_group(
         &self,
         req: crate::model::GetTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>> {
         T::get_tunnel_dest_group(self, req, options).await
     }
 
@@ -177,8 +173,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn delete_tunnel_dest_group(
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_tunnel_dest_group(self, req, options).await
     }
 
@@ -186,8 +182,8 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
     async fn update_tunnel_dest_group(
         &self,
         req: crate::model::UpdateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TunnelDestGroup>> {
         T::update_tunnel_dest_group(self, req, options).await
     }
 }
@@ -198,50 +194,50 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     async fn list_brands(
         &self,
         req: crate::model::ListBrandsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBrandsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBrandsResponse>>;
 
     async fn create_brand(
         &self,
         req: crate::model::CreateBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Brand>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Brand>>;
 
     async fn get_brand(
         &self,
         req: crate::model::GetBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Brand>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Brand>>;
 
     async fn create_identity_aware_proxy_client(
         &self,
         req: crate::model::CreateIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>>;
 
     async fn list_identity_aware_proxy_clients(
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIdentityAwareProxyClientsResponse>>;
 
     async fn get_identity_aware_proxy_client(
         &self,
         req: crate::model::GetIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>>;
 
     async fn reset_identity_aware_proxy_client_secret(
         &self,
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>>;
 
     async fn delete_identity_aware_proxy_client(
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::IdentityAwareProxyOAuthService] also implement [IdentityAwareProxyOAuthService].
@@ -251,8 +247,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn list_brands(
         &self,
         req: crate::model::ListBrandsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBrandsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBrandsResponse>> {
         T::list_brands(self, req, options).await
     }
 
@@ -260,8 +256,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn create_brand(
         &self,
         req: crate::model::CreateBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Brand>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Brand>> {
         T::create_brand(self, req, options).await
     }
 
@@ -269,8 +265,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn get_brand(
         &self,
         req: crate::model::GetBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Brand>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Brand>> {
         T::get_brand(self, req, options).await
     }
 
@@ -278,8 +274,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn create_identity_aware_proxy_client(
         &self,
         req: crate::model::CreateIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         T::create_identity_aware_proxy_client(self, req, options).await
     }
 
@@ -287,9 +283,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn list_identity_aware_proxy_clients(
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
         T::list_identity_aware_proxy_clients(self, req, options).await
     }
 
@@ -297,8 +292,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn get_identity_aware_proxy_client(
         &self,
         req: crate::model::GetIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         T::get_identity_aware_proxy_client(self, req, options).await
     }
 
@@ -306,8 +301,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn reset_identity_aware_proxy_client_secret(
         &self,
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         T::reset_identity_aware_proxy_client_secret(self, req, options).await
     }
 
@@ -315,8 +310,8 @@ impl<T: super::IdentityAwareProxyOAuthService> IdentityAwareProxyOAuthService fo
     async fn delete_identity_aware_proxy_client(
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_identity_aware_proxy_client(self, req, options).await
     }
 }

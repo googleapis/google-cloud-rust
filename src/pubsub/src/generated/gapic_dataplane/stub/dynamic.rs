@@ -20,8 +20,8 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>>;
 }
 
 /// All implementations of [super::Publisher] also implement [Publisher].
@@ -31,8 +31,8 @@ impl<T: super::Publisher> Publisher for T {
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublishResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
         T::publish(self, req, options).await
     }
 }
@@ -43,14 +43,14 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
     async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::Subscriber] also implement [Subscriber].
@@ -60,8 +60,8 @@ impl<T: super::Subscriber> Subscriber for T {
     async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::modify_ack_deadline(self, req, options).await
     }
 
@@ -69,8 +69,8 @@ impl<T: super::Subscriber> Subscriber for T {
     async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::acknowledge(self, req, options).await
     }
 }

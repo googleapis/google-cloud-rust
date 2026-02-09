@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -421,7 +421,7 @@ impl wkt::message::Message for ListAttachmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
     type PageItem = crate::model::Attachment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1464,7 +1464,7 @@ impl wkt::message::Message for ListCasesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCasesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCasesResponse {
     type PageItem = crate::model::Case;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1652,7 +1652,7 @@ impl wkt::message::Message for SearchCasesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchCasesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchCasesResponse {
     type PageItem = crate::model::Case;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1997,7 +1997,7 @@ impl wkt::message::Message for SearchCaseClassificationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchCaseClassificationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchCaseClassificationsResponse {
     type PageItem = crate::model::CaseClassification;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2285,7 +2285,7 @@ impl wkt::message::Message for ListCommentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCommentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCommentsResponse {
     type PageItem = crate::model::Comment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

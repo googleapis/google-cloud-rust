@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -2797,7 +2797,7 @@ impl wkt::message::Message for ListConnectivityTestsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConnectivityTestsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConnectivityTestsResponse {
     type PageItem = crate::model::ConnectivityTest;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -15850,7 +15850,7 @@ impl wkt::message::Message for ListVpcFlowLogsConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVpcFlowLogsConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVpcFlowLogsConfigsResponse {
     type PageItem = crate::model::VpcFlowLogsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -16303,7 +16303,9 @@ impl wkt::message::Message for QueryOrgVpcFlowLogsConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for QueryOrgVpcFlowLogsConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for QueryOrgVpcFlowLogsConfigsResponse
+{
     type PageItem = crate::model::VpcFlowLogsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -16498,7 +16500,9 @@ impl wkt::message::Message for ShowEffectiveFlowLogsConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ShowEffectiveFlowLogsConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ShowEffectiveFlowLogsConfigsResponse
+{
     type PageItem = crate::model::EffectiveVpcFlowLogsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

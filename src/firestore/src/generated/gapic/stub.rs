@@ -42,10 +42,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn get_document(
         &self,
         _req: crate::model::GetDocumentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Document>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Document>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn list_documents(
         &self,
         _req: crate::model::ListDocumentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDocumentsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDocumentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +63,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn update_document(
         &self,
         _req: crate::model::UpdateDocumentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Document>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Document>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,8 +73,8 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn delete_document(
         &self,
         _req: crate::model::DeleteDocumentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -84,9 +82,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn begin_transaction(
         &self,
         _req: crate::model::BeginTransactionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BeginTransactionResponse>>,
+        Output = crate::Result<crate::Response<crate::model::BeginTransactionResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -95,9 +93,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn commit(
         &self,
         _req: crate::model::CommitRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CommitResponse>>,
+        Output = crate::Result<crate::Response<crate::model::CommitResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,8 +104,8 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn rollback(
         &self,
         _req: crate::model::RollbackRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -115,9 +113,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn partition_query(
         &self,
         _req: crate::model::PartitionQueryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PartitionQueryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PartitionQueryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -126,9 +124,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn list_collection_ids(
         &self,
         _req: crate::model::ListCollectionIdsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCollectionIdsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCollectionIdsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -137,9 +135,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn batch_write(
         &self,
         _req: crate::model::BatchWriteRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BatchWriteResponse>>,
+        Output = crate::Result<crate::Response<crate::model::BatchWriteResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -148,10 +146,9 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     fn create_document(
         &self,
         _req: crate::model::CreateDocumentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Document>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Document>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

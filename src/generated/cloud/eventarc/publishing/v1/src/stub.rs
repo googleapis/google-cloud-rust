@@ -42,10 +42,10 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     fn publish_channel_connection_events(
         &self,
         _req: crate::model::PublishChannelConnectionEventsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::PublishChannelConnectionEventsResponse>,
+            crate::Response<crate::model::PublishChannelConnectionEventsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -55,9 +55,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     fn publish_events(
         &self,
         _req: crate::model::PublishEventsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PublishEventsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PublishEventsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -66,9 +66,9 @@ pub trait Publisher: std::fmt::Debug + Send + Sync {
     fn publish(
         &self,
         _req: crate::model::PublishRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PublishResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PublishResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

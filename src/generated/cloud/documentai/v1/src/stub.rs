@@ -42,9 +42,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn process_document(
         &self,
         _req: crate::model::ProcessRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProcessResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ProcessResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn batch_process_documents(
         &self,
         _req: crate::model::BatchProcessRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn fetch_processor_types(
         &self,
         _req: crate::model::FetchProcessorTypesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchProcessorTypesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_processor_types(
         &self,
         _req: crate::model::ListProcessorTypesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListProcessorTypesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListProcessorTypesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +86,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_processor_type(
         &self,
         _req: crate::model::GetProcessorTypeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProcessorType>>,
+        Output = crate::Result<crate::Response<crate::model::ProcessorType>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +97,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_processors(
         &self,
         _req: crate::model::ListProcessorsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListProcessorsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListProcessorsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,10 +108,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_processor(
         &self,
         _req: crate::model::GetProcessorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Processor>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Processor>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -119,9 +118,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn train_processor_version(
         &self,
         _req: crate::model::TrainProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +129,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_processor_version(
         &self,
         _req: crate::model::GetProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProcessorVersion>>,
+        Output = crate::Result<crate::Response<crate::model::ProcessorVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,11 +140,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_processor_versions(
         &self,
         _req: crate::model::ListProcessorVersionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListProcessorVersionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListProcessorVersionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -154,9 +151,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn delete_processor_version(
         &self,
         _req: crate::model::DeleteProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -165,9 +162,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn deploy_processor_version(
         &self,
         _req: crate::model::DeployProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -176,9 +173,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn undeploy_processor_version(
         &self,
         _req: crate::model::UndeployProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -187,10 +184,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn create_processor(
         &self,
         _req: crate::model::CreateProcessorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Processor>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Processor>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -198,9 +194,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn delete_processor(
         &self,
         _req: crate::model::DeleteProcessorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -209,9 +205,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn enable_processor(
         &self,
         _req: crate::model::EnableProcessorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -220,9 +216,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn disable_processor(
         &self,
         _req: crate::model::DisableProcessorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -231,9 +227,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn set_default_processor_version(
         &self,
         _req: crate::model::SetDefaultProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -242,9 +238,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn review_document(
         &self,
         _req: crate::model::ReviewDocumentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -253,9 +249,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn evaluate_processor_version(
         &self,
         _req: crate::model::EvaluateProcessorVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -264,10 +260,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_evaluation(
         &self,
         _req: crate::model::GetEvaluationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Evaluation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Evaluation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -275,9 +270,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_evaluations(
         &self,
         _req: crate::model::ListEvaluationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEvaluationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListEvaluationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -286,10 +281,10 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -299,9 +294,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -310,10 +305,10 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -323,9 +318,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -334,8 +329,8 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -345,9 +340,9 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -356,8 +351,8 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

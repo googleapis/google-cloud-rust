@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
@@ -3715,7 +3715,7 @@ impl wkt::message::Message for DatasetList {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for DatasetList {
+impl google_cloud_gax::paginator::internal::PageableResponse for DatasetList {
     type PageItem = crate::model::ListFormatDataset;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8651,7 +8651,7 @@ impl wkt::message::Message for JobList {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for JobList {
+impl google_cloud_gax::paginator::internal::PageableResponse for JobList {
     type PageItem = crate::model::ListFormatJob;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -40058,7 +40058,7 @@ impl wkt::message::Message for ListModelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListModelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListModelsResponse {
     type PageItem = crate::model::Model;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -44823,7 +44823,7 @@ impl wkt::message::Message for ListRoutinesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRoutinesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRoutinesResponse {
     type PageItem = crate::model::Routine;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -45058,7 +45058,7 @@ impl wkt::message::Message for ListRowAccessPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRowAccessPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRowAccessPoliciesResponse {
     type PageItem = crate::model::RowAccessPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -50616,7 +50616,7 @@ impl wkt::message::Message for TableList {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for TableList {
+impl google_cloud_gax::paginator::internal::PageableResponse for TableList {
     type PageItem = crate::model::ListFormatTable;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

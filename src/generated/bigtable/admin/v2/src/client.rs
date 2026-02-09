@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
 /// let client = BigtableInstanceAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
@@ -68,15 +68,13 @@ impl BigtableInstanceAdmin {
     /// Returns a builder for [BigtableInstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// let client = BigtableInstanceAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::bigtable_instance_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::bigtable_instance_admin::client::Factory,
-        )
+        crate::new_client_builder(super::builder::bigtable_instance_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +92,14 @@ impl BigtableInstanceAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::BigtableInstanceAdmin>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -111,13 +109,13 @@ impl BigtableInstanceAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BigtableInstanceAdmin> {
         super::transport::BigtableInstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BigtableInstanceAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BigtableInstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BigtableInstanceAdmin::new)
@@ -466,7 +464,7 @@ impl BigtableInstanceAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
 /// let client = BigtableTableAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
@@ -515,15 +513,13 @@ impl BigtableTableAdmin {
     /// Returns a builder for [BigtableTableAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// let client = BigtableTableAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::bigtable_table_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::bigtable_table_admin::client::Factory,
-        )
+        crate::new_client_builder(super::builder::bigtable_table_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -541,14 +537,14 @@ impl BigtableTableAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::BigtableTableAdmin>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -558,13 +554,13 @@ impl BigtableTableAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BigtableTableAdmin> {
         super::transport::BigtableTableAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::BigtableTableAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::BigtableTableAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BigtableTableAdmin::new)

@@ -41,8 +41,8 @@ where
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecretsResponse>> {
         self.inner.list_secrets(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Secret>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Secret>> {
         self.inner.create_secret(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
         self.inner.add_secret_version(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Secret>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Secret>> {
         self.inner.get_secret(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Secret>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Secret>> {
         self.inner.update_secret(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_secret(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecretVersionsResponse>> {
         self.inner.list_secret_versions(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
         self.inner.get_secret_version(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AccessSecretVersionResponse>> {
         self.inner.access_secret_version(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
         self.inner.disable_secret_version(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
         self.inner.enable_secret_version(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecretVersion>> {
         self.inner.destroy_secret_version(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -167,9 +167,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -177,8 +176,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -186,8 +185,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

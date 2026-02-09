@@ -42,10 +42,9 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     fn create_profile(
         &self,
         _req: crate::model::CreateProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Profile>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     fn create_offline_profile(
         &self,
         _req: crate::model::CreateOfflineProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Profile>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +62,9 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     fn update_profile(
         &self,
         _req: crate::model::UpdateProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Profile>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -88,9 +85,9 @@ pub trait ExportService: std::fmt::Debug + Send + Sync {
     fn list_profiles(
         &self,
         _req: crate::model::ListProfilesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListProfilesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

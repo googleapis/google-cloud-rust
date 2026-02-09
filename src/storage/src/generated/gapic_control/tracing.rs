@@ -41,8 +41,8 @@ where
     async fn create_folder(
         &self,
         req: crate::model::CreateFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Folder>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
         self.inner.create_folder(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn delete_folder(
         &self,
         req: crate::model::DeleteFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_folder(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Folder>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
         self.inner.get_folder(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_folders(
         &self,
         req: crate::model::ListFoldersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListFoldersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFoldersResponse>> {
         self.inner.list_folders(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn rename_folder(
         &self,
         req: crate::model::RenameFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.rename_folder(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StorageLayout>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StorageLayout>> {
         self.inner.get_storage_layout(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn create_managed_folder(
         &self,
         req: crate::model::CreateManagedFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ManagedFolder>> {
         self.inner.create_managed_folder(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn delete_managed_folder(
         &self,
         req: crate::model::DeleteManagedFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_managed_folder(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn get_managed_folder(
         &self,
         req: crate::model::GetManagedFolderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ManagedFolder>> {
         self.inner.get_managed_folder(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn list_managed_folders(
         &self,
         req: crate::model::ListManagedFoldersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListManagedFoldersResponse>> {
         self.inner.list_managed_folders(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_anywhere_cache(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn update_anywhere_cache(
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_anywhere_cache(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn disable_anywhere_cache(
         &self,
         req: crate::model::DisableAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnywhereCache>> {
         self.inner.disable_anywhere_cache(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn pause_anywhere_cache(
         &self,
         req: crate::model::PauseAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnywhereCache>> {
         self.inner.pause_anywhere_cache(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn resume_anywhere_cache(
         &self,
         req: crate::model::ResumeAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnywhereCache>> {
         self.inner.resume_anywhere_cache(req, options).await
     }
 
@@ -176,8 +176,8 @@ where
     async fn get_anywhere_cache(
         &self,
         req: crate::model::GetAnywhereCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnywhereCache>> {
         self.inner.get_anywhere_cache(req, options).await
     }
 
@@ -185,8 +185,8 @@ where
     async fn list_anywhere_caches(
         &self,
         req: crate::model::ListAnywhereCachesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAnywhereCachesResponse>> {
         self.inner.list_anywhere_caches(req, options).await
     }
 
@@ -194,8 +194,8 @@ where
     async fn get_project_intelligence_config(
         &self,
         req: crate::model::GetProjectIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .get_project_intelligence_config(req, options)
             .await
@@ -205,8 +205,8 @@ where
     async fn update_project_intelligence_config(
         &self,
         req: crate::model::UpdateProjectIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .update_project_intelligence_config(req, options)
             .await
@@ -216,8 +216,8 @@ where
     async fn get_folder_intelligence_config(
         &self,
         req: crate::model::GetFolderIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .get_folder_intelligence_config(req, options)
             .await
@@ -227,8 +227,8 @@ where
     async fn update_folder_intelligence_config(
         &self,
         req: crate::model::UpdateFolderIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .update_folder_intelligence_config(req, options)
             .await
@@ -238,8 +238,8 @@ where
     async fn get_organization_intelligence_config(
         &self,
         req: crate::model::GetOrganizationIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .get_organization_intelligence_config(req, options)
             .await
@@ -249,8 +249,8 @@ where
     async fn update_organization_intelligence_config(
         &self,
         req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
         self.inner
             .update_organization_intelligence_config(req, options)
             .await
@@ -260,8 +260,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -269,8 +269,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -278,9 +278,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -288,22 +287,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

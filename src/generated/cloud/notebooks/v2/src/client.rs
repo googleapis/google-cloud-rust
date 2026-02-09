@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_notebooks_v2::client::NotebookService;
 /// let client = NotebookService::builder().build().await?;
 /// // use `client` to make requests to the Notebooks API.
@@ -66,15 +66,13 @@ impl NotebookService {
     /// Returns a builder for [NotebookService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_notebooks_v2::client::NotebookService;
     /// let client = NotebookService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::notebook_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::notebook_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::notebook_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,15 +90,14 @@ impl NotebookService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NotebookService>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::NotebookService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -109,13 +106,13 @@ impl NotebookService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NotebookService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NotebookService> {
         super::transport::NotebookService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NotebookService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NotebookService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NotebookService::new)

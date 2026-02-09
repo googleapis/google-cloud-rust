@@ -20,7 +20,7 @@ pub mod iam_credentials {
     /// A builder for [IAMCredentials][crate::client::IAMCredentials].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_credentials_v1::*;
     /// # use builder::iam_credentials::ClientBuilder;
     /// # use client::IAMCredentials;
@@ -30,19 +30,18 @@ pub mod iam_credentials {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::IAMCredentials;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = IAMCredentials;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod iam_credentials {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod iam_credentials {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateAccessToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod iam_credentials {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .generate_access_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
@@ -172,8 +171,8 @@ pub mod iam_credentials {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAccessToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAccessToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -183,7 +182,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateIdToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -211,7 +210,7 @@ pub mod iam_credentials {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -221,7 +220,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .generate_id_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
@@ -259,8 +258,8 @@ pub mod iam_credentials {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateIdToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateIdToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -270,7 +269,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignBlob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -298,7 +297,7 @@ pub mod iam_credentials {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -308,7 +307,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .sign_blob(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
@@ -340,8 +339,8 @@ pub mod iam_credentials {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SignBlob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SignBlob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -351,7 +350,7 @@ pub mod iam_credentials {
     /// # Example
     /// ```
     /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignJwt;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_iam_credentials_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -379,7 +378,7 @@ pub mod iam_credentials {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -389,7 +388,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .sign_jwt(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
@@ -421,8 +420,8 @@ pub mod iam_credentials {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SignJwt {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SignJwt {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

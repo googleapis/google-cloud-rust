@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -267,7 +267,7 @@ impl wkt::message::Message for ListEnvironmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEnvironmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEnvironmentsResponse {
     type PageItem = crate::model::Environment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1817,7 +1817,7 @@ impl wkt::message::Message for ListUserWorkloadsSecretsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUserWorkloadsSecretsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUserWorkloadsSecretsResponse {
     type PageItem = crate::model::UserWorkloadsSecret;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1959,7 +1959,9 @@ impl wkt::message::Message for ListUserWorkloadsConfigMapsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUserWorkloadsConfigMapsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListUserWorkloadsConfigMapsResponse
+{
     type PageItem = crate::model::UserWorkloadsConfigMap;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2118,7 +2120,7 @@ impl wkt::message::Message for ListWorkloadsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWorkloadsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWorkloadsResponse {
     type PageItem = crate::model::list_workloads_response::ComposerWorkload;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8236,7 +8238,7 @@ impl wkt::message::Message for ListImageVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListImageVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListImageVersionsResponse {
     type PageItem = crate::model::ImageVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

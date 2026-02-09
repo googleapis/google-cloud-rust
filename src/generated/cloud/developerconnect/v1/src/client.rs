@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
 /// let client = DeveloperConnect::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
@@ -66,15 +66,13 @@ impl DeveloperConnect {
     /// Returns a builder for [DeveloperConnect].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// let client = DeveloperConnect::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::developer_connect::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::developer_connect::client::Factory,
-        )
+        crate::new_client_builder(super::builder::developer_connect::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl DeveloperConnect {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DeveloperConnect>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DeveloperConnect>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -109,13 +107,13 @@ impl DeveloperConnect {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DeveloperConnect> {
         super::transport::DeveloperConnect::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DeveloperConnect> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DeveloperConnect> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DeveloperConnect::new)
@@ -412,7 +410,7 @@ impl DeveloperConnect {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
 /// let client = InsightsConfigService::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
@@ -466,15 +464,13 @@ impl InsightsConfigService {
     /// Returns a builder for [InsightsConfigService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// let client = InsightsConfigService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::insights_config_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::insights_config_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::insights_config_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -492,14 +488,14 @@ impl InsightsConfigService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -509,13 +505,13 @@ impl InsightsConfigService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InsightsConfigService> {
         super::transport::InsightsConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InsightsConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::InsightsConfigService::new)

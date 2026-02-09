@@ -41,8 +41,8 @@ where
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListConstraintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListConstraintsResponse>> {
         self.inner.list_constraints(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListPoliciesResponse>> {
         self.inner.list_policies(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_policy(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_effective_policy(
         &self,
         req: crate::model::GetEffectivePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_effective_policy(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn create_policy(
         &self,
         req: crate::model::CreatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.create_policy(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.update_policy(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn delete_policy(
         &self,
         req: crate::model::DeletePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_policy(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CustomConstraint>> {
         self.inner.create_custom_constraint(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn update_custom_constraint(
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CustomConstraint>> {
         self.inner.update_custom_constraint(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn get_custom_constraint(
         &self,
         req: crate::model::GetCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CustomConstraint>> {
         self.inner.get_custom_constraint(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn list_custom_constraints(
         &self,
         req: crate::model::ListCustomConstraintsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCustomConstraintsResponse>> {
         self.inner.list_custom_constraints(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn delete_custom_constraint(
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_custom_constraint(req, options).await
     }
 }

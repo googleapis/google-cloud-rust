@@ -20,96 +20,90 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
     async fn create_attached_cluster(
         &self,
         req: crate::model::CreateAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_attached_cluster(
         &self,
         req: crate::model::UpdateAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_attached_cluster(
         &self,
         req: crate::model::ImportAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_attached_cluster(
         &self,
         req: crate::model::GetAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AttachedCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AttachedCluster>>;
 
     async fn list_attached_clusters(
         &self,
         req: crate::model::ListAttachedClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttachedClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttachedClustersResponse>>;
 
     async fn delete_attached_cluster(
         &self,
         req: crate::model::DeleteAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_attached_server_config(
         &self,
         req: crate::model::GetAttachedServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AttachedServerConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AttachedServerConfig>>;
 
     async fn generate_attached_cluster_install_manifest(
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>;
 
     async fn generate_attached_cluster_agent_token(
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AttachedClusters] also implement [AttachedClusters].
@@ -119,8 +113,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn create_attached_cluster(
         &self,
         req: crate::model::CreateAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_attached_cluster(self, req, options).await
     }
 
@@ -128,8 +122,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn update_attached_cluster(
         &self,
         req: crate::model::UpdateAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_attached_cluster(self, req, options).await
     }
 
@@ -137,8 +131,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn import_attached_cluster(
         &self,
         req: crate::model::ImportAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::import_attached_cluster(self, req, options).await
     }
 
@@ -146,8 +140,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn get_attached_cluster(
         &self,
         req: crate::model::GetAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AttachedCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AttachedCluster>> {
         T::get_attached_cluster(self, req, options).await
     }
 
@@ -155,8 +149,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn list_attached_clusters(
         &self,
         req: crate::model::ListAttachedClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttachedClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttachedClustersResponse>> {
         T::list_attached_clusters(self, req, options).await
     }
 
@@ -164,8 +158,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn delete_attached_cluster(
         &self,
         req: crate::model::DeleteAttachedClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_attached_cluster(self, req, options).await
     }
 
@@ -173,8 +167,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn get_attached_server_config(
         &self,
         req: crate::model::GetAttachedServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AttachedServerConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AttachedServerConfig>> {
         T::get_attached_server_config(self, req, options).await
     }
 
@@ -182,10 +176,9 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn generate_attached_cluster_install_manifest(
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>
+    {
         T::generate_attached_cluster_install_manifest(self, req, options).await
     }
 
@@ -193,10 +186,9 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn generate_attached_cluster_agent_token(
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>
+    {
         T::generate_attached_cluster_agent_token(self, req, options).await
     }
 
@@ -204,10 +196,9 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -215,8 +206,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -224,8 +215,8 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -233,22 +224,22 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -259,134 +250,132 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
     async fn create_aws_cluster(
         &self,
         req: crate::model::CreateAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_aws_cluster(
         &self,
         req: crate::model::UpdateAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_aws_cluster(
         &self,
         req: crate::model::GetAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsCluster>>;
 
     async fn list_aws_clusters(
         &self,
         req: crate::model::ListAwsClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAwsClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAwsClustersResponse>>;
 
     async fn delete_aws_cluster(
         &self,
         req: crate::model::DeleteAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_aws_cluster_agent_token(
         &self,
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAwsClusterAgentTokenResponse>>;
 
     async fn generate_aws_access_token(
         &self,
         req: crate::model::GenerateAwsAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAwsAccessTokenResponse>>;
 
     async fn create_aws_node_pool(
         &self,
         req: crate::model::CreateAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_aws_node_pool(
         &self,
         req: crate::model::UpdateAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn rollback_aws_node_pool_update(
         &self,
         req: crate::model::RollbackAwsNodePoolUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_aws_node_pool(
         &self,
         req: crate::model::GetAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsNodePool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsNodePool>>;
 
     async fn list_aws_node_pools(
         &self,
         req: crate::model::ListAwsNodePoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAwsNodePoolsResponse>>;
 
     async fn delete_aws_node_pool(
         &self,
         req: crate::model::DeleteAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_aws_open_id_config(
         &self,
         req: crate::model::GetAwsOpenIdConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsOpenIdConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsOpenIdConfig>>;
 
     async fn get_aws_json_web_keys(
         &self,
         req: crate::model::GetAwsJsonWebKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsJsonWebKeys>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsJsonWebKeys>>;
 
     async fn get_aws_server_config(
         &self,
         req: crate::model::GetAwsServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsServerConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsServerConfig>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AwsClusters] also implement [AwsClusters].
@@ -396,8 +385,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn create_aws_cluster(
         &self,
         req: crate::model::CreateAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_aws_cluster(self, req, options).await
     }
 
@@ -405,8 +394,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn update_aws_cluster(
         &self,
         req: crate::model::UpdateAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_aws_cluster(self, req, options).await
     }
 
@@ -414,8 +403,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_aws_cluster(
         &self,
         req: crate::model::GetAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsCluster>> {
         T::get_aws_cluster(self, req, options).await
     }
 
@@ -423,8 +412,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn list_aws_clusters(
         &self,
         req: crate::model::ListAwsClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAwsClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAwsClustersResponse>> {
         T::list_aws_clusters(self, req, options).await
     }
 
@@ -432,8 +421,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn delete_aws_cluster(
         &self,
         req: crate::model::DeleteAwsClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_aws_cluster(self, req, options).await
     }
 
@@ -441,9 +430,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn generate_aws_cluster_agent_token(
         &self,
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
         T::generate_aws_cluster_agent_token(self, req, options).await
     }
 
@@ -451,8 +439,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn generate_aws_access_token(
         &self,
         req: crate::model::GenerateAwsAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAwsAccessTokenResponse>> {
         T::generate_aws_access_token(self, req, options).await
     }
 
@@ -460,8 +448,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn create_aws_node_pool(
         &self,
         req: crate::model::CreateAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_aws_node_pool(self, req, options).await
     }
 
@@ -469,8 +457,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn update_aws_node_pool(
         &self,
         req: crate::model::UpdateAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_aws_node_pool(self, req, options).await
     }
 
@@ -478,8 +466,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn rollback_aws_node_pool_update(
         &self,
         req: crate::model::RollbackAwsNodePoolUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::rollback_aws_node_pool_update(self, req, options).await
     }
 
@@ -487,8 +475,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_aws_node_pool(
         &self,
         req: crate::model::GetAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsNodePool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsNodePool>> {
         T::get_aws_node_pool(self, req, options).await
     }
 
@@ -496,8 +484,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn list_aws_node_pools(
         &self,
         req: crate::model::ListAwsNodePoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAwsNodePoolsResponse>> {
         T::list_aws_node_pools(self, req, options).await
     }
 
@@ -505,8 +493,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn delete_aws_node_pool(
         &self,
         req: crate::model::DeleteAwsNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_aws_node_pool(self, req, options).await
     }
 
@@ -514,8 +502,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_aws_open_id_config(
         &self,
         req: crate::model::GetAwsOpenIdConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsOpenIdConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsOpenIdConfig>> {
         T::get_aws_open_id_config(self, req, options).await
     }
 
@@ -523,8 +511,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_aws_json_web_keys(
         &self,
         req: crate::model::GetAwsJsonWebKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsJsonWebKeys>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsJsonWebKeys>> {
         T::get_aws_json_web_keys(self, req, options).await
     }
 
@@ -532,8 +520,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_aws_server_config(
         &self,
         req: crate::model::GetAwsServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AwsServerConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AwsServerConfig>> {
         T::get_aws_server_config(self, req, options).await
     }
 
@@ -541,10 +529,9 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -552,8 +539,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -561,8 +548,8 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -570,22 +557,22 @@ impl<T: super::AwsClusters> AwsClusters for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -596,152 +583,150 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
     async fn create_azure_client(
         &self,
         req: crate::model::CreateAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_azure_client(
         &self,
         req: crate::model::GetAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureClient>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureClient>>;
 
     async fn list_azure_clients(
         &self,
         req: crate::model::ListAzureClientsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureClientsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureClientsResponse>>;
 
     async fn delete_azure_client(
         &self,
         req: crate::model::DeleteAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_azure_cluster(
         &self,
         req: crate::model::CreateAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_azure_cluster(
         &self,
         req: crate::model::UpdateAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_azure_cluster(
         &self,
         req: crate::model::GetAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureCluster>>;
 
     async fn list_azure_clusters(
         &self,
         req: crate::model::ListAzureClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureClustersResponse>>;
 
     async fn delete_azure_cluster(
         &self,
         req: crate::model::DeleteAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_azure_cluster_agent_token(
         &self,
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAzureClusterAgentTokenResponse>>;
 
     async fn generate_azure_access_token(
         &self,
         req: crate::model::GenerateAzureAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAzureAccessTokenResponse>>;
 
     async fn create_azure_node_pool(
         &self,
         req: crate::model::CreateAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_azure_node_pool(
         &self,
         req: crate::model::UpdateAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_azure_node_pool(
         &self,
         req: crate::model::GetAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureNodePool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureNodePool>>;
 
     async fn list_azure_node_pools(
         &self,
         req: crate::model::ListAzureNodePoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureNodePoolsResponse>>;
 
     async fn delete_azure_node_pool(
         &self,
         req: crate::model::DeleteAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_azure_open_id_config(
         &self,
         req: crate::model::GetAzureOpenIdConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureOpenIdConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureOpenIdConfig>>;
 
     async fn get_azure_json_web_keys(
         &self,
         req: crate::model::GetAzureJsonWebKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureJsonWebKeys>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureJsonWebKeys>>;
 
     async fn get_azure_server_config(
         &self,
         req: crate::model::GetAzureServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureServerConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureServerConfig>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AzureClusters] also implement [AzureClusters].
@@ -751,8 +736,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn create_azure_client(
         &self,
         req: crate::model::CreateAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_azure_client(self, req, options).await
     }
 
@@ -760,8 +745,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_client(
         &self,
         req: crate::model::GetAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureClient>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureClient>> {
         T::get_azure_client(self, req, options).await
     }
 
@@ -769,8 +754,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn list_azure_clients(
         &self,
         req: crate::model::ListAzureClientsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureClientsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureClientsResponse>> {
         T::list_azure_clients(self, req, options).await
     }
 
@@ -778,8 +763,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn delete_azure_client(
         &self,
         req: crate::model::DeleteAzureClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_azure_client(self, req, options).await
     }
 
@@ -787,8 +772,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn create_azure_cluster(
         &self,
         req: crate::model::CreateAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_azure_cluster(self, req, options).await
     }
 
@@ -796,8 +781,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn update_azure_cluster(
         &self,
         req: crate::model::UpdateAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_azure_cluster(self, req, options).await
     }
 
@@ -805,8 +790,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_cluster(
         &self,
         req: crate::model::GetAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureCluster>> {
         T::get_azure_cluster(self, req, options).await
     }
 
@@ -814,8 +799,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn list_azure_clusters(
         &self,
         req: crate::model::ListAzureClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureClustersResponse>> {
         T::list_azure_clusters(self, req, options).await
     }
 
@@ -823,8 +808,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn delete_azure_cluster(
         &self,
         req: crate::model::DeleteAzureClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_azure_cluster(self, req, options).await
     }
 
@@ -832,9 +817,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn generate_azure_cluster_agent_token(
         &self,
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
         T::generate_azure_cluster_agent_token(self, req, options).await
     }
 
@@ -842,9 +826,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn generate_azure_access_token(
         &self,
         req: crate::model::GenerateAzureAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAzureAccessTokenResponse>> {
         T::generate_azure_access_token(self, req, options).await
     }
 
@@ -852,8 +835,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn create_azure_node_pool(
         &self,
         req: crate::model::CreateAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_azure_node_pool(self, req, options).await
     }
 
@@ -861,8 +844,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn update_azure_node_pool(
         &self,
         req: crate::model::UpdateAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_azure_node_pool(self, req, options).await
     }
 
@@ -870,8 +853,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_node_pool(
         &self,
         req: crate::model::GetAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureNodePool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureNodePool>> {
         T::get_azure_node_pool(self, req, options).await
     }
 
@@ -879,8 +862,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn list_azure_node_pools(
         &self,
         req: crate::model::ListAzureNodePoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAzureNodePoolsResponse>> {
         T::list_azure_node_pools(self, req, options).await
     }
 
@@ -888,8 +871,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn delete_azure_node_pool(
         &self,
         req: crate::model::DeleteAzureNodePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_azure_node_pool(self, req, options).await
     }
 
@@ -897,8 +880,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_open_id_config(
         &self,
         req: crate::model::GetAzureOpenIdConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureOpenIdConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureOpenIdConfig>> {
         T::get_azure_open_id_config(self, req, options).await
     }
 
@@ -906,8 +889,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_json_web_keys(
         &self,
         req: crate::model::GetAzureJsonWebKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureJsonWebKeys>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureJsonWebKeys>> {
         T::get_azure_json_web_keys(self, req, options).await
     }
 
@@ -915,8 +898,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_azure_server_config(
         &self,
         req: crate::model::GetAzureServerConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AzureServerConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AzureServerConfig>> {
         T::get_azure_server_config(self, req, options).await
     }
 
@@ -924,10 +907,9 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -935,8 +917,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -944,8 +926,8 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -953,22 +935,22 @@ impl<T: super::AzureClusters> AzureClusters for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

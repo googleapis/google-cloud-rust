@@ -20,38 +20,38 @@ pub trait CloudApiRegistry: std::fmt::Debug + Send + Sync {
     async fn get_mcp_server(
         &self,
         req: crate::model::GetMcpServerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::McpServer>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::McpServer>>;
 
     async fn list_mcp_servers(
         &self,
         req: crate::model::ListMcpServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMcpServersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMcpServersResponse>>;
 
     async fn get_mcp_tool(
         &self,
         req: crate::model::GetMcpToolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::McpTool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::McpTool>>;
 
     async fn list_mcp_tools(
         &self,
         req: crate::model::ListMcpToolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMcpToolsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMcpToolsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 }
 
 /// All implementations of [super::CloudApiRegistry] also implement [CloudApiRegistry].
@@ -61,8 +61,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn get_mcp_server(
         &self,
         req: crate::model::GetMcpServerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::McpServer>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::McpServer>> {
         T::get_mcp_server(self, req, options).await
     }
 
@@ -70,8 +70,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn list_mcp_servers(
         &self,
         req: crate::model::ListMcpServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMcpServersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMcpServersResponse>> {
         T::list_mcp_servers(self, req, options).await
     }
 
@@ -79,8 +79,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn get_mcp_tool(
         &self,
         req: crate::model::GetMcpToolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::McpTool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::McpTool>> {
         T::get_mcp_tool(self, req, options).await
     }
 
@@ -88,8 +88,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn list_mcp_tools(
         &self,
         req: crate::model::ListMcpToolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMcpToolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMcpToolsResponse>> {
         T::list_mcp_tools(self, req, options).await
     }
 
@@ -97,9 +97,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -107,8 +106,8 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

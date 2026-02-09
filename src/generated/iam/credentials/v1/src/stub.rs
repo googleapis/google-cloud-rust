@@ -42,9 +42,9 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     fn generate_access_token(
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GenerateAccessTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     fn generate_id_token(
         &self,
         _req: crate::model::GenerateIdTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GenerateIdTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     fn sign_blob(
         &self,
         _req: crate::model::SignBlobRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SignBlobResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SignBlobResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     fn sign_jwt(
         &self,
         _req: crate::model::SignJwtRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SignJwtResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SignJwtResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

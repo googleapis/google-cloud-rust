@@ -20,50 +20,50 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEventsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEventsResponse>>;
 
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Event>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Event>>;
 
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrganizationEventsResponse>>;
 
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrganizationEvent>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrganizationEvent>>;
 
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrganizationImpactsResponse>>;
 
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrganizationImpact>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrganizationImpact>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 }
 
 /// All implementations of [super::ServiceHealth] also implement [ServiceHealth].
@@ -73,8 +73,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEventsResponse>> {
         T::list_events(self, req, options).await
     }
 
@@ -82,8 +82,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Event>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Event>> {
         T::get_event(self, req, options).await
     }
 
@@ -91,8 +91,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrganizationEventsResponse>> {
         T::list_organization_events(self, req, options).await
     }
 
@@ -100,8 +100,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrganizationEvent>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrganizationEvent>> {
         T::get_organization_event(self, req, options).await
     }
 
@@ -109,8 +109,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrganizationImpactsResponse>> {
         T::list_organization_impacts(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrganizationImpact>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrganizationImpact>> {
         T::get_organization_impact(self, req, options).await
     }
 
@@ -127,9 +127,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -137,8 +136,8 @@ impl<T: super::ServiceHealth> ServiceHealth for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

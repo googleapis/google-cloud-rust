@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
 /// let client = Compliance::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -68,13 +68,13 @@ impl Compliance {
     /// Returns a builder for [Compliance].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Compliance;
     /// let client = Compliance::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::compliance::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::compliance::client::Factory)
+        crate::new_client_builder(super::builder::compliance::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +92,14 @@ impl Compliance {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Compliance>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Compliance>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +108,13 @@ impl Compliance {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Compliance> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Compliance> {
         super::transport::Compliance::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Compliance> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Compliance> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Compliance::new)
@@ -256,7 +256,7 @@ impl Compliance {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Echo;
 /// let client = Echo::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -308,13 +308,13 @@ impl Echo {
     /// Returns a builder for [Echo].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// let client = Echo::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::echo::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::echo::client::Factory)
+        crate::new_client_builder(super::builder::echo::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -332,14 +332,14 @@ impl Echo {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Echo>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Echo>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -348,13 +348,13 @@ impl Echo {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Echo> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Echo> {
         super::transport::Echo::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Echo> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Echo> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Echo::new)
@@ -499,7 +499,7 @@ impl Echo {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Identity;
 /// let client = Identity::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -545,13 +545,13 @@ impl Identity {
     /// Returns a builder for [Identity].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// let client = Identity::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::identity::client::Factory)
+        crate::new_client_builder(super::builder::identity::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -569,14 +569,14 @@ impl Identity {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Identity>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Identity>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -585,13 +585,13 @@ impl Identity {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Identity> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Identity> {
         super::transport::Identity::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Identity> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Identity> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Identity::new)
@@ -690,7 +690,7 @@ impl Identity {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
 /// let client = Messaging::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -739,13 +739,13 @@ impl Messaging {
     /// Returns a builder for [Messaging].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// let client = Messaging::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::messaging::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::messaging::client::Factory)
+        crate::new_client_builder(super::builder::messaging::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -763,14 +763,14 @@ impl Messaging {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Messaging>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Messaging>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -779,13 +779,13 @@ impl Messaging {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Messaging> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Messaging> {
         super::transport::Messaging::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Messaging> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Messaging> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Messaging::new)
@@ -929,7 +929,7 @@ impl Messaging {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
 /// let client = SequenceService::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -974,15 +974,13 @@ impl SequenceService {
     /// Returns a builder for [SequenceService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// let client = SequenceService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sequence_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::sequence_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::sequence_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1000,15 +998,14 @@ impl SequenceService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SequenceService>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SequenceService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1017,13 +1014,13 @@ impl SequenceService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SequenceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SequenceService> {
         super::transport::SequenceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SequenceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SequenceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SequenceService::new)
@@ -1126,7 +1123,7 @@ impl SequenceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Testing;
 /// let client = Testing::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
@@ -1178,13 +1175,13 @@ impl Testing {
     /// Returns a builder for [Testing].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// let client = Testing::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::testing::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::testing::client::Factory)
+        crate::new_client_builder(super::builder::testing::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1202,14 +1199,14 @@ impl Testing {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Testing>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Testing>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1218,13 +1215,13 @@ impl Testing {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Testing> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Testing> {
         super::transport::Testing::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Testing> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Testing> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Testing::new)

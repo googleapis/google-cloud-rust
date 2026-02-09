@@ -168,7 +168,7 @@ where
         self.source
             .next()
             .await
-            .map(|r| r.map_err(gax::error::Error::io))
+            .map(|r| r.map_err(crate::Error::io))
     }
 }
 

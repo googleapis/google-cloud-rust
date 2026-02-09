@@ -41,8 +41,8 @@ where
     async fn summarize_maintenances(
         &self,
         req: crate::model::SummarizeMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SummarizeMaintenancesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SummarizeMaintenancesResponse>> {
         self.inner.summarize_maintenances(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_resource_maintenances(
         &self,
         req: crate::model::ListResourceMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListResourceMaintenancesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListResourceMaintenancesResponse>> {
         self.inner.list_resource_maintenances(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_resource_maintenance(
         &self,
         req: crate::model::GetResourceMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ResourceMaintenance>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResourceMaintenance>> {
         self.inner.get_resource_maintenance(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

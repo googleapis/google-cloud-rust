@@ -15,14 +15,14 @@
 use super::keepalive;
 use super::retry_policy::StreamRetryPolicy;
 use super::stub::{Stub, TonicStreaming};
+use crate::RequestOptions;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::{Error, Result};
-use gax::backoff_policy::BackoffPolicy;
-use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::options::RequestOptions;
-use gax::retry_loop_internal::retry_loop;
-use gax::retry_throttler::CircuitBreaker;
 use gaxi::grpc::tonic::Result as TonicResult;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_throttler::CircuitBreaker;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc;
@@ -158,10 +158,10 @@ mod tests {
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::google::pubsub::v1::{ReceivedMessage, StreamingPullResponse};
-    use gax::backoff_policy::BackoffPolicy;
-    use gax::error::rpc::{Code, Status};
-    use gax::retry_state::RetryState;
     use gaxi::grpc::tonic::Response as TonicResponse;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_state::RetryState;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -392,7 +392,10 @@ mod tests {
         .expect_err("opening stream should fail");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         Ok(())

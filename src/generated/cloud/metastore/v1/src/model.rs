@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -4638,7 +4638,7 @@ impl wkt::message::Message for ListServicesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServicesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5206,7 +5206,7 @@ impl wkt::message::Message for ListMetadataImportsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMetadataImportsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMetadataImportsResponse {
     type PageItem = crate::model::MetadataImport;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5711,7 +5711,7 @@ impl wkt::message::Message for ListBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7801,7 +7801,7 @@ impl wkt::message::Message for ListFederationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFederationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFederationsResponse {
     type PageItem = crate::model::Federation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

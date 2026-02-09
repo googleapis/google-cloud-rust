@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -1736,7 +1736,7 @@ impl wkt::message::Message for ListProcessesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListProcessesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListProcessesResponse {
     type PageItem = crate::model::Process;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2170,7 +2170,7 @@ impl wkt::message::Message for ListRunsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRunsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRunsResponse {
     type PageItem = crate::model::Run;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2493,7 +2493,7 @@ impl wkt::message::Message for ListLineageEventsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLineageEventsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLineageEventsResponse {
     type PageItem = crate::model::LineageEvent;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2811,7 +2811,7 @@ impl wkt::message::Message for SearchLinksResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchLinksResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchLinksResponse {
     type PageItem = crate::model::Link;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3170,7 +3170,7 @@ impl wkt::message::Message for BatchSearchLinkProcessesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for BatchSearchLinkProcessesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for BatchSearchLinkProcessesResponse {
     type PageItem = crate::model::ProcessLinks;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

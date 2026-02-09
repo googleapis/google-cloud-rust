@@ -41,8 +41,8 @@ where
     async fn get_data_source(
         &self,
         req: crate::model::GetDataSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataSource>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataSource>> {
         self.inner.get_data_source(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_data_sources(
         &self,
         req: crate::model::ListDataSourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDataSourcesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataSourcesResponse>> {
         self.inner.list_data_sources(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_transfer_config(
         &self,
         req: crate::model::CreateTransferConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferConfig>> {
         self.inner.create_transfer_config(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_transfer_config(
         &self,
         req: crate::model::UpdateTransferConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferConfig>> {
         self.inner.update_transfer_config(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_transfer_config(
         &self,
         req: crate::model::DeleteTransferConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_transfer_config(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_transfer_config(
         &self,
         req: crate::model::GetTransferConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferConfig>> {
         self.inner.get_transfer_config(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_transfer_configs(
         &self,
         req: crate::model::ListTransferConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTransferConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTransferConfigsResponse>> {
         self.inner.list_transfer_configs(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn schedule_transfer_runs(
         &self,
         req: crate::model::ScheduleTransferRunsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ScheduleTransferRunsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ScheduleTransferRunsResponse>> {
         self.inner.schedule_transfer_runs(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn start_manual_transfer_runs(
         &self,
         req: crate::model::StartManualTransferRunsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StartManualTransferRunsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StartManualTransferRunsResponse>> {
         self.inner.start_manual_transfer_runs(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn get_transfer_run(
         &self,
         req: crate::model::GetTransferRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TransferRun>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TransferRun>> {
         self.inner.get_transfer_run(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn delete_transfer_run(
         &self,
         req: crate::model::DeleteTransferRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_transfer_run(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn list_transfer_runs(
         &self,
         req: crate::model::ListTransferRunsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTransferRunsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTransferRunsResponse>> {
         self.inner.list_transfer_runs(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn list_transfer_logs(
         &self,
         req: crate::model::ListTransferLogsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTransferLogsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTransferLogsResponse>> {
         self.inner.list_transfer_logs(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn check_valid_creds(
         &self,
         req: crate::model::CheckValidCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CheckValidCredsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CheckValidCredsResponse>> {
         self.inner.check_valid_creds(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn enroll_data_sources(
         &self,
         req: crate::model::EnrollDataSourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.enroll_data_sources(req, options).await
     }
 
@@ -176,8 +176,8 @@ where
     async fn unenroll_data_sources(
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.unenroll_data_sources(req, options).await
     }
 
@@ -185,8 +185,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -194,8 +194,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

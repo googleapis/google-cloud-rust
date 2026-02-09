@@ -26,7 +26,7 @@ impl StorageControl {
     /// # Ok(()) }
     /// ```
     pub fn builder() -> ClientBuilder {
-        gax::client_builder::internal::new_builder(client_builder::Factory)
+        crate::new_client_builder(client_builder::Factory)
     }
 
     /// Permanently deletes an empty bucket.
@@ -502,7 +502,7 @@ impl StorageControl {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let storage = crate::generated::gapic::client::StorageControl::new(config.clone()).await?;
         let control = crate::generated::gapic_control::client::StorageControl::new(config).await?;
         Ok(Self { storage, control })

@@ -20,50 +20,50 @@ pub trait TopicAdmin: std::fmt::Debug + Send + Sync {
     async fn create_topic(
         &self,
         req: crate::model::Topic,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn update_topic(
         &self,
         req: crate::model::UpdateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>>;
 
     async fn list_topics(
         &self,
         req: crate::model::ListTopicsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicsResponse>>;
 
     async fn list_topic_subscriptions(
         &self,
         req: crate::model::ListTopicSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicSubscriptionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicSubscriptionsResponse>>;
 
     async fn list_topic_snapshots(
         &self,
         req: crate::model::ListTopicSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicSnapshotsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicSnapshotsResponse>>;
 
     async fn delete_topic(
         &self,
         req: crate::model::DeleteTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn detach_subscription(
         &self,
         req: crate::model::DetachSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DetachSubscriptionResponse>>;
 }
 
 /// All implementations of [super::TopicAdmin] also implement [TopicAdmin].
@@ -73,8 +73,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn create_topic(
         &self,
         req: crate::model::Topic,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::create_topic(self, req, options).await
     }
 
@@ -82,8 +82,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn update_topic(
         &self,
         req: crate::model::UpdateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::update_topic(self, req, options).await
     }
 
@@ -91,8 +91,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Topic>> {
         T::get_topic(self, req, options).await
     }
 
@@ -100,8 +100,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn list_topics(
         &self,
         req: crate::model::ListTopicsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicsResponse>> {
         T::list_topics(self, req, options).await
     }
 
@@ -109,8 +109,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn list_topic_subscriptions(
         &self,
         req: crate::model::ListTopicSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicSubscriptionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicSubscriptionsResponse>> {
         T::list_topic_subscriptions(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn list_topic_snapshots(
         &self,
         req: crate::model::ListTopicSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTopicSnapshotsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTopicSnapshotsResponse>> {
         T::list_topic_snapshots(self, req, options).await
     }
 
@@ -127,8 +127,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn delete_topic(
         &self,
         req: crate::model::DeleteTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_topic(self, req, options).await
     }
 
@@ -136,8 +136,8 @@ impl<T: super::TopicAdmin> TopicAdmin for T {
     async fn detach_subscription(
         &self,
         req: crate::model::DetachSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DetachSubscriptionResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DetachSubscriptionResponse>> {
         T::detach_subscription(self, req, options).await
     }
 }
@@ -148,74 +148,74 @@ pub trait SubscriptionAdmin: std::fmt::Debug + Send + Sync {
     async fn create_subscription(
         &self,
         req: crate::model::Subscription,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>>;
 
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>>;
 
     async fn update_subscription(
         &self,
         req: crate::model::UpdateSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>>;
 
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubscriptionsResponse>>;
 
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn modify_push_config(
         &self,
         req: crate::model::ModifyPushConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_snapshot(
         &self,
         req: crate::model::GetSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>>;
 
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSnapshotsResponse>>;
 
     async fn create_snapshot(
         &self,
         req: crate::model::CreateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>>;
 
     async fn update_snapshot(
         &self,
         req: crate::model::UpdateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>>;
 
     async fn delete_snapshot(
         &self,
         req: crate::model::DeleteSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn seek(
         &self,
         req: crate::model::SeekRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SeekResponse>>;
 }
 
 /// All implementations of [super::SubscriptionAdmin] also implement [SubscriptionAdmin].
@@ -225,8 +225,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn create_subscription(
         &self,
         req: crate::model::Subscription,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>> {
         T::create_subscription(self, req, options).await
     }
 
@@ -234,8 +234,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>> {
         T::get_subscription(self, req, options).await
     }
 
@@ -243,8 +243,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn update_subscription(
         &self,
         req: crate::model::UpdateSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>> {
         T::update_subscription(self, req, options).await
     }
 
@@ -252,8 +252,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubscriptionsResponse>> {
         T::list_subscriptions(self, req, options).await
     }
 
@@ -261,8 +261,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_subscription(self, req, options).await
     }
 
@@ -270,8 +270,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn modify_push_config(
         &self,
         req: crate::model::ModifyPushConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::modify_push_config(self, req, options).await
     }
 
@@ -279,8 +279,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn get_snapshot(
         &self,
         req: crate::model::GetSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>> {
         T::get_snapshot(self, req, options).await
     }
 
@@ -288,8 +288,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSnapshotsResponse>> {
         T::list_snapshots(self, req, options).await
     }
 
@@ -297,8 +297,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn create_snapshot(
         &self,
         req: crate::model::CreateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>> {
         T::create_snapshot(self, req, options).await
     }
 
@@ -306,8 +306,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn update_snapshot(
         &self,
         req: crate::model::UpdateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>> {
         T::update_snapshot(self, req, options).await
     }
 
@@ -315,8 +315,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn delete_snapshot(
         &self,
         req: crate::model::DeleteSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_snapshot(self, req, options).await
     }
 
@@ -324,8 +324,8 @@ impl<T: super::SubscriptionAdmin> SubscriptionAdmin for T {
     async fn seek(
         &self,
         req: crate::model::SeekRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SeekResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SeekResponse>> {
         T::seek(self, req, options).await
     }
 }
@@ -336,82 +336,80 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
     async fn create_schema(
         &self,
         req: crate::model::CreateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn list_schemas(
         &self,
         req: crate::model::ListSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemasResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemasResponse>>;
 
     async fn list_schema_revisions(
         &self,
         req: crate::model::ListSchemaRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaRevisionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemaRevisionsResponse>>;
 
     async fn commit_schema(
         &self,
         req: crate::model::CommitSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn rollback_schema(
         &self,
         req: crate::model::RollbackSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn delete_schema_revision(
         &self,
         req: crate::model::DeleteSchemaRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn delete_schema(
         &self,
         req: crate::model::DeleteSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn validate_schema(
         &self,
         req: crate::model::ValidateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateSchemaResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateSchemaResponse>>;
 
     async fn validate_message(
         &self,
         req: crate::model::ValidateMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateMessageResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateMessageResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::SchemaService] also implement [SchemaService].
@@ -421,8 +419,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn create_schema(
         &self,
         req: crate::model::CreateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::create_schema(self, req, options).await
     }
 
@@ -430,8 +428,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::get_schema(self, req, options).await
     }
 
@@ -439,8 +437,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn list_schemas(
         &self,
         req: crate::model::ListSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemasResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemasResponse>> {
         T::list_schemas(self, req, options).await
     }
 
@@ -448,8 +446,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn list_schema_revisions(
         &self,
         req: crate::model::ListSchemaRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemaRevisionsResponse>> {
         T::list_schema_revisions(self, req, options).await
     }
 
@@ -457,8 +455,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn commit_schema(
         &self,
         req: crate::model::CommitSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::commit_schema(self, req, options).await
     }
 
@@ -466,8 +464,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn rollback_schema(
         &self,
         req: crate::model::RollbackSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::rollback_schema(self, req, options).await
     }
 
@@ -475,8 +473,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn delete_schema_revision(
         &self,
         req: crate::model::DeleteSchemaRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::delete_schema_revision(self, req, options).await
     }
 
@@ -484,8 +482,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn delete_schema(
         &self,
         req: crate::model::DeleteSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_schema(self, req, options).await
     }
 
@@ -493,8 +491,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn validate_schema(
         &self,
         req: crate::model::ValidateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateSchemaResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateSchemaResponse>> {
         T::validate_schema(self, req, options).await
     }
 
@@ -502,8 +500,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn validate_message(
         &self,
         req: crate::model::ValidateMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValidateMessageResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValidateMessageResponse>> {
         T::validate_message(self, req, options).await
     }
 
@@ -511,8 +509,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -520,8 +518,8 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -529,10 +527,9 @@ impl<T: super::SchemaService> SchemaService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 }
