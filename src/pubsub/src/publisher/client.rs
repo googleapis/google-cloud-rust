@@ -20,7 +20,7 @@ use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot;
 
 /// A Publisher client for the [Cloud Pub/Sub] API.
-/// 
+///
 /// A `Publisher` sends messages to a specific topic. It manages message batching
 /// and sending in a background task.
 ///
@@ -33,7 +33,7 @@ use tokio::sync::oneshot;
 /// let message_id_future = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
-/// 
+///
 /// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
 #[derive(Debug, Clone)]
 pub struct Publisher {
