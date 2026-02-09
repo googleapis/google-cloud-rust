@@ -149,7 +149,7 @@ pub mod client {
     pub use crate::subscriber::client::Subscriber;
 }
 
-pub mod error;
+pub(crate) mod error;
 
 /// Traits to mock the clients in this library.
 pub mod stub {

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use anyhow::bail;
-use rand::{distr::Uniform, seq::IndexedRandom};
+use rand::{RngExt, distr::Uniform, seq::IndexedRandom};
 
 /// Select a size at random from a range or list.
 #[derive(Clone, Debug, PartialEq)]

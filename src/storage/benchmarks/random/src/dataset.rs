@@ -19,7 +19,7 @@ use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::{Object, compose_object_request::SourceObject};
-use rand::{Rng, distr::Uniform};
+use rand::{RngExt, distr::Uniform};
 
 /// Populates a bucket with a dataset for the benchmark.
 ///

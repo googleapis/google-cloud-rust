@@ -63,6 +63,7 @@
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
 use crate::retry_result::RetryResult;
+use rand::RngExt;
 use std::sync::{Arc, Mutex};
 
 /// The error type for throttler policy creation.
@@ -403,7 +404,6 @@ impl RetryThrottler for CircuitBreaker {
 mod tests {
     use super::*;
     use crate::mock_rng::MockRng;
-    use rand::Rng;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     // Verify `RetryThrottlerArg` can be converted from the desired types.
