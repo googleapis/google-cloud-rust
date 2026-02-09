@@ -14,8 +14,6 @@
 
 //! Mock RNG for internal tests.
 
-use rand::rand_core;
-
 pub(crate) struct MockRng {
     value: u64,
 }
@@ -26,14 +24,16 @@ impl MockRng {
     }
 }
 
-impl rand::RngCore for MockRng {
-    fn next_u32(&mut self) -> u32 {
-        self.value as u32
+impl rand::rand_core::TryRng for MockRng {
+    type Error = rand::rand_core::Infallible;
+
+    fn try_next_u32(&mut self) -> Result<u32, Self::Error> {
+        Ok(self.value as u32)
     }
-    fn next_u64(&mut self) -> u64 {
-        self.value
+    fn try_next_u64(&mut self) -> Result<u64, Self::Error> {
+        Ok(self.value)
     }
-    fn fill_bytes(&mut self, dst: &mut [u8]) {
-        rand_core::impls::fill_bytes_via_next(self, dst);
+    fn try_fill_bytes(&mut self, dst: &mut [u8]) -> Result<(), Self::Error> {
+        rand::rand_core::utils::fill_bytes_via_next_word(dst, || self.try_next_u64())
     }
 }

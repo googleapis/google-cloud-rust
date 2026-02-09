@@ -373,7 +373,7 @@ opentelemetry_sdk     = { default-features = false, version = "0.31", features =
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.0.11" }
-rand                  = { default-features = false, version = "0.9.2" }
+rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
 rustls                = { default-features = false, version = "0.23.27" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
