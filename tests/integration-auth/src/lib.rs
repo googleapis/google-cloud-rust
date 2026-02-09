@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::rpc::Code;
 use google_cloud_auth::credentials::idtoken::{
     Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
     mds::Builder as IDTokenMDSBuilder, mds::Format,
@@ -32,6 +31,7 @@ use google_cloud_auth::credentials::{
 };
 use google_cloud_auth::errors::SubjectTokenProviderError;
 use google_cloud_bigquery_v2::client::DatasetService;
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_iam_credentials_v1::client::IAMCredentials;
 use google_cloud_language_v2::client::LanguageService;
 use google_cloud_language_v2::model::{Document, document::Type};
