@@ -16,6 +16,7 @@ use super::options::BatchingOptions;
 use crate::publisher::actor::BundledMessage;
 use crate::publisher::actor::ToDispatcher;
 use crate::publisher::builder::PublisherBuilder;
+
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot;
 
@@ -159,8 +160,8 @@ impl Publisher {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client::BasePublisher;
     use crate::publisher::builder::PublisherPartialBuilder;
+    use crate::publisher::client::BasePublisher;
     use crate::publisher::constants::*;
     use crate::publisher::options::BatchingOptions;
     use crate::{

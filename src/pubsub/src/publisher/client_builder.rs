@@ -23,7 +23,7 @@ use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_pubsub::client::BasePublisher;
+/// # use google_cloud_pubsub::publisher::client::BasePublisher;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = BasePublisher::builder();
 /// let client = builder
@@ -53,7 +53,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder().build().await?;
     /// # Ok(()) }
@@ -66,7 +66,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_endpoint("https://private.googleapis.com")
@@ -86,7 +86,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_tracing()
@@ -110,7 +110,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_auth::credentials::mds;
     /// let client = BasePublisher::builder()
@@ -137,7 +137,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = BasePublisher::builder()
@@ -158,7 +158,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
@@ -187,7 +187,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let client = BasePublisher::builder()
@@ -205,7 +205,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_grpc_subchannel_count(4)

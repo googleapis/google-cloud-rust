@@ -14,7 +14,7 @@
 
 use crate::publisher::builder::PublisherPartialBuilder;
 
-/// Creates [`Publisher`](super::client::Publisher) instances.
+/// Creates [`Publisher`](crate::client::Publisher) instances.
 ///
 /// A single `BasePublisher` can be used to create multiple `Publisher` clients
 /// for different topics. It manages the underlying gRPC connection and
@@ -24,11 +24,11 @@ use crate::publisher::builder::PublisherPartialBuilder;
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::client::BasePublisher;
+/// # use google_cloud_pubsub::publisher::client::BasePublisher;
 /// # use google_cloud_pubsub::model::Message;
 ///
 /// // Create a client.
-/// let client = BasePublisher::builder().build().await?;
+/// let client: BasePublisher = BasePublisher::builder().build().await?;
 ///
 /// // Create a publisher for a specific topic.
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -51,7 +51,7 @@ pub struct BasePublisher {
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::BasePublisherBuilder;
-/// # use client::BasePublisher;
+/// # use google_cloud_pubsub::publisher::client::BasePublisher;
 /// let builder: BasePublisherBuilder = BasePublisher::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
@@ -65,8 +65,8 @@ impl BasePublisher {
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::BasePublisher;
-    /// let client = BasePublisher::builder().build().await?;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
+    /// let client: BasePublisher = BasePublisher::builder().build().await?;
     /// # google_cloud_gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> BasePublisherBuilder {
@@ -86,7 +86,7 @@ impl BasePublisher {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::BasePublisherBuilder;
-    /// # use client::BasePublisher;
+    /// # use publisher::client::BasePublisher;
     /// # use model::Message;
     /// let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();

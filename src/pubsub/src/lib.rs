@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [BasePublisher][client::BasePublisher] and [Publisher][client::Publisher]
+//! * [BasePublisher][publisher::client::BasePublisher] and [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
@@ -61,7 +61,8 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub(crate) mod publisher;
+/// Types related to publishing messages.
+pub mod publisher;
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
 /// client.
 pub mod subscriber;
@@ -167,8 +168,7 @@ pub mod model_ext {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::base_publisher::BasePublisher;
-    pub use crate::publisher::client::Publisher;
+    pub use crate::publisher::implementation::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 
