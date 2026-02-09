@@ -505,7 +505,7 @@ mod tests {
     fn test_map_retry_error_auth_error(transient: bool, message: &str) {
         // 1. Create an authentication error.
         let error = CredentialsError::from_msg(transient, message);
-        let error = gax::error::Error::authentication(error);
+        let error = google_cloud_gax::error::Error::authentication(error);
         let error_string = error.to_string();
 
         // 2. Call the function under test.
