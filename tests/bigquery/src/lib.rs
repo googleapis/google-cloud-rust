@@ -20,7 +20,7 @@ use google_cloud_bigquery_v2::model::{
 };
 use google_cloud_gax::{error::rpc::Code, paginator::ItemPaginator};
 use google_cloud_test_utils::runtime_config::project_id;
-use rand::{Rng, distr::Alphanumeric};
+use rand::{RngExt, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 

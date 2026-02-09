@@ -17,7 +17,7 @@ use super::random_size::RandomSize;
 use super::sample::Protocol;
 use anyhow::Result;
 use rand::distr::Uniform;
-use rand::seq::IndexedRandom;
+use rand::{RngExt, seq::IndexedRandom};
 
 /// The parameters for one experiment run.
 ///
@@ -67,7 +67,6 @@ impl ExperimentGenerator {
     /// Generates a new experiment, selecting the ranges, the protocol, and the
     /// source objects at random.
     pub fn generate(&self) -> Experiment {
-        use rand::Rng;
         let mut rng = rand::rng();
         let read_count = rng.sample(self.read_count);
         let read_length = self.read_length.sample(&mut rng);

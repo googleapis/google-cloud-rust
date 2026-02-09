@@ -487,7 +487,7 @@ mod tests {
         model::{PublishResponse, PubsubMessage},
     };
     use mockall::Sequence;
-    use rand::{Rng, distr::Alphanumeric};
+    use rand::{RngExt, distr::Alphanumeric};
     use std::collections::VecDeque;
     use std::time::Duration;
     use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};

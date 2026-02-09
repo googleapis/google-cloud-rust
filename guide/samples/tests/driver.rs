@@ -15,7 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use google_cloud_gax::error::rpc::{Code, StatusDetails};
-    use rand::{Rng, distr::Alphanumeric};
+    use rand::{RngExt, distr::Alphanumeric};
 
     const SECRET_ID_LENGTH: usize = 32;
 

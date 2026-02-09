@@ -14,7 +14,7 @@
 
 // [START storage_generate_encryption_key]
 use google_cloud_storage::{error::KeyAes256Error, model_ext::KeyAes256};
-use rand::RngCore;
+use rand::Rng;
 
 pub fn sample() -> Result<KeyAes256, KeyAes256Error> {
     // Generates a 256 bit (32 byte) AES encryption key and prints the base64 representation.

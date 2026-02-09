@@ -22,6 +22,7 @@
 
 use crate::polling_state::PollingState;
 use crate::retry_state::RetryState;
+use rand::RngExt;
 use std::time::Duration;
 
 /// The error type for exponential backoff creation.
