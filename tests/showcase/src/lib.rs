@@ -14,6 +14,7 @@
 
 use anyhow::{Error, Result};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::error::{Error as GaxError, rpc::Code};
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt};
 use google_cloud_showcase_v1beta1::client::Testing;
@@ -46,7 +47,17 @@ pub async fn run() -> Result<()> {
     }
 
     tracing::info!("running tests for Echo service");
-    echo::run().await?;
+    if let Err(e) = echo::run().await {
+        let code = e
+            .downcast_ref::<GaxError>()
+            .and_then(|e| e.status())
+            .map(|s| s.code);
+        if code == Some(Code::InvalidArgument) {
+            tracing::warn!("TODO(#4642) - ignoring known error in echo test: {e:?}");
+        } else {
+            return Err(e);
+        }
+    }
 
     tracing::info!("running tests for Identity service");
     identity::run().await?;

@@ -1616,10 +1616,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1656,10 +1659,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1696,10 +1702,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1736,10 +1745,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1776,10 +1788,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1816,10 +1831,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1856,10 +1874,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
@@ -1896,10 +1917,13 @@ impl super::stub::Echo for Echo {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .query(&[("$apiVersion", "v1_20240408")])
+            .header(
+                "x-goog-api-client",
+                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
