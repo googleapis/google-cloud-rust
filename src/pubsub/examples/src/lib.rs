@@ -140,12 +140,6 @@ pub async fn create_test_subscription(
     create_test_subscription_impl(topic_name, |s| s).await
 }
 
-pub async fn create_ordered_test_subscription(
-    topic_name: &str,
-) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
-    create_test_subscription_impl(topic_name, |s| s.set_enable_message_ordering(true)).await
-}
-
 async fn create_test_subscription_impl<F>(
     topic_name: &str,
     modifier: F,
