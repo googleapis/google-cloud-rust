@@ -533,6 +533,26 @@ pub struct ComplianceData {
 
     pub p_int32: std::option::Option<i32>,
 
+    pub p_sint32: std::option::Option<i32>,
+
+    pub p_sfixed32: std::option::Option<i32>,
+
+    pub p_uint32: std::option::Option<u32>,
+
+    pub p_fixed32: std::option::Option<u32>,
+
+    pub p_int64: std::option::Option<i64>,
+
+    pub p_sint64: std::option::Option<i64>,
+
+    pub p_sfixed64: std::option::Option<i64>,
+
+    pub p_uint64: std::option::Option<u64>,
+
+    pub p_fixed64: std::option::Option<u64>,
+
+    pub p_float: std::option::Option<f32>,
+
     pub p_double: std::option::Option<f64>,
 
     pub p_bool: std::option::Option<bool>,
@@ -839,6 +859,316 @@ impl ComplianceData {
         T: std::convert::Into<i32>,
     {
         self.p_int32 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_sint32][crate::model::ComplianceData::p_sint32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_sint32(42);
+    /// ```
+    pub fn set_p_sint32<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.p_sint32 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_sint32][crate::model::ComplianceData::p_sint32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_sint32(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_sint32(None::<i32>);
+    /// ```
+    pub fn set_or_clear_p_sint32<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.p_sint32 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_sfixed32][crate::model::ComplianceData::p_sfixed32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_sfixed32(42);
+    /// ```
+    pub fn set_p_sfixed32<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.p_sfixed32 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_sfixed32][crate::model::ComplianceData::p_sfixed32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_sfixed32(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_sfixed32(None::<i32>);
+    /// ```
+    pub fn set_or_clear_p_sfixed32<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.p_sfixed32 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_uint32][crate::model::ComplianceData::p_uint32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_uint32(42_u32);
+    /// ```
+    pub fn set_p_uint32<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.p_uint32 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_uint32][crate::model::ComplianceData::p_uint32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_uint32(Some(42_u32));
+    /// let x = ComplianceData::new().set_or_clear_p_uint32(None::<u32>);
+    /// ```
+    pub fn set_or_clear_p_uint32<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.p_uint32 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_fixed32][crate::model::ComplianceData::p_fixed32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_fixed32(42_u32);
+    /// ```
+    pub fn set_p_fixed32<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.p_fixed32 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_fixed32][crate::model::ComplianceData::p_fixed32].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_fixed32(Some(42_u32));
+    /// let x = ComplianceData::new().set_or_clear_p_fixed32(None::<u32>);
+    /// ```
+    pub fn set_or_clear_p_fixed32<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.p_fixed32 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_int64][crate::model::ComplianceData::p_int64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_int64(42);
+    /// ```
+    pub fn set_p_int64<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_int64 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_int64][crate::model::ComplianceData::p_int64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_int64(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_int64(None::<i32>);
+    /// ```
+    pub fn set_or_clear_p_int64<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_int64 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_sint64][crate::model::ComplianceData::p_sint64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_sint64(42);
+    /// ```
+    pub fn set_p_sint64<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_sint64 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_sint64][crate::model::ComplianceData::p_sint64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_sint64(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_sint64(None::<i32>);
+    /// ```
+    pub fn set_or_clear_p_sint64<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_sint64 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_sfixed64][crate::model::ComplianceData::p_sfixed64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_sfixed64(42);
+    /// ```
+    pub fn set_p_sfixed64<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_sfixed64 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_sfixed64][crate::model::ComplianceData::p_sfixed64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_sfixed64(Some(42));
+    /// let x = ComplianceData::new().set_or_clear_p_sfixed64(None::<i32>);
+    /// ```
+    pub fn set_or_clear_p_sfixed64<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.p_sfixed64 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_uint64][crate::model::ComplianceData::p_uint64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_uint64(42_u32);
+    /// ```
+    pub fn set_p_uint64<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.p_uint64 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_uint64][crate::model::ComplianceData::p_uint64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_uint64(Some(42_u32));
+    /// let x = ComplianceData::new().set_or_clear_p_uint64(None::<u32>);
+    /// ```
+    pub fn set_or_clear_p_uint64<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.p_uint64 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_fixed64][crate::model::ComplianceData::p_fixed64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_fixed64(42_u32);
+    /// ```
+    pub fn set_p_fixed64<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.p_fixed64 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_fixed64][crate::model::ComplianceData::p_fixed64].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_fixed64(Some(42_u32));
+    /// let x = ComplianceData::new().set_or_clear_p_fixed64(None::<u32>);
+    /// ```
+    pub fn set_or_clear_p_fixed64<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u64>,
+    {
+        self.p_fixed64 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [p_float][crate::model::ComplianceData::p_float].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_p_float(42.0);
+    /// ```
+    pub fn set_p_float<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.p_float = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [p_float][crate::model::ComplianceData::p_float].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_showcase_v1beta1::model::ComplianceData;
+    /// let x = ComplianceData::new().set_or_clear_p_float(Some(42.0));
+    /// let x = ComplianceData::new().set_or_clear_p_float(None::<f32>);
+    /// ```
+    pub fn set_or_clear_p_float<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.p_float = v.map(|x| x.into());
         self
     }
 
@@ -5968,6 +6298,7 @@ pub mod rest_error {
     }
 }
 
+/// A sequence of responses to be returned in order for each unary call attempt
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sequence {
@@ -6123,12 +6454,16 @@ pub mod sequence {
     }
 }
 
+/// A sequence of responses to be returned in order at the delay specified
+/// as part of the server streaming call
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSequence {
+    /// The name of the streaming sequence.
     pub name: std::string::String,
 
-    /// The Content that the stream will send
+    /// The content that the stream will send
+    /// this was specified when the sequence was created
     pub content: std::string::String,
 
     /// Sequence of responses to return in order for each attempt. If empty, the
@@ -6211,7 +6546,7 @@ pub mod streaming_sequence {
         /// The amount of time to delay sending the response.
         pub delay: std::option::Option<wkt::Duration>,
 
-        /// The index that the status should be sent
+        /// The index that the status should be sent at
         pub response_index: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6308,6 +6643,7 @@ pub mod streaming_sequence {
     }
 }
 
+/// A report of the results of a streaming sequence.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSequenceReport {
@@ -6551,6 +6887,7 @@ pub mod streaming_sequence_report {
     }
 }
 
+/// A report of the results of a sequence of unary responses
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SequenceReport {
@@ -6794,6 +7131,7 @@ pub mod sequence_report {
     }
 }
 
+/// Request message for creating a sequence of unary calls
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSequenceRequest {
@@ -6847,6 +7185,7 @@ impl wkt::message::Message for CreateSequenceRequest {
     }
 }
 
+/// Request message for the sequences of responses to be sent in a server streaming call
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateStreamingSequenceRequest {
@@ -6900,6 +7239,7 @@ impl wkt::message::Message for CreateStreamingSequenceRequest {
     }
 }
 
+/// Request message for the unary AttemptSequence method
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptSequenceRequest {
@@ -6932,6 +7272,7 @@ impl wkt::message::Message for AttemptSequenceRequest {
     }
 }
 
+/// Request message for the AttemptStreamingSequence method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptStreamingSequenceRequest {
@@ -6981,7 +7322,7 @@ impl wkt::message::Message for AttemptStreamingSequenceRequest {
     }
 }
 
-/// The response message for the Echo methods.
+/// The response message for the AttemptStreamingSequence method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptStreamingSequenceResponse {

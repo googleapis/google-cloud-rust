@@ -95,6 +95,16 @@ impl std::fmt::Debug for super::ComplianceData {
         debug_struct.field("f_child", &self.f_child);
         debug_struct.field("p_string", &self.p_string);
         debug_struct.field("p_int32", &self.p_int32);
+        debug_struct.field("p_sint32", &self.p_sint32);
+        debug_struct.field("p_sfixed32", &self.p_sfixed32);
+        debug_struct.field("p_uint32", &self.p_uint32);
+        debug_struct.field("p_fixed32", &self.p_fixed32);
+        debug_struct.field("p_int64", &self.p_int64);
+        debug_struct.field("p_sint64", &self.p_sint64);
+        debug_struct.field("p_sfixed64", &self.p_sfixed64);
+        debug_struct.field("p_uint64", &self.p_uint64);
+        debug_struct.field("p_fixed64", &self.p_fixed64);
+        debug_struct.field("p_float", &self.p_float);
         debug_struct.field("p_double", &self.p_double);
         debug_struct.field("p_bool", &self.p_bool);
         debug_struct.field("p_kingdom", &self.p_kingdom);
