@@ -69,6 +69,7 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    user_agent: Option<String>,
 }
 
 impl Client {
@@ -136,6 +137,7 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            user_agent: config.user_agent,
         })
     }
 
@@ -153,7 +155,9 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self
+            .make_headers(api_client_header, request_params, &options)
+            .await?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -203,7 +207,9 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self
+            .make_headers(api_client_header, request_params, &options)
+            .await?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -415,12 +421,18 @@ impl Client {
     }
 
     async fn make_headers(
+        &self,
         api_client_header: &'static str,
         request_params: &str,
         options: &RequestOptions,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
-        if let Some(user_agent) = options.user_agent() {
+        let user_agent = options
+            .user_agent()
+            .as_deref()
+            .or(self.user_agent.as_deref());
+
+        if let Some(user_agent) = user_agent {
             headers.append(
                 http::header::USER_AGENT,
                 http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
@@ -520,5 +532,42 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
+    }
+}
+
+#[cfg(test)]
+mod headers_tests {
+    use super::*;
+    use gax::options::RequestOptions;
+
+    #[tokio::test]
+    async fn test_user_agent_headers() {
+        let api_client = "api-client";
+        let client_agent = "client-agent/1.0.0";
+        let request_agent = "request-agent/1.0.0";
+        let mut config = crate::options::ClientConfig::default();
+        config.user_agent = Some(client_agent.to_string());
+        let client = Client::new(config, "http://example.com").await.unwrap();
+
+        // Test with client agent only
+        let options = RequestOptions::default();
+        let headers = client.make_headers(api_client, "", &options).await.unwrap();
+        let agents: Vec<_> = headers
+            .get_all(http::header::USER_AGENT)
+            .iter()
+            .map(|v| v.to_str().unwrap())
+            .collect();
+        assert_eq!(agents, vec![client_agent]);
+
+        // Test that request agent overrides client agent
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent);
+        let headers = client.make_headers(api_client, "", &options).await.unwrap();
+        let agents: Vec<_> = headers
+            .get_all(http::header::USER_AGENT)
+            .iter()
+            .map(|v| v.to_str().unwrap())
+            .collect();
+        assert_eq!(agents, vec![request_agent]);
     }
 }
