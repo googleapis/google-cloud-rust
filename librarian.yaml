@@ -29,8 +29,8 @@ sources:
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
     subpath: src
   showcase:
-    commit: 69bdd62035d793f3d23a0c960dee547023c1c5ac
-    sha256: 96491310ba1b5c0c71738d3d80327a95196c1b6ac16f033e3fa440870efbbf5c
+    commit: 3fd9cb2f682d5f8263d913eaba8b78e045acc4d2
+    sha256: ed1e698886cb4ab9b90ca98cfee38023d813e9729fca7297578c81c4af3e1e9e
 release:
   branch: main
   ignored_changes:

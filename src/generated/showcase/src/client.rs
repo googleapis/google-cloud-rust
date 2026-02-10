@@ -940,6 +940,8 @@ impl Messaging {
 ///
 /// # Service Description
 ///
+/// A service that enables testing of unary and server streaming calls
+/// by specifying a specific, predictable sequence of responses from the service
 ///
 /// # Configuration
 ///
@@ -1028,31 +1030,33 @@ impl SequenceService {
             .map(super::tracing::SequenceService::new)
     }
 
-    /// Creates a sequence.
+    /// Create a sequence of responses to be returned as unary calls
     pub fn create_sequence(&self) -> super::builder::sequence_service::CreateSequence {
         super::builder::sequence_service::CreateSequence::new(self.inner.clone())
     }
 
-    /// Creates a sequence.
+    /// Creates a sequence of responses to be returned in a server streaming call
     pub fn create_streaming_sequence(
         &self,
     ) -> super::builder::sequence_service::CreateStreamingSequence {
         super::builder::sequence_service::CreateStreamingSequence::new(self.inner.clone())
     }
 
-    /// Retrieves a sequence.
+    /// Retrieves a sequence report which can be used to retrieve information about a
+    /// sequence of unary calls.
     pub fn get_sequence_report(&self) -> super::builder::sequence_service::GetSequenceReport {
         super::builder::sequence_service::GetSequenceReport::new(self.inner.clone())
     }
 
-    /// Retrieves a sequence.
+    /// Retrieves a sequence report which can be used to retrieve information
+    /// about a sequences of responses in a server streaming call.
     pub fn get_streaming_sequence_report(
         &self,
     ) -> super::builder::sequence_service::GetStreamingSequenceReport {
         super::builder::sequence_service::GetStreamingSequenceReport::new(self.inner.clone())
     }
 
-    /// Attempts a sequence.
+    /// Attempts a sequence of unary responses.
     pub fn attempt_sequence(&self) -> super::builder::sequence_service::AttemptSequence {
         super::builder::sequence_service::AttemptSequence::new(self.inner.clone())
     }
