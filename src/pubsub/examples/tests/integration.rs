@@ -71,7 +71,7 @@ mod tests {
 
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
         let (subscription_admin, subscription) =
-            pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+            pubsub_samples::create_test_subscription(&topic.name).await?;
 
         let subscription_id = subscription.name.split('/').next_back().unwrap();
 

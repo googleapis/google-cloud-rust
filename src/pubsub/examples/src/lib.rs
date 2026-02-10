@@ -135,8 +135,24 @@ pub async fn cleanup_test_subscription(
 }
 
 pub async fn create_test_subscription(
-    topic_name: String,
+    topic_name: &str,
 ) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    create_test_subscription_impl(topic_name, |s| s).await
+}
+
+pub async fn create_ordered_test_subscription(
+    topic_name: &str,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    create_test_subscription_impl(topic_name, |s| s.set_enable_message_ordering(true)).await
+}
+
+async fn create_test_subscription_impl<F>(
+    topic_name: &str,
+    modifier: F,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)>
+where
+    F: Fn(Subscription) -> Subscription,
+{
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = SubscriptionAdmin::builder().with_tracing().build().await?;
 
@@ -145,13 +161,16 @@ pub async fn create_test_subscription(
     let subscription_id = random_subscription_id();
     let now = chrono::Utc::now().timestamp().to_string();
 
-    let subscription = client
-        .create_subscription()
+    let request = Subscription::new()
         .set_name(format!(
             "projects/{project_id}/subscriptions/{subscription_id}"
         ))
         .set_topic(topic_name)
-        .set_labels([("integration-test", "true"), ("create-time", &now)])
+        .set_labels([("integration-test", "true"), ("create-time", &now)]);
+    let request = modifier(request);
+    let subscription = client
+        .create_subscription()
+        .with_request(request)
         .send()
         .await?;
     println!("success on create_subscription(): {subscription:?}");
