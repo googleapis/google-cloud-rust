@@ -15,10 +15,13 @@
 //! Simplifies the implementation of `PollerImpl`
 
 use super::*;
-use gax::polling_error_policy::PollingErrorPolicy;
-use gax::polling_state::PollingState;
-use gax::retry_result::RetryResult;
+use google_cloud_gax::error::rpc::Status;
+use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
+use google_cloud_gax::polling_state::PollingState;
+use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_longrunning::model::{Operation as OperationAny, operation::Result as ResultAny};
+use google_cloud_wkt::Any;
+use google_cloud_wkt::message::Message;
 use std::marker::PhantomData;
 use std::sync::Arc;
 
@@ -47,10 +50,10 @@ impl<R, M> Operation<R, M> {
     fn done(&self) -> bool {
         self.inner.done
     }
-    fn metadata(&self) -> Option<&wkt::Any> {
+    fn metadata(&self) -> Option<&Any> {
         self.inner.metadata.as_ref()
     }
-    fn response(&self) -> Option<&wkt::Any> {
+    fn response(&self) -> Option<&Any> {
         self.inner.result.as_ref().and_then(|r| match r {
             ResultAny::Error(_) => None,
             ResultAny::Response(r) => Some(r.as_ref()),
@@ -70,8 +73,8 @@ pub(crate) fn handle_start<R, M>(
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    R: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     match result {
         Err(e) => (None, PollingResult::Completed(Err(e))),
@@ -86,8 +89,8 @@ pub(crate) fn handle_poll<R, M>(
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    R: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     match result {
         Err(e) => {
@@ -113,12 +116,12 @@ where
 }
 
 fn handle_polling_error<R, M>(
-    state: gax::retry_result::RetryResult,
+    state: RetryResult,
     operation_name: String,
 ) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
+    R: Message + serde::de::DeserializeOwned,
+    M: Message + serde::de::DeserializeOwned,
 {
     match state {
         RetryResult::Continue(e) => (Some(operation_name), PollingResult::PollingError(e)),
@@ -130,8 +133,8 @@ where
 
 fn handle_common<R, M>(op: Operation<R, M>) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    R: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     if op.done() {
         let result = as_result(op);
@@ -144,14 +147,14 @@ where
 
 fn as_result<R, M>(op: Operation<R, M>) -> Result<R>
 where
-    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    R: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     // The result must set either the response *or* the error. Setting neither
     // is a deserialization error, as the incoming data does not satisfy the
     // invariants required by the receiving type.
     match (op.response(), op.error()) {
         (Some(any), None) => any.to_msg::<R>().map_err(Error::deser),
-        (None, Some(e)) => Err(Error::service(gax::error::rpc::Status::from(e))),
+        (None, Some(e)) => Err(Error::service(Status::from(e))),
         (None, None) => Err(Error::deser("neither result nor error set in LRO result")),
         (Some(_), Some(_)) => unreachable!("result and error held in a oneof"),
     }
@@ -159,7 +162,7 @@ where
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
 where
-    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     op.metadata().and_then(|a| a.to_msg::<M>().ok())
 }
@@ -167,19 +170,21 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use gax::polling_error_policy::*;
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::polling_error_policy::{
+        Aip194Strict, AlwaysContinue, Exhausted, PollingErrorPolicyExt,
+    };
+    use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
     use std::error::Error as _;
-    use wkt::Any;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-    type ResponseType = wkt::Duration;
-    type MetadataType = wkt::Timestamp;
+    type ResponseType = Duration;
+    type MetadataType = Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
 
     #[test]
     fn typed_operation_with_metadata() -> Result<()> {
-        let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-            .expect("Any::from_msg should succeed");
+        let any = Any::from_msg(&Timestamp::clamp(123, 0)).expect("Any::from_msg should succeed");
         let opa = OperationAny::default()
             .set_name("test-only-name")
             .set_metadata(any);
@@ -192,16 +197,16 @@ mod tests {
         let got = op
             .metadata()
             .unwrap()
-            .to_msg::<wkt::Timestamp>()
+            .to_msg::<Timestamp>()
             .expect("Any::from_msg should succeed");
-        assert_eq!(got, wkt::Timestamp::clamp(123, 0));
+        assert_eq!(got, Timestamp::clamp(123, 0));
 
         Ok(())
     }
 
     #[test]
     fn typed_operation_with_response() -> Result<()> {
-        let any = wkt::Any::from_msg(&wkt::Duration::clamp(23, 0))
+        let any = Any::from_msg(&Duration::clamp(23, 0))
             .expect("successful deserialization via Any::from_msg");
         let opa = OperationAny::default()
             .set_name("test-only-name")
@@ -215,9 +220,9 @@ mod tests {
         let got = op
             .response()
             .unwrap()
-            .to_msg::<wkt::Duration>()
+            .to_msg::<Duration>()
             .expect("successful deserialization via Any::from_msg");
-        assert_eq!(got, wkt::Duration::clamp(23, 0));
+        assert_eq!(got, Duration::clamp(23, 0));
 
         Ok(())
     }
@@ -244,19 +249,19 @@ mod tests {
 
     #[test]
     fn start_success() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_start(result);
         assert_eq!(name.as_deref(), Some("test-only-name"));
         match poll {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             _ => panic!("{poll:?}"),
         };
@@ -265,16 +270,15 @@ mod tests {
 
     #[test]
     fn start_error() {
-        fn starting_error() -> gax::error::Error {
-            use gax::error::rpc::{Code, Status};
-            gax::error::Error::service(
+        fn starting_error() -> Error {
+            Error::service(
                 Status::default()
                     .set_code(Code::AlreadyExists)
                     .set_message("thing already there"),
             )
         }
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = Operation<R, M>;
         let result = Err::<O, Error>(starting_error());
         let (name, poll) = handle_start(result);
@@ -290,12 +294,12 @@ mod tests {
 
     #[test]
     fn poll_success() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
@@ -307,7 +311,7 @@ mod tests {
         assert_eq!(name.as_deref(), Some("test-only-name"));
         match poll {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             _ => panic!("{poll:?}"),
         };
@@ -316,12 +320,12 @@ mod tests {
 
     #[test]
     fn poll_success_exhausted() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(
@@ -336,7 +340,7 @@ mod tests {
                 assert!(
                     error
                         .source()
-                        .and_then(|e| e.downcast_ref::<gax::polling_error_policy::Exhausted>())
+                        .and_then(|e| e.downcast_ref::<Exhausted>())
                         .is_some(),
                     "{error:?}"
                 );
@@ -348,12 +352,12 @@ mod tests {
 
     #[test]
     fn poll_error_continue() {
-        fn continuing_error() -> gax::error::Error {
-            gax::error::Error::io("test-only-error")
+        fn continuing_error() -> Error {
+            Error::io("test-only-error")
         }
 
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let result = Err::<O, Error>(continuing_error());
         let (name, poll) = handle_poll(
@@ -374,17 +378,16 @@ mod tests {
 
     #[test]
     fn poll_error_finishes() {
-        fn stopping_error() -> gax::error::Error {
-            use gax::error::rpc::{Code, Status};
-            gax::error::Error::service(
+        fn stopping_error() -> Error {
+            Error::service(
                 Status::default()
                     .set_code(Code::Aborted)
                     .set_message("operation-aborted"),
             )
         }
 
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let result = Err::<O, Error>(stopping_error());
         let (name, poll) = handle_poll(
@@ -405,22 +408,22 @@ mod tests {
 
     #[test]
     fn common_done() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default()
             .set_name("test-only-name")
             .set_done(true)
-            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?)
+            .set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?)
             .set_result(ResultAny::Response(
-                wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))?.into(),
+                Any::from_msg(&Duration::clamp(234, 0))?.into(),
             ));
         let op = O::new(op);
         let (name, polling) = handle_common(op);
         assert_eq!(name, None);
         match polling {
             PollingResult::Completed(Ok(response)) => {
-                assert_eq!(response, wkt::Duration::clamp(234, 0));
+                assert_eq!(response, Duration::clamp(234, 0));
             }
             _ => panic!("{polling:?}"),
         };
@@ -429,18 +432,18 @@ mod tests {
 
     #[test]
     fn common_not_done() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default()
             .set_name("test-only-name")
-            .set_metadata(wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+            .set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?);
         let op = O::new(op);
         let (name, polling) = handle_common(op);
         assert_eq!(name.as_deref(), Some("test-only-name"));
         match &polling {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, &Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, &Some(Timestamp::clamp(123, 0)));
             }
             _ => panic!("{polling:?}"),
         };
@@ -449,27 +452,27 @@ mod tests {
 
     #[test]
     fn extract_result() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default().set_result(ResultAny::Response(
-            Any::from_msg(&wkt::Duration::clamp(123, 0))?.into(),
+            Any::from_msg(&Duration::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
         let result = as_result(op)?;
-        assert_eq!(result, wkt::Duration::clamp(123, 0));
+        assert_eq!(result, Duration::clamp(123, 0));
 
         Ok(())
     }
 
     #[test]
     fn extract_result_with_error() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default().set_result(ResultAny::Error(
             google_cloud_rpc::model::Status::default()
-                .set_code(gax::error::rpc::Code::FailedPrecondition as i32)
+                .set_code(Code::FailedPrecondition as i32)
                 .set_message("test only")
                 .into(),
         ));
@@ -477,8 +480,8 @@ mod tests {
         let result = as_result(op);
         let err = result.unwrap_err();
         assert!(err.status().is_some(), "{err:?}");
-        let want = gax::error::rpc::Status::default()
-            .set_code(gax::error::rpc::Code::FailedPrecondition)
+        let want = Status::default()
+            .set_code(Code::FailedPrecondition)
             .set_message("test only");
         assert_eq!(err.status(), Some(&want));
 
@@ -487,19 +490,19 @@ mod tests {
 
     #[test]
     fn extract_result_bad_type() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = super::Operation<R, M>;
         let op = OperationAny::default().set_result(ResultAny::Response(
-            Any::from_msg(&wkt::Timestamp::clamp(123, 0))?.into(),
+            Any::from_msg(&Timestamp::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
         let err = as_result(op).unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
         assert!(
             matches!(
-                err.source().and_then(|e| e.downcast_ref::<wkt::AnyError>()),
-                Some(wkt::AnyError::TypeMismatch { .. })
+                err.source().and_then(|e| e.downcast_ref::<AnyError>()),
+                Some(AnyError::TypeMismatch { .. })
             ),
             "{err:?}",
         );
@@ -509,8 +512,8 @@ mod tests {
 
     #[test]
     fn extract_result_not_set() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = Operation<R, M>;
         let op = OperationAny::default();
         let op = O::new(op);
@@ -522,27 +525,25 @@ mod tests {
 
     #[test]
     fn extract_metadata() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = Operation<R, M>;
-        let op =
-            OperationAny::default().set_metadata(Any::from_msg(&wkt::Timestamp::clamp(123, 0))?);
+        let op = OperationAny::default().set_metadata(Any::from_msg(&Timestamp::clamp(123, 0))?);
 
         let op = O::new(op);
 
         let metadata = as_metadata(op);
-        assert_eq!(metadata, Some(wkt::Timestamp::clamp(123, 0)));
+        assert_eq!(metadata, Some(Timestamp::clamp(123, 0)));
 
         Ok(())
     }
 
     #[test]
     fn extract_metadata_bad_type() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = Operation<R, M>;
-        let op =
-            OperationAny::default().set_metadata(Any::from_msg(&wkt::Duration::clamp(123, 0))?);
+        let op = OperationAny::default().set_metadata(Any::from_msg(&Duration::clamp(123, 0))?);
         let op = O::new(op);
         let metadata = as_metadata(op);
         assert_eq!(metadata, None);
@@ -552,8 +553,8 @@ mod tests {
 
     #[test]
     fn extract_metadata_not_set() -> TestResult {
-        type R = wkt::Duration;
-        type M = wkt::Timestamp;
+        type R = Duration;
+        type M = Timestamp;
         type O = Operation<R, M>;
         let op = OperationAny::default();
         let op = O::new(op);
