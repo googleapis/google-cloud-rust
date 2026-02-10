@@ -33,8 +33,8 @@
 //! # use google_cloud_lro::{internal::Operation, Poller};
 //! # use serde::{Deserialize, Serialize};
 //! # use google_cloud_gax::Result;
-//! # use wkt::Timestamp as Response;
-//! # use wkt::Duration as Metadata;
+//! # use google_cloud_wkt::Timestamp as Response;
+//! # use google_cloud_wkt::Duration as Metadata;
 //! async fn start_lro() -> impl Poller<Response, Metadata> {
 //!     // ... details omitted ...
 //!     # async fn start() -> Result<Operation<Response, Metadata>> { panic!(); }
@@ -59,8 +59,8 @@
 //! # use google_cloud_lro::{internal::Operation, Poller, PollingResult};
 //! # use serde::{Deserialize, Serialize};
 //! # use google_cloud_gax::Result;
-//! # use wkt::Timestamp as Response;
-//! # use wkt::Duration as Metadata;
+//! # use google_cloud_wkt::Timestamp as Response;
+//! # use google_cloud_wkt::Duration as Metadata;
 //!
 //! async fn start_lro() -> impl Poller<Response, Metadata> {
 //!     // ... details omitted ...
