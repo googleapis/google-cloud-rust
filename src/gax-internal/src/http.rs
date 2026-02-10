@@ -66,6 +66,7 @@ pub struct ReqwestClient {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    user_agent: Option<String>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
 }
@@ -86,6 +87,7 @@ impl ReqwestClient {
         if config.disable_follow_redirects {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
+
         let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
             config.endpoint.as_deref(),
@@ -118,6 +120,7 @@ impl ReqwestClient {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            user_agent: config.user_agent,
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
         })
@@ -197,7 +200,12 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &RequestOptions,
     ) -> Result<reqwest::RequestBuilder> {
-        if let Some(user_agent) = options.user_agent() {
+        let user_agent = options
+            .user_agent()
+            .as_deref()
+            .or(self.user_agent.as_deref());
+
+        if let Some(user_agent) = user_agent {
             builder = builder.header(
                 ::reqwest::header::USER_AGENT,
                 reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
@@ -784,6 +792,59 @@ mod tests {
             }
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_user_agent_header() -> TestResult {
+        let client_agent = "client-agent/1.0.0";
+        let request_agent = "request-agent/1.0.0";
+
+        let server = httptest::Server::run();
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::all_of![
+                httptest::matchers::request::method_path("GET", "/foo"),
+                httptest::matchers::request::headers(httptest::matchers::contains((
+                    "user-agent",
+                    client_agent
+                ))),
+            ])
+            .times(1)
+            .respond_with(httptest::responders::status_code(200)),
+        );
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::all_of![
+                httptest::matchers::request::method_path("GET", "/foo"),
+                httptest::matchers::request::headers(httptest::matchers::contains((
+                    "user-agent",
+                    request_agent
+                ))),
+            ])
+            .times(1)
+            .respond_with(httptest::responders::status_code(200)),
+        );
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.user_agent = Some(client_agent.to_string());
+
+        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
+
+        // Test with client agent only
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let options = RequestOptions::default();
+        let _ = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await?;
+
+        // Test that request agent overrides client agent
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent);
+        let _ = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await?;
+
         Ok(())
     }
 }
