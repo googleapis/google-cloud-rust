@@ -309,7 +309,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn worker_handles_forced_shutdown_gracefully() {
         let mock = MockGapicPublisher::new();
 
@@ -320,8 +320,8 @@ mod tests {
                 .build_return_handle();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
