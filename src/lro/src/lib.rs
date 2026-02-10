@@ -32,7 +32,7 @@
 //! ```no_run
 //! # use google_cloud_lro::{internal::Operation, Poller};
 //! # use serde::{Deserialize, Serialize};
-//! # use gax::Result;
+//! # use google_cloud_gax::Result;
 //! # use wkt::Timestamp as Response;
 //! # use wkt::Duration as Metadata;
 //! async fn start_lro() -> impl Poller<Response, Metadata> {
@@ -40,8 +40,8 @@
 //!     # async fn start() -> Result<Operation<Response, Metadata>> { panic!(); }
 //!     # async fn query(_: String) -> Result<Operation<Response, Metadata>> { panic!(); }
 //!     # google_cloud_lro::internal::new_poller(
-//!     #    std::sync::Arc::new(gax::polling_error_policy::AlwaysContinue),
-//!     #    std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default()),
+//!     #    std::sync::Arc::new(google_cloud_gax::polling_error_policy::AlwaysContinue),
+//!     #    std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default()),
 //!     #    start, query
 //!     # )
 //! }
@@ -51,14 +51,14 @@
 //!     .until_done()
 //!     .await?;
 //! println!("response = {response:?}");
-//! # gax::Result::<()>::Ok(()) });
+//! # google_cloud_gax::Result::<()>::Ok(()) });
 //! ```
 //!
 //! # Example: poll with metadata
 //! ```no_run
 //! # use google_cloud_lro::{internal::Operation, Poller, PollingResult};
 //! # use serde::{Deserialize, Serialize};
-//! # use gax::Result;
+//! # use google_cloud_gax::Result;
 //! # use wkt::Timestamp as Response;
 //! # use wkt::Duration as Metadata;
 //!
@@ -67,8 +67,8 @@
 //!     # async fn start() -> Result<Operation<Response, Metadata>> { panic!(); }
 //!     # async fn query(_: String) -> Result<Operation<Response, Metadata>> { panic!(); }
 //!     # google_cloud_lro::internal::new_poller(
-//!     #    std::sync::Arc::new(gax::polling_error_policy::AlwaysContinue),
-//!     #    std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default()),
+//!     #    std::sync::Arc::new(google_cloud_gax::polling_error_policy::AlwaysContinue),
+//!     #    std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default()),
 //!     #    start, query
 //!     # )
 //! }
@@ -82,15 +82,15 @@
 //!     }
 //!     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
 //! }
-//! # gax::Result::<()>::Ok(()) });
+//! # google_cloud_gax::Result::<()>::Ok(()) });
 //! ```
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-use gax::Result;
-use gax::error::Error;
-use gax::polling_backoff_policy::PollingBackoffPolicy;
-use gax::polling_error_policy::PollingErrorPolicy;
+use google_cloud_gax::Result;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
+use google_cloud_gax::polling_error_policy::PollingErrorPolicy;
 use std::future::Future;
 
 /// The result of polling a Long-Running Operation (LRO).
@@ -116,7 +116,7 @@ pub enum PollingResult<ResponseType, MetadataType> {
     /// a [NOT_FOUND], [ABORTED], or [PERMISSION_DENIED] status code will never
     /// recover.
     ///
-    /// [Error]: gax::error::Error
+    /// [Error]: google_cloud_gax::error::Error
     /// [NOT_FOUND]: google_cloud_rpc::model::Code::NotFound
     /// [ABORTED]: google_cloud_rpc::model::Code::Aborted
     /// [PERMISSION_DENIED]: google_cloud_rpc::model::Code::PermissionDenied
