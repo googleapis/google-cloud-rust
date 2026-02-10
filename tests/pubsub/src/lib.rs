@@ -73,7 +73,7 @@ pub async fn basic_topic() -> Result<()> {
     tracing::info!("success with get_topic={get_topic:?}");
     assert_eq!(get_topic.name, topic.name);
 
-    cleanup_test_topic(&client, topic.name).await?;
+    cleanup_test_topic(&client, &topic.name).await?;
 
     Ok(())
 }

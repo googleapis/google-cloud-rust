@@ -14,6 +14,7 @@
 
 pub mod quickstart_publisher;
 pub mod quickstart_subscriber;
+pub mod subscriber_stream;
 mod subscription;
 mod topic;
 
@@ -36,7 +37,7 @@ pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result
 
 pub async fn run_subscription_examples(
     subscription_names: &mut Vec<String>,
-    topic_name: String,
+    topic_name: &str,
 ) -> anyhow::Result<()> {
     let client = SubscriptionAdmin::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
@@ -46,10 +47,14 @@ pub async fn run_subscription_examples(
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
 
+    quickstart_publisher::sample(&project_id, topic_id).await?;
+    quickstart_subscriber::sample(&project_id, &id).await?;
+    subscriber_stream::sample(&project_id, &id).await?;
+
     Ok(())
 }
 
-pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: String) -> anyhow::Result<()> {
+pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: &str) -> anyhow::Result<()> {
     client.delete_topic().set_topic(topic_name).send().await?;
     Ok(())
 }
@@ -98,7 +103,7 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
             let client = client.clone();
             pending.spawn(async move {
                 let name = topic.name.clone();
-                (topic.name, cleanup_test_topic(&client, name).await)
+                (topic.name, cleanup_test_topic(&client, &name).await)
             });
         }
     }
@@ -124,7 +129,7 @@ fn random_topic_id() -> String {
 
 pub async fn cleanup_test_subscription(
     client: &SubscriptionAdmin,
-    subscription_name: String,
+    subscription_name: &str,
 ) -> anyhow::Result<()> {
     client
         .delete_subscription()
@@ -197,7 +202,7 @@ pub async fn cleanup_stale_subscriptions(
                 let name = subscription.name.clone();
                 (
                     subscription.name,
-                    cleanup_test_subscription(&client, name).await,
+                    cleanup_test_subscription(&client, &name).await,
                 )
             });
         }

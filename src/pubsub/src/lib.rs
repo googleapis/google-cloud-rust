@@ -57,6 +57,7 @@
 //! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 

@@ -31,10 +31,10 @@ mod pubsub {
         integration_tests_pubsub::basic_publisher(topic.name.clone()).await?;
         integration_tests_pubsub::basic_subscriber(sub.name.clone()).await?;
 
-        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await {
+        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name).await {
             tracing::info!("Error cleaning up test subscription: {e:?}");
         }
-        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await {
+        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name).await {
             tracing::info!("Error cleaning up test topic: {e:?}");
         }
         Ok(())
