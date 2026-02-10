@@ -12,42 +12,59 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_pubsub::client::*;
+use pubsub_samples::*;
+
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use google_cloud_pubsub::client::*;
-    use pubsub_samples::*;
+    use super::*;
 
     #[tokio::test]
-    async fn topic_examples() -> anyhow::Result<()> {
-        let client = TopicAdmin::builder().build().await?;
-
-        let mut topics = Vec::new();
-        let result = run_topic_examples(&mut topics).await;
-        // Ignore cleanup errors.
-        for name in topics {
-            if let Err(e) = cleanup_test_topic(&client, &name).await {
-                println!("Error cleaning up test topic {name}: {e:?}");
-            }
-        }
-        result
+    async fn topic_samples() -> anyhow::Result<()> {
+        topics().await
     }
 
     #[tokio::test]
-    async fn subscription_examples() -> anyhow::Result<()> {
-        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let client = SubscriptionAdmin::builder().build().await?;
+    async fn subscription_samples() -> anyhow::Result<()> {
+        subscriptions().await
+    }
+}
 
+pub async fn topics() -> anyhow::Result<()> {
+    let client = TopicAdmin::builder().build().await?;
+    let mut topics = Vec::new();
+
+    let result = run_topic_samples(&mut topics).await;
+
+    for name in topics {
+        if let Err(e) = cleanup_test_topic(&client, &name).await {
+            println!("Error cleaning up test topic {name}: {e:?}");
+        }
+    }
+    result
+}
+
+pub async fn subscriptions() -> anyhow::Result<()> {
+    let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+
+    let res = async {
+        let client = SubscriptionAdmin::builder().build().await?;
         let mut subscriptions = Vec::new();
-        let result = run_subscription_examples(&mut subscriptions, &topic.name).await;
+
+        let result = run_subscription_samples(&mut subscriptions, &topic.name).await;
 
         for name in subscriptions {
             if let Err(e) = cleanup_test_subscription(&client, &name).await {
                 println!("Error cleaning up test subscription {name}: {e:?}");
             }
         }
-        if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
-            println!("Error cleaning up test topic {e:?}");
-        }
         result
     }
+    .await;
+
+    if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
+        println!("Error cleaning up test topic {}: {:?}", topic.name, e);
+    }
+
+    res
 }

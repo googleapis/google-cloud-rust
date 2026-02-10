@@ -24,7 +24,7 @@ use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
 use rand::{RngExt, distr::Alphanumeric};
 use tokio::task::JoinSet;
 
-pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
+pub async fn run_topic_samples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
     let client = TopicAdmin::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
@@ -35,7 +35,7 @@ pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result
     Ok(())
 }
 
-pub async fn run_subscription_examples(
+pub async fn run_subscription_samples(
     subscription_names: &mut Vec<String>,
     topic_name: &str,
 ) -> anyhow::Result<()> {
