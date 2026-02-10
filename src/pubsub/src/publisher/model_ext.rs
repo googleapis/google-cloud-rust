@@ -54,7 +54,7 @@ impl Future for PublishFuture {
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
         // An error will only occur if the sender of the self.rx was dropped,
-        // which can happen when the background worker is dropped.
+        // which can happen when the Dispatcher is dropped.
         match result {
             Ok(result) => Poll::Ready(result.map_err(convert_error)),
             Err(_) => Poll::Ready(Err(Arc::new(google_cloud_gax::error::Error::io(
