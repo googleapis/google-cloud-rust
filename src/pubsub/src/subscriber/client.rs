@@ -37,6 +37,16 @@ use std::sync::Arc;
 /// # Ok(()) }
 /// ```
 ///
+/// # Ordered Delivery
+///
+/// If [ordered delivery] is enabled on the subscription, the subscriber yields
+/// messages to the application in order on each call to
+/// [`Session::next()`][next]. Messages for a given ordering key are only
+/// delivered by one `Session` at a time.
+///
+/// [next]: crate::subscriber::session::Session::next
+/// [ordered delivery]: https://docs.cloud.google.com/pubsub/docs/ordering
+///
 /// # Configuration
 ///
 /// To configure a `Subscriber` use the `with_*` methods in the type returned by
