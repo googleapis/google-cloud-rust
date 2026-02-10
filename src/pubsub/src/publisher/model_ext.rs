@@ -77,12 +77,10 @@ fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
 
 #[cfg(test)]
 mod tests {
-    use crate::generated::gapic_dataplane::builder::publisher::Publish;
-
     use super::*;
 
     #[tokio::test]
-    async fn resolve_publish_handle_success() {
+    async fn resolve_publish_future_success() {
         let (tx, rx) = oneshot::channel();
         let handle = PublishFuture { rx };
         let _ = tx.send(Ok("message_id".to_string()));
@@ -91,7 +89,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn resolve_publish_handle_error() {
+    async fn resolve_publish_future_error() {
         use std::error::Error as _;
 
         let (tx, rx) = oneshot::channel();
@@ -112,7 +110,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn resolve_publish_handle_error_send_error() {
+    async fn resolve_publish_future_error_send_error() {
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
         drop(tx);
