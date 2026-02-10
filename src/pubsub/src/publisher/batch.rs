@@ -52,7 +52,7 @@ impl Batch {
         self.messages.push(msg);
     }
 
-    fn message_size(msg: &crate::model::PubsubMessage) -> usize {
+    fn message_size(msg: &crate::model::Message) -> usize {
         // This is only an estimate and not the wire length.
         // TODO(#3963): If we move on to use protobuf crate, then it may be
         // possible to use compute_size to find the wire length.
@@ -122,7 +122,7 @@ impl Batch {
 mod tests {
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        model::{PublishResponse, PubsubMessage},
+        model::{Message, PublishResponse},
         publisher::actor::BundledMessage,
         publisher::batch::Batch,
     };
@@ -182,16 +182,15 @@ mod tests {
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let (message_with_ordering, _rx) = create_bundled_message_from_pubsub_message(
-            PubsubMessage::new().set_ordering_key("ordering_key"),
+            Message::new().set_ordering_key("ordering_key"),
         );
         expected_encoded_len += message_with_ordering.msg.ordering_key.len();
         batch.push(message_with_ordering);
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let attributes = HashMap::from([("k1", "v1"), ("key2", "value2")]);
-        let (message_with_attributes, _rx) = create_bundled_message_from_pubsub_message(
-            PubsubMessage::new().set_attributes(attributes),
-        );
+        let (message_with_attributes, _rx) =
+            create_bundled_message_from_pubsub_message(Message::new().set_attributes(attributes));
         expected_encoded_len += 14;
         batch.push(message_with_attributes);
         assert_eq!(batch.size(), expected_encoded_len as u32);
@@ -216,11 +215,11 @@ mod tests {
         BundledMessage,
         tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
     ) {
-        create_bundled_message_from_pubsub_message(PubsubMessage::new().set_data(data.into()))
+        create_bundled_message_from_pubsub_message(Message::new().set_data(data.into()))
     }
 
     fn create_bundled_message_from_pubsub_message(
-        msg: PubsubMessage,
+        msg: Message,
     ) -> (
         BundledMessage,
         tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,

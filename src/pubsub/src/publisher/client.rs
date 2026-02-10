@@ -28,9 +28,9 @@ use tokio::sync::oneshot;
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use google_cloud_pubsub::client::Publisher;
-/// # use model::PubsubMessage;
+/// # use model::Message;
 /// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
-/// let message_id_future = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
+/// let message_id_future = publisher.publish(Message::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
 ///
@@ -67,11 +67,11 @@ impl Publisher {
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
-    /// # use google_cloud_pubsub::model::PubsubMessage;
-    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
+    /// # use google_cloud_pubsub::model::Message;
+    /// let message_id = publisher.publish(Message::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publish(&self, msg: crate::model::PubsubMessage) -> crate::model_ext::PublishFuture {
+    pub fn publish(&self, msg: crate::model::Message) -> crate::model_ext::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
         // If this fails, the Dispatcher is gone, which indicates something bad has happened.
@@ -106,11 +106,11 @@ impl Publisher {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// # use google_cloud_pubsub::model::Message;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
     /// // Publish some messages. They will be buffered according to batching options.
-    /// let handle1 = publisher.publish(PubsubMessage::new().set_data("foo"));
-    /// let handle2 = publisher.publish(PubsubMessage::new().set_data("bar"));
+    /// let handle1 = publisher.publish(Message::new().set_data("foo"));
+    /// let handle2 = publisher.publish(Message::new().set_data("bar"));
     ///
     /// // Flush ensures that these messages are sent immediately and waits for
     /// // the send to complete.
@@ -139,9 +139,9 @@ impl Publisher {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// # use google_cloud_pubsub::model::Message;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
-    /// if let Err(_) = publisher.publish(PubsubMessage::new().set_data("foo").set_ordering_key("bar")).await {
+    /// if let Err(_) = publisher.publish(Message::new().set_data("foo").set_ordering_key("bar")).await {
     ///     // Error handling code can go here.
     ///     publisher.resume_publish("bar");
     /// }
@@ -164,7 +164,7 @@ mod tests {
     use crate::publisher::options::BatchingOptions;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        model::{PublishResponse, PubsubMessage},
+        model::{Message, PublishResponse},
     };
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
@@ -243,7 +243,7 @@ mod tests {
                 let msg = generate_random_data();
                 let got = $publisher
                     .publish(
-                        PubsubMessage::new()
+                        Message::new()
                             .set_ordering_key($ordering_key)
                             .set_data(msg.clone()),
                     )
@@ -258,7 +258,7 @@ mod tests {
             $(
                 let got_err = $publisher
                     .publish(
-                        PubsubMessage::new()
+                        Message::new()
                             .set_ordering_key($ordering_key)
                             .set_data(generate_random_data()),
                     )
@@ -292,8 +292,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -326,14 +326,10 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
-            PubsubMessage::new()
-                .set_data("hello")
-                .set_ordering_key("key"),
-            PubsubMessage::new()
-                .set_data("world")
-                .set_ordering_key("key"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
+            Message::new().set_data("hello").set_ordering_key("key"),
+            Message::new().set_data("world").set_ordering_key("key"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -364,8 +360,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
 
         let mut handles = Vec::new();
@@ -396,8 +392,8 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -408,7 +404,7 @@ mod tests {
         publisher.flush().await;
         assert_eq!(start.elapsed(), Duration::ZERO);
 
-        let post = publisher.publish(PubsubMessage::new().set_data("after"));
+        let post = publisher.publish(Message::new().set_data("after"));
         for (id, rx) in handles.into_iter() {
             let got = rx.await.expect("expected message id");
             let id = String::from_utf8(id.data.to_vec()).unwrap();
@@ -433,8 +429,8 @@ mod tests {
                 assert_eq!(
                     r.messages,
                     vec![
-                        PubsubMessage::new().set_data("hello"),
-                        PubsubMessage::new().set_data("world")
+                        Message::new().set_data("hello"),
+                        Message::new().set_data("world")
                     ]
                 );
                 publish_ok(r, o)
@@ -450,8 +446,8 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         for msg in messages {
             publisher.publish(msg.clone());
@@ -492,8 +488,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -527,8 +523,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -563,8 +559,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello"),
-            PubsubMessage::new().set_data("world"),
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -598,12 +594,12 @@ mod tests {
         for _ in 0..3 {
             let start = tokio::time::Instant::now();
             let messages = [
-                PubsubMessage::new().set_data("hello 0"),
-                PubsubMessage::new().set_data("hello 1"),
-                PubsubMessage::new()
+                Message::new().set_data("hello 0"),
+                Message::new().set_data("hello 1"),
+                Message::new()
                     .set_data("hello 2")
                     .set_ordering_key("ordering key 1"),
-                PubsubMessage::new()
+                Message::new()
                     .set_data("hello 3")
                     .set_ordering_key("ordering key 2"),
             ];
@@ -659,7 +655,7 @@ mod tests {
         // ordering key may fail the message len assertion.
         for i in 0..(2 * message_count_threshold * num_ordering_keys) {
             messages.push(
-                PubsubMessage::new()
+                Message::new()
                     .set_data(format!("test message {}", i))
                     .set_ordering_key(format!("ordering key: {}", i % num_ordering_keys)),
             );
@@ -702,14 +698,12 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new().set_data("hello 1"),
-            PubsubMessage::new()
-                .set_data("hello 2")
-                .set_ordering_key(""),
-            PubsubMessage::new()
+            Message::new().set_data("hello 1"),
+            Message::new().set_data("hello 2").set_ordering_key(""),
+            Message::new()
                 .set_data("hello 3")
                 .set_ordering_key("ordering key :1"),
-            PubsubMessage::new()
+            Message::new()
                 .set_data("hello 4")
                 .set_ordering_key("ordering key :1"),
         ];
@@ -769,10 +763,10 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new()
+            Message::new()
                 .set_data("hello 1")
                 .set_ordering_key("ordering key"),
-            PubsubMessage::new()
+            Message::new()
                 .set_data("hello 2")
                 .set_ordering_key("ordering key"),
         ];
@@ -835,12 +829,8 @@ mod tests {
             .build();
 
         let messages = [
-            PubsubMessage::new()
-                .set_data("hello 1")
-                .set_ordering_key(""),
-            PubsubMessage::new()
-                .set_data("hello 2")
-                .set_ordering_key(""),
+            Message::new().set_data("hello 1").set_ordering_key(""),
+            Message::new().set_data("hello 2").set_ordering_key(""),
         ];
 
         let start = tokio::time::Instant::now();
@@ -880,10 +870,10 @@ mod tests {
 
         let key = "ordering_key";
         let msg_0_handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+            publisher.publish(Message::new().set_ordering_key(key).set_data("msg 0"));
         // Publish an additional message so that there are pending messages.
         let msg_1_handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 1"));
+            publisher.publish(Message::new().set_ordering_key(key).set_data("msg 1"));
 
         // Assert the error is caused by the Publish send operation.
         let mut got_err = msg_0_handle.await.unwrap_err();
@@ -930,9 +920,9 @@ mod tests {
         let key = "ordering_key";
         // Publish 2 messages so they are in the same batch.
         let msg_0_handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+            publisher.publish(Message::new().set_ordering_key(key).set_data("msg 0"));
         let msg_1_handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 1"));
+            publisher.publish(Message::new().set_ordering_key(key).set_data("msg 1"));
 
         // Validate that they both receives the Send error.
         let mut got_err = msg_0_handle.await.unwrap_err();
@@ -966,8 +956,7 @@ mod tests {
 
         let key = "ordering_key";
         // Cause an ordering key to be paused.
-        let handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        let handle = publisher.publish(Message::new().set_ordering_key(key).set_data("msg 0"));
         publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
@@ -1030,8 +1019,7 @@ mod tests {
 
         let key = "ordering_key";
         // Cause an ordering key to be paused.
-        let handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        let handle = publisher.publish(Message::new().set_ordering_key(key).set_data("msg 0"));
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
         assert_publish_err(got_err);
@@ -1069,8 +1057,7 @@ mod tests {
 
         let key = "ordering_key";
         // Cause an ordering key to be paused.
-        let handle =
-            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        let handle = publisher.publish(Message::new().set_ordering_key(key).set_data("msg 0"));
         publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
         let got_err = handle.await.unwrap_err();
@@ -1108,16 +1095,8 @@ mod tests {
         let key_0 = "ordering_key_0";
         let key_1 = "ordering_key_1";
         // Cause both ordering keys to pause.
-        let handle_0 = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key(key_0)
-                .set_data("msg 0"),
-        );
-        let handle_1 = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key(key_1)
-                .set_data("msg 1"),
-        );
+        let handle_0 = publisher.publish(Message::new().set_ordering_key(key_0).set_data("msg 0"));
+        let handle_1 = publisher.publish(Message::new().set_ordering_key(key_1).set_data("msg 1"));
         publisher.flush().await;
         let mut got_err = handle_0.await.unwrap_err();
         assert_publish_err(got_err);

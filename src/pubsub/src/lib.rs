@@ -100,7 +100,7 @@ pub mod builder {
 /// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic::model::*;
-    pub use crate::generated::gapic_dataplane::model::PubsubMessage;
+    pub use crate::generated::gapic_dataplane::model::PubsubMessage as Message;
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
@@ -119,7 +119,7 @@ pub mod model_ext {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_pubsub::client::Publisher;
-/// use google_cloud_pubsub::model::PubsubMessage;
+/// use google_cloud_pubsub::model::Message;
 ///
 /// // Create a publisher that handles batching for a specific topic.
 /// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
@@ -128,7 +128,7 @@ pub mod model_ext {
 /// // The client will automatically batch them in the background.
 /// let mut futures = Vec::new();
 /// for i in 0..10 {
-///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
+///     let msg = Message::new().set_data(format!("message {}", i));
 ///     futures.push(publisher.publish(msg));
 /// }
 ///

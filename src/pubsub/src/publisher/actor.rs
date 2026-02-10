@@ -45,7 +45,7 @@ pub(crate) enum ToBatchActor {
 /// half of the channel to resolve the [PublishFuture].
 #[derive(Debug)]
 pub(crate) struct BundledMessage {
-    pub msg: crate::model::PubsubMessage,
+    pub msg: crate::model::Message,
     pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
@@ -484,7 +484,7 @@ mod tests {
     use crate::publisher::options::BatchingOptions;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        model::{PublishResponse, PubsubMessage},
+        model::{Message, PublishResponse},
     };
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
@@ -533,7 +533,7 @@ mod tests {
 
     fn track_publish_msg_seq(
         req: &crate::model::PublishRequest,
-        msg_seq_tx: UnboundedSender<PubsubMessage>,
+        msg_seq_tx: UnboundedSender<Message>,
     ) {
         req.messages.iter().for_each(|m| {
             msg_seq_tx
@@ -568,7 +568,7 @@ mod tests {
                 let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
                 let msg = generate_random_data();
                 let bundle = BundledMessage {
-                    msg: PubsubMessage::new().set_data(msg.clone()),
+                    msg: Message::new().set_data(msg.clone()),
                     tx: publish_tx,
                 };
                 $actor_tx.send(ToBatchActor::Publish(bundle))?;
@@ -628,7 +628,7 @@ mod tests {
                 let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
                 // let msg = generate_random_data();
                 let bundle = BundledMessage {
-                    msg: PubsubMessage::new().set_data(generate_random_data()),
+                    msg: Message::new().set_data(generate_random_data()),
                     tx: publish_tx,
                 };
                 $actor_tx.send(ToBatchActor::Publish(bundle))?;
@@ -708,7 +708,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_publish() -> anyhow::Result<()> {
-        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -793,7 +793,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_flush() -> anyhow::Result<()> {
-        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -859,7 +859,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
-        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<PubsubMessage>();
+        let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
         let mut seq = Sequence::new();
         mock.expect_publish()
@@ -906,7 +906,7 @@ mod tests {
         // This message triggers the mock to return publish error and causes the actor to pause.
         let (publish_tx, publish_rx) = tokio::sync::oneshot::channel();
         let bundle = BundledMessage {
-            msg: PubsubMessage::new().set_data(generate_random_data()),
+            msg: Message::new().set_data(generate_random_data()),
             tx: publish_tx,
         };
         actor_tx.send(ToBatchActor::Publish(bundle))?;
