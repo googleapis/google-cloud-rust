@@ -538,7 +538,6 @@ mod tests {
 #[cfg(test)]
 mod headers_tests {
     use super::*;
-    use gax::options::RequestOptions;
 
     #[tokio::test]
     async fn test_user_agent_headers() {

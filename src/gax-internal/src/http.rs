@@ -832,14 +832,14 @@ mod tests {
 
         // Test with client agent only
         let builder = client.builder(Method::GET, "foo".to_string());
-        let options = gax::options::RequestOptions::default();
+        let options = RequestOptions::default();
         let _ = client
             .execute_streaming_once(builder, options, None, 0)
             .await?;
 
         // Test that request agent overrides client agent
         let builder = client.builder(Method::GET, "foo".to_string());
-        let mut options = gax::options::RequestOptions::default();
+        let mut options = RequestOptions::default();
         options.set_user_agent(request_agent);
         let _ = client
             .execute_streaming_once(builder, options, None, 0)
