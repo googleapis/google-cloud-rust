@@ -47,6 +47,21 @@ use std::sync::Arc;
 /// [next]: crate::subscriber::session::Session::next
 /// [ordered delivery]: https://docs.cloud.google.com/pubsub/docs/ordering
 ///
+/// # Exactly-once Delivery
+///
+/// The subscriber does **not** support [exactly-once] delivery yet.
+///
+/// If you subscribe to a subscription with exactly-once delivery enabled, the
+/// subscriber will deliver you messages with at-least-once semantics. There is
+/// no way for you to confirm the acknowledgements from the server. Messages may
+/// get redelivered.
+///
+/// Adding support for exactly-once delivery is planned. You can track the
+/// progress in [google-cloud-rust#3964].
+///
+/// [#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
+/// [exactly-once]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
+///
 /// # Configuration
 ///
 /// To configure a `Subscriber` use the `with_*` methods in the type returned by
