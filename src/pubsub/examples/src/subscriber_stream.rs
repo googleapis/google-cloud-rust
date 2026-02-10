@@ -21,19 +21,25 @@ use std::time::Duration;
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
+
+    // In simple scenarios, like this example, a `Session` can be converted into
+    // a `futures::Stream`.
     let session = client.streaming_pull(subscription_name).start();
 
     println!("listening for messages using streams...");
 
+    // Terminate the example after 10 seconds. Applications typically process
+    // messages indefinitely in a long-running loop.
     let deadline = tokio::time::sleep(Duration::from_secs(10));
     session
         .into_stream()
         .take_until(deadline)
         .try_for_each(|(message, handler)| {
             println!(
-                "received message: {:?}",
+                "received message: {}",
                 String::from_utf8_lossy(&message.data)
             );
+            // Acknowledgments are required for At-Least-Once delivery.
             handler.ack();
             async { Ok(()) }
         })
