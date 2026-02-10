@@ -137,16 +137,13 @@ pub async fn cleanup_test_subscription(
 pub async fn create_test_subscription(
     topic_name: &str,
 ) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
-    create_test_subscription_impl(topic_name, |s| s).await
+    create_test_subscription_with_request(topic_name, Subscription::new()).await
 }
 
-async fn create_test_subscription_impl<F>(
+async fn create_test_subscription_with_request(
     topic_name: &str,
-    modifier: F,
-) -> anyhow::Result<(SubscriptionAdmin, Subscription)>
-where
-    F: Fn(Subscription) -> Subscription,
-{
+    request: Subscription,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = SubscriptionAdmin::builder().with_tracing().build().await?;
 
@@ -155,13 +152,12 @@ where
     let subscription_id = random_subscription_id();
     let now = chrono::Utc::now().timestamp().to_string();
 
-    let request = Subscription::new()
+    let request = request
         .set_name(format!(
             "projects/{project_id}/subscriptions/{subscription_id}"
         ))
         .set_topic(topic_name)
         .set_labels([("integration-test", "true"), ("create-time", &now)]);
-    let request = modifier(request);
     let subscription = client
         .create_subscription()
         .with_request(request)
