@@ -59,8 +59,8 @@ use std::sync::Arc;
 /// Adding support for exactly-once delivery is planned. You can track the
 /// progress in [google-cloud-rust#3964].
 ///
-/// [#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
 /// [exactly-once]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
+/// [google-cloud-rust#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
 ///
 /// # Configuration
 ///
