@@ -17,6 +17,13 @@ use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 #[cfg(google_cloud_unstable_tracing)]
 use google_cloud_showcase_v1beta1::client::Echo;
 
+/// The query parameters injected by the client library.
+///
+/// A constant to make the expected values slightly more readable.
+#[cfg(google_cloud_unstable_tracing)]
+const EXPECTED_QUERY_PARAMETERS: &str =
+    "%24alt=json%3Benum-encoding%3Dint&%24apiVersion=v1_20240408";
+
 /// Validates that HTTP tracing makes it all the way to OTLP collectors like
 /// Cloud Telemetry.
 ///
@@ -218,7 +225,7 @@ async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
         (
             "url.full",
             format!(
-                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                "http://{}/v1beta1/echo:echo?{EXPECTED_QUERY_PARAMETERS}",
                 server_addr
             )
             .into(),
@@ -301,7 +308,7 @@ async fn http_tracing_parse_error() -> anyhow::Result<()> {
         (
             "url.full",
             format!(
-                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                "http://{}/v1beta1/echo:echo?{EXPECTED_QUERY_PARAMETERS}",
                 server_addr
             )
             .into(),
@@ -383,7 +390,7 @@ async fn http_tracing_api_error() -> anyhow::Result<()> {
         (
             "url.full",
             format!(
-                "http://{}/v1beta1/echo:echo?%24alt=json%3Benum-encoding%3Dint",
+                "http://{}/v1beta1/echo:echo?{EXPECTED_QUERY_PARAMETERS}",
                 server_addr
             )
             .into(),

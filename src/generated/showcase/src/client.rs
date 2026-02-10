@@ -273,6 +273,8 @@ impl Compliance {
 /// 'x-goog-request-params' metadata key on any method to have the values
 /// echoed in the response headers.
 ///
+/// The client library was generated with API version v1_20240408.
+///
 /// # Configuration
 ///
 /// To configure `Echo` use the `with_*` methods in the type returned
