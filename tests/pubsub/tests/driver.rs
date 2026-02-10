@@ -17,16 +17,16 @@ mod pubsub {
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
-    async fn run_pubsub_basic_topic() -> anyhow::Result<()> {
+    async fn run_basic_topic() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_pubsub::basic_topic().await
     }
 
     #[tokio::test]
-    async fn run_pubsub_basic_roundtrip() -> anyhow::Result<()> {
+    async fn run_basic_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let (sub_admin, sub) = pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+        let (sub_admin, sub) = pubsub_samples::create_test_subscription(&topic.name).await?;
 
         integration_tests_pubsub::basic_publisher(topic.name.clone()).await?;
         integration_tests_pubsub::basic_subscriber(sub.name.clone()).await?;
