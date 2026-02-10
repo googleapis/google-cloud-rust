@@ -74,7 +74,8 @@ impl Publisher {
     pub fn publish(&self, msg: crate::model::Message) -> crate::model_ext::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
-        // If this fails, the Dispatcher is gone, which indicates something bad has happened.
+        // If this fails, the Dispatcher is gone, which indicates it has been dropped,
+        // possibly due to the background task being stopped by the runtime.
         // The PublishFuture will automatically receive an error when `tx` is dropped.
         if self
             .tx
@@ -305,6 +306,34 @@ mod tests {
             let got = rx.await.expect("expected message id");
             let id = String::from_utf8(id.data.to_vec()).unwrap();
             assert_eq!(got, id);
+        }
+    }
+
+    #[tokio::test]
+    async fn worker_handles_forced_shutdown_gracefully() {
+        let mock = MockGapicPublisher::new();
+
+        let client = GapicPublisher::from_stub(mock);
+        let (publisher, background_task_handle) =
+            PublisherPartialBuilder::new(client, TOPIC.to_string())
+                .set_message_count_threshold(100_u32)
+                .build_return_handle();
+
+        let messages = [
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg);
+            handles.push(handle);
+        }
+
+        background_task_handle.abort();
+
+        for rx in handles.into_iter() {
+            rx.await
+                .expect_err("expected error when background task canceled");
         }
     }
 
