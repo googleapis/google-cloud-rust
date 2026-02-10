@@ -39,4 +39,22 @@ mod pubsub {
         }
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn run_ordered_roundtrip() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let (sub_admin, sub) =
+            pubsub_samples::create_ordered_test_subscription(&topic.name).await?;
+
+        let result = integration_tests_pubsub::ordering::roundtrip(&topic.name, &sub.name).await;
+
+        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await {
+            tracing::info!("Error cleaning up test subscription: {e:?}");
+        }
+        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await {
+            tracing::info!("Error cleaning up test topic: {e:?}");
+        }
+        result
+    }
 }
