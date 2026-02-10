@@ -197,9 +197,8 @@ impl Dispatcher {
 pub(crate) struct BatchActorContext {
     topic: String,
     client: GapicPublisher,
-    batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<ToBatchActor>,
-    pending_batch: Batch,
+    pending_batch: Batch, // TOD(NOW): Not needed anymore.
 }
 
 impl BatchActorContext {
@@ -210,19 +209,11 @@ impl BatchActorContext {
         rx: mpsc::UnboundedReceiver<ToBatchActor>,
     ) -> Self {
         BatchActorContext {
-            pending_batch: Batch::new(topic.len() as u32),
+            pending_batch: Batch::new(topic.len() as u32, batching_options),
             topic,
             client,
-            batching_options,
             rx,
         }
-    }
-
-    fn at_batch_threshold(&mut self) -> bool {
-        // TODO(#4012): When the message increases the batch size beyond pubsub server acceptable
-        // message size (10MB), we should flush existing batch first.
-        self.pending_batch.len() as u32 >= self.batching_options.message_count_threshold
-            || self.pending_batch.size() >= self.batching_options.byte_threshold
     }
 }
 
@@ -271,11 +262,7 @@ impl ConcurrentBatchActor {
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
-                            self.move_to_batch(msg);
-                            // Flush without awaiting on previous batches.
-                            if self.context.at_batch_threshold() {
-                                self.flush(&mut inflight);
-                            }
+                            self.move_to_batch_and_flush_at_threshold(&mut inflight, msg);
                         },
                         Some(ToBatchActor::Flush(tx)) => {
                             self.flush(&mut inflight);
@@ -310,9 +297,20 @@ impl ConcurrentBatchActor {
         }
     }
 
-    // Move msg to the pending batch.
-    pub(crate) fn move_to_batch(&mut self, msg: BundledMessage) {
+    // Move message to the pending batch respecting batch thresholds
+    // and flush the batch if it is full.
+    pub(crate) fn move_to_batch_and_flush_at_threshold(
+        &mut self,
+        inflight: &mut JoinSet<crate::Result<()>>,
+        msg: BundledMessage,
+    ) {
+        if !self.context.pending_batch.within_byte_threshold(&msg) {
+            self.flush(inflight);
+        }
         self.context.pending_batch.push(msg);
+        if self.context.pending_batch.at_threshold() {
+            self.flush(inflight);
+        }
     }
 }
 
@@ -391,24 +389,18 @@ impl SequentialBatchActor {
             tokio::select! {
                 join = inflight.join_next(), if !inflight.is_empty() => {
                     self.handle_inflight_join(join);
-                    self.move_to_batch();
-                    if self.context.at_batch_threshold() {
-                        self.context.pending_batch.flush(self.context.client.clone(), self.context.topic.clone(), &mut inflight);
-                    }
+                    self.move_to_batch_and_flush_at_threshold(&mut inflight);
                 }
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
                             if inflight.is_empty() {
-                                self.move_to_batch();
-                                if self.context.at_batch_threshold() {
-                                    self.context.pending_batch.flush(self.context.client.clone(), self.context.topic.clone(), &mut inflight);
-                                }
+                                self.move_to_batch_and_flush_at_threshold(&mut inflight);
                             }
                         },
                         Some(ToBatchActor::Flush(tx)) => {
-                            self.flush(inflight).await;
+                            self.flush(&mut inflight).await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
@@ -418,7 +410,7 @@ impl SequentialBatchActor {
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishFutures.
-                            self.flush(inflight).await;
+                            self.flush(&mut inflight).await;
                             break;
                         }
                     }
@@ -428,24 +420,49 @@ impl SequentialBatchActor {
     }
 
     // Flush the pending messages by sending the messages in sequential batches.
-    async fn flush(&mut self, mut inflight: JoinSet<crate::Result<()>>) {
+    async fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>) {
         self.handle_inflight_join(inflight.join_next().await);
-        while !self.context.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-            self.move_to_batch();
+        while !self.pending_msgs.is_empty() {
+            self.move_to_batch_and_flush_at_threshold(inflight);
+            self.handle_inflight_join(inflight.join_next().await);
+        }
+        // Flush the pending batch even if it does not fill the batch.
+        if !self.context.pending_batch.is_empty() {
             self.context.pending_batch.flush(
                 self.context.client.clone(),
                 self.context.topic.clone(),
-                &mut inflight,
+                inflight,
             );
-            self.handle_inflight_join(inflight.join_next().await);
         }
+        self.handle_inflight_join(inflight.join_next().await);
     }
 
-    // Move pending messages to the pending batch respecting batch thresholds.
-    pub(crate) fn move_to_batch(&mut self) {
-        while let Some(publish) = self.pending_msgs.pop_front() {
+    // Move message to the pending batch respecting batch thresholds
+    // and flush the batch if it is full.
+    pub(crate) fn move_to_batch_and_flush_at_threshold(
+        &mut self,
+        inflight: &mut JoinSet<crate::Result<()>>,
+    ) {
+        while let Some(next) = self.pending_msgs.front() {
+            if !self.context.pending_batch.within_byte_threshold(next) {
+                self.context.pending_batch.flush(
+                    self.context.client.clone(),
+                    self.context.topic.clone(),
+                    inflight,
+                );
+                break;
+            }
+            let publish = self
+                .pending_msgs
+                .pop_front()
+                .expect("front should contain an element");
             self.context.pending_batch.push(publish);
-            if self.context.at_batch_threshold() {
+            if self.context.pending_batch.at_threshold() {
+                self.context.pending_batch.flush(
+                    self.context.client.clone(),
+                    self.context.topic.clone(),
+                    inflight,
+                );
                 break;
             }
         }
@@ -481,6 +498,8 @@ mod tests {
     use super::{ConcurrentBatchActor, SequentialBatchActor};
     use crate::error::PublishError;
     use crate::publisher::actor::{BundledMessage, ToBatchActor};
+    use crate::publisher::batch::Batch;
+    use crate::publisher::constants::{MAX_BYTES, MAX_MESSAGES};
     use crate::publisher::options::BatchingOptions;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
@@ -918,6 +937,133 @@ mod tests {
         // Resume then validate that the actor is no longer paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
         assert_publish_is_ok!(actor_tx, msg_seq_rx, EXPECTED_BATCHES);
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn concurrent_actor_batch_message_count_threshold() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC && req.messages.len() == 10)
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(10_u32)
+                    .set_byte_threshold(MAX_BYTES)
+                    .set_delay_threshold(std::time::Duration::MAX),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        assert_publish_is_ok!(actor_tx, 10);
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn sequential_actor_batch_message_count_threshold() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC && req.messages.len() == 10)
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            SequentialBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(10_u32)
+                    .set_byte_threshold(MAX_BYTES)
+                    .set_delay_threshold(std::time::Duration::MAX),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        assert_publish_is_ok!(actor_tx, 10);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn concurrent_actor_byte_count_threshold() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| {
+                // Recreate the batch from req to calculate the batch size.
+                let mut batch = Batch::new(req.topic.len() as u32, BatchingOptions::default());
+                req.messages.iter().for_each(|msg| {
+                    let (tx, _rx) = tokio::sync::oneshot::channel();
+                    batch.push(BundledMessage {
+                        msg: msg.clone(),
+                        tx,
+                    });
+                });
+                req.topic == TOPIC && batch.size() <= 25_u32
+            })
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(MAX_MESSAGES)
+                    .set_byte_threshold(25_u32), // The current test generates 24 byte single message batches.
+                actor_rx,
+            )
+            .run(),
+        );
+
+        let mut publish_rxs = VecDeque::new();
+        publish_random_data!(publish_rxs, actor_tx, 10);
+        // We flush here otherwise the last message will await forever since it never exceed the byte threshold.
+        assert_flush!(actor_tx);
+        assert_publish_data!(publish_rxs);
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn sequential_actor_byte_count_threshold() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| {
+                // Recreate the batch from req to calculate the batch size.
+                let mut batch = Batch::new(req.topic.len() as u32, BatchingOptions::default());
+                req.messages.iter().for_each(|msg| {
+                    let (tx, _rx) = tokio::sync::oneshot::channel();
+                    batch.push(BundledMessage {
+                        msg: msg.clone(),
+                        tx,
+                    });
+                });
+                req.topic == TOPIC && batch.size() <= 25_u32
+            })
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            SequentialBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(MAX_MESSAGES)
+                    .set_byte_threshold(25_u32), // The current test generates 24 byte single message batches.
+                actor_rx,
+            )
+            .run(),
+        );
+
+        let mut publish_rxs = VecDeque::new();
+        publish_random_data!(publish_rxs, actor_tx, 1);
+        // We flush here otherwise the last message will await forever since it never exceed the byte threshold.
+        assert_flush!(actor_tx);
+        assert_publish_data!(publish_rxs);
 
         Ok(())
     }

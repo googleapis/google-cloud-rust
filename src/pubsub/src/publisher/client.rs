@@ -573,38 +573,35 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn batch_sends_on_byte_threshold() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|r, _| r.messages.len() == 2)
-            .return_once(publish_ok);
+            .withf(|r, _| r.messages.len() == 1)
+            .times(2)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
-        let byte_threshold = TOPIC.len() + "hello".len() + 1;
+        let byte_threshold: usize = TOPIC.len() + "hello".len() + "key".len() + 1;
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(byte_threshold as u32)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = [
-            Message::new().set_data("hello"),
-            Message::new().set_data("world"),
-        ];
-        let mut handles = Vec::new();
-        for msg in messages {
-            let handle = publisher.publish(msg.clone());
-            handles.push((msg, handle));
-        }
+        // Validate without ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello"));
+        // Publish a second message to trigger send on threshold.
+        publisher.publish(Message::new().set_data("world"));
+        assert_eq!(handle.await?, "hello");
 
-        for (id, rx) in handles.into_iter() {
-            let got = rx.await?;
-            let id = String::from_utf8(id.data.to_vec())?;
-            assert_eq!(got, id);
-        }
+        // Validate with ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello").set_ordering_key("key"));
+        // Publish a second message to trigger send on threshold.
+        publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
+        assert_eq!(handle.await?, "hello");
 
         Ok(())
     }
