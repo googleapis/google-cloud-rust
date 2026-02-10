@@ -246,7 +246,7 @@ mod tests {
             .build(mock_provider);
 
         let token = provider.token().await.unwrap();
-        assert_eq!(token.token, "test_token");
+        assert_eq!(token.token, "test_token", "{token:?}");
     }
 
     #[tokio::test]
@@ -277,7 +277,7 @@ mod tests {
             .build(mock_provider);
 
         let token = provider.token().await.unwrap();
-        assert_eq!(token.token, "test_token");
+        assert_eq!(token.token, "test_token", "{token:?}");
     }
 
     #[tokio::test]
@@ -293,10 +293,10 @@ mod tests {
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(error.is_transient());
+        assert!(error.is_transient(), "{error:?}");
+        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR), "{error:?}");
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
-        assert!(original_error.is_transient());
-        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
+        assert!(original_error.is_transient(), "{original_error:?}");
     }
 
     #[tokio::test]
@@ -312,14 +312,15 @@ mod tests {
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
-        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
-        assert!(!original_error.is_transient());
+        assert!(!error.is_transient(), "{error:?}");
         assert!(
             error
                 .to_string()
-                .contains(constants::TOKEN_FETCH_FAILED_ERROR)
+                .contains(constants::TOKEN_FETCH_FAILED_ERROR),
+            "{error:?}"
         );
+        let original_error = find_source_error::<CredentialsError>(&error).unwrap();
+        assert!(!original_error.is_transient(), "{original_error:?}");
     }
 
     #[tokio::test]
@@ -341,7 +342,7 @@ mod tests {
         let provider = Builder::default().build(mock_provider);
 
         let token = provider.token().await.unwrap();
-        assert_eq!(token.token, "test_token");
+        assert_eq!(token.token, "test_token", "{token:?}");
     }
 
     #[tokio::test]
@@ -357,9 +358,9 @@ mod tests {
         let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(error.is_transient());
+        assert!(error.is_transient(), "{error:?}");
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
-        assert!(original_error.is_transient());
+        assert!(original_error.is_transient(), "{original_error:?}");
     }
 
     #[tokio::test]
@@ -375,9 +376,9 @@ mod tests {
         let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
+        assert!(!error.is_transient(), "{error:?}");
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
-        assert!(!original_error.is_transient());
+        assert!(!original_error.is_transient(), "{original_error:?}");
     }
 
     #[test_case(
@@ -475,7 +476,7 @@ mod tests {
 
         // 5. Assert
         let token = provider.token().await.unwrap();
-        assert_eq!(token.token, "final_token");
+        assert_eq!(token.token, "final_token", "{token:?}");
         assert!(
             backoff_was_called.load(Ordering::SeqCst),
             "Backoff policy was not called"
@@ -493,10 +494,11 @@ mod tests {
             TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(original_error);
 
         // 3. Assert that the resulting error is not transient and wraps the original error.
-        assert!(!credentials_error.is_transient());
+        assert!(!credentials_error.is_transient(), "{credentials_error:?}");
         assert_eq!(
             credentials_error.source().unwrap().to_string(),
-            original_error_string
+            original_error_string,
+            "{credentials_error:?}"
         );
     }
 
