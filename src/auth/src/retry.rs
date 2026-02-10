@@ -294,7 +294,10 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(error.is_transient(), "{error:?}");
-        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR), "{error:?}");
+        assert!(
+            error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR),
+            "{error:?}"
+        );
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient(), "{original_error:?}");
     }
