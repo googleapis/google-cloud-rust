@@ -42,9 +42,9 @@ pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
     fn create_external_account_key(
         &self,
         _req: crate::model::CreateExternalAccountKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>,
+        Output = crate::Result<crate::Response<crate::model::ExternalAccountKey>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

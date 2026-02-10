@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -2012,7 +2012,7 @@ impl wkt::message::Message for ListServicesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServicesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServicesResponse {
     type PageItem = crate::model::Service;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2367,7 +2367,7 @@ impl wkt::message::Message for ListVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2770,7 +2770,7 @@ impl wkt::message::Message for ListInstancesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3054,7 +3054,7 @@ impl wkt::message::Message for ListIngressRulesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListIngressRulesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIngressRulesResponse {
     type PageItem = crate::model::FirewallRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3552,7 +3552,7 @@ impl wkt::message::Message for ListAuthorizedDomainsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAuthorizedDomainsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthorizedDomainsResponse {
     type PageItem = crate::model::AuthorizedDomain;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3708,7 +3708,9 @@ impl wkt::message::Message for ListAuthorizedCertificatesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAuthorizedCertificatesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAuthorizedCertificatesResponse
+{
     type PageItem = crate::model::AuthorizedCertificate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4113,7 +4115,7 @@ impl wkt::message::Message for ListDomainMappingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDomainMappingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDomainMappingsResponse {
     type PageItem = crate::model::DomainMapping;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

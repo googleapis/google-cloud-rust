@@ -41,8 +41,8 @@ where
     async fn get_metrics_scope(
         &self,
         req: crate::model::GetMetricsScopeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MetricsScope>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MetricsScope>> {
         self.inner.get_metrics_scope(req, options).await
     }
 
@@ -50,9 +50,8 @@ where
     async fn list_metrics_scopes_by_monitored_project(
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
         self.inner
             .list_metrics_scopes_by_monitored_project(req, options)
             .await
@@ -62,8 +61,8 @@ where
     async fn create_monitored_project(
         &self,
         req: crate::model::CreateMonitoredProjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_monitored_project(req, options).await
     }
 
@@ -71,8 +70,8 @@ where
     async fn delete_monitored_project(
         &self,
         req: crate::model::DeleteMonitoredProjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_monitored_project(req, options).await
     }
 
@@ -80,22 +79,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

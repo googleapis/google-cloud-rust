@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// let client = ProfilerService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
@@ -70,15 +70,13 @@ impl ProfilerService {
     /// Returns a builder for [ProfilerService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ProfilerService;
     /// let client = ProfilerService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::profiler_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::profiler_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::profiler_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -96,15 +94,14 @@ impl ProfilerService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProfilerService>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ProfilerService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -113,13 +110,13 @@ impl ProfilerService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProfilerService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProfilerService> {
         super::transport::ProfilerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProfilerService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProfilerService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProfilerService::new)
@@ -177,7 +174,7 @@ impl ProfilerService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ExportService;
 /// let client = ExportService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
@@ -224,13 +221,13 @@ impl ExportService {
     /// Returns a builder for [ExportService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ExportService;
     /// let client = ExportService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::export_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::export_service::client::Factory)
+        crate::new_client_builder(super::builder::export_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -248,14 +245,14 @@ impl ExportService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ExportService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ExportService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -264,13 +261,13 @@ impl ExportService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ExportService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ExportService> {
         super::transport::ExportService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ExportService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ExportService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ExportService::new)

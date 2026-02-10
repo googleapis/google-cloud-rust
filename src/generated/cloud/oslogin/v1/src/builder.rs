@@ -20,7 +20,7 @@ pub mod os_login_service {
     /// A builder for [OsLoginService][crate::client::OsLoginService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::*;
     /// # use builder::os_login_service::ClientBuilder;
     /// # use client::OsLoginService;
@@ -30,19 +30,18 @@ pub mod os_login_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::OsLoginService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = OsLoginService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod os_login_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod os_login_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::CreateSshPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .create_ssh_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
@@ -152,8 +151,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSshPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSshPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -163,7 +162,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::DeletePosixAccount;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -194,7 +193,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -204,7 +203,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .delete_posix_account(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
@@ -217,8 +216,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePosixAccount {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePosixAccount {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -228,7 +227,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::DeleteSshPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -259,7 +258,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -269,7 +268,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .delete_ssh_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
@@ -282,8 +281,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSshPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSshPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -293,7 +292,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::GetLoginProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -321,7 +320,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -331,7 +330,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .get_login_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
@@ -356,8 +355,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLoginProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLoginProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -367,7 +366,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::GetSshPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -395,7 +394,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -405,7 +404,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .get_ssh_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
@@ -418,8 +417,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSshPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSshPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -429,7 +428,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::ImportSshPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -460,7 +459,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -470,7 +469,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .import_ssh_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
@@ -518,8 +517,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ImportSshPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ImportSshPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -529,7 +528,7 @@ pub mod os_login_service {
     /// # Example
     /// ```
     /// # use google_cloud_oslogin_v1::builder::os_login_service::UpdateSshPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_oslogin_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -560,7 +559,7 @@ pub mod os_login_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -570,7 +569,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .update_ssh_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].
@@ -623,8 +622,8 @@ pub mod os_login_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSshPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSshPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

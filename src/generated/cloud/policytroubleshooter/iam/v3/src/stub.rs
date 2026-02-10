@@ -42,11 +42,9 @@ pub trait PolicyTroubleshooter: std::fmt::Debug + Send + Sync {
     fn troubleshoot_iam_policy(
         &self,
         _req: crate::model::TroubleshootIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::TroubleshootIamPolicyResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::TroubleshootIamPolicyResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

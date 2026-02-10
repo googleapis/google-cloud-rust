@@ -20,280 +20,276 @@ pub trait SecurityCenter: std::fmt::Debug + Send + Sync {
     async fn batch_create_resource_value_configs(
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchCreateResourceValueConfigsResponse>>;
 
     async fn bulk_mute_findings(
         &self,
         req: crate::model::BulkMuteFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_big_query_export(
         &self,
         req: crate::model::CreateBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>>;
 
     async fn create_finding(
         &self,
         req: crate::model::CreateFindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>>;
 
     async fn create_mute_config(
         &self,
         req: crate::model::CreateMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>>;
 
     async fn create_notification_config(
         &self,
         req: crate::model::CreateNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>>;
 
     async fn create_source(
         &self,
         req: crate::model::CreateSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>>;
 
     async fn delete_big_query_export(
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn delete_mute_config(
         &self,
         req: crate::model::DeleteMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn delete_notification_config(
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn delete_resource_value_config(
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_big_query_export(
         &self,
         req: crate::model::GetBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>>;
 
     async fn get_simulation(
         &self,
         req: crate::model::GetSimulationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Simulation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Simulation>>;
 
     async fn get_valued_resource(
         &self,
         req: crate::model::GetValuedResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValuedResource>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValuedResource>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_mute_config(
         &self,
         req: crate::model::GetMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>>;
 
     async fn get_notification_config(
         &self,
         req: crate::model::GetNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>>;
 
     async fn get_resource_value_config(
         &self,
         req: crate::model::GetResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceValueConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceValueConfig>>;
 
     async fn get_source(
         &self,
         req: crate::model::GetSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>>;
 
     async fn group_findings(
         &self,
         req: crate::model::GroupFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GroupFindingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GroupFindingsResponse>>;
 
     async fn list_attack_paths(
         &self,
         req: crate::model::ListAttackPathsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttackPathsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttackPathsResponse>>;
 
     async fn list_big_query_exports(
         &self,
         req: crate::model::ListBigQueryExportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBigQueryExportsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBigQueryExportsResponse>>;
 
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFindingsResponse>>;
 
     async fn list_mute_configs(
         &self,
         req: crate::model::ListMuteConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMuteConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMuteConfigsResponse>>;
 
     async fn list_notification_configs(
         &self,
         req: crate::model::ListNotificationConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNotificationConfigsResponse>>;
 
     async fn list_resource_value_configs(
         &self,
         req: crate::model::ListResourceValueConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceValueConfigsResponse>>;
 
     async fn list_sources(
         &self,
         req: crate::model::ListSourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSourcesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSourcesResponse>>;
 
     async fn list_valued_resources(
         &self,
         req: crate::model::ListValuedResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListValuedResourcesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListValuedResourcesResponse>>;
 
     async fn set_finding_state(
         &self,
         req: crate::model::SetFindingStateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn set_mute(
         &self,
         req: crate::model::SetMuteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn update_big_query_export(
         &self,
         req: crate::model::UpdateBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>>;
 
     async fn update_external_system(
         &self,
         req: crate::model::UpdateExternalSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalSystem>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalSystem>>;
 
     async fn update_finding(
         &self,
         req: crate::model::UpdateFindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>>;
 
     async fn update_mute_config(
         &self,
         req: crate::model::UpdateMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>>;
 
     async fn update_notification_config(
         &self,
         req: crate::model::UpdateNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>>;
 
     async fn update_resource_value_config(
         &self,
         req: crate::model::UpdateResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceValueConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceValueConfig>>;
 
     async fn update_security_marks(
         &self,
         req: crate::model::UpdateSecurityMarksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SecurityMarks>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecurityMarks>>;
 
     async fn update_source(
         &self,
         req: crate::model::UpdateSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::SecurityCenter] also implement [SecurityCenter].
@@ -303,9 +299,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn batch_create_resource_value_configs(
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchCreateResourceValueConfigsResponse>> {
         T::batch_create_resource_value_configs(self, req, options).await
     }
 
@@ -313,8 +308,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn bulk_mute_findings(
         &self,
         req: crate::model::BulkMuteFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_mute_findings(self, req, options).await
     }
 
@@ -322,8 +317,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn create_big_query_export(
         &self,
         req: crate::model::CreateBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>> {
         T::create_big_query_export(self, req, options).await
     }
 
@@ -331,8 +326,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn create_finding(
         &self,
         req: crate::model::CreateFindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>> {
         T::create_finding(self, req, options).await
     }
 
@@ -340,8 +335,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn create_mute_config(
         &self,
         req: crate::model::CreateMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>> {
         T::create_mute_config(self, req, options).await
     }
 
@@ -349,8 +344,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn create_notification_config(
         &self,
         req: crate::model::CreateNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>> {
         T::create_notification_config(self, req, options).await
     }
 
@@ -358,8 +353,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn create_source(
         &self,
         req: crate::model::CreateSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>> {
         T::create_source(self, req, options).await
     }
 
@@ -367,8 +362,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn delete_big_query_export(
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_big_query_export(self, req, options).await
     }
 
@@ -376,8 +371,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn delete_mute_config(
         &self,
         req: crate::model::DeleteMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_mute_config(self, req, options).await
     }
 
@@ -385,8 +380,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn delete_notification_config(
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_notification_config(self, req, options).await
     }
 
@@ -394,8 +389,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn delete_resource_value_config(
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_resource_value_config(self, req, options).await
     }
 
@@ -403,8 +398,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_big_query_export(
         &self,
         req: crate::model::GetBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>> {
         T::get_big_query_export(self, req, options).await
     }
 
@@ -412,8 +407,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_simulation(
         &self,
         req: crate::model::GetSimulationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Simulation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Simulation>> {
         T::get_simulation(self, req, options).await
     }
 
@@ -421,8 +416,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_valued_resource(
         &self,
         req: crate::model::GetValuedResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ValuedResource>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ValuedResource>> {
         T::get_valued_resource(self, req, options).await
     }
 
@@ -430,8 +425,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -439,8 +434,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_mute_config(
         &self,
         req: crate::model::GetMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>> {
         T::get_mute_config(self, req, options).await
     }
 
@@ -448,8 +443,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_notification_config(
         &self,
         req: crate::model::GetNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>> {
         T::get_notification_config(self, req, options).await
     }
 
@@ -457,8 +452,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_resource_value_config(
         &self,
         req: crate::model::GetResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceValueConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceValueConfig>> {
         T::get_resource_value_config(self, req, options).await
     }
 
@@ -466,8 +461,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_source(
         &self,
         req: crate::model::GetSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>> {
         T::get_source(self, req, options).await
     }
 
@@ -475,8 +470,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn group_findings(
         &self,
         req: crate::model::GroupFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GroupFindingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GroupFindingsResponse>> {
         T::group_findings(self, req, options).await
     }
 
@@ -484,8 +479,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_attack_paths(
         &self,
         req: crate::model::ListAttackPathsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttackPathsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttackPathsResponse>> {
         T::list_attack_paths(self, req, options).await
     }
 
@@ -493,8 +488,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_big_query_exports(
         &self,
         req: crate::model::ListBigQueryExportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBigQueryExportsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBigQueryExportsResponse>> {
         T::list_big_query_exports(self, req, options).await
     }
 
@@ -502,8 +497,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFindingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFindingsResponse>> {
         T::list_findings(self, req, options).await
     }
 
@@ -511,8 +506,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_mute_configs(
         &self,
         req: crate::model::ListMuteConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMuteConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMuteConfigsResponse>> {
         T::list_mute_configs(self, req, options).await
     }
 
@@ -520,8 +515,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_notification_configs(
         &self,
         req: crate::model::ListNotificationConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNotificationConfigsResponse>> {
         T::list_notification_configs(self, req, options).await
     }
 
@@ -529,9 +524,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_resource_value_configs(
         &self,
         req: crate::model::ListResourceValueConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceValueConfigsResponse>> {
         T::list_resource_value_configs(self, req, options).await
     }
 
@@ -539,8 +533,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_sources(
         &self,
         req: crate::model::ListSourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSourcesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSourcesResponse>> {
         T::list_sources(self, req, options).await
     }
 
@@ -548,8 +542,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_valued_resources(
         &self,
         req: crate::model::ListValuedResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListValuedResourcesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListValuedResourcesResponse>> {
         T::list_valued_resources(self, req, options).await
     }
 
@@ -557,8 +551,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn set_finding_state(
         &self,
         req: crate::model::SetFindingStateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>> {
         T::set_finding_state(self, req, options).await
     }
 
@@ -566,8 +560,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -575,8 +569,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn set_mute(
         &self,
         req: crate::model::SetMuteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>> {
         T::set_mute(self, req, options).await
     }
 
@@ -584,10 +578,9 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -595,8 +588,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_big_query_export(
         &self,
         req: crate::model::UpdateBigQueryExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BigQueryExport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BigQueryExport>> {
         T::update_big_query_export(self, req, options).await
     }
 
@@ -604,8 +597,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_external_system(
         &self,
         req: crate::model::UpdateExternalSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalSystem>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalSystem>> {
         T::update_external_system(self, req, options).await
     }
 
@@ -613,8 +606,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_finding(
         &self,
         req: crate::model::UpdateFindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Finding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Finding>> {
         T::update_finding(self, req, options).await
     }
 
@@ -622,8 +615,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_mute_config(
         &self,
         req: crate::model::UpdateMuteConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MuteConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MuteConfig>> {
         T::update_mute_config(self, req, options).await
     }
 
@@ -631,8 +624,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_notification_config(
         &self,
         req: crate::model::UpdateNotificationConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NotificationConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationConfig>> {
         T::update_notification_config(self, req, options).await
     }
 
@@ -640,8 +633,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_resource_value_config(
         &self,
         req: crate::model::UpdateResourceValueConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceValueConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceValueConfig>> {
         T::update_resource_value_config(self, req, options).await
     }
 
@@ -649,8 +642,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_security_marks(
         &self,
         req: crate::model::UpdateSecurityMarksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SecurityMarks>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SecurityMarks>> {
         T::update_security_marks(self, req, options).await
     }
 
@@ -658,8 +651,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn update_source(
         &self,
         req: crate::model::UpdateSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Source>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Source>> {
         T::update_source(self, req, options).await
     }
 
@@ -667,10 +660,9 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -678,8 +670,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -687,8 +679,8 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -696,22 +688,22 @@ impl<T: super::SecurityCenter> SecurityCenter for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

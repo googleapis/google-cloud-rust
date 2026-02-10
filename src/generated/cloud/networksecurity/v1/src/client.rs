@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
 /// let client = AddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -68,15 +68,13 @@ impl AddressGroupService {
     /// Returns a builder for [AddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
     /// let client = AddressGroupService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::address_group_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::address_group_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::address_group_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +92,14 @@ impl AddressGroupService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -111,13 +109,13 @@ impl AddressGroupService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AddressGroupService> {
         super::transport::AddressGroupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AddressGroupService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AddressGroupService::new)
@@ -313,7 +311,7 @@ impl AddressGroupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
 /// let client = OrganizationAddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -361,13 +359,13 @@ impl OrganizationAddressGroupService {
     /// Returns a builder for [OrganizationAddressGroupService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
     /// let client = OrganizationAddressGroupService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organization_address_group_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::organization_address_group_service::client::Factory,
         )
     }
@@ -387,14 +385,14 @@ impl OrganizationAddressGroupService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::OrganizationAddressGroupService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -405,13 +403,13 @@ impl OrganizationAddressGroupService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OrganizationAddressGroupService> {
         super::transport::OrganizationAddressGroupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OrganizationAddressGroupService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OrganizationAddressGroupService::new)
@@ -643,7 +641,7 @@ impl OrganizationAddressGroupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
 /// let client = NetworkSecurity::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
@@ -691,15 +689,13 @@ impl NetworkSecurity {
     /// Returns a builder for [NetworkSecurity].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// let client = NetworkSecurity::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_security::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_security::client::Factory,
-        )
+        crate::new_client_builder(super::builder::network_security::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -717,15 +713,14 @@ impl NetworkSecurity {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkSecurity>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::NetworkSecurity>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -734,13 +729,13 @@ impl NetworkSecurity {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NetworkSecurity> {
         super::transport::NetworkSecurity::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NetworkSecurity> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NetworkSecurity::new)

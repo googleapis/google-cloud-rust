@@ -42,9 +42,9 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
     fn resolve_service(
         &self,
         _req: crate::model::ResolveServiceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ResolveServiceResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ResolveServiceResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,10 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -66,9 +66,9 @@ pub trait LookupService: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -90,10 +90,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn create_namespace(
         &self,
         _req: crate::model::CreateNamespaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Namespace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Namespace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -101,9 +100,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn list_namespaces(
         &self,
         _req: crate::model::ListNamespacesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNamespacesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNamespacesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -112,10 +111,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn get_namespace(
         &self,
         _req: crate::model::GetNamespaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Namespace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Namespace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -123,10 +121,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn update_namespace(
         &self,
         _req: crate::model::UpdateNamespaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Namespace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Namespace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -134,8 +131,8 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn delete_namespace(
         &self,
         _req: crate::model::DeleteNamespaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,10 +140,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Service>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Service>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -154,9 +150,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListServicesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListServicesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -165,10 +161,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Service>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Service>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -176,10 +171,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn update_service(
         &self,
         _req: crate::model::UpdateServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Service>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Service>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -187,8 +181,8 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -196,10 +190,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn create_endpoint(
         &self,
         _req: crate::model::CreateEndpointRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Endpoint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Endpoint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -207,9 +200,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn list_endpoints(
         &self,
         _req: crate::model::ListEndpointsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEndpointsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListEndpointsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -218,10 +211,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn get_endpoint(
         &self,
         _req: crate::model::GetEndpointRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Endpoint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Endpoint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -229,10 +221,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn update_endpoint(
         &self,
         _req: crate::model::UpdateEndpointRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Endpoint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Endpoint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -240,8 +231,8 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn delete_endpoint(
         &self,
         _req: crate::model::DeleteEndpointRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -249,9 +240,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -260,9 +251,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -271,10 +262,10 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -284,10 +275,10 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -297,9 +288,9 @@ pub trait RegistrationService: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

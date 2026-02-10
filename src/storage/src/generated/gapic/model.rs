@@ -651,7 +651,7 @@ impl wkt::message::Message for ListBucketsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBucketsResponse {
     type PageItem = crate::model::Bucket;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9939,7 +9939,7 @@ impl wkt::message::Message for ListObjectsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListObjectsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListObjectsResponse {
     type PageItem = crate::model::Object;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

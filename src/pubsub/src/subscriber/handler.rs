@@ -12,6 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Handlers for acknowledging or rejecting messages.
+//!
+//! To acknowledge (ack) a message, you call [`Handler::ack()`].
+//!
+//! To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
+//! message will be redelivered.
+//!
+//! # Example
+//!
+//! ```
+//! use google_cloud_pubsub::model::Message;
+//! # use google_cloud_pubsub::subscriber::handler::Handler;
+//! fn on_message(m: Message, h: Handler) {
+//!   match process(m) {
+//!     Ok(_) => h.ack(),
+//!     Err(e) => {
+//!         println!("failed to process message: {e:?}");
+//!         drop(h);
+//!     }
+//!   }
+//! }
+//!
+//! fn process(m: Message) -> anyhow::Result<()> {
+//!   // some business logic here...
+//!   # panic!()
+//! }
+//! ```
+
 use tokio::sync::mpsc::UnboundedSender;
 
 /// The action an application does with a message.
@@ -23,6 +51,32 @@ pub(super) enum AckResult {
 }
 
 /// A handler for acknowledging or rejecting messages.
+///
+/// To acknowledge (ack) a message, you call [`Handler::ack()`].
+///
+/// To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
+/// message will be redelivered.
+///
+/// # Example
+///
+/// ```
+/// use google_cloud_pubsub::model::Message;
+/// # use google_cloud_pubsub::subscriber::handler::Handler;
+/// fn on_message(m: Message, h: Handler) {
+///   match process(m) {
+///     Ok(_) => h.ack(),
+///     Err(e) => {
+///         println!("failed to process message: {e:?}");
+///         drop(h);
+///     }
+///   }
+/// }
+///
+/// fn process(m: Message) -> anyhow::Result<()> {
+///   // some business logic here...
+///   # panic!()
+/// }
+/// ```
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
@@ -32,6 +86,17 @@ pub enum Handler {
 
 impl Handler {
     /// Acknowledge the message associated with this handler.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_pubsub::model::Message;
+    /// # use google_cloud_pubsub::subscriber::handler::Handler;
+    /// fn on_message(m: Message, h: Handler) {
+    ///   println!("Received message: {m:?}");
+    ///   h.ack();
+    /// }
+    /// ```
     ///
     /// Note that the acknowledgement is best effort. The message may still be
     /// redelivered to this client, or another client.

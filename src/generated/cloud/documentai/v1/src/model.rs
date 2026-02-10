@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -11187,7 +11187,7 @@ impl wkt::message::Message for ListProcessorTypesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListProcessorTypesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListProcessorTypesResponse {
     type PageItem = crate::model::ProcessorType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11332,7 +11332,7 @@ impl wkt::message::Message for ListProcessorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListProcessorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListProcessorsResponse {
     type PageItem = crate::model::Processor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11592,7 +11592,7 @@ impl wkt::message::Message for ListProcessorVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListProcessorVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListProcessorVersionsResponse {
     type PageItem = crate::model::ProcessorVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -14390,7 +14390,7 @@ impl wkt::message::Message for ListEvaluationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEvaluationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEvaluationsResponse {
     type PageItem = crate::model::Evaluation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

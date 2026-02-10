@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -66,13 +66,13 @@ impl DatasetService {
     /// Returns a builder for [DatasetService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::DatasetService;
     /// let client = DatasetService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dataset_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::dataset_service::client::Factory)
+        crate::new_client_builder(super::builder::dataset_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl DatasetService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatasetService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DatasetService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl DatasetService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatasetService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DatasetService> {
         super::transport::DatasetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DatasetService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DatasetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatasetService::new)
@@ -169,7 +169,7 @@ impl DatasetService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -214,13 +214,13 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::JobService;
     /// let client = JobService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::job_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
+        crate::new_client_builder(super::builder::job_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -238,14 +238,14 @@ impl JobService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -254,13 +254,13 @@ impl JobService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobService> {
         super::transport::JobService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::JobService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobService::new)
@@ -326,7 +326,7 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -372,13 +372,13 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::model_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
+        crate::new_client_builder(super::builder::model_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -396,14 +396,14 @@ impl ModelService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -412,13 +412,13 @@ impl ModelService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
@@ -451,7 +451,7 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -497,13 +497,13 @@ impl ProjectService {
     /// Returns a builder for [ProjectService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::project_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::project_service::client::Factory)
+        crate::new_client_builder(super::builder::project_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -521,14 +521,14 @@ impl ProjectService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProjectService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ProjectService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -537,13 +537,13 @@ impl ProjectService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProjectService> {
         super::transport::ProjectService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProjectService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProjectService::new)
@@ -560,7 +560,7 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RoutineService;
 /// let client = RoutineService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -606,13 +606,13 @@ impl RoutineService {
     /// Returns a builder for [RoutineService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::RoutineService;
     /// let client = RoutineService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::routine_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::routine_service::client::Factory)
+        crate::new_client_builder(super::builder::routine_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -630,14 +630,14 @@ impl RoutineService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RoutineService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RoutineService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -646,13 +646,13 @@ impl RoutineService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RoutineService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RoutineService> {
         super::transport::RoutineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RoutineService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RoutineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RoutineService::new)
@@ -690,7 +690,7 @@ impl RoutineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
 /// let client = RowAccessPolicyService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -736,15 +736,13 @@ impl RowAccessPolicyService {
     /// Returns a builder for [RowAccessPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
     /// let client = RowAccessPolicyService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::row_access_policy_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::row_access_policy_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::row_access_policy_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -762,14 +760,14 @@ impl RowAccessPolicyService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RowAccessPolicyService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RowAccessPolicyService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -779,13 +777,13 @@ impl RowAccessPolicyService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RowAccessPolicyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RowAccessPolicyService> {
         super::transport::RowAccessPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RowAccessPolicyService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RowAccessPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RowAccessPolicyService::new)
@@ -840,7 +838,7 @@ impl RowAccessPolicyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::TableService;
 /// let client = TableService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
@@ -887,13 +885,13 @@ impl TableService {
     /// Returns a builder for [TableService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_v2::client::TableService;
     /// let client = TableService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::table_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::table_service::client::Factory)
+        crate::new_client_builder(super::builder::table_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -911,14 +909,14 @@ impl TableService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TableService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TableService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -927,13 +925,13 @@ impl TableService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TableService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TableService> {
         super::transport::TableService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TableService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TableService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TableService::new)

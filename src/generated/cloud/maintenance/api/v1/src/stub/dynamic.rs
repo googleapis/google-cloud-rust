@@ -20,32 +20,32 @@ pub trait Maintenance: std::fmt::Debug + Send + Sync {
     async fn summarize_maintenances(
         &self,
         req: crate::model::SummarizeMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SummarizeMaintenancesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SummarizeMaintenancesResponse>>;
 
     async fn list_resource_maintenances(
         &self,
         req: crate::model::ListResourceMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceMaintenancesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceMaintenancesResponse>>;
 
     async fn get_resource_maintenance(
         &self,
         req: crate::model::GetResourceMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceMaintenance>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceMaintenance>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 }
 
 /// All implementations of [super::Maintenance] also implement [Maintenance].
@@ -55,8 +55,8 @@ impl<T: super::Maintenance> Maintenance for T {
     async fn summarize_maintenances(
         &self,
         req: crate::model::SummarizeMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SummarizeMaintenancesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SummarizeMaintenancesResponse>> {
         T::summarize_maintenances(self, req, options).await
     }
 
@@ -64,9 +64,8 @@ impl<T: super::Maintenance> Maintenance for T {
     async fn list_resource_maintenances(
         &self,
         req: crate::model::ListResourceMaintenancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceMaintenancesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceMaintenancesResponse>> {
         T::list_resource_maintenances(self, req, options).await
     }
 
@@ -74,8 +73,8 @@ impl<T: super::Maintenance> Maintenance for T {
     async fn get_resource_maintenance(
         &self,
         req: crate::model::GetResourceMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceMaintenance>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceMaintenance>> {
         T::get_resource_maintenance(self, req, options).await
     }
 
@@ -83,9 +82,8 @@ impl<T: super::Maintenance> Maintenance for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -93,8 +91,8 @@ impl<T: super::Maintenance> Maintenance for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

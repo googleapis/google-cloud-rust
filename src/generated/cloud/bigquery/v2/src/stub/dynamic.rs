@@ -20,44 +20,44 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn insert_dataset(
         &self,
         req: crate::model::InsertDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn patch_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn update_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DatasetList>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DatasetList>>;
 
     async fn undelete_dataset(
         &self,
         req: crate::model::UndeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>>;
 }
 
 /// All implementations of [super::DatasetService] also implement [DatasetService].
@@ -67,8 +67,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>> {
         T::get_dataset(self, req, options).await
     }
 
@@ -76,8 +76,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn insert_dataset(
         &self,
         req: crate::model::InsertDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>> {
         T::insert_dataset(self, req, options).await
     }
 
@@ -85,8 +85,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn patch_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>> {
         T::patch_dataset(self, req, options).await
     }
 
@@ -94,8 +94,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn update_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>> {
         T::update_dataset(self, req, options).await
     }
 
@@ -103,8 +103,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_dataset(self, req, options).await
     }
 
@@ -112,8 +112,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DatasetList>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DatasetList>> {
         T::list_datasets(self, req, options).await
     }
 
@@ -121,8 +121,8 @@ impl<T: super::DatasetService> DatasetService for T {
     async fn undelete_dataset(
         &self,
         req: crate::model::UndeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dataset>> {
         T::undelete_dataset(self, req, options).await
     }
 }
@@ -133,44 +133,44 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     async fn cancel_job(
         &self,
         req: crate::model::CancelJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::JobCancelResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::JobCancelResponse>>;
 
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Job>>;
 
     async fn insert_job(
         &self,
         req: crate::model::InsertJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Job>>;
 
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::JobList>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::JobList>>;
 
     async fn get_query_results(
         &self,
         req: crate::model::GetQueryResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetQueryResultsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetQueryResultsResponse>>;
 
     async fn query(
         &self,
         req: crate::model::PostQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryResponse>>;
 }
 
 /// All implementations of [super::JobService] also implement [JobService].
@@ -180,8 +180,8 @@ impl<T: super::JobService> JobService for T {
     async fn cancel_job(
         &self,
         req: crate::model::CancelJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::JobCancelResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::JobCancelResponse>> {
         T::cancel_job(self, req, options).await
     }
 
@@ -189,8 +189,8 @@ impl<T: super::JobService> JobService for T {
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Job>> {
         T::get_job(self, req, options).await
     }
 
@@ -198,8 +198,8 @@ impl<T: super::JobService> JobService for T {
     async fn insert_job(
         &self,
         req: crate::model::InsertJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Job>> {
         T::insert_job(self, req, options).await
     }
 
@@ -207,8 +207,8 @@ impl<T: super::JobService> JobService for T {
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_job(self, req, options).await
     }
 
@@ -216,8 +216,8 @@ impl<T: super::JobService> JobService for T {
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::JobList>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::JobList>> {
         T::list_jobs(self, req, options).await
     }
 
@@ -225,8 +225,8 @@ impl<T: super::JobService> JobService for T {
     async fn get_query_results(
         &self,
         req: crate::model::GetQueryResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetQueryResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetQueryResultsResponse>> {
         T::get_query_results(self, req, options).await
     }
 
@@ -234,8 +234,8 @@ impl<T: super::JobService> JobService for T {
     async fn query(
         &self,
         req: crate::model::PostQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryResponse>> {
         T::query(self, req, options).await
     }
 }
@@ -246,26 +246,26 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Model>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Model>>;
 
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListModelsResponse>>;
 
     async fn patch_model(
         &self,
         req: crate::model::PatchModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Model>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Model>>;
 
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ModelService] also implement [ModelService].
@@ -275,8 +275,8 @@ impl<T: super::ModelService> ModelService for T {
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Model>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Model>> {
         T::get_model(self, req, options).await
     }
 
@@ -284,8 +284,8 @@ impl<T: super::ModelService> ModelService for T {
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListModelsResponse>> {
         T::list_models(self, req, options).await
     }
 
@@ -293,8 +293,8 @@ impl<T: super::ModelService> ModelService for T {
     async fn patch_model(
         &self,
         req: crate::model::PatchModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Model>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Model>> {
         T::patch_model(self, req, options).await
     }
 
@@ -302,8 +302,8 @@ impl<T: super::ModelService> ModelService for T {
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_model(self, req, options).await
     }
 }
@@ -314,8 +314,8 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetServiceAccountResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetServiceAccountResponse>>;
 }
 
 /// All implementations of [super::ProjectService] also implement [ProjectService].
@@ -325,8 +325,8 @@ impl<T: super::ProjectService> ProjectService for T {
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetServiceAccountResponse>> {
         T::get_service_account(self, req, options).await
     }
 }
@@ -337,32 +337,32 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
     async fn get_routine(
         &self,
         req: crate::model::GetRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn insert_routine(
         &self,
         req: crate::model::InsertRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn update_routine(
         &self,
         req: crate::model::UpdateRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>>;
 
     async fn delete_routine(
         &self,
         req: crate::model::DeleteRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_routines(
         &self,
         req: crate::model::ListRoutinesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRoutinesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRoutinesResponse>>;
 }
 
 /// All implementations of [super::RoutineService] also implement [RoutineService].
@@ -372,8 +372,8 @@ impl<T: super::RoutineService> RoutineService for T {
     async fn get_routine(
         &self,
         req: crate::model::GetRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>> {
         T::get_routine(self, req, options).await
     }
 
@@ -381,8 +381,8 @@ impl<T: super::RoutineService> RoutineService for T {
     async fn insert_routine(
         &self,
         req: crate::model::InsertRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>> {
         T::insert_routine(self, req, options).await
     }
 
@@ -390,8 +390,8 @@ impl<T: super::RoutineService> RoutineService for T {
     async fn update_routine(
         &self,
         req: crate::model::UpdateRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Routine>> {
         T::update_routine(self, req, options).await
     }
 
@@ -399,8 +399,8 @@ impl<T: super::RoutineService> RoutineService for T {
     async fn delete_routine(
         &self,
         req: crate::model::DeleteRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_routine(self, req, options).await
     }
 
@@ -408,8 +408,8 @@ impl<T: super::RoutineService> RoutineService for T {
     async fn list_routines(
         &self,
         req: crate::model::ListRoutinesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRoutinesResponse>> {
         T::list_routines(self, req, options).await
     }
 }
@@ -420,38 +420,38 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
     async fn list_row_access_policies(
         &self,
         req: crate::model::ListRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>>;
 
     async fn get_row_access_policy(
         &self,
         req: crate::model::GetRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn create_row_access_policy(
         &self,
         req: crate::model::CreateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn update_row_access_policy(
         &self,
         req: crate::model::UpdateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>>;
 
     async fn delete_row_access_policy(
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn batch_delete_row_access_policies(
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::RowAccessPolicyService] also implement [RowAccessPolicyService].
@@ -461,8 +461,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn list_row_access_policies(
         &self,
         req: crate::model::ListRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>> {
         T::list_row_access_policies(self, req, options).await
     }
 
@@ -470,8 +470,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn get_row_access_policy(
         &self,
         req: crate::model::GetRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
         T::get_row_access_policy(self, req, options).await
     }
 
@@ -479,8 +479,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn create_row_access_policy(
         &self,
         req: crate::model::CreateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
         T::create_row_access_policy(self, req, options).await
     }
 
@@ -488,8 +488,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn update_row_access_policy(
         &self,
         req: crate::model::UpdateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RowAccessPolicy>> {
         T::update_row_access_policy(self, req, options).await
     }
 
@@ -497,8 +497,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn delete_row_access_policy(
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_row_access_policy(self, req, options).await
     }
 
@@ -506,8 +506,8 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     async fn batch_delete_row_access_policies(
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::batch_delete_row_access_policies(self, req, options).await
     }
 }
@@ -518,38 +518,38 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
     async fn get_table(
         &self,
         req: crate::model::GetTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn insert_table(
         &self,
         req: crate::model::InsertTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn patch_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn update_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>>;
 
     async fn delete_table(
         &self,
         req: crate::model::DeleteTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_tables(
         &self,
         req: crate::model::ListTablesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TableList>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TableList>>;
 }
 
 /// All implementations of [super::TableService] also implement [TableService].
@@ -559,8 +559,8 @@ impl<T: super::TableService> TableService for T {
     async fn get_table(
         &self,
         req: crate::model::GetTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>> {
         T::get_table(self, req, options).await
     }
 
@@ -568,8 +568,8 @@ impl<T: super::TableService> TableService for T {
     async fn insert_table(
         &self,
         req: crate::model::InsertTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>> {
         T::insert_table(self, req, options).await
     }
 
@@ -577,8 +577,8 @@ impl<T: super::TableService> TableService for T {
     async fn patch_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>> {
         T::patch_table(self, req, options).await
     }
 
@@ -586,8 +586,8 @@ impl<T: super::TableService> TableService for T {
     async fn update_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Table>> {
         T::update_table(self, req, options).await
     }
 
@@ -595,8 +595,8 @@ impl<T: super::TableService> TableService for T {
     async fn delete_table(
         &self,
         req: crate::model::DeleteTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_table(self, req, options).await
     }
 
@@ -604,8 +604,8 @@ impl<T: super::TableService> TableService for T {
     async fn list_tables(
         &self,
         req: crate::model::ListTablesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TableList>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TableList>> {
         T::list_tables(self, req, options).await
     }
 }

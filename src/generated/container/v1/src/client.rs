@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_container_v1::client::ClusterManager;
 /// let client = ClusterManager::builder().build().await?;
 /// // use `client` to make requests to the Kubernetes Engine API.
@@ -66,13 +66,13 @@ impl ClusterManager {
     /// Returns a builder for [ClusterManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_container_v1::client::ClusterManager;
     /// let client = ClusterManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cluster_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::cluster_manager::client::Factory)
+        crate::new_client_builder(super::builder::cluster_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl ClusterManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClusterManager>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ClusterManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl ClusterManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClusterManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ClusterManager> {
         super::transport::ClusterManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClusterManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ClusterManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ClusterManager::new)

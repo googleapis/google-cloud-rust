@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 /// let client = InstanceAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Spanner API.
@@ -86,13 +86,13 @@ impl InstanceAdmin {
     /// Returns a builder for [InstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// let client = InstanceAdmin::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_admin::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::instance_admin::client::Factory)
+        crate::new_client_builder(super::builder::instance_admin::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -110,14 +110,14 @@ impl InstanceAdmin {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InstanceAdmin>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::InstanceAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -126,13 +126,13 @@ impl InstanceAdmin {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InstanceAdmin> {
         super::transport::InstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::InstanceAdmin> {
+    ) -> crate::ClientBuilderResult<impl super::stub::InstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::InstanceAdmin::new)

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -166,7 +166,7 @@ impl wkt::message::Message for ListQuotaInfosResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListQuotaInfosResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListQuotaInfosResponse {
     type PageItem = crate::model::QuotaInfo;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -411,7 +411,7 @@ impl wkt::message::Message for ListQuotaPreferencesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListQuotaPreferencesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListQuotaPreferencesResponse {
     type PageItem = crate::model::QuotaPreference;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

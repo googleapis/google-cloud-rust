@@ -55,9 +55,9 @@ use crate::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
 };
-use gax::retry_policy::RetryPolicyExt;
-use gax::retry_result::RetryResult;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use std::time::Duration;
 
@@ -215,7 +215,7 @@ async fn start_uses_request_retry_options() -> Result {
 // result in errors.
 #[tokio::test]
 async fn start_uses_client_retry_options() -> Result {
-    use gax::retry_policy::RetryPolicyExt;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     let server = Server::run();
     let matching = || {
         Expectation::matching(all_of![
@@ -664,7 +664,7 @@ async fn resume_uses_request_retry_options() -> Result {
 // result in errors.
 #[tokio::test]
 async fn resume_uses_client_retry_options() -> Result {
-    use gax::retry_policy::RetryPolicyExt;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
 
     let fragment0 = test_body(0..8);
     let fragment1 = test_body(8..10);

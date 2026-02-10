@@ -14,13 +14,13 @@
 
 // [START pubsub_quickstart_publisher]
 use google_cloud_pubsub::client::Publisher;
-use google_cloud_pubsub::model::PubsubMessage;
+use google_cloud_pubsub::model::Message;
 
 pub async fn sample(project_id: &str, topic_id: &str) -> anyhow::Result<()> {
     let topic_name = format!("projects/{project_id}/topics/{topic_id}");
     let publisher = Publisher::builder(topic_name).build().await?;
 
-    let message = PubsubMessage::new().set_data("Hello, World!");
+    let message = Message::new().set_data("Hello, World!");
     let message_id = publisher.publish(message).await?;
 
     println!("published message with ID: {message_id}");

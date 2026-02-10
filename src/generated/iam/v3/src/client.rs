@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// let client = PolicyBindings::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -67,13 +67,13 @@ impl PolicyBindings {
     /// Returns a builder for [PolicyBindings].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// let client = PolicyBindings::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_bindings::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policy_bindings::client::Factory)
+        crate::new_client_builder(super::builder::policy_bindings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -91,14 +91,14 @@ impl PolicyBindings {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,13 +107,13 @@ impl PolicyBindings {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PolicyBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyBindings::new)
@@ -202,7 +202,7 @@ impl PolicyBindings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
@@ -249,13 +249,13 @@ impl PrincipalAccessBoundaryPolicies {
     /// Returns a builder for [PrincipalAccessBoundaryPolicies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::principal_access_boundary_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
+        crate::new_client_builder(
             super::builder::principal_access_boundary_policies::client::Factory,
         )
     }
@@ -275,14 +275,14 @@ impl PrincipalAccessBoundaryPolicies {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -293,13 +293,13 @@ impl PrincipalAccessBoundaryPolicies {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PrincipalAccessBoundaryPolicies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PrincipalAccessBoundaryPolicies::new)

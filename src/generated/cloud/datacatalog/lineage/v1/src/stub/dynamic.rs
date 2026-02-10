@@ -20,140 +20,138 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
     async fn process_open_lineage_run_event(
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessOpenLineageRunEventResponse>>;
 
     async fn create_process(
         &self,
         req: crate::model::CreateProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>>;
 
     async fn update_process(
         &self,
         req: crate::model::UpdateProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>>;
 
     async fn get_process(
         &self,
         req: crate::model::GetProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>>;
 
     async fn list_processes(
         &self,
         req: crate::model::ListProcessesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessesResponse>>;
 
     async fn delete_process(
         &self,
         req: crate::model::DeleteProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_run(
         &self,
         req: crate::model::CreateRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>>;
 
     async fn update_run(
         &self,
         req: crate::model::UpdateRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>>;
 
     async fn get_run(
         &self,
         req: crate::model::GetRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>>;
 
     async fn list_runs(
         &self,
         req: crate::model::ListRunsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRunsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRunsResponse>>;
 
     async fn delete_run(
         &self,
         req: crate::model::DeleteRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_lineage_event(
         &self,
         req: crate::model::CreateLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LineageEvent>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LineageEvent>>;
 
     async fn get_lineage_event(
         &self,
         req: crate::model::GetLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LineageEvent>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LineageEvent>>;
 
     async fn list_lineage_events(
         &self,
         req: crate::model::ListLineageEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListLineageEventsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListLineageEventsResponse>>;
 
     async fn delete_lineage_event(
         &self,
         req: crate::model::DeleteLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn search_links(
         &self,
         req: crate::model::SearchLinksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchLinksResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchLinksResponse>>;
 
     async fn batch_search_link_processes(
         &self,
         req: crate::model::BatchSearchLinkProcessesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchSearchLinkProcessesResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::Lineage] also implement [Lineage].
@@ -163,9 +161,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn process_open_lineage_run_event(
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessOpenLineageRunEventResponse>> {
         T::process_open_lineage_run_event(self, req, options).await
     }
 
@@ -173,8 +170,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn create_process(
         &self,
         req: crate::model::CreateProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>> {
         T::create_process(self, req, options).await
     }
 
@@ -182,8 +179,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn update_process(
         &self,
         req: crate::model::UpdateProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>> {
         T::update_process(self, req, options).await
     }
 
@@ -191,8 +188,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn get_process(
         &self,
         req: crate::model::GetProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Process>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Process>> {
         T::get_process(self, req, options).await
     }
 
@@ -200,8 +197,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn list_processes(
         &self,
         req: crate::model::ListProcessesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessesResponse>> {
         T::list_processes(self, req, options).await
     }
 
@@ -209,8 +206,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn delete_process(
         &self,
         req: crate::model::DeleteProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_process(self, req, options).await
     }
 
@@ -218,8 +215,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn create_run(
         &self,
         req: crate::model::CreateRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>> {
         T::create_run(self, req, options).await
     }
 
@@ -227,8 +224,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn update_run(
         &self,
         req: crate::model::UpdateRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>> {
         T::update_run(self, req, options).await
     }
 
@@ -236,8 +233,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn get_run(
         &self,
         req: crate::model::GetRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Run>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Run>> {
         T::get_run(self, req, options).await
     }
 
@@ -245,8 +242,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn list_runs(
         &self,
         req: crate::model::ListRunsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRunsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRunsResponse>> {
         T::list_runs(self, req, options).await
     }
 
@@ -254,8 +251,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn delete_run(
         &self,
         req: crate::model::DeleteRunRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_run(self, req, options).await
     }
 
@@ -263,8 +260,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn create_lineage_event(
         &self,
         req: crate::model::CreateLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LineageEvent>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LineageEvent>> {
         T::create_lineage_event(self, req, options).await
     }
 
@@ -272,8 +269,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn get_lineage_event(
         &self,
         req: crate::model::GetLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LineageEvent>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LineageEvent>> {
         T::get_lineage_event(self, req, options).await
     }
 
@@ -281,8 +278,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn list_lineage_events(
         &self,
         req: crate::model::ListLineageEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListLineageEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListLineageEventsResponse>> {
         T::list_lineage_events(self, req, options).await
     }
 
@@ -290,8 +287,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn delete_lineage_event(
         &self,
         req: crate::model::DeleteLineageEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_lineage_event(self, req, options).await
     }
 
@@ -299,8 +296,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn search_links(
         &self,
         req: crate::model::SearchLinksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchLinksResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchLinksResponse>> {
         T::search_links(self, req, options).await
     }
 
@@ -308,9 +305,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn batch_search_link_processes(
         &self,
         req: crate::model::BatchSearchLinkProcessesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchSearchLinkProcessesResponse>> {
         T::batch_search_link_processes(self, req, options).await
     }
 
@@ -318,10 +314,9 @@ impl<T: super::Lineage> Lineage for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -329,8 +324,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -338,8 +333,8 @@ impl<T: super::Lineage> Lineage for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -347,22 +342,22 @@ impl<T: super::Lineage> Lineage for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

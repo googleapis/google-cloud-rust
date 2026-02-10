@@ -2640,7 +2640,7 @@ impl wkt::message::Message for ListDocumentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDocumentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5362,7 +5362,7 @@ impl wkt::message::Message for PartitionQueryResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for PartitionQueryResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for PartitionQueryResponse {
     type PageItem = crate::model::Cursor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

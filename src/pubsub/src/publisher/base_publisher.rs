@@ -25,7 +25,7 @@ use crate::publisher::builder::PublisherPartialBuilder;
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::client::BasePublisher;
-/// # use google_cloud_pubsub::model::PubsubMessage;
+/// # use google_cloud_pubsub::model::Message;
 ///
 /// // Create a client.
 /// let client = BasePublisher::builder().build().await?;
@@ -34,7 +34,7 @@ use crate::publisher::builder::PublisherPartialBuilder;
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
 ///
 /// // Publish a message.
-/// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
+/// let handle = publisher.publish(Message::new().set_data("hello world"));
 /// let message_id = handle.await?;
 /// println!("Message sent with ID: {}", message_id);
 /// # Ok(())
@@ -67,16 +67,14 @@ impl BasePublisher {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// let client = BasePublisher::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # google_cloud_gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> BasePublisherBuilder {
         BasePublisherBuilder::new()
     }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
-    pub(crate) async fn new(
-        builder: BasePublisherBuilder,
-    ) -> Result<Self, gax::client_builder::Error> {
+    pub(crate) async fn new(builder: BasePublisherBuilder) -> crate::ClientBuilderResult<Self> {
         let inner =
             crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
         std::result::Result::Ok(Self { inner })
@@ -89,10 +87,10 @@ impl BasePublisher {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::BasePublisherBuilder;
     /// # use client::BasePublisher;
-    /// # use model::PubsubMessage;
+    /// # use model::Message;
     /// let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
-    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
+    /// let message_id = publisher.publish(Message::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
     pub fn publisher<T>(&self, topic: T) -> PublisherPartialBuilder

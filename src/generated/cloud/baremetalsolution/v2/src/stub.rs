@@ -42,9 +42,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListInstancesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn update_instance(
         &self,
         _req: crate::model::UpdateInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,10 +74,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn rename_instance(
         &self,
         _req: crate::model::RenameInstanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,9 +84,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn reset_instance(
         &self,
         _req: crate::model::ResetInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +95,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn start_instance(
         &self,
         _req: crate::model::StartInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +106,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn stop_instance(
         &self,
         _req: crate::model::StopInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +117,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn enable_interactive_serial_console(
         &self,
         _req: crate::model::EnableInteractiveSerialConsoleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +128,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn disable_interactive_serial_console(
         &self,
         _req: crate::model::DisableInteractiveSerialConsoleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +139,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn detach_lun(
         &self,
         _req: crate::model::DetachLunRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,9 +150,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_ssh_keys(
         &self,
         _req: crate::model::ListSSHKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSSHKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSSHKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,10 +161,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn create_ssh_key(
         &self,
         _req: crate::model::CreateSSHKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SSHKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::SSHKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -174,8 +171,8 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn delete_ssh_key(
         &self,
         _req: crate::model::DeleteSSHKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -183,9 +180,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_volumes(
         &self,
         _req: crate::model::ListVolumesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListVolumesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListVolumesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -194,10 +191,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_volume(
         &self,
         _req: crate::model::GetVolumeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Volume>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Volume>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -205,9 +201,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn update_volume(
         &self,
         _req: crate::model::UpdateVolumeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -216,10 +212,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn rename_volume(
         &self,
         _req: crate::model::RenameVolumeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Volume>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Volume>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -227,9 +222,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn evict_volume(
         &self,
         _req: crate::model::EvictVolumeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -238,9 +233,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn resize_volume(
         &self,
         _req: crate::model::ResizeVolumeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -249,9 +244,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_networks(
         &self,
         _req: crate::model::ListNetworksRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNetworksResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -260,9 +255,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_network_usage(
         &self,
         _req: crate::model::ListNetworkUsageRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNetworkUsageResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNetworkUsageResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -271,10 +266,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_network(
         &self,
         _req: crate::model::GetNetworkRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Network>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Network>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -282,9 +276,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn update_network(
         &self,
         _req: crate::model::UpdateNetworkRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -293,9 +287,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn create_volume_snapshot(
         &self,
         _req: crate::model::CreateVolumeSnapshotRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>,
+        Output = crate::Result<crate::Response<crate::model::VolumeSnapshot>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -304,9 +298,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn restore_volume_snapshot(
         &self,
         _req: crate::model::RestoreVolumeSnapshotRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -315,8 +309,8 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn delete_volume_snapshot(
         &self,
         _req: crate::model::DeleteVolumeSnapshotRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -324,9 +318,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_volume_snapshot(
         &self,
         _req: crate::model::GetVolumeSnapshotRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>,
+        Output = crate::Result<crate::Response<crate::model::VolumeSnapshot>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -335,9 +329,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_volume_snapshots(
         &self,
         _req: crate::model::ListVolumeSnapshotsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListVolumeSnapshotsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -346,9 +340,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_lun(
         &self,
         _req: crate::model::GetLunRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Lun>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Lun>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -356,9 +350,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_luns(
         &self,
         _req: crate::model::ListLunsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLunsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListLunsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -367,9 +361,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn evict_lun(
         &self,
         _req: crate::model::EvictLunRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -378,10 +372,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_nfs_share(
         &self,
         _req: crate::model::GetNfsShareRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::NfsShare>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::NfsShare>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -389,9 +382,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_nfs_shares(
         &self,
         _req: crate::model::ListNfsSharesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListNfsSharesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListNfsSharesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -400,9 +393,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn update_nfs_share(
         &self,
         _req: crate::model::UpdateNfsShareRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -411,9 +404,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn create_nfs_share(
         &self,
         _req: crate::model::CreateNfsShareRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -422,10 +415,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn rename_nfs_share(
         &self,
         _req: crate::model::RenameNfsShareRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::NfsShare>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::NfsShare>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -433,9 +425,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn delete_nfs_share(
         &self,
         _req: crate::model::DeleteNfsShareRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -444,11 +436,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_provisioning_quotas(
         &self,
         _req: crate::model::ListProvisioningQuotasRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListProvisioningQuotasResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListProvisioningQuotasResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -457,11 +447,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn submit_provisioning_config(
         &self,
         _req: crate::model::SubmitProvisioningConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SubmitProvisioningConfigResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SubmitProvisioningConfigResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -470,9 +458,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_provisioning_config(
         &self,
         _req: crate::model::GetProvisioningConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ProvisioningConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -481,9 +469,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn create_provisioning_config(
         &self,
         _req: crate::model::CreateProvisioningConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ProvisioningConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -492,9 +480,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn update_provisioning_config(
         &self,
         _req: crate::model::UpdateProvisioningConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ProvisioningConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -503,10 +491,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn rename_network(
         &self,
         _req: crate::model::RenameNetworkRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Network>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Network>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -514,9 +501,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_os_images(
         &self,
         _req: crate::model::ListOSImagesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOSImagesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListOSImagesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -525,10 +512,10 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -538,9 +525,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -549,9 +536,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -562,9 +549,9 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -573,8 +560,8 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

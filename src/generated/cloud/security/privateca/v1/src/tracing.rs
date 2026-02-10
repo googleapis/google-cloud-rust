@@ -41,8 +41,8 @@ where
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Certificate>> {
         self.inner.create_certificate(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_certificate(
         &self,
         req: crate::model::GetCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Certificate>> {
         self.inner.get_certificate(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCertificatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCertificatesResponse>> {
         self.inner.list_certificates(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn revoke_certificate(
         &self,
         req: crate::model::RevokeCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Certificate>> {
         self.inner.revoke_certificate(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Certificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Certificate>> {
         self.inner.update_certificate(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn activate_certificate_authority(
         &self,
         req: crate::model::ActivateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .activate_certificate_authority(req, options)
             .await
@@ -97,8 +97,8 @@ where
     async fn create_certificate_authority(
         &self,
         req: crate::model::CreateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_certificate_authority(req, options).await
     }
 
@@ -106,8 +106,8 @@ where
     async fn disable_certificate_authority(
         &self,
         req: crate::model::DisableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.disable_certificate_authority(req, options).await
     }
 
@@ -115,8 +115,8 @@ where
     async fn enable_certificate_authority(
         &self,
         req: crate::model::EnableCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.enable_certificate_authority(req, options).await
     }
 
@@ -124,8 +124,8 @@ where
     async fn fetch_certificate_authority_csr(
         &self,
         req: crate::model::FetchCertificateAuthorityCsrRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
         self.inner
             .fetch_certificate_authority_csr(req, options)
             .await
@@ -135,8 +135,8 @@ where
     async fn get_certificate_authority(
         &self,
         req: crate::model::GetCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CertificateAuthority>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CertificateAuthority>> {
         self.inner.get_certificate_authority(req, options).await
     }
 
@@ -144,8 +144,8 @@ where
     async fn list_certificate_authorities(
         &self,
         req: crate::model::ListCertificateAuthoritiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCertificateAuthoritiesResponse>> {
         self.inner.list_certificate_authorities(req, options).await
     }
 
@@ -153,8 +153,8 @@ where
     async fn undelete_certificate_authority(
         &self,
         req: crate::model::UndeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .undelete_certificate_authority(req, options)
             .await
@@ -164,8 +164,8 @@ where
     async fn delete_certificate_authority(
         &self,
         req: crate::model::DeleteCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_certificate_authority(req, options).await
     }
 
@@ -173,8 +173,8 @@ where
     async fn update_certificate_authority(
         &self,
         req: crate::model::UpdateCertificateAuthorityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_certificate_authority(req, options).await
     }
 
@@ -182,8 +182,8 @@ where
     async fn create_ca_pool(
         &self,
         req: crate::model::CreateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_ca_pool(req, options).await
     }
 
@@ -191,8 +191,8 @@ where
     async fn update_ca_pool(
         &self,
         req: crate::model::UpdateCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_ca_pool(req, options).await
     }
 
@@ -200,8 +200,8 @@ where
     async fn get_ca_pool(
         &self,
         req: crate::model::GetCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CaPool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CaPool>> {
         self.inner.get_ca_pool(req, options).await
     }
 
@@ -209,8 +209,8 @@ where
     async fn list_ca_pools(
         &self,
         req: crate::model::ListCaPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCaPoolsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCaPoolsResponse>> {
         self.inner.list_ca_pools(req, options).await
     }
 
@@ -218,8 +218,8 @@ where
     async fn delete_ca_pool(
         &self,
         req: crate::model::DeleteCaPoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_ca_pool(req, options).await
     }
 
@@ -227,8 +227,8 @@ where
     async fn fetch_ca_certs(
         &self,
         req: crate::model::FetchCaCertsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchCaCertsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchCaCertsResponse>> {
         self.inner.fetch_ca_certs(req, options).await
     }
 
@@ -236,8 +236,8 @@ where
     async fn get_certificate_revocation_list(
         &self,
         req: crate::model::GetCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CertificateRevocationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CertificateRevocationList>> {
         self.inner
             .get_certificate_revocation_list(req, options)
             .await
@@ -247,8 +247,8 @@ where
     async fn list_certificate_revocation_lists(
         &self,
         req: crate::model::ListCertificateRevocationListsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCertificateRevocationListsResponse>> {
         self.inner
             .list_certificate_revocation_lists(req, options)
             .await
@@ -258,8 +258,8 @@ where
     async fn update_certificate_revocation_list(
         &self,
         req: crate::model::UpdateCertificateRevocationListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .update_certificate_revocation_list(req, options)
             .await
@@ -269,8 +269,8 @@ where
     async fn create_certificate_template(
         &self,
         req: crate::model::CreateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_certificate_template(req, options).await
     }
 
@@ -278,8 +278,8 @@ where
     async fn delete_certificate_template(
         &self,
         req: crate::model::DeleteCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_certificate_template(req, options).await
     }
 
@@ -287,8 +287,8 @@ where
     async fn get_certificate_template(
         &self,
         req: crate::model::GetCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CertificateTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CertificateTemplate>> {
         self.inner.get_certificate_template(req, options).await
     }
 
@@ -296,8 +296,8 @@ where
     async fn list_certificate_templates(
         &self,
         req: crate::model::ListCertificateTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCertificateTemplatesResponse>> {
         self.inner.list_certificate_templates(req, options).await
     }
 
@@ -305,8 +305,8 @@ where
     async fn update_certificate_template(
         &self,
         req: crate::model::UpdateCertificateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_certificate_template(req, options).await
     }
 
@@ -314,8 +314,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -323,8 +323,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -332,8 +332,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -341,8 +341,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -350,9 +350,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -360,9 +359,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -370,8 +368,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -379,8 +377,8 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -388,22 +386,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

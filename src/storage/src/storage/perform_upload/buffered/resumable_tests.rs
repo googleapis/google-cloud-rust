@@ -111,9 +111,9 @@ use crate::storage::client::tests::{
     MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
-use gax::retry_policy::RetryPolicyExt;
-use gax::retry_result::RetryResult;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 use std::time::Duration;
@@ -739,7 +739,7 @@ async fn start_resumable_upload_request_retry_options() -> Result {
 // result in errors.
 #[tokio::test]
 async fn start_resumable_upload_client_retry_options() -> Result {
-    use gax::retry_policy::RetryPolicyExt;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     let server = Server::run();
     let matching = || {
         Expectation::matching(all_of![

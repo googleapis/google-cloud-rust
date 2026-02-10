@@ -20,7 +20,7 @@ pub mod environments {
     /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::environments::ClientBuilder;
     /// # use client::Environments;
@@ -30,19 +30,18 @@ pub mod environments {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Environments;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Environments;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod environments {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod environments {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -108,7 +107,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -123,7 +122,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_environment`.
@@ -140,7 +139,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -193,8 +192,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -204,7 +203,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -232,7 +231,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -242,7 +241,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -253,8 +252,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -264,8 +263,8 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListEnvironments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -299,7 +298,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -309,14 +308,16 @@ pub mod environments {
             (*self.0.stub)
                 .list_environments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListEnvironmentsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -324,15 +325,17 @@ pub mod environments {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListEnvironmentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -356,8 +359,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListEnvironments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListEnvironments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -367,7 +370,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -399,7 +402,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -414,7 +417,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_environment`.
@@ -431,7 +434,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -502,8 +505,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -513,7 +516,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -545,7 +548,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -560,7 +563,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_environment`.
@@ -572,7 +575,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -607,8 +610,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -618,7 +621,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ExecuteAirflowCommand;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -649,7 +652,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -659,7 +662,7 @@ pub mod environments {
             (*self.0.stub)
                 .execute_airflow_command(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::ExecuteAirflowCommandRequest::environment].
@@ -693,8 +696,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExecuteAirflowCommand {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExecuteAirflowCommand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -704,7 +707,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::StopAirflowCommand;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -735,7 +738,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -745,7 +748,7 @@ pub mod environments {
             (*self.0.stub)
                 .stop_airflow_command(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::StopAirflowCommandRequest::environment].
@@ -780,8 +783,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopAirflowCommand {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopAirflowCommand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -791,7 +794,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::PollAirflowCommand;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -822,7 +825,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -832,7 +835,7 @@ pub mod environments {
             (*self.0.stub)
                 .poll_airflow_command(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::PollAirflowCommandRequest::environment].
@@ -867,8 +870,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PollAirflowCommand {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PollAirflowCommand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -878,8 +881,8 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListWorkloads;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -910,7 +913,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -920,13 +923,13 @@ pub mod environments {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListWorkloadsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -935,15 +938,17 @@ pub mod environments {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListWorkloadsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -975,8 +980,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListWorkloads {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListWorkloads {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -986,7 +991,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CheckUpgrade;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1015,7 +1020,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1030,7 +1035,7 @@ pub mod environments {
             (*self.0.stub)
                 .check_upgrade(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `check_upgrade`.
@@ -1049,7 +1054,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1092,8 +1097,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CheckUpgrade {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CheckUpgrade {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1103,7 +1108,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsSecret;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1136,7 +1141,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1146,7 +1151,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_user_workloads_secret(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsSecretRequest::parent].
@@ -1181,8 +1186,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateUserWorkloadsSecret {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateUserWorkloadsSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1192,7 +1197,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsSecret;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1223,7 +1228,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1233,7 +1238,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_user_workloads_secret(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsSecretRequest::name].
@@ -1246,8 +1251,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetUserWorkloadsSecret {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetUserWorkloadsSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1257,8 +1262,8 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsSecrets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1294,7 +1299,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1304,15 +1309,15 @@ pub mod environments {
             (*self.0.stub)
                 .list_user_workloads_secrets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListUserWorkloadsSecretsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1321,17 +1326,17 @@ pub mod environments {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListUserWorkloadsSecretsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1357,8 +1362,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListUserWorkloadsSecrets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListUserWorkloadsSecrets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1368,7 +1373,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsSecret;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1401,7 +1406,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1411,7 +1416,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_user_workloads_secret(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
@@ -1434,8 +1439,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateUserWorkloadsSecret {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateUserWorkloadsSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1445,7 +1450,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsSecret;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1478,7 +1483,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1488,7 +1493,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_user_workloads_secret(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsSecretRequest::name].
@@ -1501,8 +1506,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteUserWorkloadsSecret {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteUserWorkloadsSecret {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1512,7 +1517,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsConfigMap;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1545,7 +1550,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1555,7 +1560,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_user_workloads_config_map(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsConfigMapRequest::parent].
@@ -1593,8 +1598,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateUserWorkloadsConfigMap {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateUserWorkloadsConfigMap {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1604,7 +1609,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsConfigMap;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1637,7 +1642,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1647,7 +1652,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_user_workloads_config_map(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsConfigMapRequest::name].
@@ -1660,8 +1665,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetUserWorkloadsConfigMap {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetUserWorkloadsConfigMap {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1671,8 +1676,8 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsConfigMaps;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1708,7 +1713,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1718,15 +1723,15 @@ pub mod environments {
             (*self.0.stub)
                 .list_user_workloads_config_maps(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListUserWorkloadsConfigMapsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1735,17 +1740,17 @@ pub mod environments {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListUserWorkloadsConfigMapsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1771,8 +1776,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListUserWorkloadsConfigMaps {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListUserWorkloadsConfigMaps {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1782,7 +1787,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsConfigMap;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1815,7 +1820,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1825,7 +1830,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_user_workloads_config_map(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
@@ -1851,8 +1856,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateUserWorkloadsConfigMap {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateUserWorkloadsConfigMap {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1862,7 +1867,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsConfigMap;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1895,7 +1900,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1905,7 +1910,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_user_workloads_config_map(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsConfigMapRequest::name].
@@ -1918,8 +1923,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteUserWorkloadsConfigMap {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteUserWorkloadsConfigMap {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1929,7 +1934,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::SaveSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1958,7 +1963,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1973,7 +1978,7 @@ pub mod environments {
             (*self.0.stub)
                 .save_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `save_snapshot`.
@@ -1992,7 +1997,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2033,8 +2038,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SaveSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SaveSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2044,7 +2049,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::LoadSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2073,7 +2078,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2088,7 +2093,7 @@ pub mod environments {
             (*self.0.stub)
                 .load_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `load_snapshot`.
@@ -2107,7 +2112,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2172,8 +2177,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for LoadSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for LoadSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2183,7 +2188,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DatabaseFailover;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2215,7 +2220,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2230,7 +2235,7 @@ pub mod environments {
             (*self.0.stub)
                 .database_failover(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `database_failover`.
@@ -2249,7 +2254,7 @@ pub mod environments {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2284,8 +2289,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DatabaseFailover {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DatabaseFailover {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2295,7 +2300,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::FetchDatabaseProperties;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2328,7 +2333,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2338,7 +2343,7 @@ pub mod environments {
             (*self.0.stub)
                 .fetch_database_properties(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::FetchDatabasePropertiesRequest::environment].
@@ -2351,8 +2356,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchDatabaseProperties {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchDatabaseProperties {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2362,8 +2367,8 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2399,7 +2404,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2409,15 +2414,15 @@ pub mod environments {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2426,17 +2431,17 @@ pub mod environments {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2472,8 +2477,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2483,7 +2488,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2514,7 +2519,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2524,7 +2529,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2535,8 +2540,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2546,7 +2551,7 @@ pub mod environments {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2579,7 +2584,7 @@ pub mod environments {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2589,7 +2594,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -2600,8 +2605,8 @@ pub mod environments {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2613,7 +2618,7 @@ pub mod image_versions {
     /// A builder for [ImageVersions][crate::client::ImageVersions].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::image_versions::ClientBuilder;
     /// # use client::ImageVersions;
@@ -2623,19 +2628,18 @@ pub mod image_versions {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ImageVersions;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ImageVersions;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2646,7 +2650,7 @@ pub mod image_versions {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2659,7 +2663,7 @@ pub mod image_versions {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2669,8 +2673,8 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListImageVersions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2704,7 +2708,7 @@ pub mod image_versions {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2714,14 +2718,16 @@ pub mod image_versions {
             (*self.0.stub)
                 .list_image_versions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListImageVersionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListImageVersionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2729,15 +2735,17 @@ pub mod image_versions {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImageVersionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListImageVersionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2767,8 +2775,8 @@ pub mod image_versions {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListImageVersions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListImageVersions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2778,8 +2786,8 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2815,7 +2823,7 @@ pub mod image_versions {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2825,15 +2833,15 @@ pub mod image_versions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2842,17 +2850,17 @@ pub mod image_versions {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2888,8 +2896,8 @@ pub mod image_versions {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2899,7 +2907,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2930,7 +2938,7 @@ pub mod image_versions {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2940,7 +2948,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2951,8 +2959,8 @@ pub mod image_versions {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2962,7 +2970,7 @@ pub mod image_versions {
     /// # Example
     /// ```
     /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orchestration_airflow_service_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2995,7 +3003,7 @@ pub mod image_versions {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3005,7 +3013,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3016,8 +3024,8 @@ pub mod image_versions {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

@@ -20,7 +20,7 @@ pub mod os_config_service {
     /// A builder for [OsConfigService][crate::client::OsConfigService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::*;
     /// # use builder::os_config_service::ClientBuilder;
     /// # use client::OsConfigService;
@@ -30,19 +30,18 @@ pub mod os_config_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::OsConfigService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = OsConfigService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod os_config_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod os_config_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ExecutePatchJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .execute_patch_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExecutePatchJobRequest::parent].
@@ -221,8 +220,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExecutePatchJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExecutePatchJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -232,7 +231,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetPatchJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -260,7 +259,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -270,7 +269,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_patch_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchJobRequest::name].
@@ -283,8 +282,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPatchJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPatchJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -294,7 +293,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CancelPatchJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -322,7 +321,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -332,7 +331,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .cancel_patch_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelPatchJobRequest::name].
@@ -345,8 +344,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelPatchJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelPatchJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -356,8 +355,8 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchJobs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -388,7 +387,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -398,13 +397,13 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_jobs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListPatchJobsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -413,15 +412,17 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchJobsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListPatchJobsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -453,8 +454,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPatchJobs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPatchJobs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -464,8 +465,8 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchJobInstanceDetails;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -501,7 +502,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -511,15 +512,15 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_job_instance_details(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListPatchJobInstanceDetailsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -528,17 +529,17 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListPatchJobInstanceDetailsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -570,8 +571,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPatchJobInstanceDetails {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPatchJobInstanceDetails {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -581,7 +582,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CreatePatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -612,7 +613,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -622,7 +623,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .create_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePatchDeploymentRequest::parent].
@@ -665,8 +666,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreatePatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreatePatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -676,7 +677,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetPatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -707,7 +708,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -717,7 +718,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchDeploymentRequest::name].
@@ -730,8 +731,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -741,8 +742,8 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ListPatchDeployments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -776,7 +777,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -786,14 +787,16 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_deployments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListPatchDeploymentsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -801,17 +804,17 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListPatchDeploymentsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -837,8 +840,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPatchDeployments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPatchDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -848,7 +851,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::DeletePatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -879,7 +882,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -889,7 +892,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .delete_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePatchDeploymentRequest::name].
@@ -902,8 +905,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -913,7 +916,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::UpdatePatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -944,7 +947,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -954,7 +957,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .update_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
@@ -999,8 +1002,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdatePatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdatePatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1010,7 +1013,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::PausePatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1041,7 +1044,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1051,7 +1054,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .pause_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PausePatchDeploymentRequest::name].
@@ -1064,8 +1067,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PausePatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PausePatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1075,7 +1078,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::ResumePatchDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1106,7 +1109,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1116,7 +1119,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .resume_patch_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumePatchDeploymentRequest::name].
@@ -1129,8 +1132,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResumePatchDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResumePatchDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1140,7 +1143,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1171,7 +1174,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1181,7 +1184,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -1192,8 +1195,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1203,7 +1206,7 @@ pub mod os_config_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_service::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1236,7 +1239,7 @@ pub mod os_config_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1246,7 +1249,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -1257,8 +1260,8 @@ pub mod os_config_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1270,7 +1273,7 @@ pub mod os_config_zonal_service {
     /// A builder for [OsConfigZonalService][crate::client::OsConfigZonalService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::*;
     /// # use builder::os_config_zonal_service::ClientBuilder;
     /// # use client::OsConfigZonalService;
@@ -1280,19 +1283,18 @@ pub mod os_config_zonal_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::OsConfigZonalService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = OsConfigZonalService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1303,7 +1305,7 @@ pub mod os_config_zonal_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1316,7 +1318,7 @@ pub mod os_config_zonal_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1326,7 +1328,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::CreateOSPolicyAssignment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1360,7 +1362,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1375,7 +1377,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .create_os_policy_assignment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_os_policy_assignment`.
@@ -1394,7 +1396,7 @@ pub mod os_config_zonal_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1461,8 +1463,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateOSPolicyAssignment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateOSPolicyAssignment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1472,7 +1474,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::UpdateOSPolicyAssignment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1506,7 +1508,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1521,7 +1523,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .update_os_policy_assignment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_os_policy_assignment`.
@@ -1540,7 +1542,7 @@ pub mod os_config_zonal_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1609,8 +1611,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateOSPolicyAssignment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateOSPolicyAssignment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1620,7 +1622,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOSPolicyAssignment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1651,7 +1653,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1661,7 +1663,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_os_policy_assignment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentRequest::name].
@@ -1674,8 +1676,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOSPolicyAssignment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOSPolicyAssignment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1685,8 +1687,8 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1722,7 +1724,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1732,15 +1734,15 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1749,17 +1751,17 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListOSPolicyAssignmentsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1785,8 +1787,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOSPolicyAssignments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1796,8 +1798,8 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1833,7 +1835,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1843,15 +1845,15 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignment_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1860,17 +1862,17 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListOSPolicyAssignmentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1896,8 +1898,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignmentRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOSPolicyAssignmentRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1907,7 +1909,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::DeleteOSPolicyAssignment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1941,7 +1943,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1956,7 +1958,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .delete_os_policy_assignment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_os_policy_assignment`.
@@ -1973,7 +1975,7 @@ pub mod os_config_zonal_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2010,8 +2012,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOSPolicyAssignment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOSPolicyAssignment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2021,7 +2023,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOSPolicyAssignmentReport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2054,7 +2056,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2064,7 +2066,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_os_policy_assignment_report(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentReportRequest::name].
@@ -2077,8 +2079,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOSPolicyAssignmentReport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOSPolicyAssignmentReport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2088,8 +2090,8 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListOSPolicyAssignmentReports;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2125,7 +2127,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2135,15 +2137,15 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignment_reports(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentReportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2152,17 +2154,17 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListOSPolicyAssignmentReportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2194,8 +2196,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOSPolicyAssignmentReports {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOSPolicyAssignmentReports {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2205,7 +2207,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetInventory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2233,7 +2235,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2243,7 +2245,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_inventory(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInventoryRequest::name].
@@ -2262,8 +2264,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInventory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInventory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2273,8 +2275,8 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListInventories;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2305,7 +2307,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2315,14 +2317,16 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_inventories(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListInventoriesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2330,15 +2334,17 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInventoriesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInventoriesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2376,8 +2382,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListInventories {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListInventories {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2387,7 +2393,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetVulnerabilityReport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2418,7 +2424,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2428,7 +2434,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_vulnerability_report(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVulnerabilityReportRequest::name].
@@ -2441,8 +2447,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetVulnerabilityReport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetVulnerabilityReport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2452,8 +2458,8 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::ListVulnerabilityReports;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2489,7 +2495,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2499,15 +2505,15 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_vulnerability_reports(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListVulnerabilityReportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2516,17 +2522,17 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListVulnerabilityReportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2558,8 +2564,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListVulnerabilityReports {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListVulnerabilityReports {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2569,7 +2575,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2600,7 +2606,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2610,7 +2616,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2621,8 +2627,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2632,7 +2638,7 @@ pub mod os_config_zonal_service {
     /// # Example
     /// ```
     /// # use google_cloud_osconfig_v1::builder::os_config_zonal_service::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_osconfig_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2665,7 +2671,7 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2675,7 +2681,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -2686,8 +2692,8 @@ pub mod os_config_zonal_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

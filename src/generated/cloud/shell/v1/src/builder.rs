@@ -20,7 +20,7 @@ pub mod cloud_shell_service {
     /// A builder for [CloudShellService][crate::client::CloudShellService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_shell_v1::*;
     /// # use builder::cloud_shell_service::ClientBuilder;
     /// # use client::CloudShellService;
@@ -30,19 +30,18 @@ pub mod cloud_shell_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::CloudShellService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = CloudShellService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod cloud_shell_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod cloud_shell_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .get_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -127,8 +126,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -138,7 +137,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::StartEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -170,7 +169,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -185,7 +184,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `start_environment`.
@@ -204,7 +203,7 @@ pub mod cloud_shell_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -256,8 +255,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -267,7 +266,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AuthorizeEnvironment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -299,7 +298,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -314,7 +313,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `authorize_environment`.
@@ -333,7 +332,7 @@ pub mod cloud_shell_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -398,8 +397,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AuthorizeEnvironment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AuthorizeEnvironment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -409,7 +408,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::AddPublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -438,7 +437,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -453,7 +452,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `add_public_key`.
@@ -472,7 +471,7 @@ pub mod cloud_shell_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -513,8 +512,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AddPublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AddPublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -524,7 +523,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::RemovePublicKey;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -553,7 +552,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -568,7 +567,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `remove_public_key`.
@@ -587,7 +586,7 @@ pub mod cloud_shell_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -628,8 +627,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RemovePublicKey {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RemovePublicKey {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -639,7 +638,7 @@ pub mod cloud_shell_service {
     /// # Example
     /// ```
     /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_shell_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -670,7 +669,7 @@ pub mod cloud_shell_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -680,7 +679,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -691,8 +690,8 @@ pub mod cloud_shell_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

@@ -42,9 +42,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn list_parameters(
         &self,
         _req: crate::model::ListParametersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListParametersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListParametersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn get_parameter(
         &self,
         _req: crate::model::GetParameterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Parameter>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn create_parameter(
         &self,
         _req: crate::model::CreateParameterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Parameter>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn update_parameter(
         &self,
         _req: crate::model::UpdateParameterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Parameter>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +83,8 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn delete_parameter(
         &self,
         _req: crate::model::DeleteParameterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,11 +92,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn list_parameter_versions(
         &self,
         _req: crate::model::ListParameterVersionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListParameterVersionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListParameterVersionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +103,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn get_parameter_version(
         &self,
         _req: crate::model::GetParameterVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+        Output = crate::Result<crate::Response<crate::model::ParameterVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,11 +114,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn render_parameter_version(
         &self,
         _req: crate::model::RenderParameterVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::RenderParameterVersionResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::RenderParameterVersionResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,9 +125,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn create_parameter_version(
         &self,
         _req: crate::model::CreateParameterVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+        Output = crate::Result<crate::Response<crate::model::ParameterVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -143,9 +136,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn update_parameter_version(
         &self,
         _req: crate::model::UpdateParameterVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+        Output = crate::Result<crate::Response<crate::model::ParameterVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -154,8 +147,8 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn delete_parameter_version(
         &self,
         _req: crate::model::DeleteParameterVersionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -163,10 +156,10 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -176,9 +169,9 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

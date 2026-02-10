@@ -103,6 +103,6 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     fn headers(&self) -> HeaderMap;
 }
 
-async fn unimplemented_stub<T>() -> gax::Result<T> {
+async fn unimplemented_stub<T>() -> google_cloud_gax::Result<T> {
     unimplemented!("{UNIMPLEMENTED}");
 }

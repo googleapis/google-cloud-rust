@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// let client = AnalyticsService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -67,15 +67,13 @@ impl AnalyticsService {
     /// Returns a builder for [AnalyticsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::AnalyticsService;
     /// let client = AnalyticsService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::analytics_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::analytics_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::analytics_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -93,14 +91,14 @@ impl AnalyticsService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AnalyticsService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -110,13 +108,13 @@ impl AnalyticsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AnalyticsService> {
         super::transport::AnalyticsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AnalyticsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AnalyticsService::new)
@@ -161,7 +159,7 @@ impl AnalyticsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -207,13 +205,13 @@ impl CatalogService {
     /// Returns a builder for [CatalogService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::catalog_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::catalog_service::client::Factory)
+        crate::new_client_builder(super::builder::catalog_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -231,14 +229,14 @@ impl CatalogService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -247,13 +245,13 @@ impl CatalogService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CatalogService> {
         super::transport::CatalogService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CatalogService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CatalogService::new)
@@ -430,7 +428,7 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -479,15 +477,13 @@ impl CompletionService {
     /// Returns a builder for [CompletionService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::completion_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::completion_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::completion_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -505,14 +501,14 @@ impl CompletionService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompletionService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CompletionService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -522,13 +518,13 @@ impl CompletionService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CompletionService> {
         super::transport::CompletionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CompletionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompletionService::new)
@@ -586,7 +582,7 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -632,13 +628,13 @@ impl ControlService {
     /// Returns a builder for [ControlService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// let client = ControlService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::control_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::control_service::client::Factory)
+        crate::new_client_builder(super::builder::control_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -656,14 +652,14 @@ impl ControlService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -672,13 +668,13 @@ impl ControlService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ControlService> {
         super::transport::ControlService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ControlService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ControlService::new)
@@ -748,7 +744,7 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -798,15 +794,13 @@ impl ConversationalSearchService {
     /// Returns a builder for [ConversationalSearchService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::conversational_search_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::conversational_search_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -824,14 +818,14 @@ impl ConversationalSearchService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -842,13 +836,13 @@ impl ConversationalSearchService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ConversationalSearchService> {
         super::transport::ConversationalSearchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ConversationalSearchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationalSearchService::new)
@@ -873,7 +867,7 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -919,15 +913,13 @@ impl GenerativeQuestionService {
     /// Returns a builder for [GenerativeQuestionService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
     /// let client = GenerativeQuestionService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::generative_question_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::generative_question_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::generative_question_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -945,14 +937,14 @@ impl GenerativeQuestionService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::GenerativeQuestionService>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -963,13 +955,13 @@ impl GenerativeQuestionService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GenerativeQuestionService> {
         super::transport::GenerativeQuestionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::GenerativeQuestionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GenerativeQuestionService::new)
@@ -1041,7 +1033,7 @@ impl GenerativeQuestionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1098,13 +1090,13 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::model_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
+        crate::new_client_builder(super::builder::model_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1122,14 +1114,14 @@ impl ModelService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1138,13 +1130,13 @@ impl ModelService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
@@ -1232,7 +1224,7 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1278,15 +1270,13 @@ impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::PredictionService;
     /// let client = PredictionService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::prediction_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::prediction_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::prediction_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1304,14 +1294,14 @@ impl PredictionService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PredictionService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::PredictionService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -1321,13 +1311,13 @@ impl PredictionService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PredictionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PredictionService> {
         super::transport::PredictionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PredictionService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::PredictionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PredictionService::new)
@@ -1357,7 +1347,7 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ProductService;
 /// let client = ProductService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1406,13 +1396,13 @@ impl ProductService {
     /// Returns a builder for [ProductService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// let client = ProductService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::product_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::product_service::client::Factory)
+        crate::new_client_builder(super::builder::product_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1430,14 +1420,14 @@ impl ProductService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ProductService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1446,13 +1436,13 @@ impl ProductService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProductService> {
         super::transport::ProductService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ProductService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProductService::new)
@@ -1855,7 +1845,7 @@ impl ProductService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -1904,13 +1894,13 @@ impl SearchService {
     /// Returns a builder for [SearchService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::SearchService;
     /// let client = SearchService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::search_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::search_service::client::Factory)
+        crate::new_client_builder(super::builder::search_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1928,14 +1918,14 @@ impl SearchService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1944,13 +1934,13 @@ impl SearchService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SearchService> {
         super::transport::SearchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SearchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchService::new)
@@ -1983,7 +1973,7 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -2029,15 +2019,13 @@ impl ServingConfigService {
     /// Returns a builder for [ServingConfigService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::serving_config_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::serving_config_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2055,14 +2043,14 @@ impl ServingConfigService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -2072,13 +2060,13 @@ impl ServingConfigService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ServingConfigService> {
         super::transport::ServingConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ServingConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServingConfigService::new)
@@ -2166,7 +2154,7 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
@@ -2212,15 +2200,13 @@ impl UserEventService {
     /// Returns a builder for [UserEventService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::user_event_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::user_event_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::user_event_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2238,14 +2224,14 @@ impl UserEventService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UserEventService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::UserEventService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -2255,13 +2241,13 @@ impl UserEventService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::UserEventService> {
         super::transport::UserEventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::UserEventService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::UserEventService::new)

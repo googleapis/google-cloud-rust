@@ -15,7 +15,7 @@
 //! Helper functions and types to generate random resource names.
 
 use rand::{
-    Rng,
+    Rng, RngExt,
     distr::{Alphanumeric, Distribution, Uniform},
 };
 

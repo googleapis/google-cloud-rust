@@ -42,9 +42,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn list_insights(
         &self,
         _req: crate::model::ListInsightsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInsightsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListInsightsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn get_insight(
         &self,
         _req: crate::model::GetInsightRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Insight>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Insight>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn mark_insight_accepted(
         &self,
         _req: crate::model::MarkInsightAcceptedRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Insight>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Insight>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +73,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn list_recommendations(
         &self,
         _req: crate::model::ListRecommendationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListRecommendationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListRecommendationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +84,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn get_recommendation(
         &self,
         _req: crate::model::GetRecommendationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+        Output = crate::Result<crate::Response<crate::model::Recommendation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +95,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn mark_recommendation_dismissed(
         &self,
         _req: crate::model::MarkRecommendationDismissedRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+        Output = crate::Result<crate::Response<crate::model::Recommendation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +106,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn mark_recommendation_claimed(
         &self,
         _req: crate::model::MarkRecommendationClaimedRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+        Output = crate::Result<crate::Response<crate::model::Recommendation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +117,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn mark_recommendation_succeeded(
         &self,
         _req: crate::model::MarkRecommendationSucceededRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+        Output = crate::Result<crate::Response<crate::model::Recommendation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +128,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn mark_recommendation_failed(
         &self,
         _req: crate::model::MarkRecommendationFailedRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+        Output = crate::Result<crate::Response<crate::model::Recommendation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +139,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn get_recommender_config(
         &self,
         _req: crate::model::GetRecommenderConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RecommenderConfig>>,
+        Output = crate::Result<crate::Response<crate::model::RecommenderConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,9 +150,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn update_recommender_config(
         &self,
         _req: crate::model::UpdateRecommenderConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RecommenderConfig>>,
+        Output = crate::Result<crate::Response<crate::model::RecommenderConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,9 +161,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn get_insight_type_config(
         &self,
         _req: crate::model::GetInsightTypeConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>,
+        Output = crate::Result<crate::Response<crate::model::InsightTypeConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,9 +172,9 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
     fn update_insight_type_config(
         &self,
         _req: crate::model::UpdateInsightTypeConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>,
+        Output = crate::Result<crate::Response<crate::model::InsightTypeConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

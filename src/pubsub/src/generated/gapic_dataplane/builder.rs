@@ -22,7 +22,7 @@ pub mod publisher {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Publisher>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -35,7 +35,7 @@ pub mod publisher {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -58,7 +58,7 @@ pub mod publisher {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -68,7 +68,7 @@ pub mod publisher {
             (*self.0.stub)
                 .publish(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::PublishRequest::topic].
@@ -94,8 +94,8 @@ pub mod publisher {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Publish {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Publish {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -109,7 +109,7 @@ pub mod subscriber {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -122,7 +122,7 @@ pub mod subscriber {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -148,7 +148,7 @@ pub mod subscriber {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -158,7 +158,7 @@ pub mod subscriber {
             (*self.0.stub)
                 .modify_ack_deadline(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::ModifyAckDeadlineRequest::subscription].
@@ -192,8 +192,8 @@ pub mod subscriber {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModifyAckDeadline {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModifyAckDeadline {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -216,7 +216,7 @@ pub mod subscriber {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -226,7 +226,7 @@ pub mod subscriber {
             (*self.0.stub)
                 .acknowledge(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::AcknowledgeRequest::subscription].
@@ -252,8 +252,8 @@ pub mod subscriber {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Acknowledge {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Acknowledge {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

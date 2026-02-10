@@ -20,304 +20,300 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     async fn create_backup_plan(
         &self,
         req: crate::model::CreateBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_backup_plans(
         &self,
         req: crate::model::ListBackupPlansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupPlansResponse>>;
 
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupPlan>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupPlan>>;
 
     async fn update_backup_plan(
         &self,
         req: crate::model::UpdateBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_backup_plan(
         &self,
         req: crate::model::DeleteBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_backup_channel(
         &self,
         req: crate::model::CreateBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_backup_channels(
         &self,
         req: crate::model::ListBackupChannelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupChannelsResponse>>;
 
     async fn get_backup_channel(
         &self,
         req: crate::model::GetBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupChannel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupChannel>>;
 
     async fn update_backup_channel(
         &self,
         req: crate::model::UpdateBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_backup_channel(
         &self,
         req: crate::model::DeleteBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_backup_plan_bindings(
         &self,
         req: crate::model::ListBackupPlanBindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanBindingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupPlanBindingsResponse>>;
 
     async fn get_backup_plan_binding(
         &self,
         req: crate::model::GetBackupPlanBindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanBinding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupPlanBinding>>;
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>>;
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>>;
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_volume_backups(
         &self,
         req: crate::model::ListVolumeBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVolumeBackupsResponse>>;
 
     async fn get_volume_backup(
         &self,
         req: crate::model::GetVolumeBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VolumeBackup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VolumeBackup>>;
 
     async fn create_restore_plan(
         &self,
         req: crate::model::CreateRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_restore_plans(
         &self,
         req: crate::model::ListRestorePlansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestorePlansResponse>>;
 
     async fn get_restore_plan(
         &self,
         req: crate::model::GetRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestorePlan>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestorePlan>>;
 
     async fn update_restore_plan(
         &self,
         req: crate::model::UpdateRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_restore_plan(
         &self,
         req: crate::model::DeleteRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_restore_channel(
         &self,
         req: crate::model::CreateRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_restore_channels(
         &self,
         req: crate::model::ListRestoreChannelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreChannelsResponse>>;
 
     async fn get_restore_channel(
         &self,
         req: crate::model::GetRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestoreChannel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreChannel>>;
 
     async fn update_restore_channel(
         &self,
         req: crate::model::UpdateRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_restore_channel(
         &self,
         req: crate::model::DeleteRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_restore_plan_bindings(
         &self,
         req: crate::model::ListRestorePlanBindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestorePlanBindingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestorePlanBindingsResponse>>;
 
     async fn get_restore_plan_binding(
         &self,
         req: crate::model::GetRestorePlanBindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestorePlanBinding>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestorePlanBinding>>;
 
     async fn create_restore(
         &self,
         req: crate::model::CreateRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_restores(
         &self,
         req: crate::model::ListRestoresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestoresResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoresResponse>>;
 
     async fn get_restore(
         &self,
         req: crate::model::GetRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Restore>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Restore>>;
 
     async fn update_restore(
         &self,
         req: crate::model::UpdateRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_restore(
         &self,
         req: crate::model::DeleteRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_volume_restores(
         &self,
         req: crate::model::ListVolumeRestoresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVolumeRestoresResponse>>;
 
     async fn get_volume_restore(
         &self,
         req: crate::model::GetVolumeRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VolumeRestore>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VolumeRestore>>;
 
     async fn get_backup_index_download_url(
         &self,
         req: crate::model::GetBackupIndexDownloadUrlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetBackupIndexDownloadUrlResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::BackupForGKE] also implement [BackupForGKE].
@@ -327,8 +323,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_backup_plan(
         &self,
         req: crate::model::CreateBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup_plan(self, req, options).await
     }
 
@@ -336,8 +332,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_backup_plans(
         &self,
         req: crate::model::ListBackupPlansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupPlansResponse>> {
         T::list_backup_plans(self, req, options).await
     }
 
@@ -345,8 +341,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupPlan>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupPlan>> {
         T::get_backup_plan(self, req, options).await
     }
 
@@ -354,8 +350,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_backup_plan(
         &self,
         req: crate::model::UpdateBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup_plan(self, req, options).await
     }
 
@@ -363,8 +359,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_backup_plan(
         &self,
         req: crate::model::DeleteBackupPlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup_plan(self, req, options).await
     }
 
@@ -372,8 +368,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_backup_channel(
         &self,
         req: crate::model::CreateBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup_channel(self, req, options).await
     }
 
@@ -381,8 +377,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_backup_channels(
         &self,
         req: crate::model::ListBackupChannelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupChannelsResponse>> {
         T::list_backup_channels(self, req, options).await
     }
 
@@ -390,8 +386,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_backup_channel(
         &self,
         req: crate::model::GetBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupChannel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupChannel>> {
         T::get_backup_channel(self, req, options).await
     }
 
@@ -399,8 +395,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_backup_channel(
         &self,
         req: crate::model::UpdateBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup_channel(self, req, options).await
     }
 
@@ -408,8 +404,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_backup_channel(
         &self,
         req: crate::model::DeleteBackupChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup_channel(self, req, options).await
     }
 
@@ -417,8 +413,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_backup_plan_bindings(
         &self,
         req: crate::model::ListBackupPlanBindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanBindingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupPlanBindingsResponse>> {
         T::list_backup_plan_bindings(self, req, options).await
     }
 
@@ -426,8 +422,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_backup_plan_binding(
         &self,
         req: crate::model::GetBackupPlanBindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanBinding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupPlanBinding>> {
         T::get_backup_plan_binding(self, req, options).await
     }
 
@@ -435,8 +431,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup(self, req, options).await
     }
 
@@ -444,8 +440,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>> {
         T::list_backups(self, req, options).await
     }
 
@@ -453,8 +449,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>> {
         T::get_backup(self, req, options).await
     }
 
@@ -462,8 +458,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_backup(self, req, options).await
     }
 
@@ -471,8 +467,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -480,8 +476,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_volume_backups(
         &self,
         req: crate::model::ListVolumeBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVolumeBackupsResponse>> {
         T::list_volume_backups(self, req, options).await
     }
 
@@ -489,8 +485,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_volume_backup(
         &self,
         req: crate::model::GetVolumeBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VolumeBackup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VolumeBackup>> {
         T::get_volume_backup(self, req, options).await
     }
 
@@ -498,8 +494,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_restore_plan(
         &self,
         req: crate::model::CreateRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_restore_plan(self, req, options).await
     }
 
@@ -507,8 +503,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_restore_plans(
         &self,
         req: crate::model::ListRestorePlansRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestorePlansResponse>> {
         T::list_restore_plans(self, req, options).await
     }
 
@@ -516,8 +512,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_restore_plan(
         &self,
         req: crate::model::GetRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestorePlan>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestorePlan>> {
         T::get_restore_plan(self, req, options).await
     }
 
@@ -525,8 +521,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_restore_plan(
         &self,
         req: crate::model::UpdateRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_restore_plan(self, req, options).await
     }
 
@@ -534,8 +530,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_restore_plan(
         &self,
         req: crate::model::DeleteRestorePlanRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_restore_plan(self, req, options).await
     }
 
@@ -543,8 +539,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_restore_channel(
         &self,
         req: crate::model::CreateRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_restore_channel(self, req, options).await
     }
 
@@ -552,8 +548,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_restore_channels(
         &self,
         req: crate::model::ListRestoreChannelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreChannelsResponse>> {
         T::list_restore_channels(self, req, options).await
     }
 
@@ -561,8 +557,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_restore_channel(
         &self,
         req: crate::model::GetRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestoreChannel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreChannel>> {
         T::get_restore_channel(self, req, options).await
     }
 
@@ -570,8 +566,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_restore_channel(
         &self,
         req: crate::model::UpdateRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_restore_channel(self, req, options).await
     }
 
@@ -579,8 +575,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_restore_channel(
         &self,
         req: crate::model::DeleteRestoreChannelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_restore_channel(self, req, options).await
     }
 
@@ -588,8 +584,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_restore_plan_bindings(
         &self,
         req: crate::model::ListRestorePlanBindingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestorePlanBindingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestorePlanBindingsResponse>> {
         T::list_restore_plan_bindings(self, req, options).await
     }
 
@@ -597,8 +593,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_restore_plan_binding(
         &self,
         req: crate::model::GetRestorePlanBindingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RestorePlanBinding>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestorePlanBinding>> {
         T::get_restore_plan_binding(self, req, options).await
     }
 
@@ -606,8 +602,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn create_restore(
         &self,
         req: crate::model::CreateRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_restore(self, req, options).await
     }
 
@@ -615,8 +611,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_restores(
         &self,
         req: crate::model::ListRestoresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRestoresResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoresResponse>> {
         T::list_restores(self, req, options).await
     }
 
@@ -624,8 +620,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_restore(
         &self,
         req: crate::model::GetRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Restore>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Restore>> {
         T::get_restore(self, req, options).await
     }
 
@@ -633,8 +629,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn update_restore(
         &self,
         req: crate::model::UpdateRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_restore(self, req, options).await
     }
 
@@ -642,8 +638,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_restore(
         &self,
         req: crate::model::DeleteRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_restore(self, req, options).await
     }
 
@@ -651,8 +647,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_volume_restores(
         &self,
         req: crate::model::ListVolumeRestoresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVolumeRestoresResponse>> {
         T::list_volume_restores(self, req, options).await
     }
 
@@ -660,8 +656,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_volume_restore(
         &self,
         req: crate::model::GetVolumeRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VolumeRestore>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VolumeRestore>> {
         T::get_volume_restore(self, req, options).await
     }
 
@@ -669,9 +665,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_backup_index_download_url(
         &self,
         req: crate::model::GetBackupIndexDownloadUrlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetBackupIndexDownloadUrlResponse>> {
         T::get_backup_index_download_url(self, req, options).await
     }
 
@@ -679,9 +674,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -689,8 +683,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -698,8 +692,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -707,8 +701,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -716,10 +710,9 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -727,10 +720,9 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -738,8 +730,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -747,8 +739,8 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -756,22 +748,22 @@ impl<T: super::BackupForGKE> BackupForGKE for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

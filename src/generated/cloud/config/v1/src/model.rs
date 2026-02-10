@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -1815,7 +1815,7 @@ impl wkt::message::Message for ListDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2067,7 +2067,7 @@ impl wkt::message::Message for ListRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRevisionsResponse {
     type PageItem = crate::model::Revision;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5213,7 +5213,7 @@ impl wkt::message::Message for ListResourcesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourcesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourcesResponse {
     type PageItem = crate::model::Resource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7521,7 +7521,7 @@ impl wkt::message::Message for ListPreviewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPreviewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPreviewsResponse {
     type PageItem = crate::model::Preview;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7964,7 +7964,7 @@ impl wkt::message::Message for ListTerraformVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTerraformVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTerraformVersionsResponse {
     type PageItem = crate::model::TerraformVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9008,7 +9008,7 @@ impl wkt::message::Message for ListResourceChangesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourceChangesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourceChangesResponse {
     type PageItem = crate::model::ResourceChange;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9577,7 +9577,7 @@ impl wkt::message::Message for ListResourceDriftsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourceDriftsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourceDriftsResponse {
     type PageItem = crate::model::ResourceDrift;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

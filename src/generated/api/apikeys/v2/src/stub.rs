@@ -42,9 +42,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn create_key(
         &self,
         _req: crate::model::CreateKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn list_keys(
         &self,
         _req: crate::model::ListKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn get_key(
         &self,
         _req: crate::model::GetKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Key>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -74,9 +74,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn get_key_string(
         &self,
         _req: crate::model::GetKeyStringRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GetKeyStringResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -85,9 +85,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn update_key(
         &self,
         _req: crate::model::UpdateKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -96,9 +96,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn delete_key(
         &self,
         _req: crate::model::DeleteKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -107,9 +107,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn undelete_key(
         &self,
         _req: crate::model::UndeleteKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -118,9 +118,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn lookup_key(
         &self,
         _req: crate::model::LookupKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LookupKeyResponse>>,
+        Output = crate::Result<crate::Response<crate::model::LookupKeyResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -129,9 +129,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -142,9 +142,9 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -153,8 +153,8 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

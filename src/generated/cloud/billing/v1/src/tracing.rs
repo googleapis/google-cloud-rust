@@ -41,8 +41,8 @@ where
     async fn get_billing_account(
         &self,
         req: crate::model::GetBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BillingAccount>> {
         self.inner.get_billing_account(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_billing_accounts(
         &self,
         req: crate::model::ListBillingAccountsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBillingAccountsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBillingAccountsResponse>> {
         self.inner.list_billing_accounts(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn update_billing_account(
         &self,
         req: crate::model::UpdateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BillingAccount>> {
         self.inner.update_billing_account(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn create_billing_account(
         &self,
         req: crate::model::CreateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BillingAccount>> {
         self.inner.create_billing_account(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_project_billing_info(
         &self,
         req: crate::model::ListProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListProjectBillingInfoResponse>> {
         self.inner.list_project_billing_info(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_project_billing_info(
         &self,
         req: crate::model::GetProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProjectBillingInfo>> {
         self.inner.get_project_billing_info(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn update_project_billing_info(
         &self,
         req: crate::model::UpdateProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProjectBillingInfo>> {
         self.inner.update_project_billing_info(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -122,9 +122,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -132,8 +131,8 @@ where
     async fn move_billing_account(
         &self,
         req: crate::model::MoveBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BillingAccount>> {
         self.inner.move_billing_account(req, options).await
     }
 }
@@ -164,8 +163,8 @@ where
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListServicesResponse>> {
         self.inner.list_services(req, options).await
     }
 
@@ -173,8 +172,8 @@ where
     async fn list_skus(
         &self,
         req: crate::model::ListSkusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSkusResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSkusResponse>> {
         self.inner.list_skus(req, options).await
     }
 }

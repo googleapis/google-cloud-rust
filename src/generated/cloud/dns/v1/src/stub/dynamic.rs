@@ -20,20 +20,20 @@ pub trait Changes: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::changes::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Change>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Change>>;
 
     async fn get(
         &self,
         req: crate::model::changes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Change>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Change>>;
 
     async fn list(
         &self,
         req: crate::model::changes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ChangesListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ChangesListResponse>>;
 }
 
 /// All implementations of [super::Changes] also implement [Changes].
@@ -43,8 +43,8 @@ impl<T: super::Changes> Changes for T {
     async fn create(
         &self,
         req: crate::model::changes::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Change>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Change>> {
         T::create(self, req, options).await
     }
 
@@ -52,8 +52,8 @@ impl<T: super::Changes> Changes for T {
     async fn get(
         &self,
         req: crate::model::changes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Change>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Change>> {
         T::get(self, req, options).await
     }
 
@@ -61,8 +61,8 @@ impl<T: super::Changes> Changes for T {
     async fn list(
         &self,
         req: crate::model::changes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ChangesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ChangesListResponse>> {
         T::list(self, req, options).await
     }
 }
@@ -73,14 +73,14 @@ pub trait DnsKeys: std::fmt::Debug + Send + Sync {
     async fn get(
         &self,
         req: crate::model::dns_keys::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DnsKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DnsKey>>;
 
     async fn list(
         &self,
         req: crate::model::dns_keys::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DnsKeysListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DnsKeysListResponse>>;
 }
 
 /// All implementations of [super::DnsKeys] also implement [DnsKeys].
@@ -90,8 +90,8 @@ impl<T: super::DnsKeys> DnsKeys for T {
     async fn get(
         &self,
         req: crate::model::dns_keys::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DnsKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DnsKey>> {
         T::get(self, req, options).await
     }
 
@@ -99,8 +99,8 @@ impl<T: super::DnsKeys> DnsKeys for T {
     async fn list(
         &self,
         req: crate::model::dns_keys::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DnsKeysListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DnsKeysListResponse>> {
         T::list(self, req, options).await
     }
 }
@@ -111,14 +111,14 @@ pub trait ManagedZoneOperations: std::fmt::Debug + Send + Sync {
     async fn get(
         &self,
         req: crate::model::managed_zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::managed_zone_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZoneOperationsListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZoneOperationsListResponse>>;
 }
 
 /// All implementations of [super::ManagedZoneOperations] also implement [ManagedZoneOperations].
@@ -128,8 +128,8 @@ impl<T: super::ManagedZoneOperations> ManagedZoneOperations for T {
     async fn get(
         &self,
         req: crate::model::managed_zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::get(self, req, options).await
     }
 
@@ -137,9 +137,8 @@ impl<T: super::ManagedZoneOperations> ManagedZoneOperations for T {
     async fn list(
         &self,
         req: crate::model::managed_zone_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZoneOperationsListResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZoneOperationsListResponse>> {
         T::list(self, req, options).await
     }
 }
@@ -150,72 +149,72 @@ pub trait ManagedZones: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::managed_zones::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZone>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZone>>;
 
     async fn delete(
         &self,
         req: crate::model::managed_zones::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get(
         &self,
         req: crate::model::managed_zones::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZone>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZone>>;
 
     async fn get_iam_policy(
         &self,
         req: crate::model::managed_zones::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1Policy>>;
 
     async fn list(
         &self,
         req: crate::model::managed_zones::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZonesListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZonesListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::managed_zones::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn set_iam_policy(
         &self,
         req: crate::model::managed_zones::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: crate::model::managed_zones::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1TestIamPermissionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1TestIamPermissionsResponse>>;
 
     async fn update(
         &self,
         req: crate::model::managed_zones::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn get_operation(
         &self,
         req: crate::model::managed_zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ManagedZones] also implement [ManagedZones].
@@ -225,8 +224,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn create(
         &self,
         req: crate::model::managed_zones::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZone>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZone>> {
         T::create(self, req, options).await
     }
 
@@ -234,8 +233,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn delete(
         &self,
         req: crate::model::managed_zones::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -243,8 +242,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn get(
         &self,
         req: crate::model::managed_zones::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZone>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZone>> {
         T::get(self, req, options).await
     }
 
@@ -252,8 +251,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn get_iam_policy(
         &self,
         req: crate::model::managed_zones::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -261,8 +260,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn list(
         &self,
         req: crate::model::managed_zones::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedZonesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedZonesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -270,8 +269,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn patch(
         &self,
         req: crate::model::managed_zones::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
     }
 
@@ -279,8 +278,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn set_iam_policy(
         &self,
         req: crate::model::managed_zones::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -288,9 +287,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn test_iam_permissions(
         &self,
         req: crate::model::managed_zones::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GoogleIamV1TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GoogleIamV1TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -298,8 +296,8 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn update(
         &self,
         req: crate::model::managed_zones::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
 
@@ -307,22 +305,22 @@ impl<T: super::ManagedZones> ManagedZones for T {
     async fn get_operation(
         &self,
         req: crate::model::managed_zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -333,38 +331,38 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::policies::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn delete(
         &self,
         req: crate::model::policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get(
         &self,
         req: crate::model::policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
     async fn list(
         &self,
         req: crate::model::policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesPatchResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesPatchResponse>>;
 
     async fn update(
         &self,
         req: crate::model::policies::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesUpdateResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesUpdateResponse>>;
 }
 
 /// All implementations of [super::Policies] also implement [Policies].
@@ -374,8 +372,8 @@ impl<T: super::Policies> Policies for T {
     async fn create(
         &self,
         req: crate::model::policies::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::create(self, req, options).await
     }
 
@@ -383,8 +381,8 @@ impl<T: super::Policies> Policies for T {
     async fn delete(
         &self,
         req: crate::model::policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -392,8 +390,8 @@ impl<T: super::Policies> Policies for T {
     async fn get(
         &self,
         req: crate::model::policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get(self, req, options).await
     }
 
@@ -401,8 +399,8 @@ impl<T: super::Policies> Policies for T {
     async fn list(
         &self,
         req: crate::model::policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -410,8 +408,8 @@ impl<T: super::Policies> Policies for T {
     async fn patch(
         &self,
         req: crate::model::policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesPatchResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesPatchResponse>> {
         T::patch(self, req, options).await
     }
 
@@ -419,8 +417,8 @@ impl<T: super::Policies> Policies for T {
     async fn update(
         &self,
         req: crate::model::policies::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PoliciesUpdateResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PoliciesUpdateResponse>> {
         T::update(self, req, options).await
     }
 }
@@ -431,8 +429,8 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
     async fn get(
         &self,
         req: crate::model::projects::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Project>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Project>>;
 }
 
 /// All implementations of [super::Projects] also implement [Projects].
@@ -442,8 +440,8 @@ impl<T: super::Projects> Projects for T {
     async fn get(
         &self,
         req: crate::model::projects::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Project>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Project>> {
         T::get(self, req, options).await
     }
 }
@@ -454,32 +452,32 @@ pub trait ResourceRecordSets: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::resource_record_sets::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>>;
 
     async fn delete(
         &self,
         req: crate::model::resource_record_sets::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSetsDeleteResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSetsDeleteResponse>>;
 
     async fn get(
         &self,
         req: crate::model::resource_record_sets::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>>;
 
     async fn list(
         &self,
         req: crate::model::resource_record_sets::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSetsListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSetsListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::resource_record_sets::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>>;
 }
 
 /// All implementations of [super::ResourceRecordSets] also implement [ResourceRecordSets].
@@ -489,8 +487,8 @@ impl<T: super::ResourceRecordSets> ResourceRecordSets for T {
     async fn create(
         &self,
         req: crate::model::resource_record_sets::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>> {
         T::create(self, req, options).await
     }
 
@@ -498,9 +496,8 @@ impl<T: super::ResourceRecordSets> ResourceRecordSets for T {
     async fn delete(
         &self,
         req: crate::model::resource_record_sets::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSetsDeleteResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSetsDeleteResponse>> {
         T::delete(self, req, options).await
     }
 
@@ -508,8 +505,8 @@ impl<T: super::ResourceRecordSets> ResourceRecordSets for T {
     async fn get(
         &self,
         req: crate::model::resource_record_sets::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>> {
         T::get(self, req, options).await
     }
 
@@ -517,8 +514,8 @@ impl<T: super::ResourceRecordSets> ResourceRecordSets for T {
     async fn list(
         &self,
         req: crate::model::resource_record_sets::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSetsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSetsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -526,8 +523,8 @@ impl<T: super::ResourceRecordSets> ResourceRecordSets for T {
     async fn patch(
         &self,
         req: crate::model::resource_record_sets::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceRecordSet>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceRecordSet>> {
         T::patch(self, req, options).await
     }
 }
@@ -538,38 +535,38 @@ pub trait ResponsePolicies: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::response_policies::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicy>>;
 
     async fn delete(
         &self,
         req: crate::model::response_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get(
         &self,
         req: crate::model::response_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicy>>;
 
     async fn list(
         &self,
         req: crate::model::response_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::response_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesPatchResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesPatchResponse>>;
 
     async fn update(
         &self,
         req: crate::model::response_policies::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesUpdateResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesUpdateResponse>>;
 }
 
 /// All implementations of [super::ResponsePolicies] also implement [ResponsePolicies].
@@ -579,8 +576,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn create(
         &self,
         req: crate::model::response_policies::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicy>> {
         T::create(self, req, options).await
     }
 
@@ -588,8 +585,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn delete(
         &self,
         req: crate::model::response_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -597,8 +594,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn get(
         &self,
         req: crate::model::response_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicy>> {
         T::get(self, req, options).await
     }
 
@@ -606,8 +603,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn list(
         &self,
         req: crate::model::response_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -615,8 +612,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn patch(
         &self,
         req: crate::model::response_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesPatchResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesPatchResponse>> {
         T::patch(self, req, options).await
     }
 
@@ -624,8 +621,8 @@ impl<T: super::ResponsePolicies> ResponsePolicies for T {
     async fn update(
         &self,
         req: crate::model::response_policies::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePoliciesUpdateResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePoliciesUpdateResponse>> {
         T::update(self, req, options).await
     }
 }
@@ -636,38 +633,38 @@ pub trait ResponsePolicyRules: std::fmt::Debug + Send + Sync {
     async fn create(
         &self,
         req: crate::model::response_policy_rules::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRule>>;
 
     async fn delete(
         &self,
         req: crate::model::response_policy_rules::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get(
         &self,
         req: crate::model::response_policy_rules::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRule>>;
 
     async fn list(
         &self,
         req: crate::model::response_policy_rules::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesListResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::response_policy_rules::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesPatchResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesPatchResponse>>;
 
     async fn update(
         &self,
         req: crate::model::response_policy_rules::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesUpdateResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesUpdateResponse>>;
 }
 
 /// All implementations of [super::ResponsePolicyRules] also implement [ResponsePolicyRules].
@@ -677,8 +674,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn create(
         &self,
         req: crate::model::response_policy_rules::CreateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRule>> {
         T::create(self, req, options).await
     }
 
@@ -686,8 +683,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn delete(
         &self,
         req: crate::model::response_policy_rules::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -695,8 +692,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn get(
         &self,
         req: crate::model::response_policy_rules::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRule>> {
         T::get(self, req, options).await
     }
 
@@ -704,8 +701,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn list(
         &self,
         req: crate::model::response_policy_rules::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -713,9 +710,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn patch(
         &self,
         req: crate::model::response_policy_rules::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesPatchResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesPatchResponse>> {
         T::patch(self, req, options).await
     }
 
@@ -723,9 +719,8 @@ impl<T: super::ResponsePolicyRules> ResponsePolicyRules for T {
     async fn update(
         &self,
         req: crate::model::response_policy_rules::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResponsePolicyRulesUpdateResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResponsePolicyRulesUpdateResponse>> {
         T::update(self, req, options).await
     }
 }

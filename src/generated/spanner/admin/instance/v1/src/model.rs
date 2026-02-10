@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -3437,7 +3437,7 @@ impl wkt::message::Message for ListInstanceConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstanceConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInstanceConfigsResponse {
     type PageItem = crate::model::InstanceConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4010,7 +4010,9 @@ impl wkt::message::Message for ListInstanceConfigOperationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstanceConfigOperationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListInstanceConfigOperationsResponse
+{
     type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4438,7 +4440,7 @@ impl wkt::message::Message for ListInstancesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInstancesResponse {
     type PageItem = crate::model::Instance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6913,7 +6915,7 @@ impl wkt::message::Message for ListInstancePartitionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstancePartitionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInstancePartitionsResponse {
     type PageItem = crate::model::InstancePartition;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7200,7 +7202,9 @@ impl wkt::message::Message for ListInstancePartitionOperationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInstancePartitionOperationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListInstancePartitionOperationsResponse
+{
     type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

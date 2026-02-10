@@ -20,202 +20,200 @@ pub trait ManagedSchemaRegistry: std::fmt::Debug + Send + Sync {
     async fn get_schema_registry(
         &self,
         req: crate::model::GetSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaRegistry>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaRegistry>>;
 
     async fn list_schema_registries(
         &self,
         req: crate::model::ListSchemaRegistriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaRegistriesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemaRegistriesResponse>>;
 
     async fn create_schema_registry(
         &self,
         req: crate::model::CreateSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaRegistry>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaRegistry>>;
 
     async fn delete_schema_registry(
         &self,
         req: crate::model::DeleteSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_context(
         &self,
         req: crate::model::GetContextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Context>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Context>>;
 
     async fn list_contexts(
         &self,
         req: crate::model::ListContextsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>>;
 
     async fn get_raw_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_schema_versions(
         &self,
         req: crate::model::ListSchemaVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_schema_types(
         &self,
         req: crate::model::ListSchemaTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_subjects(
         &self,
         req: crate::model::ListSubjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_subjects_by_schema_id(
         &self,
         req: crate::model::ListSubjectsBySchemaIdRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn delete_subject(
         &self,
         req: crate::model::DeleteSubjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn lookup_version(
         &self,
         req: crate::model::LookupVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaVersion>>;
 
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaVersion>>;
 
     async fn get_raw_schema_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CreateVersionResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CreateVersionResponse>>;
 
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn list_referenced_schemas(
         &self,
         req: crate::model::ListReferencedSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn check_compatibility(
         &self,
         req: crate::model::CheckCompatibilityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CheckCompatibilityResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CheckCompatibilityResponse>>;
 
     async fn get_schema_config(
         &self,
         req: crate::model::GetSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>>;
 
     async fn update_schema_config(
         &self,
         req: crate::model::UpdateSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>>;
 
     async fn delete_schema_config(
         &self,
         req: crate::model::DeleteSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>>;
 
     async fn get_schema_mode(
         &self,
         req: crate::model::GetSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>>;
 
     async fn update_schema_mode(
         &self,
         req: crate::model::UpdateSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>>;
 
     async fn delete_schema_mode(
         &self,
         req: crate::model::DeleteSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ManagedSchemaRegistry] also implement [ManagedSchemaRegistry].
@@ -225,8 +223,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_schema_registry(
         &self,
         req: crate::model::GetSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaRegistry>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaRegistry>> {
         T::get_schema_registry(self, req, options).await
     }
 
@@ -234,8 +232,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_schema_registries(
         &self,
         req: crate::model::ListSchemaRegistriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaRegistriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSchemaRegistriesResponse>> {
         T::list_schema_registries(self, req, options).await
     }
 
@@ -243,8 +241,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn create_schema_registry(
         &self,
         req: crate::model::CreateSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaRegistry>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaRegistry>> {
         T::create_schema_registry(self, req, options).await
     }
 
@@ -252,8 +250,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_schema_registry(
         &self,
         req: crate::model::DeleteSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_schema_registry(self, req, options).await
     }
 
@@ -261,8 +259,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_context(
         &self,
         req: crate::model::GetContextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Context>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Context>> {
         T::get_context(self, req, options).await
     }
 
@@ -270,8 +268,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_contexts(
         &self,
         req: crate::model::ListContextsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_contexts(self, req, options).await
     }
 
@@ -279,8 +277,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Schema>> {
         T::get_schema(self, req, options).await
     }
 
@@ -288,8 +286,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_raw_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::get_raw_schema(self, req, options).await
     }
 
@@ -297,8 +295,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_schema_versions(
         &self,
         req: crate::model::ListSchemaVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_schema_versions(self, req, options).await
     }
 
@@ -306,8 +304,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_schema_types(
         &self,
         req: crate::model::ListSchemaTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_schema_types(self, req, options).await
     }
 
@@ -315,8 +313,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_subjects(
         &self,
         req: crate::model::ListSubjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_subjects(self, req, options).await
     }
 
@@ -324,8 +322,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_subjects_by_schema_id(
         &self,
         req: crate::model::ListSubjectsBySchemaIdRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_subjects_by_schema_id(self, req, options).await
     }
 
@@ -333,8 +331,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_subject(
         &self,
         req: crate::model::DeleteSubjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::delete_subject(self, req, options).await
     }
 
@@ -342,8 +340,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn lookup_version(
         &self,
         req: crate::model::LookupVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaVersion>> {
         T::lookup_version(self, req, options).await
     }
 
@@ -351,8 +349,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaVersion>> {
         T::get_version(self, req, options).await
     }
 
@@ -360,8 +358,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_raw_schema_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::get_raw_schema_version(self, req, options).await
     }
 
@@ -369,8 +367,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_versions(self, req, options).await
     }
 
@@ -378,8 +376,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CreateVersionResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CreateVersionResponse>> {
         T::create_version(self, req, options).await
     }
 
@@ -387,8 +385,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::delete_version(self, req, options).await
     }
 
@@ -396,8 +394,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_referenced_schemas(
         &self,
         req: crate::model::ListReferencedSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::list_referenced_schemas(self, req, options).await
     }
 
@@ -405,8 +403,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn check_compatibility(
         &self,
         req: crate::model::CheckCompatibilityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CheckCompatibilityResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CheckCompatibilityResponse>> {
         T::check_compatibility(self, req, options).await
     }
 
@@ -414,8 +412,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_schema_config(
         &self,
         req: crate::model::GetSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>> {
         T::get_schema_config(self, req, options).await
     }
 
@@ -423,8 +421,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn update_schema_config(
         &self,
         req: crate::model::UpdateSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>> {
         T::update_schema_config(self, req, options).await
     }
 
@@ -432,8 +430,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_schema_config(
         &self,
         req: crate::model::DeleteSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaConfig>> {
         T::delete_schema_config(self, req, options).await
     }
 
@@ -441,8 +439,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_schema_mode(
         &self,
         req: crate::model::GetSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>> {
         T::get_schema_mode(self, req, options).await
     }
 
@@ -450,8 +448,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn update_schema_mode(
         &self,
         req: crate::model::UpdateSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>> {
         T::update_schema_mode(self, req, options).await
     }
 
@@ -459,8 +457,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_schema_mode(
         &self,
         req: crate::model::DeleteSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SchemaMode>> {
         T::delete_schema_mode(self, req, options).await
     }
 
@@ -468,9 +466,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -478,8 +475,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -487,10 +484,9 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -498,8 +494,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -507,8 +503,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -516,8 +512,8 @@ impl<T: super::ManagedSchemaRegistry> ManagedSchemaRegistry for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }

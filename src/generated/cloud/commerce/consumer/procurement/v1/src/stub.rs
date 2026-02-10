@@ -42,10 +42,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn get_license_pool(
         &self,
         _req: crate::model::GetLicensePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LicensePool>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LicensePool>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn update_license_pool(
         &self,
         _req: crate::model::UpdateLicensePoolRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LicensePool>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LicensePool>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +62,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn assign(
         &self,
         _req: crate::model::AssignRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AssignResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AssignResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +73,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn unassign(
         &self,
         _req: crate::model::UnassignRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UnassignResponse>>,
+        Output = crate::Result<crate::Response<crate::model::UnassignResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,11 +84,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn enumerate_licensed_users(
         &self,
         _req: crate::model::EnumerateLicensedUsersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::EnumerateLicensedUsersResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::EnumerateLicensedUsersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -99,9 +95,9 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -123,9 +119,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn place_order(
         &self,
         _req: crate::model::PlaceOrderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -134,10 +130,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn get_order(
         &self,
         _req: crate::model::GetOrderRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Order>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Order>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -145,9 +140,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn list_orders(
         &self,
         _req: crate::model::ListOrdersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOrdersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListOrdersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -156,9 +151,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn modify_order(
         &self,
         _req: crate::model::ModifyOrderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -167,9 +162,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn cancel_order(
         &self,
         _req: crate::model::CancelOrderRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -178,9 +173,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -191,9 +186,9 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -202,8 +197,8 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

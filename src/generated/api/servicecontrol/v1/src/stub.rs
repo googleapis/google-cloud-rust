@@ -42,9 +42,9 @@ pub trait QuotaController: std::fmt::Debug + Send + Sync {
     fn allocate_quota(
         &self,
         _req: crate::model::AllocateQuotaRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AllocateQuotaResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -66,9 +66,9 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
     fn check(
         &self,
         _req: crate::model::CheckRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CheckResponse>>,
+        Output = crate::Result<crate::Response<crate::model::CheckResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,9 +77,9 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
     fn report(
         &self,
         _req: crate::model::ReportRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReportResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ReportResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

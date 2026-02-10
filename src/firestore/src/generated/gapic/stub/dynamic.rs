@@ -20,68 +20,68 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>>;
 
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDocumentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDocumentsResponse>>;
 
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>>;
 
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BeginTransactionResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BeginTransactionResponse>>;
 
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitResponse>>;
 
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PartitionQueryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionQueryResponse>>;
 
     async fn list_collection_ids(
         &self,
         req: crate::model::ListCollectionIdsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCollectionIdsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCollectionIdsResponse>>;
 
     async fn batch_write(
         &self,
         req: crate::model::BatchWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchWriteResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchWriteResponse>>;
 
     async fn create_document(
         &self,
         req: crate::model::CreateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>>;
 }
 
 /// All implementations of [super::Firestore] also implement [Firestore].
@@ -91,8 +91,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>> {
         T::get_document(self, req, options).await
     }
 
@@ -100,8 +100,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDocumentsResponse>> {
         T::list_documents(self, req, options).await
     }
 
@@ -109,8 +109,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>> {
         T::update_document(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_document(self, req, options).await
     }
 
@@ -127,8 +127,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BeginTransactionResponse>> {
         T::begin_transaction(self, req, options).await
     }
 
@@ -136,8 +136,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitResponse>> {
         T::commit(self, req, options).await
     }
 
@@ -145,8 +145,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::rollback(self, req, options).await
     }
 
@@ -154,8 +154,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionQueryResponse>> {
         T::partition_query(self, req, options).await
     }
 
@@ -163,8 +163,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn list_collection_ids(
         &self,
         req: crate::model::ListCollectionIdsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCollectionIdsResponse>> {
         T::list_collection_ids(self, req, options).await
     }
 
@@ -172,8 +172,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn batch_write(
         &self,
         req: crate::model::BatchWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BatchWriteResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchWriteResponse>> {
         T::batch_write(self, req, options).await
     }
 
@@ -181,8 +181,8 @@ impl<T: super::Firestore> Firestore for T {
     async fn create_document(
         &self,
         req: crate::model::CreateDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Document>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Document>> {
         T::create_document(self, req, options).await
     }
 }

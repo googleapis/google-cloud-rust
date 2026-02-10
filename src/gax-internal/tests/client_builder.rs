@@ -20,6 +20,10 @@ mod tests {
     #[cfg(feature = "_internal-grpc-client")]
     mod grpc {
         use google_cloud_auth::credentials::Credentials;
+        use google_cloud_gax::client_builder::{
+            Result as ClientBuilderResult,
+            internal::{ClientFactory, new_builder},
+        };
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
@@ -38,29 +42,29 @@ mod tests {
         }
         impl FakeClient {
             pub fn builder() -> ClientBuilder {
-                gax::client_builder::internal::new_builder(fake_client::Factory)
+                new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> ClientBuilderResult<Self> {
                 let inner = gaxi::grpc::Client::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
         }
         /// Make this visible for documentation purposes.
         pub type ClientBuilder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
+            google_cloud_gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         mod fake_client {
             use super::gaxi;
             pub struct Factory;
-            impl gax::client_builder::internal::ClientFactory for Factory {
+            impl super::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credentials;
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,
-                ) -> gax::client_builder::Result<Self::Client> {
+                ) -> super::ClientBuilderResult<Self::Client> {
                     Self::Client::new(config).await
                 }
             }
@@ -70,6 +74,10 @@ mod tests {
     #[cfg(feature = "_internal-http-client")]
     mod http {
         use google_cloud_auth::credentials::Credentials;
+        use google_cloud_gax::client_builder::{
+            Result as ClientBuilderResult,
+            internal::{ClientFactory, new_builder},
+        };
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
@@ -88,29 +96,29 @@ mod tests {
         }
         impl FakeClient {
             pub fn builder() -> ClientBuilder {
-                gax::client_builder::internal::new_builder(fake_client::Factory)
+                new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> ClientBuilderResult<Self> {
                 let inner = gaxi::http::ReqwestClient::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
         }
         /// Make this visible for documentation purposes.
         pub type ClientBuilder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
+            google_cloud_gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         mod fake_client {
             use super::gaxi;
             pub struct Factory;
-            impl gax::client_builder::internal::ClientFactory for Factory {
+            impl super::ClientFactory for Factory {
                 type Client = super::FakeClient;
                 type Credentials = super::Credentials;
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,
-                ) -> gax::client_builder::Result<Self::Client> {
+                ) -> super::ClientBuilderResult<Self::Client> {
                     Self::Client::new(config).await
                 }
             }

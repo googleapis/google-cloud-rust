@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_netapp_v1::client::NetApp;
 /// let client = NetApp::builder().build().await?;
 /// // use `client` to make requests to the NetApp API.
@@ -66,13 +66,13 @@ impl NetApp {
     /// Returns a builder for [NetApp].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// let client = NetApp::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::net_app::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::net_app::client::Factory)
+        crate::new_client_builder(super::builder::net_app::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl NetApp {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetApp>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::NetApp>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl NetApp {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetApp> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NetApp> {
         super::transport::NetApp::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetApp> {
+    ) -> crate::ClientBuilderResult<impl super::stub::NetApp> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NetApp::new)

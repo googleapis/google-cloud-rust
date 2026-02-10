@@ -41,8 +41,8 @@ where
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

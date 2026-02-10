@@ -14,7 +14,9 @@
 
 //! Types and functions related to the default backoff policy.
 
-use gax::{backoff_policy::BackoffPolicy, exponential_backoff::ExponentialBackoffBuilder};
+use google_cloud_gax::{
+    backoff_policy::BackoffPolicy, exponential_backoff::ExponentialBackoffBuilder,
+};
 use std::time::Duration;
 
 /// The default backoff policy for the Storage clients.
@@ -33,7 +35,7 @@ pub fn default() -> impl BackoffPolicy {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use gax::retry_state::RetryState;
+    use google_cloud_gax::retry_state::RetryState;
 
     #[test]
     fn default() {

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1705,7 +1705,7 @@ impl wkt::message::Message for ListBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1960,7 +1960,7 @@ impl wkt::message::Message for ListBackupOperationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupOperationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupOperationsResponse {
     type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3540,7 +3540,7 @@ impl wkt::message::Message for ListBackupSchedulesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupSchedulesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupSchedulesResponse {
     type PageItem = crate::model::BackupSchedule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4818,7 +4818,7 @@ impl wkt::message::Message for ListDatabasesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDatabasesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDatabasesResponse {
     type PageItem = crate::model::Database;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6064,7 +6064,7 @@ impl wkt::message::Message for ListDatabaseOperationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDatabaseOperationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDatabaseOperationsResponse {
     type PageItem = google_cloud_longrunning::model::Operation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7019,7 +7019,7 @@ impl wkt::message::Message for ListDatabaseRolesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDatabaseRolesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDatabaseRolesResponse {
     type PageItem = crate::model::DatabaseRole;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

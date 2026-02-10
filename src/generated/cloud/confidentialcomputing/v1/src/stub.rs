@@ -42,10 +42,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn create_challenge(
         &self,
         _req: crate::model::CreateChallengeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Challenge>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Challenge>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn verify_attestation(
         &self,
         _req: crate::model::VerifyAttestationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>,
+        Output = crate::Result<crate::Response<crate::model::VerifyAttestationResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,11 +63,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn verify_confidential_space(
         &self,
         _req: crate::model::VerifyConfidentialSpaceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,11 +74,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn verify_confidential_gke(
         &self,
         _req: crate::model::VerifyConfidentialGkeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::VerifyConfidentialGkeResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -90,10 +85,10 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -103,9 +98,9 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

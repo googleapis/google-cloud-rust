@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Changes;
 /// let client = Changes::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -66,13 +66,13 @@ impl Changes {
     /// Returns a builder for [Changes].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Changes;
     /// let client = Changes::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::changes::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::changes::client::Factory)
+        crate::new_client_builder(super::builder::changes::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Changes {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Changes>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Changes>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Changes {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Changes> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Changes> {
         super::transport::Changes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Changes> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Changes> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Changes::new)
@@ -138,7 +138,7 @@ impl Changes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::DnsKeys;
 /// let client = DnsKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -184,13 +184,13 @@ impl DnsKeys {
     /// Returns a builder for [DnsKeys].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::DnsKeys;
     /// let client = DnsKeys::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dns_keys::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::dns_keys::client::Factory)
+        crate::new_client_builder(super::builder::dns_keys::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -208,14 +208,14 @@ impl DnsKeys {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DnsKeys>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DnsKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -224,13 +224,13 @@ impl DnsKeys {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DnsKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DnsKeys> {
         super::transport::DnsKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DnsKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DnsKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DnsKeys::new)
@@ -251,7 +251,7 @@ impl DnsKeys {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
 /// let client = ManagedZoneOperations::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -297,15 +297,13 @@ impl ManagedZoneOperations {
     /// Returns a builder for [ManagedZoneOperations].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
     /// let client = ManagedZoneOperations::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_zone_operations::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::managed_zone_operations::client::Factory,
-        )
+        crate::new_client_builder(super::builder::managed_zone_operations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -323,14 +321,14 @@ impl ManagedZoneOperations {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedZoneOperations>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedZoneOperations>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -340,13 +338,13 @@ impl ManagedZoneOperations {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedZoneOperations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedZoneOperations> {
         super::transport::ManagedZoneOperations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedZoneOperations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedZoneOperations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedZoneOperations::new)
@@ -367,7 +365,7 @@ impl ManagedZoneOperations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZones;
 /// let client = ManagedZones::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -413,13 +411,13 @@ impl ManagedZones {
     /// Returns a builder for [ManagedZones].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ManagedZones;
     /// let client = ManagedZones::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_zones::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::managed_zones::client::Factory)
+        crate::new_client_builder(super::builder::managed_zones::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -437,14 +435,14 @@ impl ManagedZones {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ManagedZones>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedZones>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -453,13 +451,13 @@ impl ManagedZones {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedZones> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedZones> {
         super::transport::ManagedZones::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ManagedZones> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedZones> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ManagedZones::new)
@@ -520,7 +518,7 @@ impl ManagedZones {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -566,13 +564,13 @@ impl Policies {
     /// Returns a builder for [Policies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Policies;
     /// let client = Policies::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::policies::client::Factory)
+        crate::new_client_builder(super::builder::policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -590,14 +588,14 @@ impl Policies {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -606,13 +604,13 @@ impl Policies {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Policies> {
         super::transport::Policies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Policies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Policies::new)
@@ -653,7 +651,7 @@ impl Policies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -699,13 +697,13 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::Projects;
     /// let client = Projects::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
+        crate::new_client_builder(super::builder::projects::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -723,14 +721,14 @@ impl Projects {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -739,13 +737,13 @@ impl Projects {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Projects> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Projects::new)
@@ -761,7 +759,7 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResourceRecordSets;
 /// let client = ResourceRecordSets::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -807,15 +805,13 @@ impl ResourceRecordSets {
     /// Returns a builder for [ResourceRecordSets].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResourceRecordSets;
     /// let client = ResourceRecordSets::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::resource_record_sets::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::resource_record_sets::client::Factory,
-        )
+        crate::new_client_builder(super::builder::resource_record_sets::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -833,14 +829,14 @@ impl ResourceRecordSets {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ResourceRecordSets>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ResourceRecordSets>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -850,13 +846,13 @@ impl ResourceRecordSets {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResourceRecordSets> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResourceRecordSets> {
         super::transport::ResourceRecordSets::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResourceRecordSets> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResourceRecordSets> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ResourceRecordSets::new)
@@ -892,7 +888,7 @@ impl ResourceRecordSets {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicies;
 /// let client = ResponsePolicies::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -938,15 +934,13 @@ impl ResponsePolicies {
     /// Returns a builder for [ResponsePolicies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResponsePolicies;
     /// let client = ResponsePolicies::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::response_policies::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::response_policies::client::Factory,
-        )
+        crate::new_client_builder(super::builder::response_policies::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -964,14 +958,14 @@ impl ResponsePolicies {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ResponsePolicies>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ResponsePolicies>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -981,13 +975,13 @@ impl ResponsePolicies {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResponsePolicies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResponsePolicies> {
         super::transport::ResponsePolicies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResponsePolicies> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResponsePolicies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ResponsePolicies::new)
@@ -1028,7 +1022,7 @@ impl ResponsePolicies {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
 /// let client = ResponsePolicyRules::builder().build().await?;
 /// // use `client` to make requests to the Cloud DNS API.
@@ -1074,15 +1068,13 @@ impl ResponsePolicyRules {
     /// Returns a builder for [ResponsePolicyRules].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
     /// let client = ResponsePolicyRules::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::response_policy_rules::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::response_policy_rules::client::Factory,
-        )
+        crate::new_client_builder(super::builder::response_policy_rules::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1100,14 +1092,14 @@ impl ResponsePolicyRules {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ResponsePolicyRules>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ResponsePolicyRules>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -1117,13 +1109,13 @@ impl ResponsePolicyRules {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResponsePolicyRules> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResponsePolicyRules> {
         super::transport::ResponsePolicyRules::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ResponsePolicyRules> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ResponsePolicyRules> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ResponsePolicyRules::new)

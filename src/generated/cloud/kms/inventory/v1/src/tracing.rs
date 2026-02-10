@@ -41,8 +41,8 @@ where
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCryptoKeysResponse>> {
         self.inner.list_crypto_keys(req, options).await
     }
 }
@@ -73,8 +73,8 @@ where
     async fn get_protected_resources_summary(
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProtectedResourcesSummary>> {
         self.inner
             .get_protected_resources_summary(req, options)
             .await
@@ -84,8 +84,8 @@ where
     async fn search_protected_resources(
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchProtectedResourcesResponse>> {
         self.inner.search_protected_resources(req, options).await
     }
 }

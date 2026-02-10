@@ -14,12 +14,14 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_auth::credentials::{
         CacheableResource, Credentials, CredentialsProvider, EntityTag,
     };
     use google_cloud_auth::errors::CredentialsError;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::options::*;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use http::header::{HeaderName, HeaderValue};
@@ -140,9 +142,9 @@ mod tests {
         Ok(())
     }
 
-    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+    fn test_backoff() -> impl BackoffPolicy {
         use std::time::Duration;
-        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_micros(1))
             .with_maximum_delay(Duration::from_micros(1))
             .build()
@@ -152,7 +154,7 @@ mod tests {
     async fn send_request(
         client: grpc::Client,
         msg: &str,
-    ) -> gax::Result<google::test::v1::EchoResponse> {
+    ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

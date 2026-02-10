@@ -13,7 +13,7 @@
 // limitations under the License.
 
 fn main() {
-    #[cfg(feature = "_generate-protos")]
+    #[cfg(google_cloud_generate_protos)]
     {
         tonic_prost_build::configure()
             .out_dir("src/generated/protos")

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
 /// let client = QuotaController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
@@ -69,15 +69,13 @@ impl QuotaController {
     /// Returns a builder for [QuotaController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
     /// let client = QuotaController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::quota_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::quota_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::quota_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -95,15 +93,14 @@ impl QuotaController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::QuotaController>>
-    {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::QuotaController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -112,13 +109,13 @@ impl QuotaController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::QuotaController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::QuotaController> {
         super::transport::QuotaController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::QuotaController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::QuotaController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::QuotaController::new)
@@ -144,7 +141,7 @@ impl QuotaController {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
@@ -193,15 +190,13 @@ impl ServiceController {
     /// Returns a builder for [ServiceController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
     /// let client = ServiceController::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::service_controller::client::Factory,
-        )
+        crate::new_client_builder(super::builder::service_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -219,14 +214,14 @@ impl ServiceController {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceController>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ServiceController>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -236,13 +231,13 @@ impl ServiceController {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ServiceController> {
         super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ServiceController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceController::new)

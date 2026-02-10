@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate lazy_static;
@@ -2380,7 +2380,7 @@ impl wkt::message::Message for ListSecretsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSecretsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSecretsResponse {
     type PageItem = crate::model::Secret;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2802,7 +2802,7 @@ impl wkt::message::Message for ListSecretVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSecretVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

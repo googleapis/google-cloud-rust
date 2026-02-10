@@ -118,7 +118,7 @@ mod tests {
 
     // A new version of the generator will generate code as follows for query parameters.
     fn add_query_parameters(request: &FakeRequest) -> Result<reqwest::RequestBuilder> {
-        use gax::error::Error;
+        use google_cloud_gax::error::Error;
         let client = reqwest::Client::builder().build()?;
         let builder = client.get("https://test.googleapis.com/v1/unused");
 

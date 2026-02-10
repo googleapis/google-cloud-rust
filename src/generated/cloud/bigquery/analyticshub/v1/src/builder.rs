@@ -20,7 +20,7 @@ pub mod analytics_hub_service {
     /// A builder for [AnalyticsHubService][crate::client::AnalyticsHubService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_analyticshub_v1::*;
     /// # use builder::analytics_hub_service::ClientBuilder;
     /// # use client::AnalyticsHubService;
@@ -30,19 +30,18 @@ pub mod analytics_hub_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AnalyticsHubService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AnalyticsHubService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod analytics_hub_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod analytics_hub_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListDataExchanges;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -111,7 +110,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -121,14 +120,16 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_data_exchanges(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDataExchangesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDataExchangesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -136,15 +137,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataExchangesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDataExchangesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -170,8 +173,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDataExchanges {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDataExchanges {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -181,8 +184,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListOrgDataExchanges;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -216,7 +219,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -226,14 +229,16 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_org_data_exchanges(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOrgDataExchangesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListOrgDataExchangesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -241,17 +246,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListOrgDataExchangesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -277,8 +282,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOrgDataExchanges {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOrgDataExchanges {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -288,7 +293,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetDataExchange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -316,7 +321,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -326,7 +331,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_data_exchange(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDataExchangeRequest::name].
@@ -339,8 +344,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDataExchange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDataExchange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -350,7 +355,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateDataExchange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -381,7 +386,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -391,7 +396,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .create_data_exchange(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataExchangeRequest::parent].
@@ -434,8 +439,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDataExchange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDataExchange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -445,7 +450,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateDataExchange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -476,7 +481,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -486,7 +491,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .update_data_exchange(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
@@ -535,8 +540,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateDataExchange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateDataExchange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -546,7 +551,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteDataExchange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -577,7 +582,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -587,7 +592,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .delete_data_exchange(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataExchangeRequest::name].
@@ -600,8 +605,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteDataExchange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteDataExchange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -611,8 +616,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListListings;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -643,7 +648,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -653,13 +658,13 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_listings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListListingsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListListingsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -668,15 +673,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListListingsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListListingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -702,8 +709,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListListings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListListings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -713,7 +720,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetListing;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -741,7 +748,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -751,7 +758,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_listing(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetListingRequest::name].
@@ -764,8 +771,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetListing {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetListing {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -775,7 +782,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateListing;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -803,7 +810,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -813,7 +820,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .create_listing(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateListingRequest::parent].
@@ -856,8 +863,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateListing {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateListing {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -867,7 +874,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateListing;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -895,7 +902,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -905,7 +912,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .update_listing(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
@@ -954,8 +961,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateListing {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateListing {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -965,7 +972,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteListing;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -993,7 +1000,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1003,7 +1010,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .delete_listing(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteListingRequest::name].
@@ -1022,8 +1029,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteListing {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteListing {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1033,7 +1040,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubscribeListing;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1064,7 +1071,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1074,7 +1081,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .subscribe_listing(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SubscribeListingRequest::name].
@@ -1131,8 +1138,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SubscribeListing {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SubscribeListing {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1142,7 +1149,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubscribeDataExchange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1174,7 +1181,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1189,7 +1196,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .subscribe_data_exchange(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `subscribe_data_exchange`.
@@ -1208,7 +1215,7 @@ pub mod analytics_hub_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1285,8 +1292,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SubscribeDataExchange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SubscribeDataExchange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1296,7 +1303,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::RefreshSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1328,7 +1335,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1343,7 +1350,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .refresh_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `refresh_subscription`.
@@ -1362,7 +1369,7 @@ pub mod analytics_hub_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1399,8 +1406,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RefreshSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RefreshSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1410,7 +1417,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1438,7 +1445,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1448,7 +1455,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSubscriptionRequest::name].
@@ -1461,8 +1468,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1472,8 +1479,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListSubscriptions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1507,7 +1514,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1517,14 +1524,16 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_subscriptions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSubscriptionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1532,15 +1541,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSubscriptionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1572,8 +1583,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSubscriptions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSubscriptions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1583,8 +1594,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListSharedResourceSubscriptions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1620,7 +1631,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1630,15 +1641,15 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_shared_resource_subscriptions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListSharedResourceSubscriptionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1647,17 +1658,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListSharedResourceSubscriptionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1689,8 +1700,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSharedResourceSubscriptions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSharedResourceSubscriptions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1700,7 +1711,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::RevokeSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1731,7 +1742,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1741,7 +1752,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .revoke_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RevokeSubscriptionRequest::name].
@@ -1760,8 +1771,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RevokeSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RevokeSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1771,7 +1782,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1803,7 +1814,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1818,7 +1829,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .delete_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_subscription`.
@@ -1830,7 +1841,7 @@ pub mod analytics_hub_service {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1867,8 +1878,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1878,7 +1889,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1909,7 +1920,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1919,7 +1930,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -1950,8 +1961,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1961,7 +1972,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1992,7 +2003,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2002,7 +2013,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2055,8 +2066,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2066,7 +2077,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2099,7 +2110,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2109,7 +2120,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2135,8 +2146,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2146,7 +2157,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::CreateQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2177,7 +2188,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2187,7 +2198,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .create_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueryTemplateRequest::parent].
@@ -2230,8 +2241,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2241,7 +2252,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2272,7 +2283,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2282,7 +2293,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQueryTemplateRequest::name].
@@ -2295,8 +2306,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2306,8 +2317,8 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ListQueryTemplates;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2341,7 +2352,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2351,14 +2362,16 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .list_query_templates(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQueryTemplatesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQueryTemplatesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2366,17 +2379,17 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListQueryTemplatesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2402,8 +2415,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQueryTemplates {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQueryTemplates {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2413,7 +2426,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::UpdateQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2444,7 +2457,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2454,7 +2467,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .update_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
@@ -2499,8 +2512,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2510,7 +2523,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::DeleteQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2541,7 +2554,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2551,7 +2564,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .delete_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQueryTemplateRequest::name].
@@ -2564,8 +2577,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2575,7 +2588,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::SubmitQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2606,7 +2619,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2616,7 +2629,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .submit_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SubmitQueryTemplateRequest::name].
@@ -2629,8 +2642,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SubmitQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SubmitQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2640,7 +2653,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::ApproveQueryTemplate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2671,7 +2684,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2681,7 +2694,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .approve_query_template(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveQueryTemplateRequest::name].
@@ -2694,8 +2707,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApproveQueryTemplate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApproveQueryTemplate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2705,7 +2718,7 @@ pub mod analytics_hub_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_analyticshub_v1::builder::analytics_hub_service::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_analyticshub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2736,7 +2749,7 @@ pub mod analytics_hub_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2746,7 +2759,7 @@ pub mod analytics_hub_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2757,8 +2770,8 @@ pub mod analytics_hub_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

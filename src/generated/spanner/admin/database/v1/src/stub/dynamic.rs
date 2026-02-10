@@ -20,196 +20,192 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>>;
 
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>>;
 
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_database_ddl(
         &self,
         req: crate::model::UpdateDatabaseDdlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn drop_database(
         &self,
         req: crate::model::DropDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_database_ddl(
         &self,
         req: crate::model::GetDatabaseDdlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetDatabaseDdlResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetDatabaseDdlResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn copy_backup(
         &self,
         req: crate::model::CopyBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>>;
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>>;
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>>;
 
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_database_operations(
         &self,
         req: crate::model::ListDatabaseOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseOperationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseOperationsResponse>>;
 
     async fn list_backup_operations(
         &self,
         req: crate::model::ListBackupOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupOperationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupOperationsResponse>>;
 
     async fn list_database_roles(
         &self,
         req: crate::model::ListDatabaseRolesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseRolesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseRolesResponse>>;
 
     async fn add_split_points(
         &self,
         req: crate::model::AddSplitPointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddSplitPointsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddSplitPointsResponse>>;
 
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupSchedulesResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::DatabaseAdmin] also implement [DatabaseAdmin].
@@ -219,8 +215,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>> {
         T::list_databases(self, req, options).await
     }
 
@@ -228,8 +224,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_database(self, req, options).await
     }
 
@@ -237,8 +233,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>> {
         T::get_database(self, req, options).await
     }
 
@@ -246,8 +242,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_database(self, req, options).await
     }
 
@@ -255,8 +251,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn update_database_ddl(
         &self,
         req: crate::model::UpdateDatabaseDdlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_database_ddl(self, req, options).await
     }
 
@@ -264,8 +260,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn drop_database(
         &self,
         req: crate::model::DropDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::drop_database(self, req, options).await
     }
 
@@ -273,8 +269,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_database_ddl(
         &self,
         req: crate::model::GetDatabaseDdlRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetDatabaseDdlResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetDatabaseDdlResponse>> {
         T::get_database_ddl(self, req, options).await
     }
 
@@ -282,8 +278,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -291,8 +287,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -300,10 +296,9 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -311,8 +306,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_backup(self, req, options).await
     }
 
@@ -320,8 +315,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn copy_backup(
         &self,
         req: crate::model::CopyBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::copy_backup(self, req, options).await
     }
 
@@ -329,8 +324,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>> {
         T::get_backup(self, req, options).await
     }
 
@@ -338,8 +333,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>> {
         T::update_backup(self, req, options).await
     }
 
@@ -347,8 +342,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -356,8 +351,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>> {
         T::list_backups(self, req, options).await
     }
 
@@ -365,8 +360,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::restore_database(self, req, options).await
     }
 
@@ -374,8 +369,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_database_operations(
         &self,
         req: crate::model::ListDatabaseOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseOperationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseOperationsResponse>> {
         T::list_database_operations(self, req, options).await
     }
 
@@ -383,8 +378,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_backup_operations(
         &self,
         req: crate::model::ListBackupOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupOperationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupOperationsResponse>> {
         T::list_backup_operations(self, req, options).await
     }
 
@@ -392,8 +387,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_database_roles(
         &self,
         req: crate::model::ListDatabaseRolesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseRolesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseRolesResponse>> {
         T::list_database_roles(self, req, options).await
     }
 
@@ -401,8 +396,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn add_split_points(
         &self,
         req: crate::model::AddSplitPointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddSplitPointsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddSplitPointsResponse>> {
         T::add_split_points(self, req, options).await
     }
 
@@ -410,8 +405,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::create_backup_schedule(self, req, options).await
     }
 
@@ -419,8 +414,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::get_backup_schedule(self, req, options).await
     }
 
@@ -428,8 +423,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::update_backup_schedule(self, req, options).await
     }
 
@@ -437,8 +432,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_backup_schedule(self, req, options).await
     }
 
@@ -446,8 +441,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupSchedulesResponse>> {
         T::list_backup_schedules(self, req, options).await
     }
 
@@ -455,10 +450,9 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -466,8 +460,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -475,8 +469,8 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -484,22 +478,22 @@ impl<T: super::DatabaseAdmin> DatabaseAdmin for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

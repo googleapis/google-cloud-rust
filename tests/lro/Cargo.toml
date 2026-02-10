@@ -31,13 +31,13 @@ anyhow.workspace            = true
 chrono                      = { workspace = true, features = ["now"] }
 futures.workspace           = true
 google-cloud-auth.workspace = true
-gax.workspace               = true
+google-cloud-gax.workspace  = true
 google-cloud-test-utils     = { workspace = true }
 google-cloud-longrunning    = { workspace = true }
 google-cloud-lro.workspace  = true
 google-cloud-rpc.workspace  = true
 google-cloud-workflows-v1   = { workspace = true, features = ["default"] }
-wkt.workspace               = true
+google-cloud-wkt.workspace  = true
 httptest.workspace          = true
 rand.workspace              = true
 serde_json.workspace        = true

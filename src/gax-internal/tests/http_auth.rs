@@ -14,12 +14,14 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_auth::credentials::{
         CacheableResource, Credentials, CredentialsProvider, EntityTag,
     };
     use google_cloud_auth::errors::CredentialsError;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use serde_json::json;
@@ -158,9 +160,9 @@ mod tests {
         Ok(())
     }
 
-    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+    fn test_backoff() -> impl BackoffPolicy {
         use std::time::Duration;
-        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_micros(1))
             .with_maximum_delay(Duration::from_micros(1))
             .build()

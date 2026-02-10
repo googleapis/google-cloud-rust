@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_licensemanager_v1::client::LicenseManager;
 /// let client = LicenseManager::builder().build().await?;
 /// // use `client` to make requests to the License Manager API.
@@ -66,13 +66,13 @@ impl LicenseManager {
     /// Returns a builder for [LicenseManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// let client = LicenseManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::license_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::license_manager::client::Factory)
+        crate::new_client_builder(super::builder::license_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl LicenseManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LicenseManager>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::LicenseManager>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl LicenseManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseManager> {
         super::transport::LicenseManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LicenseManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LicenseManager::new)

@@ -15,10 +15,10 @@
 use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::{BidiReadObjectRedirectedError, BidiReadObjectSpec};
-use gax::error::rpc::Code;
 use gaxi::as_inner::as_inner;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Status;
+use google_cloud_gax::error::rpc::Code;
 use prost::Message;
 use std::sync::{Arc, Mutex};
 
@@ -144,7 +144,7 @@ mod tests {
     }
 
     pub fn non_grpc_abort_error() -> Error {
-        use gax::error::rpc::{Code, Status};
+        use google_cloud_gax::error::rpc::{Code, Status};
         Error::service(
             Status::default()
                 .set_code(Code::Aborted)
@@ -153,7 +153,7 @@ mod tests {
     }
 
     pub fn deep_redirect(routing: &str, depth: i32) -> Error {
-        use gax::error::rpc::{Code, Status};
+        use google_cloud_gax::error::rpc::{Code, Status};
         let status = Status::default()
             .set_code(Code::Aborted)
             .set_message("aborted-recurse");

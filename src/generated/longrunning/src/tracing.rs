@@ -41,8 +41,8 @@ where
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_operation(
         &self,
         req: crate::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn delete_operation(
         &self,
         req: crate::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }

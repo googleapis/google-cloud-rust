@@ -42,9 +42,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn search_domains(
         &self,
         _req: crate::model::SearchDomainsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchDomainsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SearchDomainsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,11 +53,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn retrieve_register_parameters(
         &self,
         _req: crate::model::RetrieveRegisterParametersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::RetrieveRegisterParametersResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::RetrieveRegisterParametersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -66,9 +64,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn register_domain(
         &self,
         _req: crate::model::RegisterDomainRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,11 +75,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn retrieve_transfer_parameters(
         &self,
         _req: crate::model::RetrieveTransferParametersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::RetrieveTransferParametersResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::RetrieveTransferParametersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -90,9 +86,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn transfer_domain(
         &self,
         _req: crate::model::TransferDomainRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -101,9 +97,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn list_registrations(
         &self,
         _req: crate::model::ListRegistrationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListRegistrationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListRegistrationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -112,9 +108,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn get_registration(
         &self,
         _req: crate::model::GetRegistrationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Registration>>,
+        Output = crate::Result<crate::Response<crate::model::Registration>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -123,9 +119,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn update_registration(
         &self,
         _req: crate::model::UpdateRegistrationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -134,9 +130,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn configure_management_settings(
         &self,
         _req: crate::model::ConfigureManagementSettingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -145,9 +141,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn configure_dns_settings(
         &self,
         _req: crate::model::ConfigureDnsSettingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -156,9 +152,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn configure_contact_settings(
         &self,
         _req: crate::model::ConfigureContactSettingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -167,9 +163,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn export_registration(
         &self,
         _req: crate::model::ExportRegistrationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -178,9 +174,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn delete_registration(
         &self,
         _req: crate::model::DeleteRegistrationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -189,9 +185,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn retrieve_authorization_code(
         &self,
         _req: crate::model::RetrieveAuthorizationCodeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuthorizationCode>>,
+        Output = crate::Result<crate::Response<crate::model::AuthorizationCode>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -200,9 +196,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn reset_authorization_code(
         &self,
         _req: crate::model::ResetAuthorizationCodeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuthorizationCode>>,
+        Output = crate::Result<crate::Response<crate::model::AuthorizationCode>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -211,10 +207,10 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -224,9 +220,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -237,9 +233,9 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -248,8 +244,8 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

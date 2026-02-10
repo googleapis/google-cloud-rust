@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::{
+use google_cloud_gax::{
     options::RequestOptionsBuilder,
+    paginator::ItemPaginator,
     retry_policy::{Aip194Strict, RetryPolicyExt},
 };
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::{SecretPayload, SecretVersion, secret_version::State};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 
@@ -33,7 +36,7 @@ async fn main() {
 
 /// Continuously perform RPCs to a given secret.
 async fn worker(
-    client: sm::client::SecretManagerService,
+    client: SecretManagerService,
     secret: String,
     task_id: usize,
     total_workers: usize,
@@ -110,11 +113,9 @@ async fn worker(
 }
 
 async fn update_secret(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     secret: &str,
-) -> anyhow::Result<sm::model::SecretVersion> {
-    use gax::paginator::ItemPaginator;
-    use sm::model::secret_version::State;
+) -> anyhow::Result<SecretVersion> {
     // To keep things tidy, remove any existing versions.
     let mut items = client.list_secret_versions().set_parent(secret).by_item();
     while let Some(version) = items.next().await {
@@ -135,7 +136,7 @@ async fn update_secret(
         .add_secret_version()
         .set_parent(secret)
         .set_payload(
-            sm::model::SecretPayload::new()
+            SecretPayload::new()
                 .set_data(data)
                 .set_data_crc32c(checksum as i64),
         )
@@ -146,7 +147,7 @@ async fn update_secret(
 
 async fn start_workers() -> anyhow::Result<()> {
     let project_id = std::env::var("PROJECT_ID")?;
-    let client = sm::client::SecretManagerService::builder()
+    let client = SecretManagerService::builder()
         .with_retry_policy(
             Aip194Strict
                 .with_time_limit(Duration::from_secs(15))
@@ -181,10 +182,9 @@ async fn start_workers() -> anyhow::Result<()> {
 }
 
 async fn get_endurance_secrets(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
 ) -> anyhow::Result<Vec<String>> {
-    use gax::paginator::ItemPaginator;
     let mut secrets = Vec::new();
     let mut items = client
         .list_secrets()

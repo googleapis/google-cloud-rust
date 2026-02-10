@@ -20,230 +20,228 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
     async fn create_index(
         &self,
         req: crate::model::CreateIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_indexes(
         &self,
         req: crate::model::ListIndexesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIndexesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIndexesResponse>>;
 
     async fn get_index(
         &self,
         req: crate::model::GetIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Index>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Index>>;
 
     async fn delete_index(
         &self,
         req: crate::model::DeleteIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_field(
         &self,
         req: crate::model::GetFieldRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Field>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Field>>;
 
     async fn update_field(
         &self,
         req: crate::model::UpdateFieldRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_fields(
         &self,
         req: crate::model::ListFieldsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFieldsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFieldsResponse>>;
 
     async fn export_documents(
         &self,
         req: crate::model::ExportDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_documents(
         &self,
         req: crate::model::ImportDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn bulk_delete_documents(
         &self,
         req: crate::model::BulkDeleteDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>>;
 
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>>;
 
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_database(
         &self,
         req: crate::model::DeleteDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_user_creds(
         &self,
         req: crate::model::CreateUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>>;
 
     async fn get_user_creds(
         &self,
         req: crate::model::GetUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>>;
 
     async fn list_user_creds(
         &self,
         req: crate::model::ListUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListUserCredsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListUserCredsResponse>>;
 
     async fn enable_user_creds(
         &self,
         req: crate::model::EnableUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>>;
 
     async fn disable_user_creds(
         &self,
         req: crate::model::DisableUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>>;
 
     async fn reset_user_password(
         &self,
         req: crate::model::ResetUserPasswordRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>>;
 
     async fn delete_user_creds(
         &self,
         req: crate::model::DeleteUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>>;
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>>;
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupSchedulesResponse>>;
 
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>>;
 
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn clone_database(
         &self,
         req: crate::model::CloneDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::FirestoreAdmin] also implement [FirestoreAdmin].
@@ -253,8 +251,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn create_index(
         &self,
         req: crate::model::CreateIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_index(self, req, options).await
     }
 
@@ -262,8 +260,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_indexes(
         &self,
         req: crate::model::ListIndexesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIndexesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIndexesResponse>> {
         T::list_indexes(self, req, options).await
     }
 
@@ -271,8 +269,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_index(
         &self,
         req: crate::model::GetIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Index>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Index>> {
         T::get_index(self, req, options).await
     }
 
@@ -280,8 +278,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_index(
         &self,
         req: crate::model::DeleteIndexRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_index(self, req, options).await
     }
 
@@ -289,8 +287,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_field(
         &self,
         req: crate::model::GetFieldRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Field>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Field>> {
         T::get_field(self, req, options).await
     }
 
@@ -298,8 +296,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn update_field(
         &self,
         req: crate::model::UpdateFieldRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_field(self, req, options).await
     }
 
@@ -307,8 +305,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_fields(
         &self,
         req: crate::model::ListFieldsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFieldsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFieldsResponse>> {
         T::list_fields(self, req, options).await
     }
 
@@ -316,8 +314,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn export_documents(
         &self,
         req: crate::model::ExportDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::export_documents(self, req, options).await
     }
 
@@ -325,8 +323,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn import_documents(
         &self,
         req: crate::model::ImportDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::import_documents(self, req, options).await
     }
 
@@ -334,8 +332,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn bulk_delete_documents(
         &self,
         req: crate::model::BulkDeleteDocumentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_delete_documents(self, req, options).await
     }
 
@@ -343,8 +341,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_database(self, req, options).await
     }
 
@@ -352,8 +350,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>> {
         T::get_database(self, req, options).await
     }
 
@@ -361,8 +359,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>> {
         T::list_databases(self, req, options).await
     }
 
@@ -370,8 +368,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_database(self, req, options).await
     }
 
@@ -379,8 +377,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_database(
         &self,
         req: crate::model::DeleteDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_database(self, req, options).await
     }
 
@@ -388,8 +386,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn create_user_creds(
         &self,
         req: crate::model::CreateUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>> {
         T::create_user_creds(self, req, options).await
     }
 
@@ -397,8 +395,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_user_creds(
         &self,
         req: crate::model::GetUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>> {
         T::get_user_creds(self, req, options).await
     }
 
@@ -406,8 +404,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_user_creds(
         &self,
         req: crate::model::ListUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListUserCredsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListUserCredsResponse>> {
         T::list_user_creds(self, req, options).await
     }
 
@@ -415,8 +413,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn enable_user_creds(
         &self,
         req: crate::model::EnableUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>> {
         T::enable_user_creds(self, req, options).await
     }
 
@@ -424,8 +422,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn disable_user_creds(
         &self,
         req: crate::model::DisableUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>> {
         T::disable_user_creds(self, req, options).await
     }
 
@@ -433,8 +431,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn reset_user_password(
         &self,
         req: crate::model::ResetUserPasswordRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UserCreds>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UserCreds>> {
         T::reset_user_password(self, req, options).await
     }
 
@@ -442,8 +440,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_user_creds(
         &self,
         req: crate::model::DeleteUserCredsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_user_creds(self, req, options).await
     }
 
@@ -451,8 +449,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Backup>> {
         T::get_backup(self, req, options).await
     }
 
@@ -460,8 +458,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupsResponse>> {
         T::list_backups(self, req, options).await
     }
 
@@ -469,8 +467,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -478,8 +476,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::restore_database(self, req, options).await
     }
 
@@ -487,8 +485,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::create_backup_schedule(self, req, options).await
     }
 
@@ -496,8 +494,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::get_backup_schedule(self, req, options).await
     }
 
@@ -505,8 +503,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBackupSchedulesResponse>> {
         T::list_backup_schedules(self, req, options).await
     }
 
@@ -514,8 +512,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BackupSchedule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackupSchedule>> {
         T::update_backup_schedule(self, req, options).await
     }
 
@@ -523,8 +521,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_backup_schedule(self, req, options).await
     }
 
@@ -532,8 +530,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn clone_database(
         &self,
         req: crate::model::CloneDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::clone_database(self, req, options).await
     }
 
@@ -541,10 +539,9 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -552,8 +549,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -561,8 +558,8 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -570,22 +567,22 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

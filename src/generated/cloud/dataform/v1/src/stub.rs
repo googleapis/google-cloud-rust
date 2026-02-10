@@ -42,9 +42,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListRepositoriesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Repository>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Repository>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Repository>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Repository>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn update_repository(
         &self,
         _req: crate::model::UpdateRepositoryRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Repository>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Repository>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +83,8 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,11 +92,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn commit_repository_changes(
         &self,
         _req: crate::model::CommitRepositoryChangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::CommitRepositoryChangesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::CommitRepositoryChangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +103,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn read_repository_file(
         &self,
         _req: crate::model::ReadRepositoryFileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ReadRepositoryFileResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,10 +114,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn query_repository_directory_contents(
         &self,
         _req: crate::model::QueryRepositoryDirectoryContentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
+            crate::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -132,11 +127,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn fetch_repository_history(
         &self,
         _req: crate::model::FetchRepositoryHistoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::FetchRepositoryHistoryResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::FetchRepositoryHistoryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -145,10 +138,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn compute_repository_access_token_status(
         &self,
         _req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
+            crate::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -158,9 +151,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn fetch_remote_branches(
         &self,
         _req: crate::model::FetchRemoteBranchesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchRemoteBranchesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -169,9 +162,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_workspaces(
         &self,
         _req: crate::model::ListWorkspacesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListWorkspacesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListWorkspacesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -180,10 +173,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_workspace(
         &self,
         _req: crate::model::GetWorkspaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Workspace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Workspace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -191,10 +183,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_workspace(
         &self,
         _req: crate::model::CreateWorkspaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Workspace>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Workspace>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -202,8 +193,8 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn delete_workspace(
         &self,
         _req: crate::model::DeleteWorkspaceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -211,9 +202,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn install_npm_packages(
         &self,
         _req: crate::model::InstallNpmPackagesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::InstallNpmPackagesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -222,9 +213,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn pull_git_commits(
         &self,
         _req: crate::model::PullGitCommitsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PullGitCommitsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PullGitCommitsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -233,9 +224,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn push_git_commits(
         &self,
         _req: crate::model::PushGitCommitsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PushGitCommitsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PushGitCommitsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -244,9 +235,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn fetch_file_git_statuses(
         &self,
         _req: crate::model::FetchFileGitStatusesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchFileGitStatusesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -255,9 +246,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn fetch_git_ahead_behind(
         &self,
         _req: crate::model::FetchGitAheadBehindRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchGitAheadBehindResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -266,11 +257,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn commit_workspace_changes(
         &self,
         _req: crate::model::CommitWorkspaceChangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::CommitWorkspaceChangesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::CommitWorkspaceChangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -279,11 +268,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn reset_workspace_changes(
         &self,
         _req: crate::model::ResetWorkspaceChangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ResetWorkspaceChangesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ResetWorkspaceChangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -292,9 +279,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn fetch_file_diff(
         &self,
         _req: crate::model::FetchFileDiffRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FetchFileDiffResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FetchFileDiffResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -303,11 +290,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn query_directory_contents(
         &self,
         _req: crate::model::QueryDirectoryContentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::QueryDirectoryContentsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::QueryDirectoryContentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -316,9 +301,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn search_files(
         &self,
         _req: crate::model::SearchFilesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchFilesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SearchFilesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -327,9 +312,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn make_directory(
         &self,
         _req: crate::model::MakeDirectoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MakeDirectoryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::MakeDirectoryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -338,9 +323,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn remove_directory(
         &self,
         _req: crate::model::RemoveDirectoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RemoveDirectoryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RemoveDirectoryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -349,9 +334,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn move_directory(
         &self,
         _req: crate::model::MoveDirectoryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MoveDirectoryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::MoveDirectoryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -360,9 +345,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn read_file(
         &self,
         _req: crate::model::ReadFileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReadFileResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ReadFileResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -371,9 +356,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn remove_file(
         &self,
         _req: crate::model::RemoveFileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RemoveFileResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RemoveFileResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -382,9 +367,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn move_file(
         &self,
         _req: crate::model::MoveFileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MoveFileResponse>>,
+        Output = crate::Result<crate::Response<crate::model::MoveFileResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -393,9 +378,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn write_file(
         &self,
         _req: crate::model::WriteFileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WriteFileResponse>>,
+        Output = crate::Result<crate::Response<crate::model::WriteFileResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -404,9 +389,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_release_configs(
         &self,
         _req: crate::model::ListReleaseConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListReleaseConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -415,9 +400,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_release_config(
         &self,
         _req: crate::model::GetReleaseConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ReleaseConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -426,9 +411,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_release_config(
         &self,
         _req: crate::model::CreateReleaseConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ReleaseConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -437,9 +422,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn update_release_config(
         &self,
         _req: crate::model::UpdateReleaseConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
+        Output = crate::Result<crate::Response<crate::model::ReleaseConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -448,8 +433,8 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn delete_release_config(
         &self,
         _req: crate::model::DeleteReleaseConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -457,11 +442,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_compilation_results(
         &self,
         _req: crate::model::ListCompilationResultsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCompilationResultsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListCompilationResultsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -470,9 +453,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_compilation_result(
         &self,
         _req: crate::model::GetCompilationResultRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CompilationResult>>,
+        Output = crate::Result<crate::Response<crate::model::CompilationResult>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -481,9 +464,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_compilation_result(
         &self,
         _req: crate::model::CreateCompilationResultRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CompilationResult>>,
+        Output = crate::Result<crate::Response<crate::model::CompilationResult>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -492,10 +475,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn query_compilation_result_actions(
         &self,
         _req: crate::model::QueryCompilationResultActionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::QueryCompilationResultActionsResponse>,
+            crate::Response<crate::model::QueryCompilationResultActionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -505,9 +488,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_workflow_configs(
         &self,
         _req: crate::model::ListWorkflowConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListWorkflowConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -516,9 +499,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_workflow_config(
         &self,
         _req: crate::model::GetWorkflowConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
+        Output = crate::Result<crate::Response<crate::model::WorkflowConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -527,9 +510,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_workflow_config(
         &self,
         _req: crate::model::CreateWorkflowConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
+        Output = crate::Result<crate::Response<crate::model::WorkflowConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -538,9 +521,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn update_workflow_config(
         &self,
         _req: crate::model::UpdateWorkflowConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
+        Output = crate::Result<crate::Response<crate::model::WorkflowConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -549,8 +532,8 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn delete_workflow_config(
         &self,
         _req: crate::model::DeleteWorkflowConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -558,11 +541,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_workflow_invocations(
         &self,
         _req: crate::model::ListWorkflowInvocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListWorkflowInvocationsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListWorkflowInvocationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -571,9 +552,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_workflow_invocation(
         &self,
         _req: crate::model::GetWorkflowInvocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>,
+        Output = crate::Result<crate::Response<crate::model::WorkflowInvocation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -582,9 +563,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn create_workflow_invocation(
         &self,
         _req: crate::model::CreateWorkflowInvocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>,
+        Output = crate::Result<crate::Response<crate::model::WorkflowInvocation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -593,8 +574,8 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn delete_workflow_invocation(
         &self,
         _req: crate::model::DeleteWorkflowInvocationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -602,11 +583,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn cancel_workflow_invocation(
         &self,
         _req: crate::model::CancelWorkflowInvocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::CancelWorkflowInvocationResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::CancelWorkflowInvocationResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -615,10 +594,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn query_workflow_invocation_actions(
         &self,
         _req: crate::model::QueryWorkflowInvocationActionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>,
+            crate::Response<crate::model::QueryWorkflowInvocationActionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -628,10 +607,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_config(
         &self,
         _req: crate::model::GetConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Config>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Config>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -639,10 +617,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn update_config(
         &self,
         _req: crate::model::UpdateConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Config>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Config>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -650,10 +627,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -663,9 +640,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -674,9 +651,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -685,9 +662,9 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -696,10 +673,10 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()

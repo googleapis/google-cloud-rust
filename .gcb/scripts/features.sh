@@ -63,6 +63,16 @@ done
 cargo clippy --no-deps --package google-cloud-storage --all-targets -- --deny warnings
 cargo clippy --no-deps --package google-cloud-storage --all-features --all-targets --profile=test -- --deny warnings
 
+cargo clean
+echo "==== google-cloud-pubsub ===="
+for sub in test doc; do
+  cargo "${sub}" --profile=ci --package google-cloud-pubsub --no-default-features
+  cargo "${sub}" --profile=ci --package google-cloud-pubsub --no-default-features --features unstable-stream
+  cargo "${sub}" --profile=ci --package google-cloud-pubsub --all-features
+done
+cargo clippy --no-deps --package google-cloud-pubsub --all-targets -- --deny warnings
+cargo clippy --no-deps --package google-cloud-pubsub --all-features --all-targets --profile=test -- --deny warnings
+
 echo "==== DONE ===="
 
 /workspace/.bin/sccache --show-stats

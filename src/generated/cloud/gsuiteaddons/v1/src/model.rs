@@ -19,7 +19,6 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_apps_script_type;
 extern crate google_cloud_apps_script_type_calendar;
@@ -28,6 +27,7 @@ extern crate google_cloud_apps_script_type_drive;
 extern crate google_cloud_apps_script_type_gmail;
 extern crate google_cloud_apps_script_type_sheets;
 extern crate google_cloud_apps_script_type_slides;
+extern crate google_cloud_gax;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -460,7 +460,7 @@ impl wkt::message::Message for ListDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

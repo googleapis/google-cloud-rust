@@ -41,8 +41,8 @@ where
     async fn list_approval_requests(
         &self,
         req: crate::model::ListApprovalRequestsMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListApprovalRequestsResponse>> {
         self.inner.list_approval_requests(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_approval_request(
         &self,
         req: crate::model::GetApprovalRequestMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ApprovalRequest>> {
         self.inner.get_approval_request(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn approve_approval_request(
         &self,
         req: crate::model::ApproveApprovalRequestMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ApprovalRequest>> {
         self.inner.approve_approval_request(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn dismiss_approval_request(
         &self,
         req: crate::model::DismissApprovalRequestMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ApprovalRequest>> {
         self.inner.dismiss_approval_request(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn invalidate_approval_request(
         &self,
         req: crate::model::InvalidateApprovalRequestMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ApprovalRequest>> {
         self.inner.invalidate_approval_request(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_access_approval_settings(
         &self,
         req: crate::model::GetAccessApprovalSettingsMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AccessApprovalSettings>> {
         self.inner.get_access_approval_settings(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn update_access_approval_settings(
         &self,
         req: crate::model::UpdateAccessApprovalSettingsMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AccessApprovalSettings>> {
         self.inner
             .update_access_approval_settings(req, options)
             .await
@@ -106,8 +106,8 @@ where
     async fn delete_access_approval_settings(
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner
             .delete_access_approval_settings(req, options)
             .await
@@ -117,8 +117,8 @@ where
     async fn get_access_approval_service_account(
         &self,
         req: crate::model::GetAccessApprovalServiceAccountMessage,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AccessApprovalServiceAccount>> {
         self.inner
             .get_access_approval_service_account(req, options)
             .await

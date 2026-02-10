@@ -20,20 +20,20 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>>;
 
     async fn create_offline_profile(
         &self,
         req: crate::model::CreateOfflineProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>>;
 
     async fn update_profile(
         &self,
         req: crate::model::UpdateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>>;
 }
 
 /// All implementations of [super::ProfilerService] also implement [ProfilerService].
@@ -43,8 +43,8 @@ impl<T: super::ProfilerService> ProfilerService for T {
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>> {
         T::create_profile(self, req, options).await
     }
 
@@ -52,8 +52,8 @@ impl<T: super::ProfilerService> ProfilerService for T {
     async fn create_offline_profile(
         &self,
         req: crate::model::CreateOfflineProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>> {
         T::create_offline_profile(self, req, options).await
     }
 
@@ -61,8 +61,8 @@ impl<T: super::ProfilerService> ProfilerService for T {
     async fn update_profile(
         &self,
         req: crate::model::UpdateProfileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Profile>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Profile>> {
         T::update_profile(self, req, options).await
     }
 }
@@ -73,8 +73,8 @@ pub trait ExportService: std::fmt::Debug + Send + Sync {
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProfilesResponse>>;
 }
 
 /// All implementations of [super::ExportService] also implement [ExportService].
@@ -84,8 +84,8 @@ impl<T: super::ExportService> ExportService for T {
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProfilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProfilesResponse>> {
         T::list_profiles(self, req, options).await
     }
 }

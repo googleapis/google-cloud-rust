@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1994,7 +1994,9 @@ impl wkt::message::Message for ListOrgPolicyViolationsPreviewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrgPolicyViolationsPreviewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListOrgPolicyViolationsPreviewsResponse
+{
     type PageItem = crate::model::OrgPolicyViolationsPreview;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2292,7 +2294,7 @@ impl wkt::message::Message for ListOrgPolicyViolationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrgPolicyViolationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOrgPolicyViolationsResponse {
     type PageItem = crate::model::OrgPolicyViolation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3339,7 +3341,7 @@ impl wkt::message::Message for ListReplayResultsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListReplayResultsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListReplayResultsResponse {
     type PageItem = crate::model::ReplayResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

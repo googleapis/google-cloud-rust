@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use super::base_publisher::BasePublisher;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::client_builder::Result as BuilderResult;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
 use gaxi::options::ClientConfig;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::client_builder::Result as BuilderResult;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 
 /// A builder for [BasePublisher].
 ///
@@ -134,7 +134,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = BasePublisher::builder()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build()
@@ -155,7 +155,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
     /// let client = BasePublisher::builder()
@@ -184,7 +184,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let client = BasePublisher::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build()
@@ -248,14 +248,16 @@ mod tests {
 
     #[tokio::test]
     async fn setters() {
-        use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
-            .with_retry_throttler(gax::retry_throttler::CircuitBreaker::default())
+            .with_backoff_policy(
+                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
+            )
+            .with_retry_throttler(google_cloud_gax::retry_throttler::CircuitBreaker::default())
             .with_grpc_subchannel_count(16);
         assert_eq!(
             builder.config.endpoint,

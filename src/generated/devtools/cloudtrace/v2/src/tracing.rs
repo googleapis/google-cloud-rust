@@ -41,8 +41,8 @@ where
     async fn batch_write_spans(
         &self,
         req: crate::model::BatchWriteSpansRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.batch_write_spans(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_span(
         &self,
         req: crate::model::Span,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Span>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Span>> {
         self.inner.create_span(req, options).await
     }
 }

@@ -41,8 +41,8 @@ where
     async fn check(
         &self,
         req: crate::model::CheckRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CheckResponse>> {
         self.inner.check(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn report(
         &self,
         req: crate::model::ReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReportResponse>> {
         self.inner.report(req, options).await
     }
 }

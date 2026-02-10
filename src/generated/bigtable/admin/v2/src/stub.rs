@@ -42,9 +42,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListInstancesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,10 +74,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn update_instance(
         &self,
         _req: crate::model::Instance,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,9 +84,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn partial_update_instance(
         &self,
         _req: crate::model::PartialUpdateInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,8 +95,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,9 +104,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,10 +115,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Cluster>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -128,9 +125,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -139,9 +136,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn update_cluster(
         &self,
         _req: crate::model::Cluster,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -150,9 +147,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn partial_update_cluster(
         &self,
         _req: crate::model::PartialUpdateClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -161,8 +158,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -170,10 +167,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn create_app_profile(
         &self,
         _req: crate::model::CreateAppProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AppProfile>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -181,10 +177,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_app_profile(
         &self,
         _req: crate::model::GetAppProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AppProfile>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -192,9 +187,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_app_profiles(
         &self,
         _req: crate::model::ListAppProfilesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAppProfilesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAppProfilesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -203,9 +198,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn update_app_profile(
         &self,
         _req: crate::model::UpdateAppProfileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -214,8 +209,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_app_profile(
         &self,
         _req: crate::model::DeleteAppProfileRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -223,9 +218,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -234,9 +229,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -245,10 +240,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -258,9 +253,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_hot_tablets(
         &self,
         _req: crate::model::ListHotTabletsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListHotTabletsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListHotTabletsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -269,9 +264,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn create_logical_view(
         &self,
         _req: crate::model::CreateLogicalViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -280,10 +275,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_logical_view(
         &self,
         _req: crate::model::GetLogicalViewRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LogicalView>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LogicalView>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -291,9 +285,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_logical_views(
         &self,
         _req: crate::model::ListLogicalViewsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLogicalViewsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListLogicalViewsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -302,9 +296,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn update_logical_view(
         &self,
         _req: crate::model::UpdateLogicalViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -313,8 +307,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_logical_view(
         &self,
         _req: crate::model::DeleteLogicalViewRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -322,9 +316,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn create_materialized_view(
         &self,
         _req: crate::model::CreateMaterializedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -333,9 +327,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_materialized_view(
         &self,
         _req: crate::model::GetMaterializedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MaterializedView>>,
+        Output = crate::Result<crate::Response<crate::model::MaterializedView>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -344,11 +338,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_materialized_views(
         &self,
         _req: crate::model::ListMaterializedViewsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListMaterializedViewsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListMaterializedViewsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -357,9 +349,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn update_materialized_view(
         &self,
         _req: crate::model::UpdateMaterializedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -368,8 +360,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_materialized_view(
         &self,
         _req: crate::model::DeleteMaterializedViewRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -377,10 +369,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -390,9 +382,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -401,8 +393,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -410,8 +402,8 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -421,9 +413,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -432,9 +424,9 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -454,10 +446,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn create_table(
         &self,
         _req: crate::model::CreateTableRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -465,9 +456,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn create_table_from_snapshot(
         &self,
         _req: crate::model::CreateTableFromSnapshotRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -476,9 +467,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_tables(
         &self,
         _req: crate::model::ListTablesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTablesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTablesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -487,10 +478,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_table(
         &self,
         _req: crate::model::GetTableRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -498,9 +488,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn update_table(
         &self,
         _req: crate::model::UpdateTableRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -509,8 +499,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_table(
         &self,
         _req: crate::model::DeleteTableRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -518,9 +508,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn undelete_table(
         &self,
         _req: crate::model::UndeleteTableRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -529,9 +519,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn create_authorized_view(
         &self,
         _req: crate::model::CreateAuthorizedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -540,9 +530,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_authorized_views(
         &self,
         _req: crate::model::ListAuthorizedViewsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAuthorizedViewsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAuthorizedViewsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -551,9 +541,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_authorized_view(
         &self,
         _req: crate::model::GetAuthorizedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AuthorizedView>>,
+        Output = crate::Result<crate::Response<crate::model::AuthorizedView>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -562,9 +552,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn update_authorized_view(
         &self,
         _req: crate::model::UpdateAuthorizedViewRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -573,8 +563,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_authorized_view(
         &self,
         _req: crate::model::DeleteAuthorizedViewRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -582,10 +572,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn modify_column_families(
         &self,
         _req: crate::model::ModifyColumnFamiliesRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Table>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Table>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -593,8 +582,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn drop_row_range(
         &self,
         _req: crate::model::DropRowRangeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -602,11 +591,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn generate_consistency_token(
         &self,
         _req: crate::model::GenerateConsistencyTokenRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateConsistencyTokenResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::GenerateConsistencyTokenResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -615,9 +602,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn check_consistency(
         &self,
         _req: crate::model::CheckConsistencyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CheckConsistencyResponse>>,
+        Output = crate::Result<crate::Response<crate::model::CheckConsistencyResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -626,9 +613,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn snapshot_table(
         &self,
         _req: crate::model::SnapshotTableRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -637,10 +624,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Snapshot>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -648,9 +634,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSnapshotsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -659,8 +645,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -668,9 +654,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -679,10 +665,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Backup>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -690,10 +675,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Backup>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -701,8 +685,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -710,9 +694,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBackupsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -721,9 +705,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn restore_table(
         &self,
         _req: crate::model::RestoreTableRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -732,9 +716,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn copy_backup(
         &self,
         _req: crate::model::CopyBackupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -743,9 +727,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -754,9 +738,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -765,10 +749,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -778,9 +762,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn create_schema_bundle(
         &self,
         _req: crate::model::CreateSchemaBundleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -789,9 +773,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn update_schema_bundle(
         &self,
         _req: crate::model::UpdateSchemaBundleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -800,9 +784,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_schema_bundle(
         &self,
         _req: crate::model::GetSchemaBundleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SchemaBundle>>,
+        Output = crate::Result<crate::Response<crate::model::SchemaBundle>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -811,9 +795,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_schema_bundles(
         &self,
         _req: crate::model::ListSchemaBundlesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSchemaBundlesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -822,8 +806,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_schema_bundle(
         &self,
         _req: crate::model::DeleteSchemaBundleRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -831,10 +815,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -844,9 +828,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -855,8 +839,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -864,8 +848,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -875,9 +859,9 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -886,8 +870,8 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

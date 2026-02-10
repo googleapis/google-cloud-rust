@@ -20,7 +20,7 @@ pub mod changes {
     /// A builder for [Changes][crate::client::Changes].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::changes::ClientBuilder;
     /// # use client::Changes;
@@ -30,19 +30,18 @@ pub mod changes {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Changes;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Changes;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod changes {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Changes>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -64,7 +63,7 @@ pub mod changes {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -74,7 +73,7 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -100,7 +99,7 @@ pub mod changes {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -110,7 +109,7 @@ pub mod changes {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::changes::CreateRequest::client_operation_id].
@@ -163,8 +162,8 @@ pub mod changes {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -174,7 +173,7 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -200,7 +199,7 @@ pub mod changes {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -210,7 +209,7 @@ pub mod changes {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [change_id][crate::model::changes::GetRequest::change_id].
@@ -251,8 +250,8 @@ pub mod changes {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -262,8 +261,8 @@ pub mod changes {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::changes::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -292,7 +291,7 @@ pub mod changes {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -302,13 +301,13 @@ pub mod changes {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ChangesListResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ChangesListResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -317,15 +316,17 @@ pub mod changes {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ChangesListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ChangesListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -415,8 +416,8 @@ pub mod changes {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -428,7 +429,7 @@ pub mod dns_keys {
     /// A builder for [DnsKeys][crate::client::DnsKeys].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::dns_keys::ClientBuilder;
     /// # use client::DnsKeys;
@@ -438,19 +439,18 @@ pub mod dns_keys {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::DnsKeys;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = DnsKeys;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -461,7 +461,7 @@ pub mod dns_keys {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsKeys>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -472,7 +472,7 @@ pub mod dns_keys {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -482,7 +482,7 @@ pub mod dns_keys {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::dns_keys::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -508,7 +508,7 @@ pub mod dns_keys {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -518,7 +518,7 @@ pub mod dns_keys {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::dns_keys::GetRequest::client_operation_id].
@@ -577,8 +577,8 @@ pub mod dns_keys {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -588,8 +588,8 @@ pub mod dns_keys {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::dns_keys::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -618,7 +618,7 @@ pub mod dns_keys {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -628,13 +628,13 @@ pub mod dns_keys {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::DnsKeysListResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::DnsKeysListResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -643,15 +643,17 @@ pub mod dns_keys {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::DnsKeysListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::DnsKeysListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -723,8 +725,8 @@ pub mod dns_keys {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -736,7 +738,7 @@ pub mod managed_zone_operations {
     /// A builder for [ManagedZoneOperations][crate::client::ManagedZoneOperations].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::managed_zone_operations::ClientBuilder;
     /// # use client::ManagedZoneOperations;
@@ -746,19 +748,18 @@ pub mod managed_zone_operations {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ManagedZoneOperations;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ManagedZoneOperations;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -769,7 +770,7 @@ pub mod managed_zone_operations {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedZoneOperations>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -782,7 +783,7 @@ pub mod managed_zone_operations {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -792,7 +793,7 @@ pub mod managed_zone_operations {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zone_operations::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -823,7 +824,7 @@ pub mod managed_zone_operations {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -833,7 +834,7 @@ pub mod managed_zone_operations {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zone_operations::GetRequest::client_operation_id].
@@ -874,8 +875,8 @@ pub mod managed_zone_operations {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -885,8 +886,8 @@ pub mod managed_zone_operations {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zone_operations::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -920,7 +921,7 @@ pub mod managed_zone_operations {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -930,15 +931,15 @@ pub mod managed_zone_operations {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ManagedZoneOperationsListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -947,17 +948,17 @@ pub mod managed_zone_operations {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ManagedZoneOperationsListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1029,8 +1030,8 @@ pub mod managed_zone_operations {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1042,7 +1043,7 @@ pub mod managed_zones {
     /// A builder for [ManagedZones][crate::client::ManagedZones].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::managed_zones::ClientBuilder;
     /// # use client::ManagedZones;
@@ -1052,19 +1053,18 @@ pub mod managed_zones {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ManagedZones;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ManagedZones;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1075,7 +1075,7 @@ pub mod managed_zones {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedZones>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1088,7 +1088,7 @@ pub mod managed_zones {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1098,7 +1098,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1129,7 +1129,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1139,7 +1139,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::CreateRequest::client_operation_id].
@@ -1186,8 +1186,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1197,7 +1197,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1228,7 +1228,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1238,7 +1238,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::DeleteRequest::client_operation_id].
@@ -1273,8 +1273,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1284,7 +1284,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1315,7 +1315,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1325,7 +1325,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zones::GetRequest::client_operation_id].
@@ -1360,8 +1360,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1371,7 +1371,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1402,7 +1402,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1412,7 +1412,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::managed_zones::GetIamPolicyRequest::resource].
@@ -1441,8 +1441,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1452,8 +1452,8 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1487,7 +1487,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1497,14 +1497,16 @@ pub mod managed_zones {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ManagedZonesListResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ManagedZonesListResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
             let execute = move |token: String| {
@@ -1512,15 +1514,17 @@ pub mod managed_zones {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ManagedZonesListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ManagedZonesListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1586,8 +1590,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1597,7 +1601,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1628,7 +1632,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1638,7 +1642,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `patch`.
@@ -1651,7 +1655,7 @@ pub mod managed_zones {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let managed_zone = self.0.request.managed_zone.clone();
             let query = move |name| {
@@ -1730,8 +1734,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1741,7 +1745,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1772,7 +1776,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1782,7 +1786,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::managed_zones::SetIamPolicyRequest::resource].
@@ -1811,8 +1815,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1822,7 +1826,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1855,7 +1859,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1865,7 +1869,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::managed_zones::TestIamPermissionsRequest::resource].
@@ -1894,8 +1898,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1905,7 +1909,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1936,7 +1940,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1946,7 +1950,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update`.
@@ -1959,7 +1963,7 @@ pub mod managed_zones {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let project = self.0.request.project.clone();
             let managed_zone = self.0.request.managed_zone.clone();
             let query = move |name| {
@@ -2038,8 +2042,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2049,7 +2053,7 @@ pub mod managed_zones {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::managed_zones::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2080,7 +2084,7 @@ pub mod managed_zones {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2090,7 +2094,7 @@ pub mod managed_zones {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::managed_zone_operations::GetRequest::client_operation_id].
@@ -2131,8 +2135,8 @@ pub mod managed_zones {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2144,7 +2148,7 @@ pub mod policies {
     /// A builder for [Policies][crate::client::Policies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::policies::ClientBuilder;
     /// # use client::Policies;
@@ -2154,19 +2158,18 @@ pub mod policies {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Policies;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Policies;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2177,7 +2180,7 @@ pub mod policies {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2188,7 +2191,7 @@ pub mod policies {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2198,7 +2201,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2227,7 +2230,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2237,7 +2240,7 @@ pub mod policies {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::policies::CreateRequest::client_operation_id].
@@ -2284,8 +2287,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2295,7 +2298,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2324,7 +2327,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2334,7 +2337,7 @@ pub mod policies {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::policies::DeleteRequest::client_operation_id].
@@ -2369,8 +2372,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2380,7 +2383,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2406,7 +2409,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2416,7 +2419,7 @@ pub mod policies {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::policies::GetRequest::client_operation_id].
@@ -2451,8 +2454,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2462,8 +2465,8 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2492,7 +2495,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2502,13 +2505,13 @@ pub mod policies {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::PoliciesListResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::PoliciesListResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -2517,15 +2520,17 @@ pub mod policies {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::PoliciesListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::PoliciesListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2573,8 +2578,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2584,7 +2589,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2610,7 +2615,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2620,7 +2625,7 @@ pub mod policies {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::policies::PatchRequest::client_operation_id].
@@ -2673,8 +2678,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2684,7 +2689,7 @@ pub mod policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::policies::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2713,7 +2718,7 @@ pub mod policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2723,7 +2728,7 @@ pub mod policies {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::policies::UpdateRequest::client_operation_id].
@@ -2776,8 +2781,8 @@ pub mod policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2789,7 +2794,7 @@ pub mod projects {
     /// A builder for [Projects][crate::client::Projects].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::projects::ClientBuilder;
     /// # use client::Projects;
@@ -2799,19 +2804,18 @@ pub mod projects {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Projects;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Projects;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2822,7 +2826,7 @@ pub mod projects {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2833,7 +2837,7 @@ pub mod projects {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2843,7 +2847,7 @@ pub mod projects {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::projects::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2869,7 +2873,7 @@ pub mod projects {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2879,7 +2883,7 @@ pub mod projects {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::projects::GetRequest::client_operation_id].
@@ -2908,8 +2912,8 @@ pub mod projects {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2921,7 +2925,7 @@ pub mod resource_record_sets {
     /// A builder for [ResourceRecordSets][crate::client::ResourceRecordSets].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::resource_record_sets::ClientBuilder;
     /// # use client::ResourceRecordSets;
@@ -2931,19 +2935,18 @@ pub mod resource_record_sets {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ResourceRecordSets;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ResourceRecordSets;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2954,7 +2957,7 @@ pub mod resource_record_sets {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ResourceRecordSets>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2967,7 +2970,7 @@ pub mod resource_record_sets {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2977,7 +2980,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3008,7 +3011,7 @@ pub mod resource_record_sets {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3018,7 +3021,7 @@ pub mod resource_record_sets {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::resource_record_sets::CreateRequest::client_operation_id].
@@ -3071,8 +3074,8 @@ pub mod resource_record_sets {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3082,7 +3085,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3113,7 +3116,7 @@ pub mod resource_record_sets {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3123,7 +3126,7 @@ pub mod resource_record_sets {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::resource_record_sets::DeleteRequest::client_operation_id].
@@ -3170,8 +3173,8 @@ pub mod resource_record_sets {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3181,7 +3184,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3212,7 +3215,7 @@ pub mod resource_record_sets {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3222,7 +3225,7 @@ pub mod resource_record_sets {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::resource_record_sets::GetRequest::client_operation_id].
@@ -3269,8 +3272,8 @@ pub mod resource_record_sets {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3280,8 +3283,8 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3315,7 +3318,7 @@ pub mod resource_record_sets {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3325,15 +3328,15 @@ pub mod resource_record_sets {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ResourceRecordSetsListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -3342,17 +3345,17 @@ pub mod resource_record_sets {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ResourceRecordSetsListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3442,8 +3445,8 @@ pub mod resource_record_sets {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3453,7 +3456,7 @@ pub mod resource_record_sets {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::resource_record_sets::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3484,7 +3487,7 @@ pub mod resource_record_sets {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3494,7 +3497,7 @@ pub mod resource_record_sets {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::resource_record_sets::PatchRequest::client_operation_id].
@@ -3559,8 +3562,8 @@ pub mod resource_record_sets {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3572,7 +3575,7 @@ pub mod response_policies {
     /// A builder for [ResponsePolicies][crate::client::ResponsePolicies].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::response_policies::ClientBuilder;
     /// # use client::ResponsePolicies;
@@ -3582,19 +3585,18 @@ pub mod response_policies {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ResponsePolicies;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ResponsePolicies;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3605,7 +3607,7 @@ pub mod response_policies {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ResponsePolicies>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3618,7 +3620,7 @@ pub mod response_policies {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -3628,7 +3630,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3659,7 +3661,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3669,7 +3671,7 @@ pub mod response_policies {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policies::CreateRequest::client_operation_id].
@@ -3716,8 +3718,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3727,7 +3729,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3758,7 +3760,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3768,7 +3770,7 @@ pub mod response_policies {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policies::DeleteRequest::client_operation_id].
@@ -3803,8 +3805,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3814,7 +3816,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3845,7 +3847,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3855,7 +3857,7 @@ pub mod response_policies {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policies::GetRequest::client_operation_id].
@@ -3890,8 +3892,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3901,8 +3903,8 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3936,7 +3938,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3946,14 +3948,16 @@ pub mod response_policies {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ResponsePoliciesListResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ResponsePoliciesListResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
             let execute = move |token: String| {
@@ -3961,17 +3965,17 @@ pub mod response_policies {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ResponsePoliciesListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4019,8 +4023,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4030,7 +4034,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4061,7 +4065,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4071,7 +4075,7 @@ pub mod response_policies {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policies::PatchRequest::client_operation_id].
@@ -4124,8 +4128,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4135,7 +4139,7 @@ pub mod response_policies {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policies::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4166,7 +4170,7 @@ pub mod response_policies {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4176,7 +4180,7 @@ pub mod response_policies {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policies::UpdateRequest::client_operation_id].
@@ -4229,8 +4233,8 @@ pub mod response_policies {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4242,7 +4246,7 @@ pub mod response_policy_rules {
     /// A builder for [ResponsePolicyRules][crate::client::ResponsePolicyRules].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_dns_v1::*;
     /// # use builder::response_policy_rules::ClientBuilder;
     /// # use client::ResponsePolicyRules;
@@ -4252,19 +4256,18 @@ pub mod response_policy_rules {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ResponsePolicyRules;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ResponsePolicyRules;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4275,7 +4278,7 @@ pub mod response_policy_rules {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ResponsePolicyRules>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -4288,7 +4291,7 @@ pub mod response_policy_rules {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -4298,7 +4301,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Create;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4329,7 +4332,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4339,7 +4342,7 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .create(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policy_rules::CreateRequest::client_operation_id].
@@ -4392,8 +4395,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Create {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Create {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4403,7 +4406,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4434,7 +4437,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4444,7 +4447,7 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policy_rules::DeleteRequest::client_operation_id].
@@ -4485,8 +4488,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4496,7 +4499,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4527,7 +4530,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4537,7 +4540,7 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policy_rules::GetRequest::client_operation_id].
@@ -4578,8 +4581,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4589,8 +4592,8 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4624,7 +4627,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4634,15 +4637,15 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ResponsePolicyRulesListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -4651,17 +4654,17 @@ pub mod response_policy_rules {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ResponsePolicyRulesListResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4715,8 +4718,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4726,7 +4729,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4757,7 +4760,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4767,7 +4770,7 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policy_rules::PatchRequest::client_operation_id].
@@ -4826,8 +4829,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4837,7 +4840,7 @@ pub mod response_policy_rules {
     /// # Example
     /// ```
     /// # use google_cloud_dns_v1::builder::response_policy_rules::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_dns_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4868,7 +4871,7 @@ pub mod response_policy_rules {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4878,7 +4881,7 @@ pub mod response_policy_rules {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [client_operation_id][crate::model::response_policy_rules::UpdateRequest::client_operation_id].
@@ -4937,8 +4940,8 @@ pub mod response_policy_rules {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

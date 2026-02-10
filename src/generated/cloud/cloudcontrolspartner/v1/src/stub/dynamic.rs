@@ -20,68 +20,68 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>>;
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkloadsResponse>>;
 
     async fn get_customer(
         &self,
         req: crate::model::GetCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>>;
 
     async fn list_customers(
         &self,
         req: crate::model::ListCustomersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCustomersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomersResponse>>;
 
     async fn get_ekm_connections(
         &self,
         req: crate::model::GetEkmConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnections>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnections>>;
 
     async fn get_partner_permissions(
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PartnerPermissions>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartnerPermissions>>;
 
     async fn list_access_approval_requests(
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAccessApprovalRequestsResponse>>;
 
     async fn get_partner(
         &self,
         req: crate::model::GetPartnerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Partner>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Partner>>;
 
     async fn create_customer(
         &self,
         req: crate::model::CreateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>>;
 
     async fn update_customer(
         &self,
         req: crate::model::UpdateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>>;
 
     async fn delete_customer(
         &self,
         req: crate::model::DeleteCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::CloudControlsPartnerCore] also implement [CloudControlsPartnerCore].
@@ -91,8 +91,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workload>> {
         T::get_workload(self, req, options).await
     }
 
@@ -100,8 +100,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkloadsResponse>> {
         T::list_workloads(self, req, options).await
     }
 
@@ -109,8 +109,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn get_customer(
         &self,
         req: crate::model::GetCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>> {
         T::get_customer(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn list_customers(
         &self,
         req: crate::model::ListCustomersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCustomersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomersResponse>> {
         T::list_customers(self, req, options).await
     }
 
@@ -127,8 +127,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn get_ekm_connections(
         &self,
         req: crate::model::GetEkmConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnections>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnections>> {
         T::get_ekm_connections(self, req, options).await
     }
 
@@ -136,8 +136,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn get_partner_permissions(
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PartnerPermissions>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartnerPermissions>> {
         T::get_partner_permissions(self, req, options).await
     }
 
@@ -145,9 +145,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn list_access_approval_requests(
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAccessApprovalRequestsResponse>> {
         T::list_access_approval_requests(self, req, options).await
     }
 
@@ -155,8 +154,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn get_partner(
         &self,
         req: crate::model::GetPartnerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Partner>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Partner>> {
         T::get_partner(self, req, options).await
     }
 
@@ -164,8 +163,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn create_customer(
         &self,
         req: crate::model::CreateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>> {
         T::create_customer(self, req, options).await
     }
 
@@ -173,8 +172,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn update_customer(
         &self,
         req: crate::model::UpdateCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Customer>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Customer>> {
         T::update_customer(self, req, options).await
     }
 
@@ -182,8 +181,8 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
     async fn delete_customer(
         &self,
         req: crate::model::DeleteCustomerRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_customer(self, req, options).await
     }
 }
@@ -194,14 +193,14 @@ pub trait CloudControlsPartnerMonitoring: std::fmt::Debug + Send + Sync {
     async fn list_violations(
         &self,
         req: crate::model::ListViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListViolationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListViolationsResponse>>;
 
     async fn get_violation(
         &self,
         req: crate::model::GetViolationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Violation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Violation>>;
 }
 
 /// All implementations of [super::CloudControlsPartnerMonitoring] also implement [CloudControlsPartnerMonitoring].
@@ -211,8 +210,8 @@ impl<T: super::CloudControlsPartnerMonitoring> CloudControlsPartnerMonitoring fo
     async fn list_violations(
         &self,
         req: crate::model::ListViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListViolationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListViolationsResponse>> {
         T::list_violations(self, req, options).await
     }
 
@@ -220,8 +219,8 @@ impl<T: super::CloudControlsPartnerMonitoring> CloudControlsPartnerMonitoring fo
     async fn get_violation(
         &self,
         req: crate::model::GetViolationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Violation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Violation>> {
         T::get_violation(self, req, options).await
     }
 }

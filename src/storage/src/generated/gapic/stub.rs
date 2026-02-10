@@ -42,8 +42,8 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn delete_bucket(
         &self,
         _req: crate::model::DeleteBucketRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -51,10 +51,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_bucket(
         &self,
         _req: crate::model::GetBucketRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Bucket>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,10 +61,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn create_bucket(
         &self,
         _req: crate::model::CreateBucketRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Bucket>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +71,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn list_buckets(
         &self,
         _req: crate::model::ListBucketsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBucketsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -84,10 +82,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn lock_bucket_retention_policy(
         &self,
         _req: crate::model::LockBucketRetentionPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Bucket>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,10 +92,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_bucket(
         &self,
         _req: crate::model::UpdateBucketRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Bucket>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Bucket>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,10 +102,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn compose_object(
         &self,
         _req: crate::model::ComposeObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Object>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Object>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -117,8 +112,8 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn delete_object(
         &self,
         _req: crate::model::DeleteObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -126,10 +121,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn restore_object(
         &self,
         _req: crate::model::RestoreObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Object>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Object>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -137,10 +131,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn get_object(
         &self,
         _req: crate::model::GetObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Object>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Object>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -148,10 +141,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn update_object(
         &self,
         _req: crate::model::UpdateObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Object>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Object>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -159,9 +151,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn list_objects(
         &self,
         _req: crate::model::ListObjectsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListObjectsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListObjectsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -170,9 +162,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn rewrite_object(
         &self,
         _req: crate::model::RewriteObjectRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RewriteResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RewriteResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -181,10 +173,9 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     fn move_object(
         &self,
         _req: crate::model::MoveObjectRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Object>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Object>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

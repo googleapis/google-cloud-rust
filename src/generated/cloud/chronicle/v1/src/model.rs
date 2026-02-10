@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -313,7 +313,7 @@ impl wkt::message::Message for ListDataAccessLabelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataAccessLabelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataAccessLabelsResponse {
     type PageItem = crate::model::DataAccessLabel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -773,7 +773,7 @@ impl wkt::message::Message for ListDataAccessScopesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataAccessScopesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataAccessScopesResponse {
     type PageItem = crate::model::DataAccessScope;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2379,7 +2379,7 @@ impl wkt::message::Message for ListWatchlistsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWatchlistsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWatchlistsResponse {
     type PageItem = crate::model::Watchlist;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3010,7 +3010,7 @@ impl wkt::message::Message for ListReferenceListsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListReferenceListsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListReferenceListsResponse {
     type PageItem = crate::model::ReferenceList;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5072,7 +5072,7 @@ impl wkt::message::Message for ListRulesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRulesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRulesResponse {
     type PageItem = crate::model::Rule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5391,7 +5391,7 @@ impl wkt::message::Message for ListRuleRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRuleRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRuleRevisionsResponse {
     type PageItem = crate::model::Rule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5663,7 +5663,7 @@ impl wkt::message::Message for ListRetrohuntsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRetrohuntsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRetrohuntsResponse {
     type PageItem = crate::model::Retrohunt;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5864,7 +5864,7 @@ impl wkt::message::Message for ListRuleDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRuleDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRuleDeploymentsResponse {
     type PageItem = crate::model::RuleDeployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_identity_accesscontextmanager_type;
 extern crate google_cloud_longrunning;
@@ -168,7 +168,7 @@ impl wkt::message::Message for ListAccessPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
     type PageItem = crate::model::AccessPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -500,7 +500,7 @@ impl wkt::message::Message for ListAccessLevelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAccessLevelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAccessLevelsResponse {
     type PageItem = crate::model::AccessLevel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1058,7 +1058,7 @@ impl wkt::message::Message for ListServicePerimetersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListServicePerimetersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListServicePerimetersResponse {
     type PageItem = crate::model::ServicePerimeter;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1696,7 +1696,7 @@ impl wkt::message::Message for ListGcpUserAccessBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsResponse {
     type PageItem = crate::model::GcpUserAccessBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

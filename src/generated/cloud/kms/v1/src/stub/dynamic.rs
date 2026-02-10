@@ -20,68 +20,66 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     async fn create_key_handle(
         &self,
         req: crate::model::CreateKeyHandleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_key_handle(
         &self,
         req: crate::model::GetKeyHandleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyHandle>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyHandle>>;
 
     async fn list_key_handles(
         &self,
         req: crate::model::ListKeyHandlesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeyHandlesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeyHandlesResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::Autokey] also implement [Autokey].
@@ -91,8 +89,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn create_key_handle(
         &self,
         req: crate::model::CreateKeyHandleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_key_handle(self, req, options).await
     }
 
@@ -100,8 +98,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn get_key_handle(
         &self,
         req: crate::model::GetKeyHandleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyHandle>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyHandle>> {
         T::get_key_handle(self, req, options).await
     }
 
@@ -109,8 +107,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn list_key_handles(
         &self,
         req: crate::model::ListKeyHandlesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeyHandlesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeyHandlesResponse>> {
         T::list_key_handles(self, req, options).await
     }
 
@@ -118,9 +116,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -128,8 +125,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -137,8 +134,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -146,8 +143,8 @@ impl<T: super::Autokey> Autokey for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -155,10 +152,9 @@ impl<T: super::Autokey> Autokey for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -166,22 +162,22 @@ impl<T: super::Autokey> Autokey for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -192,58 +188,56 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     async fn update_autokey_config(
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutokeyConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutokeyConfig>>;
 
     async fn get_autokey_config(
         &self,
         req: crate::model::GetAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutokeyConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutokeyConfig>>;
 
     async fn show_effective_autokey_config(
         &self,
         req: crate::model::ShowEffectiveAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::AutokeyAdmin] also implement [AutokeyAdmin].
@@ -253,8 +247,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn update_autokey_config(
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutokeyConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutokeyConfig>> {
         T::update_autokey_config(self, req, options).await
     }
 
@@ -262,8 +256,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn get_autokey_config(
         &self,
         req: crate::model::GetAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutokeyConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutokeyConfig>> {
         T::get_autokey_config(self, req, options).await
     }
 
@@ -271,9 +265,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn show_effective_autokey_config(
         &self,
         req: crate::model::ShowEffectiveAutokeyConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ShowEffectiveAutokeyConfigResponse>> {
         T::show_effective_autokey_config(self, req, options).await
     }
 
@@ -281,9 +274,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -291,8 +283,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -300,8 +292,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -309,8 +301,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -318,10 +310,9 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -329,8 +320,8 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -341,82 +332,80 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     async fn list_ekm_connections(
         &self,
         req: crate::model::ListEkmConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEkmConnectionsResponse>>;
 
     async fn get_ekm_connection(
         &self,
         req: crate::model::GetEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>>;
 
     async fn create_ekm_connection(
         &self,
         req: crate::model::CreateEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>>;
 
     async fn update_ekm_connection(
         &self,
         req: crate::model::UpdateEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>>;
 
     async fn get_ekm_config(
         &self,
         req: crate::model::GetEkmConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConfig>>;
 
     async fn update_ekm_config(
         &self,
         req: crate::model::UpdateEkmConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConfig>>;
 
     async fn verify_connectivity(
         &self,
         req: crate::model::VerifyConnectivityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConnectivityResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConnectivityResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::EkmService] also implement [EkmService].
@@ -426,8 +415,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn list_ekm_connections(
         &self,
         req: crate::model::ListEkmConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEkmConnectionsResponse>> {
         T::list_ekm_connections(self, req, options).await
     }
 
@@ -435,8 +424,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn get_ekm_connection(
         &self,
         req: crate::model::GetEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>> {
         T::get_ekm_connection(self, req, options).await
     }
 
@@ -444,8 +433,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn create_ekm_connection(
         &self,
         req: crate::model::CreateEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>> {
         T::create_ekm_connection(self, req, options).await
     }
 
@@ -453,8 +442,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn update_ekm_connection(
         &self,
         req: crate::model::UpdateEkmConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConnection>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConnection>> {
         T::update_ekm_connection(self, req, options).await
     }
 
@@ -462,8 +451,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn get_ekm_config(
         &self,
         req: crate::model::GetEkmConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConfig>> {
         T::get_ekm_config(self, req, options).await
     }
 
@@ -471,8 +460,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn update_ekm_config(
         &self,
         req: crate::model::UpdateEkmConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EkmConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EkmConfig>> {
         T::update_ekm_config(self, req, options).await
     }
 
@@ -480,8 +469,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn verify_connectivity(
         &self,
         req: crate::model::VerifyConnectivityRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::VerifyConnectivityResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VerifyConnectivityResponse>> {
         T::verify_connectivity(self, req, options).await
     }
 
@@ -489,9 +478,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -499,8 +487,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -508,8 +496,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -517,8 +505,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -526,10 +514,9 @@ impl<T: super::EkmService> EkmService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -537,8 +524,8 @@ impl<T: super::EkmService> EkmService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -549,108 +536,102 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     async fn list_single_tenant_hsm_instances(
         &self,
         req: crate::model::ListSingleTenantHsmInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSingleTenantHsmInstancesResponse>>;
 
     async fn get_single_tenant_hsm_instance(
         &self,
         req: crate::model::GetSingleTenantHsmInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstance>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SingleTenantHsmInstance>>;
 
     async fn create_single_tenant_hsm_instance(
         &self,
         req: crate::model::CreateSingleTenantHsmInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn approve_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>>;
 
     async fn execute_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SingleTenantHsmInstanceProposal>>;
 
     async fn list_single_tenant_hsm_instance_proposals(
         &self,
         req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>>;
 
     async fn delete_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::HsmManagement] also implement [HsmManagement].
@@ -660,9 +641,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn list_single_tenant_hsm_instances(
         &self,
         req: crate::model::ListSingleTenantHsmInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSingleTenantHsmInstancesResponse>> {
         T::list_single_tenant_hsm_instances(self, req, options).await
     }
 
@@ -670,8 +650,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn get_single_tenant_hsm_instance(
         &self,
         req: crate::model::GetSingleTenantHsmInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstance>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SingleTenantHsmInstance>> {
         T::get_single_tenant_hsm_instance(self, req, options).await
     }
 
@@ -679,8 +659,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn create_single_tenant_hsm_instance(
         &self,
         req: crate::model::CreateSingleTenantHsmInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_single_tenant_hsm_instance(self, req, options).await
     }
 
@@ -688,8 +668,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn create_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_single_tenant_hsm_instance_proposal(self, req, options).await
     }
 
@@ -697,10 +677,9 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn approve_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>>
+    {
         T::approve_single_tenant_hsm_instance_proposal(self, req, options).await
     }
 
@@ -708,8 +687,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn execute_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::execute_single_tenant_hsm_instance_proposal(self, req, options).await
     }
 
@@ -717,8 +696,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn get_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SingleTenantHsmInstanceProposal>> {
         T::get_single_tenant_hsm_instance_proposal(self, req, options).await
     }
 
@@ -726,10 +705,9 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn list_single_tenant_hsm_instance_proposals(
         &self,
         req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>>
+    {
         T::list_single_tenant_hsm_instance_proposals(self, req, options).await
     }
 
@@ -737,8 +715,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn delete_single_tenant_hsm_instance_proposal(
         &self,
         req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_single_tenant_hsm_instance_proposal(self, req, options).await
     }
 
@@ -746,9 +724,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -756,8 +733,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -765,8 +742,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -774,8 +751,8 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -783,10 +760,9 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -794,22 +770,22 @@ impl<T: super::HsmManagement> HsmManagement for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -820,214 +796,212 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     async fn list_key_rings(
         &self,
         req: crate::model::ListKeyRingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeyRingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeyRingsResponse>>;
 
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCryptoKeysResponse>>;
 
     async fn list_crypto_key_versions(
         &self,
         req: crate::model::ListCryptoKeyVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCryptoKeyVersionsResponse>>;
 
     async fn list_import_jobs(
         &self,
         req: crate::model::ListImportJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListImportJobsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListImportJobsResponse>>;
 
     async fn get_key_ring(
         &self,
         req: crate::model::GetKeyRingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyRing>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyRing>>;
 
     async fn get_crypto_key(
         &self,
         req: crate::model::GetCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>>;
 
     async fn get_crypto_key_version(
         &self,
         req: crate::model::GetCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn get_public_key(
         &self,
         req: crate::model::GetPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublicKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublicKey>>;
 
     async fn get_import_job(
         &self,
         req: crate::model::GetImportJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ImportJob>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ImportJob>>;
 
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyRing>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyRing>>;
 
     async fn create_crypto_key(
         &self,
         req: crate::model::CreateCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>>;
 
     async fn create_crypto_key_version(
         &self,
         req: crate::model::CreateCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn import_crypto_key_version(
         &self,
         req: crate::model::ImportCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn create_import_job(
         &self,
         req: crate::model::CreateImportJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ImportJob>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ImportJob>>;
 
     async fn update_crypto_key(
         &self,
         req: crate::model::UpdateCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>>;
 
     async fn update_crypto_key_version(
         &self,
         req: crate::model::UpdateCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn update_crypto_key_primary_version(
         &self,
         req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>>;
 
     async fn destroy_crypto_key_version(
         &self,
         req: crate::model::DestroyCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn restore_crypto_key_version(
         &self,
         req: crate::model::RestoreCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
 
     async fn encrypt(
         &self,
         req: crate::model::EncryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EncryptResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EncryptResponse>>;
 
     async fn decrypt(
         &self,
         req: crate::model::DecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DecryptResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DecryptResponse>>;
 
     async fn raw_encrypt(
         &self,
         req: crate::model::RawEncryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RawEncryptResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RawEncryptResponse>>;
 
     async fn raw_decrypt(
         &self,
         req: crate::model::RawDecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RawDecryptResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RawDecryptResponse>>;
 
     async fn asymmetric_sign(
         &self,
         req: crate::model::AsymmetricSignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AsymmetricSignResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AsymmetricSignResponse>>;
 
     async fn asymmetric_decrypt(
         &self,
         req: crate::model::AsymmetricDecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AsymmetricDecryptResponse>>;
 
     async fn mac_sign(
         &self,
         req: crate::model::MacSignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MacSignResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MacSignResponse>>;
 
     async fn mac_verify(
         &self,
         req: crate::model::MacVerifyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MacVerifyResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MacVerifyResponse>>;
 
     async fn decapsulate(
         &self,
         req: crate::model::DecapsulateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DecapsulateResponse>>;
 
     async fn generate_random_bytes(
         &self,
         req: crate::model::GenerateRandomBytesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateRandomBytesResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::KeyManagementService] also implement [KeyManagementService].
@@ -1037,8 +1011,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn list_key_rings(
         &self,
         req: crate::model::ListKeyRingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeyRingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeyRingsResponse>> {
         T::list_key_rings(self, req, options).await
     }
 
@@ -1046,8 +1020,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCryptoKeysResponse>> {
         T::list_crypto_keys(self, req, options).await
     }
 
@@ -1055,8 +1029,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn list_crypto_key_versions(
         &self,
         req: crate::model::ListCryptoKeyVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCryptoKeyVersionsResponse>> {
         T::list_crypto_key_versions(self, req, options).await
     }
 
@@ -1064,8 +1038,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn list_import_jobs(
         &self,
         req: crate::model::ListImportJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListImportJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListImportJobsResponse>> {
         T::list_import_jobs(self, req, options).await
     }
 
@@ -1073,8 +1047,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_key_ring(
         &self,
         req: crate::model::GetKeyRingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyRing>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyRing>> {
         T::get_key_ring(self, req, options).await
     }
 
@@ -1082,8 +1056,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_crypto_key(
         &self,
         req: crate::model::GetCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>> {
         T::get_crypto_key(self, req, options).await
     }
 
@@ -1091,8 +1065,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_crypto_key_version(
         &self,
         req: crate::model::GetCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::get_crypto_key_version(self, req, options).await
     }
 
@@ -1100,8 +1074,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_public_key(
         &self,
         req: crate::model::GetPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublicKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PublicKey>> {
         T::get_public_key(self, req, options).await
     }
 
@@ -1109,8 +1083,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_import_job(
         &self,
         req: crate::model::GetImportJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ImportJob>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ImportJob>> {
         T::get_import_job(self, req, options).await
     }
 
@@ -1118,8 +1092,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::KeyRing>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::KeyRing>> {
         T::create_key_ring(self, req, options).await
     }
 
@@ -1127,8 +1101,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn create_crypto_key(
         &self,
         req: crate::model::CreateCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>> {
         T::create_crypto_key(self, req, options).await
     }
 
@@ -1136,8 +1110,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn create_crypto_key_version(
         &self,
         req: crate::model::CreateCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::create_crypto_key_version(self, req, options).await
     }
 
@@ -1145,8 +1119,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn import_crypto_key_version(
         &self,
         req: crate::model::ImportCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::import_crypto_key_version(self, req, options).await
     }
 
@@ -1154,8 +1128,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn create_import_job(
         &self,
         req: crate::model::CreateImportJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ImportJob>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ImportJob>> {
         T::create_import_job(self, req, options).await
     }
 
@@ -1163,8 +1137,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn update_crypto_key(
         &self,
         req: crate::model::UpdateCryptoKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>> {
         T::update_crypto_key(self, req, options).await
     }
 
@@ -1172,8 +1146,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn update_crypto_key_version(
         &self,
         req: crate::model::UpdateCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::update_crypto_key_version(self, req, options).await
     }
 
@@ -1181,8 +1155,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn update_crypto_key_primary_version(
         &self,
         req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKey>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKey>> {
         T::update_crypto_key_primary_version(self, req, options).await
     }
 
@@ -1190,8 +1164,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn destroy_crypto_key_version(
         &self,
         req: crate::model::DestroyCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::destroy_crypto_key_version(self, req, options).await
     }
 
@@ -1199,8 +1173,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn restore_crypto_key_version(
         &self,
         req: crate::model::RestoreCryptoKeyVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::restore_crypto_key_version(self, req, options).await
     }
 
@@ -1208,8 +1182,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn encrypt(
         &self,
         req: crate::model::EncryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EncryptResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EncryptResponse>> {
         T::encrypt(self, req, options).await
     }
 
@@ -1217,8 +1191,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn decrypt(
         &self,
         req: crate::model::DecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DecryptResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DecryptResponse>> {
         T::decrypt(self, req, options).await
     }
 
@@ -1226,8 +1200,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn raw_encrypt(
         &self,
         req: crate::model::RawEncryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RawEncryptResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RawEncryptResponse>> {
         T::raw_encrypt(self, req, options).await
     }
 
@@ -1235,8 +1209,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn raw_decrypt(
         &self,
         req: crate::model::RawDecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RawDecryptResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RawDecryptResponse>> {
         T::raw_decrypt(self, req, options).await
     }
 
@@ -1244,8 +1218,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn asymmetric_sign(
         &self,
         req: crate::model::AsymmetricSignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AsymmetricSignResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AsymmetricSignResponse>> {
         T::asymmetric_sign(self, req, options).await
     }
 
@@ -1253,8 +1227,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn asymmetric_decrypt(
         &self,
         req: crate::model::AsymmetricDecryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AsymmetricDecryptResponse>> {
         T::asymmetric_decrypt(self, req, options).await
     }
 
@@ -1262,8 +1236,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn mac_sign(
         &self,
         req: crate::model::MacSignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MacSignResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MacSignResponse>> {
         T::mac_sign(self, req, options).await
     }
 
@@ -1271,8 +1245,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn mac_verify(
         &self,
         req: crate::model::MacVerifyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MacVerifyResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MacVerifyResponse>> {
         T::mac_verify(self, req, options).await
     }
 
@@ -1280,8 +1254,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn decapsulate(
         &self,
         req: crate::model::DecapsulateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DecapsulateResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DecapsulateResponse>> {
         T::decapsulate(self, req, options).await
     }
 
@@ -1289,8 +1263,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn generate_random_bytes(
         &self,
         req: crate::model::GenerateRandomBytesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateRandomBytesResponse>> {
         T::generate_random_bytes(self, req, options).await
     }
 
@@ -1298,9 +1272,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1308,8 +1281,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1317,8 +1290,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -1326,8 +1299,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -1335,10 +1308,9 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1346,8 +1318,8 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }

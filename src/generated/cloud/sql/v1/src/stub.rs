@@ -42,10 +42,9 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     fn delete(
         &self,
         _req: crate::model::SqlBackupRunsDeleteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlBackupRunsGetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupRun>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::BackupRun>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +62,9 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     fn insert(
         &self,
         _req: crate::model::SqlBackupRunsInsertRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +72,9 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlBackupRunsListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::BackupRunsListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -99,10 +96,9 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -110,10 +106,9 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Backup>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -121,9 +116,9 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBackupsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,10 +127,9 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,10 +137,9 @@ pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -167,9 +160,9 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
     fn get_connect_settings(
         &self,
         _req: crate::model::GetConnectSettingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ConnectSettings>>,
+        Output = crate::Result<crate::Response<crate::model::ConnectSettings>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -178,11 +171,9 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
     fn generate_ephemeral_cert(
         &self,
         _req: crate::model::GenerateEphemeralCertRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::GenerateEphemeralCertResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::GenerateEphemeralCertResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -204,10 +195,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn delete(
         &self,
         _req: crate::model::SqlDatabasesDeleteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -215,10 +205,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlDatabasesGetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Database>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Database>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -226,10 +215,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn insert(
         &self,
         _req: crate::model::SqlDatabasesInsertRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -237,9 +225,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlDatabasesListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DatabasesListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -248,10 +236,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn patch(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -259,10 +246,9 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -283,9 +269,9 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlFlagsListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FlagsListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::FlagsListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -307,10 +293,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn add_server_ca(
         &self,
         _req: crate::model::SqlInstancesAddServerCaRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -318,10 +303,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn add_server_certificate(
         &self,
         _req: crate::model::SqlInstancesAddServerCertificateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -329,10 +313,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn add_entra_id_certificate(
         &self,
         _req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -340,10 +323,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn clone(
         &self,
         _req: crate::model::SqlInstancesCloneRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -351,10 +333,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn delete(
         &self,
         _req: crate::model::SqlInstancesDeleteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -362,10 +343,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn demote_master(
         &self,
         _req: crate::model::SqlInstancesDemoteMasterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -373,10 +353,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn demote(
         &self,
         _req: crate::model::SqlInstancesDemoteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -384,10 +363,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn export(
         &self,
         _req: crate::model::SqlInstancesExportRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -395,10 +373,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn failover(
         &self,
         _req: crate::model::SqlInstancesFailoverRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -406,10 +383,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn reencrypt(
         &self,
         _req: crate::model::SqlInstancesReencryptRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -417,9 +393,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlInstancesGetRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DatabaseInstance>>,
+        Output = crate::Result<crate::Response<crate::model::DatabaseInstance>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -428,10 +404,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn import(
         &self,
         _req: crate::model::SqlInstancesImportRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -439,10 +414,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn insert(
         &self,
         _req: crate::model::SqlInstancesInsertRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -450,9 +424,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlInstancesListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InstancesListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::InstancesListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -461,11 +435,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn list_server_cas(
         &self,
         _req: crate::model::SqlInstancesListServerCasRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::InstancesListServerCasResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::InstancesListServerCasResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -474,10 +446,10 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn list_server_certificates(
         &self,
         _req: crate::model::SqlInstancesListServerCertificatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::InstancesListServerCertificatesResponse>,
+            crate::Response<crate::model::InstancesListServerCertificatesResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -487,10 +459,10 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn list_entra_id_certificates(
         &self,
         _req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>,
+            crate::Response<crate::model::InstancesListEntraIdCertificatesResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -500,10 +472,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn patch(
         &self,
         _req: crate::model::SqlInstancesPatchRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -511,10 +482,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn promote_replica(
         &self,
         _req: crate::model::SqlInstancesPromoteReplicaRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -522,10 +492,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn switchover(
         &self,
         _req: crate::model::SqlInstancesSwitchoverRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -533,10 +502,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn reset_ssl_config(
         &self,
         _req: crate::model::SqlInstancesResetSslConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -544,10 +512,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn restart(
         &self,
         _req: crate::model::SqlInstancesRestartRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -555,10 +522,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn restore_backup(
         &self,
         _req: crate::model::SqlInstancesRestoreBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -566,10 +532,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn rotate_server_ca(
         &self,
         _req: crate::model::SqlInstancesRotateServerCaRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -577,10 +542,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn rotate_server_certificate(
         &self,
         _req: crate::model::SqlInstancesRotateServerCertificateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -588,10 +552,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn rotate_entra_id_certificate(
         &self,
         _req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -599,10 +562,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn start_replica(
         &self,
         _req: crate::model::SqlInstancesStartReplicaRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -610,10 +572,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn stop_replica(
         &self,
         _req: crate::model::SqlInstancesStopReplicaRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -621,10 +582,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn truncate_log(
         &self,
         _req: crate::model::SqlInstancesTruncateLogRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -632,10 +592,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::SqlInstancesUpdateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -643,10 +602,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn create_ephemeral(
         &self,
         _req: crate::model::SqlInstancesCreateEphemeralCertRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SslCert>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::SslCert>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -654,10 +612,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn reschedule_maintenance(
         &self,
         _req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -665,10 +622,10 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn verify_external_sync_settings(
         &self,
         _req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>,
+            crate::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -678,10 +635,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn start_external_sync(
         &self,
         _req: crate::model::SqlInstancesStartExternalSyncRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -689,10 +645,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn perform_disk_shrink(
         &self,
         _req: crate::model::SqlInstancesPerformDiskShrinkRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -700,10 +655,10 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn get_disk_shrink_config(
         &self,
         _req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>,
+            crate::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -713,10 +668,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn reset_replica_size(
         &self,
         _req: crate::model::SqlInstancesResetReplicaSizeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -724,10 +678,10 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn get_latest_recovery_time(
         &self,
         _req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
+            crate::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -737,11 +691,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn execute_sql(
         &self,
         _req: crate::model::SqlInstancesExecuteSqlRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SqlInstancesExecuteSqlResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -750,11 +702,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn acquire_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -763,11 +713,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn release_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -776,10 +724,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn pre_check_major_version_upgrade(
         &self,
         _req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -787,10 +734,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn point_in_time_restore(
         &self,
         _req: crate::model::SqlInstancesPointInTimeRestoreRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -811,10 +757,9 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlOperationsGetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -822,9 +767,9 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlOperationsListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OperationsListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::OperationsListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -833,8 +778,8 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
     fn cancel(
         &self,
         _req: crate::model::SqlOperationsCancelRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -855,10 +800,9 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     fn delete(
         &self,
         _req: crate::model::SqlSslCertsDeleteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -866,10 +810,9 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlSslCertsGetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SslCert>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::SslCert>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -877,9 +820,9 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     fn insert(
         &self,
         _req: crate::model::SqlSslCertsInsertRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SslCertsInsertResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -888,9 +831,9 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlSslCertsListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SslCertsListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -912,9 +855,9 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlTiersListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TiersListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::TiersListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -936,10 +879,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
     fn delete(
         &self,
         _req: crate::model::SqlUsersDeleteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -947,10 +889,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
     fn get(
         &self,
         _req: crate::model::SqlUsersGetRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::User>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::User>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -958,10 +899,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
     fn insert(
         &self,
         _req: crate::model::SqlUsersInsertRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -969,9 +909,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
     fn list(
         &self,
         _req: crate::model::SqlUsersListRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::UsersListResponse>>,
+        Output = crate::Result<crate::Response<crate::model::UsersListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -980,10 +920,9 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::SqlUsersUpdateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

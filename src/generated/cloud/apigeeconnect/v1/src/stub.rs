@@ -42,9 +42,9 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListConnectionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

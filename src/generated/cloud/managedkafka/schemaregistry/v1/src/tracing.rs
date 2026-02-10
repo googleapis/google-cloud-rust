@@ -41,8 +41,8 @@ where
     async fn get_schema_registry(
         &self,
         req: crate::model::GetSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaRegistry>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaRegistry>> {
         self.inner.get_schema_registry(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_schema_registries(
         &self,
         req: crate::model::ListSchemaRegistriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSchemaRegistriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSchemaRegistriesResponse>> {
         self.inner.list_schema_registries(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_schema_registry(
         &self,
         req: crate::model::CreateSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaRegistry>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaRegistry>> {
         self.inner.create_schema_registry(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_schema_registry(
         &self,
         req: crate::model::DeleteSchemaRegistryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_schema_registry(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn get_context(
         &self,
         req: crate::model::GetContextRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Context>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Context>> {
         self.inner.get_context(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_contexts(
         &self,
         req: crate::model::ListContextsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_contexts(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.get_schema(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_raw_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_raw_schema(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn list_schema_versions(
         &self,
         req: crate::model::ListSchemaVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_schema_versions(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn list_schema_types(
         &self,
         req: crate::model::ListSchemaTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_schema_types(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn list_subjects(
         &self,
         req: crate::model::ListSubjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_subjects(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn list_subjects_by_schema_id(
         &self,
         req: crate::model::ListSubjectsBySchemaIdRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_subjects_by_schema_id(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn delete_subject(
         &self,
         req: crate::model::DeleteSubjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.delete_subject(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn lookup_version(
         &self,
         req: crate::model::LookupVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaVersion>> {
         self.inner.lookup_version(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaVersion>> {
         self.inner.get_version(req, options).await
     }
 
@@ -176,8 +176,8 @@ where
     async fn get_raw_schema_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.get_raw_schema_version(req, options).await
     }
 
@@ -185,8 +185,8 @@ where
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_versions(req, options).await
     }
 
@@ -194,8 +194,8 @@ where
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CreateVersionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CreateVersionResponse>> {
         self.inner.create_version(req, options).await
     }
 
@@ -203,8 +203,8 @@ where
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.delete_version(req, options).await
     }
 
@@ -212,8 +212,8 @@ where
     async fn list_referenced_schemas(
         &self,
         req: crate::model::ListReferencedSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
         self.inner.list_referenced_schemas(req, options).await
     }
 
@@ -221,8 +221,8 @@ where
     async fn check_compatibility(
         &self,
         req: crate::model::CheckCompatibilityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CheckCompatibilityResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CheckCompatibilityResponse>> {
         self.inner.check_compatibility(req, options).await
     }
 
@@ -230,8 +230,8 @@ where
     async fn get_schema_config(
         &self,
         req: crate::model::GetSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaConfig>> {
         self.inner.get_schema_config(req, options).await
     }
 
@@ -239,8 +239,8 @@ where
     async fn update_schema_config(
         &self,
         req: crate::model::UpdateSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaConfig>> {
         self.inner.update_schema_config(req, options).await
     }
 
@@ -248,8 +248,8 @@ where
     async fn delete_schema_config(
         &self,
         req: crate::model::DeleteSchemaConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaConfig>> {
         self.inner.delete_schema_config(req, options).await
     }
 
@@ -257,8 +257,8 @@ where
     async fn get_schema_mode(
         &self,
         req: crate::model::GetSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaMode>> {
         self.inner.get_schema_mode(req, options).await
     }
 
@@ -266,8 +266,8 @@ where
     async fn update_schema_mode(
         &self,
         req: crate::model::UpdateSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaMode>> {
         self.inner.update_schema_mode(req, options).await
     }
 
@@ -275,8 +275,8 @@ where
     async fn delete_schema_mode(
         &self,
         req: crate::model::DeleteSchemaModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SchemaMode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SchemaMode>> {
         self.inner.delete_schema_mode(req, options).await
     }
 
@@ -284,8 +284,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -293,8 +293,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -302,9 +302,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -312,8 +311,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -321,8 +320,8 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -330,8 +329,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
