@@ -14,7 +14,6 @@
 
 use anyhow::{Error, Result};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-use google_cloud_gax::error::{Error as GaxError, rpc::Code};
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt};
 use google_cloud_showcase_v1beta1::client::Testing;
@@ -27,7 +26,15 @@ mod compliance;
 mod echo;
 mod identity;
 
-const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
+/// The version of gapic-showcase used in these tests.
+///
+/// To update the magic version use:
+///
+/// ```shell
+/// go list -m -f '{{.Version}}' github.com/googleapis/gapic-showcase@main
+/// ```
+const SHOWCASE_NAME: &str =
+    "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.37.1-0.20260210150911-3fd9cb2f682d";
 
 pub async fn run() -> Result<()> {
     let _guard = google_cloud_test_utils::tracing::enable_tracing();
@@ -47,17 +54,7 @@ pub async fn run() -> Result<()> {
     }
 
     tracing::info!("running tests for Echo service");
-    if let Err(e) = echo::run().await {
-        let code = e
-            .downcast_ref::<GaxError>()
-            .and_then(|e| e.status())
-            .map(|s| s.code);
-        if code == Some(Code::InvalidArgument) {
-            tracing::warn!("TODO(#4642) - ignoring known error in echo test: {e:?}");
-        } else {
-            return Err(e);
-        }
-    }
+    echo::run().await?;
 
     tracing::info!("running tests for Identity service");
     identity::run().await?;
