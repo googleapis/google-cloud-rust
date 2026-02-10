@@ -31,12 +31,12 @@ const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 // TTL: 6 hours
 const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
-// Refresh interval: 1 hour of TTL
+// Refresh interval: every hour
 const REFRESH_INTERVAL: Duration = Duration::from_secs(60 * 60);
-// Period to wait after err: 15 minutes
+// Period to wait after an error: 15 minutes
 const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
-// Max period to wait after err: 6 hours
-const MAX_COOLDOWN_INTERVAL: Duration = Duration::from_secs(6 * 60 * 60);
+// Max period to wait after an error: 2 hours
+const MAX_COOLDOWN_INTERVAL: Duration = Duration::from_secs(2 * 60 * 60);
 
 #[derive(Debug)]
 pub(crate) struct AccessBoundary {
@@ -178,6 +178,8 @@ mod tests {
     use serial_test::{parallel, serial};
     use tokio::time::Instant;
 
+    type TestResult = anyhow::Result<()>;
+
     #[test]
     #[parallel]
     fn test_service_account_url() {
@@ -189,7 +191,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_fetch_access_boundary_success() {
+    async fn test_fetch_access_boundary_success() -> TestResult {
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -215,15 +217,15 @@ mod tests {
         let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&token_provider, &url).await;
+        let result = fetch_access_boundary(&token_provider, &url).await?;
+        assert_eq!(result.as_deref(), Some("0x123"));
 
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), Some("0x123".to_string()));
+        Ok(())
     }
 
     #[tokio::test]
     #[parallel]
-    async fn test_fetch_access_boundary_empty() {
+    async fn test_fetch_access_boundary_empty() -> TestResult {
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -247,10 +249,10 @@ mod tests {
         let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&token_provider, &url).await;
+        let result = fetch_access_boundary(&token_provider, &url).await?;
+        assert_eq!(result, None);
 
-        assert!(result.is_ok(), "{result:?}");
-        assert_eq!(result.unwrap(), None);
+        Ok(())
     }
 
     #[tokio::test]
@@ -276,14 +278,8 @@ mod tests {
         let url = server.url("/allowedLocations").to_string();
 
         let result = fetch_access_boundary(&token_provider, &url).await;
-
-        assert!(result.is_err());
-        assert!(
-            result
-                .unwrap_err()
-                .to_string()
-                .contains("Failed to fetch access boundary")
-        );
+        let err = result.unwrap_err();
+        assert!(err.is_transient());
     }
 
     #[tokio::test]
@@ -292,16 +288,15 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().returning(|| {
             Err(CredentialsError::from_msg(
-                true,
+                false,
                 "invalid creds".to_string(),
             ))
         });
 
         let token_provider = TokenCache::new(mock);
         let result = fetch_access_boundary(&token_provider, "http://localhost").await;
-
-        assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("invalid creds"));
+        let err = result.unwrap_err();
+        assert!(!err.is_transient());
     }
 
     #[tokio::test]
@@ -332,7 +327,7 @@ mod tests {
         let access_boundary = AccessBoundary { rx_header };
 
         let _ = tx.send(Some("0x123".to_string()));
-        assert_eq!(access_boundary.header_value(), Some("0x123".to_string()));
+        assert_eq!(access_boundary.header_value().as_deref(), Some("0x123"));
 
         let _ = tx.send(Some(NO_OP_ENCODED_LOCATIONS.to_string()));
         assert_eq!(access_boundary.header_value(), None);
@@ -422,14 +417,17 @@ mod tests {
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
-        assert!(val.is_none(), "should be None on startup/error");
+        assert!(val.is_none(), "should be None on startup/error: {val:?}");
 
         // advance 15 minutes, next call fails
         tokio::time::advance(COOLDOWN_INTERVAL).await;
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
-        assert!(val.is_none(), "should still be None after second error");
+        assert!(
+            val.is_none(),
+            "should still be None after second error: {val:?}"
+        );
 
         // advance 30 minutes, third call succeeds
         tokio::time::advance(2 * COOLDOWN_INTERVAL).await;
@@ -438,6 +436,6 @@ mod tests {
         }
 
         let val = rx.borrow().clone();
-        assert_eq!(val, Some("0x123".to_string()));
+        assert_eq!(val.as_deref(), Some("0x123"));
     }
 }
