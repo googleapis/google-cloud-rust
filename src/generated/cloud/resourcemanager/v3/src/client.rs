@@ -154,6 +154,26 @@ impl Folders {
     /// of their display_name.
     /// The caller must have `resourcemanager.folders.list` permission on the
     /// identified parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Folders,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_folders()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_folders(&self) -> super::builder::folders::ListFolders {
         super::builder::folders::ListFolders::new(self.inner.clone())
     }
@@ -164,6 +184,25 @@ impl Folders {
     ///
     /// This will only return folders on which the caller has the
     /// permission `resourcemanager.folders.get`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_folders()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_folders(&self) -> super::builder::folders::SearchFolders {
         super::builder::folders::SearchFolders::new(self.inner.clone())
     }
@@ -663,6 +702,25 @@ impl Organizations {
     ///
     /// Search will only return organizations on which the user has the permission
     /// `resourcemanager.organizations.get`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_organizations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_organizations(&self) -> super::builder::organizations::SearchOrganizations {
         super::builder::organizations::SearchOrganizations::new(self.inner.clone())
     }
@@ -907,6 +965,26 @@ impl Projects {
     /// projects sorted based upon the (ascending) lexical ordering of their
     /// `display_name`. The caller must have `resourcemanager.projects.list`
     /// permission on the identified parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Projects,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_projects()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_projects(&self) -> super::builder::projects::ListProjects {
         super::builder::projects::ListProjects::new(self.inner.clone())
     }
@@ -923,6 +1001,25 @@ impl Projects {
     /// [GetProject][google.cloud.resourcemanager.v3.Projects.GetProject] method.
     ///
     /// [google.cloud.resourcemanager.v3.Projects.GetProject]: crate::client::Projects::get_project
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_projects()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_projects(&self) -> super::builder::projects::SearchProjects {
         super::builder::projects::SearchProjects::new(self.inner.clone())
     }
@@ -1408,6 +1505,26 @@ impl TagBindings {
     ///
     /// NOTE: The `parent` field is expected to be a full resource name:
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagBindings,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_bindings(&self) -> super::builder::tag_bindings::ListTagBindings {
         super::builder::tag_bindings::ListTagBindings::new(self.inner.clone())
     }
@@ -1482,6 +1599,25 @@ impl TagBindings {
 
     /// Return a list of effective tags for the given Google Cloud resource, as
     /// specified in `parent`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagBindings
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_effective_tags()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_effective_tags(&self) -> super::builder::tag_bindings::ListEffectiveTags {
         super::builder::tag_bindings::ListEffectiveTags::new(self.inner.clone())
     }
@@ -1687,6 +1823,26 @@ impl TagHolds {
     }
 
     /// Lists TagHolds under a TagValue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagHolds;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagHolds,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_holds()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_holds(&self) -> super::builder::tag_holds::ListTagHolds {
         super::builder::tag_holds::ListTagHolds::new(self.inner.clone())
     }
@@ -1819,6 +1975,26 @@ impl TagKeys {
     }
 
     /// Lists all TagKeys for a parent resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagKeys,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_keys()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_keys(&self) -> super::builder::tag_keys::ListTagKeys {
         super::builder::tag_keys::ListTagKeys::new(self.inner.clone())
     }
@@ -2186,6 +2362,26 @@ impl TagValues {
     }
 
     /// Lists all TagValues for a specific TagKey.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagValues,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_values()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_values(&self) -> super::builder::tag_values::ListTagValues {
         super::builder::tag_values::ListTagValues::new(self.inner.clone())
     }

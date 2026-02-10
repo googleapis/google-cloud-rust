@@ -131,6 +131,26 @@ impl SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_secrets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets {
         super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
     }
@@ -266,6 +286,26 @@ impl SecretManagerService {
     /// call does not return secret data.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_secret_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_secret_versions(
         &self,
     ) -> super::builder::secret_manager_service::ListSecretVersions {
@@ -513,6 +553,25 @@ impl SecretManagerService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations {
         super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
     }

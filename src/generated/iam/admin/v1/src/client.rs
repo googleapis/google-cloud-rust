@@ -149,6 +149,25 @@ impl Iam {
     /// Lists every [ServiceAccount][google.iam.admin.v1.ServiceAccount] that belongs to a specific project.
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_service_accounts()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_accounts(&self) -> super::builder::iam::ListServiceAccounts {
         super::builder::iam::ListServiceAccounts::new(self.inner.clone())
     }
@@ -740,6 +759,25 @@ impl Iam {
     /// Lists roles that can be granted on a Google Cloud resource. A role is
     /// grantable if the IAM policy for the resource can contain bindings to the
     /// role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .query_grantable_roles()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles {
         super::builder::iam::QueryGrantableRoles::new(self.inner.clone())
     }
@@ -748,6 +786,25 @@ impl Iam {
     /// that is defined for an organization or project.
     ///
     /// [google.iam.admin.v1.Role]: crate::model::Role
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_roles()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_roles(&self) -> super::builder::iam::ListRoles {
         super::builder::iam::ListRoles::new(self.inner.clone())
     }
@@ -895,6 +952,25 @@ impl Iam {
     /// Lists every permission that you can test on a resource. A permission is
     /// testable if you can check whether a principal has that permission on the
     /// resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &Iam
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .query_testable_permissions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_testable_permissions(&self) -> super::builder::iam::QueryTestablePermissions {
         super::builder::iam::QueryTestablePermissions::new(self.inner.clone())
     }

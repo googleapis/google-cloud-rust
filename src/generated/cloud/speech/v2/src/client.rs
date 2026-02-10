@@ -155,6 +155,26 @@ impl Speech {
     }
 
     /// Lists Recognizers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_recognizers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_recognizers(&self) -> super::builder::speech::ListRecognizers {
         super::builder::speech::ListRecognizers::new(self.inner.clone())
     }
@@ -442,6 +462,26 @@ impl Speech {
     }
 
     /// Lists CustomClasses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_custom_classes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_custom_classes(&self) -> super::builder::speech::ListCustomClasses {
         super::builder::speech::ListCustomClasses::new(self.inner.clone())
     }
@@ -619,6 +659,26 @@ impl Speech {
     }
 
     /// Lists PhraseSets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_phrase_sets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_phrase_sets(&self) -> super::builder::speech::ListPhraseSets {
         super::builder::speech::ListPhraseSets::new(self.inner.clone())
     }
@@ -760,6 +820,25 @@ impl Speech {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::speech::ListLocations {
         super::builder::speech::ListLocations::new(self.inner.clone())
     }
@@ -789,6 +868,25 @@ impl Speech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::speech::ListOperations {
         super::builder::speech::ListOperations::new(self.inner.clone())
     }
