@@ -20,124 +20,120 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServicesResponse>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedService>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedService>>;
 
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undelete_service(
         &self,
         req: crate::model::UndeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_service_configs(
         &self,
         req: crate::model::ListServiceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServiceConfigsResponse>>;
 
     async fn get_service_config(
         &self,
         req: crate::model::GetServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::Service>>;
 
     async fn create_service_config(
         &self,
         req: crate::model::CreateServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::Service>>;
 
     async fn submit_config_source(
         &self,
         req: crate::model::SubmitConfigSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_service_rollouts(
         &self,
         req: crate::model::ListServiceRolloutsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServiceRolloutsResponse>>;
 
     async fn get_service_rollout(
         &self,
         req: crate::model::GetServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Rollout>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>>;
 
     async fn create_service_rollout(
         &self,
         req: crate::model::CreateServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_config_report(
         &self,
         req: crate::model::GenerateConfigReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateConfigReportResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateConfigReportResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ServiceManager] also implement [ServiceManager].
@@ -147,8 +143,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -156,8 +152,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ManagedService>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ManagedService>> {
         T::get_service(self, req, options).await
     }
 
@@ -165,8 +161,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_service(self, req, options).await
     }
 
@@ -174,8 +170,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_service(self, req, options).await
     }
 
@@ -183,8 +179,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn undelete_service(
         &self,
         req: crate::model::UndeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::undelete_service(self, req, options).await
     }
 
@@ -192,8 +188,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn list_service_configs(
         &self,
         req: crate::model::ListServiceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServiceConfigsResponse>> {
         T::list_service_configs(self, req, options).await
     }
 
@@ -201,8 +197,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn get_service_config(
         &self,
         req: crate::model::GetServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::Service>> {
         T::get_service_config(self, req, options).await
     }
 
@@ -210,8 +206,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn create_service_config(
         &self,
         req: crate::model::CreateServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::Service>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::Service>> {
         T::create_service_config(self, req, options).await
     }
 
@@ -219,8 +215,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn submit_config_source(
         &self,
         req: crate::model::SubmitConfigSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::submit_config_source(self, req, options).await
     }
 
@@ -228,8 +224,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn list_service_rollouts(
         &self,
         req: crate::model::ListServiceRolloutsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServiceRolloutsResponse>> {
         T::list_service_rollouts(self, req, options).await
     }
 
@@ -237,8 +233,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn get_service_rollout(
         &self,
         req: crate::model::GetServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Rollout>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>> {
         T::get_service_rollout(self, req, options).await
     }
 
@@ -246,8 +242,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn create_service_rollout(
         &self,
         req: crate::model::CreateServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_service_rollout(self, req, options).await
     }
 
@@ -255,8 +251,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn generate_config_report(
         &self,
         req: crate::model::GenerateConfigReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateConfigReportResponse>> {
         T::generate_config_report(self, req, options).await
     }
 
@@ -264,8 +260,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -273,8 +269,8 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -282,10 +278,9 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -293,10 +288,9 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -304,22 +298,22 @@ impl<T: super::ServiceManager> ServiceManager for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

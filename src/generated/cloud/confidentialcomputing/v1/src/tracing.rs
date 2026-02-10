@@ -41,8 +41,8 @@ where
     async fn create_challenge(
         &self,
         req: crate::model::CreateChallengeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Challenge>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Challenge>> {
         self.inner.create_challenge(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VerifyAttestationResponse>> {
         self.inner.verify_attestation(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn verify_confidential_space(
         &self,
         req: crate::model::VerifyConfidentialSpaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VerifyConfidentialSpaceResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>> {
         self.inner.verify_confidential_space(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn verify_confidential_gke(
         &self,
         req: crate::model::VerifyConfidentialGkeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VerifyConfidentialGkeResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>> {
         self.inner.verify_confidential_gke(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

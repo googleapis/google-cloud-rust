@@ -41,9 +41,8 @@ where
     async fn list_org_policy_violations_previews(
         &self,
         req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>> {
         self.inner
             .list_org_policy_violations_previews(req, options)
             .await
@@ -53,8 +52,8 @@ where
     async fn get_org_policy_violations_preview(
         &self,
         req: crate::model::GetOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OrgPolicyViolationsPreview>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OrgPolicyViolationsPreview>> {
         self.inner
             .get_org_policy_violations_preview(req, options)
             .await
@@ -64,8 +63,8 @@ where
     async fn create_org_policy_violations_preview(
         &self,
         req: crate::model::CreateOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner
             .create_org_policy_violations_preview(req, options)
             .await
@@ -75,8 +74,8 @@ where
     async fn list_org_policy_violations(
         &self,
         req: crate::model::ListOrgPolicyViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrgPolicyViolationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrgPolicyViolationsResponse>> {
         self.inner.list_org_policy_violations(req, options).await
     }
 
@@ -84,9 +83,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -94,22 +92,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -140,8 +138,8 @@ where
     async fn get_replay(
         &self,
         req: crate::model::GetReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Replay>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Replay>> {
         self.inner.get_replay(req, options).await
     }
 
@@ -149,8 +147,8 @@ where
     async fn create_replay(
         &self,
         req: crate::model::CreateReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_replay(req, options).await
     }
 
@@ -158,8 +156,8 @@ where
     async fn list_replay_results(
         &self,
         req: crate::model::ListReplayResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListReplayResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListReplayResultsResponse>> {
         self.inner.list_replay_results(req, options).await
     }
 
@@ -167,9 +165,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -177,22 +174,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

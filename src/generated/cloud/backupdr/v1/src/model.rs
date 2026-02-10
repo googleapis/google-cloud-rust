@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -1357,7 +1357,7 @@ impl wkt::message::Message for ListManagementServersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListManagementServersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListManagementServersResponse {
     type PageItem = crate::model::ManagementServer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3676,7 +3676,7 @@ impl wkt::message::Message for ListBackupPlansResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
     type PageItem = crate::model::BackupPlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4424,7 +4424,7 @@ impl wkt::message::Message for ListBackupPlanRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupPlanRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupPlanRevisionsResponse {
     type PageItem = crate::model::BackupPlanRevision;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5521,7 +5521,9 @@ impl wkt::message::Message for ListBackupPlanAssociationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupPlanAssociationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListBackupPlanAssociationsResponse
+{
     type PageItem = crate::model::BackupPlanAssociation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5729,7 +5731,7 @@ impl wkt::message::Message for FetchBackupPlanAssociationsForResourceTypeRespons
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse
+impl google_cloud_gax::paginator::internal::PageableResponse
     for FetchBackupPlanAssociationsForResourceTypeResponse
 {
     type PageItem = crate::model::BackupPlanAssociation;
@@ -10903,7 +10905,7 @@ impl wkt::message::Message for ListBackupVaultsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupVaultsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11103,7 +11105,7 @@ impl wkt::message::Message for FetchUsableBackupVaultsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchUsableBackupVaultsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for FetchUsableBackupVaultsResponse {
     type PageItem = crate::model::BackupVault;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11320,7 +11322,9 @@ impl wkt::message::Message for FetchBackupsForResourceTypeResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchBackupsForResourceTypeResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for FetchBackupsForResourceTypeResponse
+{
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11888,7 +11892,7 @@ impl wkt::message::Message for ListDataSourcesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
     type PageItem = crate::model::DataSource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -12278,7 +12282,7 @@ impl wkt::message::Message for ListBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23476,7 +23480,7 @@ impl wkt::message::Message for ListDataSourceReferencesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataSourceReferencesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataSourceReferencesResponse {
     type PageItem = crate::model::DataSourceReference;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -23688,7 +23692,7 @@ impl wkt::message::Message for FetchDataSourceReferencesForResourceTypeResponse 
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse
+impl google_cloud_gax::paginator::internal::PageableResponse
     for FetchDataSourceReferencesForResourceTypeResponse
 {
     type PageItem = crate::model::DataSourceReference;
@@ -23862,7 +23866,7 @@ impl wkt::message::Message for ListResourceBackupConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourceBackupConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourceBackupConfigsResponse {
     type PageItem = crate::model::ResourceBackupConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

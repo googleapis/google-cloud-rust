@@ -20,138 +20,134 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
     async fn create_assessment(
         &self,
         req: crate::model::CreateAssessmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Assessment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Assessment>>;
 
     async fn annotate_assessment(
         &self,
         req: crate::model::AnnotateAssessmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnnotateAssessmentResponse>>;
 
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>>;
 
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeysResponse>>;
 
     async fn retrieve_legacy_secret_key(
         &self,
         req: crate::model::RetrieveLegacySecretKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrieveLegacySecretKeyResponse>>;
 
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>>;
 
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>>;
 
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn migrate_key(
         &self,
         req: crate::model::MigrateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>>;
 
     async fn add_ip_override(
         &self,
         req: crate::model::AddIpOverrideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddIpOverrideResponse>>;
 
     async fn remove_ip_override(
         &self,
         req: crate::model::RemoveIpOverrideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveIpOverrideResponse>>;
 
     async fn list_ip_overrides(
         &self,
         req: crate::model::ListIpOverridesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIpOverridesResponse>>;
 
     async fn get_metrics(
         &self,
         req: crate::model::GetMetricsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Metrics>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Metrics>>;
 
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>>;
 
     async fn list_firewall_policies(
         &self,
         req: crate::model::ListFirewallPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFirewallPoliciesResponse>>;
 
     async fn get_firewall_policy(
         &self,
         req: crate::model::GetFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>>;
 
     async fn update_firewall_policy(
         &self,
         req: crate::model::UpdateFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>>;
 
     async fn delete_firewall_policy(
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn reorder_firewall_policies(
         &self,
         req: crate::model::ReorderFirewallPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReorderFirewallPoliciesResponse>>;
 
     async fn list_related_account_groups(
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRelatedAccountGroupsResponse>>;
 
     async fn list_related_account_group_memberships(
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>;
 
     async fn search_related_account_group_memberships(
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>;
 }
 
 /// All implementations of [super::RecaptchaEnterpriseService] also implement [RecaptchaEnterpriseService].
@@ -161,8 +157,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn create_assessment(
         &self,
         req: crate::model::CreateAssessmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Assessment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Assessment>> {
         T::create_assessment(self, req, options).await
     }
 
@@ -170,8 +166,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn annotate_assessment(
         &self,
         req: crate::model::AnnotateAssessmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnnotateAssessmentResponse>> {
         T::annotate_assessment(self, req, options).await
     }
 
@@ -179,8 +175,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>> {
         T::create_key(self, req, options).await
     }
 
@@ -188,8 +184,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeysResponse>> {
         T::list_keys(self, req, options).await
     }
 
@@ -197,8 +193,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn retrieve_legacy_secret_key(
         &self,
         req: crate::model::RetrieveLegacySecretKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
         T::retrieve_legacy_secret_key(self, req, options).await
     }
 
@@ -206,8 +202,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>> {
         T::get_key(self, req, options).await
     }
 
@@ -215,8 +211,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>> {
         T::update_key(self, req, options).await
     }
 
@@ -224,8 +220,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_key(self, req, options).await
     }
 
@@ -233,8 +229,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn migrate_key(
         &self,
         req: crate::model::MigrateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>> {
         T::migrate_key(self, req, options).await
     }
 
@@ -242,8 +238,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn add_ip_override(
         &self,
         req: crate::model::AddIpOverrideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AddIpOverrideResponse>> {
         T::add_ip_override(self, req, options).await
     }
 
@@ -251,8 +247,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn remove_ip_override(
         &self,
         req: crate::model::RemoveIpOverrideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveIpOverrideResponse>> {
         T::remove_ip_override(self, req, options).await
     }
 
@@ -260,8 +256,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn list_ip_overrides(
         &self,
         req: crate::model::ListIpOverridesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIpOverridesResponse>> {
         T::list_ip_overrides(self, req, options).await
     }
 
@@ -269,8 +265,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn get_metrics(
         &self,
         req: crate::model::GetMetricsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Metrics>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Metrics>> {
         T::get_metrics(self, req, options).await
     }
 
@@ -278,8 +274,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>> {
         T::create_firewall_policy(self, req, options).await
     }
 
@@ -287,8 +283,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn list_firewall_policies(
         &self,
         req: crate::model::ListFirewallPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFirewallPoliciesResponse>> {
         T::list_firewall_policies(self, req, options).await
     }
 
@@ -296,8 +292,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn get_firewall_policy(
         &self,
         req: crate::model::GetFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>> {
         T::get_firewall_policy(self, req, options).await
     }
 
@@ -305,8 +301,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn update_firewall_policy(
         &self,
         req: crate::model::UpdateFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FirewallPolicy>> {
         T::update_firewall_policy(self, req, options).await
     }
 
@@ -314,8 +310,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn delete_firewall_policy(
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_firewall_policy(self, req, options).await
     }
 
@@ -323,8 +319,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn reorder_firewall_policies(
         &self,
         req: crate::model::ReorderFirewallPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReorderFirewallPoliciesResponse>> {
         T::reorder_firewall_policies(self, req, options).await
     }
 
@@ -332,9 +328,8 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn list_related_account_groups(
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRelatedAccountGroupsResponse>> {
         T::list_related_account_groups(self, req, options).await
     }
 
@@ -342,10 +337,9 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn list_related_account_group_memberships(
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>
+    {
         T::list_related_account_group_memberships(self, req, options).await
     }
 
@@ -353,10 +347,9 @@ impl<T: super::RecaptchaEnterpriseService> RecaptchaEnterpriseService for T {
     async fn search_related_account_group_memberships(
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>
+    {
         T::search_related_account_group_memberships(self, req, options).await
     }
 }

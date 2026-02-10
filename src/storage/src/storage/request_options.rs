@@ -17,12 +17,12 @@ use crate::{
     read_resume_policy::ReadResumePolicy,
     storage::checksum::details::{Checksum, Crc32c},
 };
-use gax::{
+use gaxi::options::ClientConfig;
+use google_cloud_gax::{
     backoff_policy::BackoffPolicy,
     retry_policy::RetryPolicy,
     retry_throttler::{AdaptiveThrottler, SharedRetryThrottler},
 };
-use gaxi::options::ClientConfig;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
@@ -128,8 +128,8 @@ impl RequestOptions {
         }
     }
 
-    pub(crate) fn gax(&self) -> gax::options::RequestOptions {
-        let mut options = gax::options::RequestOptions::default();
+    pub(crate) fn gax(&self) -> google_cloud_gax::options::RequestOptions {
+        let mut options = google_cloud_gax::options::RequestOptions::default();
         options.set_backoff_policy(self.backoff_policy.clone());
         options.set_retry_policy(self.retry_policy.clone());
         options.set_retry_throttler(self.retry_throttler.clone());

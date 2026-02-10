@@ -41,8 +41,8 @@ where
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListEventsResponse>> {
         self.inner.list_events(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Event>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Event>> {
         self.inner.get_event(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrganizationEventsResponse>> {
         self.inner.list_organization_events(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OrganizationEvent>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OrganizationEvent>> {
         self.inner.get_organization_event(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrganizationImpactsResponse>> {
         self.inner.list_organization_impacts(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OrganizationImpact>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OrganizationImpact>> {
         self.inner.get_organization_impact(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

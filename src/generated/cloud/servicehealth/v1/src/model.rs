@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate lazy_static;
 extern crate serde;
@@ -2779,7 +2779,7 @@ impl wkt::message::Message for ListEventsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEventsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEventsResponse {
     type PageItem = crate::model::Event;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3049,7 +3049,7 @@ impl wkt::message::Message for ListOrganizationEventsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrganizationEventsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOrganizationEventsResponse {
     type PageItem = crate::model::OrganizationEvent;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3304,7 +3304,7 @@ impl wkt::message::Message for ListOrganizationImpactsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrganizationImpactsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOrganizationImpactsResponse {
     type PageItem = crate::model::OrganizationImpact;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

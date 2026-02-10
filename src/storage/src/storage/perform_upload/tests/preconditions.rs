@@ -16,7 +16,7 @@
 
 use super::*;
 use crate::storage::streaming_source::BytesSource;
-use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 

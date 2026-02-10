@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -2191,7 +2191,7 @@ impl wkt::message::Message for ListPosturesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPosturesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPosturesResponse {
     type PageItem = crate::model::Posture;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2329,7 +2329,7 @@ impl wkt::message::Message for ListPostureRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPostureRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPostureRevisionsResponse {
     type PageItem = crate::model::Posture;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3363,7 +3363,7 @@ impl wkt::message::Message for ListPostureDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPostureDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPostureDeploymentsResponse {
     type PageItem = crate::model::PostureDeployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4036,7 +4036,7 @@ impl wkt::message::Message for ListPostureTemplatesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPostureTemplatesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPostureTemplatesResponse {
     type PageItem = crate::model::PostureTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

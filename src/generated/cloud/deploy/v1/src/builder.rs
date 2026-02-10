@@ -20,7 +20,7 @@ pub mod cloud_deploy {
     /// A builder for [CloudDeploy][crate::client::CloudDeploy].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_deploy_v1::*;
     /// # use builder::cloud_deploy::ClientBuilder;
     /// # use client::CloudDeploy;
@@ -30,19 +30,18 @@ pub mod cloud_deploy {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::CloudDeploy;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = CloudDeploy;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod cloud_deploy {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod cloud_deploy {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeliveryPipelines;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -111,7 +110,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -121,14 +120,16 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_delivery_pipelines(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeliveryPipelinesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDeliveryPipelinesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -136,17 +137,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListDeliveryPipelinesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -184,8 +185,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDeliveryPipelines {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDeliveryPipelines {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -195,7 +196,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeliveryPipeline;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -226,7 +227,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -236,7 +237,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_delivery_pipeline(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeliveryPipelineRequest::name].
@@ -249,8 +250,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDeliveryPipeline {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDeliveryPipeline {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -260,7 +261,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeliveryPipeline;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -292,7 +293,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -307,7 +308,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_delivery_pipeline(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_delivery_pipeline`.
@@ -324,7 +325,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -403,8 +404,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDeliveryPipeline {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDeliveryPipeline {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -414,7 +415,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeliveryPipeline;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -446,7 +447,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -461,7 +462,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_delivery_pipeline(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_delivery_pipeline`.
@@ -478,7 +479,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -569,8 +570,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateDeliveryPipeline {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateDeliveryPipeline {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -580,7 +581,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeliveryPipeline;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -612,7 +613,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -627,7 +628,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_delivery_pipeline(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_delivery_pipeline`.
@@ -639,7 +640,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -706,8 +707,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteDeliveryPipeline {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteDeliveryPipeline {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -717,8 +718,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListTargets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -749,7 +750,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -759,13 +760,13 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_targets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTargetsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListTargetsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -774,15 +775,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTargetsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTargetsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -820,8 +823,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTargets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTargets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -831,7 +834,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::RollbackTarget;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -859,7 +862,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -869,7 +872,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .rollback_target(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackTargetRequest::name].
@@ -945,8 +948,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RollbackTarget {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RollbackTarget {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -956,7 +959,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetTarget;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -984,7 +987,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -994,7 +997,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_target(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTargetRequest::name].
@@ -1007,8 +1010,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTarget {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTarget {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1018,7 +1021,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateTarget;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1047,7 +1050,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1062,7 +1065,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_target(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_target`.
@@ -1079,7 +1082,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1158,8 +1161,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTarget {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTarget {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1169,7 +1172,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateTarget;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1198,7 +1201,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1213,7 +1216,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_target(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_target`.
@@ -1230,7 +1233,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1321,8 +1324,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTarget {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTarget {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1332,7 +1335,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteTarget;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1361,7 +1364,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1376,7 +1379,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_target(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_target`.
@@ -1388,7 +1391,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1449,8 +1452,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTarget {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTarget {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1460,8 +1463,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListCustomTargetTypes;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1495,7 +1498,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1505,14 +1508,16 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_custom_target_types(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCustomTargetTypesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListCustomTargetTypesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1520,17 +1525,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListCustomTargetTypesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1568,8 +1573,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListCustomTargetTypes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListCustomTargetTypes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1579,7 +1584,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetCustomTargetType;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1610,7 +1615,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1620,7 +1625,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_custom_target_type(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomTargetTypeRequest::name].
@@ -1633,8 +1638,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCustomTargetType {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCustomTargetType {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1644,7 +1649,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateCustomTargetType;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1676,7 +1681,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1691,7 +1696,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_custom_target_type(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_custom_target_type`.
@@ -1708,7 +1713,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1787,8 +1792,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateCustomTargetType {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateCustomTargetType {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1798,7 +1803,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateCustomTargetType;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1830,7 +1835,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1845,7 +1850,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_custom_target_type(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_custom_target_type`.
@@ -1862,7 +1867,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1953,8 +1958,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCustomTargetType {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCustomTargetType {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1964,7 +1969,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteCustomTargetType;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1996,7 +2001,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2011,7 +2016,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_custom_target_type(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_custom_target_type`.
@@ -2023,7 +2028,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2084,8 +2089,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteCustomTargetType {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteCustomTargetType {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2095,8 +2100,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListReleases;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2127,7 +2132,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2137,13 +2142,13 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_releases(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListReleasesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListReleasesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2152,15 +2157,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReleasesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListReleasesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2198,8 +2205,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListReleases {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListReleases {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2209,7 +2216,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRelease;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2237,7 +2244,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2247,7 +2254,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_release(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReleaseRequest::name].
@@ -2260,8 +2267,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRelease {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRelease {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2271,7 +2278,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRelease;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2300,7 +2307,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2315,7 +2322,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_release(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_release`.
@@ -2332,7 +2339,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2422,8 +2429,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateRelease {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateRelease {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2433,7 +2440,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::AbandonRelease;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2461,7 +2468,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2471,7 +2478,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .abandon_release(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AbandonReleaseRequest::name].
@@ -2484,8 +2491,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AbandonRelease {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AbandonRelease {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2495,7 +2502,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeployPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2527,7 +2534,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2542,7 +2549,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_deploy_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_deploy_policy`.
@@ -2559,7 +2566,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2638,8 +2645,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDeployPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDeployPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2649,7 +2656,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeployPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2681,7 +2688,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2696,7 +2703,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_deploy_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_deploy_policy`.
@@ -2713,7 +2720,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2804,8 +2811,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateDeployPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateDeployPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2815,7 +2822,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeployPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2847,7 +2854,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2862,7 +2869,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_deploy_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_deploy_policy`.
@@ -2874,7 +2881,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2935,8 +2942,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteDeployPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteDeployPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2946,8 +2953,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeployPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2981,7 +2988,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2991,14 +2998,16 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_deploy_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeployPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDeployPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3006,17 +3015,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListDeployPoliciesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3054,8 +3063,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDeployPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDeployPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3065,7 +3074,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeployPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3093,7 +3102,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3103,7 +3112,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_deploy_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeployPolicyRequest::name].
@@ -3116,8 +3125,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDeployPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDeployPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3127,7 +3136,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ApproveRollout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3155,7 +3164,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3165,7 +3174,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .approve_rollout(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveRolloutRequest::name].
@@ -3197,8 +3206,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApproveRollout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApproveRollout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3208,7 +3217,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::AdvanceRollout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3236,7 +3245,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3246,7 +3255,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .advance_rollout(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AdvanceRolloutRequest::name].
@@ -3278,8 +3287,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AdvanceRollout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AdvanceRollout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3289,7 +3298,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelRollout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3317,7 +3326,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3327,7 +3336,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_rollout(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelRolloutRequest::name].
@@ -3351,8 +3360,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelRollout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelRollout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3362,8 +3371,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListRollouts;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3394,7 +3403,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3404,13 +3413,13 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_rollouts(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRolloutsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListRolloutsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3419,15 +3428,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRolloutsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListRolloutsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3465,8 +3476,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRollouts {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRollouts {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3476,7 +3487,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRollout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3504,7 +3515,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3514,7 +3525,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_rollout(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRolloutRequest::name].
@@ -3527,8 +3538,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRollout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRollout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3538,7 +3549,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRollout;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3567,7 +3578,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3582,7 +3593,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_rollout(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_rollout`.
@@ -3599,7 +3610,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3695,8 +3706,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateRollout {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateRollout {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3706,7 +3717,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::IgnoreJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3734,7 +3745,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3744,7 +3755,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .ignore_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [rollout][crate::model::IgnoreJobRequest::rollout].
@@ -3784,8 +3795,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for IgnoreJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for IgnoreJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3795,7 +3806,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::RetryJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3823,7 +3834,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3833,7 +3844,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .retry_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [rollout][crate::model::RetryJobRequest::rollout].
@@ -3873,8 +3884,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RetryJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RetryJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3884,8 +3895,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListJobRuns;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3916,7 +3927,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3926,13 +3937,13 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_job_runs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListJobRunsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListJobRunsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3941,15 +3952,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobRunsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListJobRunsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3987,8 +4000,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListJobRuns {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListJobRuns {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3998,7 +4011,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetJobRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4026,7 +4039,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4036,7 +4049,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_job_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRunRequest::name].
@@ -4049,8 +4062,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetJobRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetJobRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4060,7 +4073,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::TerminateJobRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4088,7 +4101,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4098,7 +4111,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .terminate_job_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::TerminateJobRunRequest::name].
@@ -4122,8 +4135,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TerminateJobRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TerminateJobRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4133,7 +4146,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4161,7 +4174,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4171,7 +4184,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
@@ -4184,8 +4197,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4195,7 +4208,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateAutomation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4227,7 +4240,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4242,7 +4255,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_automation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_automation`.
@@ -4259,7 +4272,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4338,8 +4351,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAutomation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAutomation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4349,7 +4362,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateAutomation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4381,7 +4394,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4396,7 +4409,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_automation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_automation`.
@@ -4413,7 +4426,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4504,8 +4517,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAutomation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAutomation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4515,7 +4528,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteAutomation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4547,7 +4560,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4562,7 +4575,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_automation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_automation`.
@@ -4574,7 +4587,7 @@ pub mod cloud_deploy {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4635,8 +4648,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAutomation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAutomation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4646,7 +4659,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4674,7 +4687,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4684,7 +4697,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_automation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRequest::name].
@@ -4697,8 +4710,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAutomation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAutomation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4708,8 +4721,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4740,7 +4753,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4750,14 +4763,16 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_automations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAutomationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAutomationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4765,15 +4780,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAutomationsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAutomationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4811,8 +4828,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAutomations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAutomations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4822,7 +4839,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomationRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4853,7 +4870,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4863,7 +4880,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_automation_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRunRequest::name].
@@ -4876,8 +4893,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAutomationRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAutomationRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4887,8 +4904,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomationRuns;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4922,7 +4939,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4932,14 +4949,16 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_automation_runs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAutomationRunsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAutomationRunsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4947,17 +4966,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAutomationRunsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4995,8 +5014,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAutomationRuns {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAutomationRuns {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5006,7 +5025,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelAutomationRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5037,7 +5056,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5047,7 +5066,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_automation_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelAutomationRunRequest::name].
@@ -5060,8 +5079,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelAutomationRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelAutomationRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5071,8 +5090,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5106,7 +5125,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5116,15 +5135,15 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5133,17 +5152,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5173,8 +5192,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5184,7 +5203,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5215,7 +5234,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5225,7 +5244,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -5236,8 +5255,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5247,7 +5266,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5278,7 +5297,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5288,7 +5307,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -5341,8 +5360,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5352,7 +5371,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5383,7 +5402,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5393,7 +5412,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -5424,8 +5443,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5435,7 +5454,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5468,7 +5487,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5478,7 +5497,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -5504,8 +5523,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5515,8 +5534,8 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5552,7 +5571,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5562,15 +5581,15 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5579,17 +5598,17 @@ pub mod cloud_deploy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5625,8 +5644,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5636,7 +5655,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5667,7 +5686,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5677,7 +5696,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -5688,8 +5707,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5699,7 +5718,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5732,7 +5751,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5742,7 +5761,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -5753,8 +5772,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5764,7 +5783,7 @@ pub mod cloud_deploy {
     /// # Example
     /// ```
     /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_deploy_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5797,7 +5816,7 @@ pub mod cloud_deploy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5807,7 +5826,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -5818,8 +5837,8 @@ pub mod cloud_deploy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

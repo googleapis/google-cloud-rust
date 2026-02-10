@@ -42,9 +42,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn create_key_handle(
         &self,
         _req: crate::model::CreateKeyHandleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn get_key_handle(
         &self,
         _req: crate::model::GetKeyHandleRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyHandle>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::KeyHandle>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn list_key_handles(
         &self,
         _req: crate::model::ListKeyHandlesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListKeyHandlesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListKeyHandlesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,10 +74,10 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -88,9 +87,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -99,9 +98,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -110,9 +109,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,10 +120,10 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -134,9 +133,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -147,9 +146,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -158,9 +157,9 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -180,9 +179,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn update_autokey_config(
         &self,
         _req: crate::model::UpdateAutokeyConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AutokeyConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -191,9 +190,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn get_autokey_config(
         &self,
         _req: crate::model::GetAutokeyConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AutokeyConfig>>,
+        Output = crate::Result<crate::Response<crate::model::AutokeyConfig>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -202,11 +201,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn show_effective_autokey_config(
         &self,
         _req: crate::model::ShowEffectiveAutokeyConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -215,10 +212,10 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -228,9 +225,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -239,9 +236,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -250,9 +247,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -261,10 +258,10 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -274,9 +271,9 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -298,9 +295,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn list_ekm_connections(
         &self,
         _req: crate::model::ListEkmConnectionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListEkmConnectionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -309,9 +306,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn get_ekm_connection(
         &self,
         _req: crate::model::GetEkmConnectionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
+        Output = crate::Result<crate::Response<crate::model::EkmConnection>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -320,9 +317,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn create_ekm_connection(
         &self,
         _req: crate::model::CreateEkmConnectionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
+        Output = crate::Result<crate::Response<crate::model::EkmConnection>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -331,9 +328,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn update_ekm_connection(
         &self,
         _req: crate::model::UpdateEkmConnectionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConnection>>,
+        Output = crate::Result<crate::Response<crate::model::EkmConnection>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -342,10 +339,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn get_ekm_config(
         &self,
         _req: crate::model::GetEkmConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::EkmConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -353,10 +349,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn update_ekm_config(
         &self,
         _req: crate::model::UpdateEkmConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EkmConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::EkmConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -364,9 +359,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn verify_connectivity(
         &self,
         _req: crate::model::VerifyConnectivityRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VerifyConnectivityResponse>>,
+        Output = crate::Result<crate::Response<crate::model::VerifyConnectivityResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -375,10 +370,10 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -388,9 +383,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -399,9 +394,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -410,9 +405,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -421,10 +416,10 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -434,9 +429,9 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -458,11 +453,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn list_single_tenant_hsm_instances(
         &self,
         _req: crate::model::ListSingleTenantHsmInstancesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListSingleTenantHsmInstancesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -471,9 +464,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn get_single_tenant_hsm_instance(
         &self,
         _req: crate::model::GetSingleTenantHsmInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstance>>,
+        Output = crate::Result<crate::Response<crate::model::SingleTenantHsmInstance>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -482,9 +475,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn create_single_tenant_hsm_instance(
         &self,
         _req: crate::model::CreateSingleTenantHsmInstanceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -493,9 +486,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn create_single_tenant_hsm_instance_proposal(
         &self,
         _req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -504,10 +497,10 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn approve_single_tenant_hsm_instance_proposal(
         &self,
         _req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
+            crate::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -517,9 +510,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn execute_single_tenant_hsm_instance_proposal(
         &self,
         _req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -528,11 +521,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn get_single_tenant_hsm_instance_proposal(
         &self,
         _req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SingleTenantHsmInstanceProposal>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -541,10 +532,10 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn list_single_tenant_hsm_instance_proposals(
         &self,
         _req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
+            crate::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -554,8 +545,8 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn delete_single_tenant_hsm_instance_proposal(
         &self,
         _req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -563,10 +554,10 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -576,9 +567,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -587,9 +578,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -598,9 +589,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -609,10 +600,10 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -622,9 +613,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -635,9 +626,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -646,9 +637,9 @@ pub trait HsmManagement: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -668,9 +659,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn list_key_rings(
         &self,
         _req: crate::model::ListKeyRingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListKeyRingsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListKeyRingsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -679,9 +670,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCryptoKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -690,11 +681,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn list_crypto_key_versions(
         &self,
         _req: crate::model::ListCryptoKeyVersionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListCryptoKeyVersionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -703,9 +692,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn list_import_jobs(
         &self,
         _req: crate::model::ListImportJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListImportJobsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListImportJobsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -714,10 +703,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_key_ring(
         &self,
         _req: crate::model::GetKeyRingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyRing>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::KeyRing>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -725,10 +713,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_crypto_key(
         &self,
         _req: crate::model::GetCryptoKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::CryptoKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -736,9 +723,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_crypto_key_version(
         &self,
         _req: crate::model::GetCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -747,10 +734,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_public_key(
         &self,
         _req: crate::model::GetPublicKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PublicKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::PublicKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -758,10 +744,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_import_job(
         &self,
         _req: crate::model::GetImportJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ImportJob>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ImportJob>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -769,10 +754,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn create_key_ring(
         &self,
         _req: crate::model::CreateKeyRingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::KeyRing>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::KeyRing>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -780,10 +764,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn create_crypto_key(
         &self,
         _req: crate::model::CreateCryptoKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::CryptoKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -791,9 +774,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn create_crypto_key_version(
         &self,
         _req: crate::model::CreateCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -802,9 +785,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn import_crypto_key_version(
         &self,
         _req: crate::model::ImportCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -813,10 +796,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn create_import_job(
         &self,
         _req: crate::model::CreateImportJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ImportJob>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ImportJob>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -824,10 +806,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn update_crypto_key(
         &self,
         _req: crate::model::UpdateCryptoKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::CryptoKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -835,9 +816,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn update_crypto_key_version(
         &self,
         _req: crate::model::UpdateCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -846,10 +827,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn update_crypto_key_primary_version(
         &self,
         _req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::CryptoKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -857,9 +837,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn destroy_crypto_key_version(
         &self,
         _req: crate::model::DestroyCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -868,9 +848,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn restore_crypto_key_version(
         &self,
         _req: crate::model::RestoreCryptoKeyVersionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CryptoKeyVersion>>,
+        Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -879,9 +859,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn encrypt(
         &self,
         _req: crate::model::EncryptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EncryptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::EncryptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -890,9 +870,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn decrypt(
         &self,
         _req: crate::model::DecryptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DecryptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DecryptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -901,9 +881,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn raw_encrypt(
         &self,
         _req: crate::model::RawEncryptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RawEncryptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RawEncryptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -912,9 +892,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn raw_decrypt(
         &self,
         _req: crate::model::RawDecryptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RawDecryptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RawDecryptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -923,9 +903,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn asymmetric_sign(
         &self,
         _req: crate::model::AsymmetricSignRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AsymmetricSignResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AsymmetricSignResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -934,9 +914,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn asymmetric_decrypt(
         &self,
         _req: crate::model::AsymmetricDecryptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AsymmetricDecryptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -945,9 +925,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn mac_sign(
         &self,
         _req: crate::model::MacSignRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MacSignResponse>>,
+        Output = crate::Result<crate::Response<crate::model::MacSignResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -956,9 +936,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn mac_verify(
         &self,
         _req: crate::model::MacVerifyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::MacVerifyResponse>>,
+        Output = crate::Result<crate::Response<crate::model::MacVerifyResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -967,9 +947,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn decapsulate(
         &self,
         _req: crate::model::DecapsulateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DecapsulateResponse>>,
+        Output = crate::Result<crate::Response<crate::model::DecapsulateResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -978,9 +958,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn generate_random_bytes(
         &self,
         _req: crate::model::GenerateRandomBytesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GenerateRandomBytesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -989,10 +969,10 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -1002,9 +982,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1013,9 +993,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1024,9 +1004,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1035,10 +1015,10 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -1048,9 +1028,9 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

@@ -52,7 +52,7 @@ impl Batch {
         self.messages.push(msg);
     }
 
-    fn message_size(msg: &crate::model::PubsubMessage) -> usize {
+    fn message_size(msg: &crate::model::Message) -> usize {
         // This is only an estimate and not the wire length.
         // TODO(#3963): If we move on to use protobuf crate, then it may be
         // possible to use compute_size to find the wire length.
@@ -73,7 +73,7 @@ impl Batch {
         &mut self,
         client: GapicPublisher,
         topic: String,
-        inflight: &mut JoinSet<Result<(), gax::error::Error>>,
+        inflight: &mut JoinSet<crate::Result<()>>,
     ) {
         let batch_to_send = Self {
             initial_size: self.initial_size,
@@ -85,7 +85,7 @@ impl Batch {
     }
 
     /// Send the batch to the service and process the results.
-    async fn send(self, client: GapicPublisher, topic: String) -> Result<(), gax::error::Error> {
+    async fn send(self, client: GapicPublisher, topic: String) -> crate::Result<()> {
         let (msgs, txs): (Vec<_>, Vec<_>) = self
             .messages
             .into_iter()
@@ -103,7 +103,7 @@ impl Batch {
                     // The user may have dropped the handle, so it is ok if this fails.
                     let _ = tx.send(Err(PublishError::SendError(e.clone())));
                 }
-                Err(gax::error::Error::io(e))
+                Err(crate::Error::io(e))
             }
             Ok(result) => {
                 txs.into_iter()
@@ -122,7 +122,7 @@ impl Batch {
 mod tests {
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        model::{PublishResponse, PubsubMessage},
+        model::{Message, PublishResponse},
         publisher::actor::BundledMessage,
         publisher::batch::Batch,
     };
@@ -132,7 +132,7 @@ mod tests {
         #[derive(Debug)]
         GapicPublisher {}
         impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisher {
-            async fn publish(&self, req: crate::model::PublishRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<crate::model::PublishResponse>>;
+            async fn publish(&self, req: crate::model::PublishRequest, _options: crate::RequestOptions) -> crate::Result<crate::Response<crate::model::PublishResponse>>;
         }
     }
 
@@ -158,7 +158,7 @@ mod tests {
             |r, _| {
                 assert_eq!(r.topic, "topic");
                 assert_eq!(r.messages.len(), 3);
-                Ok(gax::response::Response::from(PublishResponse::new()))
+                Ok(crate::Response::from(PublishResponse::new()))
             }
         });
         let client = GapicPublisher::from_stub(mock);
@@ -182,16 +182,15 @@ mod tests {
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let (message_with_ordering, _rx) = create_bundled_message_from_pubsub_message(
-            PubsubMessage::new().set_ordering_key("ordering_key"),
+            Message::new().set_ordering_key("ordering_key"),
         );
         expected_encoded_len += message_with_ordering.msg.ordering_key.len();
         batch.push(message_with_ordering);
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let attributes = HashMap::from([("k1", "v1"), ("key2", "value2")]);
-        let (message_with_attributes, _rx) = create_bundled_message_from_pubsub_message(
-            PubsubMessage::new().set_attributes(attributes),
-        );
+        let (message_with_attributes, _rx) =
+            create_bundled_message_from_pubsub_message(Message::new().set_attributes(attributes));
         expected_encoded_len += 14;
         batch.push(message_with_attributes);
         assert_eq!(batch.size(), expected_encoded_len as u32);
@@ -201,7 +200,7 @@ mod tests {
             |r, _| {
                 assert_eq!(r.topic, "topic");
                 assert_eq!(r.messages.len(), 3);
-                Ok(gax::response::Response::from(PublishResponse::new()))
+                Ok(crate::Response::from(PublishResponse::new()))
             }
         });
         let client = GapicPublisher::from_stub(mock);
@@ -216,11 +215,11 @@ mod tests {
         BundledMessage,
         tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
     ) {
-        create_bundled_message_from_pubsub_message(PubsubMessage::new().set_data(data.into()))
+        create_bundled_message_from_pubsub_message(Message::new().set_data(data.into()))
     }
 
     fn create_bundled_message_from_pubsub_message(
-        msg: PubsubMessage,
+        msg: Message,
     ) -> (
         BundledMessage,
         tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,

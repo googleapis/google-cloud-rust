@@ -42,10 +42,9 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     fn create_dashboard(
         &self,
         _req: crate::model::CreateDashboardRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dashboard>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     fn list_dashboards(
         &self,
         _req: crate::model::ListDashboardsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDashboardsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDashboardsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +63,9 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     fn get_dashboard(
         &self,
         _req: crate::model::GetDashboardRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dashboard>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,8 +73,8 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     fn delete_dashboard(
         &self,
         _req: crate::model::DeleteDashboardRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -84,10 +82,9 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
     fn update_dashboard(
         &self,
         _req: crate::model::UpdateDashboardRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Dashboard>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_trace_v1::client::TraceService;
 /// let client = TraceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Trace API.
@@ -70,13 +70,13 @@ impl TraceService {
     /// Returns a builder for [TraceService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v1::client::TraceService;
     /// let client = TraceService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::trace_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::trace_service::client::Factory)
+        crate::new_client_builder(super::builder::trace_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,14 +94,14 @@ impl TraceService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +110,13 @@ impl TraceService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TraceService> {
         super::transport::TraceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TraceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TraceService::new)

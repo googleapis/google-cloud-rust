@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -261,7 +261,7 @@ impl wkt::message::Message for ListPrivateCloudsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPrivateCloudsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPrivateCloudsResponse {
     type PageItem = crate::model::PrivateCloud;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -953,7 +953,7 @@ impl wkt::message::Message for ListClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1471,7 +1471,7 @@ impl wkt::message::Message for ListNodesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNodesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1747,7 +1747,7 @@ impl wkt::message::Message for ListExternalAddressesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListExternalAddressesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListExternalAddressesResponse {
     type PageItem = crate::model::ExternalAddress;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1905,7 +1905,9 @@ impl wkt::message::Message for FetchNetworkPolicyExternalAddressesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchNetworkPolicyExternalAddressesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for FetchNetworkPolicyExternalAddressesResponse
+{
     type PageItem = crate::model::ExternalAddress;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2452,7 +2454,7 @@ impl wkt::message::Message for ListSubnetsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSubnetsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSubnetsResponse {
     type PageItem = crate::model::Subnet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2828,7 +2830,7 @@ impl wkt::message::Message for ListExternalAccessRulesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListExternalAccessRulesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListExternalAccessRulesResponse {
     type PageItem = crate::model::ExternalAccessRule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3436,7 +3438,7 @@ impl wkt::message::Message for ListLoggingServersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLoggingServersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLoggingServersResponse {
     type PageItem = crate::model::LoggingServer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4196,7 +4198,7 @@ impl wkt::message::Message for ListNodeTypesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNodeTypesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNodeTypesResponse {
     type PageItem = crate::model::NodeType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4606,7 +4608,7 @@ impl wkt::message::Message for ListHcxActivationKeysResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListHcxActivationKeysResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListHcxActivationKeysResponse {
     type PageItem = crate::model::HcxActivationKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5628,7 +5630,7 @@ impl wkt::message::Message for ListNetworkPeeringsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNetworkPeeringsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNetworkPeeringsResponse {
     type PageItem = crate::model::NetworkPeering;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5800,7 +5802,7 @@ impl wkt::message::Message for ListPeeringRoutesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPeeringRoutesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPeeringRoutesResponse {
     type PageItem = crate::model::PeeringRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6036,7 +6038,7 @@ impl wkt::message::Message for ListNetworkPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNetworkPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNetworkPoliciesResponse {
     type PageItem = crate::model::NetworkPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6645,7 +6647,9 @@ impl wkt::message::Message for ListManagementDnsZoneBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListManagementDnsZoneBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListManagementDnsZoneBindingsResponse
+{
     type PageItem = crate::model::ManagementDnsZoneBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7706,7 +7710,7 @@ impl wkt::message::Message for ListVmwareEngineNetworksResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVmwareEngineNetworksResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVmwareEngineNetworksResponse {
     type PageItem = crate::model::VmwareEngineNetwork;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8114,7 +8118,7 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8462,7 +8466,9 @@ impl wkt::message::Message for ListPrivateConnectionPeeringRoutesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPrivateConnectionPeeringRoutesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListPrivateConnectionPeeringRoutesResponse
+{
     type PageItem = crate::model::PeeringRoute;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

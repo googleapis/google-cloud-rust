@@ -41,8 +41,8 @@ where
     async fn compute_threat_list_diff(
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeThreatListDiffResponse>> {
         self.inner.compute_threat_list_diff(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn search_uris(
         &self,
         req: crate::model::SearchUrisRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchUrisResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchUrisResponse>> {
         self.inner.search_uris(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn search_hashes(
         &self,
         req: crate::model::SearchHashesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchHashesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchHashesResponse>> {
         self.inner.search_hashes(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn create_submission(
         &self,
         req: crate::model::CreateSubmissionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Submission>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Submission>> {
         self.inner.create_submission(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn submit_uri(
         &self,
         req: crate::model::SubmitUriRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.submit_uri(req, options).await
     }
 
@@ -86,9 +86,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -96,8 +95,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -105,8 +104,8 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -114,22 +113,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

@@ -20,32 +20,32 @@ pub trait CloudLocationFinder: std::fmt::Debug + Send + Sync {
     async fn list_cloud_locations(
         &self,
         req: crate::model::ListCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudLocationsResponse>>;
 
     async fn get_cloud_location(
         &self,
         req: crate::model::GetCloudLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudLocation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudLocation>>;
 
     async fn search_cloud_locations(
         &self,
         req: crate::model::SearchCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchCloudLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchCloudLocationsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 }
 
 /// All implementations of [super::CloudLocationFinder] also implement [CloudLocationFinder].
@@ -55,8 +55,8 @@ impl<T: super::CloudLocationFinder> CloudLocationFinder for T {
     async fn list_cloud_locations(
         &self,
         req: crate::model::ListCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudLocationsResponse>> {
         T::list_cloud_locations(self, req, options).await
     }
 
@@ -64,8 +64,8 @@ impl<T: super::CloudLocationFinder> CloudLocationFinder for T {
     async fn get_cloud_location(
         &self,
         req: crate::model::GetCloudLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudLocation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudLocation>> {
         T::get_cloud_location(self, req, options).await
     }
 
@@ -73,8 +73,8 @@ impl<T: super::CloudLocationFinder> CloudLocationFinder for T {
     async fn search_cloud_locations(
         &self,
         req: crate::model::SearchCloudLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchCloudLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchCloudLocationsResponse>> {
         T::search_cloud_locations(self, req, options).await
     }
 
@@ -82,9 +82,8 @@ impl<T: super::CloudLocationFinder> CloudLocationFinder for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -92,8 +91,8 @@ impl<T: super::CloudLocationFinder> CloudLocationFinder for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

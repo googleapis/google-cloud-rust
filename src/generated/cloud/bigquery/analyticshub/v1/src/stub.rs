@@ -42,9 +42,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_data_exchanges(
         &self,
         _req: crate::model::ListDataExchangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDataExchangesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDataExchangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_org_data_exchanges(
         &self,
         _req: crate::model::ListOrgDataExchangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListOrgDataExchangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_data_exchange(
         &self,
         _req: crate::model::GetDataExchangeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
+        Output = crate::Result<crate::Response<crate::model::DataExchange>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn create_data_exchange(
         &self,
         _req: crate::model::CreateDataExchangeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
+        Output = crate::Result<crate::Response<crate::model::DataExchange>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +86,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn update_data_exchange(
         &self,
         _req: crate::model::UpdateDataExchangeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
+        Output = crate::Result<crate::Response<crate::model::DataExchange>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,8 +97,8 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn delete_data_exchange(
         &self,
         _req: crate::model::DeleteDataExchangeRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,9 +106,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_listings(
         &self,
         _req: crate::model::ListListingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListListingsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListListingsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,10 +117,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_listing(
         &self,
         _req: crate::model::GetListingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Listing>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Listing>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -128,10 +127,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn create_listing(
         &self,
         _req: crate::model::CreateListingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Listing>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Listing>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -139,10 +137,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn update_listing(
         &self,
         _req: crate::model::UpdateListingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Listing>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Listing>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -150,8 +147,8 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn delete_listing(
         &self,
         _req: crate::model::DeleteListingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -159,9 +156,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn subscribe_listing(
         &self,
         _req: crate::model::SubscribeListingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SubscribeListingResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SubscribeListingResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -170,9 +167,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn subscribe_data_exchange(
         &self,
         _req: crate::model::SubscribeDataExchangeRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -181,9 +178,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn refresh_subscription(
         &self,
         _req: crate::model::RefreshSubscriptionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -192,9 +189,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_subscription(
         &self,
         _req: crate::model::GetSubscriptionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Subscription>>,
+        Output = crate::Result<crate::Response<crate::model::Subscription>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -203,9 +200,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_subscriptions(
         &self,
         _req: crate::model::ListSubscriptionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSubscriptionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -214,10 +211,10 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_shared_resource_subscriptions(
         &self,
         _req: crate::model::ListSharedResourceSubscriptionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>,
+            crate::Response<crate::model::ListSharedResourceSubscriptionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -227,9 +224,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn revoke_subscription(
         &self,
         _req: crate::model::RevokeSubscriptionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RevokeSubscriptionResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -238,9 +235,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn delete_subscription(
         &self,
         _req: crate::model::DeleteSubscriptionRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -249,9 +246,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -260,9 +257,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -271,10 +268,10 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -284,9 +281,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn create_query_template(
         &self,
         _req: crate::model::CreateQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+        Output = crate::Result<crate::Response<crate::model::QueryTemplate>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -295,9 +292,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_query_template(
         &self,
         _req: crate::model::GetQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+        Output = crate::Result<crate::Response<crate::model::QueryTemplate>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -306,9 +303,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn list_query_templates(
         &self,
         _req: crate::model::ListQueryTemplatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListQueryTemplatesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -317,9 +314,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn update_query_template(
         &self,
         _req: crate::model::UpdateQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+        Output = crate::Result<crate::Response<crate::model::QueryTemplate>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -328,8 +325,8 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn delete_query_template(
         &self,
         _req: crate::model::DeleteQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -337,9 +334,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn submit_query_template(
         &self,
         _req: crate::model::SubmitQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+        Output = crate::Result<crate::Response<crate::model::QueryTemplate>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -348,9 +345,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn approve_query_template(
         &self,
         _req: crate::model::ApproveQueryTemplateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryTemplate>>,
+        Output = crate::Result<crate::Response<crate::model::QueryTemplate>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -359,9 +356,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -372,9 +369,9 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -383,8 +380,8 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

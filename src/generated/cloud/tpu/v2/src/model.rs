@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -4086,7 +4086,7 @@ impl wkt::message::Message for ListNodesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNodesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNodesResponse {
     type PageItem = crate::model::Node;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4576,7 +4576,7 @@ impl wkt::message::Message for ListQueuedResourcesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListQueuedResourcesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListQueuedResourcesResponse {
     type PageItem = crate::model::QueuedResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5259,7 +5259,7 @@ impl wkt::message::Message for ListAcceleratorTypesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAcceleratorTypesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAcceleratorTypesResponse {
     type PageItem = crate::model::AcceleratorType;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5537,7 +5537,7 @@ impl wkt::message::Message for ListRuntimeVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRuntimeVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRuntimeVersionsResponse {
     type PageItem = crate::model::RuntimeVersion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

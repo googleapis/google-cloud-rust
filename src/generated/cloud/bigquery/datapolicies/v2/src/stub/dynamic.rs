@@ -20,64 +20,62 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>>;
 
     async fn add_grantees(
         &self,
         req: crate::model::AddGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>>;
 
     async fn remove_grantees(
         &self,
         req: crate::model::RemoveGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>>;
 
     async fn update_data_policy(
         &self,
         req: crate::model::UpdateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>>;
 
     async fn delete_data_policy(
         &self,
         req: crate::model::DeleteDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_data_policy(
         &self,
         req: crate::model::GetDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>>;
 
     async fn list_data_policies(
         &self,
         req: crate::model::ListDataPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataPoliciesResponse>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::DataPolicyService] also implement [DataPolicyService].
@@ -87,8 +85,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>> {
         T::create_data_policy(self, req, options).await
     }
 
@@ -96,8 +94,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn add_grantees(
         &self,
         req: crate::model::AddGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>> {
         T::add_grantees(self, req, options).await
     }
 
@@ -105,8 +103,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn remove_grantees(
         &self,
         req: crate::model::RemoveGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>> {
         T::remove_grantees(self, req, options).await
     }
 
@@ -114,8 +112,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn update_data_policy(
         &self,
         req: crate::model::UpdateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>> {
         T::update_data_policy(self, req, options).await
     }
 
@@ -123,8 +121,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn delete_data_policy(
         &self,
         req: crate::model::DeleteDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_data_policy(self, req, options).await
     }
 
@@ -132,8 +130,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn get_data_policy(
         &self,
         req: crate::model::GetDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataPolicy>> {
         T::get_data_policy(self, req, options).await
     }
 
@@ -141,8 +139,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn list_data_policies(
         &self,
         req: crate::model::ListDataPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataPoliciesResponse>> {
         T::list_data_policies(self, req, options).await
     }
 
@@ -150,8 +148,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -159,8 +157,8 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -168,10 +166,9 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 }

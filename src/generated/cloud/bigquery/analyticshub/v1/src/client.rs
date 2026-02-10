@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
 /// let client = AnalyticsHubService::builder().build().await?;
 /// // use `client` to make requests to the Analytics Hub API.
@@ -71,15 +71,13 @@ impl AnalyticsHubService {
     /// Returns a builder for [AnalyticsHubService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// let client = AnalyticsHubService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::analytics_hub_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::analytics_hub_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::analytics_hub_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -97,14 +95,14 @@ impl AnalyticsHubService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsHubService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AnalyticsHubService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -114,13 +112,13 @@ impl AnalyticsHubService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AnalyticsHubService> {
         super::transport::AnalyticsHubService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsHubService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AnalyticsHubService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AnalyticsHubService::new)

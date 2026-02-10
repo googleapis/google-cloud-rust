@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1247,7 +1247,7 @@ impl wkt::message::Message for ListConnectionProfilesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConnectionProfilesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConnectionProfilesResponse {
     type PageItem = crate::model::ConnectionProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1835,7 +1835,7 @@ impl wkt::message::Message for ListStreamsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListStreamsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListStreamsResponse {
     type PageItem = crate::model::Stream;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2742,7 +2742,7 @@ impl wkt::message::Message for ListStreamObjectsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListStreamObjectsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListStreamObjectsResponse {
     type PageItem = crate::model::StreamObject;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3296,7 +3296,7 @@ impl wkt::message::Message for ListPrivateConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPrivateConnectionsResponse {
     type PageItem = crate::model::PrivateConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3715,7 +3715,7 @@ impl wkt::message::Message for ListRoutesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRoutesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRoutesResponse {
     type PageItem = crate::model::Route;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

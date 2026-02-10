@@ -20,206 +20,204 @@ pub trait EdgeNetwork: std::fmt::Debug + Send + Sync {
     async fn initialize_zone(
         &self,
         req: crate::model::InitializeZoneRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InitializeZoneResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InitializeZoneResponse>>;
 
     async fn list_zones(
         &self,
         req: crate::model::ListZonesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListZonesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListZonesResponse>>;
 
     async fn get_zone(
         &self,
         req: crate::model::GetZoneRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Zone>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Zone>>;
 
     async fn list_networks(
         &self,
         req: crate::model::ListNetworksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNetworksResponse>>;
 
     async fn get_network(
         &self,
         req: crate::model::GetNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Network>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Network>>;
 
     async fn diagnose_network(
         &self,
         req: crate::model::DiagnoseNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseNetworkResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseNetworkResponse>>;
 
     async fn create_network(
         &self,
         req: crate::model::CreateNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_network(
         &self,
         req: crate::model::DeleteNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_subnets(
         &self,
         req: crate::model::ListSubnetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubnetsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubnetsResponse>>;
 
     async fn get_subnet(
         &self,
         req: crate::model::GetSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subnet>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subnet>>;
 
     async fn create_subnet(
         &self,
         req: crate::model::CreateSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_subnet(
         &self,
         req: crate::model::UpdateSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_subnet(
         &self,
         req: crate::model::DeleteSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_interconnects(
         &self,
         req: crate::model::ListInterconnectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInterconnectsResponse>>;
 
     async fn get_interconnect(
         &self,
         req: crate::model::GetInterconnectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Interconnect>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Interconnect>>;
 
     async fn diagnose_interconnect(
         &self,
         req: crate::model::DiagnoseInterconnectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseInterconnectResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseInterconnectResponse>>;
 
     async fn list_interconnect_attachments(
         &self,
         req: crate::model::ListInterconnectAttachmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInterconnectAttachmentsResponse>>;
 
     async fn get_interconnect_attachment(
         &self,
         req: crate::model::GetInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InterconnectAttachment>>;
 
     async fn create_interconnect_attachment(
         &self,
         req: crate::model::CreateInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_interconnect_attachment(
         &self,
         req: crate::model::DeleteInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_routers(
         &self,
         req: crate::model::ListRoutersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRoutersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRoutersResponse>>;
 
     async fn get_router(
         &self,
         req: crate::model::GetRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Router>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Router>>;
 
     async fn diagnose_router(
         &self,
         req: crate::model::DiagnoseRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseRouterResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseRouterResponse>>;
 
     async fn create_router(
         &self,
         req: crate::model::CreateRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_router(
         &self,
         req: crate::model::UpdateRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_router(
         &self,
         req: crate::model::DeleteRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::EdgeNetwork] also implement [EdgeNetwork].
@@ -229,8 +227,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn initialize_zone(
         &self,
         req: crate::model::InitializeZoneRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InitializeZoneResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InitializeZoneResponse>> {
         T::initialize_zone(self, req, options).await
     }
 
@@ -238,8 +236,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_zones(
         &self,
         req: crate::model::ListZonesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListZonesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListZonesResponse>> {
         T::list_zones(self, req, options).await
     }
 
@@ -247,8 +245,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_zone(
         &self,
         req: crate::model::GetZoneRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Zone>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Zone>> {
         T::get_zone(self, req, options).await
     }
 
@@ -256,8 +254,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_networks(
         &self,
         req: crate::model::ListNetworksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNetworksResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNetworksResponse>> {
         T::list_networks(self, req, options).await
     }
 
@@ -265,8 +263,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_network(
         &self,
         req: crate::model::GetNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Network>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Network>> {
         T::get_network(self, req, options).await
     }
 
@@ -274,8 +272,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn diagnose_network(
         &self,
         req: crate::model::DiagnoseNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseNetworkResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseNetworkResponse>> {
         T::diagnose_network(self, req, options).await
     }
 
@@ -283,8 +281,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn create_network(
         &self,
         req: crate::model::CreateNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_network(self, req, options).await
     }
 
@@ -292,8 +290,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn delete_network(
         &self,
         req: crate::model::DeleteNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_network(self, req, options).await
     }
 
@@ -301,8 +299,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_subnets(
         &self,
         req: crate::model::ListSubnetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubnetsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubnetsResponse>> {
         T::list_subnets(self, req, options).await
     }
 
@@ -310,8 +308,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_subnet(
         &self,
         req: crate::model::GetSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subnet>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subnet>> {
         T::get_subnet(self, req, options).await
     }
 
@@ -319,8 +317,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn create_subnet(
         &self,
         req: crate::model::CreateSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_subnet(self, req, options).await
     }
 
@@ -328,8 +326,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn update_subnet(
         &self,
         req: crate::model::UpdateSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_subnet(self, req, options).await
     }
 
@@ -337,8 +335,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn delete_subnet(
         &self,
         req: crate::model::DeleteSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_subnet(self, req, options).await
     }
 
@@ -346,8 +344,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_interconnects(
         &self,
         req: crate::model::ListInterconnectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInterconnectsResponse>> {
         T::list_interconnects(self, req, options).await
     }
 
@@ -355,8 +353,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_interconnect(
         &self,
         req: crate::model::GetInterconnectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Interconnect>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Interconnect>> {
         T::get_interconnect(self, req, options).await
     }
 
@@ -364,8 +362,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn diagnose_interconnect(
         &self,
         req: crate::model::DiagnoseInterconnectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseInterconnectResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseInterconnectResponse>> {
         T::diagnose_interconnect(self, req, options).await
     }
 
@@ -373,9 +371,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_interconnect_attachments(
         &self,
         req: crate::model::ListInterconnectAttachmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInterconnectAttachmentsResponse>> {
         T::list_interconnect_attachments(self, req, options).await
     }
 
@@ -383,8 +380,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_interconnect_attachment(
         &self,
         req: crate::model::GetInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InterconnectAttachment>> {
         T::get_interconnect_attachment(self, req, options).await
     }
 
@@ -392,8 +389,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn create_interconnect_attachment(
         &self,
         req: crate::model::CreateInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_interconnect_attachment(self, req, options).await
     }
 
@@ -401,8 +398,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn delete_interconnect_attachment(
         &self,
         req: crate::model::DeleteInterconnectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_interconnect_attachment(self, req, options).await
     }
 
@@ -410,8 +407,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_routers(
         &self,
         req: crate::model::ListRoutersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRoutersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRoutersResponse>> {
         T::list_routers(self, req, options).await
     }
 
@@ -419,8 +416,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_router(
         &self,
         req: crate::model::GetRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Router>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Router>> {
         T::get_router(self, req, options).await
     }
 
@@ -428,8 +425,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn diagnose_router(
         &self,
         req: crate::model::DiagnoseRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiagnoseRouterResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiagnoseRouterResponse>> {
         T::diagnose_router(self, req, options).await
     }
 
@@ -437,8 +434,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn create_router(
         &self,
         req: crate::model::CreateRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_router(self, req, options).await
     }
 
@@ -446,8 +443,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn update_router(
         &self,
         req: crate::model::UpdateRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_router(self, req, options).await
     }
 
@@ -455,8 +452,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn delete_router(
         &self,
         req: crate::model::DeleteRouterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_router(self, req, options).await
     }
 
@@ -464,9 +461,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -474,8 +470,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -483,10 +479,9 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -494,8 +489,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -503,8 +498,8 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -512,22 +507,22 @@ impl<T: super::EdgeNetwork> EdgeNetwork for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

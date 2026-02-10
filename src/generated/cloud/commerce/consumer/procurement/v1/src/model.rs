@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -893,7 +893,7 @@ impl wkt::message::Message for EnumerateLicensedUsersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for EnumerateLicensedUsersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for EnumerateLicensedUsersResponse {
     type PageItem = crate::model::LicensedUser;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2308,7 +2308,7 @@ impl wkt::message::Message for ListOrdersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrdersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOrdersResponse {
     type PageItem = crate::model::Order;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -42,9 +42,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     fn list_executions(
         &self,
         _req: crate::model::ListExecutionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListExecutionsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListExecutionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     fn create_execution(
         &self,
         _req: crate::model::CreateExecutionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Execution>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     fn get_execution(
         &self,
         _req: crate::model::GetExecutionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Execution>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     fn cancel_execution(
         &self,
         _req: crate::model::CancelExecutionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Execution>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

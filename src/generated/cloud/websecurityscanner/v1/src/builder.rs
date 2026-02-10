@@ -20,7 +20,7 @@ pub mod web_security_scanner {
     /// A builder for [WebSecurityScanner][crate::client::WebSecurityScanner].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_websecurityscanner_v1::*;
     /// # use builder::web_security_scanner::ClientBuilder;
     /// # use client::WebSecurityScanner;
@@ -30,19 +30,18 @@ pub mod web_security_scanner {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::WebSecurityScanner;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = WebSecurityScanner;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod web_security_scanner {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::WebSecurityScanner>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod web_security_scanner {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::CreateScanConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .create_scan_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateScanConfigRequest::parent].
@@ -146,8 +145,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateScanConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateScanConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -157,7 +156,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::DeleteScanConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -188,7 +187,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -198,7 +197,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .delete_scan_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteScanConfigRequest::name].
@@ -209,8 +208,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteScanConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteScanConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -220,7 +219,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -248,7 +247,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -258,7 +257,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_scan_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanConfigRequest::name].
@@ -269,8 +268,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetScanConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetScanConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -280,8 +279,8 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanConfigs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -312,7 +311,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -322,14 +321,16 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_scan_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListScanConfigsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListScanConfigsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -337,15 +338,17 @@ pub mod web_security_scanner {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListScanConfigsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListScanConfigsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -369,8 +372,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListScanConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListScanConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -380,7 +383,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::UpdateScanConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -411,7 +414,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -421,7 +424,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .update_scan_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
@@ -462,8 +465,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateScanConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateScanConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -473,7 +476,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StartScanRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -501,7 +504,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -511,7 +514,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .start_scan_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartScanRunRequest::name].
@@ -522,8 +525,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartScanRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartScanRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -533,7 +536,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -561,7 +564,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -571,7 +574,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_scan_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanRunRequest::name].
@@ -582,8 +585,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetScanRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetScanRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -593,8 +596,8 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanRuns;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -625,7 +628,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -635,13 +638,13 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_scan_runs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListScanRunsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListScanRunsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -650,15 +653,17 @@ pub mod web_security_scanner {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListScanRunsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListScanRunsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -682,8 +687,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListScanRuns {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListScanRuns {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -693,7 +698,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StopScanRun;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -721,7 +726,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -731,7 +736,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .stop_scan_run(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StopScanRunRequest::name].
@@ -742,8 +747,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopScanRun {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopScanRun {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -753,8 +758,8 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListCrawledUrls;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -785,7 +790,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -795,14 +800,16 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_crawled_urls(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListCrawledUrlsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -810,15 +817,17 @@ pub mod web_security_scanner {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCrawledUrlsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListCrawledUrlsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -842,8 +851,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListCrawledUrls {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListCrawledUrls {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -853,7 +862,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetFinding;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -881,7 +890,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -891,7 +900,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_finding(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFindingRequest::name].
@@ -902,8 +911,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFinding {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -913,8 +922,8 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindings;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -945,7 +954,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -955,13 +964,13 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_findings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListFindingsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -970,15 +979,17 @@ pub mod web_security_scanner {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1008,8 +1019,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFindings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1019,7 +1030,7 @@ pub mod web_security_scanner {
     /// # Example
     /// ```
     /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindingTypeStats;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_websecurityscanner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1050,7 +1061,7 @@ pub mod web_security_scanner {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1060,7 +1071,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_finding_type_stats(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFindingTypeStatsRequest::parent].
@@ -1071,8 +1082,8 @@ pub mod web_security_scanner {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFindingTypeStats {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFindingTypeStats {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

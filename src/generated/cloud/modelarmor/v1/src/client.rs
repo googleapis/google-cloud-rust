@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_modelarmor_v1::client::ModelArmor;
 /// let client = ModelArmor::builder().build().await?;
 /// // use `client` to make requests to the Model Armor API.
@@ -66,13 +66,13 @@ impl ModelArmor {
     /// Returns a builder for [ModelArmor].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// let client = ModelArmor::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::model_armor::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::model_armor::client::Factory)
+        crate::new_client_builder(super::builder::model_armor::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl ModelArmor {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl ModelArmor {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelArmor> {
         super::transport::ModelArmor::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ModelArmor> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelArmor::new)

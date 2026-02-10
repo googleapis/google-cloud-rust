@@ -24,8 +24,8 @@
 //!
 
 use crate::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
-use gax::polling_state::PollingState;
-use gax::retry_result::RetryResult;
+use google_cloud_gax::polling_state::PollingState;
+use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
 /// Defines the trait for an "Operation" type in the discovery poller.
@@ -212,10 +212,9 @@ where
 mod tests {
     use super::*;
     use crate::Error;
-    use gax::error::rpc::Code;
-    use gax::error::rpc::Status;
-    use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-    use gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+    use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use std::time::Duration;
 
     #[tokio::test]

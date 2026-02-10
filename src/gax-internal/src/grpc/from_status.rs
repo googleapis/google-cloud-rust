@@ -14,8 +14,8 @@
 
 use crate::as_inner::as_inner;
 use crate::grpc::status::status_from_proto;
-use gax::error::Error;
-use gax::error::rpc::Status;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::error::rpc::Status;
 use prost::Message;
 use std::error::Error as _;
 
@@ -72,7 +72,7 @@ impl std::fmt::Display for GrpcError {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use gax::error::rpc::{Code, StatusDetails};
+    use google_cloud_gax::error::rpc::{Code, StatusDetails};
     use test_case::test_case;
 
     #[test_case(tonic::Code::Ok, Code::Ok)]

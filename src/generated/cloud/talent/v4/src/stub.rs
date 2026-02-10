@@ -42,10 +42,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn create_company(
         &self,
         _req: crate::model::CreateCompanyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Company>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Company>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn get_company(
         &self,
         _req: crate::model::GetCompanyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Company>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Company>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +62,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn update_company(
         &self,
         _req: crate::model::UpdateCompanyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Company>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Company>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,8 +72,8 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn delete_company(
         &self,
         _req: crate::model::DeleteCompanyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -84,9 +81,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn list_companies(
         &self,
         _req: crate::model::ListCompaniesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCompaniesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCompaniesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -95,9 +92,9 @@ pub trait CompanyService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +116,9 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
     fn complete_query(
         &self,
         _req: crate::model::CompleteQueryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CompleteQueryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::CompleteQueryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +127,9 @@ pub trait Completion: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -154,10 +151,9 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
     fn create_client_event(
         &self,
         _req: crate::model::CreateClientEventRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ClientEvent>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ClientEvent>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -165,9 +161,9 @@ pub trait EventService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -189,9 +185,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -199,9 +195,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn batch_create_jobs(
         &self,
         _req: crate::model::BatchCreateJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -210,9 +206,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -220,9 +216,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -230,9 +226,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn batch_update_jobs(
         &self,
         _req: crate::model::BatchUpdateJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -241,8 +237,8 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -250,9 +246,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn batch_delete_jobs(
         &self,
         _req: crate::model::BatchDeleteJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -261,9 +257,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListJobsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -272,9 +268,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn search_jobs(
         &self,
         _req: crate::model::SearchJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchJobsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SearchJobsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -283,9 +279,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn search_jobs_for_alert(
         &self,
         _req: crate::model::SearchJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SearchJobsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SearchJobsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -294,9 +290,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -307,9 +303,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -318,9 +314,9 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -340,10 +336,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn create_tenant(
         &self,
         _req: crate::model::CreateTenantRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Tenant>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Tenant>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -351,10 +346,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn get_tenant(
         &self,
         _req: crate::model::GetTenantRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Tenant>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Tenant>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -362,10 +356,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn update_tenant(
         &self,
         _req: crate::model::UpdateTenantRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Tenant>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Tenant>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -373,8 +366,8 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn delete_tenant(
         &self,
         _req: crate::model::DeleteTenantRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -382,9 +375,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn list_tenants(
         &self,
         _req: crate::model::ListTenantsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTenantsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTenantsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -393,9 +386,9 @@ pub trait TenantService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

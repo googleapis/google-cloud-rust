@@ -79,9 +79,9 @@
 use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::{Storage, tests::test_builder};
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
-use gax::retry_policy::RetryPolicyExt;
 use gaxi::http::reqwest::Response;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 

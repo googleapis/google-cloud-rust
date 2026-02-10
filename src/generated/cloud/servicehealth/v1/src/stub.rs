@@ -42,9 +42,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn list_events(
         &self,
         _req: crate::model::ListEventsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEventsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListEventsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn get_event(
         &self,
         _req: crate::model::GetEventRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Event>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Event>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,11 +63,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn list_organization_events(
         &self,
         _req: crate::model::ListOrganizationEventsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOrganizationEventsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListOrganizationEventsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,9 +74,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn get_organization_event(
         &self,
         _req: crate::model::GetOrganizationEventRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OrganizationEvent>>,
+        Output = crate::Result<crate::Response<crate::model::OrganizationEvent>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -88,11 +85,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn list_organization_impacts(
         &self,
         _req: crate::model::ListOrganizationImpactsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOrganizationImpactsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListOrganizationImpactsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -101,9 +96,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn get_organization_impact(
         &self,
         _req: crate::model::GetOrganizationImpactRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OrganizationImpact>>,
+        Output = crate::Result<crate::Response<crate::model::OrganizationImpact>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -112,10 +107,10 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -125,9 +120,9 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
 /// let client = RapidMigrationAssessment::builder().build().await?;
 /// // use `client` to make requests to the Rapid Migration Assessment API.
@@ -66,15 +66,13 @@ impl RapidMigrationAssessment {
     /// Returns a builder for [RapidMigrationAssessment].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// let client = RapidMigrationAssessment::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::rapid_migration_assessment::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::rapid_migration_assessment::client::Factory,
-        )
+        crate::new_client_builder(super::builder::rapid_migration_assessment::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl RapidMigrationAssessment {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
+    ) -> crate::ClientBuilderResult<
         std::sync::Arc<dyn super::stub::dynamic::RapidMigrationAssessment>,
     > {
         if gaxi::options::tracing_enabled(&conf) {
@@ -110,13 +108,13 @@ impl RapidMigrationAssessment {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RapidMigrationAssessment> {
         super::transport::RapidMigrationAssessment::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RapidMigrationAssessment> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RapidMigrationAssessment::new)

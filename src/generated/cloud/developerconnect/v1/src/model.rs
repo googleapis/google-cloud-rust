@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -212,7 +212,7 @@ impl wkt::message::Message for ListUsersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUsersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUsersResponse {
     type PageItem = crate::model::User;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2648,7 +2648,7 @@ impl wkt::message::Message for ListConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConnectionsResponse {
     type PageItem = crate::model::Connection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3248,7 +3248,7 @@ impl wkt::message::Message for ListAccountConnectorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAccountConnectorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAccountConnectorsResponse {
     type PageItem = crate::model::AccountConnector;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4925,7 +4925,7 @@ impl wkt::message::Message for ListGitRepositoryLinksResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListGitRepositoryLinksResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListGitRepositoryLinksResponse {
     type PageItem = crate::model::GitRepositoryLink;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5347,7 +5347,9 @@ impl wkt::message::Message for FetchLinkableGitRepositoriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchLinkableGitRepositoriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for FetchLinkableGitRepositoriesResponse
+{
     type PageItem = crate::model::LinkableGitRepository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7900,7 +7902,7 @@ impl wkt::message::Message for ListInsightsConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListInsightsConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInsightsConfigsResponse {
     type PageItem = crate::model::InsightsConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

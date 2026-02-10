@@ -20,402 +20,396 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     async fn list_cloud_exadata_infrastructures(
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudExadataInfrastructuresResponse>>;
 
     async fn get_cloud_exadata_infrastructure(
         &self,
         req: crate::model::GetCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudExadataInfrastructure>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudExadataInfrastructure>>;
 
     async fn create_cloud_exadata_infrastructure(
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_cloud_vm_clusters(
         &self,
         req: crate::model::ListCloudVmClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudVmClustersResponse>>;
 
     async fn get_cloud_vm_cluster(
         &self,
         req: crate::model::GetCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudVmCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudVmCluster>>;
 
     async fn create_cloud_vm_cluster(
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEntitlementsResponse>>;
 
     async fn list_db_servers(
         &self,
         req: crate::model::ListDbServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbServersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbServersResponse>>;
 
     async fn list_db_nodes(
         &self,
         req: crate::model::ListDbNodesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbNodesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbNodesResponse>>;
 
     async fn list_gi_versions(
         &self,
         req: crate::model::ListGiVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListGiVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGiVersionsResponse>>;
 
     async fn list_minor_versions(
         &self,
         req: crate::model::ListMinorVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMinorVersionsResponse>>;
 
     async fn list_db_system_shapes(
         &self,
         req: crate::model::ListDbSystemShapesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemShapesResponse>>;
 
     async fn list_autonomous_databases(
         &self,
         req: crate::model::ListAutonomousDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabasesResponse>>;
 
     async fn get_autonomous_database(
         &self,
         req: crate::model::GetAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutonomousDatabase>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutonomousDatabase>>;
 
     async fn create_autonomous_database(
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_autonomous_database(
         &self,
         req: crate::model::UpdateAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_autonomous_database(
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restore_autonomous_database(
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn generate_autonomous_database_wallet(
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>;
 
     async fn list_autonomous_db_versions(
         &self,
         req: crate::model::ListAutonomousDbVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDbVersionsResponse>>;
 
     async fn list_autonomous_database_character_sets(
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>;
 
     async fn list_autonomous_database_backups(
         &self,
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>;
 
     async fn stop_autonomous_database(
         &self,
         req: crate::model::StopAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn start_autonomous_database(
         &self,
         req: crate::model::StartAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn restart_autonomous_database(
         &self,
         req: crate::model::RestartAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn switchover_autonomous_database(
         &self,
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn failover_autonomous_database(
         &self,
         req: crate::model::FailoverAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_odb_networks(
         &self,
         req: crate::model::ListOdbNetworksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbNetworksResponse>>;
 
     async fn get_odb_network(
         &self,
         req: crate::model::GetOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OdbNetwork>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbNetwork>>;
 
     async fn create_odb_network(
         &self,
         req: crate::model::CreateOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_odb_subnets(
         &self,
         req: crate::model::ListOdbSubnetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbSubnetsResponse>>;
 
     async fn get_odb_subnet(
         &self,
         req: crate::model::GetOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OdbSubnet>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbSubnet>>;
 
     async fn create_odb_subnet(
         &self,
         req: crate::model::CreateOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_odb_subnet(
         &self,
         req: crate::model::DeleteOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_exadb_vm_clusters(
         &self,
         req: crate::model::ListExadbVmClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExadbVmClustersResponse>>;
 
     async fn get_exadb_vm_cluster(
         &self,
         req: crate::model::GetExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExadbVmCluster>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExadbVmCluster>>;
 
     async fn create_exadb_vm_cluster(
         &self,
         req: crate::model::CreateExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_exadb_vm_cluster(
         &self,
         req: crate::model::DeleteExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_exadb_vm_cluster(
         &self,
         req: crate::model::UpdateExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn remove_virtual_machine_exadb_vm_cluster(
         &self,
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_exascale_db_storage_vaults(
         &self,
         req: crate::model::ListExascaleDbStorageVaultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExascaleDbStorageVaultsResponse>>;
 
     async fn get_exascale_db_storage_vault(
         &self,
         req: crate::model::GetExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExascaleDbStorageVault>>;
 
     async fn create_exascale_db_storage_vault(
         &self,
         req: crate::model::CreateExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_db_system_initial_storage_sizes(
         &self,
         req: crate::model::ListDbSystemInitialStorageSizesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>;
 
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>>;
 
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>>;
 
     async fn list_pluggable_databases(
         &self,
         req: crate::model::ListPluggableDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluggableDatabasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluggableDatabasesResponse>>;
 
     async fn get_pluggable_database(
         &self,
         req: crate::model::GetPluggableDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluggableDatabase>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluggableDatabase>>;
 
     async fn list_db_systems(
         &self,
         req: crate::model::ListDbSystemsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemsResponse>>;
 
     async fn get_db_system(
         &self,
         req: crate::model::GetDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DbSystem>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DbSystem>>;
 
     async fn create_db_system(
         &self,
         req: crate::model::CreateDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_db_versions(
         &self,
         req: crate::model::ListDbVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbVersionsResponse>>;
 
     async fn list_database_character_sets(
         &self,
         req: crate::model::ListDatabaseCharacterSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseCharacterSetsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::OracleDatabase] also implement [OracleDatabase].
@@ -425,9 +419,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_cloud_exadata_infrastructures(
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudExadataInfrastructuresResponse>> {
         T::list_cloud_exadata_infrastructures(self, req, options).await
     }
 
@@ -435,8 +428,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_cloud_exadata_infrastructure(
         &self,
         req: crate::model::GetCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudExadataInfrastructure>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudExadataInfrastructure>> {
         T::get_cloud_exadata_infrastructure(self, req, options).await
     }
 
@@ -444,8 +437,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_cloud_exadata_infrastructure(
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cloud_exadata_infrastructure(self, req, options).await
     }
 
@@ -453,8 +446,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cloud_exadata_infrastructure(self, req, options).await
     }
 
@@ -462,8 +455,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_cloud_vm_clusters(
         &self,
         req: crate::model::ListCloudVmClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCloudVmClustersResponse>> {
         T::list_cloud_vm_clusters(self, req, options).await
     }
 
@@ -471,8 +464,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_cloud_vm_cluster(
         &self,
         req: crate::model::GetCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CloudVmCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CloudVmCluster>> {
         T::get_cloud_vm_cluster(self, req, options).await
     }
 
@@ -480,8 +473,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_cloud_vm_cluster(
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_cloud_vm_cluster(self, req, options).await
     }
 
@@ -489,8 +482,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_cloud_vm_cluster(self, req, options).await
     }
 
@@ -498,8 +491,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEntitlementsResponse>> {
         T::list_entitlements(self, req, options).await
     }
 
@@ -507,8 +500,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_servers(
         &self,
         req: crate::model::ListDbServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbServersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbServersResponse>> {
         T::list_db_servers(self, req, options).await
     }
 
@@ -516,8 +509,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_nodes(
         &self,
         req: crate::model::ListDbNodesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbNodesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbNodesResponse>> {
         T::list_db_nodes(self, req, options).await
     }
 
@@ -525,8 +518,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_gi_versions(
         &self,
         req: crate::model::ListGiVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListGiVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListGiVersionsResponse>> {
         T::list_gi_versions(self, req, options).await
     }
 
@@ -534,8 +527,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_minor_versions(
         &self,
         req: crate::model::ListMinorVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListMinorVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMinorVersionsResponse>> {
         T::list_minor_versions(self, req, options).await
     }
 
@@ -543,8 +536,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_system_shapes(
         &self,
         req: crate::model::ListDbSystemShapesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemShapesResponse>> {
         T::list_db_system_shapes(self, req, options).await
     }
 
@@ -552,8 +545,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_autonomous_databases(
         &self,
         req: crate::model::ListAutonomousDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabasesResponse>> {
         T::list_autonomous_databases(self, req, options).await
     }
 
@@ -561,8 +554,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_autonomous_database(
         &self,
         req: crate::model::GetAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AutonomousDatabase>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutonomousDatabase>> {
         T::get_autonomous_database(self, req, options).await
     }
 
@@ -570,8 +563,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_autonomous_database(
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_autonomous_database(self, req, options).await
     }
 
@@ -579,8 +572,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn update_autonomous_database(
         &self,
         req: crate::model::UpdateAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_autonomous_database(self, req, options).await
     }
 
@@ -588,8 +581,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_autonomous_database(
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_autonomous_database(self, req, options).await
     }
 
@@ -597,8 +590,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn restore_autonomous_database(
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::restore_autonomous_database(self, req, options).await
     }
 
@@ -606,10 +599,9 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn generate_autonomous_database_wallet(
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>
+    {
         T::generate_autonomous_database_wallet(self, req, options).await
     }
 
@@ -617,9 +609,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_autonomous_db_versions(
         &self,
         req: crate::model::ListAutonomousDbVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDbVersionsResponse>> {
         T::list_autonomous_db_versions(self, req, options).await
     }
 
@@ -627,10 +618,9 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_autonomous_database_character_sets(
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>
+    {
         T::list_autonomous_database_character_sets(self, req, options).await
     }
 
@@ -638,9 +628,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_autonomous_database_backups(
         &self,
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutonomousDatabaseBackupsResponse>> {
         T::list_autonomous_database_backups(self, req, options).await
     }
 
@@ -648,8 +637,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn stop_autonomous_database(
         &self,
         req: crate::model::StopAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::stop_autonomous_database(self, req, options).await
     }
 
@@ -657,8 +646,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn start_autonomous_database(
         &self,
         req: crate::model::StartAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::start_autonomous_database(self, req, options).await
     }
 
@@ -666,8 +655,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn restart_autonomous_database(
         &self,
         req: crate::model::RestartAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::restart_autonomous_database(self, req, options).await
     }
 
@@ -675,8 +664,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn switchover_autonomous_database(
         &self,
         req: crate::model::SwitchoverAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::switchover_autonomous_database(self, req, options).await
     }
 
@@ -684,8 +673,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn failover_autonomous_database(
         &self,
         req: crate::model::FailoverAutonomousDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::failover_autonomous_database(self, req, options).await
     }
 
@@ -693,8 +682,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_odb_networks(
         &self,
         req: crate::model::ListOdbNetworksRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOdbNetworksResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbNetworksResponse>> {
         T::list_odb_networks(self, req, options).await
     }
 
@@ -702,8 +691,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_odb_network(
         &self,
         req: crate::model::GetOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OdbNetwork>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbNetwork>> {
         T::get_odb_network(self, req, options).await
     }
 
@@ -711,8 +700,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_odb_network(
         &self,
         req: crate::model::CreateOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_odb_network(self, req, options).await
     }
 
@@ -720,8 +709,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_odb_network(self, req, options).await
     }
 
@@ -729,8 +718,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_odb_subnets(
         &self,
         req: crate::model::ListOdbSubnetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOdbSubnetsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOdbSubnetsResponse>> {
         T::list_odb_subnets(self, req, options).await
     }
 
@@ -738,8 +727,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_odb_subnet(
         &self,
         req: crate::model::GetOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OdbSubnet>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OdbSubnet>> {
         T::get_odb_subnet(self, req, options).await
     }
 
@@ -747,8 +736,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_odb_subnet(
         &self,
         req: crate::model::CreateOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_odb_subnet(self, req, options).await
     }
 
@@ -756,8 +745,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_odb_subnet(
         &self,
         req: crate::model::DeleteOdbSubnetRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_odb_subnet(self, req, options).await
     }
 
@@ -765,8 +754,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_exadb_vm_clusters(
         &self,
         req: crate::model::ListExadbVmClustersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExadbVmClustersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExadbVmClustersResponse>> {
         T::list_exadb_vm_clusters(self, req, options).await
     }
 
@@ -774,8 +763,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_exadb_vm_cluster(
         &self,
         req: crate::model::GetExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExadbVmCluster>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExadbVmCluster>> {
         T::get_exadb_vm_cluster(self, req, options).await
     }
 
@@ -783,8 +772,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_exadb_vm_cluster(
         &self,
         req: crate::model::CreateExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_exadb_vm_cluster(self, req, options).await
     }
 
@@ -792,8 +781,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_exadb_vm_cluster(
         &self,
         req: crate::model::DeleteExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_exadb_vm_cluster(self, req, options).await
     }
 
@@ -801,8 +790,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn update_exadb_vm_cluster(
         &self,
         req: crate::model::UpdateExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_exadb_vm_cluster(self, req, options).await
     }
 
@@ -810,8 +799,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn remove_virtual_machine_exadb_vm_cluster(
         &self,
         req: crate::model::RemoveVirtualMachineExadbVmClusterRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::remove_virtual_machine_exadb_vm_cluster(self, req, options).await
     }
 
@@ -819,9 +808,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_exascale_db_storage_vaults(
         &self,
         req: crate::model::ListExascaleDbStorageVaultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExascaleDbStorageVaultsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExascaleDbStorageVaultsResponse>> {
         T::list_exascale_db_storage_vaults(self, req, options).await
     }
 
@@ -829,8 +817,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_exascale_db_storage_vault(
         &self,
         req: crate::model::GetExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExascaleDbStorageVault>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExascaleDbStorageVault>> {
         T::get_exascale_db_storage_vault(self, req, options).await
     }
 
@@ -838,8 +826,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_exascale_db_storage_vault(
         &self,
         req: crate::model::CreateExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_exascale_db_storage_vault(self, req, options).await
     }
 
@@ -847,8 +835,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_exascale_db_storage_vault(self, req, options).await
     }
 
@@ -856,9 +844,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_system_initial_storage_sizes(
         &self,
         req: crate::model::ListDbSystemInitialStorageSizesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemInitialStorageSizesResponse>> {
         T::list_db_system_initial_storage_sizes(self, req, options).await
     }
 
@@ -866,8 +853,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabasesResponse>> {
         T::list_databases(self, req, options).await
     }
 
@@ -875,8 +862,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Database>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Database>> {
         T::get_database(self, req, options).await
     }
 
@@ -884,8 +871,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_pluggable_databases(
         &self,
         req: crate::model::ListPluggableDatabasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluggableDatabasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluggableDatabasesResponse>> {
         T::list_pluggable_databases(self, req, options).await
     }
 
@@ -893,8 +880,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_pluggable_database(
         &self,
         req: crate::model::GetPluggableDatabaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluggableDatabase>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluggableDatabase>> {
         T::get_pluggable_database(self, req, options).await
     }
 
@@ -902,8 +889,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_systems(
         &self,
         req: crate::model::ListDbSystemsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbSystemsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemsResponse>> {
         T::list_db_systems(self, req, options).await
     }
 
@@ -911,8 +898,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_db_system(
         &self,
         req: crate::model::GetDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DbSystem>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DbSystem>> {
         T::get_db_system(self, req, options).await
     }
 
@@ -920,8 +907,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn create_db_system(
         &self,
         req: crate::model::CreateDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_db_system(self, req, options).await
     }
 
@@ -929,8 +916,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_db_system(self, req, options).await
     }
 
@@ -938,8 +925,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_db_versions(
         &self,
         req: crate::model::ListDbVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDbVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbVersionsResponse>> {
         T::list_db_versions(self, req, options).await
     }
 
@@ -947,9 +934,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_database_character_sets(
         &self,
         req: crate::model::ListDatabaseCharacterSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDatabaseCharacterSetsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseCharacterSetsResponse>> {
         T::list_database_character_sets(self, req, options).await
     }
 
@@ -957,9 +943,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -967,8 +952,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -976,10 +961,9 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -987,8 +971,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -996,8 +980,8 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1005,22 +989,22 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

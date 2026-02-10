@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_grafeas_v1::client::Grafeas;
 /// let client = Grafeas::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
@@ -79,13 +79,13 @@ impl Grafeas {
     /// Returns a builder for [Grafeas].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// let client = Grafeas::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::grafeas::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::grafeas::client::Factory)
+        crate::new_client_builder(super::builder::grafeas::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -103,14 +103,14 @@ impl Grafeas {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Grafeas>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Grafeas>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -119,13 +119,13 @@ impl Grafeas {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Grafeas> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Grafeas> {
         super::transport::Grafeas::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Grafeas> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Grafeas> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Grafeas::new)

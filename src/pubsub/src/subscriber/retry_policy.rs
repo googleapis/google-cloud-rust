@@ -13,12 +13,12 @@
 // limitations under the License.
 
 use crate::Error;
-use gax::backoff_policy::BackoffPolicy;
-use gax::error::rpc::Code;
-use gax::options::RequestOptions;
-use gax::retry_policy::{RetryPolicy, RetryPolicyExt};
-use gax::retry_result::RetryResult;
-use gax::retry_state::RetryState;
+use crate::RequestOptions;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
 use std::time::Duration;
 
 /// The subscriber's retry policy, specifically for StreamingPull RPCs.
@@ -104,9 +104,9 @@ pub(super) fn at_least_once_options(grpc_subchannel_count: usize) -> RequestOpti
 #[cfg(test)]
 pub(super) mod tests {
     use super::*;
-    use gax::error::CredentialsError;
-    use gax::error::rpc::Status;
-    use gax::throttle_result::ThrottleResult;
+    use google_cloud_gax::error::CredentialsError;
+    use google_cloud_gax::error::rpc::Status;
+    use google_cloud_gax::throttle_result::ThrottleResult;
     use http::HeaderMap;
     use test_case::test_case;
 

@@ -41,8 +41,8 @@ where
     async fn list_attachments(
         &self,
         req: crate::model::ListAttachmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAttachmentsResponse>> {
         self.inner.list_attachments(req, options).await
     }
 }
@@ -73,8 +73,8 @@ where
     async fn get_case(
         &self,
         req: crate::model::GetCaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Case>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Case>> {
         self.inner.get_case(req, options).await
     }
 
@@ -82,8 +82,8 @@ where
     async fn list_cases(
         &self,
         req: crate::model::ListCasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCasesResponse>> {
         self.inner.list_cases(req, options).await
     }
 
@@ -91,8 +91,8 @@ where
     async fn search_cases(
         &self,
         req: crate::model::SearchCasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchCasesResponse>> {
         self.inner.search_cases(req, options).await
     }
 
@@ -100,8 +100,8 @@ where
     async fn create_case(
         &self,
         req: crate::model::CreateCaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Case>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Case>> {
         self.inner.create_case(req, options).await
     }
 
@@ -109,8 +109,8 @@ where
     async fn update_case(
         &self,
         req: crate::model::UpdateCaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Case>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Case>> {
         self.inner.update_case(req, options).await
     }
 
@@ -118,8 +118,8 @@ where
     async fn escalate_case(
         &self,
         req: crate::model::EscalateCaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Case>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Case>> {
         self.inner.escalate_case(req, options).await
     }
 
@@ -127,8 +127,8 @@ where
     async fn close_case(
         &self,
         req: crate::model::CloseCaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Case>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Case>> {
         self.inner.close_case(req, options).await
     }
 
@@ -136,8 +136,8 @@ where
     async fn search_case_classifications(
         &self,
         req: crate::model::SearchCaseClassificationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchCaseClassificationsResponse>> {
         self.inner.search_case_classifications(req, options).await
     }
 }
@@ -168,8 +168,8 @@ where
     async fn list_comments(
         &self,
         req: crate::model::ListCommentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCommentsResponse>> {
         self.inner.list_comments(req, options).await
     }
 
@@ -177,8 +177,8 @@ where
     async fn create_comment(
         &self,
         req: crate::model::CreateCommentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Comment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Comment>> {
         self.inner.create_comment(req, options).await
     }
 }

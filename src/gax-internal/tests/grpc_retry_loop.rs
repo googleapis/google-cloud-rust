@@ -14,9 +14,11 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::EchoResponse;
     use grpc_server::{builder, google, start_fixed_responses};
@@ -110,16 +112,19 @@ mod tests {
         Err(tonic::Status::permission_denied("uh-oh"))
     }
 
-    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+    fn test_backoff() -> impl BackoffPolicy {
         use std::time::Duration;
-        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_micros(1))
             .with_maximum_delay(Duration::from_micros(1))
             .build()
             .expect("a valid backoff policy")
     }
 
-    pub async fn send_request(client: grpc::Client, msg: &str) -> gax::Result<EchoResponse> {
+    pub async fn send_request(
+        client: grpc::Client,
+        msg: &str,
+    ) -> google_cloud_gax::Result<EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

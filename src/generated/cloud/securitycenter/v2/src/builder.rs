@@ -20,7 +20,7 @@ pub mod security_center {
     /// A builder for [SecurityCenter][crate::client::SecurityCenter].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securitycenter_v2::*;
     /// # use builder::security_center::ClientBuilder;
     /// # use client::SecurityCenter;
@@ -30,19 +30,18 @@ pub mod security_center {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SecurityCenter;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SecurityCenter;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod security_center {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod security_center {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::BatchCreateResourceValueConfigs;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -109,7 +108,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -119,7 +118,7 @@ pub mod security_center {
             (*self.0.stub)
                 .batch_create_resource_value_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateResourceValueConfigsRequest::parent].
@@ -145,8 +144,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BatchCreateResourceValueConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BatchCreateResourceValueConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -156,7 +155,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::BulkMuteFindings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -188,7 +187,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -203,7 +202,7 @@ pub mod security_center {
             (*self.0.stub)
                 .bulk_mute_findings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `bulk_mute_findings`.
@@ -219,7 +218,7 @@ pub mod security_center {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -271,8 +270,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BulkMuteFindings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BulkMuteFindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -282,7 +281,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateBigQueryExport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -313,7 +312,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -323,7 +322,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_big_query_export(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBigQueryExportRequest::parent].
@@ -366,8 +365,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBigQueryExport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBigQueryExport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -377,7 +376,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateFinding;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -405,7 +404,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -415,7 +414,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_finding(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFindingRequest::parent].
@@ -458,8 +457,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFinding {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -469,7 +468,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateMuteConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -500,7 +499,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -510,7 +509,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_mute_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMuteConfigRequest::parent].
@@ -553,8 +552,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateMuteConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateMuteConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -564,7 +563,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateNotificationConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -597,7 +596,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -607,7 +606,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_notification_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNotificationConfigRequest::parent].
@@ -650,8 +649,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateNotificationConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateNotificationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -661,7 +660,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CreateSource;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -689,7 +688,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -699,7 +698,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -734,8 +733,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSource {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSource {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -745,7 +744,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteBigQueryExport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -776,7 +775,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -786,7 +785,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_big_query_export(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBigQueryExportRequest::name].
@@ -799,8 +798,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBigQueryExport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBigQueryExport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -810,7 +809,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteMuteConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -841,7 +840,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -851,7 +850,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_mute_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMuteConfigRequest::name].
@@ -864,8 +863,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteMuteConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteMuteConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -875,7 +874,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteNotificationConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -908,7 +907,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -918,7 +917,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_notification_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotificationConfigRequest::name].
@@ -931,8 +930,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteNotificationConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteNotificationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -942,7 +941,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteResourceValueConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -975,7 +974,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -985,7 +984,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_resource_value_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteResourceValueConfigRequest::name].
@@ -998,8 +997,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteResourceValueConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteResourceValueConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1009,7 +1008,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetBigQueryExport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1040,7 +1039,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1050,7 +1049,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_big_query_export(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
@@ -1063,8 +1062,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBigQueryExport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBigQueryExport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1074,7 +1073,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetSimulation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1102,7 +1101,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1112,7 +1111,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_simulation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSimulationRequest::name].
@@ -1125,8 +1124,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSimulation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSimulation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1136,7 +1135,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetValuedResource;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1167,7 +1166,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1177,7 +1176,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_valued_resource(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetValuedResourceRequest::name].
@@ -1190,8 +1189,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetValuedResource {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetValuedResource {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1201,7 +1200,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1232,7 +1231,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1242,7 +1241,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -1273,8 +1272,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1284,7 +1283,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetMuteConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1312,7 +1311,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1322,7 +1321,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_mute_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMuteConfigRequest::name].
@@ -1335,8 +1334,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMuteConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMuteConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1346,7 +1345,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetNotificationConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1377,7 +1376,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1387,7 +1386,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_notification_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNotificationConfigRequest::name].
@@ -1400,8 +1399,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetNotificationConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetNotificationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1411,7 +1410,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetResourceValueConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1442,7 +1441,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1452,7 +1451,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_resource_value_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetResourceValueConfigRequest::name].
@@ -1465,8 +1464,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetResourceValueConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetResourceValueConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1476,7 +1475,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetSource;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1504,7 +1503,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1514,7 +1513,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_source(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -1527,8 +1526,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSource {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSource {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1538,8 +1537,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GroupFindings;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1570,7 +1569,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1580,13 +1579,13 @@ pub mod security_center {
             (*self.0.stub)
                 .group_findings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::GroupFindingsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1595,15 +1594,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::GroupFindingsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::GroupFindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1643,8 +1644,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GroupFindings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GroupFindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1654,8 +1655,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListAttackPaths;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1686,7 +1687,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1696,14 +1697,16 @@ pub mod security_center {
             (*self.0.stub)
                 .list_attack_paths(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAttackPathsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1711,15 +1714,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttackPathsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAttackPathsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1751,8 +1756,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAttackPaths {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAttackPaths {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1762,8 +1767,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListBigQueryExports;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1797,7 +1802,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1807,14 +1812,16 @@ pub mod security_center {
             (*self.0.stub)
                 .list_big_query_exports(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBigQueryExportsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1822,17 +1829,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListBigQueryExportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1858,8 +1865,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBigQueryExports {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBigQueryExports {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1869,8 +1876,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListFindings;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1901,7 +1908,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1911,13 +1918,13 @@ pub mod security_center {
             (*self.0.stub)
                 .list_findings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListFindingsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1926,15 +1933,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1990,8 +1999,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFindings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2001,8 +2010,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListMuteConfigs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2033,7 +2042,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2043,14 +2052,16 @@ pub mod security_center {
             (*self.0.stub)
                 .list_mute_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMuteConfigsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2058,15 +2069,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMuteConfigsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2092,8 +2105,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMuteConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMuteConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2103,8 +2116,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListNotificationConfigs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2140,7 +2153,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2150,15 +2163,15 @@ pub mod security_center {
             (*self.0.stub)
                 .list_notification_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListNotificationConfigsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2167,17 +2180,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListNotificationConfigsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2203,8 +2216,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListNotificationConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListNotificationConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2214,8 +2227,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListResourceValueConfigs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2251,7 +2264,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2261,15 +2274,15 @@ pub mod security_center {
             (*self.0.stub)
                 .list_resource_value_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListResourceValueConfigsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2278,17 +2291,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListResourceValueConfigsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2314,8 +2327,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListResourceValueConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListResourceValueConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2325,8 +2338,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListSources;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2357,7 +2370,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2367,13 +2380,13 @@ pub mod security_center {
             (*self.0.stub)
                 .list_sources(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSourcesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2382,15 +2395,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSourcesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2416,8 +2431,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSources {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSources {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2427,8 +2442,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListValuedResources;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2462,7 +2477,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2472,14 +2487,16 @@ pub mod security_center {
             (*self.0.stub)
                 .list_valued_resources(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListValuedResourcesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2487,17 +2504,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListValuedResourcesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2535,8 +2552,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListValuedResources {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListValuedResources {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2546,7 +2563,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetFindingState;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2574,7 +2591,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2584,7 +2601,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_finding_state(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetFindingStateRequest::name].
@@ -2605,8 +2622,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetFindingState {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetFindingState {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2616,7 +2633,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2647,7 +2664,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2657,7 +2674,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2710,8 +2727,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2721,7 +2738,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::SetMute;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2749,7 +2766,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2759,7 +2776,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_mute(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetMuteRequest::name].
@@ -2780,8 +2797,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetMute {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetMute {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2791,7 +2808,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2824,7 +2841,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2834,7 +2851,7 @@ pub mod security_center {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2860,8 +2877,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2871,7 +2888,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateBigQueryExport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2902,7 +2919,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2912,7 +2929,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_big_query_export(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
@@ -2957,8 +2974,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBigQueryExport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBigQueryExport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2968,7 +2985,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateExternalSystem;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2999,7 +3016,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3009,7 +3026,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_external_system(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
@@ -3054,8 +3071,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateExternalSystem {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateExternalSystem {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3065,7 +3082,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateFinding;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3093,7 +3110,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3103,7 +3120,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_finding(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
@@ -3148,8 +3165,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFinding {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3159,7 +3176,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateMuteConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3190,7 +3207,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3200,7 +3217,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_mute_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
@@ -3245,8 +3262,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateMuteConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateMuteConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3256,7 +3273,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateNotificationConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3289,7 +3306,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3299,7 +3316,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_notification_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
@@ -3344,8 +3361,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateNotificationConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateNotificationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3355,7 +3372,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateResourceValueConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3388,7 +3405,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3398,7 +3415,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_resource_value_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
@@ -3443,8 +3460,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateResourceValueConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateResourceValueConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3454,7 +3471,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateSecurityMarks;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3485,7 +3502,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3495,7 +3512,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_security_marks(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
@@ -3540,8 +3557,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSecurityMarks {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSecurityMarks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3551,7 +3568,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::UpdateSource;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3579,7 +3596,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3589,7 +3606,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
@@ -3634,8 +3651,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSource {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSource {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3645,8 +3662,8 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3682,7 +3699,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3692,15 +3709,15 @@ pub mod security_center {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3709,17 +3726,17 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3755,8 +3772,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3766,7 +3783,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3797,7 +3814,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3807,7 +3824,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3818,8 +3835,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3829,7 +3846,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3862,7 +3879,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3872,7 +3889,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3883,8 +3900,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3894,7 +3911,7 @@ pub mod security_center {
     /// # Example
     /// ```
     /// # use google_cloud_securitycenter_v2::builder::security_center::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_securitycenter_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3927,7 +3944,7 @@ pub mod security_center {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3937,7 +3954,7 @@ pub mod security_center {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3948,8 +3965,8 @@ pub mod security_center {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

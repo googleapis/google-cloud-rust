@@ -20,7 +20,7 @@ pub mod service_controller {
     /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v2::*;
     /// # use builder::service_controller::ClientBuilder;
     /// # use client::ServiceController;
@@ -30,19 +30,18 @@ pub mod service_controller {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ServiceController;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ServiceController;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod service_controller {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod service_controller {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod service_controller {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicecontrol_v2::builder::service_controller::Check;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicecontrol_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod service_controller {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod service_controller {
             (*self.0.stub)
                 .check(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
@@ -166,8 +165,8 @@ pub mod service_controller {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Check {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Check {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -177,7 +176,7 @@ pub mod service_controller {
     /// # Example
     /// ```
     /// # use google_cloud_api_servicecontrol_v2::builder::service_controller::Report;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_api_servicecontrol_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -205,7 +204,7 @@ pub mod service_controller {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -215,7 +214,7 @@ pub mod service_controller {
             (*self.0.stub)
                 .report(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
@@ -243,8 +242,8 @@ pub mod service_controller {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Report {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Report {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

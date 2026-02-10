@@ -20,176 +20,174 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
     async fn process_document(
         &self,
         req: crate::model::ProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessResponse>>;
 
     async fn batch_process_documents(
         &self,
         req: crate::model::BatchProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn fetch_processor_types(
         &self,
         req: crate::model::FetchProcessorTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchProcessorTypesResponse>>;
 
     async fn list_processor_types(
         &self,
         req: crate::model::ListProcessorTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorTypesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorTypesResponse>>;
 
     async fn get_processor_type(
         &self,
         req: crate::model::GetProcessorTypeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessorType>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessorType>>;
 
     async fn list_processors(
         &self,
         req: crate::model::ListProcessorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorsResponse>>;
 
     async fn get_processor(
         &self,
         req: crate::model::GetProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Processor>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Processor>>;
 
     async fn train_processor_version(
         &self,
         req: crate::model::TrainProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_processor_version(
         &self,
         req: crate::model::GetProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessorVersion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessorVersion>>;
 
     async fn list_processor_versions(
         &self,
         req: crate::model::ListProcessorVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorVersionsResponse>>;
 
     async fn delete_processor_version(
         &self,
         req: crate::model::DeleteProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn deploy_processor_version(
         &self,
         req: crate::model::DeployProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undeploy_processor_version(
         &self,
         req: crate::model::UndeployProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_processor(
         &self,
         req: crate::model::CreateProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Processor>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Processor>>;
 
     async fn delete_processor(
         &self,
         req: crate::model::DeleteProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn enable_processor(
         &self,
         req: crate::model::EnableProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn disable_processor(
         &self,
         req: crate::model::DisableProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn set_default_processor_version(
         &self,
         req: crate::model::SetDefaultProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn review_document(
         &self,
         req: crate::model::ReviewDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn evaluate_processor_version(
         &self,
         req: crate::model::EvaluateProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_evaluation(
         &self,
         req: crate::model::GetEvaluationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Evaluation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Evaluation>>;
 
     async fn list_evaluations(
         &self,
         req: crate::model::ListEvaluationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEvaluationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEvaluationsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::DocumentProcessorService] also implement [DocumentProcessorService].
@@ -199,8 +197,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn process_document(
         &self,
         req: crate::model::ProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessResponse>> {
         T::process_document(self, req, options).await
     }
 
@@ -208,8 +206,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn batch_process_documents(
         &self,
         req: crate::model::BatchProcessRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::batch_process_documents(self, req, options).await
     }
 
@@ -217,8 +215,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn fetch_processor_types(
         &self,
         req: crate::model::FetchProcessorTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchProcessorTypesResponse>> {
         T::fetch_processor_types(self, req, options).await
     }
 
@@ -226,8 +224,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_processor_types(
         &self,
         req: crate::model::ListProcessorTypesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorTypesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorTypesResponse>> {
         T::list_processor_types(self, req, options).await
     }
 
@@ -235,8 +233,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_processor_type(
         &self,
         req: crate::model::GetProcessorTypeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessorType>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessorType>> {
         T::get_processor_type(self, req, options).await
     }
 
@@ -244,8 +242,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_processors(
         &self,
         req: crate::model::ListProcessorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorsResponse>> {
         T::list_processors(self, req, options).await
     }
 
@@ -253,8 +251,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_processor(
         &self,
         req: crate::model::GetProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Processor>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Processor>> {
         T::get_processor(self, req, options).await
     }
 
@@ -262,8 +260,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn train_processor_version(
         &self,
         req: crate::model::TrainProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::train_processor_version(self, req, options).await
     }
 
@@ -271,8 +269,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_processor_version(
         &self,
         req: crate::model::GetProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProcessorVersion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProcessorVersion>> {
         T::get_processor_version(self, req, options).await
     }
 
@@ -280,8 +278,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_processor_versions(
         &self,
         req: crate::model::ListProcessorVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProcessorVersionsResponse>> {
         T::list_processor_versions(self, req, options).await
     }
 
@@ -289,8 +287,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn delete_processor_version(
         &self,
         req: crate::model::DeleteProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_processor_version(self, req, options).await
     }
 
@@ -298,8 +296,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn deploy_processor_version(
         &self,
         req: crate::model::DeployProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::deploy_processor_version(self, req, options).await
     }
 
@@ -307,8 +305,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn undeploy_processor_version(
         &self,
         req: crate::model::UndeployProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::undeploy_processor_version(self, req, options).await
     }
 
@@ -316,8 +314,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn create_processor(
         &self,
         req: crate::model::CreateProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Processor>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Processor>> {
         T::create_processor(self, req, options).await
     }
 
@@ -325,8 +323,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn delete_processor(
         &self,
         req: crate::model::DeleteProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_processor(self, req, options).await
     }
 
@@ -334,8 +332,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn enable_processor(
         &self,
         req: crate::model::EnableProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::enable_processor(self, req, options).await
     }
 
@@ -343,8 +341,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn disable_processor(
         &self,
         req: crate::model::DisableProcessorRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::disable_processor(self, req, options).await
     }
 
@@ -352,8 +350,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn set_default_processor_version(
         &self,
         req: crate::model::SetDefaultProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::set_default_processor_version(self, req, options).await
     }
 
@@ -361,8 +359,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn review_document(
         &self,
         req: crate::model::ReviewDocumentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::review_document(self, req, options).await
     }
 
@@ -370,8 +368,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn evaluate_processor_version(
         &self,
         req: crate::model::EvaluateProcessorVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::evaluate_processor_version(self, req, options).await
     }
 
@@ -379,8 +377,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_evaluation(
         &self,
         req: crate::model::GetEvaluationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Evaluation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Evaluation>> {
         T::get_evaluation(self, req, options).await
     }
 
@@ -388,8 +386,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_evaluations(
         &self,
         req: crate::model::ListEvaluationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListEvaluationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListEvaluationsResponse>> {
         T::list_evaluations(self, req, options).await
     }
 
@@ -397,9 +395,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -407,8 +404,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -416,10 +413,9 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -427,8 +423,8 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -436,22 +432,22 @@ impl<T: super::DocumentProcessorService> DocumentProcessorService for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

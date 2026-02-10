@@ -14,11 +14,12 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::NeverRetry;
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
@@ -119,7 +120,7 @@ mod tests {
         .await
         .into_iter()
         .map(|r| r.map(|e| e.client_address))
-        .collect::<gax::Result<HashSet<_>>>()?;
+        .collect::<google_cloud_gax::Result<HashSet<_>>>()?;
 
         assert!(addresses.len() > 1, "{addresses:?}");
         Ok(())
@@ -187,10 +188,7 @@ mod tests {
 
         let response = send_request(client, "", "").await;
         let err = response.unwrap_err();
-        assert_eq!(
-            err.status().map(|s| s.code),
-            Some(gax::error::rpc::Code::InvalidArgument)
-        );
+        assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
         Ok(())
     }
 
@@ -198,7 +196,7 @@ mod tests {
         client: grpc::Client,
         msg: &str,
         request_params: &str,
-    ) -> gax::Result<google::test::v1::EchoResponse> {
+    ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

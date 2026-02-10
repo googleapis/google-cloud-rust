@@ -14,9 +14,9 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::NeverRetry;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::options::*;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::{Value, json};

@@ -20,98 +20,96 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
     async fn enroll_resource(
         &self,
         req: crate::model::EnrollResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Enrollment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Enrollment>>;
 
     async fn generate_audit_scope_report(
         &self,
         req: crate::model::GenerateAuditScopeReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AuditScopeReport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditScopeReport>>;
 
     async fn generate_audit_report(
         &self,
         req: crate::model::GenerateAuditReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_audit_reports(
         &self,
         req: crate::model::ListAuditReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAuditReportsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuditReportsResponse>>;
 
     async fn get_audit_report(
         &self,
         req: crate::model::GetAuditReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AuditReport>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditReport>>;
 
     async fn get_resource_enrollment_status(
         &self,
         req: crate::model::GetResourceEnrollmentStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceEnrollmentStatus>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceEnrollmentStatus>>;
 
     async fn list_resource_enrollment_statuses(
         &self,
         req: crate::model::ListResourceEnrollmentStatusesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceEnrollmentStatusesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceEnrollmentStatusesResponse>>;
 
     async fn list_controls(
         &self,
         req: crate::model::ListControlsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListControlsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListControlsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AuditManager] also implement [AuditManager].
@@ -121,8 +119,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn enroll_resource(
         &self,
         req: crate::model::EnrollResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Enrollment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Enrollment>> {
         T::enroll_resource(self, req, options).await
     }
 
@@ -130,8 +128,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn generate_audit_scope_report(
         &self,
         req: crate::model::GenerateAuditScopeReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AuditScopeReport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditScopeReport>> {
         T::generate_audit_scope_report(self, req, options).await
     }
 
@@ -139,8 +137,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn generate_audit_report(
         &self,
         req: crate::model::GenerateAuditReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::generate_audit_report(self, req, options).await
     }
 
@@ -148,8 +146,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn list_audit_reports(
         &self,
         req: crate::model::ListAuditReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAuditReportsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuditReportsResponse>> {
         T::list_audit_reports(self, req, options).await
     }
 
@@ -157,8 +155,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn get_audit_report(
         &self,
         req: crate::model::GetAuditReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AuditReport>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditReport>> {
         T::get_audit_report(self, req, options).await
     }
 
@@ -166,8 +164,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn get_resource_enrollment_status(
         &self,
         req: crate::model::GetResourceEnrollmentStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceEnrollmentStatus>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceEnrollmentStatus>> {
         T::get_resource_enrollment_status(self, req, options).await
     }
 
@@ -175,9 +173,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn list_resource_enrollment_statuses(
         &self,
         req: crate::model::ListResourceEnrollmentStatusesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceEnrollmentStatusesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceEnrollmentStatusesResponse>> {
         T::list_resource_enrollment_statuses(self, req, options).await
     }
 
@@ -185,8 +182,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn list_controls(
         &self,
         req: crate::model::ListControlsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListControlsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListControlsResponse>> {
         T::list_controls(self, req, options).await
     }
 
@@ -194,9 +191,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -204,8 +200,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -213,10 +209,9 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -224,8 +219,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -233,8 +228,8 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -242,22 +237,22 @@ impl<T: super::AuditManager> AuditManager for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

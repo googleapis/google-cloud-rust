@@ -41,8 +41,8 @@ where
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListServicesResponse>> {
         self.inner.list_services(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ManagedService>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ManagedService>> {
         self.inner.get_service(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_service(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_service(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn undelete_service(
         &self,
         req: crate::model::UndeleteServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.undelete_service(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_service_configs(
         &self,
         req: crate::model::ListServiceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListServiceConfigsResponse>> {
         self.inner.list_service_configs(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn get_service_config(
         &self,
         req: crate::model::GetServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::Service>> {
         self.inner.get_service_config(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn create_service_config(
         &self,
         req: crate::model::CreateServiceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_api::model::Service>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_api::model::Service>> {
         self.inner.create_service_config(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn submit_config_source(
         &self,
         req: crate::model::SubmitConfigSourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.submit_config_source(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn list_service_rollouts(
         &self,
         req: crate::model::ListServiceRolloutsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListServiceRolloutsResponse>> {
         self.inner.list_service_rollouts(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn get_service_rollout(
         &self,
         req: crate::model::GetServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Rollout>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Rollout>> {
         self.inner.get_service_rollout(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn create_service_rollout(
         &self,
         req: crate::model::CreateServiceRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_service_rollout(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn generate_config_report(
         &self,
         req: crate::model::GenerateConfigReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateConfigReportResponse>> {
         self.inner.generate_config_report(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -176,9 +176,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -186,9 +185,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -196,22 +194,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

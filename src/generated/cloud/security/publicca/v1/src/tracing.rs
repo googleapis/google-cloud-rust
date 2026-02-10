@@ -41,8 +41,8 @@ where
     async fn create_external_account_key(
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ExternalAccountKey>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExternalAccountKey>> {
         self.inner.create_external_account_key(req, options).await
     }
 }

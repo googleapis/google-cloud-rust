@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
 /// let client = DashboardsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
@@ -67,15 +67,13 @@ impl DashboardsService {
     /// Returns a builder for [DashboardsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// let client = DashboardsService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dashboards_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::dashboards_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::dashboards_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -93,14 +91,14 @@ impl DashboardsService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -110,13 +108,13 @@ impl DashboardsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardsService> {
         super::transport::DashboardsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::DashboardsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DashboardsService::new)

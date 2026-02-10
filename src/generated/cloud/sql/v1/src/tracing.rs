@@ -41,8 +41,8 @@ where
     async fn delete(
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackupRun>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackupRun>> {
         self.inner.get(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn insert(
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlBackupRunsListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackupRunsListResponse>> {
         self.inner.list(req, options).await
     }
 }
@@ -100,8 +100,8 @@ where
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_backup(req, options).await
     }
 
@@ -109,8 +109,8 @@ where
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Backup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Backup>> {
         self.inner.get_backup(req, options).await
     }
 
@@ -118,8 +118,8 @@ where
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
         self.inner.list_backups(req, options).await
     }
 
@@ -127,8 +127,8 @@ where
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_backup(req, options).await
     }
 
@@ -136,8 +136,8 @@ where
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_backup(req, options).await
     }
 }
@@ -168,8 +168,8 @@ where
     async fn get_connect_settings(
         &self,
         req: crate::model::GetConnectSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ConnectSettings>> {
         self.inner.get_connect_settings(req, options).await
     }
 
@@ -177,8 +177,8 @@ where
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateEphemeralCertResponse>> {
         self.inner.generate_ephemeral_cert(req, options).await
     }
 }
@@ -209,8 +209,8 @@ where
     async fn delete(
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -218,8 +218,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlDatabasesGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Database>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Database>> {
         self.inner.get(req, options).await
     }
 
@@ -227,8 +227,8 @@ where
     async fn insert(
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -236,8 +236,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlDatabasesListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DatabasesListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -245,8 +245,8 @@ where
     async fn patch(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -254,8 +254,8 @@ where
     async fn update(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 }
@@ -286,8 +286,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlFlagsListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FlagsListResponse>> {
         self.inner.list(req, options).await
     }
 }
@@ -318,8 +318,8 @@ where
     async fn add_server_ca(
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_server_ca(req, options).await
     }
 
@@ -327,8 +327,8 @@ where
     async fn add_server_certificate(
         &self,
         req: crate::model::SqlInstancesAddServerCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_server_certificate(req, options).await
     }
 
@@ -336,8 +336,8 @@ where
     async fn add_entra_id_certificate(
         &self,
         req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_entra_id_certificate(req, options).await
     }
 
@@ -345,8 +345,8 @@ where
     async fn clone(
         &self,
         req: crate::model::SqlInstancesCloneRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.clone(req, options).await
     }
 
@@ -354,8 +354,8 @@ where
     async fn delete(
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -363,8 +363,8 @@ where
     async fn demote_master(
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.demote_master(req, options).await
     }
 
@@ -372,8 +372,8 @@ where
     async fn demote(
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.demote(req, options).await
     }
 
@@ -381,8 +381,8 @@ where
     async fn export(
         &self,
         req: crate::model::SqlInstancesExportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.export(req, options).await
     }
 
@@ -390,8 +390,8 @@ where
     async fn failover(
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.failover(req, options).await
     }
 
@@ -399,8 +399,8 @@ where
     async fn reencrypt(
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.reencrypt(req, options).await
     }
 
@@ -408,8 +408,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlInstancesGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DatabaseInstance>> {
         self.inner.get(req, options).await
     }
 
@@ -417,8 +417,8 @@ where
     async fn import(
         &self,
         req: crate::model::SqlInstancesImportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.import(req, options).await
     }
 
@@ -426,8 +426,8 @@ where
     async fn insert(
         &self,
         req: crate::model::SqlInstancesInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -435,8 +435,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlInstancesListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstancesListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -444,8 +444,8 @@ where
     async fn list_server_cas(
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstancesListServerCasResponse>> {
         self.inner.list_server_cas(req, options).await
     }
 
@@ -453,9 +453,8 @@ where
     async fn list_server_certificates(
         &self,
         req: crate::model::SqlInstancesListServerCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstancesListServerCertificatesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstancesListServerCertificatesResponse>> {
         self.inner.list_server_certificates(req, options).await
     }
 
@@ -463,9 +462,8 @@ where
     async fn list_entra_id_certificates(
         &self,
         req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstancesListEntraIdCertificatesResponse>> {
         self.inner.list_entra_id_certificates(req, options).await
     }
 
@@ -473,8 +471,8 @@ where
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -482,8 +480,8 @@ where
     async fn promote_replica(
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.promote_replica(req, options).await
     }
 
@@ -491,8 +489,8 @@ where
     async fn switchover(
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.switchover(req, options).await
     }
 
@@ -500,8 +498,8 @@ where
     async fn reset_ssl_config(
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.reset_ssl_config(req, options).await
     }
 
@@ -509,8 +507,8 @@ where
     async fn restart(
         &self,
         req: crate::model::SqlInstancesRestartRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.restart(req, options).await
     }
 
@@ -518,8 +516,8 @@ where
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.restore_backup(req, options).await
     }
 
@@ -527,8 +525,8 @@ where
     async fn rotate_server_ca(
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.rotate_server_ca(req, options).await
     }
 
@@ -536,8 +534,8 @@ where
     async fn rotate_server_certificate(
         &self,
         req: crate::model::SqlInstancesRotateServerCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.rotate_server_certificate(req, options).await
     }
 
@@ -545,8 +543,8 @@ where
     async fn rotate_entra_id_certificate(
         &self,
         req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.rotate_entra_id_certificate(req, options).await
     }
 
@@ -554,8 +552,8 @@ where
     async fn start_replica(
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_replica(req, options).await
     }
 
@@ -563,8 +561,8 @@ where
     async fn stop_replica(
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_replica(req, options).await
     }
 
@@ -572,8 +570,8 @@ where
     async fn truncate_log(
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.truncate_log(req, options).await
     }
 
@@ -581,8 +579,8 @@ where
     async fn update(
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -590,8 +588,8 @@ where
     async fn create_ephemeral(
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCert>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCert>> {
         self.inner.create_ephemeral(req, options).await
     }
 
@@ -599,8 +597,8 @@ where
     async fn reschedule_maintenance(
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.reschedule_maintenance(req, options).await
     }
 
@@ -608,9 +606,8 @@ where
     async fn verify_external_sync_settings(
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
         self.inner.verify_external_sync_settings(req, options).await
     }
 
@@ -618,8 +615,8 @@ where
     async fn start_external_sync(
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_external_sync(req, options).await
     }
 
@@ -627,8 +624,8 @@ where
     async fn perform_disk_shrink(
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_disk_shrink(req, options).await
     }
 
@@ -636,9 +633,8 @@ where
     async fn get_disk_shrink_config(
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
         self.inner.get_disk_shrink_config(req, options).await
     }
 
@@ -646,8 +642,8 @@ where
     async fn reset_replica_size(
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.reset_replica_size(req, options).await
     }
 
@@ -655,9 +651,8 @@ where
     async fn get_latest_recovery_time(
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
         self.inner.get_latest_recovery_time(req, options).await
     }
 
@@ -665,8 +660,8 @@ where
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
         self.inner.execute_sql(req, options).await
     }
 
@@ -674,8 +669,8 @@ where
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         self.inner.acquire_ssrs_lease(req, options).await
     }
 
@@ -683,8 +678,8 @@ where
     async fn release_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         self.inner.release_ssrs_lease(req, options).await
     }
 
@@ -692,8 +687,8 @@ where
     async fn pre_check_major_version_upgrade(
         &self,
         req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner
             .pre_check_major_version_upgrade(req, options)
             .await
@@ -703,8 +698,8 @@ where
     async fn point_in_time_restore(
         &self,
         req: crate::model::SqlInstancesPointInTimeRestoreRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.point_in_time_restore(req, options).await
     }
 }
@@ -735,8 +730,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlOperationsGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -744,8 +739,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlOperationsListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -753,8 +748,8 @@ where
     async fn cancel(
         &self,
         req: crate::model::SqlOperationsCancelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel(req, options).await
     }
 }
@@ -785,8 +780,8 @@ where
     async fn delete(
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -794,8 +789,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlSslCertsGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCert>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCert>> {
         self.inner.get(req, options).await
     }
 
@@ -803,8 +798,8 @@ where
     async fn insert(
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertsInsertResponse>> {
         self.inner.insert(req, options).await
     }
 
@@ -812,8 +807,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlSslCertsListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertsListResponse>> {
         self.inner.list(req, options).await
     }
 }
@@ -844,8 +839,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlTiersListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TiersListResponse>> {
         self.inner.list(req, options).await
     }
 }
@@ -876,8 +871,8 @@ where
     async fn delete(
         &self,
         req: crate::model::SqlUsersDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -885,8 +880,8 @@ where
     async fn get(
         &self,
         req: crate::model::SqlUsersGetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         self.inner.get(req, options).await
     }
 
@@ -894,8 +889,8 @@ where
     async fn insert(
         &self,
         req: crate::model::SqlUsersInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -903,8 +898,8 @@ where
     async fn list(
         &self,
         req: crate::model::SqlUsersListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UsersListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -912,8 +907,8 @@ where
     async fn update(
         &self,
         req: crate::model::SqlUsersUpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 }

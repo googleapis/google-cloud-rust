@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
@@ -11723,7 +11723,7 @@ impl wkt::message::Message for ListControlsResponse {
 
 #[cfg(feature = "control-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListControlsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListControlsResponse {
     type PageItem = crate::model::Control;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13267,7 +13267,7 @@ impl wkt::message::Message for ListConversationsResponse {
 
 #[cfg(feature = "conversational-search-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConversationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConversationsResponse {
     type PageItem = crate::model::Conversation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -17238,7 +17238,7 @@ impl wkt::message::Message for ListSessionsResponse {
 
 #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSessionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSessionsResponse {
     type PageItem = crate::model::Session;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -19540,7 +19540,7 @@ impl wkt::message::Message for ListDataStoresResponse {
 
 #[cfg(feature = "data-store-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDataStoresResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataStoresResponse {
     type PageItem = crate::model::DataStore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -21780,7 +21780,7 @@ impl wkt::message::Message for ListDocumentsResponse {
 
 #[cfg(feature = "document-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDocumentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -25120,7 +25120,7 @@ impl wkt::message::Message for ListEnginesResponse {
 
 #[cfg(feature = "engine-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEnginesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEnginesResponse {
     type PageItem = crate::model::Engine;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -30140,7 +30140,7 @@ impl wkt::message::Message for ListIdentityMappingsResponse {
 
 #[cfg(feature = "identity-mapping-store-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListIdentityMappingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIdentityMappingsResponse {
     type PageItem = crate::model::IdentityMappingEntry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -30300,7 +30300,7 @@ impl wkt::message::Message for ListIdentityMappingStoresResponse {
 
 #[cfg(feature = "identity-mapping-store-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListIdentityMappingStoresResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListIdentityMappingStoresResponse {
     type PageItem = crate::model::IdentityMappingStore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -38343,7 +38343,7 @@ impl wkt::message::Message for ListSchemasResponse {
 
 #[cfg(feature = "schema-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSchemasResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSchemasResponse {
     type PageItem = crate::model::Schema;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -44639,7 +44639,7 @@ impl wkt::message::Message for SearchResponse {
 
 #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchResponse {
     type PageItem = crate::model::search_response::SearchResult;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -50840,7 +50840,7 @@ impl wkt::message::Message for ListTargetSitesResponse {
 
 #[cfg(feature = "site-search-engine-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTargetSitesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTargetSitesResponse {
     type PageItem = crate::model::TargetSite;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -53122,7 +53122,9 @@ impl wkt::message::Message for FetchDomainVerificationStatusResponse {
 
 #[cfg(feature = "site-search-engine-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for FetchDomainVerificationStatusResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for FetchDomainVerificationStatusResponse
+{
     type PageItem = crate::model::TargetSite;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -55817,7 +55819,7 @@ impl wkt::message::Message for ListUserLicensesResponse {
 
 #[cfg(feature = "user-license-service")]
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListUserLicensesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUserLicensesResponse {
     type PageItem = crate::model::UserLicense;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

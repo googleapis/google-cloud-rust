@@ -20,70 +20,68 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     async fn get_billing_account(
         &self,
         req: crate::model::GetBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>>;
 
     async fn list_billing_accounts(
         &self,
         req: crate::model::ListBillingAccountsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBillingAccountsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBillingAccountsResponse>>;
 
     async fn update_billing_account(
         &self,
         req: crate::model::UpdateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>>;
 
     async fn create_billing_account(
         &self,
         req: crate::model::CreateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>>;
 
     async fn list_project_billing_info(
         &self,
         req: crate::model::ListProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProjectBillingInfoResponse>>;
 
     async fn get_project_billing_info(
         &self,
         req: crate::model::GetProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectBillingInfo>>;
 
     async fn update_project_billing_info(
         &self,
         req: crate::model::UpdateProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectBillingInfo>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn move_billing_account(
         &self,
         req: crate::model::MoveBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>>;
 }
 
 /// All implementations of [super::CloudBilling] also implement [CloudBilling].
@@ -93,8 +91,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn get_billing_account(
         &self,
         req: crate::model::GetBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>> {
         T::get_billing_account(self, req, options).await
     }
 
@@ -102,8 +100,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn list_billing_accounts(
         &self,
         req: crate::model::ListBillingAccountsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBillingAccountsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBillingAccountsResponse>> {
         T::list_billing_accounts(self, req, options).await
     }
 
@@ -111,8 +109,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn update_billing_account(
         &self,
         req: crate::model::UpdateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>> {
         T::update_billing_account(self, req, options).await
     }
 
@@ -120,8 +118,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn create_billing_account(
         &self,
         req: crate::model::CreateBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>> {
         T::create_billing_account(self, req, options).await
     }
 
@@ -129,8 +127,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn list_project_billing_info(
         &self,
         req: crate::model::ListProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListProjectBillingInfoResponse>> {
         T::list_project_billing_info(self, req, options).await
     }
 
@@ -138,8 +136,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn get_project_billing_info(
         &self,
         req: crate::model::GetProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectBillingInfo>> {
         T::get_project_billing_info(self, req, options).await
     }
 
@@ -147,8 +145,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn update_project_billing_info(
         &self,
         req: crate::model::UpdateProjectBillingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectBillingInfo>> {
         T::update_project_billing_info(self, req, options).await
     }
 
@@ -156,8 +154,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -165,8 +163,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -174,10 +172,9 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -185,8 +182,8 @@ impl<T: super::CloudBilling> CloudBilling for T {
     async fn move_billing_account(
         &self,
         req: crate::model::MoveBillingAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::BillingAccount>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BillingAccount>> {
         T::move_billing_account(self, req, options).await
     }
 }
@@ -197,14 +194,14 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServicesResponse>>;
 
     async fn list_skus(
         &self,
         req: crate::model::ListSkusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSkusResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSkusResponse>>;
 }
 
 /// All implementations of [super::CloudCatalog] also implement [CloudCatalog].
@@ -214,8 +211,8 @@ impl<T: super::CloudCatalog> CloudCatalog for T {
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -223,8 +220,8 @@ impl<T: super::CloudCatalog> CloudCatalog for T {
     async fn list_skus(
         &self,
         req: crate::model::ListSkusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSkusResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSkusResponse>> {
         T::list_skus(self, req, options).await
     }
 }

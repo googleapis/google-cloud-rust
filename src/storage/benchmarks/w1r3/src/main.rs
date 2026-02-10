@@ -40,7 +40,7 @@ use humantime::parse_duration;
 use instrumented_future::Instrumented;
 use instrumented_retry::DebugRetry;
 use rand::{
-    Rng,
+    RngExt,
     distr::{Alphanumeric, Uniform},
 };
 use std::collections::BTreeMap;

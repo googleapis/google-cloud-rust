@@ -41,8 +41,8 @@ where
     async fn execute_patch_job(
         &self,
         req: crate::model::ExecutePatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchJob>> {
         self.inner.execute_patch_job(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_patch_job(
         &self,
         req: crate::model::GetPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchJob>> {
         self.inner.get_patch_job(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn cancel_patch_job(
         &self,
         req: crate::model::CancelPatchJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchJob>> {
         self.inner.cancel_patch_job(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_patch_jobs(
         &self,
         req: crate::model::ListPatchJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPatchJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListPatchJobsResponse>> {
         self.inner.list_patch_jobs(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_patch_job_instance_details(
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
         self.inner
             .list_patch_job_instance_details(req, options)
             .await
@@ -88,8 +88,8 @@ where
     async fn create_patch_deployment(
         &self,
         req: crate::model::CreatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchDeployment>> {
         self.inner.create_patch_deployment(req, options).await
     }
 
@@ -97,8 +97,8 @@ where
     async fn get_patch_deployment(
         &self,
         req: crate::model::GetPatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchDeployment>> {
         self.inner.get_patch_deployment(req, options).await
     }
 
@@ -106,8 +106,8 @@ where
     async fn list_patch_deployments(
         &self,
         req: crate::model::ListPatchDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListPatchDeploymentsResponse>> {
         self.inner.list_patch_deployments(req, options).await
     }
 
@@ -115,8 +115,8 @@ where
     async fn delete_patch_deployment(
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_patch_deployment(req, options).await
     }
 
@@ -124,8 +124,8 @@ where
     async fn update_patch_deployment(
         &self,
         req: crate::model::UpdatePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchDeployment>> {
         self.inner.update_patch_deployment(req, options).await
     }
 
@@ -133,8 +133,8 @@ where
     async fn pause_patch_deployment(
         &self,
         req: crate::model::PausePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchDeployment>> {
         self.inner.pause_patch_deployment(req, options).await
     }
 
@@ -142,8 +142,8 @@ where
     async fn resume_patch_deployment(
         &self,
         req: crate::model::ResumePatchDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PatchDeployment>> {
         self.inner.resume_patch_deployment(req, options).await
     }
 
@@ -151,8 +151,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -160,8 +160,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -192,8 +192,8 @@ where
     async fn create_os_policy_assignment(
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.create_os_policy_assignment(req, options).await
     }
 
@@ -201,8 +201,8 @@ where
     async fn update_os_policy_assignment(
         &self,
         req: crate::model::UpdateOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_os_policy_assignment(req, options).await
     }
 
@@ -210,8 +210,8 @@ where
     async fn get_os_policy_assignment(
         &self,
         req: crate::model::GetOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OSPolicyAssignment>> {
         self.inner.get_os_policy_assignment(req, options).await
     }
 
@@ -219,8 +219,8 @@ where
     async fn list_os_policy_assignments(
         &self,
         req: crate::model::ListOSPolicyAssignmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
         self.inner.list_os_policy_assignments(req, options).await
     }
 
@@ -228,9 +228,8 @@ where
     async fn list_os_policy_assignment_revisions(
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>> {
         self.inner
             .list_os_policy_assignment_revisions(req, options)
             .await
@@ -240,8 +239,8 @@ where
     async fn delete_os_policy_assignment(
         &self,
         req: crate::model::DeleteOSPolicyAssignmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_os_policy_assignment(req, options).await
     }
 
@@ -249,8 +248,8 @@ where
     async fn get_os_policy_assignment_report(
         &self,
         req: crate::model::GetOSPolicyAssignmentReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OSPolicyAssignmentReport>> {
         self.inner
             .get_os_policy_assignment_report(req, options)
             .await
@@ -260,8 +259,8 @@ where
     async fn list_os_policy_assignment_reports(
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
         self.inner
             .list_os_policy_assignment_reports(req, options)
             .await
@@ -271,8 +270,8 @@ where
     async fn get_inventory(
         &self,
         req: crate::model::GetInventoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Inventory>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Inventory>> {
         self.inner.get_inventory(req, options).await
     }
 
@@ -280,8 +279,8 @@ where
     async fn list_inventories(
         &self,
         req: crate::model::ListInventoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListInventoriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListInventoriesResponse>> {
         self.inner.list_inventories(req, options).await
     }
 
@@ -289,8 +288,8 @@ where
     async fn get_vulnerability_report(
         &self,
         req: crate::model::GetVulnerabilityReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VulnerabilityReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VulnerabilityReport>> {
         self.inner.get_vulnerability_report(req, options).await
     }
 
@@ -298,8 +297,8 @@ where
     async fn list_vulnerability_reports(
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListVulnerabilityReportsResponse>> {
         self.inner.list_vulnerability_reports(req, options).await
     }
 
@@ -307,8 +306,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -316,22 +315,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

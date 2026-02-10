@@ -42,9 +42,9 @@ pub trait GatewayControl: std::fmt::Debug + Send + Sync {
     fn generate_credentials(
         &self,
         _req: crate::model::GenerateCredentialsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GenerateCredentialsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

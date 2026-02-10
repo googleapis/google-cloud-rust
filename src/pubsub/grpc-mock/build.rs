@@ -13,7 +13,7 @@
 // limitations under the License.
 
 fn main() {
-    #[cfg(feature = "_generate-protos")]
+    #[cfg(google_cloud_generate_protos)]
     {
         let mut config = prost_build::Config::default();
         config.disable_comments(["."]);

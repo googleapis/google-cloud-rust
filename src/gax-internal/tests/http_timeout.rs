@@ -14,10 +14,11 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-    use gax::retry_state::RetryState;
-    use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::options::*;
+    use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::json;
@@ -166,7 +167,7 @@ mod tests {
             pub elapsed_on_failure: Arc<Mutex<Option<Duration>>>,
         }
 
-        impl gax::backoff_policy::BackoffPolicy for TestBackoffPolicy {
+        impl BackoffPolicy for TestBackoffPolicy {
             fn on_failure(&self, state: &RetryState) -> std::time::Duration {
                 if state.attempt_count == 1 {
                     *self.elapsed_on_failure.lock().unwrap() =

@@ -24,7 +24,7 @@ rustup show active-toolchain -v
 set +v
 
 echo "==== cargo clippy ===="
-cargo clippy --workspace --all-targets --profile=test -- --deny warnings
+cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
 
 echo "==== DONE ===="
 /workspace/.bin/sccache --show-stats

@@ -20,7 +20,7 @@ pub mod attached_clusters {
     /// A builder for [AttachedClusters][crate::client::AttachedClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::attached_clusters::ClientBuilder;
     /// # use client::AttachedClusters;
@@ -30,19 +30,18 @@ pub mod attached_clusters {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AttachedClusters;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AttachedClusters;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod attached_clusters {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod attached_clusters {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::CreateAttachedCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -108,7 +107,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -123,7 +122,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .create_attached_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_attached_cluster`.
@@ -140,7 +139,7 @@ pub mod attached_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -213,8 +212,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAttachedCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAttachedCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -224,7 +223,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::UpdateAttachedCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -256,7 +255,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -271,7 +270,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .update_attached_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_attached_cluster`.
@@ -288,7 +287,7 @@ pub mod attached_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -367,8 +366,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAttachedCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAttachedCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -378,7 +377,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ImportAttachedCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -410,7 +409,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -425,7 +424,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .import_attached_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `import_attached_cluster`.
@@ -442,7 +441,7 @@ pub mod attached_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -527,8 +526,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ImportAttachedCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ImportAttachedCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -538,7 +537,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetAttachedCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -569,7 +568,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -579,7 +578,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_attached_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachedClusterRequest::name].
@@ -592,8 +591,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAttachedCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAttachedCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -603,8 +602,8 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ListAttachedClusters;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -638,7 +637,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -648,14 +647,16 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .list_attached_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAttachedClustersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAttachedClustersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -663,17 +664,17 @@ pub mod attached_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAttachedClustersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -699,8 +700,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAttachedClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAttachedClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -710,7 +711,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::DeleteAttachedCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -742,7 +743,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -757,7 +758,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .delete_attached_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_attached_cluster`.
@@ -769,7 +770,7 @@ pub mod attached_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -830,8 +831,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAttachedCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAttachedCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -841,7 +842,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetAttachedServerConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -874,7 +875,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -884,7 +885,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_attached_server_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachedServerConfigRequest::name].
@@ -897,8 +898,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAttachedServerConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAttachedServerConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -908,7 +909,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GenerateAttachedClusterInstallManifest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -943,7 +944,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -955,7 +956,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .generate_attached_cluster_install_manifest(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateAttachedClusterInstallManifestRequest::parent].
@@ -1002,8 +1003,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAttachedClusterInstallManifest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAttachedClusterInstallManifest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1013,7 +1014,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GenerateAttachedClusterAgentToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1046,7 +1047,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1056,7 +1057,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .generate_attached_cluster_agent_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [attached_cluster][crate::model::GenerateAttachedClusterAgentTokenRequest::attached_cluster].
@@ -1123,8 +1124,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAttachedClusterAgentToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAttachedClusterAgentToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1134,8 +1135,8 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1171,7 +1172,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1181,15 +1182,15 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1198,17 +1199,17 @@ pub mod attached_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1244,8 +1245,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1255,7 +1256,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1286,7 +1287,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1296,7 +1297,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -1307,8 +1308,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1318,7 +1319,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1351,7 +1352,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1361,7 +1362,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -1372,8 +1373,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1383,7 +1384,7 @@ pub mod attached_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1416,7 +1417,7 @@ pub mod attached_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1426,7 +1427,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -1437,8 +1438,8 @@ pub mod attached_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1450,7 +1451,7 @@ pub mod aws_clusters {
     /// A builder for [AwsClusters][crate::client::AwsClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::aws_clusters::ClientBuilder;
     /// # use client::AwsClusters;
@@ -1460,19 +1461,18 @@ pub mod aws_clusters {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AwsClusters;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AwsClusters;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1483,7 +1483,7 @@ pub mod aws_clusters {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1496,7 +1496,7 @@ pub mod aws_clusters {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1506,7 +1506,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1538,7 +1538,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1553,7 +1553,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .create_aws_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_aws_cluster`.
@@ -1570,7 +1570,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1643,8 +1643,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAwsCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAwsCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1654,7 +1654,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1686,7 +1686,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1701,7 +1701,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .update_aws_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_aws_cluster`.
@@ -1718,7 +1718,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1797,8 +1797,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAwsCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAwsCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1808,7 +1808,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1836,7 +1836,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1846,7 +1846,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsClusterRequest::name].
@@ -1859,8 +1859,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAwsCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAwsCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1870,8 +1870,8 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListAwsClusters;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1902,7 +1902,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1912,14 +1912,16 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_aws_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAwsClustersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAwsClustersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1927,15 +1929,17 @@ pub mod aws_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAwsClustersResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAwsClustersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1961,8 +1965,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAwsClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAwsClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1972,7 +1976,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2004,7 +2008,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2019,7 +2023,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_aws_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_aws_cluster`.
@@ -2031,7 +2035,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2092,8 +2096,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAwsCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAwsCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2103,7 +2107,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GenerateAwsClusterAgentToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2136,7 +2140,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2146,7 +2150,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .generate_aws_cluster_agent_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsClusterAgentTokenRequest::aws_cluster].
@@ -2219,8 +2223,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAwsClusterAgentToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAwsClusterAgentToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2230,7 +2234,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GenerateAwsAccessToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2261,7 +2265,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2271,7 +2275,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .generate_aws_access_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsAccessTokenRequest::aws_cluster].
@@ -2284,8 +2288,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAwsAccessToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAwsAccessToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2295,7 +2299,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2327,7 +2331,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2342,7 +2346,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .create_aws_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_aws_node_pool`.
@@ -2359,7 +2363,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2432,8 +2436,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAwsNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAwsNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2443,7 +2447,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2475,7 +2479,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2490,7 +2494,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .update_aws_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_aws_node_pool`.
@@ -2507,7 +2511,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2586,8 +2590,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAwsNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAwsNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2597,7 +2601,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::RollbackAwsNodePoolUpdate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2631,7 +2635,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2646,7 +2650,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .rollback_aws_node_pool_update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `rollback_aws_node_pool_update`.
@@ -2663,7 +2667,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2706,8 +2710,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RollbackAwsNodePoolUpdate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RollbackAwsNodePoolUpdate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2717,7 +2721,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2745,7 +2749,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2755,7 +2759,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsNodePoolRequest::name].
@@ -2768,8 +2772,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAwsNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAwsNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2779,8 +2783,8 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListAwsNodePools;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2814,7 +2818,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2824,14 +2828,16 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_aws_node_pools(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAwsNodePoolsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2839,15 +2845,17 @@ pub mod aws_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAwsNodePoolsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2873,8 +2881,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAwsNodePools {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAwsNodePools {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2884,7 +2892,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2916,7 +2924,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2931,7 +2939,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_aws_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_aws_node_pool`.
@@ -2943,7 +2951,7 @@ pub mod aws_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3004,8 +3012,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAwsNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAwsNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3015,7 +3023,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsOpenIdConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3046,7 +3054,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3056,7 +3064,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_open_id_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsOpenIdConfigRequest::aws_cluster].
@@ -3069,8 +3077,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAwsOpenIdConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAwsOpenIdConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3080,7 +3088,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsJsonWebKeys;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3111,7 +3119,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3121,7 +3129,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_json_web_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsJsonWebKeysRequest::aws_cluster].
@@ -3134,8 +3142,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAwsJsonWebKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAwsJsonWebKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3145,7 +3153,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsServerConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3176,7 +3184,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3186,7 +3194,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_server_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsServerConfigRequest::name].
@@ -3199,8 +3207,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAwsServerConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAwsServerConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3210,8 +3218,8 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3247,7 +3255,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3257,15 +3265,15 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3274,17 +3282,17 @@ pub mod aws_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3320,8 +3328,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3331,7 +3339,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3362,7 +3370,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3372,7 +3380,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3383,8 +3391,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3394,7 +3402,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3427,7 +3435,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3437,7 +3445,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3448,8 +3456,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3459,7 +3467,7 @@ pub mod aws_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3492,7 +3500,7 @@ pub mod aws_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3502,7 +3510,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3513,8 +3521,8 @@ pub mod aws_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3526,7 +3534,7 @@ pub mod azure_clusters {
     /// A builder for [AzureClusters][crate::client::AzureClusters].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::azure_clusters::ClientBuilder;
     /// # use client::AzureClusters;
@@ -3536,19 +3544,18 @@ pub mod azure_clusters {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::AzureClusters;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = AzureClusters;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3559,7 +3566,7 @@ pub mod azure_clusters {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3572,7 +3579,7 @@ pub mod azure_clusters {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -3582,7 +3589,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3614,7 +3621,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3629,7 +3636,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_client`.
@@ -3646,7 +3653,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3719,8 +3726,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAzureClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAzureClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3730,7 +3737,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3758,7 +3765,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3768,7 +3775,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureClientRequest::name].
@@ -3781,8 +3788,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3792,8 +3799,8 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureClients;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3827,7 +3834,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3837,14 +3844,16 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_clients(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAzureClientsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAzureClientsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3852,15 +3861,17 @@ pub mod azure_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAzureClientsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAzureClientsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3886,8 +3897,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAzureClients {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAzureClients {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3897,7 +3908,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureClient;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3929,7 +3940,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3944,7 +3955,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_client(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_client`.
@@ -3956,7 +3967,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4005,8 +4016,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAzureClient {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAzureClient {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4016,7 +4027,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4048,7 +4059,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4063,7 +4074,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_cluster`.
@@ -4080,7 +4091,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4153,8 +4164,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAzureCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAzureCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4164,7 +4175,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4196,7 +4207,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4211,7 +4222,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .update_azure_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_azure_cluster`.
@@ -4228,7 +4239,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4307,8 +4318,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAzureCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAzureCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4318,7 +4329,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4346,7 +4357,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4356,7 +4367,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureClusterRequest::name].
@@ -4369,8 +4380,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4380,8 +4391,8 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureClusters;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4415,7 +4426,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4425,14 +4436,16 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAzureClustersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAzureClustersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4440,15 +4453,17 @@ pub mod azure_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAzureClustersResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAzureClustersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4474,8 +4489,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAzureClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAzureClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4485,7 +4500,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4517,7 +4532,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4532,7 +4547,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_cluster`.
@@ -4544,7 +4559,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4605,8 +4620,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAzureCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAzureCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4616,7 +4631,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GenerateAzureClusterAgentToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4649,7 +4664,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4659,7 +4674,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .generate_azure_cluster_agent_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureClusterAgentTokenRequest::azure_cluster].
@@ -4732,8 +4747,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAzureClusterAgentToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAzureClusterAgentToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4743,7 +4758,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GenerateAzureAccessToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4776,7 +4791,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4786,7 +4801,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .generate_azure_access_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureAccessTokenRequest::azure_cluster].
@@ -4799,8 +4814,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateAzureAccessToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateAzureAccessToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4810,7 +4825,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4842,7 +4857,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4857,7 +4872,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_azure_node_pool`.
@@ -4874,7 +4889,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4947,8 +4962,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAzureNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAzureNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4958,7 +4973,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4990,7 +5005,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5005,7 +5020,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .update_azure_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_azure_node_pool`.
@@ -5022,7 +5037,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5101,8 +5116,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAzureNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAzureNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5112,7 +5127,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5143,7 +5158,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5153,7 +5168,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureNodePoolRequest::name].
@@ -5166,8 +5181,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5177,8 +5192,8 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureNodePools;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5212,7 +5227,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5222,14 +5237,16 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_node_pools(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAzureNodePoolsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAzureNodePoolsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5237,17 +5254,17 @@ pub mod azure_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAzureNodePoolsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5273,8 +5290,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAzureNodePools {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAzureNodePools {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5284,7 +5301,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureNodePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5316,7 +5333,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5331,7 +5348,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_node_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_azure_node_pool`.
@@ -5343,7 +5360,7 @@ pub mod azure_clusters {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5404,8 +5421,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAzureNodePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAzureNodePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5415,7 +5432,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureOpenIdConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5446,7 +5463,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5456,7 +5473,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_open_id_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureOpenIdConfigRequest::azure_cluster].
@@ -5469,8 +5486,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureOpenIdConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureOpenIdConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5480,7 +5497,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureJsonWebKeys;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5511,7 +5528,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5521,7 +5538,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_json_web_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureJsonWebKeysRequest::azure_cluster].
@@ -5534,8 +5551,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureJsonWebKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureJsonWebKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5545,7 +5562,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureServerConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5576,7 +5593,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5586,7 +5603,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_server_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureServerConfigRequest::name].
@@ -5599,8 +5616,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAzureServerConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAzureServerConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5610,8 +5627,8 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5647,7 +5664,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5657,15 +5674,15 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5674,17 +5691,17 @@ pub mod azure_clusters {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5720,8 +5737,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5731,7 +5748,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5762,7 +5779,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5772,7 +5789,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -5783,8 +5800,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5794,7 +5811,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5827,7 +5844,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5837,7 +5854,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -5848,8 +5865,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5859,7 +5876,7 @@ pub mod azure_clusters {
     /// # Example
     /// ```
     /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkemulticloud_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5892,7 +5909,7 @@ pub mod azure_clusters {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5902,7 +5919,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -5913,8 +5930,8 @@ pub mod azure_clusters {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

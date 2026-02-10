@@ -41,8 +41,8 @@ where
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListConnectionsResponse>> {
         self.inner.list_connections(req, options).await
     }
 }

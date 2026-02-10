@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -6626,7 +6626,7 @@ impl wkt::message::Message for ListBuildsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBuildsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBuildsResponse {
     type PageItem = crate::model::Build;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10364,7 +10364,7 @@ impl wkt::message::Message for ListBuildTriggersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBuildTriggersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBuildTriggersResponse {
     type PageItem = crate::model::BuildTrigger;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -13788,7 +13788,7 @@ impl wkt::message::Message for ListWorkerPoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
     type PageItem = crate::model::WorkerPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

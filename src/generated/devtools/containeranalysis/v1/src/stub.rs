@@ -42,9 +42,9 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +64,10 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -77,11 +77,9 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     fn get_vulnerability_occurrences_summary(
         &self,
         _req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::VulnerabilityOccurrencesSummary>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -90,9 +88,9 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
     fn export_sbom(
         &self,
         _req: crate::model::ExportSBOMRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ExportSBOMResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

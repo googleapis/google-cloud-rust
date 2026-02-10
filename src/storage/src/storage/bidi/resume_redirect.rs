@@ -14,8 +14,8 @@
 
 use super::redirect::is_redirect;
 use crate::read_resume_policy::{ReadResumePolicy, ResumeQuery};
-use gax::error::Error;
-use gax::retry_result::RetryResult;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::retry_result::RetryResult;
 use std::sync::Arc;
 
 /// Decorate the resume policy to continue on redirect errors.

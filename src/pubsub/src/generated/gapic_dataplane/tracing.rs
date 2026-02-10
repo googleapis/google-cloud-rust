@@ -41,8 +41,8 @@ where
     async fn publish(
         &self,
         req: crate::model::PublishRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublishResponse>> {
         self.inner.publish(req, options).await
     }
 }
@@ -73,8 +73,8 @@ where
     async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.modify_ack_deadline(req, options).await
     }
 
@@ -82,8 +82,8 @@ where
     async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.acknowledge(req, options).await
     }
 }

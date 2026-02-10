@@ -41,8 +41,8 @@ where
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LicensePool>> {
         self.inner.get_license_pool(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LicensePool>> {
         self.inner.update_license_pool(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AssignResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AssignResponse>> {
         self.inner.assign(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UnassignResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UnassignResponse>> {
         self.inner.unassign(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EnumerateLicensedUsersResponse>> {
         self.inner.enumerate_licensed_users(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }
@@ -118,8 +118,8 @@ where
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.place_order(req, options).await
     }
 
@@ -127,8 +127,8 @@ where
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Order>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Order>> {
         self.inner.get_order(req, options).await
     }
 
@@ -136,8 +136,8 @@ where
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListOrdersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListOrdersResponse>> {
         self.inner.list_orders(req, options).await
     }
 
@@ -145,8 +145,8 @@ where
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.modify_order(req, options).await
     }
 
@@ -154,8 +154,8 @@ where
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.cancel_order(req, options).await
     }
 
@@ -163,22 +163,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

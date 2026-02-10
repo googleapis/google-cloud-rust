@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -5009,7 +5009,7 @@ impl wkt::message::Message for ListScanConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListScanConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListScanConfigsResponse {
     type PageItem = crate::model::ScanConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5223,7 +5223,7 @@ impl wkt::message::Message for ListScanRunsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListScanRunsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListScanRunsResponse {
     type PageItem = crate::model::ScanRun;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5403,7 +5403,7 @@ impl wkt::message::Message for ListCrawledUrlsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCrawledUrlsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCrawledUrlsResponse {
     type PageItem = crate::model::CrawledUrl;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5601,7 +5601,7 @@ impl wkt::message::Message for ListFindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFindingsResponse {
     type PageItem = crate::model::Finding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

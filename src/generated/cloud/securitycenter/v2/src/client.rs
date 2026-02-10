@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
 /// let client = SecurityCenter::builder().build().await?;
 /// // use `client` to make requests to the Security Command Center API.
@@ -66,13 +66,13 @@ impl SecurityCenter {
     /// Returns a builder for [SecurityCenter].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// let client = SecurityCenter::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::security_center::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::security_center::client::Factory)
+        crate::new_client_builder(super::builder::security_center::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl SecurityCenter {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityCenter>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SecurityCenter>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl SecurityCenter {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecurityCenter> {
         super::transport::SecurityCenter::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecurityCenter> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecurityCenter::new)

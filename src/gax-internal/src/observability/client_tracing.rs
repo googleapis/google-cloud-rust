@@ -16,6 +16,8 @@ use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
+use google_cloud_gax::error::Error;
+use google_cloud_gax::response::Response;
 use opentelemetry_semantic_conventions::trace as otel_trace;
 use tracing::{Span, field};
 
@@ -65,10 +67,7 @@ pub fn create_client_request_span(
 }
 
 /// Records the final status on the client request span.
-pub fn record_client_request_span<T>(
-    result: &Result<gax::response::Response<T>, gax::error::Error>,
-    span: &Span,
-) {
+pub fn record_client_request_span<T>(result: &Result<Response<T>, Error>, span: &Span) {
     match result {
         Ok(_) => {
             span.record(OTEL_STATUS_CODE, otel_status_codes::OK);
@@ -139,7 +138,7 @@ mod tests {
         );
         let _enter = span.enter();
 
-        let response = gax::response::Response::from(());
+        let response = google_cloud_gax::response::Response::from(());
         record_client_request_span(&Ok(response), &span);
 
         let captured = TestLayer::capture(&guard);
@@ -158,7 +157,7 @@ mod tests {
         );
         let _enter = span.enter();
 
-        let error = gax::error::Error::timeout("test timeout");
+        let error = google_cloud_gax::error::Error::timeout("test timeout");
         record_client_request_span::<()>(&Err(error), &span);
 
         let captured = TestLayer::capture(&guard);

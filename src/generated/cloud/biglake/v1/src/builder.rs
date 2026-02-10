@@ -20,7 +20,7 @@ pub mod iceberg_catalog_service {
     /// A builder for [IcebergCatalogService][crate::client::IcebergCatalogService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_biglake_v1::*;
     /// # use builder::iceberg_catalog_service::ClientBuilder;
     /// # use client::IcebergCatalogService;
@@ -30,19 +30,18 @@ pub mod iceberg_catalog_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::IcebergCatalogService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = IcebergCatalogService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod iceberg_catalog_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IcebergCatalogService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod iceberg_catalog_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalogConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -109,7 +108,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -119,7 +118,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .get_iceberg_catalog_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [warehouse][crate::model::GetIcebergCatalogConfigRequest::warehouse].
@@ -132,8 +131,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIcebergCatalogConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIcebergCatalogConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -143,7 +142,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergNamespaces;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -174,7 +173,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -184,7 +183,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .list_iceberg_namespaces(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [page_token][crate::model::ListIcebergNamespacesRequest::page_token].
@@ -215,8 +214,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIcebergNamespaces {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIcebergNamespaces {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -226,7 +225,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergNamespace;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -257,7 +256,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -267,7 +266,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .get_iceberg_namespace(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergNamespaceRequest::name].
@@ -280,8 +279,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIcebergNamespace {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIcebergNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -291,7 +290,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergNamespace;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -322,7 +321,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -332,7 +331,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .create_iceberg_namespace(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergNamespaceRequest::parent].
@@ -367,8 +366,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateIcebergNamespace {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateIcebergNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -378,7 +377,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergNamespace;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -409,7 +408,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -419,7 +418,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .delete_iceberg_namespace(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergNamespaceRequest::name].
@@ -432,8 +431,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIcebergNamespace {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIcebergNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -443,7 +442,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergNamespace;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -474,7 +473,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -484,7 +483,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .update_iceberg_namespace(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateIcebergNamespaceRequest::name].
@@ -519,8 +518,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIcebergNamespace {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIcebergNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -530,7 +529,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergTableIdentifiers;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -563,7 +562,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -573,7 +572,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .list_iceberg_table_identifiers(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [page_token][crate::model::ListIcebergTableIdentifiersRequest::page_token].
@@ -598,8 +597,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIcebergTableIdentifiers {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIcebergTableIdentifiers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -609,7 +608,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -640,7 +639,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -650,7 +649,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .create_iceberg_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergTableRequest::parent].
@@ -685,8 +684,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateIcebergTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -696,7 +695,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -727,7 +726,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -737,7 +736,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .delete_iceberg_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergTableRequest::name].
@@ -756,8 +755,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIcebergTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -767,7 +766,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -795,7 +794,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -805,7 +804,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .get_iceberg_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergTableRequest::name].
@@ -824,8 +823,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIcebergTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -835,7 +834,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::LoadIcebergTableCredentials;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -863,7 +862,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -873,7 +872,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .load_iceberg_table_credentials(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergTableRequest::name].
@@ -892,8 +891,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for LoadIcebergTableCredentials {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for LoadIcebergTableCredentials {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -903,7 +902,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -934,7 +933,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -944,7 +943,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .update_iceberg_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateIcebergTableRequest::name].
@@ -979,8 +978,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIcebergTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -990,7 +989,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::RegisterIcebergTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1021,7 +1020,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1031,7 +1030,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .register_iceberg_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RegisterIcebergTableRequest::parent].
@@ -1066,8 +1065,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RegisterIcebergTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RegisterIcebergTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1077,7 +1076,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1108,7 +1107,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1118,7 +1117,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .get_iceberg_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIcebergCatalogRequest::name].
@@ -1131,8 +1130,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIcebergCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIcebergCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1142,7 +1141,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergCatalogs;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1173,7 +1172,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1183,7 +1182,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .list_iceberg_catalogs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIcebergCatalogsRequest::parent].
@@ -1217,8 +1216,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListIcebergCatalogs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListIcebergCatalogs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1228,7 +1227,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergCatalog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1259,7 +1258,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1269,7 +1268,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .delete_iceberg_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIcebergCatalogRequest::name].
@@ -1282,8 +1281,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteIcebergCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteIcebergCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1293,7 +1292,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergCatalog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1324,7 +1323,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1334,7 +1333,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .update_iceberg_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [iceberg_catalog][crate::model::UpdateIcebergCatalogRequest::iceberg_catalog].
@@ -1379,8 +1378,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateIcebergCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateIcebergCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1390,7 +1389,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergCatalog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1421,7 +1420,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1431,7 +1430,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .create_iceberg_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIcebergCatalogRequest::parent].
@@ -1474,8 +1473,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateIcebergCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateIcebergCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1485,7 +1484,7 @@ pub mod iceberg_catalog_service {
     /// # Example
     /// ```
     /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::FailoverIcebergCatalog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_biglake_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1516,7 +1515,7 @@ pub mod iceberg_catalog_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1526,7 +1525,7 @@ pub mod iceberg_catalog_service {
             (*self.0.stub)
                 .failover_iceberg_catalog(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FailoverIcebergCatalogRequest::name].
@@ -1575,8 +1574,8 @@ pub mod iceberg_catalog_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FailoverIcebergCatalog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FailoverIcebergCatalog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

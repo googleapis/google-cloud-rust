@@ -20,7 +20,7 @@ pub mod recommender {
     /// A builder for [Recommender][crate::client::Recommender].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_recommender_v1::*;
     /// # use builder::recommender::ClientBuilder;
     /// # use client::Recommender;
@@ -30,19 +30,18 @@ pub mod recommender {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Recommender;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Recommender;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod recommender {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod recommender {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::ListInsights;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,13 +117,13 @@ pub mod recommender {
             (*self.0.stub)
                 .list_insights(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListInsightsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -133,15 +132,17 @@ pub mod recommender {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInsightsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInsightsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -173,8 +174,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListInsights {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListInsights {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -184,7 +185,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetInsight;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -212,7 +213,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -222,7 +223,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_insight(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightRequest::name].
@@ -235,8 +236,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInsight {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInsight {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -246,7 +247,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkInsightAccepted;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -277,7 +278,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -287,7 +288,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_insight_accepted(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
@@ -320,8 +321,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MarkInsightAccepted {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MarkInsightAccepted {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -331,8 +332,8 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::ListRecommendations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -366,7 +367,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -376,14 +377,16 @@ pub mod recommender {
             (*self.0.stub)
                 .list_recommendations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListRecommendationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -391,17 +394,17 @@ pub mod recommender {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListRecommendationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -433,8 +436,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRecommendations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRecommendations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -444,7 +447,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetRecommendation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -475,7 +478,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -485,7 +488,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_recommendation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
@@ -498,8 +501,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRecommendation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRecommendation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -509,7 +512,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationDismissed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -542,7 +545,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -552,7 +555,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_dismissed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
@@ -571,8 +574,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MarkRecommendationDismissed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MarkRecommendationDismissed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -582,7 +585,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationClaimed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -615,7 +618,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -625,7 +628,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_claimed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
@@ -658,8 +661,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MarkRecommendationClaimed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MarkRecommendationClaimed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -669,7 +672,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationSucceeded;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -702,7 +705,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -712,7 +715,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_succeeded(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
@@ -745,8 +748,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MarkRecommendationSucceeded {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MarkRecommendationSucceeded {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -756,7 +759,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::MarkRecommendationFailed;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -789,7 +792,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -799,7 +802,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_failed(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
@@ -832,8 +835,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MarkRecommendationFailed {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MarkRecommendationFailed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -843,7 +846,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetRecommenderConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -874,7 +877,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -884,7 +887,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_recommender_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
@@ -897,8 +900,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRecommenderConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRecommenderConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -908,7 +911,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::UpdateRecommenderConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -941,7 +944,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -951,7 +954,7 @@ pub mod recommender {
             (*self.0.stub)
                 .update_recommender_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
@@ -1002,8 +1005,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateRecommenderConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateRecommenderConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1013,7 +1016,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::GetInsightTypeConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1044,7 +1047,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1054,7 +1057,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_insight_type_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
@@ -1067,8 +1070,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInsightTypeConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInsightTypeConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1078,7 +1081,7 @@ pub mod recommender {
     /// # Example
     /// ```
     /// # use google_cloud_recommender_v1::builder::recommender::UpdateInsightTypeConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_recommender_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1111,7 +1114,7 @@ pub mod recommender {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1121,7 +1124,7 @@ pub mod recommender {
             (*self.0.stub)
                 .update_insight_type_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
@@ -1172,8 +1175,8 @@ pub mod recommender {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateInsightTypeConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateInsightTypeConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

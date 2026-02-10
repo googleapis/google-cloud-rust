@@ -60,7 +60,7 @@ url.workspace              = true
 hex                        = { workspace = true, features = ["std"] }
 # Local crates
 google-cloud-auth        = { workspace = true }
-gax.workspace            = true
+google-cloud-gax         = { workspace = true }
 google-cloud-iam-v1      = { workspace = true }
 google-cloud-longrunning = { workspace = true }
 google-cloud-lro         = { workspace = true }

@@ -25,9 +25,9 @@ use crate::storage::client::{
 use crate::storage::perform_upload::tests::perform_upload;
 use crate::streaming_source::IterSource;
 use crate::streaming_source::SizeHint;
-use gax::retry_policy::RetryPolicyExt;
 use gaxi::http::reqwest::{Method, Request};
 use google_cloud_auth::credentials::{anonymous::Builder as Anonymous, testing::error_credentials};
+use google_cloud_gax::retry_policy::RetryPolicyExt;
 use http_body_util::BodyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};

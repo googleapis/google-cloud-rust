@@ -42,9 +42,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Cluster>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +63,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +96,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_topics(
         &self,
         _req: crate::model::ListTopicsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTopicsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTopicsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,10 +107,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_topic(
         &self,
         _req: crate::model::GetTopicRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Topic>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -119,10 +117,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn create_topic(
         &self,
         _req: crate::model::CreateTopicRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Topic>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -130,10 +127,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn update_topic(
         &self,
         _req: crate::model::UpdateTopicRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Topic>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Topic>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -141,8 +137,8 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn delete_topic(
         &self,
         _req: crate::model::DeleteTopicRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -150,9 +146,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_consumer_groups(
         &self,
         _req: crate::model::ListConsumerGroupsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListConsumerGroupsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListConsumerGroupsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -161,9 +157,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_consumer_group(
         &self,
         _req: crate::model::GetConsumerGroupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ConsumerGroup>>,
+        Output = crate::Result<crate::Response<crate::model::ConsumerGroup>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -172,9 +168,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn update_consumer_group(
         &self,
         _req: crate::model::UpdateConsumerGroupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ConsumerGroup>>,
+        Output = crate::Result<crate::Response<crate::model::ConsumerGroup>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -183,8 +179,8 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn delete_consumer_group(
         &self,
         _req: crate::model::DeleteConsumerGroupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -192,9 +188,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_acls(
         &self,
         _req: crate::model::ListAclsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAclsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAclsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -203,9 +199,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_acl(
         &self,
         _req: crate::model::GetAclRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Acl>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Acl>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -213,9 +209,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn create_acl(
         &self,
         _req: crate::model::CreateAclRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Acl>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Acl>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -223,9 +219,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn update_acl(
         &self,
         _req: crate::model::UpdateAclRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Acl>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Acl>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -233,8 +229,8 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn delete_acl(
         &self,
         _req: crate::model::DeleteAclRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -242,9 +238,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn add_acl_entry(
         &self,
         _req: crate::model::AddAclEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AddAclEntryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AddAclEntryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -253,9 +249,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn remove_acl_entry(
         &self,
         _req: crate::model::RemoveAclEntryRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RemoveAclEntryResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RemoveAclEntryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -264,10 +260,10 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -277,9 +273,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -288,10 +284,10 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -301,9 +297,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -312,8 +308,8 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -321,8 +317,8 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -332,9 +328,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -343,9 +339,9 @@ pub trait ManagedKafka: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -365,9 +361,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn list_connect_clusters(
         &self,
         _req: crate::model::ListConnectClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListConnectClustersResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListConnectClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -376,9 +372,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn get_connect_cluster(
         &self,
         _req: crate::model::GetConnectClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ConnectCluster>>,
+        Output = crate::Result<crate::Response<crate::model::ConnectCluster>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -387,9 +383,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn create_connect_cluster(
         &self,
         _req: crate::model::CreateConnectClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -398,9 +394,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn update_connect_cluster(
         &self,
         _req: crate::model::UpdateConnectClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -409,9 +405,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn delete_connect_cluster(
         &self,
         _req: crate::model::DeleteConnectClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -420,9 +416,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn list_connectors(
         &self,
         _req: crate::model::ListConnectorsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListConnectorsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -431,10 +427,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn get_connector(
         &self,
         _req: crate::model::GetConnectorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Connector>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Connector>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -442,10 +437,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn create_connector(
         &self,
         _req: crate::model::CreateConnectorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Connector>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Connector>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -453,10 +447,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn update_connector(
         &self,
         _req: crate::model::UpdateConnectorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Connector>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Connector>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -464,8 +457,8 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn delete_connector(
         &self,
         _req: crate::model::DeleteConnectorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -473,9 +466,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn pause_connector(
         &self,
         _req: crate::model::PauseConnectorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PauseConnectorResponse>>,
+        Output = crate::Result<crate::Response<crate::model::PauseConnectorResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -484,9 +477,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn resume_connector(
         &self,
         _req: crate::model::ResumeConnectorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ResumeConnectorResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ResumeConnectorResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -495,9 +488,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn restart_connector(
         &self,
         _req: crate::model::RestartConnectorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::RestartConnectorResponse>>,
+        Output = crate::Result<crate::Response<crate::model::RestartConnectorResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -506,9 +499,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn stop_connector(
         &self,
         _req: crate::model::StopConnectorRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::StopConnectorResponse>>,
+        Output = crate::Result<crate::Response<crate::model::StopConnectorResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -517,10 +510,10 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -530,9 +523,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -541,10 +534,10 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -554,9 +547,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -565,8 +558,8 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -574,8 +567,8 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -585,9 +578,9 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -596,8 +589,8 @@ pub trait ManagedKafkaConnect: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

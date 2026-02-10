@@ -41,8 +41,8 @@ where
     async fn search_domains(
         &self,
         req: crate::model::SearchDomainsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchDomainsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchDomainsResponse>> {
         self.inner.search_domains(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn retrieve_register_parameters(
         &self,
         req: crate::model::RetrieveRegisterParametersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RetrieveRegisterParametersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetrieveRegisterParametersResponse>> {
         self.inner.retrieve_register_parameters(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn register_domain(
         &self,
         req: crate::model::RegisterDomainRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.register_domain(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn retrieve_transfer_parameters(
         &self,
         req: crate::model::RetrieveTransferParametersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RetrieveTransferParametersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetrieveTransferParametersResponse>> {
         self.inner.retrieve_transfer_parameters(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn transfer_domain(
         &self,
         req: crate::model::TransferDomainRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.transfer_domain(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_registrations(
         &self,
         req: crate::model::ListRegistrationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRegistrationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRegistrationsResponse>> {
         self.inner.list_registrations(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn get_registration(
         &self,
         req: crate::model::GetRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Registration>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Registration>> {
         self.inner.get_registration(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn update_registration(
         &self,
         req: crate::model::UpdateRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.update_registration(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn configure_management_settings(
         &self,
         req: crate::model::ConfigureManagementSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.configure_management_settings(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn configure_dns_settings(
         &self,
         req: crate::model::ConfigureDnsSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.configure_dns_settings(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn configure_contact_settings(
         &self,
         req: crate::model::ConfigureContactSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.configure_contact_settings(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn export_registration(
         &self,
         req: crate::model::ExportRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.export_registration(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn delete_registration(
         &self,
         req: crate::model::DeleteRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_registration(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn retrieve_authorization_code(
         &self,
         req: crate::model::RetrieveAuthorizationCodeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuthorizationCode>> {
         self.inner.retrieve_authorization_code(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn reset_authorization_code(
         &self,
         req: crate::model::ResetAuthorizationCodeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuthorizationCode>> {
         self.inner.reset_authorization_code(req, options).await
     }
 
@@ -176,9 +176,8 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -186,22 +185,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

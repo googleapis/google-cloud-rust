@@ -41,8 +41,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -59,9 +59,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -69,8 +68,8 @@ where
     async fn get_iap_settings(
         &self,
         req: crate::model::GetIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IapSettings>> {
         self.inner.get_iap_settings(req, options).await
     }
 
@@ -78,8 +77,8 @@ where
     async fn update_iap_settings(
         &self,
         req: crate::model::UpdateIapSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IapSettings>> {
         self.inner.update_iap_settings(req, options).await
     }
 
@@ -87,8 +86,8 @@ where
     async fn validate_iap_attribute_expression(
         &self,
         req: crate::model::ValidateIapAttributeExpressionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
         self.inner
             .validate_iap_attribute_expression(req, options)
             .await
@@ -98,8 +97,8 @@ where
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTunnelDestGroupsResponse>> {
         self.inner.list_tunnel_dest_groups(req, options).await
     }
 
@@ -107,8 +106,8 @@ where
     async fn create_tunnel_dest_group(
         &self,
         req: crate::model::CreateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
         self.inner.create_tunnel_dest_group(req, options).await
     }
 
@@ -116,8 +115,8 @@ where
     async fn get_tunnel_dest_group(
         &self,
         req: crate::model::GetTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
         self.inner.get_tunnel_dest_group(req, options).await
     }
 
@@ -125,8 +124,8 @@ where
     async fn delete_tunnel_dest_group(
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_tunnel_dest_group(req, options).await
     }
 
@@ -134,8 +133,8 @@ where
     async fn update_tunnel_dest_group(
         &self,
         req: crate::model::UpdateTunnelDestGroupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
         self.inner.update_tunnel_dest_group(req, options).await
     }
 }
@@ -166,8 +165,8 @@ where
     async fn list_brands(
         &self,
         req: crate::model::ListBrandsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBrandsResponse>> {
         self.inner.list_brands(req, options).await
     }
 
@@ -175,8 +174,8 @@ where
     async fn create_brand(
         &self,
         req: crate::model::CreateBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Brand>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Brand>> {
         self.inner.create_brand(req, options).await
     }
 
@@ -184,8 +183,8 @@ where
     async fn get_brand(
         &self,
         req: crate::model::GetBrandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Brand>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Brand>> {
         self.inner.get_brand(req, options).await
     }
 
@@ -193,8 +192,8 @@ where
     async fn create_identity_aware_proxy_client(
         &self,
         req: crate::model::CreateIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .create_identity_aware_proxy_client(req, options)
             .await
@@ -204,8 +203,8 @@ where
     async fn list_identity_aware_proxy_clients(
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
         self.inner
             .list_identity_aware_proxy_clients(req, options)
             .await
@@ -215,8 +214,8 @@ where
     async fn get_identity_aware_proxy_client(
         &self,
         req: crate::model::GetIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .get_identity_aware_proxy_client(req, options)
             .await
@@ -226,8 +225,8 @@ where
     async fn reset_identity_aware_proxy_client_secret(
         &self,
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .reset_identity_aware_proxy_client_secret(req, options)
             .await
@@ -237,8 +236,8 @@ where
     async fn delete_identity_aware_proxy_client(
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner
             .delete_identity_aware_proxy_client(req, options)
             .await

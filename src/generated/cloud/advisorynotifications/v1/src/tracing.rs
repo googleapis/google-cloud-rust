@@ -41,8 +41,8 @@ where
     async fn list_notifications(
         &self,
         req: crate::model::ListNotificationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListNotificationsResponse>> {
         self.inner.list_notifications(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Notification>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Notification>> {
         self.inner.get_notification(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Settings>> {
         self.inner.get_settings(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Settings>> {
         self.inner.update_settings(req, options).await
     }
 }

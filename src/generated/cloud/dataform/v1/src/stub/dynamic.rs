@@ -20,362 +20,356 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRepositoriesResponse>>;
 
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>>;
 
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>>;
 
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>>;
 
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn commit_repository_changes(
         &self,
         req: crate::model::CommitRepositoryChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitRepositoryChangesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitRepositoryChangesResponse>>;
 
     async fn read_repository_file(
         &self,
         req: crate::model::ReadRepositoryFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReadRepositoryFileResponse>>;
 
     async fn query_repository_directory_contents(
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryRepositoryDirectoryContentsResponse>>;
 
     async fn fetch_repository_history(
         &self,
         req: crate::model::FetchRepositoryHistoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchRepositoryHistoryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRepositoryHistoryResponse>>;
 
     async fn compute_repository_access_token_status(
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>>;
 
     async fn fetch_remote_branches(
         &self,
         req: crate::model::FetchRemoteBranchesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRemoteBranchesResponse>>;
 
     async fn list_workspaces(
         &self,
         req: crate::model::ListWorkspacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkspacesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkspacesResponse>>;
 
     async fn get_workspace(
         &self,
         req: crate::model::GetWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workspace>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workspace>>;
 
     async fn create_workspace(
         &self,
         req: crate::model::CreateWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workspace>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workspace>>;
 
     async fn delete_workspace(
         &self,
         req: crate::model::DeleteWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn install_npm_packages(
         &self,
         req: crate::model::InstallNpmPackagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstallNpmPackagesResponse>>;
 
     async fn pull_git_commits(
         &self,
         req: crate::model::PullGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PullGitCommitsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PullGitCommitsResponse>>;
 
     async fn push_git_commits(
         &self,
         req: crate::model::PushGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PushGitCommitsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PushGitCommitsResponse>>;
 
     async fn fetch_file_git_statuses(
         &self,
         req: crate::model::FetchFileGitStatusesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchFileGitStatusesResponse>>;
 
     async fn fetch_git_ahead_behind(
         &self,
         req: crate::model::FetchGitAheadBehindRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchGitAheadBehindResponse>>;
 
     async fn commit_workspace_changes(
         &self,
         req: crate::model::CommitWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitWorkspaceChangesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitWorkspaceChangesResponse>>;
 
     async fn reset_workspace_changes(
         &self,
         req: crate::model::ResetWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResetWorkspaceChangesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResetWorkspaceChangesResponse>>;
 
     async fn fetch_file_diff(
         &self,
         req: crate::model::FetchFileDiffRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchFileDiffResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchFileDiffResponse>>;
 
     async fn query_directory_contents(
         &self,
         req: crate::model::QueryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryDirectoryContentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryDirectoryContentsResponse>>;
 
     async fn search_files(
         &self,
         req: crate::model::SearchFilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchFilesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchFilesResponse>>;
 
     async fn make_directory(
         &self,
         req: crate::model::MakeDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MakeDirectoryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MakeDirectoryResponse>>;
 
     async fn remove_directory(
         &self,
         req: crate::model::RemoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveDirectoryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveDirectoryResponse>>;
 
     async fn move_directory(
         &self,
         req: crate::model::MoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MoveDirectoryResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MoveDirectoryResponse>>;
 
     async fn read_file(
         &self,
         req: crate::model::ReadFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReadFileResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReadFileResponse>>;
 
     async fn remove_file(
         &self,
         req: crate::model::RemoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveFileResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveFileResponse>>;
 
     async fn move_file(
         &self,
         req: crate::model::MoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MoveFileResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MoveFileResponse>>;
 
     async fn write_file(
         &self,
         req: crate::model::WriteFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WriteFileResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WriteFileResponse>>;
 
     async fn list_release_configs(
         &self,
         req: crate::model::ListReleaseConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReleaseConfigsResponse>>;
 
     async fn get_release_config(
         &self,
         req: crate::model::GetReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>>;
 
     async fn create_release_config(
         &self,
         req: crate::model::CreateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>>;
 
     async fn update_release_config(
         &self,
         req: crate::model::UpdateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>>;
 
     async fn delete_release_config(
         &self,
         req: crate::model::DeleteReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_compilation_results(
         &self,
         req: crate::model::ListCompilationResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCompilationResultsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCompilationResultsResponse>>;
 
     async fn get_compilation_result(
         &self,
         req: crate::model::GetCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CompilationResult>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompilationResult>>;
 
     async fn create_compilation_result(
         &self,
         req: crate::model::CreateCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CompilationResult>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompilationResult>>;
 
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryCompilationResultActionsResponse>>;
 
     async fn list_workflow_configs(
         &self,
         req: crate::model::ListWorkflowConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkflowConfigsResponse>>;
 
     async fn get_workflow_config(
         &self,
         req: crate::model::GetWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>>;
 
     async fn create_workflow_config(
         &self,
         req: crate::model::CreateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>>;
 
     async fn update_workflow_config(
         &self,
         req: crate::model::UpdateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>>;
 
     async fn delete_workflow_config(
         &self,
         req: crate::model::DeleteWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_workflow_invocations(
         &self,
         req: crate::model::ListWorkflowInvocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkflowInvocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkflowInvocationsResponse>>;
 
     async fn get_workflow_invocation(
         &self,
         req: crate::model::GetWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowInvocation>>;
 
     async fn create_workflow_invocation(
         &self,
         req: crate::model::CreateWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowInvocation>>;
 
     async fn delete_workflow_invocation(
         &self,
         req: crate::model::DeleteWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_workflow_invocation(
         &self,
         req: crate::model::CancelWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelWorkflowInvocationResponse>>;
 
     async fn query_workflow_invocation_actions(
         &self,
         req: crate::model::QueryWorkflowInvocationActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryWorkflowInvocationActionsResponse>>;
 
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Config>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Config>>;
 
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Config>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Config>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::Dataform] also implement [Dataform].
@@ -385,8 +379,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRepositoriesResponse>> {
         T::list_repositories(self, req, options).await
     }
 
@@ -394,8 +388,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>> {
         T::get_repository(self, req, options).await
     }
 
@@ -403,8 +397,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>> {
         T::create_repository(self, req, options).await
     }
 
@@ -412,8 +406,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Repository>> {
         T::update_repository(self, req, options).await
     }
 
@@ -421,8 +415,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_repository(self, req, options).await
     }
 
@@ -430,8 +424,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn commit_repository_changes(
         &self,
         req: crate::model::CommitRepositoryChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitRepositoryChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitRepositoryChangesResponse>> {
         T::commit_repository_changes(self, req, options).await
     }
 
@@ -439,8 +433,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn read_repository_file(
         &self,
         req: crate::model::ReadRepositoryFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReadRepositoryFileResponse>> {
         T::read_repository_file(self, req, options).await
     }
 
@@ -448,10 +442,9 @@ impl<T: super::Dataform> Dataform for T {
     async fn query_repository_directory_contents(
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryRepositoryDirectoryContentsResponse>>
+    {
         T::query_repository_directory_contents(self, req, options).await
     }
 
@@ -459,8 +452,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn fetch_repository_history(
         &self,
         req: crate::model::FetchRepositoryHistoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchRepositoryHistoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRepositoryHistoryResponse>> {
         T::fetch_repository_history(self, req, options).await
     }
 
@@ -468,10 +461,9 @@ impl<T: super::Dataform> Dataform for T {
     async fn compute_repository_access_token_status(
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>>
+    {
         T::compute_repository_access_token_status(self, req, options).await
     }
 
@@ -479,8 +471,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn fetch_remote_branches(
         &self,
         req: crate::model::FetchRemoteBranchesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRemoteBranchesResponse>> {
         T::fetch_remote_branches(self, req, options).await
     }
 
@@ -488,8 +480,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_workspaces(
         &self,
         req: crate::model::ListWorkspacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkspacesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkspacesResponse>> {
         T::list_workspaces(self, req, options).await
     }
 
@@ -497,8 +489,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_workspace(
         &self,
         req: crate::model::GetWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workspace>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workspace>> {
         T::get_workspace(self, req, options).await
     }
 
@@ -506,8 +498,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_workspace(
         &self,
         req: crate::model::CreateWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Workspace>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Workspace>> {
         T::create_workspace(self, req, options).await
     }
 
@@ -515,8 +507,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn delete_workspace(
         &self,
         req: crate::model::DeleteWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_workspace(self, req, options).await
     }
 
@@ -524,8 +516,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn install_npm_packages(
         &self,
         req: crate::model::InstallNpmPackagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstallNpmPackagesResponse>> {
         T::install_npm_packages(self, req, options).await
     }
 
@@ -533,8 +525,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn pull_git_commits(
         &self,
         req: crate::model::PullGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PullGitCommitsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PullGitCommitsResponse>> {
         T::pull_git_commits(self, req, options).await
     }
 
@@ -542,8 +534,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn push_git_commits(
         &self,
         req: crate::model::PushGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PushGitCommitsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PushGitCommitsResponse>> {
         T::push_git_commits(self, req, options).await
     }
 
@@ -551,8 +543,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn fetch_file_git_statuses(
         &self,
         req: crate::model::FetchFileGitStatusesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchFileGitStatusesResponse>> {
         T::fetch_file_git_statuses(self, req, options).await
     }
 
@@ -560,8 +552,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn fetch_git_ahead_behind(
         &self,
         req: crate::model::FetchGitAheadBehindRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchGitAheadBehindResponse>> {
         T::fetch_git_ahead_behind(self, req, options).await
     }
 
@@ -569,8 +561,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn commit_workspace_changes(
         &self,
         req: crate::model::CommitWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CommitWorkspaceChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CommitWorkspaceChangesResponse>> {
         T::commit_workspace_changes(self, req, options).await
     }
 
@@ -578,8 +570,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn reset_workspace_changes(
         &self,
         req: crate::model::ResetWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResetWorkspaceChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResetWorkspaceChangesResponse>> {
         T::reset_workspace_changes(self, req, options).await
     }
 
@@ -587,8 +579,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn fetch_file_diff(
         &self,
         req: crate::model::FetchFileDiffRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchFileDiffResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchFileDiffResponse>> {
         T::fetch_file_diff(self, req, options).await
     }
 
@@ -596,8 +588,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn query_directory_contents(
         &self,
         req: crate::model::QueryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryDirectoryContentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryDirectoryContentsResponse>> {
         T::query_directory_contents(self, req, options).await
     }
 
@@ -605,8 +597,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn search_files(
         &self,
         req: crate::model::SearchFilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchFilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchFilesResponse>> {
         T::search_files(self, req, options).await
     }
 
@@ -614,8 +606,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn make_directory(
         &self,
         req: crate::model::MakeDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MakeDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MakeDirectoryResponse>> {
         T::make_directory(self, req, options).await
     }
 
@@ -623,8 +615,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn remove_directory(
         &self,
         req: crate::model::RemoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveDirectoryResponse>> {
         T::remove_directory(self, req, options).await
     }
 
@@ -632,8 +624,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn move_directory(
         &self,
         req: crate::model::MoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MoveDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MoveDirectoryResponse>> {
         T::move_directory(self, req, options).await
     }
 
@@ -641,8 +633,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn read_file(
         &self,
         req: crate::model::ReadFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReadFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReadFileResponse>> {
         T::read_file(self, req, options).await
     }
 
@@ -650,8 +642,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn remove_file(
         &self,
         req: crate::model::RemoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RemoveFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RemoveFileResponse>> {
         T::remove_file(self, req, options).await
     }
 
@@ -659,8 +651,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn move_file(
         &self,
         req: crate::model::MoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::MoveFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MoveFileResponse>> {
         T::move_file(self, req, options).await
     }
 
@@ -668,8 +660,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn write_file(
         &self,
         req: crate::model::WriteFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WriteFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WriteFileResponse>> {
         T::write_file(self, req, options).await
     }
 
@@ -677,8 +669,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_release_configs(
         &self,
         req: crate::model::ListReleaseConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReleaseConfigsResponse>> {
         T::list_release_configs(self, req, options).await
     }
 
@@ -686,8 +678,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_release_config(
         &self,
         req: crate::model::GetReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>> {
         T::get_release_config(self, req, options).await
     }
 
@@ -695,8 +687,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_release_config(
         &self,
         req: crate::model::CreateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>> {
         T::create_release_config(self, req, options).await
     }
 
@@ -704,8 +696,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn update_release_config(
         &self,
         req: crate::model::UpdateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReleaseConfig>> {
         T::update_release_config(self, req, options).await
     }
 
@@ -713,8 +705,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn delete_release_config(
         &self,
         req: crate::model::DeleteReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_release_config(self, req, options).await
     }
 
@@ -722,8 +714,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_compilation_results(
         &self,
         req: crate::model::ListCompilationResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCompilationResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCompilationResultsResponse>> {
         T::list_compilation_results(self, req, options).await
     }
 
@@ -731,8 +723,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_compilation_result(
         &self,
         req: crate::model::GetCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CompilationResult>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompilationResult>> {
         T::get_compilation_result(self, req, options).await
     }
 
@@ -740,8 +732,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_compilation_result(
         &self,
         req: crate::model::CreateCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CompilationResult>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompilationResult>> {
         T::create_compilation_result(self, req, options).await
     }
 
@@ -749,9 +741,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryCompilationResultActionsResponse>> {
         T::query_compilation_result_actions(self, req, options).await
     }
 
@@ -759,8 +750,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_workflow_configs(
         &self,
         req: crate::model::ListWorkflowConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkflowConfigsResponse>> {
         T::list_workflow_configs(self, req, options).await
     }
 
@@ -768,8 +759,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_workflow_config(
         &self,
         req: crate::model::GetWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>> {
         T::get_workflow_config(self, req, options).await
     }
 
@@ -777,8 +768,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_workflow_config(
         &self,
         req: crate::model::CreateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>> {
         T::create_workflow_config(self, req, options).await
     }
 
@@ -786,8 +777,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn update_workflow_config(
         &self,
         req: crate::model::UpdateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowConfig>> {
         T::update_workflow_config(self, req, options).await
     }
 
@@ -795,8 +786,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn delete_workflow_config(
         &self,
         req: crate::model::DeleteWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_workflow_config(self, req, options).await
     }
 
@@ -804,8 +795,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_workflow_invocations(
         &self,
         req: crate::model::ListWorkflowInvocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListWorkflowInvocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListWorkflowInvocationsResponse>> {
         T::list_workflow_invocations(self, req, options).await
     }
 
@@ -813,8 +804,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_workflow_invocation(
         &self,
         req: crate::model::GetWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowInvocation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowInvocation>> {
         T::get_workflow_invocation(self, req, options).await
     }
 
@@ -822,8 +813,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn create_workflow_invocation(
         &self,
         req: crate::model::CreateWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::WorkflowInvocation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::WorkflowInvocation>> {
         T::create_workflow_invocation(self, req, options).await
     }
 
@@ -831,8 +822,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn delete_workflow_invocation(
         &self,
         req: crate::model::DeleteWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_workflow_invocation(self, req, options).await
     }
 
@@ -840,9 +831,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn cancel_workflow_invocation(
         &self,
         req: crate::model::CancelWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CancelWorkflowInvocationResponse>> {
         T::cancel_workflow_invocation(self, req, options).await
     }
 
@@ -850,9 +840,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn query_workflow_invocation_actions(
         &self,
         req: crate::model::QueryWorkflowInvocationActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
         T::query_workflow_invocation_actions(self, req, options).await
     }
 
@@ -860,8 +849,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Config>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Config>> {
         T::get_config(self, req, options).await
     }
 
@@ -869,8 +858,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Config>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Config>> {
         T::update_config(self, req, options).await
     }
 
@@ -878,9 +867,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -888,8 +876,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -897,8 +885,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -906,8 +894,8 @@ impl<T: super::Dataform> Dataform for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -915,10 +903,9 @@ impl<T: super::Dataform> Dataform for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 }

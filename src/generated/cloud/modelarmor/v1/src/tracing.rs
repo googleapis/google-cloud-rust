@@ -41,8 +41,8 @@ where
     async fn list_templates(
         &self,
         req: crate::model::ListTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTemplatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTemplatesResponse>> {
         self.inner.list_templates(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_template(
         &self,
         req: crate::model::GetTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Template>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
         self.inner.get_template(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_template(
         &self,
         req: crate::model::CreateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Template>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
         self.inner.create_template(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_template(
         &self,
         req: crate::model::UpdateTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Template>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
         self.inner.update_template(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_template(
         &self,
         req: crate::model::DeleteTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_template(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_floor_setting(
         &self,
         req: crate::model::GetFloorSettingRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FloorSetting>> {
         self.inner.get_floor_setting(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn update_floor_setting(
         &self,
         req: crate::model::UpdateFloorSettingRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FloorSetting>> {
         self.inner.update_floor_setting(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn sanitize_user_prompt(
         &self,
         req: crate::model::SanitizeUserPromptRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SanitizeUserPromptResponse>> {
         self.inner.sanitize_user_prompt(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn sanitize_model_response(
         &self,
         req: crate::model::SanitizeModelResponseRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SanitizeModelResponseResponse>> {
         self.inner.sanitize_model_response(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

@@ -41,8 +41,8 @@ where
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Connection>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Connection>> {
         self.inner.create_connection(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Connection>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Connection>> {
         self.inner.get_connection(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListConnectionsResponse>> {
         self.inner.list_connections(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Connection>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Connection>> {
         self.inner.update_connection(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_connection(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -104,9 +104,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }

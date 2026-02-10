@@ -41,8 +41,8 @@ where
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateCredentialsResponse>> {
         self.inner.generate_credentials(req, options).await
     }
 }

@@ -36,8 +36,8 @@
 //! [503]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#503_Service_Unavailable
 //! [504]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#504_Gateway_Timeout
 
-use gax::error::Error;
-use gax::{
+use google_cloud_gax::error::Error;
+use google_cloud_gax::{
     retry_policy::{RetryPolicy, RetryPolicyExt},
     retry_result::RetryResult,
     retry_state::RetryState,
@@ -61,7 +61,7 @@ pub(crate) fn storage_default() -> impl RetryPolicy {
 /// # Example
 /// ```
 /// # use google_cloud_storage::retry_policy::RetryableErrors;
-/// use gax::retry_policy::RetryPolicyExt;
+/// use google_cloud_gax::retry_policy::RetryPolicyExt;
 /// use google_cloud_storage::client::Storage;
 /// use std::time::Duration;
 /// let builder = Storage::builder().with_retry_policy(
@@ -99,7 +99,7 @@ impl RetryPolicy for RetryableErrors {
             };
         }
         if let Some(code) = error.status().map(|s| s.code) {
-            use gax::error::rpc::Code;
+            use google_cloud_gax::error::rpc::Code;
             return match code {
                 Code::Internal | Code::ResourceExhausted | Code::Unavailable => {
                     RetryResult::Continue(error)
@@ -140,9 +140,9 @@ impl RetryPolicy for ContinueOn308<Arc<dyn RetryPolicy + 'static>> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use gax::error::rpc::Code;
-    use gax::throttle_result::ThrottleResult;
     use gaxi::grpc::tonic::Status;
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::throttle_result::ThrottleResult;
     use http::HeaderMap;
     use test_case::test_case;
 
@@ -283,7 +283,7 @@ mod tests {
     }
 
     fn grpc_error(code: Code) -> Error {
-        let status = gax::error::rpc::Status::default().set_code(code);
+        let status = google_cloud_gax::error::rpc::Status::default().set_code(code);
         Error::service(status)
     }
     fn timeout_error() -> Error {

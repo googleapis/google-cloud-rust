@@ -41,8 +41,8 @@ where
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRepositoriesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRepositoriesResponse>> {
         self.inner.list_repositories(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Repository>> {
         self.inner.get_repository(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Repository>> {
         self.inner.create_repository(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Repository>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Repository>> {
         self.inner.update_repository(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_repository(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn commit_repository_changes(
         &self,
         req: crate::model::CommitRepositoryChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CommitRepositoryChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CommitRepositoryChangesResponse>> {
         self.inner.commit_repository_changes(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn read_repository_file(
         &self,
         req: crate::model::ReadRepositoryFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReadRepositoryFileResponse>> {
         self.inner.read_repository_file(req, options).await
     }
 
@@ -104,9 +104,8 @@ where
     async fn query_repository_directory_contents(
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryRepositoryDirectoryContentsResponse>> {
         self.inner
             .query_repository_directory_contents(req, options)
             .await
@@ -116,8 +115,8 @@ where
     async fn fetch_repository_history(
         &self,
         req: crate::model::FetchRepositoryHistoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchRepositoryHistoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchRepositoryHistoryResponse>> {
         self.inner.fetch_repository_history(req, options).await
     }
 
@@ -125,9 +124,8 @@ where
     async fn compute_repository_access_token_status(
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>> {
         self.inner
             .compute_repository_access_token_status(req, options)
             .await
@@ -137,8 +135,8 @@ where
     async fn fetch_remote_branches(
         &self,
         req: crate::model::FetchRemoteBranchesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchRemoteBranchesResponse>> {
         self.inner.fetch_remote_branches(req, options).await
     }
 
@@ -146,8 +144,8 @@ where
     async fn list_workspaces(
         &self,
         req: crate::model::ListWorkspacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkspacesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkspacesResponse>> {
         self.inner.list_workspaces(req, options).await
     }
 
@@ -155,8 +153,8 @@ where
     async fn get_workspace(
         &self,
         req: crate::model::GetWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Workspace>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Workspace>> {
         self.inner.get_workspace(req, options).await
     }
 
@@ -164,8 +162,8 @@ where
     async fn create_workspace(
         &self,
         req: crate::model::CreateWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Workspace>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Workspace>> {
         self.inner.create_workspace(req, options).await
     }
 
@@ -173,8 +171,8 @@ where
     async fn delete_workspace(
         &self,
         req: crate::model::DeleteWorkspaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_workspace(req, options).await
     }
 
@@ -182,8 +180,8 @@ where
     async fn install_npm_packages(
         &self,
         req: crate::model::InstallNpmPackagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstallNpmPackagesResponse>> {
         self.inner.install_npm_packages(req, options).await
     }
 
@@ -191,8 +189,8 @@ where
     async fn pull_git_commits(
         &self,
         req: crate::model::PullGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PullGitCommitsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PullGitCommitsResponse>> {
         self.inner.pull_git_commits(req, options).await
     }
 
@@ -200,8 +198,8 @@ where
     async fn push_git_commits(
         &self,
         req: crate::model::PushGitCommitsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PushGitCommitsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PushGitCommitsResponse>> {
         self.inner.push_git_commits(req, options).await
     }
 
@@ -209,8 +207,8 @@ where
     async fn fetch_file_git_statuses(
         &self,
         req: crate::model::FetchFileGitStatusesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchFileGitStatusesResponse>> {
         self.inner.fetch_file_git_statuses(req, options).await
     }
 
@@ -218,8 +216,8 @@ where
     async fn fetch_git_ahead_behind(
         &self,
         req: crate::model::FetchGitAheadBehindRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchGitAheadBehindResponse>> {
         self.inner.fetch_git_ahead_behind(req, options).await
     }
 
@@ -227,8 +225,8 @@ where
     async fn commit_workspace_changes(
         &self,
         req: crate::model::CommitWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CommitWorkspaceChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CommitWorkspaceChangesResponse>> {
         self.inner.commit_workspace_changes(req, options).await
     }
 
@@ -236,8 +234,8 @@ where
     async fn reset_workspace_changes(
         &self,
         req: crate::model::ResetWorkspaceChangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ResetWorkspaceChangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResetWorkspaceChangesResponse>> {
         self.inner.reset_workspace_changes(req, options).await
     }
 
@@ -245,8 +243,8 @@ where
     async fn fetch_file_diff(
         &self,
         req: crate::model::FetchFileDiffRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchFileDiffResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchFileDiffResponse>> {
         self.inner.fetch_file_diff(req, options).await
     }
 
@@ -254,8 +252,8 @@ where
     async fn query_directory_contents(
         &self,
         req: crate::model::QueryDirectoryContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryDirectoryContentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryDirectoryContentsResponse>> {
         self.inner.query_directory_contents(req, options).await
     }
 
@@ -263,8 +261,8 @@ where
     async fn search_files(
         &self,
         req: crate::model::SearchFilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SearchFilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchFilesResponse>> {
         self.inner.search_files(req, options).await
     }
 
@@ -272,8 +270,8 @@ where
     async fn make_directory(
         &self,
         req: crate::model::MakeDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MakeDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MakeDirectoryResponse>> {
         self.inner.make_directory(req, options).await
     }
 
@@ -281,8 +279,8 @@ where
     async fn remove_directory(
         &self,
         req: crate::model::RemoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RemoveDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RemoveDirectoryResponse>> {
         self.inner.remove_directory(req, options).await
     }
 
@@ -290,8 +288,8 @@ where
     async fn move_directory(
         &self,
         req: crate::model::MoveDirectoryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MoveDirectoryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MoveDirectoryResponse>> {
         self.inner.move_directory(req, options).await
     }
 
@@ -299,8 +297,8 @@ where
     async fn read_file(
         &self,
         req: crate::model::ReadFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReadFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReadFileResponse>> {
         self.inner.read_file(req, options).await
     }
 
@@ -308,8 +306,8 @@ where
     async fn remove_file(
         &self,
         req: crate::model::RemoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RemoveFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RemoveFileResponse>> {
         self.inner.remove_file(req, options).await
     }
 
@@ -317,8 +315,8 @@ where
     async fn move_file(
         &self,
         req: crate::model::MoveFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MoveFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MoveFileResponse>> {
         self.inner.move_file(req, options).await
     }
 
@@ -326,8 +324,8 @@ where
     async fn write_file(
         &self,
         req: crate::model::WriteFileRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WriteFileResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WriteFileResponse>> {
         self.inner.write_file(req, options).await
     }
 
@@ -335,8 +333,8 @@ where
     async fn list_release_configs(
         &self,
         req: crate::model::ListReleaseConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListReleaseConfigsResponse>> {
         self.inner.list_release_configs(req, options).await
     }
 
@@ -344,8 +342,8 @@ where
     async fn get_release_config(
         &self,
         req: crate::model::GetReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
         self.inner.get_release_config(req, options).await
     }
 
@@ -353,8 +351,8 @@ where
     async fn create_release_config(
         &self,
         req: crate::model::CreateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
         self.inner.create_release_config(req, options).await
     }
 
@@ -362,8 +360,8 @@ where
     async fn update_release_config(
         &self,
         req: crate::model::UpdateReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReleaseConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
         self.inner.update_release_config(req, options).await
     }
 
@@ -371,8 +369,8 @@ where
     async fn delete_release_config(
         &self,
         req: crate::model::DeleteReleaseConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_release_config(req, options).await
     }
 
@@ -380,8 +378,8 @@ where
     async fn list_compilation_results(
         &self,
         req: crate::model::ListCompilationResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListCompilationResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCompilationResultsResponse>> {
         self.inner.list_compilation_results(req, options).await
     }
 
@@ -389,8 +387,8 @@ where
     async fn get_compilation_result(
         &self,
         req: crate::model::GetCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CompilationResult>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompilationResult>> {
         self.inner.get_compilation_result(req, options).await
     }
 
@@ -398,8 +396,8 @@ where
     async fn create_compilation_result(
         &self,
         req: crate::model::CreateCompilationResultRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CompilationResult>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompilationResult>> {
         self.inner.create_compilation_result(req, options).await
     }
 
@@ -407,8 +405,8 @@ where
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryCompilationResultActionsResponse>> {
         self.inner
             .query_compilation_result_actions(req, options)
             .await
@@ -418,8 +416,8 @@ where
     async fn list_workflow_configs(
         &self,
         req: crate::model::ListWorkflowConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkflowConfigsResponse>> {
         self.inner.list_workflow_configs(req, options).await
     }
 
@@ -427,8 +425,8 @@ where
     async fn get_workflow_config(
         &self,
         req: crate::model::GetWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
         self.inner.get_workflow_config(req, options).await
     }
 
@@ -436,8 +434,8 @@ where
     async fn create_workflow_config(
         &self,
         req: crate::model::CreateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
         self.inner.create_workflow_config(req, options).await
     }
 
@@ -445,8 +443,8 @@ where
     async fn update_workflow_config(
         &self,
         req: crate::model::UpdateWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkflowConfig>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
         self.inner.update_workflow_config(req, options).await
     }
 
@@ -454,8 +452,8 @@ where
     async fn delete_workflow_config(
         &self,
         req: crate::model::DeleteWorkflowConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_workflow_config(req, options).await
     }
 
@@ -463,8 +461,8 @@ where
     async fn list_workflow_invocations(
         &self,
         req: crate::model::ListWorkflowInvocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListWorkflowInvocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListWorkflowInvocationsResponse>> {
         self.inner.list_workflow_invocations(req, options).await
     }
 
@@ -472,8 +470,8 @@ where
     async fn get_workflow_invocation(
         &self,
         req: crate::model::GetWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkflowInvocation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkflowInvocation>> {
         self.inner.get_workflow_invocation(req, options).await
     }
 
@@ -481,8 +479,8 @@ where
     async fn create_workflow_invocation(
         &self,
         req: crate::model::CreateWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WorkflowInvocation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WorkflowInvocation>> {
         self.inner.create_workflow_invocation(req, options).await
     }
 
@@ -490,8 +488,8 @@ where
     async fn delete_workflow_invocation(
         &self,
         req: crate::model::DeleteWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_workflow_invocation(req, options).await
     }
 
@@ -499,8 +497,8 @@ where
     async fn cancel_workflow_invocation(
         &self,
         req: crate::model::CancelWorkflowInvocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CancelWorkflowInvocationResponse>> {
         self.inner.cancel_workflow_invocation(req, options).await
     }
 
@@ -508,8 +506,8 @@ where
     async fn query_workflow_invocation_actions(
         &self,
         req: crate::model::QueryWorkflowInvocationActionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
         self.inner
             .query_workflow_invocation_actions(req, options)
             .await
@@ -519,8 +517,8 @@ where
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Config>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Config>> {
         self.inner.get_config(req, options).await
     }
 
@@ -528,8 +526,8 @@ where
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Config>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Config>> {
         self.inner.update_config(req, options).await
     }
 
@@ -537,8 +535,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -546,8 +544,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -555,8 +553,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -564,8 +562,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -573,9 +571,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }

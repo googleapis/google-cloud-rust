@@ -41,8 +41,8 @@ where
     async fn create_data_policy(
         &self,
         req: crate::model::CreateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataPolicy>> {
         self.inner.create_data_policy(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn add_grantees(
         &self,
         req: crate::model::AddGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataPolicy>> {
         self.inner.add_grantees(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn remove_grantees(
         &self,
         req: crate::model::RemoveGranteesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataPolicy>> {
         self.inner.remove_grantees(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_data_policy(
         &self,
         req: crate::model::UpdateDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataPolicy>> {
         self.inner.update_data_policy(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_data_policy(
         &self,
         req: crate::model::DeleteDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_data_policy(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_data_policy(
         &self,
         req: crate::model::GetDataPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataPolicy>> {
         self.inner.get_data_policy(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_data_policies(
         &self,
         req: crate::model::ListDataPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataPoliciesResponse>> {
         self.inner.list_data_policies(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -122,9 +122,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }

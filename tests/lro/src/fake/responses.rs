@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use anyhow::Result;
-use google_cloud_longrunning as longrunning;
+use google_cloud_gax::error::rpc::Code;
+use google_cloud_longrunning::model::{Operation, operation};
+use google_cloud_wkt::Any;
 use google_cloud_workflows_v1::model::{OperationMetadata, Workflow};
 use httptest::http::StatusCode;
 
@@ -24,10 +26,9 @@ where
 {
     let resource = Workflow::new().set_name(resource);
     let metadata = OperationMetadata::new().set_target("percent=100");
-    let metadata = wkt::Any::from_msg(&metadata)?;
-    let result =
-        longrunning::model::operation::Result::Response(wkt::Any::from_msg(&resource)?.into());
-    let operation = longrunning::model::Operation::default()
+    let metadata = Any::from_msg(&metadata)?;
+    let result = operation::Result::Response(Any::from_msg(&resource)?.into());
+    let operation = Operation::default()
         .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_metadata(metadata)
         .set_done(true)
@@ -41,8 +42,8 @@ where
     N: std::fmt::Display,
 {
     let metadata = OperationMetadata::new().set_target(format!("percent={percent}"));
-    let metadata = wkt::Any::from_msg(&metadata)?;
-    let operation = longrunning::model::Operation::default()
+    let metadata = Any::from_msg(&metadata)?;
+    let operation = Operation::default()
         .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_metadata(metadata);
     let payload = serde_json::to_string(&operation)?;
@@ -54,10 +55,10 @@ where
     N: std::fmt::Display,
 {
     let error = google_cloud_rpc::model::Status::default()
-        .set_code(gax::error::rpc::Code::AlreadyExists as i32)
+        .set_code(Code::AlreadyExists as i32)
         .set_message("The resource  already exists");
-    let result = longrunning::model::operation::Result::Error(Box::new(error));
-    let operation = longrunning::model::Operation::default()
+    let result = operation::Result::Error(Box::new(error));
+    let operation = Operation::default()
         .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_done(true)
         .set_result(result);

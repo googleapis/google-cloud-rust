@@ -42,10 +42,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn create_scan_config(
         &self,
         _req: crate::model::CreateScanConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,8 +52,8 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn delete_scan_config(
         &self,
         _req: crate::model::DeleteScanConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -62,10 +61,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn get_scan_config(
         &self,
         _req: crate::model::GetScanConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +71,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn list_scan_configs(
         &self,
         _req: crate::model::ListScanConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListScanConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -84,10 +82,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn update_scan_config(
         &self,
         _req: crate::model::UpdateScanConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,10 +92,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn start_scan_run(
         &self,
         _req: crate::model::StartScanRunRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanRun>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,10 +102,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn get_scan_run(
         &self,
         _req: crate::model::GetScanRunRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanRun>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -117,9 +112,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn list_scan_runs(
         &self,
         _req: crate::model::ListScanRunsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListScanRunsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -128,10 +123,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn stop_scan_run(
         &self,
         _req: crate::model::StopScanRunRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ScanRun>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -139,9 +133,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn list_crawled_urls(
         &self,
         _req: crate::model::ListCrawledUrlsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCrawledUrlsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -150,10 +144,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn get_finding(
         &self,
         _req: crate::model::GetFindingRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Finding>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Finding>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -161,9 +154,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn list_findings(
         &self,
         _req: crate::model::ListFindingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListFindingsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -172,9 +165,9 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     fn list_finding_type_stats(
         &self,
         _req: crate::model::ListFindingTypeStatsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListFindingTypeStatsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

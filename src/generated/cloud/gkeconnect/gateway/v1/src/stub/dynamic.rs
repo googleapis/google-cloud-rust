@@ -20,8 +20,8 @@ pub trait GatewayControl: std::fmt::Debug + Send + Sync {
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateCredentialsResponse>>;
 }
 
 /// All implementations of [super::GatewayControl] also implement [GatewayControl].
@@ -31,8 +31,8 @@ impl<T: super::GatewayControl> GatewayControl for T {
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateCredentialsResponse>> {
         T::generate_credentials(self, req, options).await
     }
 }

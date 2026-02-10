@@ -14,43 +14,42 @@
 
 use std::future::Future;
 use std::pin::Pin;
+use std::sync::Arc;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
-/// A handle that represents an in-flight publish operation.
+/// A [`Future`] representing an in-flight publish operation.
 ///
-/// This struct is a `Future`. You can `.await` it to get the final
-/// result of the publish call: either a server-assigned message ID `String`
-/// or an `Error` if the publish failed.
-///
-/// A `PublishHandle` is returned from every call to [`Publisher::publish`][crate::client::Publisher::publish]
+/// This is returned by [`Publisher::publish`](crate::client::Publisher::publish).
+/// Awaiting this future returns the server-assigned message ID on success, or an
+/// error if the publish failed.
 ///
 /// # Example
 ///
 /// ```
 /// # use google_cloud_pubsub::client::Publisher;
-/// # use google_cloud_pubsub::model::PubsubMessage;
+/// # use google_cloud_pubsub::model::Message;
 /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
-/// // publish() returns a handle immediately.
-/// let handle = publisher.publish(PubsubMessage::new().set_data("hello world"));
+/// // publish() returns a future immediately.
+/// let publish_future = publisher.publish(Message::new().set_data("hello world"));
 ///
-/// // The handle can be awaited later to get the result.
-/// match handle.await {
+/// // The future can be awaited to get the result.
+/// match publish_future.await {
 ///     Ok(message_id) => println!("Message published with ID: {message_id}"),
 ///     Err(e) => eprintln!("Failed to publish message: {e:?}"),
 /// }
 /// # Ok(())
 /// # }
 /// ```
-pub struct PublishHandle {
+pub struct PublishFuture {
     pub(crate) rx: oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
 }
 
-impl Future for PublishHandle {
+impl Future for PublishFuture {
     /// The result of the publish operation.
     /// - `Ok(String)`: The server-assigned message ID.
-    /// - `Err(Error)`: An error indicating the publish failed.
-    type Output = crate::Result<String>;
+    /// - `Err(Arc<Error>)`: An error indicating the publish failed.
+    type Output = std::result::Result<String, Arc<crate::Error>>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
@@ -58,17 +57,19 @@ impl Future for PublishHandle {
         // which would be a bug.
         Poll::Ready(
             result
-                .expect("publisher should not close the sender for PublishHandle")
+                .expect("publisher should not close the sender for PublishFuture")
                 .map_err(convert_error),
         )
     }
 }
 
-fn convert_error(e: crate::error::PublishError) -> gax::error::Error {
+fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
     // TODO(#3689): The error type for these are not ideal, we will need will
     // need to handle error propagation better.
     match e {
-        crate::error::PublishError::SendError(s) => gax::error::Error::io(s.clone()),
-        crate::error::PublishError::OrderingKeyPaused(()) => gax::error::Error::io(e),
+        crate::error::PublishError::SendError(s) => s,
+        crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
+            crate::error::PublishError::OrderingKeyPaused(e),
+        )),
     }
 }

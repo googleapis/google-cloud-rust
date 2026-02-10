@@ -25,12 +25,15 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace  = true
 google-cloud-auth      = { workspace = true }
 bytes.workspace        = true
 futures.workspace      = true
-gax.workspace          = true
+google-cloud-gax       = { workspace = true }
 gaxi                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace         = true
 google-cloud-iam-v1    = { workspace = true }
@@ -55,6 +58,7 @@ default = ["default-rustls-provider"]
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
+unstable-stream         = []
 
 [dev-dependencies]
 anyhow.workspace     = true
@@ -64,6 +68,7 @@ test-case.workspace  = true
 tokio-test.workspace = true
 tokio.workspace      = true
 pubsub-grpc-mock     = { path = "grpc-mock" }
+google-cloud-pubsub  = { path = ".", features = ["default-rustls-provider"] }
 
 [lints]
 workspace = true

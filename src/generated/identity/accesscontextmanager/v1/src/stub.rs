@@ -42,9 +42,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn list_access_policies(
         &self,
         _req: crate::model::ListAccessPoliciesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAccessPoliciesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAccessPoliciesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_access_policy(
         &self,
         _req: crate::model::GetAccessPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AccessPolicy>>,
+        Output = crate::Result<crate::Response<crate::model::AccessPolicy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn create_access_policy(
         &self,
         _req: crate::model::AccessPolicy,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn update_access_policy(
         &self,
         _req: crate::model::UpdateAccessPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +86,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn delete_access_policy(
         &self,
         _req: crate::model::DeleteAccessPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +97,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn list_access_levels(
         &self,
         _req: crate::model::ListAccessLevelsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAccessLevelsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAccessLevelsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,10 +108,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_access_level(
         &self,
         _req: crate::model::GetAccessLevelRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AccessLevel>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AccessLevel>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -119,9 +118,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn create_access_level(
         &self,
         _req: crate::model::CreateAccessLevelRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +129,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn update_access_level(
         &self,
         _req: crate::model::UpdateAccessLevelRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +140,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn delete_access_level(
         &self,
         _req: crate::model::DeleteAccessLevelRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,9 +151,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn replace_access_levels(
         &self,
         _req: crate::model::ReplaceAccessLevelsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,11 +162,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn list_service_perimeters(
         &self,
         _req: crate::model::ListServicePerimetersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListServicePerimetersResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListServicePerimetersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -176,9 +173,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_service_perimeter(
         &self,
         _req: crate::model::GetServicePerimeterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ServicePerimeter>>,
+        Output = crate::Result<crate::Response<crate::model::ServicePerimeter>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -187,9 +184,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn create_service_perimeter(
         &self,
         _req: crate::model::CreateServicePerimeterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -198,9 +195,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn update_service_perimeter(
         &self,
         _req: crate::model::UpdateServicePerimeterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -209,9 +206,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn delete_service_perimeter(
         &self,
         _req: crate::model::DeleteServicePerimeterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -220,9 +217,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn replace_service_perimeters(
         &self,
         _req: crate::model::ReplaceServicePerimetersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -231,9 +228,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn commit_service_perimeters(
         &self,
         _req: crate::model::CommitServicePerimetersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -242,11 +239,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn list_gcp_user_access_bindings(
         &self,
         _req: crate::model::ListGcpUserAccessBindingsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListGcpUserAccessBindingsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -255,9 +250,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_gcp_user_access_binding(
         &self,
         _req: crate::model::GetGcpUserAccessBindingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GcpUserAccessBinding>>,
+        Output = crate::Result<crate::Response<crate::model::GcpUserAccessBinding>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -266,9 +261,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn create_gcp_user_access_binding(
         &self,
         _req: crate::model::CreateGcpUserAccessBindingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -277,9 +272,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn update_gcp_user_access_binding(
         &self,
         _req: crate::model::UpdateGcpUserAccessBindingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -288,9 +283,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn delete_gcp_user_access_binding(
         &self,
         _req: crate::model::DeleteGcpUserAccessBindingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -299,9 +294,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -310,9 +305,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -321,10 +316,10 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -334,9 +329,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -347,9 +342,9 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -358,8 +353,8 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

@@ -41,8 +41,8 @@ where
     async fn list_parameters(
         &self,
         req: crate::model::ListParametersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListParametersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListParametersResponse>> {
         self.inner.list_parameters(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_parameter(
         &self,
         req: crate::model::GetParameterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Parameter>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Parameter>> {
         self.inner.get_parameter(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_parameter(
         &self,
         req: crate::model::CreateParameterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Parameter>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Parameter>> {
         self.inner.create_parameter(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_parameter(
         &self,
         req: crate::model::UpdateParameterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Parameter>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Parameter>> {
         self.inner.update_parameter(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_parameter(
         &self,
         req: crate::model::DeleteParameterRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_parameter(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_parameter_versions(
         &self,
         req: crate::model::ListParameterVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListParameterVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListParameterVersionsResponse>> {
         self.inner.list_parameter_versions(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn get_parameter_version(
         &self,
         req: crate::model::GetParameterVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ParameterVersion>> {
         self.inner.get_parameter_version(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn render_parameter_version(
         &self,
         req: crate::model::RenderParameterVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RenderParameterVersionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RenderParameterVersionResponse>> {
         self.inner.render_parameter_version(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn create_parameter_version(
         &self,
         req: crate::model::CreateParameterVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ParameterVersion>> {
         self.inner.create_parameter_version(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn update_parameter_version(
         &self,
         req: crate::model::UpdateParameterVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ParameterVersion>> {
         self.inner.update_parameter_version(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn delete_parameter_version(
         &self,
         req: crate::model::DeleteParameterVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_parameter_version(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

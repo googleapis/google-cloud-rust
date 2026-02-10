@@ -20,7 +20,7 @@ pub mod net_app {
     /// A builder for [NetApp][crate::client::NetApp].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_netapp_v1::*;
     /// # use builder::net_app::ClientBuilder;
     /// # use client::NetApp;
@@ -30,19 +30,18 @@ pub mod net_app {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::NetApp;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = NetApp;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod net_app {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -64,7 +63,7 @@ pub mod net_app {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -74,8 +73,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListStoragePools;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -107,7 +106,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,14 +116,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_storage_pools(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListStoragePoolsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListStoragePoolsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -132,15 +133,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStoragePoolsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListStoragePoolsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -178,8 +181,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListStoragePools {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListStoragePools {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -189,7 +192,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateStoragePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -219,7 +222,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -234,7 +237,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_storage_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_storage_pool`.
@@ -251,7 +254,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -318,8 +321,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateStoragePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateStoragePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -329,7 +332,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetStoragePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -355,7 +358,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -365,7 +368,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_storage_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStoragePoolRequest::name].
@@ -378,8 +381,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetStoragePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetStoragePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -389,7 +392,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateStoragePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -419,7 +422,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -434,7 +437,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_storage_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_storage_pool`.
@@ -451,7 +454,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -524,8 +527,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateStoragePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateStoragePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -535,7 +538,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteStoragePool;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -565,7 +568,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -580,7 +583,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_storage_pool(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_storage_pool`.
@@ -592,7 +595,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -629,8 +632,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteStoragePool {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteStoragePool {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -640,7 +643,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ValidateDirectoryService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -672,7 +675,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -687,7 +690,7 @@ pub mod net_app {
             (*self.0.stub)
                 .validate_directory_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `validate_directory_service`.
@@ -699,7 +702,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -745,8 +748,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ValidateDirectoryService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ValidateDirectoryService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -756,7 +759,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::SwitchActiveReplicaZone;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -788,7 +791,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -803,7 +806,7 @@ pub mod net_app {
             (*self.0.stub)
                 .switch_active_replica_zone(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `switch_active_replica_zone`.
@@ -820,7 +823,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -857,8 +860,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SwitchActiveReplicaZone {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SwitchActiveReplicaZone {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -868,8 +871,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListVolumes;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -898,7 +901,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -908,13 +911,13 @@ pub mod net_app {
             (*self.0.stub)
                 .list_volumes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListVolumesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -923,15 +926,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListVolumesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -969,8 +974,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListVolumes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListVolumes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -980,7 +985,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1006,7 +1011,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1016,7 +1021,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
@@ -1029,8 +1034,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1040,7 +1045,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1067,7 +1072,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1082,7 +1087,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_volume`.
@@ -1099,7 +1104,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1166,8 +1171,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1177,7 +1182,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1204,7 +1209,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1219,7 +1224,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_volume`.
@@ -1236,7 +1241,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1309,8 +1314,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1320,7 +1325,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1347,7 +1352,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1362,7 +1367,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_volume`.
@@ -1374,7 +1379,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1417,8 +1422,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1428,7 +1433,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::RevertVolume;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1455,7 +1460,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1470,7 +1475,7 @@ pub mod net_app {
             (*self.0.stub)
                 .revert_volume(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `revert_volume`.
@@ -1487,7 +1492,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1532,8 +1537,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RevertVolume {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RevertVolume {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1543,8 +1548,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListSnapshots;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1573,7 +1578,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1583,13 +1588,13 @@ pub mod net_app {
             (*self.0.stub)
                 .list_snapshots(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSnapshotsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1598,15 +1603,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSnapshotsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1644,8 +1651,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSnapshots {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSnapshots {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1655,7 +1662,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1681,7 +1688,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1691,7 +1698,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
@@ -1704,8 +1711,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1715,7 +1722,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1742,7 +1749,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1757,7 +1764,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_snapshot`.
@@ -1774,7 +1781,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1841,8 +1848,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1852,7 +1859,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1879,7 +1886,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1894,7 +1901,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_snapshot`.
@@ -1906,7 +1913,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1943,8 +1950,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1954,7 +1961,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1981,7 +1988,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1996,7 +2003,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_snapshot`.
@@ -2013,7 +2020,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2086,8 +2093,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2097,8 +2104,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListActiveDirectories;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2130,7 +2137,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2140,14 +2147,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_active_directories(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListActiveDirectoriesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListActiveDirectoriesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2155,17 +2164,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListActiveDirectoriesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2203,8 +2212,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListActiveDirectories {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListActiveDirectories {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2214,7 +2223,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetActiveDirectory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2243,7 +2252,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2253,7 +2262,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_active_directory(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetActiveDirectoryRequest::name].
@@ -2266,8 +2275,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetActiveDirectory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetActiveDirectory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2277,7 +2286,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateActiveDirectory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2307,7 +2316,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2322,7 +2331,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_active_directory(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_active_directory`.
@@ -2339,7 +2348,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2406,8 +2415,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateActiveDirectory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateActiveDirectory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2417,7 +2426,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateActiveDirectory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2447,7 +2456,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2462,7 +2471,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_active_directory(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_active_directory`.
@@ -2479,7 +2488,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2552,8 +2561,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateActiveDirectory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateActiveDirectory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2563,7 +2572,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteActiveDirectory;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2593,7 +2602,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2608,7 +2617,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_active_directory(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_active_directory`.
@@ -2620,7 +2629,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2657,8 +2666,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteActiveDirectory {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteActiveDirectory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2668,8 +2677,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListKmsConfigs;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2698,7 +2707,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2708,14 +2717,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_kms_configs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListKmsConfigsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListKmsConfigsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2723,15 +2734,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKmsConfigsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListKmsConfigsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2769,8 +2782,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListKmsConfigs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListKmsConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2780,7 +2793,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateKmsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2807,7 +2820,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2822,7 +2835,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_kms_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_kms_config`.
@@ -2839,7 +2852,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2906,8 +2919,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateKmsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateKmsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2917,7 +2930,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetKmsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2943,7 +2956,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2953,7 +2966,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_kms_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKmsConfigRequest::name].
@@ -2966,8 +2979,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetKmsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetKmsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2977,7 +2990,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateKmsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3004,7 +3017,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3019,7 +3032,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_kms_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_kms_config`.
@@ -3036,7 +3049,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3109,8 +3122,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateKmsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateKmsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3120,7 +3133,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::EncryptVolumes;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3147,7 +3160,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3162,7 +3175,7 @@ pub mod net_app {
             (*self.0.stub)
                 .encrypt_volumes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `encrypt_volumes`.
@@ -3179,7 +3192,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3216,8 +3229,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for EncryptVolumes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for EncryptVolumes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3227,7 +3240,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::VerifyKmsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3253,7 +3266,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3263,7 +3276,7 @@ pub mod net_app {
             (*self.0.stub)
                 .verify_kms_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::VerifyKmsConfigRequest::name].
@@ -3276,8 +3289,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for VerifyKmsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for VerifyKmsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3287,7 +3300,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteKmsConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3314,7 +3327,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3329,7 +3342,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_kms_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_kms_config`.
@@ -3341,7 +3354,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3378,8 +3391,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteKmsConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteKmsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3389,8 +3402,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListReplications;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3422,7 +3435,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3432,14 +3445,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_replications(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListReplicationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListReplicationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3447,15 +3462,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReplicationsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListReplicationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3493,8 +3510,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListReplications {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListReplications {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3504,7 +3521,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3530,7 +3547,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3540,7 +3557,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReplicationRequest::name].
@@ -3553,8 +3570,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3564,7 +3581,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3594,7 +3611,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3609,7 +3626,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_replication`.
@@ -3626,7 +3643,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3693,8 +3710,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3704,7 +3721,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3734,7 +3751,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3749,7 +3766,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_replication`.
@@ -3761,7 +3778,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3798,8 +3815,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3809,7 +3826,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3839,7 +3856,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3854,7 +3871,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_replication`.
@@ -3871,7 +3888,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3944,8 +3961,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3955,7 +3972,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::StopReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3982,7 +3999,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3997,7 +4014,7 @@ pub mod net_app {
             (*self.0.stub)
                 .stop_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `stop_replication`.
@@ -4014,7 +4031,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4057,8 +4074,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4068,7 +4085,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ResumeReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4098,7 +4115,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4113,7 +4130,7 @@ pub mod net_app {
             (*self.0.stub)
                 .resume_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `resume_replication`.
@@ -4130,7 +4147,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4167,8 +4184,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResumeReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResumeReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4178,7 +4195,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ReverseReplicationDirection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4210,7 +4227,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4225,7 +4242,7 @@ pub mod net_app {
             (*self.0.stub)
                 .reverse_replication_direction(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `reverse_replication_direction`.
@@ -4242,7 +4259,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4279,8 +4296,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReverseReplicationDirection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReverseReplicationDirection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4290,7 +4307,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::EstablishPeering;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4320,7 +4337,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4335,7 +4352,7 @@ pub mod net_app {
             (*self.0.stub)
                 .establish_peering(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `establish_peering`.
@@ -4352,7 +4369,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4424,8 +4441,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for EstablishPeering {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for EstablishPeering {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4435,7 +4452,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::SyncReplication;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4462,7 +4479,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4477,7 +4494,7 @@ pub mod net_app {
             (*self.0.stub)
                 .sync_replication(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `sync_replication`.
@@ -4494,7 +4511,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4531,8 +4548,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SyncReplication {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SyncReplication {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4542,7 +4559,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupVault;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4572,7 +4589,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4587,7 +4604,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup_vault`.
@@ -4604,7 +4621,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4671,8 +4688,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackupVault {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackupVault {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4682,7 +4699,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackupVault;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4708,7 +4725,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4718,7 +4735,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup_vault(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
@@ -4731,8 +4748,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackupVault {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackupVault {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4742,8 +4759,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackupVaults;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4775,7 +4792,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4785,14 +4802,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backup_vaults(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBackupVaultsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4800,15 +4819,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackupVaultsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4846,8 +4867,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackupVaults {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackupVaults {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4857,7 +4878,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupVault;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4887,7 +4908,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4902,7 +4923,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup_vault`.
@@ -4919,7 +4940,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4992,8 +5013,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBackupVault {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBackupVault {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5003,7 +5024,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupVault;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5033,7 +5054,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5048,7 +5069,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup_vault`.
@@ -5060,7 +5081,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5097,8 +5118,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackupVault {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackupVault {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5108,7 +5129,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5135,7 +5156,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5150,7 +5171,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
@@ -5167,7 +5188,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5234,8 +5255,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5245,7 +5266,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5271,7 +5292,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5281,7 +5302,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -5294,8 +5315,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5305,8 +5326,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5335,7 +5356,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5345,13 +5366,13 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListBackupsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5360,15 +5381,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5406,8 +5429,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5417,7 +5440,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5444,7 +5467,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5459,7 +5482,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
@@ -5471,7 +5494,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5508,8 +5531,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5519,7 +5542,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5546,7 +5569,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5561,7 +5584,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup`.
@@ -5578,7 +5601,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5651,8 +5674,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5662,7 +5685,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5692,7 +5715,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5707,7 +5730,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup_policy`.
@@ -5724,7 +5747,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5791,8 +5814,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackupPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackupPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5802,7 +5825,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetBackupPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5828,7 +5851,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5838,7 +5861,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupPolicyRequest::name].
@@ -5851,8 +5874,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackupPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackupPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5862,8 +5885,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListBackupPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5895,7 +5918,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5905,14 +5928,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backup_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBackupPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5920,17 +5945,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListBackupPoliciesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5968,8 +5993,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackupPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackupPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5979,7 +6004,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6009,7 +6034,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6024,7 +6049,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backup_policy`.
@@ -6041,7 +6066,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6114,8 +6139,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBackupPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBackupPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6125,7 +6150,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6155,7 +6180,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6170,7 +6195,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup_policy`.
@@ -6182,7 +6207,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6219,8 +6244,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackupPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackupPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6230,8 +6255,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListQuotaRules;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6260,7 +6285,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6270,14 +6295,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_quota_rules(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQuotaRulesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListQuotaRulesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6285,15 +6312,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaRulesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListQuotaRulesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -6331,8 +6360,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListQuotaRules {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListQuotaRules {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6342,7 +6371,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetQuotaRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6368,7 +6397,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6378,7 +6407,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_quota_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaRuleRequest::name].
@@ -6391,8 +6420,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetQuotaRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetQuotaRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6402,7 +6431,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateQuotaRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6429,7 +6458,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6444,7 +6473,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_quota_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_quota_rule`.
@@ -6461,7 +6490,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6528,8 +6557,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateQuotaRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateQuotaRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6539,7 +6568,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateQuotaRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6566,7 +6595,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6581,7 +6610,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_quota_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_quota_rule`.
@@ -6598,7 +6627,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6667,8 +6696,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateQuotaRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateQuotaRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6678,7 +6707,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteQuotaRule;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6705,7 +6734,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6720,7 +6749,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_quota_rule(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_quota_rule`.
@@ -6732,7 +6761,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6769,8 +6798,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteQuotaRule {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteQuotaRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6780,7 +6809,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::RestoreBackupFiles;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6810,7 +6839,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6825,7 +6854,7 @@ pub mod net_app {
             (*self.0.stub)
                 .restore_backup_files(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_backup_files`.
@@ -6844,7 +6873,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6908,8 +6937,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RestoreBackupFiles {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RestoreBackupFiles {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6919,8 +6948,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListHostGroups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6949,7 +6978,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6959,14 +6988,16 @@ pub mod net_app {
             (*self.0.stub)
                 .list_host_groups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListHostGroupsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListHostGroupsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6974,15 +7005,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListHostGroupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListHostGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7020,8 +7053,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListHostGroups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListHostGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7031,7 +7064,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetHostGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7057,7 +7090,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7067,7 +7100,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_host_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHostGroupRequest::name].
@@ -7080,8 +7113,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetHostGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetHostGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7091,7 +7124,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CreateHostGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7118,7 +7151,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7133,7 +7166,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_host_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_host_group`.
@@ -7150,7 +7183,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7217,8 +7250,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateHostGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateHostGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7228,7 +7261,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::UpdateHostGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7255,7 +7288,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7270,7 +7303,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_host_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_host_group`.
@@ -7287,7 +7320,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7356,8 +7389,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateHostGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateHostGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7367,7 +7400,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteHostGroup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -7394,7 +7427,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7409,7 +7442,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_host_group(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_host_group`.
@@ -7421,7 +7454,7 @@ pub mod net_app {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7458,8 +7491,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteHostGroup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteHostGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7469,8 +7502,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -7502,7 +7535,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7512,15 +7545,15 @@ pub mod net_app {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -7529,17 +7562,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7569,8 +7602,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7580,7 +7613,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7609,7 +7642,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7619,7 +7652,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -7630,8 +7663,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7641,8 +7674,8 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -7676,7 +7709,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7686,15 +7719,15 @@ pub mod net_app {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -7703,17 +7736,17 @@ pub mod net_app {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7749,8 +7782,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7760,7 +7793,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7789,7 +7822,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7799,7 +7832,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -7810,8 +7843,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7821,7 +7854,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7852,7 +7885,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7862,7 +7895,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -7873,8 +7906,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7884,7 +7917,7 @@ pub mod net_app {
     /// # Example
     /// ```
     /// # use google_cloud_netapp_v1::builder::net_app::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7915,7 +7948,7 @@ pub mod net_app {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7925,7 +7958,7 @@ pub mod net_app {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -7936,8 +7969,8 @@ pub mod net_app {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
