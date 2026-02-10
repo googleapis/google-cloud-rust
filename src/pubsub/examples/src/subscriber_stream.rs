@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START rust_pubsub_subscriber_stream]
 use futures::StreamExt as _;
 use futures::TryStreamExt as _;
 use google_cloud_pubsub::client::Subscriber;
@@ -22,8 +21,6 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
 
-    // In simple scenarios, like this example, a `Session` can be converted into
-    // a `futures::Stream`.
     let session = client.streaming_pull(subscription_name).start();
 
     println!("listening for messages using streams...");
@@ -35,11 +32,7 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
         .into_stream()
         .take_until(deadline)
         .try_for_each(|(message, handler)| {
-            println!(
-                "received message: {}",
-                String::from_utf8_lossy(&message.data)
-            );
-            // Acknowledgments are required for At-Least-Once delivery.
+            println!("received message: {message:?}");
             handler.ack();
             async { Ok(()) }
         })
@@ -49,4 +42,3 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
 
     Ok(())
 }
-// [END rust_pubsub_subscriber_stream]

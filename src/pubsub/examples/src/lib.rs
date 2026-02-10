@@ -47,15 +47,15 @@ pub async fn run_subscription_examples(
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
 
+    quickstart_publisher::sample(&project_id, topic_id).await?;
+    quickstart_subscriber::sample(&project_id, &id).await?;
+    subscriber_stream::sample(&project_id, &id).await?;
+
     Ok(())
 }
 
 pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: &str) -> anyhow::Result<()> {
-    client
-        .delete_topic()
-        .set_topic(topic_name.to_string())
-        .send()
-        .await?;
+    client.delete_topic().set_topic(topic_name).send().await?;
     Ok(())
 }
 
@@ -133,7 +133,7 @@ pub async fn cleanup_test_subscription(
 ) -> anyhow::Result<()> {
     client
         .delete_subscription()
-        .set_subscription(subscription_name.to_string())
+        .set_subscription(subscription_name)
         .send()
         .await?;
     Ok(())
