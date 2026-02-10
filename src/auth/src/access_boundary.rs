@@ -23,6 +23,7 @@ use http::Extensions;
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
+use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
@@ -50,9 +51,13 @@ impl AccessBoundary {
     {
         let enabled = Self::is_regional_access_boundaries_enabled();
         let (tx_header, rx_header) = watch::channel(None);
+        let provider = IAMAccessBoundaryProvider {
+            token_provider,
+            url,
+        };
 
         if enabled {
-            tokio::spawn(refresh_task(token_provider, url, tx_header));
+            tokio::spawn(refresh_task(Arc::new(provider), tx_header));
         }
 
         Self { rx_header }
@@ -77,6 +82,34 @@ impl AccessBoundary {
     }
 }
 
+// internal trait for testability and avoid dependency on reqwest
+// which causes issues with tokio::time::advance and tokio::task::yield_now
+
+#[async_trait::async_trait]
+trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
+    async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
+}
+
+// default implementation that uses IAM Access Boundaries API
+#[derive(Debug)]
+struct IAMAccessBoundaryProvider<T>
+where
+    T: CachedTokenProvider + 'static,
+{
+    token_provider: T,
+    url: String,
+}
+
+#[async_trait::async_trait]
+impl<T> AccessBoundaryProvider for IAMAccessBoundaryProvider<T>
+where
+    T: CachedTokenProvider + 'static,
+{
+    async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError> {
+        fetch_access_boundary(&self.token_provider, &self.url).await
+    }
+}
+
 #[derive(serde::Serialize, serde::Deserialize)]
 struct AllowedLocationsResponse {
     #[allow(dead_code)]
@@ -90,7 +123,7 @@ async fn fetch_access_boundary<T>(
     url: &str,
 ) -> Result<Option<String>, CredentialsError>
 where
-    T: CachedTokenProvider,
+    T: CachedTokenProvider + 'static,
 {
     let token = token_provider.token(Extensions::new()).await?;
     let headers = AuthHeadersBuilder::new(&token).build()?;
@@ -130,9 +163,9 @@ where
     Ok(None)
 }
 
-async fn refresh_task<T>(token_provider: T, url: String, tx_header: watch::Sender<Option<String>>)
+async fn refresh_task<T>(provider: Arc<T>, tx_header: watch::Sender<Option<String>>)
 where
-    T: CachedTokenProvider,
+    T: AccessBoundaryProvider,
 {
     let backoff = ExponentialBackoffBuilder::new()
         .with_initial_delay(COOLDOWN_INTERVAL)
@@ -144,7 +177,7 @@ where
     let mut state = RetryState::new(true);
 
     loop {
-        match fetch_access_boundary(&token_provider, &url).await {
+        match provider.fetch_access_boundary().await {
             Ok(val) => {
                 let _ = tx_header.send(val);
                 state = RetryState::new(true); // reset backoff on success
@@ -176,9 +209,19 @@ mod tests {
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::{parallel, serial};
-    use tokio::time::Instant;
+    use std::sync::Arc;
 
     type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub AccessBoundaryProvider { }
+
+        #[async_trait::async_trait]
+        impl AccessBoundaryProvider for AccessBoundaryProvider {
+            async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
+        }
+    }
 
     #[test]
     #[parallel]
@@ -368,48 +411,21 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn test_refresh_task_backoff() {
-        let now = Instant::now();
-
-        let initial_token = Token {
-            token: "valid-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: Some(now + Duration::from_secs(3600)),
-            metadata: None,
-        };
-
-        let mut mock_provider = MockTokenProvider::new();
+        let mut mock_provider = MockAccessBoundaryProvider::new();
         mock_provider
-            .expect_token()
-            .returning(move || Ok(initial_token.clone()));
+            .expect_fetch_access_boundary()
+            .times(2)
+            .returning(|| Err(CredentialsError::from_msg(false, "test error")));
 
-        let cached_provider = TokenCache::new(mock_provider);
-
-        let server = Server::run();
-
-        server.expect(
-            Expectation::matching(request::method_path("GET", "/accessBoundary"))
-                .times(2)
-                .respond_with(status_code(503)),
-        );
-
-        server.expect(
-            Expectation::matching(request::method_path("GET", "/accessBoundary"))
-                .times(1)
-                .respond_with(json_encoded(json!({
-                    "locations": [],
-                    "encodedLocations": "0x123",
-                }))),
-        );
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .return_once(|| Ok(Some("0x123".to_string())));
 
         let (tx, rx) = watch::channel::<Option<String>>(None);
 
         tokio::spawn(async move {
-            refresh_task(
-                cached_provider,
-                server.url("/accessBoundary").to_string(),
-                tx,
-            )
-            .await;
+            refresh_task(Arc::new(mock_provider), tx).await;
         });
 
         // allow task to start and fail the first request
@@ -431,9 +447,7 @@ mod tests {
 
         // advance 30 minutes, third call succeeds
         tokio::time::advance(2 * COOLDOWN_INTERVAL).await;
-        for _ in 0..1000 {
-            tokio::task::yield_now().await;
-        }
+        tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
         assert_eq!(val.as_deref(), Some("0x123"));
