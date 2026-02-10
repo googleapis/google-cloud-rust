@@ -69,5 +69,5 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
 }
 
 fn parse_index(data: &bytes::Bytes) -> anyhow::Result<i32> {
-    Ok(str::from_utf8(data)?.trim().parse::<i32>()?)
+    Ok(std::str::from_utf8(data)?.trim().parse::<i32>()?)
 }
