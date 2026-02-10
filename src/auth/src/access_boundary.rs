@@ -16,9 +16,6 @@ use crate::credentials::CacheableResource;
 use crate::errors::CredentialsError;
 use crate::headers_util::AuthHeadersBuilder;
 use crate::token::CachedTokenProvider;
-use google_cloud_gax::backoff_policy::BackoffPolicy;
-use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::retry_state::RetryState;
 use http::Extensions;
 use reqwest::Client;
 use std::clone::Clone;
@@ -36,8 +33,6 @@ const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
 const REFRESH_INTERVAL: Duration = Duration::from_secs(60 * 60);
 // Period to wait after an error: 15 minutes
 const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
-// Max period to wait after an error: 2 hours
-const MAX_COOLDOWN_INTERVAL: Duration = Duration::from_secs(2 * 60 * 60);
 
 #[derive(Debug)]
 pub(crate) struct AccessBoundary {
@@ -49,21 +44,20 @@ impl AccessBoundary {
     where
         T: CachedTokenProvider + 'static,
     {
-        let enabled = Self::is_regional_access_boundaries_enabled();
         let (tx_header, rx_header) = watch::channel(None);
-        let provider = IAMAccessBoundaryProvider {
-            token_provider,
-            url,
-        };
 
-        if enabled {
+        if Self::is_enabled() {
+            let provider = IAMAccessBoundaryProvider {
+                token_provider,
+                url,
+            };
             tokio::spawn(refresh_task(Arc::new(provider), tx_header));
         }
 
         Self { rx_header }
     }
 
-    fn is_regional_access_boundaries_enabled() -> bool {
+    fn is_enabled() -> bool {
         std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase())
             .map(|v| v == "true" || v == "1")
@@ -73,10 +67,8 @@ impl AccessBoundary {
     pub(crate) fn header_value(&self) -> Option<String> {
         // TODO(#4186): handle expiration. Each new entry should have TTL per design doc.
         let val = self.rx_header.borrow().clone();
-        if let Some(ref v) = val {
-            if v == NO_OP_ENCODED_LOCATIONS {
-                return None;
-            }
+        if val.as_ref().is_some_and(|v| v == NO_OP_ENCODED_LOCATIONS) {
+            return None;
         }
         val
     }
@@ -167,26 +159,14 @@ async fn refresh_task<T>(provider: Arc<T>, tx_header: watch::Sender<Option<Strin
 where
     T: AccessBoundaryProvider,
 {
-    let backoff = ExponentialBackoffBuilder::new()
-        .with_initial_delay(COOLDOWN_INTERVAL)
-        .with_maximum_delay(MAX_COOLDOWN_INTERVAL)
-        .with_scaling(2.0)
-        .build()
-        .expect("static cooldown settings should be valid");
-
-    let mut state = RetryState::new(true);
-
     loop {
         match provider.fetch_access_boundary().await {
             Ok(val) => {
                 let _ = tx_header.send(val);
-                state = RetryState::new(true); // reset backoff on success
                 sleep(REFRESH_INTERVAL).await;
             }
             Err(_e) => {
-                let delay = backoff.on_failure(&state);
-                sleep(delay).await;
-                state = state.clone().set_attempt_count(state.attempt_count + 1);
+                sleep(COOLDOWN_INTERVAL).await;
             }
         }
     }
@@ -194,8 +174,7 @@ where
 
 pub(crate) fn service_account_lookup_url(email: &str) -> String {
     format!(
-        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}/allowedLocations",
-        email
+        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations"
     )
 }
 
@@ -210,6 +189,7 @@ mod tests {
     use serde_json::json;
     use serial_test::{parallel, serial};
     use std::sync::Arc;
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
@@ -261,7 +241,7 @@ mod tests {
         let url = server.url("/allowedLocations").to_string();
 
         let result = fetch_access_boundary(&token_provider, &url).await?;
-        assert_eq!(result.as_deref(), Some("0x123"));
+        assert_eq!(result.as_deref(), Some("0x123"), "{result:?}");
 
         Ok(())
     }
@@ -292,8 +272,8 @@ mod tests {
         let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&token_provider, &url).await?;
-        assert_eq!(result, None);
+        let val = fetch_access_boundary(&token_provider, &url).await?;
+        assert!(val.is_none(), "{val:?}");
 
         Ok(())
     }
@@ -322,7 +302,7 @@ mod tests {
 
         let result = fetch_access_boundary(&token_provider, &url).await;
         let err = result.unwrap_err();
-        assert!(err.is_transient());
+        assert!(err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
@@ -339,7 +319,7 @@ mod tests {
         let token_provider = TokenCache::new(mock);
         let result = fetch_access_boundary(&token_provider, "http://localhost").await;
         let err = result.unwrap_err();
-        assert!(!err.is_transient());
+        assert!(!err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
@@ -360,7 +340,8 @@ mod tests {
         let token_provider = TokenCache::new(mock);
         let access_boundary = AccessBoundary::new(token_provider, "http://localhost".to_string());
 
-        assert_eq!(access_boundary.header_value(), None);
+        let val = access_boundary.header_value();
+        assert!(val.is_none(), "{val:?}");
     }
 
     #[test]
@@ -373,43 +354,43 @@ mod tests {
         assert_eq!(access_boundary.header_value().as_deref(), Some("0x123"));
 
         let _ = tx.send(Some(NO_OP_ENCODED_LOCATIONS.to_string()));
-        assert_eq!(access_boundary.header_value(), None);
+        let val = access_boundary.header_value();
+        assert!(val.is_none(), "{val:?}");
 
         let _ = tx.send(None);
-        assert_eq!(access_boundary.header_value(), None);
+        let val = access_boundary.header_value();
+        assert!(val.is_none(), "{val:?}");
     }
 
-    #[test]
+    #[test_case(Some("true"), true; "with_true")]
+    #[test_case(Some("TRUE"), true; "with_true_uppercase")]
+    #[test_case(Some("1"), true; "with_one")]
+    #[test_case(Some("false"), false; "with_false")]
+    #[test_case(Some("0"), false; "with_zero")]
+    #[test_case(None, false; "with_none")]
     #[serial]
-    fn test_is_regional_access_boundaries_enabled() {
-        let cases = [
-            (Some("true"), true),
-            (Some("TRUE"), true),
-            (Some("1"), true),
-            (Some("false"), false),
-            (Some("0"), false),
-            (None, false),
-        ];
+    #[tokio::test]
+    async fn test_is_regional_access_boundaries_enabled(
+        env_val: Option<&str>,
+        expected: bool,
+    ) -> TestResult {
+        let _env = match env_val {
+            Some(val) => ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, val),
+            None => ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR),
+        };
+        assert_eq!(
+            AccessBoundary::is_enabled(),
+            expected,
+            "Failed on case: env_val={:?}, expected={}",
+            env_val,
+            expected
+        );
 
-        for (env_val, expected) in cases {
-            let _env = match env_val {
-                Some(val) => Some(ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, val)),
-                None => {
-                    let _ = ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR);
-                    None
-                }
-            };
-            assert_eq!(
-                AccessBoundary::is_regional_access_boundaries_enabled(),
-                expected,
-                "Failed on case: env_val={:?}, expected={}",
-                env_val,
-                expected
-            );
-        }
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
+    #[parallel]
     async fn test_refresh_task_backoff() {
         let mut mock_provider = MockAccessBoundaryProvider::new();
         mock_provider
@@ -445,8 +426,8 @@ mod tests {
             "should still be None after second error: {val:?}"
         );
 
-        // advance 30 minutes, third call succeeds
-        tokio::time::advance(2 * COOLDOWN_INTERVAL).await;
+        // advance 15 minutes, third call succeeds
+        tokio::time::advance(COOLDOWN_INTERVAL).await;
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
