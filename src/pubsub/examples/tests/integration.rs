@@ -86,7 +86,6 @@ mod tests {
         result
     }
 
-    #[cfg(feature = "unstable-stream")]
     #[tokio::test]
     async fn subscriber_stream() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;

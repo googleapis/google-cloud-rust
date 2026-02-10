@@ -14,7 +14,6 @@
 
 pub mod quickstart_publisher;
 pub mod quickstart_subscriber;
-#[cfg(feature = "unstable-stream")]
 pub mod subscriber_stream;
 mod subscription;
 mod topic;
