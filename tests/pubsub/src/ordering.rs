@@ -17,45 +17,54 @@ use google_cloud_pubsub::client::{Publisher, Subscriber};
 use google_cloud_pubsub::model::Message;
 
 pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Result<()> {
-    const MESSAGE_COUNT: i32 = 1_000;
-    const ORDERING_KEY: &str = "ordering-key";
+    const MESSAGES_PER_KEY: i32 = 1_000;
+    const ORDERING_PREFIX: &str = "ordering-key-";
+    const NUM_KEYS: usize = 4;
 
-    tracing::info!("testing ordered delivery()");
-    let publisher = Publisher::builder(topic_name).build().await?;
+    tracing::info!("testing ordered delivery keys()");
+    let publisher = Publisher::builder(topic_name)
+        // Force the publisher to send multiple batches per key. This gives us
+        // some extra confidence in the Publisher's ordering logic.
+        .set_message_count_threshold(100)
+        .build()
+        .await?;
     let subscriber = Subscriber::builder().build().await?;
     let mut session = subscriber.streaming_pull(subscription_name).start();
+
     let subscribe = tokio::spawn(async move {
-        let mut expected_index = 0;
-        while expected_index < MESSAGE_COUNT {
+        let mut expected_index = [0; NUM_KEYS];
+        while expected_index.iter().all(|&v| v == MESSAGES_PER_KEY) {
             let Some((m, h)) = session.next().await.transpose()? else {
                 anyhow::bail!("Stream somehow ended.")
             };
-            if m.ordering_key != ORDERING_KEY {
+            let Some(key) = m.ordering_key.strip_prefix(ORDERING_PREFIX) else {
                 continue;
-            }
+            };
+            let key = key.parse::<usize>()?;
             let index = parse_index(&m.data)?;
-            if index > expected_index {
+            if index > expected_index[key] {
                 // Messages can be redelivered. The only guarantee we can make
-                // is that there is not a gap in delivery.
+                // is that there is not a gap in delivery for each key.
                 anyhow::bail!("Received messages out of order.")
-            } else if index == expected_index {
-                expected_index += 1;
+            } else if index == expected_index[key] {
+                expected_index[key] += 1;
             }
             h.ack();
         }
-
         Ok(())
     });
 
     let mut handles = Vec::new();
-    for i in 0..MESSAGE_COUNT {
-        handles.push(
-            publisher.publish(
-                Message::new()
-                    .set_ordering_key(ORDERING_KEY)
-                    .set_data(format!("{i}")),
-            ),
-        );
+    for i in 0..MESSAGES_PER_KEY {
+        for k in 0..NUM_KEYS {
+            handles.push(
+                publisher.publish(
+                    Message::new()
+                        .set_ordering_key(format!("{ORDERING_PREFIX}{k}"))
+                        .set_data(format!("{i}")),
+                ),
+            );
+        }
     }
     join_all(handles)
         .await
