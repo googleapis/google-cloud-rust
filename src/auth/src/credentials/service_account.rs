@@ -609,9 +609,11 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::access_boundary::tests::MockAccessBoundaryProvider;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
+        PKCS8_PK, b64_decode_to_json, get_access_boundary_from_headers, get_headers_from_cache,
+        get_token_from_headers,
     };
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
@@ -674,7 +676,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
         };
 
         let mut extensions = Extensions::new();
@@ -718,7 +720,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: Some(quota_project.to_string()),
-            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -747,7 +749,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -1023,6 +1025,63 @@ mod tests {
         assert_eq!(client_email, service_account_key["client_email"]);
 
         let _bytes = signer.sign(b"test").await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn fetch_access_token_with_access_boundary() -> TestResult {
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut token_mock = MockTokenProvider::new();
+        token_mock.expect_token().times(1).return_once(|| Ok(token));
+
+        let mut access_boundary_mock = MockAccessBoundaryProvider::new();
+        access_boundary_mock
+            .expect_fetch_access_boundary()
+            .times(1)
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
+
+        access_boundary_mock
+            .expect_fetch_access_boundary()
+            .times(1)
+            .return_once(|| Ok(Some("0x123".to_string())));
+
+        let cache = TokenCache::new(token_mock);
+        let sac = ServiceAccountCredentials {
+            token_provider: cache.clone(),
+            quota_project_id: None,
+            access_boundary: Arc::new(AccessBoundary::new_with_mock_provider(access_boundary_mock)),
+        };
+
+        // should work, even that first location fetch fails
+        let headers = sac.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+        assert!(
+            token.is_some(),
+            "should be Some even on access boundary startup/error: {token:?}"
+        );
+        assert!(
+            access_boundary.is_none(),
+            "should be None on startup/error: {access_boundary:?}"
+        );
+
+        // should work, but now with cached location
+        let headers = sac.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+        assert!(token.is_some(), "should still have some token: {token:?}");
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x123"),
+            "should be 0x123 now that the error is gone: {access_boundary:?}"
+        );
 
         Ok(())
     }

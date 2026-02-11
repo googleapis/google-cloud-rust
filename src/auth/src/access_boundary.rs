@@ -73,8 +73,19 @@ impl AccessBoundary {
     }
 
     #[allow(dead_code)]
-    pub(crate) fn new_with_override(val: String) -> Self {
-        let (_tx, rx_header) = watch::channel(Some(val));
+    pub(crate) fn new_with_override(val: Option<String>) -> Self {
+        let (_tx, rx_header) = watch::channel(val);
+        Self { rx_header }
+    }
+
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
+    where
+        T: AccessBoundaryProvider + 'static,
+    {
+        let (tx_header, rx_header) = watch::channel(None);
+        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
         Self { rx_header }
     }
 
@@ -98,7 +109,7 @@ impl AccessBoundary {
 // internal trait for testability and avoid dependency on reqwest
 // which causes issues with tokio::time::advance and tokio::task::yield_now
 #[async_trait::async_trait]
-trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
+pub(crate) trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
     async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
 }
 
@@ -270,7 +281,7 @@ pub(crate) fn external_account_lookup_url(audience: &str) -> Option<String> {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::token::Token;
     use crate::token::tests::MockTokenProvider;
@@ -284,6 +295,7 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         pub AccessBoundaryProvider { }

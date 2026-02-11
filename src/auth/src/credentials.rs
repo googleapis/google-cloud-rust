@@ -855,6 +855,7 @@ pub mod testing {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::constants::TRUST_BOUNDARY_HEADER;
     use base64::Engine;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::retry_policy::RetryPolicy;
@@ -975,6 +976,18 @@ pub(crate) mod tests {
                 .get(AUTHORIZATION)
                 .and_then(|token_value| token_value.to_str().ok())
                 .and_then(|s| s.split_whitespace().nth(1))
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
+    }
+
+    pub(crate) fn get_access_boundary_from_headers(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(TRUST_BOUNDARY_HEADER)
+                .and_then(|token_value| token_value.to_str().ok())
                 .map(|s| s.to_string()),
             CacheableResource::NotModified => None,
         }
