@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_pubsub::client::*;
-use pubsub_samples::*;
-
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use super::*;
+    use google_cloud_pubsub::client::*;
+    use pubsub_samples::*;
 
     #[tokio::test]
     async fn topics_samples() -> anyhow::Result<()> {
@@ -50,7 +48,7 @@ mod tests {
         }
 
         if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
-            println!("Error cleaning up test topic {}: {:?}", topic.name, e);
+            println!("Error cleaning up test topic {}: {e:?}", topic.name);
         }
 
         result
