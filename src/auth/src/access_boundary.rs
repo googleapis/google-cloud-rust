@@ -57,6 +57,24 @@ impl AccessBoundary {
         Self { rx_header }
     }
 
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_noop(val: Option<String>) -> Self {
+        let (_tx, rx_header) = watch::channel(val);
+        Self { rx_header }
+    }
+
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
+    where
+        T: AccessBoundaryProvider + 'static,
+    {
+        let (tx_header, rx_header) = watch::channel(None);
+        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+        Self { rx_header }
+    }
+
     fn is_enabled() -> bool {
         std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase())
@@ -78,7 +96,7 @@ impl AccessBoundary {
 // which causes issues with tokio::time::advance and tokio::task::yield_now
 
 #[async_trait::async_trait]
-trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
+pub(crate) trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
     async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
 }
 
@@ -179,7 +197,7 @@ pub(crate) fn service_account_lookup_url(email: &str) -> String {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::token::Token;
     use crate::token::tests::MockTokenProvider;
@@ -193,6 +211,7 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         pub AccessBoundaryProvider { }
