@@ -42,10 +42,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn get_environment(
         &self,
         _req: crate::model::GetEnvironmentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Environment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Environment>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,9 +52,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn start_environment(
         &self,
         _req: crate::model::StartEnvironmentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +63,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn authorize_environment(
         &self,
         _req: crate::model::AuthorizeEnvironmentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +74,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn add_public_key(
         &self,
         _req: crate::model::AddPublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn remove_public_key(
         &self,
         _req: crate::model::RemovePublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +96,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -110,9 +109,9 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -121,8 +120,8 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

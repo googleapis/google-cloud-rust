@@ -41,8 +41,8 @@ where
     async fn list_quota_infos(
         &self,
         req: crate::model::ListQuotaInfosRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListQuotaInfosResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListQuotaInfosResponse>> {
         self.inner.list_quota_infos(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_quota_info(
         &self,
         req: crate::model::GetQuotaInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QuotaInfo>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaInfo>> {
         self.inner.get_quota_info(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_quota_preferences(
         &self,
         req: crate::model::ListQuotaPreferencesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListQuotaPreferencesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListQuotaPreferencesResponse>> {
         self.inner.list_quota_preferences(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_quota_preference(
         &self,
         req: crate::model::GetQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaPreference>> {
         self.inner.get_quota_preference(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn create_quota_preference(
         &self,
         req: crate::model::CreateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaPreference>> {
         self.inner.create_quota_preference(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn update_quota_preference(
         &self,
         req: crate::model::UpdateQuotaPreferenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QuotaPreference>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QuotaPreference>> {
         self.inner.update_quota_preference(req, options).await
     }
 }

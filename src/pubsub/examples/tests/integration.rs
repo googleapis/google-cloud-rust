@@ -24,10 +24,29 @@ mod tests {
         let mut topics = Vec::new();
         let result = run_topic_examples(&mut topics).await;
         // Ignore cleanup errors.
-        for name in topics.into_iter() {
-            if let Err(e) = cleanup_test_topic(&client, name.clone()).await {
+        for name in topics {
+            if let Err(e) = cleanup_test_topic(&client, &name).await {
                 println!("Error cleaning up test topic {name}: {e:?}");
             }
+        }
+        result
+    }
+
+    #[tokio::test]
+    async fn subscription_examples() -> anyhow::Result<()> {
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let client = SubscriptionAdmin::builder().build().await?;
+
+        let mut subscriptions = Vec::new();
+        let result = run_subscription_examples(&mut subscriptions, &topic.name).await;
+
+        for name in subscriptions {
+            if let Err(e) = cleanup_test_subscription(&client, &name).await {
+                println!("Error cleaning up test subscription {name}: {e:?}");
+            }
+        }
+        if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
+            println!("Error cleaning up test topic {e:?}");
         }
         result
     }

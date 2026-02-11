@@ -42,9 +42,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_databases(
         &self,
         _req: crate::model::ListDatabasesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDatabasesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn create_database(
         &self,
         _req: crate::model::CreateDatabaseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +64,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_database(
         &self,
         _req: crate::model::GetDatabaseRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Database>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Database>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +74,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn update_database(
         &self,
         _req: crate::model::UpdateDatabaseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn update_database_ddl(
         &self,
         _req: crate::model::UpdateDatabaseDdlRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,8 +96,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn drop_database(
         &self,
         _req: crate::model::DropDatabaseRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,9 +105,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_database_ddl(
         &self,
         _req: crate::model::GetDatabaseDdlRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::GetDatabaseDdlResponse>>,
+        Output = crate::Result<crate::Response<crate::model::GetDatabaseDdlResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,9 +116,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -128,9 +127,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -139,10 +138,10 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -152,9 +151,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,9 +162,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn copy_backup(
         &self,
         _req: crate::model::CopyBackupRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,10 +173,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Backup>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -185,10 +183,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Backup>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -196,8 +193,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -205,9 +202,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBackupsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -216,9 +213,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn restore_database(
         &self,
         _req: crate::model::RestoreDatabaseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -227,11 +224,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_database_operations(
         &self,
         _req: crate::model::ListDatabaseOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListDatabaseOperationsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListDatabaseOperationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -240,9 +235,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_backup_operations(
         &self,
         _req: crate::model::ListBackupOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupOperationsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBackupOperationsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -251,9 +246,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_database_roles(
         &self,
         _req: crate::model::ListDatabaseRolesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDatabaseRolesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDatabaseRolesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -262,9 +257,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn add_split_points(
         &self,
         _req: crate::model::AddSplitPointsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AddSplitPointsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AddSplitPointsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -273,9 +268,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn create_backup_schedule(
         &self,
         _req: crate::model::CreateBackupScheduleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
+        Output = crate::Result<crate::Response<crate::model::BackupSchedule>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -284,9 +279,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_backup_schedule(
         &self,
         _req: crate::model::GetBackupScheduleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
+        Output = crate::Result<crate::Response<crate::model::BackupSchedule>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -295,9 +290,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn update_backup_schedule(
         &self,
         _req: crate::model::UpdateBackupScheduleRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BackupSchedule>>,
+        Output = crate::Result<crate::Response<crate::model::BackupSchedule>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -306,8 +301,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn delete_backup_schedule(
         &self,
         _req: crate::model::DeleteBackupScheduleRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -315,9 +310,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_backup_schedules(
         &self,
         _req: crate::model::ListBackupSchedulesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBackupSchedulesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -326,10 +321,10 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -339,9 +334,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -350,8 +345,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -359,8 +354,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -370,9 +365,9 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -381,8 +376,8 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

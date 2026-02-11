@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate lazy_static;
@@ -4627,7 +4627,7 @@ impl wkt::message::Message for ListCdnKeysResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCdnKeysResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCdnKeysResponse {
     type PageItem = crate::model::CdnKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5034,7 +5034,7 @@ impl wkt::message::Message for ListVodStitchDetailsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVodStitchDetailsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVodStitchDetailsResponse {
     type PageItem = crate::model::VodStitchDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5208,7 +5208,7 @@ impl wkt::message::Message for ListVodAdTagDetailsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVodAdTagDetailsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVodAdTagDetailsResponse {
     type PageItem = crate::model::VodAdTagDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5382,7 +5382,7 @@ impl wkt::message::Message for ListLiveAdTagDetailsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLiveAdTagDetailsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLiveAdTagDetailsResponse {
     type PageItem = crate::model::LiveAdTagDetail;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5757,7 +5757,7 @@ impl wkt::message::Message for ListSlatesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSlatesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSlatesResponse {
     type PageItem = crate::model::Slate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6293,7 +6293,7 @@ impl wkt::message::Message for ListLiveConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLiveConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLiveConfigsResponse {
     type PageItem = crate::model::LiveConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6763,7 +6763,7 @@ impl wkt::message::Message for ListVodConfigsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVodConfigsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVodConfigsResponse {
     type PageItem = crate::model::VodConfig;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

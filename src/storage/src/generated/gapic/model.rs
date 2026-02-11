@@ -651,7 +651,7 @@ impl wkt::message::Message for ListBucketsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBucketsResponse {
     type PageItem = crate::model::Bucket;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -966,6 +966,9 @@ pub struct ComposeObjectRequest {
     /// the combined checksums of the component objects.
     pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
 
+    /// Whether the source objects should be deleted in the compose request.
+    pub delete_source_objects: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1181,6 +1184,37 @@ impl ComposeObjectRequest {
         T: std::convert::Into<crate::model::ObjectChecksums>,
     {
         self.object_checksums = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_source_objects][crate::model::ComposeObjectRequest::delete_source_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_delete_source_objects(true);
+    /// ```
+    pub fn set_delete_source_objects<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.delete_source_objects = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_source_objects][crate::model::ComposeObjectRequest::delete_source_objects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::ComposeObjectRequest;
+    /// let x = ComposeObjectRequest::new().set_or_clear_delete_source_objects(Some(false));
+    /// let x = ComposeObjectRequest::new().set_or_clear_delete_source_objects(None::<bool>);
+    /// ```
+    pub fn set_or_clear_delete_source_objects<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.delete_source_objects = v.map(|x| x.into());
         self
     }
 }
@@ -8351,6 +8385,9 @@ impl wkt::message::Message for ObjectCustomContextPayload {
 #[non_exhaustive]
 pub struct ObjectContexts {
     /// Optional. User-defined object contexts.
+    /// The maximum key or value size is `256` characters.
+    /// The maximum number of entries is `50`.
+    /// The maximum total serialized size of all entries is `25KiB`.
     pub custom:
         std::collections::HashMap<std::string::String, crate::model::ObjectCustomContextPayload>,
 
@@ -9902,7 +9939,7 @@ impl wkt::message::Message for ListObjectsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListObjectsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListObjectsResponse {
     type PageItem = crate::model::Object;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

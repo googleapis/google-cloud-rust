@@ -42,9 +42,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn get_billing_account(
         &self,
         _req: crate::model::GetBillingAccountRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+        Output = crate::Result<crate::Response<crate::model::BillingAccount>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn list_billing_accounts(
         &self,
         _req: crate::model::ListBillingAccountsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBillingAccountsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBillingAccountsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn update_billing_account(
         &self,
         _req: crate::model::UpdateBillingAccountRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+        Output = crate::Result<crate::Response<crate::model::BillingAccount>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn create_billing_account(
         &self,
         _req: crate::model::CreateBillingAccountRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+        Output = crate::Result<crate::Response<crate::model::BillingAccount>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,11 +86,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn list_project_billing_info(
         &self,
         _req: crate::model::ListProjectBillingInfoRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListProjectBillingInfoResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListProjectBillingInfoResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -99,9 +97,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn get_project_billing_info(
         &self,
         _req: crate::model::GetProjectBillingInfoRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>,
+        Output = crate::Result<crate::Response<crate::model::ProjectBillingInfo>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -110,9 +108,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn update_project_billing_info(
         &self,
         _req: crate::model::UpdateProjectBillingInfoRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>,
+        Output = crate::Result<crate::Response<crate::model::ProjectBillingInfo>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,9 +119,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,9 +130,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>,
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -143,10 +141,10 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -156,9 +154,9 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
     fn move_billing_account(
         &self,
         _req: crate::model::MoveBillingAccountRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+        Output = crate::Result<crate::Response<crate::model::BillingAccount>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -180,9 +178,9 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListServicesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListServicesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -191,9 +189,9 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
     fn list_skus(
         &self,
         _req: crate::model::ListSkusRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSkusResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSkusResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

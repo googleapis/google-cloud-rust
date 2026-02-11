@@ -20,38 +20,38 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LicensePool>>;
 
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LicensePool>>;
 
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AssignResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AssignResponse>>;
 
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UnassignResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UnassignResponse>>;
 
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EnumerateLicensedUsersResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::LicenseManagementService] also implement [LicenseManagementService].
@@ -61,8 +61,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LicensePool>> {
         T::get_license_pool(self, req, options).await
     }
 
@@ -70,8 +70,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LicensePool>> {
         T::update_license_pool(self, req, options).await
     }
 
@@ -79,8 +79,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AssignResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AssignResponse>> {
         T::assign(self, req, options).await
     }
 
@@ -88,8 +88,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UnassignResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UnassignResponse>> {
         T::unassign(self, req, options).await
     }
 
@@ -97,8 +97,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EnumerateLicensedUsersResponse>> {
         T::enumerate_licensed_users(self, req, options).await
     }
 
@@ -106,8 +106,8 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -118,48 +118,48 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Order>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Order>>;
 
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrdersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrdersResponse>>;
 
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ConsumerProcurementService] also implement [ConsumerProcurementService].
@@ -169,8 +169,8 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::place_order(self, req, options).await
     }
 
@@ -178,8 +178,8 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Order>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Order>> {
         T::get_order(self, req, options).await
     }
 
@@ -187,8 +187,8 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrdersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrdersResponse>> {
         T::list_orders(self, req, options).await
     }
 
@@ -196,8 +196,8 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::modify_order(self, req, options).await
     }
 
@@ -205,8 +205,8 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::cancel_order(self, req, options).await
     }
 
@@ -214,22 +214,22 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

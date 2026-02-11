@@ -14,11 +14,11 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
-    use gax::options::*;
-    use gax::retry_policy::NeverRetry;
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
+    use google_cloud_gax::options::*;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::{builder, start_echo_server};
@@ -158,7 +158,7 @@ mod tests {
         client: grpc::Client,
         rx: tokio::sync::mpsc::Receiver<EchoRequest>,
         request_params: &str,
-    ) -> gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
+    ) -> google_cloud_gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -188,7 +188,9 @@ mod tests {
         client: grpc::Client,
         rx: tokio::sync::mpsc::Receiver<EchoRequest>,
         request_params: &str,
-    ) -> gax::Result<tonic::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>>> {
+    ) -> google_cloud_gax::Result<
+        tonic::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>>,
+    > {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(

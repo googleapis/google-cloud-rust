@@ -42,9 +42,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_cdn_key(
         &self,
         _req: crate::model::CreateCdnKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_cdn_keys(
         &self,
         _req: crate::model::ListCdnKeysRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListCdnKeysResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListCdnKeysResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +64,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_cdn_key(
         &self,
         _req: crate::model::GetCdnKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CdnKey>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::CdnKey>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,9 +74,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn delete_cdn_key(
         &self,
         _req: crate::model::DeleteCdnKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +85,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn update_cdn_key(
         &self,
         _req: crate::model::UpdateCdnKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,10 +96,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_vod_session(
         &self,
         _req: crate::model::CreateVodSessionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VodSession>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::VodSession>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -108,10 +106,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_vod_session(
         &self,
         _req: crate::model::GetVodSessionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VodSession>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::VodSession>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -119,9 +116,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_vod_stitch_details(
         &self,
         _req: crate::model::ListVodStitchDetailsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListVodStitchDetailsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +127,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_vod_stitch_detail(
         &self,
         _req: crate::model::GetVodStitchDetailRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VodStitchDetail>>,
+        Output = crate::Result<crate::Response<crate::model::VodStitchDetail>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +138,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_vod_ad_tag_details(
         &self,
         _req: crate::model::ListVodAdTagDetailsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListVodAdTagDetailsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,9 +149,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_vod_ad_tag_detail(
         &self,
         _req: crate::model::GetVodAdTagDetailRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VodAdTagDetail>>,
+        Output = crate::Result<crate::Response<crate::model::VodAdTagDetail>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -163,9 +160,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_live_ad_tag_details(
         &self,
         _req: crate::model::ListLiveAdTagDetailsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListLiveAdTagDetailsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -174,9 +171,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_live_ad_tag_detail(
         &self,
         _req: crate::model::GetLiveAdTagDetailRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LiveAdTagDetail>>,
+        Output = crate::Result<crate::Response<crate::model::LiveAdTagDetail>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -185,9 +182,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_slate(
         &self,
         _req: crate::model::CreateSlateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -196,9 +193,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_slates(
         &self,
         _req: crate::model::ListSlatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSlatesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListSlatesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -207,10 +204,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_slate(
         &self,
         _req: crate::model::GetSlateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Slate>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Slate>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -218,9 +214,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn update_slate(
         &self,
         _req: crate::model::UpdateSlateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -229,9 +225,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn delete_slate(
         &self,
         _req: crate::model::DeleteSlateRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -240,10 +236,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_live_session(
         &self,
         _req: crate::model::CreateLiveSessionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LiveSession>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LiveSession>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -251,10 +246,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_live_session(
         &self,
         _req: crate::model::GetLiveSessionRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LiveSession>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LiveSession>>>
+    + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -262,9 +256,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_live_config(
         &self,
         _req: crate::model::CreateLiveConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -273,9 +267,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_live_configs(
         &self,
         _req: crate::model::ListLiveConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLiveConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListLiveConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -284,10 +278,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_live_config(
         &self,
         _req: crate::model::GetLiveConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LiveConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::LiveConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -295,9 +288,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn delete_live_config(
         &self,
         _req: crate::model::DeleteLiveConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -306,9 +299,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn update_live_config(
         &self,
         _req: crate::model::UpdateLiveConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -317,9 +310,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn create_vod_config(
         &self,
         _req: crate::model::CreateVodConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -328,9 +321,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_vod_configs(
         &self,
         _req: crate::model::ListVodConfigsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListVodConfigsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListVodConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -339,10 +332,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_vod_config(
         &self,
         _req: crate::model::GetVodConfigRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VodConfig>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::VodConfig>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -350,9 +342,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn delete_vod_config(
         &self,
         _req: crate::model::DeleteVodConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -361,9 +353,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn update_vod_config(
         &self,
         _req: crate::model::UpdateVodConfigRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -372,10 +364,10 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -385,9 +377,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -396,8 +388,8 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -405,8 +397,8 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -416,9 +408,9 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -427,8 +419,8 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

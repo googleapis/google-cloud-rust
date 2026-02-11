@@ -42,10 +42,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +62,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn create_attestor(
         &self,
         _req: crate::model::CreateAttestorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Attestor>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +72,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn get_attestor(
         &self,
         _req: crate::model::GetAttestorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Attestor>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,10 +82,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn update_attestor(
         &self,
         _req: crate::model::UpdateAttestorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Attestor>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -97,9 +92,9 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn list_attestors(
         &self,
         _req: crate::model::ListAttestorsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListAttestorsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,8 +103,8 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
     fn delete_attestor(
         &self,
         _req: crate::model::DeleteAttestorRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -130,10 +125,9 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
     fn get_system_policy(
         &self,
         _req: crate::model::GetSystemPolicyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
@@ -154,10 +148,10 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
     fn validate_attestation_occurrence(
         &self,
         _req: crate::model::ValidateAttestationOccurrenceRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>,
+            crate::Response<crate::model::ValidateAttestationOccurrenceResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()

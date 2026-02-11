@@ -70,10 +70,10 @@ use crate::{
     },
 };
 use async_trait::async_trait;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::error::CredentialsError;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::error::CredentialsError;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::Extensions;
 use serde_json::Value;
 use std::sync::Arc;
@@ -171,13 +171,13 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     ///
     /// let authorized_user = json!({ /* add details here */ });
     ///
     /// let credentials = idtoken::user_account::Builder::new(authorized_user)
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-    ///     .build();    
+    ///     .build();
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_policy(v.into());
@@ -193,7 +193,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     ///
     /// let authorized_user = json!({ /* add details here */ });
     ///
@@ -222,7 +222,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::idtoken;
     /// # use serde_json::json;
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     ///
     /// let authorized_user = json!({ /* add details here */ });
     ///
@@ -422,7 +422,7 @@ mod tests {
             .build()?;
 
         let err = credentials.id_token().await.unwrap_err();
-        assert!(!err.is_transient());
+        assert!(err.is_transient(), "{err:?}");
 
         Ok(())
     }

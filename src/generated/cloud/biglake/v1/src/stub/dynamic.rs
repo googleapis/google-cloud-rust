@@ -20,116 +20,116 @@ pub trait IcebergCatalogService: std::fmt::Debug + Send + Sync {
     async fn get_iceberg_catalog_config(
         &self,
         req: crate::model::GetIcebergCatalogConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalogConfig>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalogConfig>>;
 
     async fn list_iceberg_namespaces(
         &self,
         req: crate::model::ListIcebergNamespacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergNamespacesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergNamespacesResponse>>;
 
     async fn get_iceberg_namespace(
         &self,
         req: crate::model::GetIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergNamespace>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergNamespace>>;
 
     async fn create_iceberg_namespace(
         &self,
         req: crate::model::CreateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergNamespace>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergNamespace>>;
 
     async fn delete_iceberg_namespace(
         &self,
         req: crate::model::DeleteIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_iceberg_namespace(
         &self,
         req: crate::model::UpdateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UpdateIcebergNamespaceResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UpdateIcebergNamespaceResponse>>;
 
     async fn list_iceberg_table_identifiers(
         &self,
         req: crate::model::ListIcebergTableIdentifiersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergTableIdentifiersResponse>>;
 
     async fn create_iceberg_table(
         &self,
         req: crate::model::CreateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn delete_iceberg_table(
         &self,
         req: crate::model::DeleteIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_iceberg_table(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn load_iceberg_table_credentials(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LoadIcebergTableCredentialsResponse>>;
 
     async fn update_iceberg_table(
         &self,
         req: crate::model::UpdateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn register_iceberg_table(
         &self,
         req: crate::model::RegisterIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
     async fn get_iceberg_catalog(
         &self,
         req: crate::model::GetIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>>;
 
     async fn list_iceberg_catalogs(
         &self,
         req: crate::model::ListIcebergCatalogsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergCatalogsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergCatalogsResponse>>;
 
     async fn delete_iceberg_catalog(
         &self,
         req: crate::model::DeleteIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_iceberg_catalog(
         &self,
         req: crate::model::UpdateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>>;
 
     async fn create_iceberg_catalog(
         &self,
         req: crate::model::CreateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>>;
 
     async fn failover_iceberg_catalog(
         &self,
         req: crate::model::FailoverIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FailoverIcebergCatalogResponse>>;
 }
 
 /// All implementations of [super::IcebergCatalogService] also implement [IcebergCatalogService].
@@ -139,8 +139,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn get_iceberg_catalog_config(
         &self,
         req: crate::model::GetIcebergCatalogConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalogConfig>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalogConfig>> {
         T::get_iceberg_catalog_config(self, req, options).await
     }
 
@@ -148,8 +148,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn list_iceberg_namespaces(
         &self,
         req: crate::model::ListIcebergNamespacesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergNamespacesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergNamespacesResponse>> {
         T::list_iceberg_namespaces(self, req, options).await
     }
 
@@ -157,8 +157,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn get_iceberg_namespace(
         &self,
         req: crate::model::GetIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergNamespace>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergNamespace>> {
         T::get_iceberg_namespace(self, req, options).await
     }
 
@@ -166,8 +166,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn create_iceberg_namespace(
         &self,
         req: crate::model::CreateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergNamespace>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergNamespace>> {
         T::create_iceberg_namespace(self, req, options).await
     }
 
@@ -175,8 +175,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn delete_iceberg_namespace(
         &self,
         req: crate::model::DeleteIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_iceberg_namespace(self, req, options).await
     }
 
@@ -184,8 +184,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn update_iceberg_namespace(
         &self,
         req: crate::model::UpdateIcebergNamespaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::UpdateIcebergNamespaceResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::UpdateIcebergNamespaceResponse>> {
         T::update_iceberg_namespace(self, req, options).await
     }
 
@@ -193,9 +193,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn list_iceberg_table_identifiers(
         &self,
         req: crate::model::ListIcebergTableIdentifiersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergTableIdentifiersResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
         T::list_iceberg_table_identifiers(self, req, options).await
     }
 
@@ -203,8 +202,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn create_iceberg_table(
         &self,
         req: crate::model::CreateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::create_iceberg_table(self, req, options).await
     }
 
@@ -212,8 +211,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn delete_iceberg_table(
         &self,
         req: crate::model::DeleteIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_iceberg_table(self, req, options).await
     }
 
@@ -221,8 +220,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn get_iceberg_table(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::get_iceberg_table(self, req, options).await
     }
 
@@ -230,9 +229,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn load_iceberg_table_credentials(
         &self,
         req: crate::model::GetIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LoadIcebergTableCredentialsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
         T::load_iceberg_table_credentials(self, req, options).await
     }
 
@@ -240,8 +238,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn update_iceberg_table(
         &self,
         req: crate::model::UpdateIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::update_iceberg_table(self, req, options).await
     }
 
@@ -249,8 +247,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn register_iceberg_table(
         &self,
         req: crate::model::RegisterIcebergTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_api::model::HttpBody>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>> {
         T::register_iceberg_table(self, req, options).await
     }
 
@@ -258,8 +256,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn get_iceberg_catalog(
         &self,
         req: crate::model::GetIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>> {
         T::get_iceberg_catalog(self, req, options).await
     }
 
@@ -267,8 +265,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn list_iceberg_catalogs(
         &self,
         req: crate::model::ListIcebergCatalogsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIcebergCatalogsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIcebergCatalogsResponse>> {
         T::list_iceberg_catalogs(self, req, options).await
     }
 
@@ -276,8 +274,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn delete_iceberg_catalog(
         &self,
         req: crate::model::DeleteIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_iceberg_catalog(self, req, options).await
     }
 
@@ -285,8 +283,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn update_iceberg_catalog(
         &self,
         req: crate::model::UpdateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>> {
         T::update_iceberg_catalog(self, req, options).await
     }
 
@@ -294,8 +292,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn create_iceberg_catalog(
         &self,
         req: crate::model::CreateIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IcebergCatalog>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IcebergCatalog>> {
         T::create_iceberg_catalog(self, req, options).await
     }
 
@@ -303,8 +301,8 @@ impl<T: super::IcebergCatalogService> IcebergCatalogService for T {
     async fn failover_iceberg_catalog(
         &self,
         req: crate::model::FailoverIcebergCatalogRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FailoverIcebergCatalogResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FailoverIcebergCatalogResponse>> {
         T::failover_iceberg_catalog(self, req, options).await
     }
 }

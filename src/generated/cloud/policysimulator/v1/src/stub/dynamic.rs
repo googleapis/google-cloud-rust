@@ -20,50 +20,48 @@ pub trait OrgPolicyViolationsPreviewService: std::fmt::Debug + Send + Sync {
     async fn list_org_policy_violations_previews(
         &self,
         req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>;
 
     async fn get_org_policy_violations_preview(
         &self,
         req: crate::model::GetOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrgPolicyViolationsPreview>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrgPolicyViolationsPreview>>;
 
     async fn create_org_policy_violations_preview(
         &self,
         req: crate::model::CreateOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_org_policy_violations(
         &self,
         req: crate::model::ListOrgPolicyViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgPolicyViolationsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::OrgPolicyViolationsPreviewService] also implement [OrgPolicyViolationsPreviewService].
@@ -73,9 +71,8 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn list_org_policy_violations_previews(
         &self,
         req: crate::model::ListOrgPolicyViolationsPreviewsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgPolicyViolationsPreviewsResponse>> {
         T::list_org_policy_violations_previews(self, req, options).await
     }
 
@@ -83,8 +80,8 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn get_org_policy_violations_preview(
         &self,
         req: crate::model::GetOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::OrgPolicyViolationsPreview>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::OrgPolicyViolationsPreview>> {
         T::get_org_policy_violations_preview(self, req, options).await
     }
 
@@ -92,8 +89,8 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn create_org_policy_violations_preview(
         &self,
         req: crate::model::CreateOrgPolicyViolationsPreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_org_policy_violations_preview(self, req, options).await
     }
 
@@ -101,8 +98,8 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn list_org_policy_violations(
         &self,
         req: crate::model::ListOrgPolicyViolationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgPolicyViolationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgPolicyViolationsResponse>> {
         T::list_org_policy_violations(self, req, options).await
     }
 
@@ -110,10 +107,9 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -121,22 +117,22 @@ impl<T: super::OrgPolicyViolationsPreviewService> OrgPolicyViolationsPreviewServ
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -147,44 +143,42 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
     async fn get_replay(
         &self,
         req: crate::model::GetReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Replay>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Replay>>;
 
     async fn create_replay(
         &self,
         req: crate::model::CreateReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_replay_results(
         &self,
         req: crate::model::ListReplayResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReplayResultsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReplayResultsResponse>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::Simulator] also implement [Simulator].
@@ -194,8 +188,8 @@ impl<T: super::Simulator> Simulator for T {
     async fn get_replay(
         &self,
         req: crate::model::GetReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Replay>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Replay>> {
         T::get_replay(self, req, options).await
     }
 
@@ -203,8 +197,8 @@ impl<T: super::Simulator> Simulator for T {
     async fn create_replay(
         &self,
         req: crate::model::CreateReplayRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_replay(self, req, options).await
     }
 
@@ -212,8 +206,8 @@ impl<T: super::Simulator> Simulator for T {
     async fn list_replay_results(
         &self,
         req: crate::model::ListReplayResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReplayResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReplayResultsResponse>> {
         T::list_replay_results(self, req, options).await
     }
 
@@ -221,10 +215,9 @@ impl<T: super::Simulator> Simulator for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -232,22 +225,22 @@ impl<T: super::Simulator> Simulator for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

@@ -42,9 +42,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn export_entities(
         &self,
         _req: crate::model::ExportEntitiesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn import_entities(
         &self,
         _req: crate::model::ImportEntitiesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn create_index(
         &self,
         _req: crate::model::CreateIndexRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn delete_index(
         &self,
         _req: crate::model::DeleteIndexRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,10 +86,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn get_index(
         &self,
         _req: crate::model::GetIndexRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Index>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Index>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -97,9 +96,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn list_indexes(
         &self,
         _req: crate::model::ListIndexesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListIndexesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListIndexesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,10 +107,10 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -121,9 +120,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,8 +131,8 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -141,8 +140,8 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -152,9 +151,9 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -163,8 +162,8 @@ pub trait DatastoreAdmin: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

@@ -20,32 +20,32 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     async fn analyze_sentiment(
         &self,
         req: crate::model::AnalyzeSentimentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalyzeSentimentResponse>>;
 
     async fn analyze_entities(
         &self,
         req: crate::model::AnalyzeEntitiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalyzeEntitiesResponse>>;
 
     async fn classify_text(
         &self,
         req: crate::model::ClassifyTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ClassifyTextResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ClassifyTextResponse>>;
 
     async fn moderate_text(
         &self,
         req: crate::model::ModerateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ModerateTextResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ModerateTextResponse>>;
 
     async fn annotate_text(
         &self,
         req: crate::model::AnnotateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnnotateTextResponse>>;
 }
 
 /// All implementations of [super::LanguageService] also implement [LanguageService].
@@ -55,8 +55,8 @@ impl<T: super::LanguageService> LanguageService for T {
     async fn analyze_sentiment(
         &self,
         req: crate::model::AnalyzeSentimentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalyzeSentimentResponse>> {
         T::analyze_sentiment(self, req, options).await
     }
 
@@ -64,8 +64,8 @@ impl<T: super::LanguageService> LanguageService for T {
     async fn analyze_entities(
         &self,
         req: crate::model::AnalyzeEntitiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalyzeEntitiesResponse>> {
         T::analyze_entities(self, req, options).await
     }
 
@@ -73,8 +73,8 @@ impl<T: super::LanguageService> LanguageService for T {
     async fn classify_text(
         &self,
         req: crate::model::ClassifyTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ClassifyTextResponse>> {
         T::classify_text(self, req, options).await
     }
 
@@ -82,8 +82,8 @@ impl<T: super::LanguageService> LanguageService for T {
     async fn moderate_text(
         &self,
         req: crate::model::ModerateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ModerateTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ModerateTextResponse>> {
         T::moderate_text(self, req, options).await
     }
 
@@ -91,8 +91,8 @@ impl<T: super::LanguageService> LanguageService for T {
     async fn annotate_text(
         &self,
         req: crate::model::AnnotateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnnotateTextResponse>> {
         T::annotate_text(self, req, options).await
     }
 }

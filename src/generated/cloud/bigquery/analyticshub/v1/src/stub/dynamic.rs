@@ -20,194 +20,192 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     async fn list_data_exchanges(
         &self,
         req: crate::model::ListDataExchangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataExchangesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataExchangesResponse>>;
 
     async fn list_org_data_exchanges(
         &self,
         req: crate::model::ListOrgDataExchangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgDataExchangesResponse>>;
 
     async fn get_data_exchange(
         &self,
         req: crate::model::GetDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>>;
 
     async fn create_data_exchange(
         &self,
         req: crate::model::CreateDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>>;
 
     async fn update_data_exchange(
         &self,
         req: crate::model::UpdateDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>>;
 
     async fn delete_data_exchange(
         &self,
         req: crate::model::DeleteDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_listings(
         &self,
         req: crate::model::ListListingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListListingsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListListingsResponse>>;
 
     async fn get_listing(
         &self,
         req: crate::model::GetListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>>;
 
     async fn create_listing(
         &self,
         req: crate::model::CreateListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>>;
 
     async fn update_listing(
         &self,
         req: crate::model::UpdateListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>>;
 
     async fn delete_listing(
         &self,
         req: crate::model::DeleteListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn subscribe_listing(
         &self,
         req: crate::model::SubscribeListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SubscribeListingResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SubscribeListingResponse>>;
 
     async fn subscribe_data_exchange(
         &self,
         req: crate::model::SubscribeDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn refresh_subscription(
         &self,
         req: crate::model::RefreshSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>>;
 
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubscriptionsResponse>>;
 
     async fn list_shared_resource_subscriptions(
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSharedResourceSubscriptionsResponse>>;
 
     async fn revoke_subscription(
         &self,
         req: crate::model::RevokeSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RevokeSubscriptionResponse>>;
 
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn create_query_template(
         &self,
         req: crate::model::CreateQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>>;
 
     async fn get_query_template(
         &self,
         req: crate::model::GetQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>>;
 
     async fn list_query_templates(
         &self,
         req: crate::model::ListQueryTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQueryTemplatesResponse>>;
 
     async fn update_query_template(
         &self,
         req: crate::model::UpdateQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>>;
 
     async fn delete_query_template(
         &self,
         req: crate::model::DeleteQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn submit_query_template(
         &self,
         req: crate::model::SubmitQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>>;
 
     async fn approve_query_template(
         &self,
         req: crate::model::ApproveQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::AnalyticsHubService] also implement [AnalyticsHubService].
@@ -217,8 +215,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_data_exchanges(
         &self,
         req: crate::model::ListDataExchangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDataExchangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataExchangesResponse>> {
         T::list_data_exchanges(self, req, options).await
     }
 
@@ -226,8 +224,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_org_data_exchanges(
         &self,
         req: crate::model::ListOrgDataExchangesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListOrgDataExchangesResponse>> {
         T::list_org_data_exchanges(self, req, options).await
     }
 
@@ -235,8 +233,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_data_exchange(
         &self,
         req: crate::model::GetDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>> {
         T::get_data_exchange(self, req, options).await
     }
 
@@ -244,8 +242,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn create_data_exchange(
         &self,
         req: crate::model::CreateDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>> {
         T::create_data_exchange(self, req, options).await
     }
 
@@ -253,8 +251,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn update_data_exchange(
         &self,
         req: crate::model::UpdateDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DataExchange>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataExchange>> {
         T::update_data_exchange(self, req, options).await
     }
 
@@ -262,8 +260,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn delete_data_exchange(
         &self,
         req: crate::model::DeleteDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_data_exchange(self, req, options).await
     }
 
@@ -271,8 +269,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_listings(
         &self,
         req: crate::model::ListListingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListListingsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListListingsResponse>> {
         T::list_listings(self, req, options).await
     }
 
@@ -280,8 +278,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_listing(
         &self,
         req: crate::model::GetListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>> {
         T::get_listing(self, req, options).await
     }
 
@@ -289,8 +287,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn create_listing(
         &self,
         req: crate::model::CreateListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>> {
         T::create_listing(self, req, options).await
     }
 
@@ -298,8 +296,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn update_listing(
         &self,
         req: crate::model::UpdateListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Listing>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Listing>> {
         T::update_listing(self, req, options).await
     }
 
@@ -307,8 +305,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn delete_listing(
         &self,
         req: crate::model::DeleteListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_listing(self, req, options).await
     }
 
@@ -316,8 +314,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn subscribe_listing(
         &self,
         req: crate::model::SubscribeListingRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SubscribeListingResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SubscribeListingResponse>> {
         T::subscribe_listing(self, req, options).await
     }
 
@@ -325,8 +323,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn subscribe_data_exchange(
         &self,
         req: crate::model::SubscribeDataExchangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::subscribe_data_exchange(self, req, options).await
     }
 
@@ -334,8 +332,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn refresh_subscription(
         &self,
         req: crate::model::RefreshSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::refresh_subscription(self, req, options).await
     }
 
@@ -343,8 +341,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Subscription>> {
         T::get_subscription(self, req, options).await
     }
 
@@ -352,8 +350,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSubscriptionsResponse>> {
         T::list_subscriptions(self, req, options).await
     }
 
@@ -361,9 +359,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_shared_resource_subscriptions(
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSharedResourceSubscriptionsResponse>> {
         T::list_shared_resource_subscriptions(self, req, options).await
     }
 
@@ -371,8 +368,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn revoke_subscription(
         &self,
         req: crate::model::RevokeSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RevokeSubscriptionResponse>> {
         T::revoke_subscription(self, req, options).await
     }
 
@@ -380,8 +377,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_subscription(self, req, options).await
     }
 
@@ -389,8 +386,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -398,8 +395,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -407,10 +404,9 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -418,8 +414,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn create_query_template(
         &self,
         req: crate::model::CreateQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>> {
         T::create_query_template(self, req, options).await
     }
 
@@ -427,8 +423,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_query_template(
         &self,
         req: crate::model::GetQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>> {
         T::get_query_template(self, req, options).await
     }
 
@@ -436,8 +432,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn list_query_templates(
         &self,
         req: crate::model::ListQueryTemplatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQueryTemplatesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQueryTemplatesResponse>> {
         T::list_query_templates(self, req, options).await
     }
 
@@ -445,8 +441,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn update_query_template(
         &self,
         req: crate::model::UpdateQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>> {
         T::update_query_template(self, req, options).await
     }
 
@@ -454,8 +450,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn delete_query_template(
         &self,
         req: crate::model::DeleteQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_query_template(self, req, options).await
     }
 
@@ -463,8 +459,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn submit_query_template(
         &self,
         req: crate::model::SubmitQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>> {
         T::submit_query_template(self, req, options).await
     }
 
@@ -472,8 +468,8 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn approve_query_template(
         &self,
         req: crate::model::ApproveQueryTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryTemplate>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTemplate>> {
         T::approve_query_template(self, req, options).await
     }
 
@@ -481,22 +477,22 @@ impl<T: super::AnalyticsHubService> AnalyticsHubService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

@@ -20,7 +20,7 @@ pub mod dataproc_metastore {
     /// A builder for [DataprocMetastore][crate::client::DataprocMetastore].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::*;
     /// # use builder::dataproc_metastore::ClientBuilder;
     /// # use client::DataprocMetastore;
@@ -30,19 +30,18 @@ pub mod dataproc_metastore {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::DataprocMetastore;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = DataprocMetastore;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod dataproc_metastore {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod dataproc_metastore {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListServices;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,13 +117,13 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListServicesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -133,15 +132,17 @@ pub mod dataproc_metastore {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListServicesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -179,8 +180,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListServices {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListServices {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -190,7 +191,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -218,7 +219,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -228,7 +229,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -241,8 +242,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -252,7 +253,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -281,7 +282,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -296,7 +297,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_service`.
@@ -313,7 +314,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -386,8 +387,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -397,7 +398,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::UpdateService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -426,7 +427,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -441,7 +442,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_service`.
@@ -458,7 +459,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -537,8 +538,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -548,7 +549,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -577,7 +578,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -592,7 +593,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_service`.
@@ -604,7 +605,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -647,8 +648,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -658,8 +659,8 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListMetadataImports;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -693,7 +694,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -703,14 +704,16 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_metadata_imports(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMetadataImportsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMetadataImportsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -718,17 +721,17 @@ pub mod dataproc_metastore {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListMetadataImportsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -766,8 +769,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMetadataImports {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMetadataImports {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -777,7 +780,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetMetadataImport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -808,7 +811,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -818,7 +821,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_metadata_import(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetadataImportRequest::name].
@@ -831,8 +834,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMetadataImport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMetadataImport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -842,7 +845,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateMetadataImport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -874,7 +877,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -889,7 +892,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_metadata_import(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_metadata_import`.
@@ -906,7 +909,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -979,8 +982,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateMetadataImport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateMetadataImport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -990,7 +993,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::UpdateMetadataImport;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1022,7 +1025,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1037,7 +1040,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .update_metadata_import(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_metadata_import`.
@@ -1054,7 +1057,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1133,8 +1136,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateMetadataImport {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateMetadataImport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1144,7 +1147,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ExportMetadata;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1173,7 +1176,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1188,7 +1191,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .export_metadata(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `export_metadata`.
@@ -1205,7 +1208,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1284,8 +1287,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExportMetadata {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExportMetadata {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1295,7 +1298,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::RestoreService;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1324,7 +1327,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1339,7 +1342,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .restore_service(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_service`.
@@ -1356,7 +1359,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1416,8 +1419,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RestoreService {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RestoreService {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1427,8 +1430,8 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListBackups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1459,7 +1462,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1469,13 +1472,13 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListBackupsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1484,15 +1487,17 @@ pub mod dataproc_metastore {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1530,8 +1535,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1541,7 +1546,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1569,7 +1574,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1579,7 +1584,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1592,8 +1597,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1603,7 +1608,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CreateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1632,7 +1637,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1647,7 +1652,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
@@ -1664,7 +1669,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1737,8 +1742,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1748,7 +1753,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1777,7 +1782,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1792,7 +1797,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backup`.
@@ -1804,7 +1809,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1847,8 +1852,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1858,7 +1863,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::QueryMetadata;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1887,7 +1892,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1902,7 +1907,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .query_metadata(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `query_metadata`.
@@ -1921,7 +1926,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1966,8 +1971,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for QueryMetadata {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for QueryMetadata {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1977,7 +1982,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::MoveTableToDatabase;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2009,7 +2014,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2024,7 +2029,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .move_table_to_database(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `move_table_to_database`.
@@ -2043,7 +2048,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2104,8 +2109,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for MoveTableToDatabase {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for MoveTableToDatabase {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2115,7 +2120,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::AlterMetadataResourceLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2149,7 +2154,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2164,7 +2169,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .alter_metadata_resource_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `alter_metadata_resource_location`.
@@ -2183,7 +2188,7 @@ pub mod dataproc_metastore {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2236,8 +2241,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AlterMetadataResourceLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AlterMetadataResourceLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2247,8 +2252,8 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2282,7 +2287,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2292,15 +2297,15 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2309,17 +2314,17 @@ pub mod dataproc_metastore {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2349,8 +2354,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2360,7 +2365,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2391,7 +2396,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2401,7 +2406,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -2412,8 +2417,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2423,7 +2428,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2454,7 +2459,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2464,7 +2469,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2517,8 +2522,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2528,7 +2533,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2559,7 +2564,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2569,7 +2574,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -2600,8 +2605,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2611,7 +2616,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2644,7 +2649,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2654,7 +2659,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2680,8 +2685,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2691,8 +2696,8 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2728,7 +2733,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2738,15 +2743,15 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2755,17 +2760,17 @@ pub mod dataproc_metastore {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2801,8 +2806,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2812,7 +2817,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2843,7 +2848,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2853,7 +2858,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2864,8 +2869,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2875,7 +2880,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2908,7 +2913,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2918,7 +2923,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -2929,8 +2934,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2940,7 +2945,7 @@ pub mod dataproc_metastore {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2973,7 +2978,7 @@ pub mod dataproc_metastore {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2983,7 +2988,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -2994,8 +2999,8 @@ pub mod dataproc_metastore {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3007,7 +3012,7 @@ pub mod dataproc_metastore_federation {
     /// A builder for [DataprocMetastoreFederation][crate::client::DataprocMetastoreFederation].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::*;
     /// # use builder::dataproc_metastore_federation::ClientBuilder;
     /// # use client::DataprocMetastoreFederation;
@@ -3017,19 +3022,18 @@ pub mod dataproc_metastore_federation {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::DataprocMetastoreFederation;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = DataprocMetastoreFederation;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3040,7 +3044,7 @@ pub mod dataproc_metastore_federation {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3053,7 +3057,7 @@ pub mod dataproc_metastore_federation {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -3063,8 +3067,8 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListFederations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3095,7 +3099,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3105,14 +3109,16 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_federations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFederationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFederationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3120,15 +3126,17 @@ pub mod dataproc_metastore_federation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFederationsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFederationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3166,8 +3174,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFederations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFederations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3177,7 +3185,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetFederation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3205,7 +3213,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3215,7 +3223,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_federation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFederationRequest::name].
@@ -3228,8 +3236,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFederation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFederation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3239,7 +3247,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::CreateFederation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3271,7 +3279,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3286,7 +3294,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .create_federation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_federation`.
@@ -3303,7 +3311,7 @@ pub mod dataproc_metastore_federation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3376,8 +3384,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFederation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFederation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3387,7 +3395,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::UpdateFederation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3419,7 +3427,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3434,7 +3442,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .update_federation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_federation`.
@@ -3451,7 +3459,7 @@ pub mod dataproc_metastore_federation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3530,8 +3538,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFederation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFederation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3541,7 +3549,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::DeleteFederation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3573,7 +3581,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3588,7 +3596,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .delete_federation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_federation`.
@@ -3600,7 +3608,7 @@ pub mod dataproc_metastore_federation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3643,8 +3651,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFederation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFederation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3654,8 +3662,8 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3689,7 +3697,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3699,15 +3707,15 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3716,17 +3724,17 @@ pub mod dataproc_metastore_federation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3756,8 +3764,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3767,7 +3775,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3798,7 +3806,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3808,7 +3816,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -3819,8 +3827,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3830,7 +3838,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3861,7 +3869,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3871,7 +3879,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -3924,8 +3932,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3935,7 +3943,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3966,7 +3974,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3976,7 +3984,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -4007,8 +4015,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4018,7 +4026,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4051,7 +4059,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4061,7 +4069,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4087,8 +4095,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4098,8 +4106,8 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4135,7 +4143,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4145,15 +4153,15 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4162,17 +4170,17 @@ pub mod dataproc_metastore_federation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4208,8 +4216,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4219,7 +4227,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4250,7 +4258,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4260,7 +4268,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -4271,8 +4279,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4282,7 +4290,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4315,7 +4323,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4325,7 +4333,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -4336,8 +4344,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4347,7 +4355,7 @@ pub mod dataproc_metastore_federation {
     /// # Example
     /// ```
     /// # use google_cloud_metastore_v1::builder::dataproc_metastore_federation::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_metastore_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4380,7 +4388,7 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4390,7 +4398,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -4401,8 +4409,8 @@ pub mod dataproc_metastore_federation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

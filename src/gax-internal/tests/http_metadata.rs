@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::options::RequestOptions;
+    use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use http::HeaderValue;

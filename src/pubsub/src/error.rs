@@ -20,7 +20,7 @@
 /// Represents an error that can occur when publishing a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum PublishError {
+pub(crate) enum PublishError {
     /// Publish operation failed sending the RPC.
     #[error("the publish operation was interrupted by an error: {0}")]
     SendError(#[source] std::sync::Arc<crate::Error>),

@@ -41,8 +41,8 @@ where
     async fn repeat_data_body(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -71,16 +71,16 @@ where
     async fn repeat_data_body(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_body(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_body_info(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -109,16 +109,16 @@ where
     async fn repeat_data_body_info(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_body_info(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_query(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -147,16 +147,16 @@ where
     async fn repeat_data_query(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_query(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_simple_path(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -185,16 +185,16 @@ where
     async fn repeat_data_simple_path(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_simple_path(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_path_resource(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -223,16 +223,16 @@ where
     async fn repeat_data_path_resource(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_path_resource(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_path_trailing_resource(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -261,8 +261,8 @@ where
     async fn repeat_data_path_trailing_resource(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner
             .repeat_data_path_trailing_resource(req, options)
             .await
@@ -271,8 +271,8 @@ where
     async fn repeat_data_body_put(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -301,16 +301,16 @@ where
     async fn repeat_data_body_put(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_body_put(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn repeat_data_body_patch(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -339,16 +339,16 @@ where
     async fn repeat_data_body_patch(
         &self,
         req: crate::model::RepeatRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
         self.inner.repeat_data_body_patch(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_enum(
         &self,
         req: crate::model::EnumRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EnumResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -377,16 +377,16 @@ where
     async fn get_enum(
         &self,
         req: crate::model::EnumRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EnumResponse>> {
         self.inner.get_enum(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn verify_enum(
         &self,
         req: crate::model::EnumResponse,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EnumResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -415,16 +415,16 @@ where
     async fn verify_enum(
         &self,
         req: crate::model::EnumResponse,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EnumResponse>> {
         self.inner.verify_enum(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -453,16 +453,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -491,16 +491,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -529,16 +529,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -567,17 +567,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -606,18 +605,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -646,17 +643,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -685,16 +681,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -723,16 +719,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -761,8 +757,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -793,8 +789,8 @@ where
     async fn echo(
         &self,
         req: crate::model::EchoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EchoResponse>> {
         use tracing::Instrument;
         let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::echo");
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -818,16 +814,16 @@ where
     async fn echo(
         &self,
         req: crate::model::EchoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EchoResponse>> {
         self.inner.echo(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn echo_error_details(
         &self,
         req: crate::model::EchoErrorDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EchoErrorDetailsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -856,16 +852,16 @@ where
     async fn echo_error_details(
         &self,
         req: crate::model::EchoErrorDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EchoErrorDetailsResponse>> {
         self.inner.echo_error_details(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn fail_echo_with_details(
         &self,
         req: crate::model::FailEchoWithDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FailEchoWithDetailsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -894,16 +890,16 @@ where
     async fn fail_echo_with_details(
         &self,
         req: crate::model::FailEchoWithDetailsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FailEchoWithDetailsResponse>> {
         self.inner.fail_echo_with_details(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -932,16 +928,16 @@ where
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
         self.inner.paged_expand(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn paged_expand_legacy(
         &self,
         req: crate::model::PagedExpandLegacyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -970,16 +966,16 @@ where
     async fn paged_expand_legacy(
         &self,
         req: crate::model::PagedExpandLegacyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
         self.inner.paged_expand_legacy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn paged_expand_legacy_mapped(
         &self,
         req: crate::model::PagedExpandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandLegacyMappedResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandLegacyMappedResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1008,16 +1004,16 @@ where
     async fn paged_expand_legacy_mapped(
         &self,
         req: crate::model::PagedExpandRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PagedExpandLegacyMappedResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PagedExpandLegacyMappedResponse>> {
         self.inner.paged_expand_legacy_mapped(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn wait(
         &self,
         req: crate::model::WaitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::wait");
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1041,16 +1037,16 @@ where
     async fn wait(
         &self,
         req: crate::model::WaitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.wait(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn block(
         &self,
         req: crate::model::BlockRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BlockResponse>> {
         use tracing::Instrument;
         let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "Echo", "::block");
         let client_request_span = gaxi::observability::create_client_request_span(
@@ -1074,16 +1070,16 @@ where
     async fn block(
         &self,
         req: crate::model::BlockRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BlockResponse>> {
         self.inner.block(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1112,16 +1108,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1150,16 +1146,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1188,16 +1184,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1226,17 +1222,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1265,18 +1260,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1305,17 +1298,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1344,16 +1336,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1382,16 +1374,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1420,22 +1412,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1466,8 +1458,8 @@ where
     async fn create_user(
         &self,
         req: crate::model::CreateUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1496,16 +1488,16 @@ where
     async fn create_user(
         &self,
         req: crate::model::CreateUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         self.inner.create_user(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_user(
         &self,
         req: crate::model::GetUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1534,16 +1526,16 @@ where
     async fn get_user(
         &self,
         req: crate::model::GetUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         self.inner.get_user(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_user(
         &self,
         req: crate::model::UpdateUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1572,16 +1564,16 @@ where
     async fn update_user(
         &self,
         req: crate::model::UpdateUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::User>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::User>> {
         self.inner.update_user(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_user(
         &self,
         req: crate::model::DeleteUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1610,16 +1602,16 @@ where
     async fn delete_user(
         &self,
         req: crate::model::DeleteUserRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_user(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_users(
         &self,
         req: crate::model::ListUsersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListUsersResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1648,16 +1640,16 @@ where
     async fn list_users(
         &self,
         req: crate::model::ListUsersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListUsersResponse>> {
         self.inner.list_users(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1686,16 +1678,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1724,16 +1716,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1762,16 +1754,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1800,17 +1792,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1839,18 +1830,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1879,17 +1868,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1918,16 +1906,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1956,16 +1944,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1994,8 +1982,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -2026,8 +2014,8 @@ where
     async fn create_room(
         &self,
         req: crate::model::CreateRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2056,16 +2044,16 @@ where
     async fn create_room(
         &self,
         req: crate::model::CreateRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         self.inner.create_room(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_room(
         &self,
         req: crate::model::GetRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2094,16 +2082,16 @@ where
     async fn get_room(
         &self,
         req: crate::model::GetRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         self.inner.get_room(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_room(
         &self,
         req: crate::model::UpdateRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2132,16 +2120,16 @@ where
     async fn update_room(
         &self,
         req: crate::model::UpdateRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Room>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Room>> {
         self.inner.update_room(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_room(
         &self,
         req: crate::model::DeleteRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2170,16 +2158,16 @@ where
     async fn delete_room(
         &self,
         req: crate::model::DeleteRoomRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_room(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_rooms(
         &self,
         req: crate::model::ListRoomsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRoomsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRoomsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2208,16 +2196,16 @@ where
     async fn list_rooms(
         &self,
         req: crate::model::ListRoomsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRoomsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRoomsResponse>> {
         self.inner.list_rooms(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_blurb(
         &self,
         req: crate::model::CreateBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2246,16 +2234,16 @@ where
     async fn create_blurb(
         &self,
         req: crate::model::CreateBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         self.inner.create_blurb(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_blurb(
         &self,
         req: crate::model::GetBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2284,16 +2272,16 @@ where
     async fn get_blurb(
         &self,
         req: crate::model::GetBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         self.inner.get_blurb(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_blurb(
         &self,
         req: crate::model::UpdateBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2322,16 +2310,16 @@ where
     async fn update_blurb(
         &self,
         req: crate::model::UpdateBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Blurb>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Blurb>> {
         self.inner.update_blurb(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_blurb(
         &self,
         req: crate::model::DeleteBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2360,16 +2348,16 @@ where
     async fn delete_blurb(
         &self,
         req: crate::model::DeleteBlurbRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_blurb(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_blurbs(
         &self,
         req: crate::model::ListBlurbsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBlurbsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBlurbsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2398,16 +2386,16 @@ where
     async fn list_blurbs(
         &self,
         req: crate::model::ListBlurbsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBlurbsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBlurbsResponse>> {
         self.inner.list_blurbs(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn search_blurbs(
         &self,
         req: crate::model::SearchBlurbsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2436,16 +2424,16 @@ where
     async fn search_blurbs(
         &self,
         req: crate::model::SearchBlurbsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.search_blurbs(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2474,16 +2462,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2512,16 +2500,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2550,16 +2538,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2588,17 +2576,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2627,18 +2614,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2667,17 +2652,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2706,16 +2690,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2744,16 +2728,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2782,22 +2766,22 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2828,8 +2812,8 @@ where
     async fn create_sequence(
         &self,
         req: crate::model::CreateSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Sequence>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Sequence>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2858,16 +2842,16 @@ where
     async fn create_sequence(
         &self,
         req: crate::model::CreateSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Sequence>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Sequence>> {
         self.inner.create_sequence(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_streaming_sequence(
         &self,
         req: crate::model::CreateStreamingSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StreamingSequence>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StreamingSequence>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2896,16 +2880,16 @@ where
     async fn create_streaming_sequence(
         &self,
         req: crate::model::CreateStreamingSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StreamingSequence>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StreamingSequence>> {
         self.inner.create_streaming_sequence(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_sequence_report(
         &self,
         req: crate::model::GetSequenceReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SequenceReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SequenceReport>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2934,16 +2918,16 @@ where
     async fn get_sequence_report(
         &self,
         req: crate::model::GetSequenceReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SequenceReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SequenceReport>> {
         self.inner.get_sequence_report(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_streaming_sequence_report(
         &self,
         req: crate::model::GetStreamingSequenceReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StreamingSequenceReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StreamingSequenceReport>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2972,16 +2956,16 @@ where
     async fn get_streaming_sequence_report(
         &self,
         req: crate::model::GetStreamingSequenceReportRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StreamingSequenceReport>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StreamingSequenceReport>> {
         self.inner.get_streaming_sequence_report(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn attempt_sequence(
         &self,
         req: crate::model::AttemptSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3010,16 +2994,16 @@ where
     async fn attempt_sequence(
         &self,
         req: crate::model::AttemptSequenceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.attempt_sequence(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3048,16 +3032,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3086,16 +3070,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3124,16 +3108,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3162,17 +3146,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3201,18 +3184,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3241,17 +3222,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3280,16 +3260,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3318,16 +3298,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3356,8 +3336,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -3388,8 +3368,8 @@ where
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Session>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3418,16 +3398,16 @@ where
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Session>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
         self.inner.create_session(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_session(
         &self,
         req: crate::model::GetSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Session>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3456,16 +3436,16 @@ where
     async fn get_session(
         &self,
         req: crate::model::GetSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Session>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
         self.inner.get_session(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_sessions(
         &self,
         req: crate::model::ListSessionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3494,16 +3474,16 @@ where
     async fn list_sessions(
         &self,
         req: crate::model::ListSessionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
         self.inner.list_sessions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_session(
         &self,
         req: crate::model::DeleteSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3532,16 +3512,16 @@ where
     async fn delete_session(
         &self,
         req: crate::model::DeleteSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_session(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn report_session(
         &self,
         req: crate::model::ReportSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReportSessionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReportSessionResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3570,16 +3550,16 @@ where
     async fn report_session(
         &self,
         req: crate::model::ReportSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReportSessionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReportSessionResponse>> {
         self.inner.report_session(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_tests(
         &self,
         req: crate::model::ListTestsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTestsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTestsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3608,16 +3588,16 @@ where
     async fn list_tests(
         &self,
         req: crate::model::ListTestsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTestsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTestsResponse>> {
         self.inner.list_tests(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_test(
         &self,
         req: crate::model::DeleteTestRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3646,16 +3626,16 @@ where
     async fn delete_test(
         &self,
         req: crate::model::DeleteTestRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_test(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn verify_test(
         &self,
         req: crate::model::VerifyTestRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VerifyTestResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VerifyTestResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3684,16 +3664,16 @@ where
     async fn verify_test(
         &self,
         req: crate::model::VerifyTestRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VerifyTestResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VerifyTestResponse>> {
         self.inner.verify_test(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3722,16 +3702,16 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3760,16 +3740,16 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3798,16 +3778,16 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3836,17 +3816,16 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3875,18 +3854,16 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3915,17 +3892,16 @@ where
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3954,16 +3930,16 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -3992,16 +3968,16 @@ where
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -4030,8 +4006,8 @@ where
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }

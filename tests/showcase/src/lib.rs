@@ -26,7 +26,15 @@ mod compliance;
 mod echo;
 mod identity;
 
-const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
+/// The version of gapic-showcase used in these tests.
+///
+/// To update the magic version use:
+///
+/// ```shell
+/// go list -m -f '{{.Version}}' github.com/googleapis/gapic-showcase@main
+/// ```
+const SHOWCASE_NAME: &str =
+    "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.37.1-0.20260210150911-3fd9cb2f682d";
 
 pub async fn run() -> Result<()> {
     let _guard = google_cloud_test_utils::tracing::enable_tracing();

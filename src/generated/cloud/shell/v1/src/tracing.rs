@@ -41,8 +41,8 @@ where
     async fn get_environment(
         &self,
         req: crate::model::GetEnvironmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Environment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Environment>> {
         self.inner.get_environment(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn start_environment(
         &self,
         req: crate::model::StartEnvironmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.start_environment(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn authorize_environment(
         &self,
         req: crate::model::AuthorizeEnvironmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.authorize_environment(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn add_public_key(
         &self,
         req: crate::model::AddPublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.add_public_key(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn remove_public_key(
         &self,
         req: crate::model::RemovePublicKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.remove_public_key(req, options).await
     }
 
@@ -86,22 +86,22 @@ where
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }

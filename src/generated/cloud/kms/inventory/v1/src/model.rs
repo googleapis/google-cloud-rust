@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_kms_v1;
 extern crate lazy_static;
 extern crate serde;
@@ -171,7 +171,7 @@ impl wkt::message::Message for ListCryptoKeysResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCryptoKeysResponse {
     type PageItem = google_cloud_kms_v1::model::CryptoKey;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -559,7 +559,7 @@ impl wkt::message::Message for SearchProtectedResourcesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchProtectedResourcesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchProtectedResourcesResponse {
     type PageItem = crate::model::ProtectedResource;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -20,7 +20,7 @@ pub mod key_dashboard_service {
     /// A builder for [KeyDashboardService][crate::client::KeyDashboardService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_dashboard_service::ClientBuilder;
     /// # use client::KeyDashboardService;
@@ -30,19 +30,18 @@ pub mod key_dashboard_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::KeyDashboardService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = KeyDashboardService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod key_dashboard_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod key_dashboard_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod key_dashboard_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_dashboard_service::ListCryptoKeys;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod key_dashboard_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,14 +117,16 @@ pub mod key_dashboard_service {
             (*self.0.stub)
                 .list_crypto_keys(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListCryptoKeysResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -133,15 +134,17 @@ pub mod key_dashboard_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListCryptoKeysResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -167,8 +170,8 @@ pub mod key_dashboard_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListCryptoKeys {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListCryptoKeys {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -180,7 +183,7 @@ pub mod key_tracking_service {
     /// A builder for [KeyTrackingService][crate::client::KeyTrackingService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::*;
     /// # use builder::key_tracking_service::ClientBuilder;
     /// # use client::KeyTrackingService;
@@ -190,19 +193,18 @@ pub mod key_tracking_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::KeyTrackingService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = KeyTrackingService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -213,7 +215,7 @@ pub mod key_tracking_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -226,7 +228,7 @@ pub mod key_tracking_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -236,7 +238,7 @@ pub mod key_tracking_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_tracking_service::GetProtectedResourcesSummary;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -269,7 +271,7 @@ pub mod key_tracking_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -279,7 +281,7 @@ pub mod key_tracking_service {
             (*self.0.stub)
                 .get_protected_resources_summary(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
@@ -292,8 +294,8 @@ pub mod key_tracking_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetProtectedResourcesSummary {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetProtectedResourcesSummary {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -303,8 +305,8 @@ pub mod key_tracking_service {
     /// # Example
     /// ```
     /// # use google_cloud_kms_inventory_v1::builder::key_tracking_service::SearchProtectedResources;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_kms_inventory_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -340,7 +342,7 @@ pub mod key_tracking_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -350,15 +352,15 @@ pub mod key_tracking_service {
             (*self.0.stub)
                 .search_protected_resources(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::SearchProtectedResourcesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -367,17 +369,17 @@ pub mod key_tracking_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchProtectedResourcesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -422,8 +424,8 @@ pub mod key_tracking_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchProtectedResources {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchProtectedResources {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

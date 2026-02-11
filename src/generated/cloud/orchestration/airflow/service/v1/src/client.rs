@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
 /// let client = Environments::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
@@ -66,13 +66,13 @@ impl Environments {
     /// Returns a builder for [Environments].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// let client = Environments::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::environments::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::environments::client::Factory)
+        crate::new_client_builder(super::builder::environments::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Environments {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Environments {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Environments> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Environments> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Environments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Environments::new)
@@ -399,7 +399,7 @@ impl Environments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
 /// let client = ImageVersions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
@@ -445,13 +445,13 @@ impl ImageVersions {
     /// Returns a builder for [ImageVersions].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
     /// let client = ImageVersions::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::image_versions::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::image_versions::client::Factory)
+        crate::new_client_builder(super::builder::image_versions::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -469,14 +469,14 @@ impl ImageVersions {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageVersions>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ImageVersions>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -485,13 +485,13 @@ impl ImageVersions {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageVersions> {
         super::transport::ImageVersions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageVersions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageVersions::new)

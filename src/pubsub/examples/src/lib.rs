@@ -12,12 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod quickstart_publisher;
+pub mod quickstart_subscriber;
+pub mod subscriber_stream;
+mod subscription;
 mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_pubsub::{client::SubscriptionAdmin, model::Subscription};
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
-use rand::{Rng, distr::Alphanumeric};
+use rand::{RngExt, distr::Alphanumeric};
 use tokio::task::JoinSet;
 
 pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
@@ -31,7 +35,26 @@ pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result
     Ok(())
 }
 
-pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: String) -> anyhow::Result<()> {
+pub async fn run_subscription_examples(
+    subscription_names: &mut Vec<String>,
+    topic_name: &str,
+) -> anyhow::Result<()> {
+    let client = SubscriptionAdmin::builder().build().await?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+
+    let topic_id = topic_name.split("/").last().unwrap();
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
+
+    quickstart_publisher::sample(&project_id, topic_id).await?;
+    quickstart_subscriber::sample(&project_id, &id).await?;
+    subscriber_stream::sample(&project_id, &id).await?;
+
+    Ok(())
+}
+
+pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: &str) -> anyhow::Result<()> {
     client.delete_topic().set_topic(topic_name).send().await?;
     Ok(())
 }
@@ -80,7 +103,7 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
             let client = client.clone();
             pending.spawn(async move {
                 let name = topic.name.clone();
-                (topic.name, cleanup_test_topic(&client, name).await)
+                (topic.name, cleanup_test_topic(&client, &name).await)
             });
         }
     }
@@ -106,7 +129,7 @@ fn random_topic_id() -> String {
 
 pub async fn cleanup_test_subscription(
     client: &SubscriptionAdmin,
-    subscription_name: String,
+    subscription_name: &str,
 ) -> anyhow::Result<()> {
     client
         .delete_subscription()
@@ -117,7 +140,24 @@ pub async fn cleanup_test_subscription(
 }
 
 pub async fn create_test_subscription(
-    topic_name: String,
+    topic_name: &str,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    create_test_subscription_with_request(topic_name, Subscription::new()).await
+}
+
+pub async fn create_ordered_test_subscription(
+    topic_name: &str,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    create_test_subscription_with_request(
+        topic_name,
+        Subscription::new().set_enable_message_ordering(true),
+    )
+    .await
+}
+
+async fn create_test_subscription_with_request(
+    topic_name: &str,
+    request: Subscription,
 ) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     let client = SubscriptionAdmin::builder().with_tracing().build().await?;
@@ -127,13 +167,15 @@ pub async fn create_test_subscription(
     let subscription_id = random_subscription_id();
     let now = chrono::Utc::now().timestamp().to_string();
 
-    let subscription = client
-        .create_subscription()
+    let request = request
         .set_name(format!(
             "projects/{project_id}/subscriptions/{subscription_id}"
         ))
         .set_topic(topic_name)
-        .set_labels([("integration-test", "true"), ("create-time", &now)])
+        .set_labels([("integration-test", "true"), ("create-time", &now)]);
+    let subscription = client
+        .create_subscription()
+        .with_request(request)
         .send()
         .await?;
     println!("success on create_subscription(): {subscription:?}");
@@ -170,7 +212,7 @@ pub async fn cleanup_stale_subscriptions(
                 let name = subscription.name.clone();
                 (
                     subscription.name,
-                    cleanup_test_subscription(&client, name).await,
+                    cleanup_test_subscription(&client, &name).await,
                 )
             });
         }

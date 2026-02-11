@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -1240,7 +1240,7 @@ impl wkt::message::Message for ListDockerImagesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDockerImagesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDockerImagesResponse {
     type PageItem = crate::model::DockerImage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1590,7 +1590,7 @@ impl wkt::message::Message for ListMavenArtifactsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMavenArtifactsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMavenArtifactsResponse {
     type PageItem = crate::model::MavenArtifact;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1925,7 +1925,7 @@ impl wkt::message::Message for ListNpmPackagesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNpmPackagesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNpmPackagesResponse {
     type PageItem = crate::model::NpmPackage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2259,7 +2259,7 @@ impl wkt::message::Message for ListPythonPackagesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPythonPackagesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPythonPackagesResponse {
     type PageItem = crate::model::PythonPackage;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2681,7 +2681,7 @@ impl wkt::message::Message for ListAttachmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
     type PageItem = crate::model::Attachment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3332,6 +3332,7 @@ impl Hash {
     /// use google_cloud_artifactregistry_v1::model::hash::HashType;
     /// let x0 = Hash::new().set_type(HashType::Sha256);
     /// let x1 = Hash::new().set_type(HashType::Md5);
+    /// let x2 = Hash::new().set_type(HashType::DirsumSha256);
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::hash::HashType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -3386,6 +3387,8 @@ pub mod hash {
         Sha256,
         /// MD5 hash.
         Md5,
+        /// Dirsum SHA256 hash.
+        DirsumSha256,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [HashType::value] or
@@ -3411,6 +3414,7 @@ pub mod hash {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Sha256 => std::option::Option::Some(1),
                 Self::Md5 => std::option::Option::Some(2),
+                Self::DirsumSha256 => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3424,6 +3428,7 @@ pub mod hash {
                 Self::Unspecified => std::option::Option::Some("HASH_TYPE_UNSPECIFIED"),
                 Self::Sha256 => std::option::Option::Some("SHA256"),
                 Self::Md5 => std::option::Option::Some("MD5"),
+                Self::DirsumSha256 => std::option::Option::Some("DIRSUM_SHA256"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3448,6 +3453,7 @@ pub mod hash {
                 0 => Self::Unspecified,
                 1 => Self::Sha256,
                 2 => Self::Md5,
+                3 => Self::DirsumSha256,
                 _ => Self::UnknownValue(hash_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3462,6 +3468,7 @@ pub mod hash {
                 "HASH_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SHA256" => Self::Sha256,
                 "MD5" => Self::Md5,
+                "DIRSUM_SHA256" => Self::DirsumSha256,
                 _ => Self::UnknownValue(hash_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3478,6 +3485,7 @@ pub mod hash {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Sha256 => serializer.serialize_i32(1),
                 Self::Md5 => serializer.serialize_i32(2),
+                Self::DirsumSha256 => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3924,7 +3932,7 @@ impl wkt::message::Message for ListFilesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListFilesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFilesResponse {
     type PageItem = crate::model::File;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4745,7 +4753,7 @@ impl wkt::message::Message for ListPackagesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPackagesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPackagesResponse {
     type PageItem = crate::model::Package;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10349,7 +10357,7 @@ impl wkt::message::Message for ListRepositoriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
     type PageItem = crate::model::Repository;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11124,7 +11132,7 @@ impl wkt::message::Message for ListRulesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRulesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRulesResponse {
     type PageItem = crate::model::Rule;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -12005,7 +12013,7 @@ impl wkt::message::Message for ListTagsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTagsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTagsResponse {
     type PageItem = crate::model::Tag;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -12726,7 +12734,7 @@ impl wkt::message::Message for ListVersionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

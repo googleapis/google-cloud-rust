@@ -42,9 +42,20 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn list_memberships(
         &self,
         _req: crate::model::ListMembershipsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListMembershipsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListMembershipsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_bound_memberships].
+    fn list_bound_memberships(
+        &self,
+        _req: crate::model::ListBoundMembershipsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListBoundMembershipsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +64,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn list_features(
         &self,
         _req: crate::model::ListFeaturesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListFeaturesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListFeaturesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,10 +75,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn get_membership(
         &self,
         _req: crate::model::GetMembershipRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Membership>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Membership>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +85,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn get_feature(
         &self,
         _req: crate::model::GetFeatureRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Feature>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feature>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,9 +95,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn create_membership(
         &self,
         _req: crate::model::CreateMembershipRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +106,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn create_feature(
         &self,
         _req: crate::model::CreateFeatureRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,9 +117,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn delete_membership(
         &self,
         _req: crate::model::DeleteMembershipRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -119,9 +128,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn delete_feature(
         &self,
         _req: crate::model::DeleteFeatureRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -130,9 +139,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn update_membership(
         &self,
         _req: crate::model::UpdateMembershipRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,9 +150,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn update_feature(
         &self,
         _req: crate::model::UpdateFeatureRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -152,10 +161,361 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn generate_connect_manifest(
         &self,
         _req: crate::model::GenerateConnectManifestRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GenerateConnectManifestResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_fleet].
+    fn create_fleet(
+        &self,
+        _req: crate::model::CreateFleetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_fleet].
+    fn get_fleet(
+        &self,
+        _req: crate::model::GetFleetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Fleet>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_fleet].
+    fn update_fleet(
+        &self,
+        _req: crate::model::UpdateFleetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_fleet].
+    fn delete_fleet(
+        &self,
+        _req: crate::model::DeleteFleetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_fleets].
+    fn list_fleets(
+        &self,
+        _req: crate::model::ListFleetsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListFleetsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_scope_namespace].
+    fn get_scope_namespace(
+        &self,
+        _req: crate::model::GetScopeNamespaceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Namespace>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_scope_namespace].
+    fn create_scope_namespace(
+        &self,
+        _req: crate::model::CreateScopeNamespaceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_scope_namespace].
+    fn update_scope_namespace(
+        &self,
+        _req: crate::model::UpdateScopeNamespaceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_scope_namespace].
+    fn delete_scope_namespace(
+        &self,
+        _req: crate::model::DeleteScopeNamespaceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_scope_namespaces].
+    fn list_scope_namespaces(
+        &self,
+        _req: crate::model::ListScopeNamespacesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListScopeNamespacesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_scope_rbac_role_binding].
+    fn get_scope_rbac_role_binding(
+        &self,
+        _req: crate::model::GetScopeRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RBACRoleBinding>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_scope_rbac_role_binding].
+    fn create_scope_rbac_role_binding(
+        &self,
+        _req: crate::model::CreateScopeRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_scope_rbac_role_binding].
+    fn update_scope_rbac_role_binding(
+        &self,
+        _req: crate::model::UpdateScopeRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_scope_rbac_role_binding].
+    fn delete_scope_rbac_role_binding(
+        &self,
+        _req: crate::model::DeleteScopeRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_scope_rbac_role_bindings].
+    fn list_scope_rbac_role_bindings(
+        &self,
+        _req: crate::model::ListScopeRBACRoleBindingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListScopeRBACRoleBindingsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_scope].
+    fn get_scope(
+        &self,
+        _req: crate::model::GetScopeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Scope>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_scope].
+    fn create_scope(
+        &self,
+        _req: crate::model::CreateScopeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_scope].
+    fn update_scope(
+        &self,
+        _req: crate::model::UpdateScopeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_scope].
+    fn delete_scope(
+        &self,
+        _req: crate::model::DeleteScopeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_scopes].
+    fn list_scopes(
+        &self,
+        _req: crate::model::ListScopesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListScopesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_permitted_scopes].
+    fn list_permitted_scopes(
+        &self,
+        _req: crate::model::ListPermittedScopesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListPermittedScopesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_membership_binding].
+    fn get_membership_binding(
+        &self,
+        _req: crate::model::GetMembershipBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::MembershipBinding>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_membership_binding].
+    fn create_membership_binding(
+        &self,
+        _req: crate::model::CreateMembershipBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_membership_binding].
+    fn update_membership_binding(
+        &self,
+        _req: crate::model::UpdateMembershipBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_membership_binding].
+    fn delete_membership_binding(
+        &self,
+        _req: crate::model::DeleteMembershipBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_membership_bindings].
+    fn list_membership_bindings(
+        &self,
+        _req: crate::model::ListMembershipBindingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMembershipBindingsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::get_membership_rbac_role_binding].
+    fn get_membership_rbac_role_binding(
+        &self,
+        _req: crate::model::GetMembershipRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RBACRoleBinding>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::create_membership_rbac_role_binding].
+    fn create_membership_rbac_role_binding(
+        &self,
+        _req: crate::model::CreateMembershipRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::update_membership_rbac_role_binding].
+    fn update_membership_rbac_role_binding(
+        &self,
+        _req: crate::model::UpdateMembershipRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::delete_membership_rbac_role_binding].
+    fn delete_membership_rbac_role_binding(
+        &self,
+        _req: crate::model::DeleteMembershipRBACRoleBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::list_membership_rbac_role_bindings].
+    fn list_membership_rbac_role_bindings(
+        &self,
+        _req: crate::model::ListMembershipRBACRoleBindingsRequest,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<crate::model::GenerateConnectManifestResponse>,
+            crate::Response<crate::model::ListMembershipRBACRoleBindingsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GkeHub::generate_membership_rbac_role_binding_yaml].
+    fn generate_membership_rbac_role_binding_yaml(
+        &self,
+        _req: crate::model::GenerateMembershipRBACRoleBindingYAMLRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::GenerateMembershipRBACRoleBindingYAMLResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -165,10 +525,10 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -178,9 +538,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -189,8 +549,8 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -198,8 +558,8 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -209,9 +569,9 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -220,8 +580,8 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

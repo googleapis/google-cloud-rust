@@ -41,8 +41,8 @@ where
     async fn troubleshoot_iam_policy(
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TroubleshootIamPolicyResponse>> {
         self.inner.troubleshoot_iam_policy(req, options).await
     }
 }

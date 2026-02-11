@@ -158,8 +158,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::accelerator_types::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AcceleratorTypeAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AcceleratorTypeAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -167,8 +167,8 @@ where
     async fn get(
         &self,
         req: crate::model::accelerator_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AcceleratorType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AcceleratorType>> {
         self.inner.get(req, options).await
     }
 
@@ -176,8 +176,8 @@ where
     async fn list(
         &self,
         req: crate::model::accelerator_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AcceleratorTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AcceleratorTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -211,8 +211,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::addresses::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AddressAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AddressAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -220,8 +220,8 @@ where
     async fn delete(
         &self,
         req: crate::model::addresses::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -229,8 +229,8 @@ where
     async fn get(
         &self,
         req: crate::model::addresses::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Address>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Address>> {
         self.inner.get(req, options).await
     }
 
@@ -238,8 +238,8 @@ where
     async fn insert(
         &self,
         req: crate::model::addresses::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -247,8 +247,8 @@ where
     async fn list(
         &self,
         req: crate::model::addresses::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AddressList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AddressList>> {
         self.inner.list(req, options).await
     }
 
@@ -256,8 +256,8 @@ where
     async fn r#move(
         &self,
         req: crate::model::addresses::MoveRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.r#move(req, options).await
     }
 
@@ -265,8 +265,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::addresses::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -274,8 +274,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::addresses::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -283,22 +283,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -332,8 +332,8 @@ where
     async fn calendar_mode(
         &self,
         req: crate::model::advice::CalendarModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CalendarModeAdviceResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CalendarModeAdviceResponse>> {
         self.inner.calendar_mode(req, options).await
     }
 }
@@ -367,8 +367,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::autoscalers::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AutoscalerAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AutoscalerAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -376,8 +376,8 @@ where
     async fn delete(
         &self,
         req: crate::model::autoscalers::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -385,8 +385,8 @@ where
     async fn get(
         &self,
         req: crate::model::autoscalers::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Autoscaler>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Autoscaler>> {
         self.inner.get(req, options).await
     }
 
@@ -394,8 +394,8 @@ where
     async fn insert(
         &self,
         req: crate::model::autoscalers::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -403,8 +403,8 @@ where
     async fn list(
         &self,
         req: crate::model::autoscalers::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AutoscalerList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AutoscalerList>> {
         self.inner.list(req, options).await
     }
 
@@ -412,8 +412,8 @@ where
     async fn patch(
         &self,
         req: crate::model::autoscalers::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -421,8 +421,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -430,8 +430,8 @@ where
     async fn update(
         &self,
         req: crate::model::autoscalers::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -439,22 +439,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -488,8 +488,8 @@ where
     async fn add_signed_url_key(
         &self,
         req: crate::model::backend_buckets::AddSignedUrlKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_signed_url_key(req, options).await
     }
 
@@ -497,8 +497,8 @@ where
     async fn delete(
         &self,
         req: crate::model::backend_buckets::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -506,8 +506,8 @@ where
     async fn delete_signed_url_key(
         &self,
         req: crate::model::backend_buckets::DeleteSignedUrlKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_signed_url_key(req, options).await
     }
 
@@ -515,8 +515,8 @@ where
     async fn get(
         &self,
         req: crate::model::backend_buckets::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendBucket>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucket>> {
         self.inner.get(req, options).await
     }
 
@@ -524,8 +524,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::backend_buckets::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -533,8 +533,8 @@ where
     async fn insert(
         &self,
         req: crate::model::backend_buckets::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -542,8 +542,8 @@ where
     async fn list(
         &self,
         req: crate::model::backend_buckets::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendBucketList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketList>> {
         self.inner.list(req, options).await
     }
 
@@ -551,8 +551,8 @@ where
     async fn patch(
         &self,
         req: crate::model::backend_buckets::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -560,8 +560,8 @@ where
     async fn set_edge_security_policy(
         &self,
         req: crate::model::backend_buckets::SetEdgeSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_edge_security_policy(req, options).await
     }
 
@@ -569,8 +569,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::backend_buckets::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -578,8 +578,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::backend_buckets::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -587,8 +587,8 @@ where
     async fn update(
         &self,
         req: crate::model::backend_buckets::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -596,22 +596,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -645,8 +645,8 @@ where
     async fn add_signed_url_key(
         &self,
         req: crate::model::backend_services::AddSignedUrlKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_signed_url_key(req, options).await
     }
 
@@ -654,8 +654,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::backend_services::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -663,8 +663,8 @@ where
     async fn delete(
         &self,
         req: crate::model::backend_services::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -672,8 +672,8 @@ where
     async fn delete_signed_url_key(
         &self,
         req: crate::model::backend_services::DeleteSignedUrlKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_signed_url_key(req, options).await
     }
 
@@ -681,8 +681,8 @@ where
     async fn get(
         &self,
         req: crate::model::backend_services::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendService>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendService>> {
         self.inner.get(req, options).await
     }
 
@@ -690,8 +690,8 @@ where
     async fn get_effective_security_policies(
         &self,
         req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner
             .get_effective_security_policies(req, options)
             .await
@@ -701,8 +701,8 @@ where
     async fn get_health(
         &self,
         req: crate::model::backend_services::GetHealthRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceGroupHealth>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceGroupHealth>> {
         self.inner.get_health(req, options).await
     }
 
@@ -710,8 +710,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::backend_services::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -719,8 +719,8 @@ where
     async fn insert(
         &self,
         req: crate::model::backend_services::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -728,8 +728,8 @@ where
     async fn list(
         &self,
         req: crate::model::backend_services::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceList>> {
         self.inner.list(req, options).await
     }
 
@@ -737,8 +737,8 @@ where
     async fn list_usable(
         &self,
         req: crate::model::backend_services::ListUsableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceListUsable>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceListUsable>> {
         self.inner.list_usable(req, options).await
     }
 
@@ -746,8 +746,8 @@ where
     async fn patch(
         &self,
         req: crate::model::backend_services::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -755,8 +755,8 @@ where
     async fn set_edge_security_policy(
         &self,
         req: crate::model::backend_services::SetEdgeSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_edge_security_policy(req, options).await
     }
 
@@ -764,8 +764,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::backend_services::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -773,8 +773,8 @@ where
     async fn set_security_policy(
         &self,
         req: crate::model::backend_services::SetSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_security_policy(req, options).await
     }
 
@@ -782,8 +782,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::backend_services::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -791,8 +791,8 @@ where
     async fn update(
         &self,
         req: crate::model::backend_services::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -800,22 +800,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -849,8 +849,8 @@ where
     async fn delete(
         &self,
         req: crate::model::cross_site_networks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -858,8 +858,8 @@ where
     async fn get(
         &self,
         req: crate::model::cross_site_networks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CrossSiteNetwork>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CrossSiteNetwork>> {
         self.inner.get(req, options).await
     }
 
@@ -867,8 +867,8 @@ where
     async fn insert(
         &self,
         req: crate::model::cross_site_networks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -876,8 +876,8 @@ where
     async fn list(
         &self,
         req: crate::model::cross_site_networks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CrossSiteNetworkList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CrossSiteNetworkList>> {
         self.inner.list(req, options).await
     }
 
@@ -885,8 +885,8 @@ where
     async fn patch(
         &self,
         req: crate::model::cross_site_networks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -894,22 +894,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -943,8 +943,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::disk_types::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskTypeAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskTypeAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -952,8 +952,8 @@ where
     async fn get(
         &self,
         req: crate::model::disk_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskType>> {
         self.inner.get(req, options).await
     }
 
@@ -961,8 +961,8 @@ where
     async fn list(
         &self,
         req: crate::model::disk_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -996,8 +996,8 @@ where
     async fn add_resource_policies(
         &self,
         req: crate::model::disks::AddResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_resource_policies(req, options).await
     }
 
@@ -1005,8 +1005,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::disks::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -1014,8 +1014,8 @@ where
     async fn bulk_insert(
         &self,
         req: crate::model::disks::BulkInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.bulk_insert(req, options).await
     }
 
@@ -1023,8 +1023,8 @@ where
     async fn bulk_set_labels(
         &self,
         req: crate::model::disks::BulkSetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.bulk_set_labels(req, options).await
     }
 
@@ -1032,8 +1032,8 @@ where
     async fn create_snapshot(
         &self,
         req: crate::model::disks::CreateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_snapshot(req, options).await
     }
 
@@ -1041,8 +1041,8 @@ where
     async fn delete(
         &self,
         req: crate::model::disks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1050,8 +1050,8 @@ where
     async fn get(
         &self,
         req: crate::model::disks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Disk>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Disk>> {
         self.inner.get(req, options).await
     }
 
@@ -1059,8 +1059,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::disks::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -1068,8 +1068,8 @@ where
     async fn insert(
         &self,
         req: crate::model::disks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1077,8 +1077,8 @@ where
     async fn list(
         &self,
         req: crate::model::disks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskList>> {
         self.inner.list(req, options).await
     }
 
@@ -1086,8 +1086,8 @@ where
     async fn remove_resource_policies(
         &self,
         req: crate::model::disks::RemoveResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_resource_policies(req, options).await
     }
 
@@ -1095,8 +1095,8 @@ where
     async fn resize(
         &self,
         req: crate::model::disks::ResizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resize(req, options).await
     }
 
@@ -1104,8 +1104,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::disks::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -1113,8 +1113,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::disks::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -1122,8 +1122,8 @@ where
     async fn start_async_replication(
         &self,
         req: crate::model::disks::StartAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_async_replication(req, options).await
     }
 
@@ -1131,8 +1131,8 @@ where
     async fn stop_async_replication(
         &self,
         req: crate::model::disks::StopAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_async_replication(req, options).await
     }
 
@@ -1140,8 +1140,8 @@ where
     async fn stop_group_async_replication(
         &self,
         req: crate::model::disks::StopGroupAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_group_async_replication(req, options).await
     }
 
@@ -1149,8 +1149,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::disks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -1158,8 +1158,8 @@ where
     async fn update(
         &self,
         req: crate::model::disks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -1167,22 +1167,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1216,8 +1216,8 @@ where
     async fn delete(
         &self,
         req: crate::model::external_vpn_gateways::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1225,8 +1225,8 @@ where
     async fn get(
         &self,
         req: crate::model::external_vpn_gateways::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ExternalVpnGateway>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExternalVpnGateway>> {
         self.inner.get(req, options).await
     }
 
@@ -1234,8 +1234,8 @@ where
     async fn insert(
         &self,
         req: crate::model::external_vpn_gateways::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1243,8 +1243,8 @@ where
     async fn list(
         &self,
         req: crate::model::external_vpn_gateways::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ExternalVpnGatewayList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExternalVpnGatewayList>> {
         self.inner.list(req, options).await
     }
 
@@ -1252,8 +1252,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::external_vpn_gateways::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -1261,8 +1261,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::external_vpn_gateways::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -1270,22 +1270,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1319,8 +1319,8 @@ where
     async fn add_association(
         &self,
         req: crate::model::firewall_policies::AddAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_association(req, options).await
     }
 
@@ -1328,8 +1328,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::firewall_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -1337,8 +1337,8 @@ where
     async fn clone_rules(
         &self,
         req: crate::model::firewall_policies::CloneRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.clone_rules(req, options).await
     }
 
@@ -1346,8 +1346,8 @@ where
     async fn delete(
         &self,
         req: crate::model::firewall_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1355,8 +1355,8 @@ where
     async fn get(
         &self,
         req: crate::model::firewall_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -1364,8 +1364,8 @@ where
     async fn get_association(
         &self,
         req: crate::model::firewall_policies::GetAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyAssociation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyAssociation>> {
         self.inner.get_association(req, options).await
     }
 
@@ -1373,8 +1373,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::firewall_policies::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -1382,8 +1382,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::firewall_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -1391,8 +1391,8 @@ where
     async fn insert(
         &self,
         req: crate::model::firewall_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1400,8 +1400,8 @@ where
     async fn list(
         &self,
         req: crate::model::firewall_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -1409,9 +1409,8 @@ where
     async fn list_associations(
         &self,
         req: crate::model::firewall_policies::ListAssociationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPoliciesListAssociationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPoliciesListAssociationsResponse>> {
         self.inner.list_associations(req, options).await
     }
 
@@ -1419,8 +1418,8 @@ where
     async fn r#move(
         &self,
         req: crate::model::firewall_policies::MoveRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.r#move(req, options).await
     }
 
@@ -1428,8 +1427,8 @@ where
     async fn patch(
         &self,
         req: crate::model::firewall_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -1437,8 +1436,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::firewall_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -1446,8 +1445,8 @@ where
     async fn remove_association(
         &self,
         req: crate::model::firewall_policies::RemoveAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_association(req, options).await
     }
 
@@ -1455,8 +1454,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::firewall_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -1464,8 +1463,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::firewall_policies::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -1473,8 +1472,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::firewall_policies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -1482,22 +1481,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_organization_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1531,8 +1530,8 @@ where
     async fn delete(
         &self,
         req: crate::model::firewalls::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1540,8 +1539,8 @@ where
     async fn get(
         &self,
         req: crate::model::firewalls::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Firewall>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Firewall>> {
         self.inner.get(req, options).await
     }
 
@@ -1549,8 +1548,8 @@ where
     async fn insert(
         &self,
         req: crate::model::firewalls::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1558,8 +1557,8 @@ where
     async fn list(
         &self,
         req: crate::model::firewalls::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallList>> {
         self.inner.list(req, options).await
     }
 
@@ -1567,8 +1566,8 @@ where
     async fn patch(
         &self,
         req: crate::model::firewalls::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -1576,8 +1575,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::firewalls::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -1585,8 +1584,8 @@ where
     async fn update(
         &self,
         req: crate::model::firewalls::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -1594,22 +1593,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1643,8 +1642,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::forwarding_rules::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ForwardingRuleAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ForwardingRuleAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -1652,8 +1651,8 @@ where
     async fn delete(
         &self,
         req: crate::model::forwarding_rules::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1661,8 +1660,8 @@ where
     async fn get(
         &self,
         req: crate::model::forwarding_rules::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ForwardingRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ForwardingRule>> {
         self.inner.get(req, options).await
     }
 
@@ -1670,8 +1669,8 @@ where
     async fn insert(
         &self,
         req: crate::model::forwarding_rules::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1679,8 +1678,8 @@ where
     async fn list(
         &self,
         req: crate::model::forwarding_rules::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ForwardingRuleList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ForwardingRuleList>> {
         self.inner.list(req, options).await
     }
 
@@ -1688,8 +1687,8 @@ where
     async fn patch(
         &self,
         req: crate::model::forwarding_rules::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -1697,8 +1696,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::forwarding_rules::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -1706,8 +1705,8 @@ where
     async fn set_target(
         &self,
         req: crate::model::forwarding_rules::SetTargetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_target(req, options).await
     }
 
@@ -1715,22 +1714,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1764,9 +1763,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::future_reservations::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FutureReservationsAggregatedListResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FutureReservationsAggregatedListResponse>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -1774,8 +1772,8 @@ where
     async fn cancel(
         &self,
         req: crate::model::future_reservations::CancelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.cancel(req, options).await
     }
 
@@ -1783,8 +1781,8 @@ where
     async fn delete(
         &self,
         req: crate::model::future_reservations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1792,8 +1790,8 @@ where
     async fn get(
         &self,
         req: crate::model::future_reservations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FutureReservation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FutureReservation>> {
         self.inner.get(req, options).await
     }
 
@@ -1801,8 +1799,8 @@ where
     async fn insert(
         &self,
         req: crate::model::future_reservations::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1810,8 +1808,8 @@ where
     async fn list(
         &self,
         req: crate::model::future_reservations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FutureReservationsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FutureReservationsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -1819,8 +1817,8 @@ where
     async fn update(
         &self,
         req: crate::model::future_reservations::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -1828,22 +1826,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1877,8 +1875,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_addresses::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1886,8 +1884,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_addresses::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Address>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Address>> {
         self.inner.get(req, options).await
     }
 
@@ -1895,8 +1893,8 @@ where
     async fn insert(
         &self,
         req: crate::model::global_addresses::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -1904,8 +1902,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_addresses::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AddressList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AddressList>> {
         self.inner.list(req, options).await
     }
 
@@ -1913,8 +1911,8 @@ where
     async fn r#move(
         &self,
         req: crate::model::global_addresses::MoveRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.r#move(req, options).await
     }
 
@@ -1922,8 +1920,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::global_addresses::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -1931,8 +1929,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::global_addresses::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -1940,22 +1938,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -1989,8 +1987,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_forwarding_rules::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -1998,8 +1996,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_forwarding_rules::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ForwardingRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ForwardingRule>> {
         self.inner.get(req, options).await
     }
 
@@ -2007,8 +2005,8 @@ where
     async fn insert(
         &self,
         req: crate::model::global_forwarding_rules::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2016,8 +2014,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_forwarding_rules::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ForwardingRuleList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ForwardingRuleList>> {
         self.inner.list(req, options).await
     }
 
@@ -2025,8 +2023,8 @@ where
     async fn patch(
         &self,
         req: crate::model::global_forwarding_rules::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2034,8 +2032,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::global_forwarding_rules::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -2043,8 +2041,8 @@ where
     async fn set_target(
         &self,
         req: crate::model::global_forwarding_rules::SetTargetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_target(req, options).await
     }
 
@@ -2052,22 +2050,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2101,8 +2099,8 @@ where
     async fn attach_network_endpoints(
         &self,
         req: crate::model::global_network_endpoint_groups::AttachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.attach_network_endpoints(req, options).await
     }
 
@@ -2110,8 +2108,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_network_endpoint_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2119,8 +2117,8 @@ where
     async fn detach_network_endpoints(
         &self,
         req: crate::model::global_network_endpoint_groups::DetachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.detach_network_endpoints(req, options).await
     }
 
@@ -2128,8 +2126,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_network_endpoint_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -2137,8 +2135,8 @@ where
     async fn insert(
         &self,
         req: crate::model::global_network_endpoint_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2146,8 +2144,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_network_endpoint_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -2155,9 +2153,8 @@ where
     async fn list_network_endpoints(
         &self,
         req: crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         self.inner.list_network_endpoints(req, options).await
     }
 
@@ -2165,22 +2162,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2214,8 +2211,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::global_operations::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -2223,8 +2220,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_operations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -2232,8 +2229,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -2241,8 +2238,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationList>> {
         self.inner.list(req, options).await
     }
 
@@ -2250,8 +2247,8 @@ where
     async fn wait(
         &self,
         req: crate::model::global_operations::WaitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.wait(req, options).await
     }
 }
@@ -2285,8 +2282,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_organization_operations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -2294,8 +2291,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_organization_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -2303,8 +2300,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_organization_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationList>> {
         self.inner.list(req, options).await
     }
 }
@@ -2338,8 +2335,8 @@ where
     async fn delete(
         &self,
         req: crate::model::global_public_delegated_prefixes::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2347,8 +2344,8 @@ where
     async fn get(
         &self,
         req: crate::model::global_public_delegated_prefixes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicDelegatedPrefix>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicDelegatedPrefix>> {
         self.inner.get(req, options).await
     }
 
@@ -2356,8 +2353,8 @@ where
     async fn insert(
         &self,
         req: crate::model::global_public_delegated_prefixes::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2365,8 +2362,8 @@ where
     async fn list(
         &self,
         req: crate::model::global_public_delegated_prefixes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicDelegatedPrefixList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicDelegatedPrefixList>> {
         self.inner.list(req, options).await
     }
 
@@ -2374,8 +2371,8 @@ where
     async fn patch(
         &self,
         req: crate::model::global_public_delegated_prefixes::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2383,22 +2380,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2432,8 +2429,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::health_checks::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthChecksAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthChecksAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -2441,8 +2438,8 @@ where
     async fn delete(
         &self,
         req: crate::model::health_checks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2450,8 +2447,8 @@ where
     async fn get(
         &self,
         req: crate::model::health_checks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheck>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheck>> {
         self.inner.get(req, options).await
     }
 
@@ -2459,8 +2456,8 @@ where
     async fn insert(
         &self,
         req: crate::model::health_checks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2468,8 +2465,8 @@ where
     async fn list(
         &self,
         req: crate::model::health_checks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheckList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheckList>> {
         self.inner.list(req, options).await
     }
 
@@ -2477,8 +2474,8 @@ where
     async fn patch(
         &self,
         req: crate::model::health_checks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2486,8 +2483,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -2495,8 +2492,8 @@ where
     async fn update(
         &self,
         req: crate::model::health_checks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -2504,22 +2501,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2553,8 +2550,8 @@ where
     async fn delete(
         &self,
         req: crate::model::http_health_checks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2562,8 +2559,8 @@ where
     async fn get(
         &self,
         req: crate::model::http_health_checks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HttpHealthCheck>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HttpHealthCheck>> {
         self.inner.get(req, options).await
     }
 
@@ -2571,8 +2568,8 @@ where
     async fn insert(
         &self,
         req: crate::model::http_health_checks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2580,8 +2577,8 @@ where
     async fn list(
         &self,
         req: crate::model::http_health_checks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HttpHealthCheckList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HttpHealthCheckList>> {
         self.inner.list(req, options).await
     }
 
@@ -2589,8 +2586,8 @@ where
     async fn patch(
         &self,
         req: crate::model::http_health_checks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2598,8 +2595,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::http_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -2607,8 +2604,8 @@ where
     async fn update(
         &self,
         req: crate::model::http_health_checks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -2616,22 +2613,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2665,8 +2662,8 @@ where
     async fn delete(
         &self,
         req: crate::model::https_health_checks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2674,8 +2671,8 @@ where
     async fn get(
         &self,
         req: crate::model::https_health_checks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HttpsHealthCheck>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HttpsHealthCheck>> {
         self.inner.get(req, options).await
     }
 
@@ -2683,8 +2680,8 @@ where
     async fn insert(
         &self,
         req: crate::model::https_health_checks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2692,8 +2689,8 @@ where
     async fn list(
         &self,
         req: crate::model::https_health_checks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HttpsHealthCheckList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HttpsHealthCheckList>> {
         self.inner.list(req, options).await
     }
 
@@ -2701,8 +2698,8 @@ where
     async fn patch(
         &self,
         req: crate::model::https_health_checks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2710,8 +2707,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::https_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -2719,8 +2716,8 @@ where
     async fn update(
         &self,
         req: crate::model::https_health_checks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -2728,22 +2725,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2777,8 +2774,8 @@ where
     async fn get(
         &self,
         req: crate::model::image_family_views::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ImageFamilyView>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ImageFamilyView>> {
         self.inner.get(req, options).await
     }
 }
@@ -2812,8 +2809,8 @@ where
     async fn delete(
         &self,
         req: crate::model::images::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2821,8 +2818,8 @@ where
     async fn deprecate(
         &self,
         req: crate::model::images::DeprecateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.deprecate(req, options).await
     }
 
@@ -2830,8 +2827,8 @@ where
     async fn get(
         &self,
         req: crate::model::images::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Image>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Image>> {
         self.inner.get(req, options).await
     }
 
@@ -2839,8 +2836,8 @@ where
     async fn get_from_family(
         &self,
         req: crate::model::images::GetFromFamilyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Image>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Image>> {
         self.inner.get_from_family(req, options).await
     }
 
@@ -2848,8 +2845,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::images::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -2857,8 +2854,8 @@ where
     async fn insert(
         &self,
         req: crate::model::images::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2866,8 +2863,8 @@ where
     async fn list(
         &self,
         req: crate::model::images::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ImageList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ImageList>> {
         self.inner.list(req, options).await
     }
 
@@ -2875,8 +2872,8 @@ where
     async fn patch(
         &self,
         req: crate::model::images::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -2884,8 +2881,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::images::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -2893,8 +2890,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::images::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -2902,8 +2899,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::images::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -2911,22 +2908,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -2960,8 +2957,8 @@ where
     async fn cancel(
         &self,
         req: crate::model::instance_group_manager_resize_requests::CancelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.cancel(req, options).await
     }
 
@@ -2969,8 +2966,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instance_group_manager_resize_requests::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -2978,8 +2975,8 @@ where
     async fn get(
         &self,
         req: crate::model::instance_group_manager_resize_requests::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequest>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagerResizeRequest>> {
         self.inner.get(req, options).await
     }
 
@@ -2987,8 +2984,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instance_group_manager_resize_requests::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -2996,9 +2993,8 @@ where
     async fn list(
         &self,
         req: crate::model::instance_group_manager_resize_requests::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -3006,22 +3002,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -3055,8 +3051,8 @@ where
     async fn abandon_instances(
         &self,
         req: crate::model::instance_group_managers::AbandonInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.abandon_instances(req, options).await
     }
 
@@ -3064,8 +3060,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::instance_group_managers::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManagerAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagerAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -3073,8 +3069,8 @@ where
     async fn apply_updates_to_instances(
         &self,
         req: crate::model::instance_group_managers::ApplyUpdatesToInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.apply_updates_to_instances(req, options).await
     }
 
@@ -3082,8 +3078,8 @@ where
     async fn create_instances(
         &self,
         req: crate::model::instance_group_managers::CreateInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_instances(req, options).await
     }
 
@@ -3091,8 +3087,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instance_group_managers::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -3100,8 +3096,8 @@ where
     async fn delete_instances(
         &self,
         req: crate::model::instance_group_managers::DeleteInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_instances(req, options).await
     }
 
@@ -3109,8 +3105,8 @@ where
     async fn delete_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::DeletePerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_per_instance_configs(req, options).await
     }
 
@@ -3118,8 +3114,8 @@ where
     async fn get(
         &self,
         req: crate::model::instance_group_managers::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManager>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManager>> {
         self.inner.get(req, options).await
     }
 
@@ -3127,8 +3123,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instance_group_managers::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -3136,8 +3132,8 @@ where
     async fn list(
         &self,
         req: crate::model::instance_group_managers::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManagerList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagerList>> {
         self.inner.list(req, options).await
     }
 
@@ -3145,9 +3141,8 @@ where
     async fn list_errors(
         &self,
         req: crate::model::instance_group_managers::ListErrorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManagersListErrorsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagersListErrorsResponse>> {
         self.inner.list_errors(req, options).await
     }
 
@@ -3155,10 +3150,9 @@ where
     async fn list_managed_instances(
         &self,
         req: crate::model::instance_group_managers::ListManagedInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>>
+    {
         self.inner.list_managed_instances(req, options).await
     }
 
@@ -3166,10 +3160,9 @@ where
     async fn list_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::ListPerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>,
-    > {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>>
+    {
         self.inner.list_per_instance_configs(req, options).await
     }
 
@@ -3177,8 +3170,8 @@ where
     async fn patch(
         &self,
         req: crate::model::instance_group_managers::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -3186,8 +3179,8 @@ where
     async fn patch_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::PatchPerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_per_instance_configs(req, options).await
     }
 
@@ -3195,8 +3188,8 @@ where
     async fn recreate_instances(
         &self,
         req: crate::model::instance_group_managers::RecreateInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.recreate_instances(req, options).await
     }
 
@@ -3204,8 +3197,8 @@ where
     async fn resize(
         &self,
         req: crate::model::instance_group_managers::ResizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resize(req, options).await
     }
 
@@ -3213,8 +3206,8 @@ where
     async fn resume_instances(
         &self,
         req: crate::model::instance_group_managers::ResumeInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resume_instances(req, options).await
     }
 
@@ -3222,8 +3215,8 @@ where
     async fn set_instance_template(
         &self,
         req: crate::model::instance_group_managers::SetInstanceTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_instance_template(req, options).await
     }
 
@@ -3231,8 +3224,8 @@ where
     async fn set_target_pools(
         &self,
         req: crate::model::instance_group_managers::SetTargetPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_target_pools(req, options).await
     }
 
@@ -3240,8 +3233,8 @@ where
     async fn start_instances(
         &self,
         req: crate::model::instance_group_managers::StartInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_instances(req, options).await
     }
 
@@ -3249,8 +3242,8 @@ where
     async fn stop_instances(
         &self,
         req: crate::model::instance_group_managers::StopInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_instances(req, options).await
     }
 
@@ -3258,8 +3251,8 @@ where
     async fn suspend_instances(
         &self,
         req: crate::model::instance_group_managers::SuspendInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.suspend_instances(req, options).await
     }
 
@@ -3267,8 +3260,8 @@ where
     async fn update_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::UpdatePerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_per_instance_configs(req, options).await
     }
 
@@ -3276,22 +3269,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -3325,8 +3318,8 @@ where
     async fn add_instances(
         &self,
         req: crate::model::instance_groups::AddInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_instances(req, options).await
     }
 
@@ -3334,8 +3327,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::instance_groups::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -3343,8 +3336,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instance_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -3352,8 +3345,8 @@ where
     async fn get(
         &self,
         req: crate::model::instance_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -3361,8 +3354,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instance_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -3370,8 +3363,8 @@ where
     async fn list(
         &self,
         req: crate::model::instance_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -3379,8 +3372,8 @@ where
     async fn list_instances(
         &self,
         req: crate::model::instance_groups::ListInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupsListInstances>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupsListInstances>> {
         self.inner.list_instances(req, options).await
     }
 
@@ -3388,8 +3381,8 @@ where
     async fn remove_instances(
         &self,
         req: crate::model::instance_groups::RemoveInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_instances(req, options).await
     }
 
@@ -3397,8 +3390,8 @@ where
     async fn set_named_ports(
         &self,
         req: crate::model::instance_groups::SetNamedPortsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_named_ports(req, options).await
     }
 
@@ -3406,8 +3399,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::instance_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -3415,22 +3408,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -3464,8 +3457,8 @@ where
     async fn get(
         &self,
         req: crate::model::instance_settings::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceSettings>> {
         self.inner.get(req, options).await
     }
 
@@ -3473,8 +3466,8 @@ where
     async fn patch(
         &self,
         req: crate::model::instance_settings::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -3482,22 +3475,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -3531,8 +3524,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::instance_templates::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceTemplateAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceTemplateAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -3540,8 +3533,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instance_templates::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -3549,8 +3542,8 @@ where
     async fn get(
         &self,
         req: crate::model::instance_templates::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceTemplate>> {
         self.inner.get(req, options).await
     }
 
@@ -3558,8 +3551,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::instance_templates::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -3567,8 +3560,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instance_templates::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -3576,8 +3569,8 @@ where
     async fn list(
         &self,
         req: crate::model::instance_templates::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceTemplateList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceTemplateList>> {
         self.inner.list(req, options).await
     }
 
@@ -3585,8 +3578,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::instance_templates::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -3594,8 +3587,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::instance_templates::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -3603,22 +3596,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -3652,8 +3645,8 @@ where
     async fn add_access_config(
         &self,
         req: crate::model::instances::AddAccessConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_access_config(req, options).await
     }
 
@@ -3661,8 +3654,8 @@ where
     async fn add_network_interface(
         &self,
         req: crate::model::instances::AddNetworkInterfaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_network_interface(req, options).await
     }
 
@@ -3670,8 +3663,8 @@ where
     async fn add_resource_policies(
         &self,
         req: crate::model::instances::AddResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_resource_policies(req, options).await
     }
 
@@ -3679,8 +3672,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::instances::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -3688,8 +3681,8 @@ where
     async fn attach_disk(
         &self,
         req: crate::model::instances::AttachDiskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.attach_disk(req, options).await
     }
 
@@ -3697,8 +3690,8 @@ where
     async fn bulk_insert(
         &self,
         req: crate::model::instances::BulkInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.bulk_insert(req, options).await
     }
 
@@ -3706,8 +3699,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instances::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -3715,8 +3708,8 @@ where
     async fn delete_access_config(
         &self,
         req: crate::model::instances::DeleteAccessConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_access_config(req, options).await
     }
 
@@ -3724,8 +3717,8 @@ where
     async fn delete_network_interface(
         &self,
         req: crate::model::instances::DeleteNetworkInterfaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_network_interface(req, options).await
     }
 
@@ -3733,8 +3726,8 @@ where
     async fn detach_disk(
         &self,
         req: crate::model::instances::DetachDiskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.detach_disk(req, options).await
     }
 
@@ -3742,8 +3735,8 @@ where
     async fn get(
         &self,
         req: crate::model::instances::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Instance>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Instance>> {
         self.inner.get(req, options).await
     }
 
@@ -3751,8 +3744,8 @@ where
     async fn get_effective_firewalls(
         &self,
         req: crate::model::instances::GetEffectiveFirewallsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstancesGetEffectiveFirewallsResponse>> {
         self.inner.get_effective_firewalls(req, options).await
     }
 
@@ -3760,8 +3753,8 @@ where
     async fn get_guest_attributes(
         &self,
         req: crate::model::instances::GetGuestAttributesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GuestAttributes>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GuestAttributes>> {
         self.inner.get_guest_attributes(req, options).await
     }
 
@@ -3769,8 +3762,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::instances::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -3778,8 +3771,8 @@ where
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Screenshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Screenshot>> {
         self.inner.get_screenshot(req, options).await
     }
 
@@ -3787,8 +3780,8 @@ where
     async fn get_serial_port_output(
         &self,
         req: crate::model::instances::GetSerialPortOutputRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SerialPortOutput>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SerialPortOutput>> {
         self.inner.get_serial_port_output(req, options).await
     }
 
@@ -3796,8 +3789,8 @@ where
     async fn get_shielded_instance_identity(
         &self,
         req: crate::model::instances::GetShieldedInstanceIdentityRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ShieldedInstanceIdentity>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ShieldedInstanceIdentity>> {
         self.inner
             .get_shielded_instance_identity(req, options)
             .await
@@ -3807,8 +3800,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instances::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -3816,8 +3809,8 @@ where
     async fn list(
         &self,
         req: crate::model::instances::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceList>> {
         self.inner.list(req, options).await
     }
 
@@ -3825,8 +3818,8 @@ where
     async fn list_referrers(
         &self,
         req: crate::model::instances::ListReferrersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceListReferrers>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceListReferrers>> {
         self.inner.list_referrers(req, options).await
     }
 
@@ -3834,8 +3827,8 @@ where
     async fn perform_maintenance(
         &self,
         req: crate::model::instances::PerformMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_maintenance(req, options).await
     }
 
@@ -3843,8 +3836,8 @@ where
     async fn remove_resource_policies(
         &self,
         req: crate::model::instances::RemoveResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_resource_policies(req, options).await
     }
 
@@ -3852,8 +3845,8 @@ where
     async fn report_host_as_faulty(
         &self,
         req: crate::model::instances::ReportHostAsFaultyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.report_host_as_faulty(req, options).await
     }
 
@@ -3861,8 +3854,8 @@ where
     async fn reset(
         &self,
         req: crate::model::instances::ResetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.reset(req, options).await
     }
 
@@ -3870,8 +3863,8 @@ where
     async fn resume(
         &self,
         req: crate::model::instances::ResumeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resume(req, options).await
     }
 
@@ -3879,8 +3872,8 @@ where
     async fn send_diagnostic_interrupt(
         &self,
         req: crate::model::instances::SendDiagnosticInterruptRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.send_diagnostic_interrupt(req, options).await
     }
 
@@ -3888,8 +3881,8 @@ where
     async fn set_deletion_protection(
         &self,
         req: crate::model::instances::SetDeletionProtectionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_deletion_protection(req, options).await
     }
 
@@ -3897,8 +3890,8 @@ where
     async fn set_disk_auto_delete(
         &self,
         req: crate::model::instances::SetDiskAutoDeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_disk_auto_delete(req, options).await
     }
 
@@ -3906,8 +3899,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::instances::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -3915,8 +3908,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::instances::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -3924,8 +3917,8 @@ where
     async fn set_machine_resources(
         &self,
         req: crate::model::instances::SetMachineResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_machine_resources(req, options).await
     }
 
@@ -3933,8 +3926,8 @@ where
     async fn set_machine_type(
         &self,
         req: crate::model::instances::SetMachineTypeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_machine_type(req, options).await
     }
 
@@ -3942,8 +3935,8 @@ where
     async fn set_metadata(
         &self,
         req: crate::model::instances::SetMetadataRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_metadata(req, options).await
     }
 
@@ -3951,8 +3944,8 @@ where
     async fn set_min_cpu_platform(
         &self,
         req: crate::model::instances::SetMinCpuPlatformRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_min_cpu_platform(req, options).await
     }
 
@@ -3960,8 +3953,8 @@ where
     async fn set_name(
         &self,
         req: crate::model::instances::SetNameRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_name(req, options).await
     }
 
@@ -3969,8 +3962,8 @@ where
     async fn set_scheduling(
         &self,
         req: crate::model::instances::SetSchedulingRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_scheduling(req, options).await
     }
 
@@ -3978,8 +3971,8 @@ where
     async fn set_security_policy(
         &self,
         req: crate::model::instances::SetSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_security_policy(req, options).await
     }
 
@@ -3987,8 +3980,8 @@ where
     async fn set_service_account(
         &self,
         req: crate::model::instances::SetServiceAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_service_account(req, options).await
     }
 
@@ -3996,8 +3989,8 @@ where
     async fn set_shielded_instance_integrity_policy(
         &self,
         req: crate::model::instances::SetShieldedInstanceIntegrityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner
             .set_shielded_instance_integrity_policy(req, options)
             .await
@@ -4007,8 +4000,8 @@ where
     async fn set_tags(
         &self,
         req: crate::model::instances::SetTagsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_tags(req, options).await
     }
 
@@ -4016,8 +4009,8 @@ where
     async fn simulate_maintenance_event(
         &self,
         req: crate::model::instances::SimulateMaintenanceEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.simulate_maintenance_event(req, options).await
     }
 
@@ -4025,8 +4018,8 @@ where
     async fn start(
         &self,
         req: crate::model::instances::StartRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start(req, options).await
     }
 
@@ -4034,8 +4027,8 @@ where
     async fn start_with_encryption_key(
         &self,
         req: crate::model::instances::StartWithEncryptionKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_with_encryption_key(req, options).await
     }
 
@@ -4043,8 +4036,8 @@ where
     async fn stop(
         &self,
         req: crate::model::instances::StopRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop(req, options).await
     }
 
@@ -4052,8 +4045,8 @@ where
     async fn suspend(
         &self,
         req: crate::model::instances::SuspendRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.suspend(req, options).await
     }
 
@@ -4061,8 +4054,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::instances::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -4070,8 +4063,8 @@ where
     async fn update(
         &self,
         req: crate::model::instances::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -4079,8 +4072,8 @@ where
     async fn update_access_config(
         &self,
         req: crate::model::instances::UpdateAccessConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_access_config(req, options).await
     }
 
@@ -4088,8 +4081,8 @@ where
     async fn update_display_device(
         &self,
         req: crate::model::instances::UpdateDisplayDeviceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_display_device(req, options).await
     }
 
@@ -4097,8 +4090,8 @@ where
     async fn update_network_interface(
         &self,
         req: crate::model::instances::UpdateNetworkInterfaceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_network_interface(req, options).await
     }
 
@@ -4106,8 +4099,8 @@ where
     async fn update_shielded_instance_config(
         &self,
         req: crate::model::instances::UpdateShieldedInstanceConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner
             .update_shielded_instance_config(req, options)
             .await
@@ -4117,22 +4110,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4166,8 +4159,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::instant_snapshots::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstantSnapshotAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstantSnapshotAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -4175,8 +4168,8 @@ where
     async fn delete(
         &self,
         req: crate::model::instant_snapshots::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4184,8 +4177,8 @@ where
     async fn get(
         &self,
         req: crate::model::instant_snapshots::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstantSnapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstantSnapshot>> {
         self.inner.get(req, options).await
     }
 
@@ -4193,8 +4186,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::instant_snapshots::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -4202,8 +4195,8 @@ where
     async fn insert(
         &self,
         req: crate::model::instant_snapshots::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4211,8 +4204,8 @@ where
     async fn list(
         &self,
         req: crate::model::instant_snapshots::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstantSnapshotList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstantSnapshotList>> {
         self.inner.list(req, options).await
     }
 
@@ -4220,8 +4213,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::instant_snapshots::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -4229,8 +4222,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::instant_snapshots::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -4238,8 +4231,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::instant_snapshots::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -4247,22 +4240,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4296,8 +4289,8 @@ where
     async fn delete(
         &self,
         req: crate::model::interconnect_attachment_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4305,8 +4298,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnect_attachment_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectAttachmentGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectAttachmentGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -4314,8 +4307,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::interconnect_attachment_groups::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -4323,11 +4316,9 @@ where
     async fn get_operational_status(
         &self,
         req: crate::model::interconnect_attachment_groups::GetOperationalStatusRequest,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<
-        gax::response::Response<
-            crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse,
-        >,
+        crate::Response<crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse>,
     > {
         self.inner.get_operational_status(req, options).await
     }
@@ -4336,8 +4327,8 @@ where
     async fn insert(
         &self,
         req: crate::model::interconnect_attachment_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4345,9 +4336,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnect_attachment_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectAttachmentGroupsListResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectAttachmentGroupsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -4355,8 +4345,8 @@ where
     async fn patch(
         &self,
         req: crate::model::interconnect_attachment_groups::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -4364,8 +4354,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::interconnect_attachment_groups::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -4373,8 +4363,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::interconnect_attachment_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -4382,22 +4372,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4431,8 +4421,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::interconnect_attachments::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectAttachmentAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectAttachmentAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -4440,8 +4430,8 @@ where
     async fn delete(
         &self,
         req: crate::model::interconnect_attachments::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4449,8 +4439,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnect_attachments::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectAttachment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectAttachment>> {
         self.inner.get(req, options).await
     }
 
@@ -4458,8 +4448,8 @@ where
     async fn insert(
         &self,
         req: crate::model::interconnect_attachments::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4467,8 +4457,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnect_attachments::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectAttachmentList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectAttachmentList>> {
         self.inner.list(req, options).await
     }
 
@@ -4476,8 +4466,8 @@ where
     async fn patch(
         &self,
         req: crate::model::interconnect_attachments::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -4485,8 +4475,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::interconnect_attachments::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -4494,22 +4484,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4543,8 +4533,8 @@ where
     async fn create_members(
         &self,
         req: crate::model::interconnect_groups::CreateMembersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_members(req, options).await
     }
 
@@ -4552,8 +4542,8 @@ where
     async fn delete(
         &self,
         req: crate::model::interconnect_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4561,8 +4551,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnect_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -4570,8 +4560,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::interconnect_groups::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -4579,9 +4569,8 @@ where
     async fn get_operational_status(
         &self,
         req: crate::model::interconnect_groups::GetOperationalStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>> {
         self.inner.get_operational_status(req, options).await
     }
 
@@ -4589,8 +4578,8 @@ where
     async fn insert(
         &self,
         req: crate::model::interconnect_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4598,8 +4587,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnect_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectGroupsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectGroupsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -4607,8 +4596,8 @@ where
     async fn patch(
         &self,
         req: crate::model::interconnect_groups::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -4616,8 +4605,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::interconnect_groups::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -4625,8 +4614,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::interconnect_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -4634,22 +4623,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4683,8 +4672,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnect_locations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectLocation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectLocation>> {
         self.inner.get(req, options).await
     }
 
@@ -4692,8 +4681,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnect_locations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectLocationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectLocationList>> {
         self.inner.list(req, options).await
     }
 }
@@ -4727,8 +4716,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnect_remote_locations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectRemoteLocation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectRemoteLocation>> {
         self.inner.get(req, options).await
     }
 
@@ -4736,8 +4725,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnect_remote_locations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectRemoteLocationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectRemoteLocationList>> {
         self.inner.list(req, options).await
     }
 }
@@ -4771,8 +4760,8 @@ where
     async fn delete(
         &self,
         req: crate::model::interconnects::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4780,8 +4769,8 @@ where
     async fn get(
         &self,
         req: crate::model::interconnects::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Interconnect>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Interconnect>> {
         self.inner.get(req, options).await
     }
 
@@ -4789,8 +4778,8 @@ where
     async fn get_diagnostics(
         &self,
         req: crate::model::interconnects::GetDiagnosticsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectsGetDiagnosticsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectsGetDiagnosticsResponse>> {
         self.inner.get_diagnostics(req, options).await
     }
 
@@ -4798,8 +4787,8 @@ where
     async fn get_macsec_config(
         &self,
         req: crate::model::interconnects::GetMacsecConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectsGetMacsecConfigResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectsGetMacsecConfigResponse>> {
         self.inner.get_macsec_config(req, options).await
     }
 
@@ -4807,8 +4796,8 @@ where
     async fn insert(
         &self,
         req: crate::model::interconnects::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4816,8 +4805,8 @@ where
     async fn list(
         &self,
         req: crate::model::interconnects::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InterconnectList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterconnectList>> {
         self.inner.list(req, options).await
     }
 
@@ -4825,8 +4814,8 @@ where
     async fn patch(
         &self,
         req: crate::model::interconnects::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -4834,8 +4823,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::interconnects::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -4843,22 +4832,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -4892,8 +4881,8 @@ where
     async fn get(
         &self,
         req: crate::model::license_codes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LicenseCode>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LicenseCode>> {
         self.inner.get(req, options).await
     }
 
@@ -4901,8 +4890,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::license_codes::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }
@@ -4936,8 +4925,8 @@ where
     async fn delete(
         &self,
         req: crate::model::licenses::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -4945,8 +4934,8 @@ where
     async fn get(
         &self,
         req: crate::model::licenses::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::License>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::License>> {
         self.inner.get(req, options).await
     }
 
@@ -4954,8 +4943,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::licenses::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -4963,8 +4952,8 @@ where
     async fn insert(
         &self,
         req: crate::model::licenses::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -4972,8 +4961,8 @@ where
     async fn list(
         &self,
         req: crate::model::licenses::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::LicensesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LicensesListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -4981,8 +4970,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::licenses::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -4990,8 +4979,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::licenses::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -4999,8 +4988,8 @@ where
     async fn update(
         &self,
         req: crate::model::licenses::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -5008,22 +4997,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5057,8 +5046,8 @@ where
     async fn delete(
         &self,
         req: crate::model::machine_images::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5066,8 +5055,8 @@ where
     async fn get(
         &self,
         req: crate::model::machine_images::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MachineImage>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MachineImage>> {
         self.inner.get(req, options).await
     }
 
@@ -5075,8 +5064,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::machine_images::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -5084,8 +5073,8 @@ where
     async fn insert(
         &self,
         req: crate::model::machine_images::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5093,8 +5082,8 @@ where
     async fn list(
         &self,
         req: crate::model::machine_images::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MachineImageList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MachineImageList>> {
         self.inner.list(req, options).await
     }
 
@@ -5102,8 +5091,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::machine_images::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -5111,8 +5100,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::machine_images::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -5120,8 +5109,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::machine_images::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -5129,22 +5118,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5178,8 +5167,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::machine_types::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MachineTypeAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MachineTypeAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -5187,8 +5176,8 @@ where
     async fn get(
         &self,
         req: crate::model::machine_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MachineType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MachineType>> {
         self.inner.get(req, options).await
     }
 
@@ -5196,8 +5185,8 @@ where
     async fn list(
         &self,
         req: crate::model::machine_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MachineTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MachineTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -5231,8 +5220,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::network_attachments::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkAttachmentAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkAttachmentAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -5240,8 +5229,8 @@ where
     async fn delete(
         &self,
         req: crate::model::network_attachments::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5249,8 +5238,8 @@ where
     async fn get(
         &self,
         req: crate::model::network_attachments::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkAttachment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkAttachment>> {
         self.inner.get(req, options).await
     }
 
@@ -5258,8 +5247,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::network_attachments::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -5267,8 +5256,8 @@ where
     async fn insert(
         &self,
         req: crate::model::network_attachments::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5276,8 +5265,8 @@ where
     async fn list(
         &self,
         req: crate::model::network_attachments::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkAttachmentList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkAttachmentList>> {
         self.inner.list(req, options).await
     }
 
@@ -5285,8 +5274,8 @@ where
     async fn patch(
         &self,
         req: crate::model::network_attachments::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -5294,8 +5283,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::network_attachments::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -5303,8 +5292,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::network_attachments::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -5312,22 +5301,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5361,9 +5350,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::network_edge_security_services::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -5371,8 +5359,8 @@ where
     async fn delete(
         &self,
         req: crate::model::network_edge_security_services::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5380,8 +5368,8 @@ where
     async fn get(
         &self,
         req: crate::model::network_edge_security_services::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEdgeSecurityService>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEdgeSecurityService>> {
         self.inner.get(req, options).await
     }
 
@@ -5389,8 +5377,8 @@ where
     async fn insert(
         &self,
         req: crate::model::network_edge_security_services::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5398,8 +5386,8 @@ where
     async fn patch(
         &self,
         req: crate::model::network_edge_security_services::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -5407,22 +5395,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5456,8 +5444,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::network_endpoint_groups::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -5465,8 +5453,8 @@ where
     async fn attach_network_endpoints(
         &self,
         req: crate::model::network_endpoint_groups::AttachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.attach_network_endpoints(req, options).await
     }
 
@@ -5474,8 +5462,8 @@ where
     async fn delete(
         &self,
         req: crate::model::network_endpoint_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5483,8 +5471,8 @@ where
     async fn detach_network_endpoints(
         &self,
         req: crate::model::network_endpoint_groups::DetachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.detach_network_endpoints(req, options).await
     }
 
@@ -5492,8 +5480,8 @@ where
     async fn get(
         &self,
         req: crate::model::network_endpoint_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -5501,8 +5489,8 @@ where
     async fn insert(
         &self,
         req: crate::model::network_endpoint_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5510,8 +5498,8 @@ where
     async fn list(
         &self,
         req: crate::model::network_endpoint_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -5519,9 +5507,8 @@ where
     async fn list_network_endpoints(
         &self,
         req: crate::model::network_endpoint_groups::ListNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         self.inner.list_network_endpoints(req, options).await
     }
 
@@ -5529,8 +5516,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::network_endpoint_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -5538,22 +5525,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5587,8 +5574,8 @@ where
     async fn add_association(
         &self,
         req: crate::model::network_firewall_policies::AddAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_association(req, options).await
     }
 
@@ -5596,8 +5583,8 @@ where
     async fn add_packet_mirroring_rule(
         &self,
         req: crate::model::network_firewall_policies::AddPacketMirroringRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_packet_mirroring_rule(req, options).await
     }
 
@@ -5605,8 +5592,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::network_firewall_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -5614,8 +5601,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::network_firewall_policies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkFirewallPolicyAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkFirewallPolicyAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -5623,8 +5610,8 @@ where
     async fn clone_rules(
         &self,
         req: crate::model::network_firewall_policies::CloneRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.clone_rules(req, options).await
     }
 
@@ -5632,8 +5619,8 @@ where
     async fn delete(
         &self,
         req: crate::model::network_firewall_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5641,8 +5628,8 @@ where
     async fn get(
         &self,
         req: crate::model::network_firewall_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -5650,8 +5637,8 @@ where
     async fn get_association(
         &self,
         req: crate::model::network_firewall_policies::GetAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyAssociation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyAssociation>> {
         self.inner.get_association(req, options).await
     }
 
@@ -5659,8 +5646,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::network_firewall_policies::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -5668,8 +5655,8 @@ where
     async fn get_packet_mirroring_rule(
         &self,
         req: crate::model::network_firewall_policies::GetPacketMirroringRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyRule>> {
         self.inner.get_packet_mirroring_rule(req, options).await
     }
 
@@ -5677,8 +5664,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::network_firewall_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -5686,8 +5673,8 @@ where
     async fn insert(
         &self,
         req: crate::model::network_firewall_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5695,8 +5682,8 @@ where
     async fn list(
         &self,
         req: crate::model::network_firewall_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -5704,8 +5691,8 @@ where
     async fn patch(
         &self,
         req: crate::model::network_firewall_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -5713,8 +5700,8 @@ where
     async fn patch_packet_mirroring_rule(
         &self,
         req: crate::model::network_firewall_policies::PatchPacketMirroringRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_packet_mirroring_rule(req, options).await
     }
 
@@ -5722,8 +5709,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::network_firewall_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -5731,8 +5718,8 @@ where
     async fn remove_association(
         &self,
         req: crate::model::network_firewall_policies::RemoveAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_association(req, options).await
     }
 
@@ -5740,8 +5727,8 @@ where
     async fn remove_packet_mirroring_rule(
         &self,
         req: crate::model::network_firewall_policies::RemovePacketMirroringRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_packet_mirroring_rule(req, options).await
     }
 
@@ -5749,8 +5736,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::network_firewall_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -5758,8 +5745,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::network_firewall_policies::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -5767,8 +5754,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::network_firewall_policies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -5776,22 +5763,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -5825,8 +5812,8 @@ where
     async fn get(
         &self,
         req: crate::model::network_profiles::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkProfile>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkProfile>> {
         self.inner.get(req, options).await
     }
 
@@ -5834,8 +5821,8 @@ where
     async fn list(
         &self,
         req: crate::model::network_profiles::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkProfilesListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkProfilesListResponse>> {
         self.inner.list(req, options).await
     }
 }
@@ -5869,8 +5856,8 @@ where
     async fn add_peering(
         &self,
         req: crate::model::networks::AddPeeringRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_peering(req, options).await
     }
 
@@ -5878,8 +5865,8 @@ where
     async fn delete(
         &self,
         req: crate::model::networks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -5887,8 +5874,8 @@ where
     async fn get(
         &self,
         req: crate::model::networks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Network>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Network>> {
         self.inner.get(req, options).await
     }
 
@@ -5896,8 +5883,8 @@ where
     async fn get_effective_firewalls(
         &self,
         req: crate::model::networks::GetEffectiveFirewallsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworksGetEffectiveFirewallsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworksGetEffectiveFirewallsResponse>> {
         self.inner.get_effective_firewalls(req, options).await
     }
 
@@ -5905,8 +5892,8 @@ where
     async fn insert(
         &self,
         req: crate::model::networks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -5914,8 +5901,8 @@ where
     async fn list(
         &self,
         req: crate::model::networks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkList>> {
         self.inner.list(req, options).await
     }
 
@@ -5923,8 +5910,8 @@ where
     async fn list_peering_routes(
         &self,
         req: crate::model::networks::ListPeeringRoutesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ExchangedPeeringRoutesList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExchangedPeeringRoutesList>> {
         self.inner.list_peering_routes(req, options).await
     }
 
@@ -5932,8 +5919,8 @@ where
     async fn patch(
         &self,
         req: crate::model::networks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -5941,8 +5928,8 @@ where
     async fn remove_peering(
         &self,
         req: crate::model::networks::RemovePeeringRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_peering(req, options).await
     }
 
@@ -5950,8 +5937,8 @@ where
     async fn request_remove_peering(
         &self,
         req: crate::model::networks::RequestRemovePeeringRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.request_remove_peering(req, options).await
     }
 
@@ -5959,8 +5946,8 @@ where
     async fn switch_to_custom_mode(
         &self,
         req: crate::model::networks::SwitchToCustomModeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.switch_to_custom_mode(req, options).await
     }
 
@@ -5968,8 +5955,8 @@ where
     async fn update_peering(
         &self,
         req: crate::model::networks::UpdatePeeringRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_peering(req, options).await
     }
 
@@ -5977,22 +5964,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6026,8 +6013,8 @@ where
     async fn add_nodes(
         &self,
         req: crate::model::node_groups::AddNodesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_nodes(req, options).await
     }
 
@@ -6035,8 +6022,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::node_groups::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeGroupAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeGroupAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -6044,8 +6031,8 @@ where
     async fn delete(
         &self,
         req: crate::model::node_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -6053,8 +6040,8 @@ where
     async fn delete_nodes(
         &self,
         req: crate::model::node_groups::DeleteNodesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_nodes(req, options).await
     }
 
@@ -6062,8 +6049,8 @@ where
     async fn get(
         &self,
         req: crate::model::node_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -6071,8 +6058,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::node_groups::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -6080,8 +6067,8 @@ where
     async fn insert(
         &self,
         req: crate::model::node_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -6089,8 +6076,8 @@ where
     async fn list(
         &self,
         req: crate::model::node_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -6098,8 +6085,8 @@ where
     async fn list_nodes(
         &self,
         req: crate::model::node_groups::ListNodesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeGroupsListNodes>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeGroupsListNodes>> {
         self.inner.list_nodes(req, options).await
     }
 
@@ -6107,8 +6094,8 @@ where
     async fn patch(
         &self,
         req: crate::model::node_groups::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -6116,8 +6103,8 @@ where
     async fn perform_maintenance(
         &self,
         req: crate::model::node_groups::PerformMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_maintenance(req, options).await
     }
 
@@ -6125,8 +6112,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::node_groups::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -6134,8 +6121,8 @@ where
     async fn set_node_template(
         &self,
         req: crate::model::node_groups::SetNodeTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_node_template(req, options).await
     }
 
@@ -6143,8 +6130,8 @@ where
     async fn simulate_maintenance_event(
         &self,
         req: crate::model::node_groups::SimulateMaintenanceEventRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.simulate_maintenance_event(req, options).await
     }
 
@@ -6152,8 +6139,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::node_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -6161,22 +6148,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6210,8 +6197,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::node_templates::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeTemplateAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeTemplateAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -6219,8 +6206,8 @@ where
     async fn delete(
         &self,
         req: crate::model::node_templates::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -6228,8 +6215,8 @@ where
     async fn get(
         &self,
         req: crate::model::node_templates::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeTemplate>> {
         self.inner.get(req, options).await
     }
 
@@ -6237,8 +6224,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::node_templates::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -6246,8 +6233,8 @@ where
     async fn insert(
         &self,
         req: crate::model::node_templates::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -6255,8 +6242,8 @@ where
     async fn list(
         &self,
         req: crate::model::node_templates::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeTemplateList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeTemplateList>> {
         self.inner.list(req, options).await
     }
 
@@ -6264,8 +6251,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::node_templates::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -6273,8 +6260,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::node_templates::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -6282,22 +6269,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6331,8 +6318,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::node_types::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeTypeAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeTypeAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -6340,8 +6327,8 @@ where
     async fn get(
         &self,
         req: crate::model::node_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeType>> {
         self.inner.get(req, options).await
     }
 
@@ -6349,8 +6336,8 @@ where
     async fn list(
         &self,
         req: crate::model::node_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NodeTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NodeTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -6384,8 +6371,8 @@ where
     async fn add_association(
         &self,
         req: crate::model::organization_security_policies::AddAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_association(req, options).await
     }
 
@@ -6393,8 +6380,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::organization_security_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -6402,8 +6389,8 @@ where
     async fn copy_rules(
         &self,
         req: crate::model::organization_security_policies::CopyRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.copy_rules(req, options).await
     }
 
@@ -6411,8 +6398,8 @@ where
     async fn delete(
         &self,
         req: crate::model::organization_security_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -6420,8 +6407,8 @@ where
     async fn get(
         &self,
         req: crate::model::organization_security_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -6429,8 +6416,8 @@ where
     async fn get_association(
         &self,
         req: crate::model::organization_security_policies::GetAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyAssociation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyAssociation>> {
         self.inner.get_association(req, options).await
     }
 
@@ -6438,8 +6425,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::organization_security_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -6447,8 +6434,8 @@ where
     async fn insert(
         &self,
         req: crate::model::organization_security_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -6456,8 +6443,8 @@ where
     async fn list(
         &self,
         req: crate::model::organization_security_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -6465,10 +6452,9 @@ where
     async fn list_associations(
         &self,
         req: crate::model::organization_security_policies::ListAssociationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>>
+    {
         self.inner.list_associations(req, options).await
     }
 
@@ -6476,11 +6462,9 @@ where
     async fn list_preconfigured_expression_sets(
         &self,
         req: crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
+        crate::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>,
     > {
         self.inner
             .list_preconfigured_expression_sets(req, options)
@@ -6491,8 +6475,8 @@ where
     async fn r#move(
         &self,
         req: crate::model::organization_security_policies::MoveRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.r#move(req, options).await
     }
 
@@ -6500,8 +6484,8 @@ where
     async fn patch(
         &self,
         req: crate::model::organization_security_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -6509,8 +6493,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::organization_security_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -6518,8 +6502,8 @@ where
     async fn remove_association(
         &self,
         req: crate::model::organization_security_policies::RemoveAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_association(req, options).await
     }
 
@@ -6527,8 +6511,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::organization_security_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -6536,22 +6520,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_organization_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6585,8 +6569,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::packet_mirrorings::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PacketMirroringAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PacketMirroringAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -6594,8 +6578,8 @@ where
     async fn delete(
         &self,
         req: crate::model::packet_mirrorings::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -6603,8 +6587,8 @@ where
     async fn get(
         &self,
         req: crate::model::packet_mirrorings::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PacketMirroring>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PacketMirroring>> {
         self.inner.get(req, options).await
     }
 
@@ -6612,8 +6596,8 @@ where
     async fn insert(
         &self,
         req: crate::model::packet_mirrorings::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -6621,8 +6605,8 @@ where
     async fn list(
         &self,
         req: crate::model::packet_mirrorings::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PacketMirroringList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PacketMirroringList>> {
         self.inner.list(req, options).await
     }
 
@@ -6630,8 +6614,8 @@ where
     async fn patch(
         &self,
         req: crate::model::packet_mirrorings::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -6639,8 +6623,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::packet_mirrorings::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -6648,22 +6632,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6697,8 +6681,8 @@ where
     async fn get(
         &self,
         req: crate::model::preview_features::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PreviewFeature>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PreviewFeature>> {
         self.inner.get(req, options).await
     }
 
@@ -6706,8 +6690,8 @@ where
     async fn list(
         &self,
         req: crate::model::preview_features::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PreviewFeatureList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PreviewFeatureList>> {
         self.inner.list(req, options).await
     }
 
@@ -6715,8 +6699,8 @@ where
     async fn update(
         &self,
         req: crate::model::preview_features::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -6724,22 +6708,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6773,8 +6757,8 @@ where
     async fn disable_xpn_host(
         &self,
         req: crate::model::projects::DisableXpnHostRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.disable_xpn_host(req, options).await
     }
 
@@ -6782,8 +6766,8 @@ where
     async fn disable_xpn_resource(
         &self,
         req: crate::model::projects::DisableXpnResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.disable_xpn_resource(req, options).await
     }
 
@@ -6791,8 +6775,8 @@ where
     async fn enable_xpn_host(
         &self,
         req: crate::model::projects::EnableXpnHostRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.enable_xpn_host(req, options).await
     }
 
@@ -6800,8 +6784,8 @@ where
     async fn enable_xpn_resource(
         &self,
         req: crate::model::projects::EnableXpnResourceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.enable_xpn_resource(req, options).await
     }
 
@@ -6809,8 +6793,8 @@ where
     async fn get(
         &self,
         req: crate::model::projects::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Project>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Project>> {
         self.inner.get(req, options).await
     }
 
@@ -6818,8 +6802,8 @@ where
     async fn get_xpn_host(
         &self,
         req: crate::model::projects::GetXpnHostRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Project>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Project>> {
         self.inner.get_xpn_host(req, options).await
     }
 
@@ -6827,8 +6811,8 @@ where
     async fn get_xpn_resources(
         &self,
         req: crate::model::projects::GetXpnResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ProjectsGetXpnResources>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProjectsGetXpnResources>> {
         self.inner.get_xpn_resources(req, options).await
     }
 
@@ -6836,8 +6820,8 @@ where
     async fn list_xpn_hosts(
         &self,
         req: crate::model::projects::ListXpnHostsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::XpnHostList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::XpnHostList>> {
         self.inner.list_xpn_hosts(req, options).await
     }
 
@@ -6845,8 +6829,8 @@ where
     async fn move_disk(
         &self,
         req: crate::model::projects::MoveDiskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.move_disk(req, options).await
     }
 
@@ -6854,8 +6838,8 @@ where
     async fn move_instance(
         &self,
         req: crate::model::projects::MoveInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.move_instance(req, options).await
     }
 
@@ -6863,8 +6847,8 @@ where
     async fn set_cloud_armor_tier(
         &self,
         req: crate::model::projects::SetCloudArmorTierRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_cloud_armor_tier(req, options).await
     }
 
@@ -6872,8 +6856,8 @@ where
     async fn set_common_instance_metadata(
         &self,
         req: crate::model::projects::SetCommonInstanceMetadataRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_common_instance_metadata(req, options).await
     }
 
@@ -6881,8 +6865,8 @@ where
     async fn set_default_network_tier(
         &self,
         req: crate::model::projects::SetDefaultNetworkTierRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_default_network_tier(req, options).await
     }
 
@@ -6890,8 +6874,8 @@ where
     async fn set_usage_export_bucket(
         &self,
         req: crate::model::projects::SetUsageExportBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_usage_export_bucket(req, options).await
     }
 
@@ -6899,22 +6883,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -6948,8 +6932,8 @@ where
     async fn announce(
         &self,
         req: crate::model::public_advertised_prefixes::AnnounceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.announce(req, options).await
     }
 
@@ -6957,8 +6941,8 @@ where
     async fn delete(
         &self,
         req: crate::model::public_advertised_prefixes::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -6966,8 +6950,8 @@ where
     async fn get(
         &self,
         req: crate::model::public_advertised_prefixes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicAdvertisedPrefix>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicAdvertisedPrefix>> {
         self.inner.get(req, options).await
     }
 
@@ -6975,8 +6959,8 @@ where
     async fn insert(
         &self,
         req: crate::model::public_advertised_prefixes::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -6984,8 +6968,8 @@ where
     async fn list(
         &self,
         req: crate::model::public_advertised_prefixes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicAdvertisedPrefixList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicAdvertisedPrefixList>> {
         self.inner.list(req, options).await
     }
 
@@ -6993,8 +6977,8 @@ where
     async fn patch(
         &self,
         req: crate::model::public_advertised_prefixes::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -7002,8 +6986,8 @@ where
     async fn withdraw(
         &self,
         req: crate::model::public_advertised_prefixes::WithdrawRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.withdraw(req, options).await
     }
 
@@ -7011,22 +6995,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7060,8 +7044,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::public_delegated_prefixes::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicDelegatedPrefixAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicDelegatedPrefixAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -7069,8 +7053,8 @@ where
     async fn announce(
         &self,
         req: crate::model::public_delegated_prefixes::AnnounceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.announce(req, options).await
     }
 
@@ -7078,8 +7062,8 @@ where
     async fn delete(
         &self,
         req: crate::model::public_delegated_prefixes::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7087,8 +7071,8 @@ where
     async fn get(
         &self,
         req: crate::model::public_delegated_prefixes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicDelegatedPrefix>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicDelegatedPrefix>> {
         self.inner.get(req, options).await
     }
 
@@ -7096,8 +7080,8 @@ where
     async fn insert(
         &self,
         req: crate::model::public_delegated_prefixes::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7105,8 +7089,8 @@ where
     async fn list(
         &self,
         req: crate::model::public_delegated_prefixes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::PublicDelegatedPrefixList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PublicDelegatedPrefixList>> {
         self.inner.list(req, options).await
     }
 
@@ -7114,8 +7098,8 @@ where
     async fn patch(
         &self,
         req: crate::model::public_delegated_prefixes::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -7123,8 +7107,8 @@ where
     async fn withdraw(
         &self,
         req: crate::model::public_delegated_prefixes::WithdrawRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.withdraw(req, options).await
     }
 
@@ -7132,22 +7116,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7181,8 +7165,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_autoscalers::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7190,8 +7174,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_autoscalers::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Autoscaler>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Autoscaler>> {
         self.inner.get(req, options).await
     }
 
@@ -7199,8 +7183,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_autoscalers::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7208,8 +7192,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_autoscalers::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionAutoscalerList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionAutoscalerList>> {
         self.inner.list(req, options).await
     }
 
@@ -7217,8 +7201,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_autoscalers::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -7226,8 +7210,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -7235,8 +7219,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_autoscalers::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -7244,22 +7228,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7293,8 +7277,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_backend_services::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7302,8 +7286,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_backend_services::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendService>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendService>> {
         self.inner.get(req, options).await
     }
 
@@ -7311,8 +7295,8 @@ where
     async fn get_health(
         &self,
         req: crate::model::region_backend_services::GetHealthRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceGroupHealth>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceGroupHealth>> {
         self.inner.get_health(req, options).await
     }
 
@@ -7320,8 +7304,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::region_backend_services::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -7329,8 +7313,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_backend_services::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7338,8 +7322,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_backend_services::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceList>> {
         self.inner.list(req, options).await
     }
 
@@ -7347,8 +7331,8 @@ where
     async fn list_usable(
         &self,
         req: crate::model::region_backend_services::ListUsableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::BackendServiceListUsable>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendServiceListUsable>> {
         self.inner.list_usable(req, options).await
     }
 
@@ -7356,8 +7340,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_backend_services::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -7365,8 +7349,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::region_backend_services::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -7374,8 +7358,8 @@ where
     async fn set_security_policy(
         &self,
         req: crate::model::region_backend_services::SetSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_security_policy(req, options).await
     }
 
@@ -7383,8 +7367,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_backend_services::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -7392,8 +7376,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_backend_services::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -7401,22 +7385,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7450,8 +7434,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::region_commitments::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CommitmentAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CommitmentAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -7459,8 +7443,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_commitments::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Commitment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Commitment>> {
         self.inner.get(req, options).await
     }
 
@@ -7468,8 +7452,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_commitments::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7477,8 +7461,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_commitments::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CommitmentList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CommitmentList>> {
         self.inner.list(req, options).await
     }
 
@@ -7486,8 +7470,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_commitments::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -7495,22 +7479,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7544,8 +7528,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_disk_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskType>> {
         self.inner.get(req, options).await
     }
 
@@ -7553,8 +7537,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_disk_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionDiskTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionDiskTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -7588,8 +7572,8 @@ where
     async fn add_resource_policies(
         &self,
         req: crate::model::region_disks::AddResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_resource_policies(req, options).await
     }
 
@@ -7597,8 +7581,8 @@ where
     async fn bulk_insert(
         &self,
         req: crate::model::region_disks::BulkInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.bulk_insert(req, options).await
     }
 
@@ -7606,8 +7590,8 @@ where
     async fn create_snapshot(
         &self,
         req: crate::model::region_disks::CreateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_snapshot(req, options).await
     }
 
@@ -7615,8 +7599,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_disks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7624,8 +7608,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_disks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Disk>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Disk>> {
         self.inner.get(req, options).await
     }
 
@@ -7633,8 +7617,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::region_disks::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -7642,8 +7626,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_disks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7651,8 +7635,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_disks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DiskList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DiskList>> {
         self.inner.list(req, options).await
     }
 
@@ -7660,8 +7644,8 @@ where
     async fn remove_resource_policies(
         &self,
         req: crate::model::region_disks::RemoveResourcePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_resource_policies(req, options).await
     }
 
@@ -7669,8 +7653,8 @@ where
     async fn resize(
         &self,
         req: crate::model::region_disks::ResizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resize(req, options).await
     }
 
@@ -7678,8 +7662,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::region_disks::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -7687,8 +7671,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::region_disks::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -7696,8 +7680,8 @@ where
     async fn start_async_replication(
         &self,
         req: crate::model::region_disks::StartAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_async_replication(req, options).await
     }
 
@@ -7705,8 +7689,8 @@ where
     async fn stop_async_replication(
         &self,
         req: crate::model::region_disks::StopAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_async_replication(req, options).await
     }
 
@@ -7714,8 +7698,8 @@ where
     async fn stop_group_async_replication(
         &self,
         req: crate::model::region_disks::StopGroupAsyncReplicationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_group_async_replication(req, options).await
     }
 
@@ -7723,8 +7707,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_disks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -7732,8 +7716,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_disks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -7741,22 +7725,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7790,8 +7774,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_health_check_services::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7799,8 +7783,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_health_check_services::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheckService>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheckService>> {
         self.inner.get(req, options).await
     }
 
@@ -7808,8 +7792,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_health_check_services::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7817,8 +7801,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_health_check_services::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheckServicesList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheckServicesList>> {
         self.inner.list(req, options).await
     }
 
@@ -7826,31 +7810,40 @@ where
     async fn patch(
         &self,
         req: crate::model::region_health_check_services::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_check_services::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7884,8 +7877,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_health_checks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -7893,8 +7886,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_health_checks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheck>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheck>> {
         self.inner.get(req, options).await
     }
 
@@ -7902,8 +7895,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_health_checks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -7911,8 +7904,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_health_checks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::HealthCheckList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheckList>> {
         self.inner.list(req, options).await
     }
 
@@ -7920,8 +7913,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_health_checks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -7929,8 +7922,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -7938,8 +7931,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_health_checks::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -7947,22 +7940,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -7996,8 +7989,8 @@ where
     async fn abandon_instances(
         &self,
         req: crate::model::region_instance_group_managers::AbandonInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.abandon_instances(req, options).await
     }
 
@@ -8005,8 +7998,8 @@ where
     async fn apply_updates_to_instances(
         &self,
         req: crate::model::region_instance_group_managers::ApplyUpdatesToInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.apply_updates_to_instances(req, options).await
     }
 
@@ -8014,8 +8007,8 @@ where
     async fn create_instances(
         &self,
         req: crate::model::region_instance_group_managers::CreateInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.create_instances(req, options).await
     }
 
@@ -8023,8 +8016,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_instance_group_managers::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8032,8 +8025,8 @@ where
     async fn delete_instances(
         &self,
         req: crate::model::region_instance_group_managers::DeleteInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_instances(req, options).await
     }
 
@@ -8041,8 +8034,8 @@ where
     async fn delete_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::DeletePerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_per_instance_configs(req, options).await
     }
 
@@ -8050,8 +8043,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_instance_group_managers::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroupManager>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManager>> {
         self.inner.get(req, options).await
     }
 
@@ -8059,8 +8052,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_instance_group_managers::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8068,8 +8061,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_instance_group_managers::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionInstanceGroupManagerList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupManagerList>> {
         self.inner.list(req, options).await
     }
 
@@ -8077,9 +8070,8 @@ where
     async fn list_errors(
         &self,
         req: crate::model::region_instance_group_managers::ListErrorsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>> {
         self.inner.list_errors(req, options).await
     }
 
@@ -8087,10 +8079,9 @@ where
     async fn list_managed_instances(
         &self,
         req: crate::model::region_instance_group_managers::ListManagedInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>>
+    {
         self.inner.list_managed_instances(req, options).await
     }
 
@@ -8098,10 +8089,9 @@ where
     async fn list_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>,
-    > {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>>
+    {
         self.inner.list_per_instance_configs(req, options).await
     }
 
@@ -8109,8 +8099,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_instance_group_managers::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -8118,8 +8108,8 @@ where
     async fn patch_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::PatchPerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_per_instance_configs(req, options).await
     }
 
@@ -8127,8 +8117,8 @@ where
     async fn recreate_instances(
         &self,
         req: crate::model::region_instance_group_managers::RecreateInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.recreate_instances(req, options).await
     }
 
@@ -8136,8 +8126,8 @@ where
     async fn resize(
         &self,
         req: crate::model::region_instance_group_managers::ResizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resize(req, options).await
     }
 
@@ -8145,8 +8135,8 @@ where
     async fn resume_instances(
         &self,
         req: crate::model::region_instance_group_managers::ResumeInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resume_instances(req, options).await
     }
 
@@ -8154,8 +8144,8 @@ where
     async fn set_instance_template(
         &self,
         req: crate::model::region_instance_group_managers::SetInstanceTemplateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_instance_template(req, options).await
     }
 
@@ -8163,8 +8153,8 @@ where
     async fn set_target_pools(
         &self,
         req: crate::model::region_instance_group_managers::SetTargetPoolsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_target_pools(req, options).await
     }
 
@@ -8172,8 +8162,8 @@ where
     async fn start_instances(
         &self,
         req: crate::model::region_instance_group_managers::StartInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.start_instances(req, options).await
     }
 
@@ -8181,8 +8171,8 @@ where
     async fn stop_instances(
         &self,
         req: crate::model::region_instance_group_managers::StopInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.stop_instances(req, options).await
     }
 
@@ -8190,8 +8180,8 @@ where
     async fn suspend_instances(
         &self,
         req: crate::model::region_instance_group_managers::SuspendInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.suspend_instances(req, options).await
     }
 
@@ -8199,8 +8189,8 @@ where
     async fn update_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::UpdatePerInstanceConfigsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_per_instance_configs(req, options).await
     }
 
@@ -8208,22 +8198,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8257,8 +8247,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_instance_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -8266,8 +8256,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_instance_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionInstanceGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -8275,8 +8265,8 @@ where
     async fn list_instances(
         &self,
         req: crate::model::region_instance_groups::ListInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionInstanceGroupsListInstances>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupsListInstances>> {
         self.inner.list_instances(req, options).await
     }
 
@@ -8284,8 +8274,8 @@ where
     async fn set_named_ports(
         &self,
         req: crate::model::region_instance_groups::SetNamedPortsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_named_ports(req, options).await
     }
 
@@ -8293,8 +8283,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_instance_groups::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -8302,22 +8292,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8351,8 +8341,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_instance_templates::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8360,8 +8350,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_instance_templates::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceTemplate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceTemplate>> {
         self.inner.get(req, options).await
     }
 
@@ -8369,8 +8359,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_instance_templates::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8378,8 +8368,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_instance_templates::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstanceTemplateList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceTemplateList>> {
         self.inner.list(req, options).await
     }
 
@@ -8387,22 +8377,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8436,8 +8426,8 @@ where
     async fn bulk_insert(
         &self,
         req: crate::model::region_instances::BulkInsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.bulk_insert(req, options).await
     }
 
@@ -8445,22 +8435,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8494,8 +8484,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_instant_snapshots::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8503,8 +8493,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_instant_snapshots::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstantSnapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstantSnapshot>> {
         self.inner.get(req, options).await
     }
 
@@ -8512,8 +8502,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::region_instant_snapshots::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -8521,8 +8511,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_instant_snapshots::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8530,8 +8520,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_instant_snapshots::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstantSnapshotList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstantSnapshotList>> {
         self.inner.list(req, options).await
     }
 
@@ -8539,8 +8529,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::region_instant_snapshots::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -8548,8 +8538,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::region_instant_snapshots::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -8557,8 +8547,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_instant_snapshots::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -8566,22 +8556,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8615,8 +8605,8 @@ where
     async fn attach_network_endpoints(
         &self,
         req: crate::model::region_network_endpoint_groups::AttachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.attach_network_endpoints(req, options).await
     }
 
@@ -8624,8 +8614,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_network_endpoint_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8633,8 +8623,8 @@ where
     async fn detach_network_endpoints(
         &self,
         req: crate::model::region_network_endpoint_groups::DetachNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.detach_network_endpoints(req, options).await
     }
 
@@ -8642,8 +8632,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_network_endpoint_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -8651,8 +8641,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_network_endpoint_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8660,8 +8650,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_network_endpoint_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -8669,9 +8659,8 @@ where
     async fn list_network_endpoints(
         &self,
         req: crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         self.inner.list_network_endpoints(req, options).await
     }
 
@@ -8679,22 +8668,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8728,8 +8717,8 @@ where
     async fn add_association(
         &self,
         req: crate::model::region_network_firewall_policies::AddAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_association(req, options).await
     }
 
@@ -8737,8 +8726,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::region_network_firewall_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -8746,8 +8735,8 @@ where
     async fn clone_rules(
         &self,
         req: crate::model::region_network_firewall_policies::CloneRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.clone_rules(req, options).await
     }
 
@@ -8755,8 +8744,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_network_firewall_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8764,8 +8753,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_network_firewall_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -8773,8 +8762,8 @@ where
     async fn get_association(
         &self,
         req: crate::model::region_network_firewall_policies::GetAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyAssociation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyAssociation>> {
         self.inner.get_association(req, options).await
     }
 
@@ -8782,11 +8771,9 @@ where
     async fn get_effective_firewalls(
         &self,
         req: crate::model::region_network_firewall_policies::GetEffectiveFirewallsRequest,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<
-        gax::response::Response<
-            crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse,
-        >,
+        crate::Response<crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse>,
     > {
         self.inner.get_effective_firewalls(req, options).await
     }
@@ -8795,8 +8782,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::region_network_firewall_policies::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -8804,8 +8791,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::region_network_firewall_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -8813,8 +8800,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_network_firewall_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8822,8 +8809,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_network_firewall_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FirewallPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -8831,8 +8818,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_network_firewall_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -8840,8 +8827,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::region_network_firewall_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -8849,8 +8836,8 @@ where
     async fn remove_association(
         &self,
         req: crate::model::region_network_firewall_policies::RemoveAssociationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_association(req, options).await
     }
 
@@ -8858,8 +8845,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::region_network_firewall_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -8867,8 +8854,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::region_network_firewall_policies::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -8876,8 +8863,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_network_firewall_policies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -8885,22 +8872,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -8934,8 +8921,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_notification_endpoints::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -8943,8 +8930,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_notification_endpoints::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NotificationEndpoint>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NotificationEndpoint>> {
         self.inner.get(req, options).await
     }
 
@@ -8952,8 +8939,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_notification_endpoints::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -8961,8 +8948,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_notification_endpoints::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NotificationEndpointList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NotificationEndpointList>> {
         self.inner.list(req, options).await
     }
 
@@ -8970,8 +8957,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -8979,22 +8966,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9028,8 +9015,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_operations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -9037,8 +9024,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -9046,8 +9033,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationList>> {
         self.inner.list(req, options).await
     }
 
@@ -9055,8 +9042,8 @@ where
     async fn wait(
         &self,
         req: crate::model::region_operations::WaitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.wait(req, options).await
     }
 }
@@ -9090,8 +9077,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::region_security_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -9099,8 +9086,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_security_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9108,8 +9095,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_security_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -9117,8 +9104,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::region_security_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -9126,8 +9113,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_security_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9135,8 +9122,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_security_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -9144,8 +9131,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_security_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -9153,8 +9140,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::region_security_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -9162,8 +9149,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::region_security_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -9171,8 +9158,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::region_security_policies::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -9180,22 +9167,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9229,8 +9216,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_ssl_certificates::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9238,8 +9225,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_ssl_certificates::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertificate>> {
         self.inner.get(req, options).await
     }
 
@@ -9247,8 +9234,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_ssl_certificates::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9256,8 +9243,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_ssl_certificates::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertificateList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertificateList>> {
         self.inner.list(req, options).await
     }
 
@@ -9265,22 +9252,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9314,8 +9301,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_ssl_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9323,8 +9310,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_ssl_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -9332,8 +9319,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_ssl_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9341,8 +9328,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_ssl_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPoliciesList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPoliciesList>> {
         self.inner.list(req, options).await
     }
 
@@ -9350,9 +9337,8 @@ where
     async fn list_available_features(
         &self,
         req: crate::model::region_ssl_policies::ListAvailableFeaturesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>> {
         self.inner.list_available_features(req, options).await
     }
 
@@ -9360,8 +9346,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_ssl_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -9369,22 +9355,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9418,8 +9404,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_target_http_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9427,8 +9413,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_target_http_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -9436,8 +9422,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_target_http_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9445,8 +9431,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_target_http_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -9454,8 +9440,8 @@ where
     async fn set_url_map(
         &self,
         req: crate::model::region_target_http_proxies::SetUrlMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_url_map(req, options).await
     }
 
@@ -9463,22 +9449,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9512,8 +9498,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_target_https_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9521,8 +9507,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_target_https_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpsProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpsProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -9530,8 +9516,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_target_https_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9539,8 +9525,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_target_https_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpsProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpsProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -9548,8 +9534,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_target_https_proxies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -9557,8 +9543,8 @@ where
     async fn set_ssl_certificates(
         &self,
         req: crate::model::region_target_https_proxies::SetSslCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_ssl_certificates(req, options).await
     }
 
@@ -9566,8 +9552,8 @@ where
     async fn set_url_map(
         &self,
         req: crate::model::region_target_https_proxies::SetUrlMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_url_map(req, options).await
     }
 
@@ -9575,22 +9561,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9624,8 +9610,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_target_tcp_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9633,8 +9619,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_target_tcp_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetTcpProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetTcpProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -9642,8 +9628,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_target_tcp_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9651,8 +9637,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_target_tcp_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetTcpProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetTcpProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -9660,22 +9646,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9709,8 +9695,8 @@ where
     async fn delete(
         &self,
         req: crate::model::region_url_maps::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -9718,8 +9704,8 @@ where
     async fn get(
         &self,
         req: crate::model::region_url_maps::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMap>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMap>> {
         self.inner.get(req, options).await
     }
 
@@ -9727,8 +9713,8 @@ where
     async fn insert(
         &self,
         req: crate::model::region_url_maps::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -9736,8 +9722,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_url_maps::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMapList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMapList>> {
         self.inner.list(req, options).await
     }
 
@@ -9745,8 +9731,8 @@ where
     async fn patch(
         &self,
         req: crate::model::region_url_maps::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -9754,8 +9740,8 @@ where
     async fn update(
         &self,
         req: crate::model::region_url_maps::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -9763,8 +9749,8 @@ where
     async fn validate(
         &self,
         req: crate::model::region_url_maps::ValidateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMapsValidateResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMapsValidateResponse>> {
         self.inner.validate(req, options).await
     }
 
@@ -9772,22 +9758,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -9821,8 +9807,8 @@ where
     async fn list(
         &self,
         req: crate::model::region_zones::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ZoneList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ZoneList>> {
         self.inner.list(req, options).await
     }
 }
@@ -9856,8 +9842,8 @@ where
     async fn get(
         &self,
         req: crate::model::regions::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Region>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Region>> {
         self.inner.get(req, options).await
     }
 
@@ -9865,8 +9851,8 @@ where
     async fn list(
         &self,
         req: crate::model::regions::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RegionList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionList>> {
         self.inner.list(req, options).await
     }
 }
@@ -9900,8 +9886,8 @@ where
     async fn get(
         &self,
         req: crate::model::reservation_blocks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationBlocksGetResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationBlocksGetResponse>> {
         self.inner.get(req, options).await
     }
 
@@ -9909,8 +9895,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::reservation_blocks::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -9918,8 +9904,8 @@ where
     async fn list(
         &self,
         req: crate::model::reservation_blocks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationBlocksListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationBlocksListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -9927,8 +9913,8 @@ where
     async fn perform_maintenance(
         &self,
         req: crate::model::reservation_blocks::PerformMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_maintenance(req, options).await
     }
 
@@ -9936,8 +9922,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::reservation_blocks::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -9945,8 +9931,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::reservation_blocks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -9954,22 +9940,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10003,8 +9989,8 @@ where
     async fn get(
         &self,
         req: crate::model::reservation_slots::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationSlotsGetResponse>> {
         self.inner.get(req, options).await
     }
 
@@ -10012,8 +9998,8 @@ where
     async fn list(
         &self,
         req: crate::model::reservation_slots::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationSlotsListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationSlotsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -10021,8 +10007,8 @@ where
     async fn update(
         &self,
         req: crate::model::reservation_slots::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -10030,22 +10016,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10079,8 +10065,8 @@ where
     async fn get(
         &self,
         req: crate::model::reservation_sub_blocks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationSubBlocksGetResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationSubBlocksGetResponse>> {
         self.inner.get(req, options).await
     }
 
@@ -10088,8 +10074,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -10097,8 +10083,8 @@ where
     async fn list(
         &self,
         req: crate::model::reservation_sub_blocks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationSubBlocksListResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationSubBlocksListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -10106,8 +10092,8 @@ where
     async fn perform_maintenance(
         &self,
         req: crate::model::reservation_sub_blocks::PerformMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_maintenance(req, options).await
     }
 
@@ -10115,8 +10101,8 @@ where
     async fn report_faulty(
         &self,
         req: crate::model::reservation_sub_blocks::ReportFaultyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.report_faulty(req, options).await
     }
 
@@ -10124,8 +10110,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::reservation_sub_blocks::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -10133,8 +10119,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::reservation_sub_blocks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -10142,22 +10128,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10191,8 +10177,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::reservations::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -10200,8 +10186,8 @@ where
     async fn delete(
         &self,
         req: crate::model::reservations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10209,8 +10195,8 @@ where
     async fn get(
         &self,
         req: crate::model::reservations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Reservation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Reservation>> {
         self.inner.get(req, options).await
     }
 
@@ -10218,8 +10204,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::reservations::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -10227,8 +10213,8 @@ where
     async fn insert(
         &self,
         req: crate::model::reservations::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10236,8 +10222,8 @@ where
     async fn list(
         &self,
         req: crate::model::reservations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ReservationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationList>> {
         self.inner.list(req, options).await
     }
 
@@ -10245,8 +10231,8 @@ where
     async fn perform_maintenance(
         &self,
         req: crate::model::reservations::PerformMaintenanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.perform_maintenance(req, options).await
     }
 
@@ -10254,8 +10240,8 @@ where
     async fn resize(
         &self,
         req: crate::model::reservations::ResizeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.resize(req, options).await
     }
 
@@ -10263,8 +10249,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::reservations::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -10272,8 +10258,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::reservations::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -10281,8 +10267,8 @@ where
     async fn update(
         &self,
         req: crate::model::reservations::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -10290,22 +10276,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10339,8 +10325,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::resource_policies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ResourcePolicyAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResourcePolicyAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -10348,8 +10334,8 @@ where
     async fn delete(
         &self,
         req: crate::model::resource_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10357,8 +10343,8 @@ where
     async fn get(
         &self,
         req: crate::model::resource_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ResourcePolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResourcePolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -10366,8 +10352,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::resource_policies::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -10375,8 +10361,8 @@ where
     async fn insert(
         &self,
         req: crate::model::resource_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10384,8 +10370,8 @@ where
     async fn list(
         &self,
         req: crate::model::resource_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ResourcePolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ResourcePolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -10393,8 +10379,8 @@ where
     async fn patch(
         &self,
         req: crate::model::resource_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -10402,8 +10388,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::resource_policies::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -10411,8 +10397,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::resource_policies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -10420,22 +10406,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10469,8 +10455,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::routers::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RouterAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RouterAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -10478,8 +10464,8 @@ where
     async fn delete(
         &self,
         req: crate::model::routers::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10487,8 +10473,8 @@ where
     async fn delete_route_policy(
         &self,
         req: crate::model::routers::DeleteRoutePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete_route_policy(req, options).await
     }
 
@@ -10496,8 +10482,8 @@ where
     async fn get(
         &self,
         req: crate::model::routers::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Router>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Router>> {
         self.inner.get(req, options).await
     }
 
@@ -10505,8 +10491,8 @@ where
     async fn get_nat_ip_info(
         &self,
         req: crate::model::routers::GetNatIpInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::NatIpInfoResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NatIpInfoResponse>> {
         self.inner.get_nat_ip_info(req, options).await
     }
 
@@ -10514,8 +10500,8 @@ where
     async fn get_nat_mapping_info(
         &self,
         req: crate::model::routers::GetNatMappingInfoRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VmEndpointNatMappingsList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VmEndpointNatMappingsList>> {
         self.inner.get_nat_mapping_info(req, options).await
     }
 
@@ -10523,8 +10509,8 @@ where
     async fn get_route_policy(
         &self,
         req: crate::model::routers::GetRoutePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RoutersGetRoutePolicyResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersGetRoutePolicyResponse>> {
         self.inner.get_route_policy(req, options).await
     }
 
@@ -10532,8 +10518,8 @@ where
     async fn get_router_status(
         &self,
         req: crate::model::routers::GetRouterStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RouterStatusResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RouterStatusResponse>> {
         self.inner.get_router_status(req, options).await
     }
 
@@ -10541,8 +10527,8 @@ where
     async fn insert(
         &self,
         req: crate::model::routers::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10550,8 +10536,8 @@ where
     async fn list(
         &self,
         req: crate::model::routers::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RouterList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RouterList>> {
         self.inner.list(req, options).await
     }
 
@@ -10559,8 +10545,8 @@ where
     async fn list_bgp_routes(
         &self,
         req: crate::model::routers::ListBgpRoutesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RoutersListBgpRoutes>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersListBgpRoutes>> {
         self.inner.list_bgp_routes(req, options).await
     }
 
@@ -10568,8 +10554,8 @@ where
     async fn list_route_policies(
         &self,
         req: crate::model::routers::ListRoutePoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RoutersListRoutePolicies>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersListRoutePolicies>> {
         self.inner.list_route_policies(req, options).await
     }
 
@@ -10577,8 +10563,8 @@ where
     async fn patch(
         &self,
         req: crate::model::routers::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -10586,8 +10572,8 @@ where
     async fn patch_route_policy(
         &self,
         req: crate::model::routers::PatchRoutePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_route_policy(req, options).await
     }
 
@@ -10595,8 +10581,8 @@ where
     async fn preview(
         &self,
         req: crate::model::routers::PreviewRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RoutersPreviewResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RoutersPreviewResponse>> {
         self.inner.preview(req, options).await
     }
 
@@ -10604,8 +10590,8 @@ where
     async fn update(
         &self,
         req: crate::model::routers::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -10613,8 +10599,8 @@ where
     async fn update_route_policy(
         &self,
         req: crate::model::routers::UpdateRoutePolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update_route_policy(req, options).await
     }
 
@@ -10622,22 +10608,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10671,8 +10657,8 @@ where
     async fn delete(
         &self,
         req: crate::model::routes::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10680,8 +10666,8 @@ where
     async fn get(
         &self,
         req: crate::model::routes::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Route>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Route>> {
         self.inner.get(req, options).await
     }
 
@@ -10689,8 +10675,8 @@ where
     async fn insert(
         &self,
         req: crate::model::routes::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10698,8 +10684,8 @@ where
     async fn list(
         &self,
         req: crate::model::routes::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RouteList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RouteList>> {
         self.inner.list(req, options).await
     }
 
@@ -10707,8 +10693,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::routes::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -10716,22 +10702,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10765,8 +10751,8 @@ where
     async fn add_rule(
         &self,
         req: crate::model::security_policies::AddRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_rule(req, options).await
     }
 
@@ -10774,8 +10760,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::security_policies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPoliciesAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPoliciesAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -10783,8 +10769,8 @@ where
     async fn delete(
         &self,
         req: crate::model::security_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10792,8 +10778,8 @@ where
     async fn get(
         &self,
         req: crate::model::security_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -10801,8 +10787,8 @@ where
     async fn get_rule(
         &self,
         req: crate::model::security_policies::GetRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyRule>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyRule>> {
         self.inner.get_rule(req, options).await
     }
 
@@ -10810,8 +10796,8 @@ where
     async fn insert(
         &self,
         req: crate::model::security_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10819,8 +10805,8 @@ where
     async fn list(
         &self,
         req: crate::model::security_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SecurityPolicyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityPolicyList>> {
         self.inner.list(req, options).await
     }
 
@@ -10828,11 +10814,9 @@ where
     async fn list_preconfigured_expression_sets(
         &self,
         req: crate::model::security_policies::ListPreconfiguredExpressionSetsRequest,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
+        crate::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>,
     > {
         self.inner
             .list_preconfigured_expression_sets(req, options)
@@ -10843,8 +10827,8 @@ where
     async fn patch(
         &self,
         req: crate::model::security_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -10852,8 +10836,8 @@ where
     async fn patch_rule(
         &self,
         req: crate::model::security_policies::PatchRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch_rule(req, options).await
     }
 
@@ -10861,8 +10845,8 @@ where
     async fn remove_rule(
         &self,
         req: crate::model::security_policies::RemoveRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_rule(req, options).await
     }
 
@@ -10870,8 +10854,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::security_policies::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -10879,22 +10863,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -10928,8 +10912,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::service_attachments::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ServiceAttachmentAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ServiceAttachmentAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -10937,8 +10921,8 @@ where
     async fn delete(
         &self,
         req: crate::model::service_attachments::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -10946,8 +10930,8 @@ where
     async fn get(
         &self,
         req: crate::model::service_attachments::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ServiceAttachment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ServiceAttachment>> {
         self.inner.get(req, options).await
     }
 
@@ -10955,8 +10939,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::service_attachments::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -10964,8 +10948,8 @@ where
     async fn insert(
         &self,
         req: crate::model::service_attachments::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -10973,8 +10957,8 @@ where
     async fn list(
         &self,
         req: crate::model::service_attachments::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ServiceAttachmentList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ServiceAttachmentList>> {
         self.inner.list(req, options).await
     }
 
@@ -10982,8 +10966,8 @@ where
     async fn patch(
         &self,
         req: crate::model::service_attachments::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -10991,8 +10975,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::service_attachments::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -11000,8 +10984,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::service_attachments::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -11009,22 +10993,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11058,8 +11042,8 @@ where
     async fn get(
         &self,
         req: crate::model::snapshot_settings::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SnapshotSettings>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SnapshotSettings>> {
         self.inner.get(req, options).await
     }
 
@@ -11067,8 +11051,8 @@ where
     async fn patch(
         &self,
         req: crate::model::snapshot_settings::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -11076,22 +11060,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11125,8 +11109,8 @@ where
     async fn delete(
         &self,
         req: crate::model::snapshots::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11134,8 +11118,8 @@ where
     async fn get(
         &self,
         req: crate::model::snapshots::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Snapshot>> {
         self.inner.get(req, options).await
     }
 
@@ -11143,8 +11127,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::snapshots::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -11152,8 +11136,8 @@ where
     async fn insert(
         &self,
         req: crate::model::snapshots::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11161,8 +11145,8 @@ where
     async fn list(
         &self,
         req: crate::model::snapshots::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SnapshotList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SnapshotList>> {
         self.inner.list(req, options).await
     }
 
@@ -11170,8 +11154,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::snapshots::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -11179,8 +11163,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::snapshots::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -11188,8 +11172,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::snapshots::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -11197,22 +11181,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11246,8 +11230,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::ssl_certificates::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertificateAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertificateAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11255,8 +11239,8 @@ where
     async fn delete(
         &self,
         req: crate::model::ssl_certificates::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11264,8 +11248,8 @@ where
     async fn get(
         &self,
         req: crate::model::ssl_certificates::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertificate>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertificate>> {
         self.inner.get(req, options).await
     }
 
@@ -11273,8 +11257,8 @@ where
     async fn insert(
         &self,
         req: crate::model::ssl_certificates::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11282,8 +11266,8 @@ where
     async fn list(
         &self,
         req: crate::model::ssl_certificates::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslCertificateList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslCertificateList>> {
         self.inner.list(req, options).await
     }
 
@@ -11291,22 +11275,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11340,8 +11324,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::ssl_policies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPoliciesAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPoliciesAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11349,8 +11333,8 @@ where
     async fn delete(
         &self,
         req: crate::model::ssl_policies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11358,8 +11342,8 @@ where
     async fn get(
         &self,
         req: crate::model::ssl_policies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPolicy>> {
         self.inner.get(req, options).await
     }
 
@@ -11367,8 +11351,8 @@ where
     async fn insert(
         &self,
         req: crate::model::ssl_policies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11376,8 +11360,8 @@ where
     async fn list(
         &self,
         req: crate::model::ssl_policies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPoliciesList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPoliciesList>> {
         self.inner.list(req, options).await
     }
 
@@ -11385,9 +11369,8 @@ where
     async fn list_available_features(
         &self,
         req: crate::model::ssl_policies::ListAvailableFeaturesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>> {
         self.inner.list_available_features(req, options).await
     }
 
@@ -11395,8 +11378,8 @@ where
     async fn patch(
         &self,
         req: crate::model::ssl_policies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -11404,22 +11387,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11453,8 +11436,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::storage_pool_types::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolTypeAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolTypeAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11462,8 +11445,8 @@ where
     async fn get(
         &self,
         req: crate::model::storage_pool_types::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolType>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolType>> {
         self.inner.get(req, options).await
     }
 
@@ -11471,8 +11454,8 @@ where
     async fn list(
         &self,
         req: crate::model::storage_pool_types::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolTypeList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolTypeList>> {
         self.inner.list(req, options).await
     }
 }
@@ -11506,8 +11489,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::storage_pools::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11515,8 +11498,8 @@ where
     async fn delete(
         &self,
         req: crate::model::storage_pools::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11524,8 +11507,8 @@ where
     async fn get(
         &self,
         req: crate::model::storage_pools::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePool>> {
         self.inner.get(req, options).await
     }
 
@@ -11533,8 +11516,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::storage_pools::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -11542,8 +11525,8 @@ where
     async fn insert(
         &self,
         req: crate::model::storage_pools::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11551,8 +11534,8 @@ where
     async fn list(
         &self,
         req: crate::model::storage_pools::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolList>> {
         self.inner.list(req, options).await
     }
 
@@ -11560,8 +11543,8 @@ where
     async fn list_disks(
         &self,
         req: crate::model::storage_pools::ListDisksRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StoragePoolListDisks>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StoragePoolListDisks>> {
         self.inner.list_disks(req, options).await
     }
 
@@ -11569,8 +11552,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::storage_pools::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -11578,8 +11561,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::storage_pools::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -11587,8 +11570,8 @@ where
     async fn update(
         &self,
         req: crate::model::storage_pools::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -11596,22 +11579,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11645,8 +11628,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::subnetworks::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SubnetworkAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SubnetworkAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11654,8 +11637,8 @@ where
     async fn delete(
         &self,
         req: crate::model::subnetworks::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11663,8 +11646,8 @@ where
     async fn expand_ip_cidr_range(
         &self,
         req: crate::model::subnetworks::ExpandIpCidrRangeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.expand_ip_cidr_range(req, options).await
     }
 
@@ -11672,8 +11655,8 @@ where
     async fn get(
         &self,
         req: crate::model::subnetworks::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Subnetwork>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Subnetwork>> {
         self.inner.get(req, options).await
     }
 
@@ -11681,8 +11664,8 @@ where
     async fn get_iam_policy(
         &self,
         req: crate::model::subnetworks::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -11690,8 +11673,8 @@ where
     async fn insert(
         &self,
         req: crate::model::subnetworks::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11699,8 +11682,8 @@ where
     async fn list(
         &self,
         req: crate::model::subnetworks::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SubnetworkList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SubnetworkList>> {
         self.inner.list(req, options).await
     }
 
@@ -11708,8 +11691,8 @@ where
     async fn list_usable(
         &self,
         req: crate::model::subnetworks::ListUsableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UsableSubnetworksAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UsableSubnetworksAggregatedList>> {
         self.inner.list_usable(req, options).await
     }
 
@@ -11717,8 +11700,8 @@ where
     async fn patch(
         &self,
         req: crate::model::subnetworks::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -11726,8 +11709,8 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::subnetworks::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -11735,8 +11718,8 @@ where
     async fn set_private_ip_google_access(
         &self,
         req: crate::model::subnetworks::SetPrivateIpGoogleAccessRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_private_ip_google_access(req, options).await
     }
 
@@ -11744,8 +11727,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::subnetworks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -11753,22 +11736,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11802,8 +11785,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_grpc_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11811,8 +11794,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_grpc_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetGrpcProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetGrpcProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -11820,8 +11803,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_grpc_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11829,8 +11812,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_grpc_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetGrpcProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetGrpcProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -11838,8 +11821,8 @@ where
     async fn patch(
         &self,
         req: crate::model::target_grpc_proxies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -11847,22 +11830,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -11896,8 +11879,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_http_proxies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpProxyAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpProxyAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -11905,8 +11888,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_http_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -11914,8 +11897,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_http_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -11923,8 +11906,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_http_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -11932,8 +11915,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_http_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -11941,8 +11924,8 @@ where
     async fn patch(
         &self,
         req: crate::model::target_http_proxies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -11950,8 +11933,8 @@ where
     async fn set_url_map(
         &self,
         req: crate::model::target_http_proxies::SetUrlMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_url_map(req, options).await
     }
 
@@ -11959,22 +11942,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12008,8 +11991,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_https_proxies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpsProxyAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpsProxyAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12017,8 +12000,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_https_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12026,8 +12009,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_https_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpsProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpsProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -12035,8 +12018,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_https_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12044,8 +12027,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_https_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetHttpsProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetHttpsProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -12053,8 +12036,8 @@ where
     async fn patch(
         &self,
         req: crate::model::target_https_proxies::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -12062,8 +12045,8 @@ where
     async fn set_certificate_map(
         &self,
         req: crate::model::target_https_proxies::SetCertificateMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_certificate_map(req, options).await
     }
 
@@ -12071,8 +12054,8 @@ where
     async fn set_quic_override(
         &self,
         req: crate::model::target_https_proxies::SetQuicOverrideRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_quic_override(req, options).await
     }
 
@@ -12080,8 +12063,8 @@ where
     async fn set_ssl_certificates(
         &self,
         req: crate::model::target_https_proxies::SetSslCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_ssl_certificates(req, options).await
     }
 
@@ -12089,8 +12072,8 @@ where
     async fn set_ssl_policy(
         &self,
         req: crate::model::target_https_proxies::SetSslPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_ssl_policy(req, options).await
     }
 
@@ -12098,8 +12081,8 @@ where
     async fn set_url_map(
         &self,
         req: crate::model::target_https_proxies::SetUrlMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_url_map(req, options).await
     }
 
@@ -12107,22 +12090,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12156,8 +12139,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_instances::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetInstanceAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetInstanceAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12165,8 +12148,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_instances::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12174,8 +12157,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_instances::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetInstance>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetInstance>> {
         self.inner.get(req, options).await
     }
 
@@ -12183,8 +12166,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_instances::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12192,8 +12175,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_instances::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetInstanceList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetInstanceList>> {
         self.inner.list(req, options).await
     }
 
@@ -12201,8 +12184,8 @@ where
     async fn set_security_policy(
         &self,
         req: crate::model::target_instances::SetSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_security_policy(req, options).await
     }
 
@@ -12210,8 +12193,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::target_instances::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -12219,22 +12202,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12268,8 +12251,8 @@ where
     async fn add_health_check(
         &self,
         req: crate::model::target_pools::AddHealthCheckRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_health_check(req, options).await
     }
 
@@ -12277,8 +12260,8 @@ where
     async fn add_instance(
         &self,
         req: crate::model::target_pools::AddInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.add_instance(req, options).await
     }
 
@@ -12286,8 +12269,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_pools::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetPoolAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetPoolAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12295,8 +12278,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_pools::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12304,8 +12287,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_pools::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetPool>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetPool>> {
         self.inner.get(req, options).await
     }
 
@@ -12313,8 +12296,8 @@ where
     async fn get_health(
         &self,
         req: crate::model::target_pools::GetHealthRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetPoolInstanceHealth>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetPoolInstanceHealth>> {
         self.inner.get_health(req, options).await
     }
 
@@ -12322,8 +12305,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_pools::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12331,8 +12314,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_pools::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetPoolList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetPoolList>> {
         self.inner.list(req, options).await
     }
 
@@ -12340,8 +12323,8 @@ where
     async fn remove_health_check(
         &self,
         req: crate::model::target_pools::RemoveHealthCheckRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_health_check(req, options).await
     }
 
@@ -12349,8 +12332,8 @@ where
     async fn remove_instance(
         &self,
         req: crate::model::target_pools::RemoveInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.remove_instance(req, options).await
     }
 
@@ -12358,8 +12341,8 @@ where
     async fn set_backup(
         &self,
         req: crate::model::target_pools::SetBackupRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_backup(req, options).await
     }
 
@@ -12367,8 +12350,8 @@ where
     async fn set_security_policy(
         &self,
         req: crate::model::target_pools::SetSecurityPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_security_policy(req, options).await
     }
 
@@ -12376,8 +12359,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::target_pools::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -12385,22 +12368,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12434,8 +12417,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_ssl_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12443,8 +12426,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_ssl_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetSslProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetSslProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -12452,8 +12435,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_ssl_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12461,8 +12444,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_ssl_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetSslProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetSslProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -12470,8 +12453,8 @@ where
     async fn set_backend_service(
         &self,
         req: crate::model::target_ssl_proxies::SetBackendServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_backend_service(req, options).await
     }
 
@@ -12479,8 +12462,8 @@ where
     async fn set_certificate_map(
         &self,
         req: crate::model::target_ssl_proxies::SetCertificateMapRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_certificate_map(req, options).await
     }
 
@@ -12488,8 +12471,8 @@ where
     async fn set_proxy_header(
         &self,
         req: crate::model::target_ssl_proxies::SetProxyHeaderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_proxy_header(req, options).await
     }
 
@@ -12497,8 +12480,8 @@ where
     async fn set_ssl_certificates(
         &self,
         req: crate::model::target_ssl_proxies::SetSslCertificatesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_ssl_certificates(req, options).await
     }
 
@@ -12506,8 +12489,8 @@ where
     async fn set_ssl_policy(
         &self,
         req: crate::model::target_ssl_proxies::SetSslPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_ssl_policy(req, options).await
     }
 
@@ -12515,8 +12498,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -12524,22 +12507,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12573,8 +12556,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_tcp_proxies::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetTcpProxyAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetTcpProxyAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12582,8 +12565,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_tcp_proxies::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12591,8 +12574,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_tcp_proxies::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetTcpProxy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetTcpProxy>> {
         self.inner.get(req, options).await
     }
 
@@ -12600,8 +12583,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_tcp_proxies::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12609,8 +12592,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_tcp_proxies::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetTcpProxyList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetTcpProxyList>> {
         self.inner.list(req, options).await
     }
 
@@ -12618,8 +12601,8 @@ where
     async fn set_backend_service(
         &self,
         req: crate::model::target_tcp_proxies::SetBackendServiceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_backend_service(req, options).await
     }
 
@@ -12627,8 +12610,8 @@ where
     async fn set_proxy_header(
         &self,
         req: crate::model::target_tcp_proxies::SetProxyHeaderRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_proxy_header(req, options).await
     }
 
@@ -12636,8 +12619,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -12645,22 +12628,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12694,8 +12677,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::target_vpn_gateways::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetVpnGatewayAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetVpnGatewayAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12703,8 +12686,8 @@ where
     async fn delete(
         &self,
         req: crate::model::target_vpn_gateways::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12712,8 +12695,8 @@ where
     async fn get(
         &self,
         req: crate::model::target_vpn_gateways::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetVpnGateway>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetVpnGateway>> {
         self.inner.get(req, options).await
     }
 
@@ -12721,8 +12704,8 @@ where
     async fn insert(
         &self,
         req: crate::model::target_vpn_gateways::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12730,8 +12713,8 @@ where
     async fn list(
         &self,
         req: crate::model::target_vpn_gateways::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TargetVpnGatewayList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TargetVpnGatewayList>> {
         self.inner.list(req, options).await
     }
 
@@ -12739,8 +12722,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::target_vpn_gateways::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -12748,22 +12731,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12797,8 +12780,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::url_maps::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMapsAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMapsAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12806,8 +12789,8 @@ where
     async fn delete(
         &self,
         req: crate::model::url_maps::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12815,8 +12798,8 @@ where
     async fn get(
         &self,
         req: crate::model::url_maps::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMap>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMap>> {
         self.inner.get(req, options).await
     }
 
@@ -12824,8 +12807,8 @@ where
     async fn insert(
         &self,
         req: crate::model::url_maps::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12833,8 +12816,8 @@ where
     async fn invalidate_cache(
         &self,
         req: crate::model::url_maps::InvalidateCacheRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.invalidate_cache(req, options).await
     }
 
@@ -12842,8 +12825,8 @@ where
     async fn list(
         &self,
         req: crate::model::url_maps::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMapList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMapList>> {
         self.inner.list(req, options).await
     }
 
@@ -12851,8 +12834,8 @@ where
     async fn patch(
         &self,
         req: crate::model::url_maps::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -12860,8 +12843,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::url_maps::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -12869,8 +12852,8 @@ where
     async fn update(
         &self,
         req: crate::model::url_maps::UpdateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -12878,8 +12861,8 @@ where
     async fn validate(
         &self,
         req: crate::model::url_maps::ValidateRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::UrlMapsValidateResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlMapsValidateResponse>> {
         self.inner.validate(req, options).await
     }
 
@@ -12887,22 +12870,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -12936,8 +12919,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::vpn_gateways::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnGatewayAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnGatewayAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -12945,8 +12928,8 @@ where
     async fn delete(
         &self,
         req: crate::model::vpn_gateways::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -12954,8 +12937,8 @@ where
     async fn get(
         &self,
         req: crate::model::vpn_gateways::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnGateway>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnGateway>> {
         self.inner.get(req, options).await
     }
 
@@ -12963,8 +12946,8 @@ where
     async fn get_status(
         &self,
         req: crate::model::vpn_gateways::GetStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnGatewaysGetStatusResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnGatewaysGetStatusResponse>> {
         self.inner.get_status(req, options).await
     }
 
@@ -12972,8 +12955,8 @@ where
     async fn insert(
         &self,
         req: crate::model::vpn_gateways::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -12981,8 +12964,8 @@ where
     async fn list(
         &self,
         req: crate::model::vpn_gateways::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnGatewayList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnGatewayList>> {
         self.inner.list(req, options).await
     }
 
@@ -12990,8 +12973,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::vpn_gateways::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -12999,8 +12982,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: crate::model::vpn_gateways::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -13008,22 +12991,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -13057,8 +13040,8 @@ where
     async fn aggregated_list(
         &self,
         req: crate::model::vpn_tunnels::AggregatedListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnTunnelAggregatedList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnTunnelAggregatedList>> {
         self.inner.aggregated_list(req, options).await
     }
 
@@ -13066,8 +13049,8 @@ where
     async fn delete(
         &self,
         req: crate::model::vpn_tunnels::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -13075,8 +13058,8 @@ where
     async fn get(
         &self,
         req: crate::model::vpn_tunnels::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnTunnel>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnTunnel>> {
         self.inner.get(req, options).await
     }
 
@@ -13084,8 +13067,8 @@ where
     async fn insert(
         &self,
         req: crate::model::vpn_tunnels::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -13093,8 +13076,8 @@ where
     async fn list(
         &self,
         req: crate::model::vpn_tunnels::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::VpnTunnelList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VpnTunnelList>> {
         self.inner.list(req, options).await
     }
 
@@ -13102,8 +13085,8 @@ where
     async fn set_labels(
         &self,
         req: crate::model::vpn_tunnels::SetLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -13111,22 +13094,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -13160,8 +13143,8 @@ where
     async fn delete(
         &self,
         req: crate::model::wire_groups::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -13169,8 +13152,8 @@ where
     async fn get(
         &self,
         req: crate::model::wire_groups::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WireGroup>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WireGroup>> {
         self.inner.get(req, options).await
     }
 
@@ -13178,8 +13161,8 @@ where
     async fn insert(
         &self,
         req: crate::model::wire_groups::InsertRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -13187,8 +13170,8 @@ where
     async fn list(
         &self,
         req: crate::model::wire_groups::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::WireGroupList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::WireGroupList>> {
         self.inner.list(req, options).await
     }
 
@@ -13196,8 +13179,8 @@ where
     async fn patch(
         &self,
         req: crate::model::wire_groups::PatchRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -13205,22 +13188,22 @@ where
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         self.inner.get_polling_error_policy(options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
 }
@@ -13254,8 +13237,8 @@ where
     async fn delete(
         &self,
         req: crate::model::zone_operations::DeleteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -13263,8 +13246,8 @@ where
     async fn get(
         &self,
         req: crate::model::zone_operations::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -13272,8 +13255,8 @@ where
     async fn list(
         &self,
         req: crate::model::zone_operations::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::OperationList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::OperationList>> {
         self.inner.list(req, options).await
     }
 
@@ -13281,8 +13264,8 @@ where
     async fn wait(
         &self,
         req: crate::model::zone_operations::WaitRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.wait(req, options).await
     }
 }
@@ -13316,8 +13299,8 @@ where
     async fn get(
         &self,
         req: crate::model::zones::GetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Zone>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Zone>> {
         self.inner.get(req, options).await
     }
 
@@ -13325,8 +13308,8 @@ where
     async fn list(
         &self,
         req: crate::model::zones::ListRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ZoneList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ZoneList>> {
         self.inner.list(req, options).await
     }
 }

@@ -42,8 +42,8 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     fn batch_write_spans(
         &self,
         _req: crate::model::BatchWriteSpansRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -51,10 +51,9 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     fn create_span(
         &self,
         _req: crate::model::Span,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Span>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Span>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

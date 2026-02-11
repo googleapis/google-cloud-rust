@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START storage_upload_from_memory]
+// [START storage_file_upload_from_memory]
 use google_cloud_storage::client::Storage;
 
 pub async fn sample(client: &Storage, bucket: &str) -> Result<(), anyhow::Error> {
@@ -26,4 +26,4 @@ pub async fn sample(client: &Storage, bucket: &str) -> Result<(), anyhow::Error>
     println!("Uploaded to {NAME} in bucket {bucket} from memory.");
     Ok(())
 }
-// [END storage_upload_from_memory]
+// [END storage_file_upload_from_memory]

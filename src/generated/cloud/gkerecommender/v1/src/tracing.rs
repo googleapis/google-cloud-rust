@@ -41,8 +41,8 @@ where
     async fn fetch_models(
         &self,
         req: crate::model::FetchModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchModelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchModelsResponse>> {
         self.inner.fetch_models(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn fetch_model_servers(
         &self,
         req: crate::model::FetchModelServersRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchModelServersResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchModelServersResponse>> {
         self.inner.fetch_model_servers(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn fetch_model_server_versions(
         &self,
         req: crate::model::FetchModelServerVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchModelServerVersionsResponse>> {
         self.inner.fetch_model_server_versions(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn fetch_profiles(
         &self,
         req: crate::model::FetchProfilesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchProfilesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchProfilesResponse>> {
         self.inner.fetch_profiles(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn generate_optimized_manifest(
         &self,
         req: crate::model::GenerateOptimizedManifestRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GenerateOptimizedManifestResponse>> {
         self.inner.generate_optimized_manifest(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn fetch_benchmarking_data(
         &self,
         req: crate::model::FetchBenchmarkingDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchBenchmarkingDataResponse>> {
         self.inner.fetch_benchmarking_data(req, options).await
     }
 }

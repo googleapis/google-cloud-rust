@@ -67,8 +67,8 @@
 //! # use http::Extensions;
 //! # use std::time::Duration;
 //! # tokio_test::block_on(async {
-//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! use gax::exponential_backoff::ExponentialBackoff;
+//! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! let authorized_user = serde_json::json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
 //!     "client_secret": "YOUR_CLIENT_SECRET",
@@ -104,9 +104,9 @@ use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::header::CONTENT_TYPE;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::{Client, Method};
@@ -229,7 +229,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -254,7 +254,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::user_account::Builder;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -285,7 +285,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -611,7 +611,7 @@ mod tests {
             .build()?;
 
         let err = credentials.headers(Extensions::new()).await.unwrap_err();
-        assert!(!err.is_transient());
+        assert!(err.is_transient(), "{err:?}");
         server.verify_and_clear();
         Ok(())
     }

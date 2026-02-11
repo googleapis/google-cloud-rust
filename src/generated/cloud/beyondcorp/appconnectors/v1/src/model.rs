@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -558,7 +558,7 @@ impl wkt::message::Message for ListAppConnectorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAppConnectorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAppConnectorsResponse {
     type PageItem = crate::model::AppConnector;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

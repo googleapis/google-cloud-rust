@@ -20,7 +20,7 @@ pub mod gke_hub {
     /// A builder for [GkeHub][crate::client::GkeHub].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkehub_v1::*;
     /// # use builder::gke_hub::ClientBuilder;
     /// # use client::GkeHub;
@@ -30,19 +30,18 @@ pub mod gke_hub {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::GkeHub;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = GkeHub;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod gke_hub {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -64,7 +63,7 @@ pub mod gke_hub {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -74,8 +73,8 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMemberships;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -104,7 +103,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,14 +113,16 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_memberships(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMembershipsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMembershipsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -129,15 +130,17 @@ pub mod gke_hub {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMembershipsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMembershipsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -175,8 +178,121 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMemberships {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMemberships {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_bound_memberships][crate::client::GkeHub::list_bound_memberships] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListBoundMemberships;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListBoundMemberships {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBoundMemberships(RequestBuilder<crate::model::ListBoundMembershipsRequest>);
+
+    impl ListBoundMemberships {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBoundMembershipsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBoundMembershipsResponse> {
+            (*self.0.stub)
+                .list_bound_memberships(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBoundMembershipsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBoundMembershipsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [scope_name][crate::model::ListBoundMembershipsRequest::scope_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.scope_name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListBoundMembershipsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBoundMembershipsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBoundMembershipsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListBoundMemberships {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -186,8 +302,8 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListFeatures;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -216,7 +332,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -226,13 +342,13 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_features(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFeaturesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListFeaturesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -241,15 +357,17 @@ pub mod gke_hub {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFeaturesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFeaturesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -282,11 +400,17 @@ pub mod gke_hub {
             self.0.request.order_by = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][crate::model::ListFeaturesRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListFeatures {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListFeatures {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -296,7 +420,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembership;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -322,7 +446,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -332,7 +456,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_membership(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMembershipRequest::name].
@@ -345,8 +469,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMembership {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMembership {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -356,7 +480,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetFeature;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -382,7 +506,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -392,7 +516,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_feature(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeatureRequest::name].
@@ -400,11 +524,17 @@ pub mod gke_hub {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][crate::model::GetFeatureRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetFeature {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetFeature {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -414,7 +544,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembership;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -444,7 +574,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -459,7 +589,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .create_membership(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_membership`.
@@ -476,7 +606,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -549,8 +679,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateMembership {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateMembership {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -560,7 +690,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFeature;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -587,7 +717,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -602,7 +732,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .create_feature(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_feature`.
@@ -619,7 +749,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -684,8 +814,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateFeature {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateFeature {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -695,7 +825,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembership;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -725,7 +855,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -740,7 +870,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_membership(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_membership`.
@@ -752,7 +882,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -801,8 +931,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteMembership {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteMembership {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -812,7 +942,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFeature;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -839,7 +969,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -854,7 +984,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_feature(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_feature`.
@@ -866,7 +996,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -913,8 +1043,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteFeature {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteFeature {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -924,7 +1054,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembership;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -954,7 +1084,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -969,7 +1099,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .update_membership(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_membership`.
@@ -986,7 +1116,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1073,8 +1203,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateMembership {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateMembership {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1084,7 +1214,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFeature;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1111,7 +1241,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1126,7 +1256,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .update_feature(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_feature`.
@@ -1143,7 +1273,7 @@ pub mod gke_hub {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1220,8 +1350,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateFeature {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateFeature {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1231,7 +1361,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GenerateConnectManifest;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1262,7 +1392,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1272,7 +1402,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .generate_connect_manifest(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateConnectManifestRequest::name].
@@ -1321,8 +1451,3572 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateConnectManifest {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateConnectManifest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_fleet][crate::client::GkeHub::create_fleet] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFleet;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateFleet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateFleet(RequestBuilder<crate::model::CreateFleetRequest>);
+
+    impl CreateFleet {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateFleetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_fleet][crate::client::GkeHub::create_fleet].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_fleet(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_fleet`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Fleet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Fleet,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateFleetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [fleet][crate::model::CreateFleetRequest::fleet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_fleet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Fleet>,
+        {
+            self.0.request.fleet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fleet][crate::model::CreateFleetRequest::fleet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Fleet>,
+        {
+            self.0.request.fleet = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateFleet {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_fleet][crate::client::GkeHub::get_fleet] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetFleet;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetFleet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFleet(RequestBuilder<crate::model::GetFleetRequest>);
+
+    impl GetFleet {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFleetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Fleet> {
+            (*self.0.stub)
+                .get_fleet(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFleetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetFleet {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_fleet][crate::client::GkeHub::update_fleet] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFleet;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateFleet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFleet(RequestBuilder<crate::model::UpdateFleetRequest>);
+
+    impl UpdateFleet {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFleetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_fleet][crate::client::GkeHub::update_fleet].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_fleet(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_fleet`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Fleet, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Fleet,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [fleet][crate::model::UpdateFleetRequest::fleet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_fleet<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Fleet>,
+        {
+            self.0.request.fleet = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fleet][crate::model::UpdateFleetRequest::fleet].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Fleet>,
+        {
+            self.0.request.fleet = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFleetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFleetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateFleet {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_fleet][crate::client::GkeHub::delete_fleet] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFleet;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteFleet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteFleet(RequestBuilder<crate::model::DeleteFleetRequest>);
+
+    impl DeleteFleet {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteFleetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_fleet][crate::client::GkeHub::delete_fleet].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_fleet(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_fleet`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteFleetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteFleet {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_fleets][crate::client::GkeHub::list_fleets] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListFleets;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListFleets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListFleets(RequestBuilder<crate::model::ListFleetsRequest>);
+
+    impl ListFleets {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListFleetsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListFleetsResponse> {
+            (*self.0.stub)
+                .list_fleets(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListFleetsResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFleetsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListFleetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListFleetsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListFleetsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListFleets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_scope_namespace][crate::client::GkeHub::get_scope_namespace] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScopeNamespace;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetScopeNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetScopeNamespace(RequestBuilder<crate::model::GetScopeNamespaceRequest>);
+
+    impl GetScopeNamespace {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetScopeNamespaceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Namespace> {
+            (*self.0.stub)
+                .get_scope_namespace(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetScopeNamespaceRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetScopeNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_scope_namespace][crate::client::GkeHub::create_scope_namespace] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScopeNamespace;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateScopeNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateScopeNamespace(RequestBuilder<crate::model::CreateScopeNamespaceRequest>);
+
+    impl CreateScopeNamespace {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateScopeNamespaceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_scope_namespace][crate::client::GkeHub::create_scope_namespace].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_scope_namespace(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_scope_namespace`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Namespace, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Namespace,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateScopeNamespaceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [scope_namespace_id][crate::model::CreateScopeNamespaceRequest::scope_namespace_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope_namespace_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.scope_namespace_id = v.into();
+            self
+        }
+
+        /// Sets the value of [scope_namespace][crate::model::CreateScopeNamespaceRequest::scope_namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.scope_namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope_namespace][crate::model::CreateScopeNamespaceRequest::scope_namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.scope_namespace = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateScopeNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_scope_namespace][crate::client::GkeHub::update_scope_namespace] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScopeNamespace;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateScopeNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateScopeNamespace(RequestBuilder<crate::model::UpdateScopeNamespaceRequest>);
+
+    impl UpdateScopeNamespace {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateScopeNamespaceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_scope_namespace][crate::client::GkeHub::update_scope_namespace].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_scope_namespace(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_scope_namespace`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Namespace, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Namespace,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [scope_namespace][crate::model::UpdateScopeNamespaceRequest::scope_namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.scope_namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope_namespace][crate::model::UpdateScopeNamespaceRequest::scope_namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.scope_namespace = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateScopeNamespaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScopeNamespaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateScopeNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_scope_namespace][crate::client::GkeHub::delete_scope_namespace] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScopeNamespace;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteScopeNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteScopeNamespace(RequestBuilder<crate::model::DeleteScopeNamespaceRequest>);
+
+    impl DeleteScopeNamespace {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteScopeNamespaceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_scope_namespace][crate::client::GkeHub::delete_scope_namespace].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_scope_namespace(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_scope_namespace`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteScopeNamespaceRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteScopeNamespace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_scope_namespaces][crate::client::GkeHub::list_scope_namespaces] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopeNamespaces;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListScopeNamespaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListScopeNamespaces(RequestBuilder<crate::model::ListScopeNamespacesRequest>);
+
+    impl ListScopeNamespaces {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListScopeNamespacesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListScopeNamespacesResponse> {
+            (*self.0.stub)
+                .list_scope_namespaces(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListScopeNamespacesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListScopeNamespacesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListScopeNamespacesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListScopeNamespacesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListScopeNamespacesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListScopeNamespaces {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_scope_rbac_role_binding][crate::client::GkeHub::get_scope_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScopeRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetScopeRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetScopeRBACRoleBinding(
+        RequestBuilder<crate::model::GetScopeRBACRoleBindingRequest>,
+    );
+
+    impl GetScopeRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetScopeRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RBACRoleBinding> {
+            (*self.0.stub)
+                .get_scope_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetScopeRBACRoleBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetScopeRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_scope_rbac_role_binding][crate::client::GkeHub::create_scope_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScopeRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateScopeRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateScopeRBACRoleBinding(
+        RequestBuilder<crate::model::CreateScopeRBACRoleBindingRequest>,
+    );
+
+    impl CreateScopeRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateScopeRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_scope_rbac_role_binding][crate::client::GkeHub::create_scope_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_scope_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_scope_rbac_role_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::RBACRoleBinding, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::RBACRoleBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateScopeRBACRoleBindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding_id][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.rbacrolebinding_id = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rbacrolebinding][crate::model::CreateScopeRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateScopeRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_scope_rbac_role_binding][crate::client::GkeHub::update_scope_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScopeRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateScopeRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateScopeRBACRoleBinding(
+        RequestBuilder<crate::model::UpdateScopeRBACRoleBindingRequest>,
+    );
+
+    impl UpdateScopeRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateScopeRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_scope_rbac_role_binding][crate::client::GkeHub::update_scope_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_scope_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_scope_rbac_role_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::RBACRoleBinding, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::RBACRoleBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [rbacrolebinding][crate::model::UpdateScopeRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rbacrolebinding][crate::model::UpdateScopeRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateScopeRBACRoleBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScopeRBACRoleBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateScopeRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_scope_rbac_role_binding][crate::client::GkeHub::delete_scope_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScopeRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteScopeRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteScopeRBACRoleBinding(
+        RequestBuilder<crate::model::DeleteScopeRBACRoleBindingRequest>,
+    );
+
+    impl DeleteScopeRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteScopeRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_scope_rbac_role_binding][crate::client::GkeHub::delete_scope_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_scope_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_scope_rbac_role_binding`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteScopeRBACRoleBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteScopeRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_scope_rbac_role_bindings][crate::client::GkeHub::list_scope_rbac_role_bindings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopeRBACRoleBindings;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListScopeRBACRoleBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListScopeRBACRoleBindings(
+        RequestBuilder<crate::model::ListScopeRBACRoleBindingsRequest>,
+    );
+
+    impl ListScopeRBACRoleBindings {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListScopeRBACRoleBindingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListScopeRBACRoleBindingsResponse> {
+            (*self.0.stub)
+                .list_scope_rbac_role_bindings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListScopeRBACRoleBindingsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListScopeRBACRoleBindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListScopeRBACRoleBindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListScopeRBACRoleBindingsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListScopeRBACRoleBindingsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListScopeRBACRoleBindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_scope][crate::client::GkeHub::get_scope] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetScope;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetScope(RequestBuilder<crate::model::GetScopeRequest>);
+
+    impl GetScope {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetScopeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Scope> {
+            (*self.0.stub)
+                .get_scope(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetScopeRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetScope {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_scope][crate::client::GkeHub::create_scope] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateScope;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateScope(RequestBuilder<crate::model::CreateScopeRequest>);
+
+    impl CreateScope {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateScopeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_scope][crate::client::GkeHub::create_scope].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_scope(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_scope`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Scope, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Scope,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateScopeRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [scope_id][crate::model::CreateScopeRequest::scope_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.scope_id = v.into();
+            self
+        }
+
+        /// Sets the value of [scope][crate::model::CreateScopeRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Scope>,
+        {
+            self.0.request.scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope][crate::model::CreateScopeRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Scope>,
+        {
+            self.0.request.scope = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateScope {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_scope][crate::client::GkeHub::update_scope] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateScope;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateScope(RequestBuilder<crate::model::UpdateScopeRequest>);
+
+    impl UpdateScope {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateScopeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_scope][crate::client::GkeHub::update_scope].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_scope(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_scope`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Scope, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Scope,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [scope][crate::model::UpdateScopeRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Scope>,
+        {
+            self.0.request.scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope][crate::model::UpdateScopeRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Scope>,
+        {
+            self.0.request.scope = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateScopeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateScopeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateScope {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_scope][crate::client::GkeHub::delete_scope] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteScope;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteScope(RequestBuilder<crate::model::DeleteScopeRequest>);
+
+    impl DeleteScope {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteScopeRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_scope][crate::client::GkeHub::delete_scope].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_scope(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_scope`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteScopeRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteScope {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_scopes][crate::client::GkeHub::list_scopes] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListScopes;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListScopes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListScopes(RequestBuilder<crate::model::ListScopesRequest>);
+
+    impl ListScopes {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListScopesRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListScopesResponse> {
+            (*self.0.stub)
+                .list_scopes(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListScopesResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListScopesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListScopesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListScopesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListScopesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListScopes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_permitted_scopes][crate::client::GkeHub::list_permitted_scopes] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListPermittedScopes;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListPermittedScopes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPermittedScopes(RequestBuilder<crate::model::ListPermittedScopesRequest>);
+
+    impl ListPermittedScopes {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListPermittedScopesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListPermittedScopesResponse> {
+            (*self.0.stub)
+                .list_permitted_scopes(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListPermittedScopesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListPermittedScopesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListPermittedScopesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListPermittedScopesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListPermittedScopesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListPermittedScopes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_membership_binding][crate::client::GkeHub::get_membership_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembershipBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMembershipBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMembershipBinding(RequestBuilder<crate::model::GetMembershipBindingRequest>);
+
+    impl GetMembershipBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMembershipBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MembershipBinding> {
+            (*self.0.stub)
+                .get_membership_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMembershipBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMembershipBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_membership_binding][crate::client::GkeHub::create_membership_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembershipBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMembershipBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMembershipBinding(
+        RequestBuilder<crate::model::CreateMembershipBindingRequest>,
+    );
+
+    impl CreateMembershipBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMembershipBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_membership_binding][crate::client::GkeHub::create_membership_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_membership_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_membership_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MembershipBinding,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MembershipBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMembershipBindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [membership_binding][crate::model::CreateMembershipBindingRequest::membership_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_membership_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MembershipBinding>,
+        {
+            self.0.request.membership_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [membership_binding][crate::model::CreateMembershipBindingRequest::membership_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_membership_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MembershipBinding>,
+        {
+            self.0.request.membership_binding = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [membership_binding_id][crate::model::CreateMembershipBindingRequest::membership_binding_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_membership_binding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.membership_binding_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMembershipBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_membership_binding][crate::client::GkeHub::update_membership_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembershipBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMembershipBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMembershipBinding(
+        RequestBuilder<crate::model::UpdateMembershipBindingRequest>,
+    );
+
+    impl UpdateMembershipBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMembershipBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_membership_binding][crate::client::GkeHub::update_membership_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_membership_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_membership_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MembershipBinding,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MembershipBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [membership_binding][crate::model::UpdateMembershipBindingRequest::membership_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_membership_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MembershipBinding>,
+        {
+            self.0.request.membership_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [membership_binding][crate::model::UpdateMembershipBindingRequest::membership_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_membership_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MembershipBinding>,
+        {
+            self.0.request.membership_binding = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMembershipBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMembershipBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_membership_binding][crate::client::GkeHub::delete_membership_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembershipBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMembershipBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMembershipBinding(
+        RequestBuilder<crate::model::DeleteMembershipBindingRequest>,
+    );
+
+    impl DeleteMembershipBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMembershipBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_membership_binding][crate::client::GkeHub::delete_membership_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_membership_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_membership_binding`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMembershipBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMembershipBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_membership_bindings][crate::client::GkeHub::list_membership_bindings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMembershipBindings;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMembershipBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMembershipBindings(RequestBuilder<crate::model::ListMembershipBindingsRequest>);
+
+    impl ListMembershipBindings {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMembershipBindingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMembershipBindingsResponse> {
+            (*self.0.stub)
+                .list_membership_bindings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMembershipBindingsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMembershipBindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMembershipBindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMembershipBindingsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMembershipBindingsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMembershipBindingsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMembershipBindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::get_membership_rbac_role_binding][crate::client::GkeHub::get_membership_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembershipRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMembershipRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMembershipRBACRoleBinding(
+        RequestBuilder<crate::model::GetMembershipRBACRoleBindingRequest>,
+    );
+
+    impl GetMembershipRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMembershipRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RBACRoleBinding> {
+            (*self.0.stub)
+                .get_membership_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMembershipRBACRoleBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMembershipRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::create_membership_rbac_role_binding][crate::client::GkeHub::create_membership_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembershipRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMembershipRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMembershipRBACRoleBinding(
+        RequestBuilder<crate::model::CreateMembershipRBACRoleBindingRequest>,
+    );
+
+    impl CreateMembershipRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMembershipRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_membership_rbac_role_binding][crate::client::GkeHub::create_membership_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_membership_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_membership_rbac_role_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::RBACRoleBinding, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::RBACRoleBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMembershipRBACRoleBindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding_id][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.rbacrolebinding_id = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rbacrolebinding][crate::model::CreateMembershipRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMembershipRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::update_membership_rbac_role_binding][crate::client::GkeHub::update_membership_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembershipRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMembershipRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMembershipRBACRoleBinding(
+        RequestBuilder<crate::model::UpdateMembershipRBACRoleBindingRequest>,
+    );
+
+    impl UpdateMembershipRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMembershipRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_membership_rbac_role_binding][crate::client::GkeHub::update_membership_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_membership_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_membership_rbac_role_binding`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::RBACRoleBinding, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::RBACRoleBinding,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [rbacrolebinding][crate::model::UpdateMembershipRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rbacrolebinding][crate::model::UpdateMembershipRBACRoleBindingRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMembershipRBACRoleBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRBACRoleBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMembershipRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::delete_membership_rbac_role_binding][crate::client::GkeHub::delete_membership_rbac_role_binding] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembershipRBACRoleBinding;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMembershipRBACRoleBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMembershipRBACRoleBinding(
+        RequestBuilder<crate::model::DeleteMembershipRBACRoleBindingRequest>,
+    );
+
+    impl DeleteMembershipRBACRoleBinding {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMembershipRBACRoleBindingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_membership_rbac_role_binding][crate::client::GkeHub::delete_membership_rbac_role_binding].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_membership_rbac_role_binding(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_membership_rbac_role_binding`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMembershipRBACRoleBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMembershipRBACRoleBinding {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::list_membership_rbac_role_bindings][crate::client::GkeHub::list_membership_rbac_role_bindings] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMembershipRBACRoleBindings;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMembershipRBACRoleBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMembershipRBACRoleBindings(
+        RequestBuilder<crate::model::ListMembershipRBACRoleBindingsRequest>,
+    );
+
+    impl ListMembershipRBACRoleBindings {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMembershipRBACRoleBindingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMembershipRBACRoleBindingsResponse> {
+            (*self.0.stub)
+                .list_membership_rbac_role_bindings(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMembershipRBACRoleBindingsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMembershipRBACRoleBindingsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMembershipRBACRoleBindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMembershipRBACRoleBindingsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMembershipRBACRoleBindingsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMembershipRBACRoleBindings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [GkeHub::generate_membership_rbac_role_binding_yaml][crate::client::GkeHub::generate_membership_rbac_role_binding_yaml] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GenerateMembershipRBACRoleBindingYAML;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GenerateMembershipRBACRoleBindingYAML {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GenerateMembershipRBACRoleBindingYAML(
+        RequestBuilder<crate::model::GenerateMembershipRBACRoleBindingYAMLRequest>,
+    );
+
+    impl GenerateMembershipRBACRoleBindingYAML {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GenerateMembershipRBACRoleBindingYAMLRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::GenerateMembershipRBACRoleBindingYAMLResponse> {
+            (*self.0.stub)
+                .generate_membership_rbac_role_binding_yaml(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding_id][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.rbacrolebinding_id = v.into();
+            self
+        }
+
+        /// Sets the value of [rbacrolebinding][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rbacrolebinding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rbacrolebinding][crate::model::GenerateMembershipRBACRoleBindingYAMLRequest::rbacrolebinding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rbacrolebinding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RBACRoleBinding>,
+        {
+            self.0.request.rbacrolebinding = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GenerateMembershipRBACRoleBindingYAML {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1332,8 +5026,8 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1367,7 +5061,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1377,15 +5071,15 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1394,17 +5088,17 @@ pub mod gke_hub {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1440,8 +5134,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1451,7 +5145,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1480,7 +5174,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1490,7 +5184,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -1501,8 +5195,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1512,7 +5206,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1543,7 +5237,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1553,7 +5247,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -1564,8 +5258,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1575,7 +5269,7 @@ pub mod gke_hub {
     /// # Example
     /// ```
     /// # use google_cloud_gkehub_v1::builder::gke_hub::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkehub_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1606,7 +5300,7 @@ pub mod gke_hub {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1616,7 +5310,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -1627,8 +5321,8 @@ pub mod gke_hub {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

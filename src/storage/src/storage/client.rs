@@ -22,10 +22,10 @@ use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use gax::client_builder::{Error as BuilderError, Result as BuilderResult};
 use gaxi::http::reqwest::RequestBuilder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
+use google_cloud_gax::client_builder::{Error as BuilderError, Result as BuilderResult};
 use http::Extensions;
 use std::sync::Arc;
 
@@ -459,14 +459,17 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Storage::builder()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
+    pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.config.retry_policy = Some(v.into().into());
         self
     }
@@ -480,7 +483,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
     /// let client = Storage::builder()
@@ -489,7 +492,7 @@ impl ClientBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
+    pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
         mut self,
         v: V,
     ) -> Self {
@@ -512,14 +515,14 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let client = Storage::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
+    pub fn with_retry_throttler<V: Into<google_cloud_gax::retry_throttler::RetryThrottlerArg>>(
         mut self,
         v: V,
     ) -> Self {
@@ -681,7 +684,7 @@ impl ClientBuilder {
     // Breaks the builder into its parts, with defaults applied.
     pub(crate) fn into_parts(
         mut self,
-    ) -> gax::client_builder::Result<(ClientConfig, RequestOptions)> {
+    ) -> google_cloud_gax::client_builder::Result<(ClientConfig, RequestOptions)> {
         self.apply_default_credentials()?;
         self.apply_default_endpoint()?;
         let request_options =
@@ -749,9 +752,9 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use gax::retry_result::RetryResult;
-    use gax::retry_state::RetryState;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use std::{sync::Arc, time::Duration};
 
     #[test]
@@ -785,7 +788,7 @@ pub(crate) mod tests {
             .with_credentials(Anonymous::new().build())
             .with_endpoint("http://private.googleapis.com")
             .with_backoff_policy(
-                gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
                     .with_initial_delay(Duration::from_millis(1))
                     .with_maximum_delay(Duration::from_millis(2))
                     .build()
@@ -805,7 +808,7 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub RetryThrottler {}
 
-        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
+        impl google_cloud_gax::retry_throttler::RetryThrottler for RetryThrottler {
             fn throttle_retry_attempt(&self) -> bool;
             fn on_retry_failure(&mut self, flow: &RetryResult);
             fn on_success(&mut self);
@@ -816,8 +819,8 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub RetryPolicy {}
 
-        impl gax::retry_policy::RetryPolicy for RetryPolicy {
-            fn on_error(&self, state: &RetryState, error: gax::error::Error) -> RetryResult;
+        impl google_cloud_gax::retry_policy::RetryPolicy for RetryPolicy {
+            fn on_error(&self, state: &RetryState, error: google_cloud_gax::error::Error) -> RetryResult;
         }
     }
 
@@ -825,7 +828,7 @@ pub(crate) mod tests {
         #[derive(Debug)]
         pub BackoffPolicy {}
 
-        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
             fn on_failure(&self, state: &RetryState) -> std::time::Duration;
         }
     }
@@ -835,7 +838,7 @@ pub(crate) mod tests {
         pub ReadResumePolicy {}
 
         impl crate::read_resume_policy::ReadResumePolicy for ReadResumePolicy {
-            fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: gax::error::Error) -> crate::read_resume_policy::ResumeResult;
+            fn on_error(&self, query: &crate::read_resume_policy::ResumeQuery, error: google_cloud_gax::error::Error) -> crate::read_resume_policy::ResumeResult;
         }
     }
 }

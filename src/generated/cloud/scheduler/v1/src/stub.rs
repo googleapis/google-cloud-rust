@@ -42,9 +42,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListJobsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -63,9 +63,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +73,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -83,8 +83,8 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -92,9 +92,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn pause_job(
         &self,
         _req: crate::model::PauseJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -102,9 +102,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn resume_job(
         &self,
         _req: crate::model::ResumeJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -112,9 +112,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn run_job(
         &self,
         _req: crate::model::RunJobRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
-    + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Job>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -122,10 +122,10 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -135,9 +135,9 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

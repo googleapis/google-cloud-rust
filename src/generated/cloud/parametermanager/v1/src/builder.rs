@@ -20,7 +20,7 @@ pub mod parameter_manager {
     /// A builder for [ParameterManager][crate::client::ParameterManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_parametermanager_v1::*;
     /// # use builder::parameter_manager::ClientBuilder;
     /// # use client::ParameterManager;
@@ -30,19 +30,18 @@ pub mod parameter_manager {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ParameterManager;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ParameterManager;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod parameter_manager {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod parameter_manager {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListParameters;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,14 +117,16 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_parameters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListParametersResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListParametersResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -133,15 +134,17 @@ pub mod parameter_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListParametersResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListParametersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -179,8 +182,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListParameters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListParameters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -190,7 +193,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetParameter;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -218,7 +221,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -228,7 +231,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_parameter(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterRequest::name].
@@ -241,8 +244,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetParameter {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetParameter {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -252,7 +255,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::CreateParameter;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -280,7 +283,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -290,7 +293,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .create_parameter(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
@@ -339,8 +342,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateParameter {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateParameter {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -350,7 +353,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::UpdateParameter;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -378,7 +381,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -388,7 +391,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .update_parameter(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
@@ -439,8 +442,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateParameter {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateParameter {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -450,7 +453,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::DeleteParameter;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -478,7 +481,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -488,7 +491,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .delete_parameter(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
@@ -507,8 +510,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteParameter {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteParameter {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -518,8 +521,8 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListParameterVersions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -553,7 +556,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -563,14 +566,16 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_parameter_versions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListParameterVersionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListParameterVersionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -578,17 +583,17 @@ pub mod parameter_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListParameterVersionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -626,8 +631,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListParameterVersions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListParameterVersions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -637,7 +642,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetParameterVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -668,7 +673,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -678,7 +683,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_parameter_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
@@ -697,8 +702,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetParameterVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetParameterVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -708,7 +713,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::RenderParameterVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -739,7 +744,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -749,7 +754,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .render_parameter_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
@@ -762,8 +767,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenderParameterVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenderParameterVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -773,7 +778,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::CreateParameterVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -804,7 +809,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -814,7 +819,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .create_parameter_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
@@ -863,8 +868,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateParameterVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateParameterVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -874,7 +879,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::UpdateParameterVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -905,7 +910,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -915,7 +920,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .update_parameter_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
@@ -966,8 +971,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateParameterVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateParameterVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -977,7 +982,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::DeleteParameterVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1008,7 +1013,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1018,7 +1023,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .delete_parameter_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
@@ -1037,8 +1042,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteParameterVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteParameterVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1048,8 +1053,8 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1083,7 +1088,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1093,15 +1098,15 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1110,17 +1115,17 @@ pub mod parameter_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1150,8 +1155,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1161,7 +1166,7 @@ pub mod parameter_manager {
     /// # Example
     /// ```
     /// # use google_cloud_parametermanager_v1::builder::parameter_manager::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_parametermanager_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1192,7 +1197,7 @@ pub mod parameter_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1202,7 +1207,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -1213,8 +1218,8 @@ pub mod parameter_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

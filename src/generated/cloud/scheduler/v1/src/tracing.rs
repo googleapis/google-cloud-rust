@@ -41,8 +41,8 @@ where
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListJobsResponse>> {
         self.inner.list_jobs(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.get_job(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.create_job(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_job(
         &self,
         req: crate::model::UpdateJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.update_job(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_job(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn pause_job(
         &self,
         req: crate::model::PauseJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.pause_job(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn resume_job(
         &self,
         req: crate::model::ResumeJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.resume_job(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn run_job(
         &self,
         req: crate::model::RunJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.run_job(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

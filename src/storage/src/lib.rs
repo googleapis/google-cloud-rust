@@ -42,8 +42,18 @@
 //! [Google Cloud Storage]: https://cloud.google.com/storage
 //! [ring]: https://crates.io/crates/ring
 
-pub use gax::Result;
-pub use gax::error::Error;
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
+pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
+// Define some shortcuts for imported crates.
+pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::client_builder::internal::ClientFactory;
+pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_client_builder;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
 
 pub mod backoff_policy;
 pub mod object_descriptor;
@@ -140,5 +150,9 @@ pub(crate) mod google {
                 include!("generated/convert/control/convert.rs");
             }
         }
+    }
+    #[allow(unused_imports)]
+    pub mod protobuf {
+        pub use gaxi::prost::Empty;
     }
 }

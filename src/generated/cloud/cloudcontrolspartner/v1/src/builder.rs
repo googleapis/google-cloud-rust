@@ -20,7 +20,7 @@ pub mod cloud_controls_partner_core {
     /// A builder for [CloudControlsPartnerCore][crate::client::CloudControlsPartnerCore].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_core::ClientBuilder;
     /// # use client::CloudControlsPartnerCore;
@@ -30,19 +30,18 @@ pub mod cloud_controls_partner_core {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::CloudControlsPartnerCore;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = CloudControlsPartnerCore;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod cloud_controls_partner_core {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod cloud_controls_partner_core {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetWorkload;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_workload(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
@@ -127,8 +126,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetWorkload {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetWorkload {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -138,8 +137,8 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListWorkloads;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -170,7 +169,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -180,13 +179,13 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListWorkloadsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -195,15 +194,17 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListWorkloadsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -241,8 +242,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListWorkloads {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListWorkloads {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -252,7 +253,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetCustomer;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -280,7 +281,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -290,7 +291,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_customer(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomerRequest::name].
@@ -303,8 +304,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCustomer {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCustomer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -314,8 +315,8 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListCustomers;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -346,7 +347,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -356,13 +357,13 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_customers(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListCustomersResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -371,15 +372,17 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomersResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListCustomersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -417,8 +420,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListCustomers {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListCustomers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -428,7 +431,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetEkmConnections;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -459,7 +462,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -469,7 +472,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_ekm_connections(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionsRequest::name].
@@ -482,8 +485,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEkmConnections {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEkmConnections {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -493,7 +496,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartnerPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -524,7 +527,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -534,7 +537,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_partner_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerPermissionsRequest::name].
@@ -547,8 +550,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPartnerPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPartnerPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -558,8 +561,8 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListAccessApprovalRequests;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -595,7 +598,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -605,15 +608,15 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_access_approval_requests(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListAccessApprovalRequestsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -622,17 +625,17 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAccessApprovalRequestsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -670,8 +673,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAccessApprovalRequests {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAccessApprovalRequests {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -681,7 +684,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartner;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -709,7 +712,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -719,7 +722,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_partner(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerRequest::name].
@@ -732,8 +735,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPartner {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPartner {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -743,7 +746,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::CreateCustomer;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -771,7 +774,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -781,7 +784,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .create_customer(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomerRequest::parent].
@@ -824,8 +827,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateCustomer {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateCustomer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -835,7 +838,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::UpdateCustomer;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -863,7 +866,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -873,7 +876,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .update_customer(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [customer][crate::model::UpdateCustomerRequest::customer].
@@ -918,8 +921,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCustomer {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCustomer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -929,7 +932,7 @@ pub mod cloud_controls_partner_core {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::DeleteCustomer;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -957,7 +960,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -967,7 +970,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .delete_customer(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomerRequest::name].
@@ -980,8 +983,8 @@ pub mod cloud_controls_partner_core {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteCustomer {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteCustomer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -993,7 +996,7 @@ pub mod cloud_controls_partner_monitoring {
     /// A builder for [CloudControlsPartnerMonitoring][crate::client::CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_monitoring::ClientBuilder;
     /// # use client::CloudControlsPartnerMonitoring;
@@ -1003,19 +1006,18 @@ pub mod cloud_controls_partner_monitoring {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::CloudControlsPartnerMonitoring;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = CloudControlsPartnerMonitoring;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1026,7 +1028,7 @@ pub mod cloud_controls_partner_monitoring {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1039,7 +1041,7 @@ pub mod cloud_controls_partner_monitoring {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1049,8 +1051,8 @@ pub mod cloud_controls_partner_monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::ListViolations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1081,7 +1083,7 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1091,14 +1093,16 @@ pub mod cloud_controls_partner_monitoring {
             (*self.0.stub)
                 .list_violations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListViolationsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1106,15 +1110,17 @@ pub mod cloud_controls_partner_monitoring {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViolationsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListViolationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1170,8 +1176,8 @@ pub mod cloud_controls_partner_monitoring {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListViolations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListViolations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1181,7 +1187,7 @@ pub mod cloud_controls_partner_monitoring {
     /// # Example
     /// ```
     /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::GetViolation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_cloudcontrolspartner_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1209,7 +1215,7 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1219,7 +1225,7 @@ pub mod cloud_controls_partner_monitoring {
             (*self.0.stub)
                 .get_violation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViolationRequest::name].
@@ -1232,8 +1238,8 @@ pub mod cloud_controls_partner_monitoring {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetViolation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetViolation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

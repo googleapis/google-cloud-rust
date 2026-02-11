@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate lazy_static;
 extern crate serde;
@@ -218,7 +218,7 @@ impl wkt::message::Message for SummarizeMaintenancesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SummarizeMaintenancesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SummarizeMaintenancesResponse {
     type PageItem = crate::model::MaintenanceSummary;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1898,7 +1898,7 @@ impl wkt::message::Message for ListResourceMaintenancesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListResourceMaintenancesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListResourceMaintenancesResponse {
     type PageItem = crate::model::ResourceMaintenance;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
@@ -926,7 +926,7 @@ impl wkt::message::Message for ListNotificationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNotificationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNotificationsResponse {
     type PageItem = crate::model::Notification;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

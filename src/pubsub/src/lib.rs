@@ -56,6 +56,8 @@
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
 //! [ring]: https://crates.io/crates/ring
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
@@ -64,16 +66,21 @@ pub(crate) mod publisher;
 /// client.
 pub mod subscriber;
 
-pub use gax::Result;
-pub use gax::error::Error;
+pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
+// Define some shortcuts for imported crates.
+pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::client_builder::internal::ClientFactory;
+pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_client_builder;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
 
 /// Request and client builders.
 pub mod builder {
     /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
-        // TODO(#3959) - remove internal types from the public API.
-        #[doc(hidden)]
-        pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::base_publisher::BasePublisherBuilder;
         pub use crate::publisher::builder::PublisherBuilder;
         pub use crate::publisher::builder::PublisherPartialBuilder;
@@ -82,9 +89,6 @@ pub mod builder {
     pub use crate::generated::gapic::builder::schema_service;
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
-        // TODO(#3959) - remove internal types from the public API.
-        #[doc(hidden)]
-        pub use crate::generated::gapic_dataplane::builder::subscriber::*;
         pub use crate::subscriber::builder::StreamingPull;
         pub use crate::subscriber::client_builder::ClientBuilder;
     }
@@ -97,7 +101,7 @@ pub mod builder {
 /// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic::model::*;
-    pub use crate::generated::gapic_dataplane::model::PubsubMessage;
+    pub use crate::generated::gapic_dataplane::model::PubsubMessage as Message;
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
@@ -116,24 +120,24 @@ pub mod model_ext {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// use google_cloud_pubsub::client::Publisher;
-/// use google_cloud_pubsub::model::PubsubMessage;
+/// use google_cloud_pubsub::model::Message;
 ///
 /// // Create a publisher that handles batching for a specific topic.
 /// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
-/// let mut handles = Vec::new();
+/// let mut futures = Vec::new();
 /// for i in 0..10 {
-///     let msg = PubsubMessage::new().set_data(format!("message {}", i));
-///     handles.push(publisher.publish(msg));
+///     let msg = Message::new().set_data(format!("message {}", i));
+///     futures.push(publisher.publish(msg));
 /// }
 ///
-/// // The handles are futures that resolve to the server-assigned message IDs.
+/// // The futures resolve to the server-assigned message IDs.
 /// // You can await them to get the results. Messages will still be sent even
-/// // if the handles are dropped.
-/// for (i, handle) in handles.into_iter().enumerate() {
-///     let message_id = handle.await?;
+/// // if the futures are dropped.
+/// for (i, future) in futures.into_iter().enumerate() {
+///     let message_id = future.await?;
 ///     println!("Message {} sent with ID: {}", i, message_id);
 /// }
 /// # Ok(())
@@ -146,7 +150,7 @@ pub mod client {
     pub use crate::subscriber::client::Subscriber;
 }
 
-pub mod error;
+pub(crate) mod error;
 
 /// Traits to mock the clients in this library.
 pub mod stub {

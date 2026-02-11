@@ -58,7 +58,7 @@ where
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
-        gax::retry_loop_internal::retry_loop(
+        google_cloud_gax::retry_loop_internal::retry_loop(
             async move |_| {
                 self.buffered_resumable_attempt(&mut progress, &mut url)
                     .await

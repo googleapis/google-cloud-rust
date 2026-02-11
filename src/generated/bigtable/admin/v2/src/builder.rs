@@ -20,7 +20,7 @@ pub mod bigtable_instance_admin {
     /// A builder for [BigtableInstanceAdmin][crate::client::BigtableInstanceAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_instance_admin::ClientBuilder;
     /// # use client::BigtableInstanceAdmin;
@@ -30,19 +30,18 @@ pub mod bigtable_instance_admin {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::BigtableInstanceAdmin;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = BigtableInstanceAdmin;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod bigtable_instance_admin {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod bigtable_instance_admin {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -105,7 +104,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -120,7 +119,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_instance`.
@@ -137,7 +136,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -217,8 +216,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -228,7 +227,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -256,7 +255,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -266,7 +265,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -279,8 +278,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -290,7 +289,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListInstances;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -318,7 +317,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -328,7 +327,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -347,8 +346,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListInstances {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListInstances {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -358,7 +357,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -386,7 +385,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -396,7 +395,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Instance::name].
@@ -503,8 +502,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -514,7 +513,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -546,7 +545,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -561,7 +560,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `partial_update_instance`.
@@ -578,7 +577,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -651,8 +650,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PartialUpdateInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PartialUpdateInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -662,7 +661,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteInstance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -690,7 +689,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -700,7 +699,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -713,8 +712,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteInstance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -724,7 +723,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -753,7 +752,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -768,7 +767,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_cluster`.
@@ -785,7 +784,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -852,8 +851,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -863,7 +862,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -891,7 +890,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -901,7 +900,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -914,8 +913,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -925,7 +924,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListClusters;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -953,7 +952,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -963,7 +962,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
@@ -982,8 +981,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -993,7 +992,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1022,7 +1021,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1037,7 +1036,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_cluster`.
@@ -1054,7 +1053,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1167,8 +1166,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1178,7 +1177,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1210,7 +1209,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1225,7 +1224,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `partial_update_cluster`.
@@ -1244,7 +1243,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1317,8 +1316,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PartialUpdateCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PartialUpdateCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1328,7 +1327,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1356,7 +1355,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1366,7 +1365,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1379,8 +1378,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1390,7 +1389,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateAppProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1421,7 +1420,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1431,7 +1430,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_app_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
@@ -1480,8 +1479,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAppProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAppProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1491,7 +1490,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetAppProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1519,7 +1518,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1529,7 +1528,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_app_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
@@ -1542,8 +1541,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAppProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAppProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1553,8 +1552,8 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListAppProfiles;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1585,7 +1584,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1595,14 +1594,16 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_app_profiles(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAppProfilesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAppProfilesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1610,15 +1611,17 @@ pub mod bigtable_instance_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAppProfilesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAppProfilesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1644,8 +1647,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAppProfiles {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAppProfiles {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1655,7 +1658,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateAppProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1687,7 +1690,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1702,7 +1705,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_app_profile`.
@@ -1721,7 +1724,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1800,8 +1803,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAppProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAppProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1811,7 +1814,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteAppProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1842,7 +1845,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1852,7 +1855,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_app_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
@@ -1873,8 +1876,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAppProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAppProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1884,7 +1887,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1915,7 +1918,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1925,7 +1928,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -1956,8 +1959,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1967,7 +1970,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1998,7 +2001,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2008,7 +2011,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -2061,8 +2064,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2072,7 +2075,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2105,7 +2108,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2115,7 +2118,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2141,8 +2144,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2152,8 +2155,8 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListHotTablets;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2184,7 +2187,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2194,14 +2197,16 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_hot_tablets(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListHotTabletsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListHotTabletsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2209,15 +2214,17 @@ pub mod bigtable_instance_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListHotTabletsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListHotTabletsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2279,8 +2286,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListHotTablets {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListHotTablets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2290,7 +2297,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateLogicalView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2322,7 +2329,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2337,7 +2344,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_logical_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_logical_view`.
@@ -2356,7 +2363,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2423,8 +2430,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateLogicalView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateLogicalView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2434,7 +2441,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetLogicalView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2462,7 +2469,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2472,7 +2479,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_logical_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
@@ -2485,8 +2492,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLogicalView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLogicalView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2496,8 +2503,8 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListLogicalViews;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2531,7 +2538,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2541,14 +2548,16 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_logical_views(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListLogicalViewsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2556,15 +2565,17 @@ pub mod bigtable_instance_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListLogicalViewsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2590,8 +2601,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLogicalViews {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLogicalViews {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2601,7 +2612,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateLogicalView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2633,7 +2644,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2648,7 +2659,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_logical_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_logical_view`.
@@ -2667,7 +2678,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2736,8 +2747,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateLogicalView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateLogicalView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2747,7 +2758,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteLogicalView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2778,7 +2789,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2788,7 +2799,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_logical_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
@@ -2807,8 +2818,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteLogicalView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteLogicalView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2818,7 +2829,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateMaterializedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2850,7 +2861,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2865,7 +2876,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_materialized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_materialized_view`.
@@ -2884,7 +2895,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2951,8 +2962,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateMaterializedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateMaterializedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2962,7 +2973,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetMaterializedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2993,7 +3004,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3003,7 +3014,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_materialized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
@@ -3016,8 +3027,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetMaterializedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetMaterializedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3027,8 +3038,8 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListMaterializedViews;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3062,7 +3073,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3072,14 +3083,16 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_materialized_views(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMaterializedViewsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMaterializedViewsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3087,17 +3100,17 @@ pub mod bigtable_instance_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListMaterializedViewsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3123,8 +3136,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListMaterializedViews {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListMaterializedViews {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3134,7 +3147,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateMaterializedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3166,7 +3179,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3181,7 +3194,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_materialized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_materialized_view`.
@@ -3200,7 +3213,7 @@ pub mod bigtable_instance_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3269,8 +3282,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateMaterializedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateMaterializedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3280,7 +3293,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteMaterializedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3311,7 +3324,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3321,7 +3334,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_materialized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
@@ -3340,8 +3353,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteMaterializedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteMaterializedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3351,8 +3364,8 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3388,7 +3401,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3398,15 +3411,15 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3415,17 +3428,17 @@ pub mod bigtable_instance_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3461,8 +3474,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3472,7 +3485,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3503,7 +3516,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3513,7 +3526,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3524,8 +3537,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3535,7 +3548,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3568,7 +3581,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3578,7 +3591,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3589,8 +3602,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3600,7 +3613,7 @@ pub mod bigtable_instance_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3633,7 +3646,7 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3643,7 +3656,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3654,8 +3667,8 @@ pub mod bigtable_instance_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3667,7 +3680,7 @@ pub mod bigtable_table_admin {
     /// A builder for [BigtableTableAdmin][crate::client::BigtableTableAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_table_admin::ClientBuilder;
     /// # use client::BigtableTableAdmin;
@@ -3677,19 +3690,18 @@ pub mod bigtable_table_admin {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::BigtableTableAdmin;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = BigtableTableAdmin;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3700,7 +3712,7 @@ pub mod bigtable_table_admin {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -3713,7 +3725,7 @@ pub mod bigtable_table_admin {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -3723,7 +3735,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3751,7 +3763,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3761,7 +3773,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
@@ -3815,8 +3827,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3826,7 +3838,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTableFromSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -3860,7 +3872,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3875,7 +3887,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_table_from_snapshot`.
@@ -3894,7 +3906,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3947,8 +3959,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTableFromSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTableFromSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3958,8 +3970,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListTables;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3990,7 +4002,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4000,13 +4012,13 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_tables(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTablesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListTablesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4015,15 +4027,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTablesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTablesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4055,8 +4069,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTables {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTables {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4066,7 +4080,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4094,7 +4108,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4104,7 +4118,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTableRequest::name].
@@ -4123,8 +4137,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4134,7 +4148,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4163,7 +4177,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4178,7 +4192,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_table`.
@@ -4195,7 +4209,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4274,8 +4288,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4285,7 +4299,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4313,7 +4327,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4323,7 +4337,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTableRequest::name].
@@ -4336,8 +4350,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4347,7 +4361,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UndeleteTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4376,7 +4390,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4391,7 +4405,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `undelete_table`.
@@ -4408,7 +4422,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4445,8 +4459,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UndeleteTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UndeleteTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4456,7 +4470,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateAuthorizedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4488,7 +4502,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4503,7 +4517,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_authorized_view`.
@@ -4522,7 +4536,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4589,8 +4603,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateAuthorizedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateAuthorizedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4600,8 +4614,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListAuthorizedViews;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -4635,7 +4649,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4645,14 +4659,16 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_authorized_views(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAuthorizedViewsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAuthorizedViewsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4660,17 +4676,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListAuthorizedViewsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -4705,8 +4721,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListAuthorizedViews {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListAuthorizedViews {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4716,7 +4732,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetAuthorizedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4747,7 +4763,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4757,7 +4773,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_authorized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
@@ -4779,8 +4795,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetAuthorizedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetAuthorizedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4790,7 +4806,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateAuthorizedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -4822,7 +4838,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4837,7 +4853,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_authorized_view`.
@@ -4856,7 +4872,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -4931,8 +4947,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateAuthorizedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateAuthorizedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4942,7 +4958,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteAuthorizedView;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4973,7 +4989,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4983,7 +4999,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_authorized_view(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
@@ -5002,8 +5018,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteAuthorizedView {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteAuthorizedView {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5013,7 +5029,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ModifyColumnFamilies;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5044,7 +5060,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5054,7 +5070,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .modify_column_families(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
@@ -5086,8 +5102,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModifyColumnFamilies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModifyColumnFamilies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5097,7 +5113,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DropRowRange;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5125,7 +5141,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5135,7 +5151,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .drop_row_range(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
@@ -5180,8 +5196,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DropRowRange {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DropRowRange {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5191,7 +5207,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GenerateConsistencyToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5224,7 +5240,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5234,7 +5250,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .generate_consistency_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
@@ -5247,8 +5263,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateConsistencyToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateConsistencyToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5258,7 +5274,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CheckConsistency;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5289,7 +5305,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5299,7 +5315,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .check_consistency(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
@@ -5362,8 +5378,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CheckConsistency {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CheckConsistency {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5373,7 +5389,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SnapshotTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5402,7 +5418,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5417,7 +5433,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `snapshot_table`.
@@ -5434,7 +5450,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5511,8 +5527,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SnapshotTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SnapshotTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5522,7 +5538,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5550,7 +5566,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5560,7 +5576,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
@@ -5573,8 +5589,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5584,8 +5600,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSnapshots;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5616,7 +5632,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5626,13 +5642,13 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_snapshots(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSnapshotsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5641,15 +5657,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSnapshotsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5675,8 +5693,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSnapshots {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSnapshots {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5686,7 +5704,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5714,7 +5732,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5724,7 +5742,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -5737,8 +5755,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5748,7 +5766,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -5777,7 +5795,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5792,7 +5810,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backup`.
@@ -5809,7 +5827,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -5876,8 +5894,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5887,7 +5905,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5915,7 +5933,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5925,7 +5943,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -5938,8 +5956,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5949,7 +5967,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5977,7 +5995,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5987,7 +6005,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -6036,8 +6054,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6047,7 +6065,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6075,7 +6093,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6085,7 +6103,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -6098,8 +6116,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6109,8 +6127,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListBackups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -6141,7 +6159,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6151,13 +6169,13 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListBackupsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -6166,15 +6184,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -6212,8 +6232,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6223,7 +6243,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::RestoreTable;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6252,7 +6272,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6267,7 +6287,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `restore_table`.
@@ -6284,7 +6304,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6351,8 +6371,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RestoreTable {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RestoreTable {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6362,7 +6382,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CopyBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6391,7 +6411,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6406,7 +6426,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `copy_backup`.
@@ -6423,7 +6443,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6498,8 +6518,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CopyBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CopyBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6509,7 +6529,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6540,7 +6560,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6550,7 +6570,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -6581,8 +6601,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6592,7 +6612,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6623,7 +6643,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6633,7 +6653,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -6686,8 +6706,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6697,7 +6717,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6730,7 +6750,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6740,7 +6760,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -6766,8 +6786,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6777,7 +6797,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateSchemaBundle;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6809,7 +6829,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6824,7 +6844,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_schema_bundle(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_schema_bundle`.
@@ -6843,7 +6863,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -6910,8 +6930,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSchemaBundle {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSchemaBundle {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6921,7 +6941,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateSchemaBundle;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -6953,7 +6973,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6968,7 +6988,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_schema_bundle(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_schema_bundle`.
@@ -6987,7 +7007,7 @@ pub mod bigtable_table_admin {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -7062,8 +7082,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSchemaBundle {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSchemaBundle {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7073,7 +7093,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSchemaBundle;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7101,7 +7121,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7111,7 +7131,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_schema_bundle(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaBundleRequest::name].
@@ -7124,8 +7144,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchemaBundle {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchemaBundle {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7135,8 +7155,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSchemaBundles;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -7170,7 +7190,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7180,14 +7200,16 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_schema_bundles(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSchemaBundlesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7195,15 +7217,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSchemaBundlesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7229,8 +7253,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemaBundles {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemaBundles {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7240,7 +7264,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSchemaBundle;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7271,7 +7295,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7281,7 +7305,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_schema_bundle(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaBundleRequest::name].
@@ -7300,8 +7324,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchemaBundle {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchemaBundle {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7311,8 +7335,8 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -7348,7 +7372,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7358,15 +7382,15 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -7375,17 +7399,17 @@ pub mod bigtable_table_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -7421,8 +7445,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7432,7 +7456,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7463,7 +7487,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7473,7 +7497,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -7484,8 +7508,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7495,7 +7519,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7528,7 +7552,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7538,7 +7562,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -7549,8 +7573,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -7560,7 +7584,7 @@ pub mod bigtable_table_admin {
     /// # Example
     /// ```
     /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -7593,7 +7617,7 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -7603,7 +7627,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -7614,8 +7638,8 @@ pub mod bigtable_table_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

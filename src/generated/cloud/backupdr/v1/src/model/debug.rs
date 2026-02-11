@@ -1167,6 +1167,31 @@ impl std::fmt::Debug for super::BackupGcpResource {
     }
 }
 
+impl std::fmt::Debug for super::AlloyDBClusterDataSourceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlloyDBClusterDataSourceProperties");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AlloyDbClusterBackupProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlloyDbClusterBackupProperties");
+        debug_struct.field("description", &self.description);
+        debug_struct.field("stored_bytes", &self.stored_bytes);
+        debug_struct.field("chain_id", &self.chain_id);
+        debug_struct.field("database_version", &self.database_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BackupApplianceBackupProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupApplianceBackupProperties");

@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_oslogin_v1::client::OsLoginService;
 /// let client = OsLoginService::builder().build().await?;
 /// // use `client` to make requests to the Cloud OS Login API.
@@ -69,15 +69,13 @@ impl OsLoginService {
     /// Returns a builder for [OsLoginService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::client::OsLoginService;
     /// let client = OsLoginService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::os_login_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::os_login_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::os_login_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -95,14 +93,14 @@ impl OsLoginService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::OsLoginService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -111,13 +109,13 @@ impl OsLoginService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OsLoginService> {
         super::transport::OsLoginService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OsLoginService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::OsLoginService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsLoginService::new)

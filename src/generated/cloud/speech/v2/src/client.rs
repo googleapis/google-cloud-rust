@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_speech_v2::client::Speech;
 /// let client = Speech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Speech-to-Text API.
@@ -66,13 +66,13 @@ impl Speech {
     /// Returns a builder for [Speech].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_speech_v2::client::Speech;
     /// let client = Speech::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::speech::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::speech::client::Factory)
+        crate::new_client_builder(super::builder::speech::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl Speech {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Speech>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Speech>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl Speech {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Speech> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Speech> {
         super::transport::Speech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Speech> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Speech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Speech::new)
@@ -155,6 +155,26 @@ impl Speech {
     }
 
     /// Lists Recognizers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_recognizers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_recognizers(&self) -> super::builder::speech::ListRecognizers {
         super::builder::speech::ListRecognizers::new(self.inner.clone())
     }
@@ -442,6 +462,26 @@ impl Speech {
     }
 
     /// Lists CustomClasses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_custom_classes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_custom_classes(&self) -> super::builder::speech::ListCustomClasses {
         super::builder::speech::ListCustomClasses::new(self.inner.clone())
     }
@@ -619,6 +659,26 @@ impl Speech {
     }
 
     /// Lists PhraseSets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_phrase_sets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_phrase_sets(&self) -> super::builder::speech::ListPhraseSets {
         super::builder::speech::ListPhraseSets::new(self.inner.clone())
     }
@@ -760,6 +820,25 @@ impl Speech {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::speech::ListLocations {
         super::builder::speech::ListLocations::new(self.inner.clone())
     }
@@ -789,6 +868,25 @@ impl Speech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_speech_v2::Result;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::speech::ListOperations {
         super::builder::speech::ListOperations::new(self.inner.clone())
     }

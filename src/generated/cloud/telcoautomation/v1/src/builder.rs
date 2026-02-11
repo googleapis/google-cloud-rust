@@ -20,7 +20,7 @@ pub mod telco_automation {
     /// A builder for [TelcoAutomation][crate::client::TelcoAutomation].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_telcoautomation_v1::*;
     /// # use builder::telco_automation::ClientBuilder;
     /// # use client::TelcoAutomation;
@@ -30,19 +30,18 @@ pub mod telco_automation {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::TelcoAutomation;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = TelcoAutomation;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod telco_automation {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod telco_automation {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListOrchestrationClusters;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -113,7 +112,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -123,15 +122,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_orchestration_clusters(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListOrchestrationClustersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -140,17 +139,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListOrchestrationClustersResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -188,8 +187,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOrchestrationClusters {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOrchestrationClusters {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -199,7 +198,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetOrchestrationCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -232,7 +231,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -242,7 +241,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_orchestration_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrchestrationClusterRequest::name].
@@ -255,8 +254,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOrchestrationCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOrchestrationCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -266,7 +265,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateOrchestrationCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -300,7 +299,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -315,7 +314,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_orchestration_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_orchestration_cluster`.
@@ -334,7 +333,7 @@ pub mod telco_automation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -407,8 +406,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateOrchestrationCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateOrchestrationCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -418,7 +417,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteOrchestrationCluster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -452,7 +451,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -467,7 +466,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_orchestration_cluster(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_orchestration_cluster`.
@@ -479,7 +478,7 @@ pub mod telco_automation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -522,8 +521,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOrchestrationCluster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOrchestrationCluster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -533,8 +532,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListEdgeSlms;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -565,7 +564,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -575,13 +574,13 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_edge_slms(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -590,15 +589,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListEdgeSlmsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -636,8 +637,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListEdgeSlms {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListEdgeSlms {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -647,7 +648,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetEdgeSlm;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -675,7 +676,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -685,7 +686,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_edge_slm(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEdgeSlmRequest::name].
@@ -698,8 +699,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEdgeSlm {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEdgeSlm {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -709,7 +710,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateEdgeSlm;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -738,7 +739,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -753,7 +754,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_edge_slm(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_edge_slm`.
@@ -770,7 +771,7 @@ pub mod telco_automation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -843,8 +844,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateEdgeSlm {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateEdgeSlm {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -854,7 +855,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteEdgeSlm;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -883,7 +884,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -898,7 +899,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_edge_slm(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_edge_slm`.
@@ -910,7 +911,7 @@ pub mod telco_automation {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -953,8 +954,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteEdgeSlm {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteEdgeSlm {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -964,7 +965,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -992,7 +993,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1002,7 +1003,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBlueprintRequest::parent].
@@ -1043,8 +1044,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1054,7 +1055,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::UpdateBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1082,7 +1083,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1092,7 +1093,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
@@ -1141,8 +1142,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1152,7 +1153,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1180,7 +1181,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1190,7 +1191,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBlueprintRequest::name].
@@ -1209,8 +1210,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1220,7 +1221,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1248,7 +1249,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1258,7 +1259,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBlueprintRequest::name].
@@ -1271,8 +1272,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1282,8 +1283,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListBlueprints;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1314,7 +1315,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1324,14 +1325,16 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_blueprints(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBlueprintsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1339,15 +1342,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBlueprintsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBlueprintsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1379,8 +1384,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBlueprints {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBlueprints {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1390,7 +1395,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ApproveBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1421,7 +1426,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1431,7 +1436,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .approve_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveBlueprintRequest::name].
@@ -1444,8 +1449,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApproveBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApproveBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1455,7 +1460,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ProposeBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1486,7 +1491,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1496,7 +1501,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .propose_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ProposeBlueprintRequest::name].
@@ -1509,8 +1514,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ProposeBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ProposeBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1520,7 +1525,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::RejectBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1548,7 +1553,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1558,7 +1563,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .reject_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RejectBlueprintRequest::name].
@@ -1571,8 +1576,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RejectBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RejectBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1582,8 +1587,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListBlueprintRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1617,7 +1622,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1627,15 +1632,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_blueprint_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListBlueprintRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1644,17 +1649,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListBlueprintRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1680,8 +1685,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBlueprintRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBlueprintRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1691,8 +1696,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::SearchBlueprintRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1728,7 +1733,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1738,15 +1743,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .search_blueprint_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::SearchBlueprintRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1755,17 +1760,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchBlueprintRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1799,8 +1804,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchBlueprintRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchBlueprintRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1810,8 +1815,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::SearchDeploymentRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1847,7 +1852,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1857,15 +1862,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .search_deployment_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::SearchDeploymentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1874,17 +1879,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::SearchDeploymentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1918,8 +1923,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SearchDeploymentRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SearchDeploymentRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1929,7 +1934,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DiscardBlueprintChanges;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1962,7 +1967,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1972,7 +1977,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .discard_blueprint_changes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardBlueprintChangesRequest::name].
@@ -1985,8 +1990,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DiscardBlueprintChanges {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DiscardBlueprintChanges {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1996,8 +2001,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListPublicBlueprints;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2031,7 +2036,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2041,14 +2046,16 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_public_blueprints(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListPublicBlueprintsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2056,17 +2063,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListPublicBlueprintsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2092,8 +2099,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPublicBlueprints {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPublicBlueprints {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2103,7 +2110,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetPublicBlueprint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2134,7 +2141,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2144,7 +2151,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_public_blueprint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPublicBlueprintRequest::name].
@@ -2157,8 +2164,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPublicBlueprint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPublicBlueprint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2168,7 +2175,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CreateDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2199,7 +2206,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2209,7 +2216,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -2250,8 +2257,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2261,7 +2268,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::UpdateDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2292,7 +2299,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2302,7 +2309,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
@@ -2351,8 +2358,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2362,7 +2369,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2390,7 +2397,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2400,7 +2407,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -2419,8 +2426,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2430,7 +2437,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::RemoveDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2461,7 +2468,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2471,7 +2478,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .remove_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveDeploymentRequest::name].
@@ -2484,8 +2491,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RemoveDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RemoveDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2495,8 +2502,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListDeployments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2527,7 +2534,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2537,14 +2544,16 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDeploymentsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2552,15 +2561,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2592,8 +2603,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDeployments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2603,8 +2614,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListDeploymentRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2640,7 +2651,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2650,15 +2661,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_deployment_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListDeploymentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2667,17 +2678,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListDeploymentRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2703,8 +2714,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDeploymentRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDeploymentRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2714,7 +2725,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DiscardDeploymentChanges;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2747,7 +2758,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2757,7 +2768,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .discard_deployment_changes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardDeploymentChangesRequest::name].
@@ -2770,8 +2781,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DiscardDeploymentChanges {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DiscardDeploymentChanges {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2781,7 +2792,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ApplyDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2809,7 +2820,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2819,7 +2830,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .apply_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyDeploymentRequest::name].
@@ -2832,8 +2843,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApplyDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApplyDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2843,7 +2854,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ComputeDeploymentStatus;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2876,7 +2887,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2886,7 +2897,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .compute_deployment_status(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ComputeDeploymentStatusRequest::name].
@@ -2899,8 +2910,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ComputeDeploymentStatus {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ComputeDeploymentStatus {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2910,7 +2921,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::RollbackDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2941,7 +2952,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2951,7 +2962,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .rollback_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackDeploymentRequest::name].
@@ -2972,8 +2983,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RollbackDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RollbackDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2983,7 +2994,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetHydratedDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3014,7 +3025,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3024,7 +3035,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_hydrated_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHydratedDeploymentRequest::name].
@@ -3037,8 +3048,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetHydratedDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetHydratedDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3048,8 +3059,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListHydratedDeployments;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3085,7 +3096,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3095,15 +3106,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_hydrated_deployments(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListHydratedDeploymentsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3112,17 +3123,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListHydratedDeploymentsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3148,8 +3159,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListHydratedDeployments {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListHydratedDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3159,7 +3170,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::UpdateHydratedDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3192,7 +3203,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3202,7 +3213,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_hydrated_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
@@ -3251,8 +3262,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateHydratedDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateHydratedDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3262,7 +3273,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ApplyHydratedDeployment;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3295,7 +3306,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3305,7 +3316,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .apply_hydrated_deployment(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyHydratedDeploymentRequest::name].
@@ -3318,8 +3329,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ApplyHydratedDeployment {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ApplyHydratedDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3329,8 +3340,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3364,7 +3375,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3374,15 +3385,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3391,17 +3402,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3431,8 +3442,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3442,7 +3453,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3473,7 +3484,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3483,7 +3494,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -3494,8 +3505,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3505,8 +3516,8 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3542,7 +3553,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3552,15 +3563,15 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3569,17 +3580,17 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3615,8 +3626,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3626,7 +3637,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3657,7 +3668,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3667,7 +3678,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3678,8 +3689,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3689,7 +3700,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3722,7 +3733,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3732,7 +3743,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3743,8 +3754,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3754,7 +3765,7 @@ pub mod telco_automation {
     /// # Example
     /// ```
     /// # use google_cloud_telcoautomation_v1::builder::telco_automation::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_telcoautomation_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3787,7 +3798,7 @@ pub mod telco_automation {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3797,7 +3808,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3808,8 +3819,8 @@ pub mod telco_automation {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

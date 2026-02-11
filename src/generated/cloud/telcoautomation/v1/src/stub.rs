@@ -42,11 +42,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_orchestration_clusters(
         &self,
         _req: crate::model::ListOrchestrationClustersRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOrchestrationClustersResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListOrchestrationClustersResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -55,9 +53,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_orchestration_cluster(
         &self,
         _req: crate::model::GetOrchestrationClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OrchestrationCluster>>,
+        Output = crate::Result<crate::Response<crate::model::OrchestrationCluster>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -66,9 +64,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn create_orchestration_cluster(
         &self,
         _req: crate::model::CreateOrchestrationClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -77,9 +75,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn delete_orchestration_cluster(
         &self,
         _req: crate::model::DeleteOrchestrationClusterRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -88,9 +86,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_edge_slms(
         &self,
         _req: crate::model::ListEdgeSlmsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListEdgeSlmsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -99,10 +97,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_edge_slm(
         &self,
         _req: crate::model::GetEdgeSlmRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::EdgeSlm>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::EdgeSlm>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -110,9 +107,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn create_edge_slm(
         &self,
         _req: crate::model::CreateEdgeSlmRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -121,9 +118,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn delete_edge_slm(
         &self,
         _req: crate::model::DeleteEdgeSlmRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -132,10 +129,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn create_blueprint(
         &self,
         _req: crate::model::CreateBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -143,10 +139,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn update_blueprint(
         &self,
         _req: crate::model::UpdateBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -154,10 +149,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_blueprint(
         &self,
         _req: crate::model::GetBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -165,8 +159,8 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn delete_blueprint(
         &self,
         _req: crate::model::DeleteBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -174,9 +168,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_blueprints(
         &self,
         _req: crate::model::ListBlueprintsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListBlueprintsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListBlueprintsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -185,10 +179,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn approve_blueprint(
         &self,
         _req: crate::model::ApproveBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -196,10 +189,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn propose_blueprint(
         &self,
         _req: crate::model::ProposeBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -207,10 +199,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn reject_blueprint(
         &self,
         _req: crate::model::RejectBlueprintRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Blueprint>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -218,11 +209,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_blueprint_revisions(
         &self,
         _req: crate::model::ListBlueprintRevisionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListBlueprintRevisionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListBlueprintRevisionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -231,11 +220,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn search_blueprint_revisions(
         &self,
         _req: crate::model::SearchBlueprintRevisionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SearchBlueprintRevisionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -244,11 +231,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn search_deployment_revisions(
         &self,
         _req: crate::model::SearchDeploymentRevisionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SearchDeploymentRevisionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -257,11 +242,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn discard_blueprint_changes(
         &self,
         _req: crate::model::DiscardBlueprintChangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::DiscardBlueprintChangesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::DiscardBlueprintChangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -270,9 +253,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_public_blueprints(
         &self,
         _req: crate::model::ListPublicBlueprintsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListPublicBlueprintsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -281,9 +264,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_public_blueprint(
         &self,
         _req: crate::model::GetPublicBlueprintRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PublicBlueprint>>,
+        Output = crate::Result<crate::Response<crate::model::PublicBlueprint>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -292,10 +275,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -303,10 +285,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn update_deployment(
         &self,
         _req: crate::model::UpdateDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -314,10 +295,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -325,8 +305,8 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn remove_deployment(
         &self,
         _req: crate::model::RemoveDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -334,9 +314,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -345,11 +325,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_deployment_revisions(
         &self,
         _req: crate::model::ListDeploymentRevisionsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListDeploymentRevisionsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentRevisionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -358,11 +336,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn discard_deployment_changes(
         &self,
         _req: crate::model::DiscardDeploymentChangesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::DiscardDeploymentChangesResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::DiscardDeploymentChangesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -371,10 +347,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn apply_deployment(
         &self,
         _req: crate::model::ApplyDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -382,11 +357,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn compute_deployment_status(
         &self,
         _req: crate::model::ComputeDeploymentStatusRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ComputeDeploymentStatusResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ComputeDeploymentStatusResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -395,10 +368,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn rollback_deployment(
         &self,
         _req: crate::model::RollbackDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -406,9 +378,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_hydrated_deployment(
         &self,
         _req: crate::model::GetHydratedDeploymentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
+        Output = crate::Result<crate::Response<crate::model::HydratedDeployment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -417,11 +389,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_hydrated_deployments(
         &self,
         _req: crate::model::ListHydratedDeploymentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListHydratedDeploymentsResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::ListHydratedDeploymentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -430,9 +400,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn update_hydrated_deployment(
         &self,
         _req: crate::model::UpdateHydratedDeploymentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
+        Output = crate::Result<crate::Response<crate::model::HydratedDeployment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -441,9 +411,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn apply_hydrated_deployment(
         &self,
         _req: crate::model::ApplyHydratedDeploymentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
+        Output = crate::Result<crate::Response<crate::model::HydratedDeployment>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -452,10 +422,10 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -465,9 +435,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -476,10 +446,10 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn list_operations(
         &self,
         _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -489,9 +459,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn get_operation(
         &self,
         _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>,
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -500,8 +470,8 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn delete_operation(
         &self,
         _req: google_cloud_longrunning::model::DeleteOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -509,8 +479,8 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     fn cancel_operation(
         &self,
         _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -520,9 +490,9 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_error_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -531,8 +501,8 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        _options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

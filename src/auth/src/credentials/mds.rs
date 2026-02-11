@@ -54,8 +54,8 @@
 //! # use http::Extensions;
 //! # use std::time::Duration;
 //! # tokio_test::block_on(async {
-//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! use gax::exponential_backoff::ExponentialBackoff;
+//! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! let backoff = ExponentialBackoff::default();
 //! let credentials: Credentials = Builder::default()
 //!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
@@ -84,10 +84,10 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use gax::backoff_policy::BackoffPolicyArg;
-use gax::error::CredentialsError;
-use gax::retry_policy::RetryPolicyArg;
-use gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::error::CredentialsError;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use std::default::Default;
 use std::sync::Arc;
@@ -189,7 +189,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let credentials = Builder::default()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build();
@@ -208,7 +208,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let policy = ExponentialBackoff::default();
     /// let credentials = Builder::default()
     ///     .with_backoff_policy(policy)
@@ -234,7 +234,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let credentials = Builder::default()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build();
@@ -497,7 +497,7 @@ mod tests {
             .build_token_provider();
 
         let err = provider.token().await.unwrap_err();
-        assert!(!err.is_transient());
+        assert!(err.is_transient(), "{err:?}");
         server.verify_and_clear();
         Ok(())
     }

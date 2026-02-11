@@ -20,7 +20,7 @@ pub mod sql_backup_runs_service {
     /// A builder for [SqlBackupRunsService][crate::client::SqlBackupRunsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_backup_runs_service::ClientBuilder;
     /// # use client::SqlBackupRunsService;
@@ -30,19 +30,18 @@ pub mod sql_backup_runs_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlBackupRunsService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlBackupRunsService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod sql_backup_runs_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod sql_backup_runs_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod sql_backup_runs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod sql_backup_runs_service {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
@@ -140,8 +139,8 @@ pub mod sql_backup_runs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -151,7 +150,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -182,7 +181,7 @@ pub mod sql_backup_runs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -192,7 +191,7 @@ pub mod sql_backup_runs_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
@@ -215,8 +214,8 @@ pub mod sql_backup_runs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -226,7 +225,7 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::Insert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -257,7 +256,7 @@ pub mod sql_backup_runs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -267,7 +266,7 @@ pub mod sql_backup_runs_service {
             (*self.0.stub)
                 .insert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
@@ -302,8 +301,8 @@ pub mod sql_backup_runs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Insert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -313,8 +312,8 @@ pub mod sql_backup_runs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backup_runs_service::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -348,7 +347,7 @@ pub mod sql_backup_runs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -358,14 +357,16 @@ pub mod sql_backup_runs_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::BackupRunsListResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::BackupRunsListResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -373,15 +374,17 @@ pub mod sql_backup_runs_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::BackupRunsListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::BackupRunsListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -411,8 +414,8 @@ pub mod sql_backup_runs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -424,7 +427,7 @@ pub mod sql_backups_service {
     /// A builder for [SqlBackupsService][crate::client::SqlBackupsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_backups_service::ClientBuilder;
     /// # use client::SqlBackupsService;
@@ -434,19 +437,18 @@ pub mod sql_backups_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlBackupsService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlBackupsService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -457,7 +459,7 @@ pub mod sql_backups_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -470,7 +472,7 @@ pub mod sql_backups_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -480,7 +482,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::CreateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -508,7 +510,7 @@ pub mod sql_backups_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -518,7 +520,7 @@ pub mod sql_backups_service {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -553,8 +555,8 @@ pub mod sql_backups_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -564,7 +566,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::GetBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -592,7 +594,7 @@ pub mod sql_backups_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -602,7 +604,7 @@ pub mod sql_backups_service {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -615,8 +617,8 @@ pub mod sql_backups_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -626,8 +628,8 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::ListBackups;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -658,7 +660,7 @@ pub mod sql_backups_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -668,13 +670,13 @@ pub mod sql_backups_service {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListBackupsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -683,15 +685,17 @@ pub mod sql_backups_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -723,8 +727,8 @@ pub mod sql_backups_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListBackups {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListBackups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -734,7 +738,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::UpdateBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -762,7 +766,7 @@ pub mod sql_backups_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -772,7 +776,7 @@ pub mod sql_backups_service {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -817,8 +821,8 @@ pub mod sql_backups_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -828,7 +832,7 @@ pub mod sql_backups_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_backups_service::DeleteBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -856,7 +860,7 @@ pub mod sql_backups_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -866,7 +870,7 @@ pub mod sql_backups_service {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -879,8 +883,8 @@ pub mod sql_backups_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -892,7 +896,7 @@ pub mod sql_connect_service {
     /// A builder for [SqlConnectService][crate::client::SqlConnectService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_connect_service::ClientBuilder;
     /// # use client::SqlConnectService;
@@ -902,19 +906,18 @@ pub mod sql_connect_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlConnectService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlConnectService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -925,7 +928,7 @@ pub mod sql_connect_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -938,7 +941,7 @@ pub mod sql_connect_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -948,7 +951,7 @@ pub mod sql_connect_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_connect_service::GetConnectSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -979,7 +982,7 @@ pub mod sql_connect_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -989,7 +992,7 @@ pub mod sql_connect_service {
             (*self.0.stub)
                 .get_connect_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
@@ -1024,8 +1027,8 @@ pub mod sql_connect_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetConnectSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetConnectSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1035,7 +1038,7 @@ pub mod sql_connect_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_connect_service::GenerateEphemeralCert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1066,7 +1069,7 @@ pub mod sql_connect_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1076,7 +1079,7 @@ pub mod sql_connect_service {
             (*self.0.stub)
                 .generate_ephemeral_cert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
@@ -1141,8 +1144,8 @@ pub mod sql_connect_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateEphemeralCert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateEphemeralCert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1154,7 +1157,7 @@ pub mod sql_databases_service {
     /// A builder for [SqlDatabasesService][crate::client::SqlDatabasesService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_databases_service::ClientBuilder;
     /// # use client::SqlDatabasesService;
@@ -1164,19 +1167,18 @@ pub mod sql_databases_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlDatabasesService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlDatabasesService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1187,7 +1189,7 @@ pub mod sql_databases_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1200,7 +1202,7 @@ pub mod sql_databases_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1210,7 +1212,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1241,7 +1243,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1251,7 +1253,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
@@ -1274,8 +1276,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1285,7 +1287,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1313,7 +1315,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1323,7 +1325,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
@@ -1346,8 +1348,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1357,7 +1359,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Insert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1388,7 +1390,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1398,7 +1400,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .insert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
@@ -1433,8 +1435,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Insert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1444,7 +1446,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::List;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1475,7 +1477,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1485,7 +1487,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
@@ -1502,8 +1504,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1513,7 +1515,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1544,7 +1546,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1554,7 +1556,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -1595,8 +1597,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1606,7 +1608,7 @@ pub mod sql_databases_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_databases_service::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1637,7 +1639,7 @@ pub mod sql_databases_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1647,7 +1649,7 @@ pub mod sql_databases_service {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -1688,8 +1690,8 @@ pub mod sql_databases_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1701,7 +1703,7 @@ pub mod sql_flags_service {
     /// A builder for [SqlFlagsService][crate::client::SqlFlagsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_flags_service::ClientBuilder;
     /// # use client::SqlFlagsService;
@@ -1711,19 +1713,18 @@ pub mod sql_flags_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlFlagsService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlFlagsService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1734,7 +1735,7 @@ pub mod sql_flags_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1747,7 +1748,7 @@ pub mod sql_flags_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1757,7 +1758,7 @@ pub mod sql_flags_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_flags_service::List;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1785,7 +1786,7 @@ pub mod sql_flags_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1795,7 +1796,7 @@ pub mod sql_flags_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
@@ -1824,8 +1825,8 @@ pub mod sql_flags_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1837,7 +1838,7 @@ pub mod sql_instances_service {
     /// A builder for [SqlInstancesService][crate::client::SqlInstancesService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_instances_service::ClientBuilder;
     /// # use client::SqlInstancesService;
@@ -1847,19 +1848,18 @@ pub mod sql_instances_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlInstancesService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlInstancesService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1870,7 +1870,7 @@ pub mod sql_instances_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -1883,7 +1883,7 @@ pub mod sql_instances_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -1893,7 +1893,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddServerCa;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1924,7 +1924,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1934,7 +1934,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .add_server_ca(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
@@ -1951,8 +1951,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AddServerCa {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AddServerCa {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1962,7 +1962,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddServerCertificate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1995,7 +1995,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2005,7 +2005,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .add_server_certificate(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAddServerCertificateRequest::instance].
@@ -2022,8 +2022,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AddServerCertificate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AddServerCertificate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2033,7 +2033,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AddEntraIdCertificate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2066,7 +2066,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2076,7 +2076,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .add_entra_id_certificate(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAddEntraIdCertificateRequest::instance].
@@ -2097,8 +2097,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AddEntraIdCertificate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AddEntraIdCertificate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2108,7 +2108,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Clone;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2139,7 +2139,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2149,7 +2149,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .clone(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
@@ -2192,8 +2192,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Clone {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Clone {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2203,7 +2203,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2234,7 +2234,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2244,7 +2244,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
@@ -2324,8 +2324,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2335,7 +2335,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::DemoteMaster;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2366,7 +2366,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2376,7 +2376,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .demote_master(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
@@ -2411,8 +2411,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DemoteMaster {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DemoteMaster {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2422,7 +2422,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Demote;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2453,7 +2453,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2463,7 +2463,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .demote(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
@@ -2506,8 +2506,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Demote {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Demote {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2517,7 +2517,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Export;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2548,7 +2548,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2558,7 +2558,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .export(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
@@ -2593,8 +2593,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Export {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Export {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2604,7 +2604,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Failover;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2635,7 +2635,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2645,7 +2645,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .failover(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
@@ -2680,8 +2680,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Failover {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Failover {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2691,7 +2691,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Reencrypt;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2722,7 +2722,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2732,7 +2732,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .reencrypt(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
@@ -2767,8 +2767,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Reencrypt {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Reencrypt {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2778,7 +2778,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2806,7 +2806,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2816,7 +2816,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
@@ -2837,8 +2837,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2848,7 +2848,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Import;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2879,7 +2879,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2889,7 +2889,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .import(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
@@ -2924,8 +2924,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Import {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Import {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2935,7 +2935,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Insert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2966,7 +2966,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2976,7 +2976,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .insert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
@@ -3005,8 +3005,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Insert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3016,8 +3016,8 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3051,7 +3051,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3061,13 +3061,13 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::InstancesListResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::InstancesListResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3076,15 +3076,17 @@ pub mod sql_instances_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::InstancesListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::InstancesListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3114,8 +3116,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3125,7 +3127,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListServerCas;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3156,7 +3158,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3166,7 +3168,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .list_server_cas(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
@@ -3183,8 +3185,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListServerCas {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListServerCas {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3194,7 +3196,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListServerCertificates;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3227,7 +3229,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3237,7 +3239,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .list_server_certificates(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesListServerCertificatesRequest::instance].
@@ -3258,8 +3260,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListServerCertificates {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListServerCertificates {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3269,7 +3271,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ListEntraIdCertificates;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3302,7 +3304,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3312,7 +3314,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .list_entra_id_certificates(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesListEntraIdCertificatesRequest::instance].
@@ -3333,8 +3335,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListEntraIdCertificates {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListEntraIdCertificates {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3344,7 +3346,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Patch;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3375,7 +3377,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3385,7 +3387,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .patch(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
@@ -3420,8 +3422,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Patch {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Patch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3431,7 +3433,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PromoteReplica;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3462,7 +3464,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3472,7 +3474,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .promote_replica(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
@@ -3495,8 +3497,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PromoteReplica {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PromoteReplica {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3506,7 +3508,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Switchover;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3537,7 +3539,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3547,7 +3549,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .switchover(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
@@ -3582,8 +3584,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Switchover {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Switchover {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3593,7 +3595,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ResetSslConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3624,7 +3626,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3634,7 +3636,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .reset_ssl_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
@@ -3662,8 +3664,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResetSslConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResetSslConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3673,7 +3675,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Restart;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3704,7 +3706,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3714,7 +3716,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .restart(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
@@ -3731,8 +3733,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Restart {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Restart {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3742,7 +3744,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RestoreBackup;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3773,7 +3775,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3783,7 +3785,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .restore_backup(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
@@ -3818,8 +3820,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RestoreBackup {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RestoreBackup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3829,7 +3831,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateServerCa;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3860,7 +3862,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3870,7 +3872,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .rotate_server_ca(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
@@ -3905,8 +3907,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RotateServerCa {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RotateServerCa {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3916,7 +3918,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateServerCertificate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3949,7 +3951,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3959,7 +3961,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .rotate_server_certificate(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCertificateRequest::instance].
@@ -3998,8 +4000,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RotateServerCertificate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RotateServerCertificate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4009,7 +4011,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateEntraIdCertificate;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4042,7 +4044,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4052,7 +4054,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .rotate_entra_id_certificate(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRotateEntraIdCertificateRequest::instance].
@@ -4091,8 +4093,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RotateEntraIdCertificate {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RotateEntraIdCertificate {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4102,7 +4104,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StartReplica;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4133,7 +4135,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4143,7 +4145,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .start_replica(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
@@ -4160,8 +4162,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartReplica {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartReplica {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4171,7 +4173,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StopReplica;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4202,7 +4204,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4212,7 +4214,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .stop_replica(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
@@ -4229,8 +4231,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopReplica {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopReplica {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4240,7 +4242,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::TruncateLog;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4271,7 +4273,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4281,7 +4283,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .truncate_log(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
@@ -4316,8 +4318,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TruncateLog {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TruncateLog {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4327,7 +4329,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4358,7 +4360,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4368,7 +4370,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
@@ -4403,8 +4405,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4414,7 +4416,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::CreateEphemeral;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4447,7 +4449,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4457,7 +4459,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .create_ephemeral(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
@@ -4492,8 +4494,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateEphemeral {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateEphemeral {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4503,7 +4505,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::RescheduleMaintenance;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4536,7 +4538,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4546,7 +4548,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .reschedule_maintenance(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
@@ -4581,8 +4583,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RescheduleMaintenance {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RescheduleMaintenance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4592,7 +4594,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::VerifyExternalSyncSettings;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4627,7 +4629,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4639,7 +4641,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .verify_external_sync_settings(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
@@ -4745,8 +4747,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for VerifyExternalSyncSettings {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for VerifyExternalSyncSettings {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4756,7 +4758,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::StartExternalSync;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4789,7 +4791,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4799,7 +4801,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .start_external_sync(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
@@ -4890,8 +4892,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartExternalSync {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartExternalSync {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4901,7 +4903,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PerformDiskShrink;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -4934,7 +4936,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -4944,7 +4946,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .perform_disk_shrink(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
@@ -4979,8 +4981,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PerformDiskShrink {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PerformDiskShrink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -4990,7 +4992,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::GetDiskShrinkConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5023,7 +5025,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5033,7 +5035,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .get_disk_shrink_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
@@ -5050,8 +5052,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDiskShrinkConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDiskShrinkConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5061,7 +5063,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ResetReplicaSize;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5092,7 +5094,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5102,7 +5104,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .reset_replica_size(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
@@ -5119,8 +5121,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ResetReplicaSize {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ResetReplicaSize {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5130,7 +5132,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::GetLatestRecoveryTime;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5163,7 +5165,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5173,7 +5175,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .get_latest_recovery_time(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
@@ -5211,8 +5213,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLatestRecoveryTime {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLatestRecoveryTime {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5222,7 +5224,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ExecuteSql;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5253,7 +5255,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5263,7 +5265,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .execute_sql(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesExecuteSqlRequest::instance].
@@ -5302,8 +5304,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ExecuteSql {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ExecuteSql {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5313,7 +5315,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::AcquireSsrsLease;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5344,7 +5346,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5354,7 +5356,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .acquire_ssrs_lease(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
@@ -5397,8 +5399,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for AcquireSsrsLease {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for AcquireSsrsLease {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5408,7 +5410,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::ReleaseSsrsLease;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5439,7 +5441,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5449,7 +5451,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .release_ssrs_lease(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
@@ -5470,8 +5472,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ReleaseSsrsLease {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ReleaseSsrsLease {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5481,7 +5483,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PreCheckMajorVersionUpgrade;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5516,7 +5518,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5526,7 +5528,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .pre_check_major_version_upgrade(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::instance].
@@ -5569,8 +5571,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PreCheckMajorVersionUpgrade {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PreCheckMajorVersionUpgrade {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5580,7 +5582,7 @@ pub mod sql_instances_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_instances_service::PointInTimeRestore;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5613,7 +5615,7 @@ pub mod sql_instances_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5623,7 +5625,7 @@ pub mod sql_instances_service {
             (*self.0.stub)
                 .point_in_time_restore(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SqlInstancesPointInTimeRestoreRequest::parent].
@@ -5658,8 +5660,8 @@ pub mod sql_instances_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for PointInTimeRestore {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for PointInTimeRestore {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5671,7 +5673,7 @@ pub mod sql_operations_service {
     /// A builder for [SqlOperationsService][crate::client::SqlOperationsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_operations_service::ClientBuilder;
     /// # use client::SqlOperationsService;
@@ -5681,19 +5683,18 @@ pub mod sql_operations_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlOperationsService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlOperationsService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5704,7 +5705,7 @@ pub mod sql_operations_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -5717,7 +5718,7 @@ pub mod sql_operations_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -5727,7 +5728,7 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5758,7 +5759,7 @@ pub mod sql_operations_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5768,7 +5769,7 @@ pub mod sql_operations_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
@@ -5789,8 +5790,8 @@ pub mod sql_operations_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5800,8 +5801,8 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::List;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -5835,7 +5836,7 @@ pub mod sql_operations_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5845,14 +5846,16 @@ pub mod sql_operations_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::OperationsListResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::OperationsListResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5860,15 +5863,17 @@ pub mod sql_operations_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::OperationsListResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::OperationsListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -5898,8 +5903,8 @@ pub mod sql_operations_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5909,7 +5914,7 @@ pub mod sql_operations_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_operations_service::Cancel;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -5940,7 +5945,7 @@ pub mod sql_operations_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -5950,7 +5955,7 @@ pub mod sql_operations_service {
             (*self.0.stub)
                 .cancel(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
@@ -5967,8 +5972,8 @@ pub mod sql_operations_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Cancel {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Cancel {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -5980,7 +5985,7 @@ pub mod sql_ssl_certs_service {
     /// A builder for [SqlSslCertsService][crate::client::SqlSslCertsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_ssl_certs_service::ClientBuilder;
     /// # use client::SqlSslCertsService;
@@ -5990,19 +5995,18 @@ pub mod sql_ssl_certs_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlSslCertsService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlSslCertsService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6013,7 +6017,7 @@ pub mod sql_ssl_certs_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -6026,7 +6030,7 @@ pub mod sql_ssl_certs_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -6036,7 +6040,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6067,7 +6071,7 @@ pub mod sql_ssl_certs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6077,7 +6081,7 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
@@ -6100,8 +6104,8 @@ pub mod sql_ssl_certs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6111,7 +6115,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6139,7 +6143,7 @@ pub mod sql_ssl_certs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6149,7 +6153,7 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
@@ -6172,8 +6176,8 @@ pub mod sql_ssl_certs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6183,7 +6187,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::Insert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6214,7 +6218,7 @@ pub mod sql_ssl_certs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6224,7 +6228,7 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub)
                 .insert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
@@ -6259,8 +6263,8 @@ pub mod sql_ssl_certs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Insert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6270,7 +6274,7 @@ pub mod sql_ssl_certs_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_ssl_certs_service::List;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6298,7 +6302,7 @@ pub mod sql_ssl_certs_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6308,7 +6312,7 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
@@ -6325,8 +6329,8 @@ pub mod sql_ssl_certs_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6338,7 +6342,7 @@ pub mod sql_tiers_service {
     /// A builder for [SqlTiersService][crate::client::SqlTiersService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_tiers_service::ClientBuilder;
     /// # use client::SqlTiersService;
@@ -6348,19 +6352,18 @@ pub mod sql_tiers_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlTiersService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlTiersService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6371,7 +6374,7 @@ pub mod sql_tiers_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -6384,7 +6387,7 @@ pub mod sql_tiers_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -6394,7 +6397,7 @@ pub mod sql_tiers_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_tiers_service::List;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6422,7 +6425,7 @@ pub mod sql_tiers_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6432,7 +6435,7 @@ pub mod sql_tiers_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
@@ -6443,8 +6446,8 @@ pub mod sql_tiers_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6456,7 +6459,7 @@ pub mod sql_users_service {
     /// A builder for [SqlUsersService][crate::client::SqlUsersService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::*;
     /// # use builder::sql_users_service::ClientBuilder;
     /// # use client::SqlUsersService;
@@ -6466,19 +6469,18 @@ pub mod sql_users_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SqlUsersService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SqlUsersService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6489,7 +6491,7 @@ pub mod sql_users_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -6502,7 +6504,7 @@ pub mod sql_users_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -6512,7 +6514,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Delete;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6540,7 +6542,7 @@ pub mod sql_users_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6550,7 +6552,7 @@ pub mod sql_users_service {
             (*self.0.stub)
                 .delete(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
@@ -6579,8 +6581,8 @@ pub mod sql_users_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Delete {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Delete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6590,7 +6592,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Get;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6618,7 +6620,7 @@ pub mod sql_users_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6628,7 +6630,7 @@ pub mod sql_users_service {
             (*self.0.stub)
                 .get(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
@@ -6657,8 +6659,8 @@ pub mod sql_users_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Get {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6668,7 +6670,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Insert;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6696,7 +6698,7 @@ pub mod sql_users_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6706,7 +6708,7 @@ pub mod sql_users_service {
             (*self.0.stub)
                 .insert(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
@@ -6741,8 +6743,8 @@ pub mod sql_users_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Insert {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Insert {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6752,7 +6754,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::List;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6780,7 +6782,7 @@ pub mod sql_users_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6790,7 +6792,7 @@ pub mod sql_users_service {
             (*self.0.stub)
                 .list(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
@@ -6807,8 +6809,8 @@ pub mod sql_users_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for List {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for List {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -6818,7 +6820,7 @@ pub mod sql_users_service {
     /// # Example
     /// ```
     /// # use google_cloud_sql_v1::builder::sql_users_service::Update;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_sql_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -6846,7 +6848,7 @@ pub mod sql_users_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -6856,7 +6858,7 @@ pub mod sql_users_service {
             (*self.0.stub)
                 .update(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
@@ -6894,6 +6896,24 @@ pub mod sql_users_service {
             self
         }
 
+        /// Sets the value of [revoke_existing_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_roles].
+        pub fn set_revoke_existing_roles<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_roles = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [revoke_existing_roles][crate::model::SqlUsersUpdateRequest::revoke_existing_roles].
+        pub fn set_or_clear_revoke_existing_roles<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.revoke_existing_roles = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
         pub fn set_body<T>(mut self, v: T) -> Self
         where
@@ -6914,8 +6934,8 @@ pub mod sql_users_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Update {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -4779,7 +4779,7 @@ impl wkt::message::Message for ListBackupPlansResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
     type PageItem = crate::model::BackupPlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5274,7 +5274,7 @@ impl wkt::message::Message for ListBackupChannelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupChannelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupChannelsResponse {
     type PageItem = crate::model::BackupChannel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5689,7 +5689,7 @@ impl wkt::message::Message for ListBackupPlanBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupPlanBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupPlanBindingsResponse {
     type PageItem = crate::model::BackupPlanBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6041,7 +6041,7 @@ impl wkt::message::Message for ListBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6434,7 +6434,7 @@ impl wkt::message::Message for ListVolumeBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVolumeBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVolumeBackupsResponse {
     type PageItem = crate::model::VolumeBackup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6770,7 +6770,7 @@ impl wkt::message::Message for ListRestorePlansResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRestorePlansResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRestorePlansResponse {
     type PageItem = crate::model::RestorePlan;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7281,7 +7281,7 @@ impl wkt::message::Message for ListRestoreChannelsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRestoreChannelsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRestoreChannelsResponse {
     type PageItem = crate::model::RestoreChannel;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7681,7 +7681,7 @@ impl wkt::message::Message for ListRestorePlanBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRestorePlanBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRestorePlanBindingsResponse {
     type PageItem = crate::model::RestorePlanBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8017,7 +8017,7 @@ impl wkt::message::Message for ListRestoresResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRestoresResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRestoresResponse {
     type PageItem = crate::model::Restore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8410,7 +8410,7 @@ impl wkt::message::Message for ListVolumeRestoresResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVolumeRestoresResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVolumeRestoresResponse {
     type PageItem = crate::model::VolumeRestore;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

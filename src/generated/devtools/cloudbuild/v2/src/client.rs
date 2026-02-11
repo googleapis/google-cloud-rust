@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_build_v2::client::RepositoryManager;
 /// let client = RepositoryManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
@@ -66,15 +66,13 @@ impl RepositoryManager {
     /// Returns a builder for [RepositoryManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// let client = RepositoryManager::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::repository_manager::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::repository_manager::client::Factory,
-        )
+        crate::new_client_builder(super::builder::repository_manager::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl RepositoryManager {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RepositoryManager>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RepositoryManager>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -109,13 +107,13 @@ impl RepositoryManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RepositoryManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RepositoryManager> {
         super::transport::RepositoryManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RepositoryManager> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RepositoryManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RepositoryManager::new)

@@ -41,8 +41,8 @@ where
     async fn create_topic(
         &self,
         req: crate::model::Topic,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Topic>> {
         self.inner.create_topic(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn update_topic(
         &self,
         req: crate::model::UpdateTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Topic>> {
         self.inner.update_topic(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_topic(
         &self,
         req: crate::model::GetTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Topic>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Topic>> {
         self.inner.get_topic(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_topics(
         &self,
         req: crate::model::ListTopicsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTopicsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTopicsResponse>> {
         self.inner.list_topics(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_topic_subscriptions(
         &self,
         req: crate::model::ListTopicSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTopicSubscriptionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTopicSubscriptionsResponse>> {
         self.inner.list_topic_subscriptions(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_topic_snapshots(
         &self,
         req: crate::model::ListTopicSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTopicSnapshotsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTopicSnapshotsResponse>> {
         self.inner.list_topic_snapshots(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn delete_topic(
         &self,
         req: crate::model::DeleteTopicRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_topic(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn detach_subscription(
         &self,
         req: crate::model::DetachSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DetachSubscriptionResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DetachSubscriptionResponse>> {
         self.inner.detach_subscription(req, options).await
     }
 }
@@ -136,8 +136,8 @@ where
     async fn create_subscription(
         &self,
         req: crate::model::Subscription,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Subscription>> {
         self.inner.create_subscription(req, options).await
     }
 
@@ -145,8 +145,8 @@ where
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Subscription>> {
         self.inner.get_subscription(req, options).await
     }
 
@@ -154,8 +154,8 @@ where
     async fn update_subscription(
         &self,
         req: crate::model::UpdateSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Subscription>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Subscription>> {
         self.inner.update_subscription(req, options).await
     }
 
@@ -163,8 +163,8 @@ where
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSubscriptionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSubscriptionsResponse>> {
         self.inner.list_subscriptions(req, options).await
     }
 
@@ -172,8 +172,8 @@ where
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_subscription(req, options).await
     }
 
@@ -181,8 +181,8 @@ where
     async fn modify_push_config(
         &self,
         req: crate::model::ModifyPushConfigRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.modify_push_config(req, options).await
     }
 
@@ -190,8 +190,8 @@ where
     async fn get_snapshot(
         &self,
         req: crate::model::GetSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Snapshot>> {
         self.inner.get_snapshot(req, options).await
     }
 
@@ -199,8 +199,8 @@ where
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSnapshotsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSnapshotsResponse>> {
         self.inner.list_snapshots(req, options).await
     }
 
@@ -208,8 +208,8 @@ where
     async fn create_snapshot(
         &self,
         req: crate::model::CreateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Snapshot>> {
         self.inner.create_snapshot(req, options).await
     }
 
@@ -217,8 +217,8 @@ where
     async fn update_snapshot(
         &self,
         req: crate::model::UpdateSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Snapshot>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Snapshot>> {
         self.inner.update_snapshot(req, options).await
     }
 
@@ -226,8 +226,8 @@ where
     async fn delete_snapshot(
         &self,
         req: crate::model::DeleteSnapshotRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_snapshot(req, options).await
     }
 
@@ -235,8 +235,8 @@ where
     async fn seek(
         &self,
         req: crate::model::SeekRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SeekResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SeekResponse>> {
         self.inner.seek(req, options).await
     }
 }
@@ -267,8 +267,8 @@ where
     async fn create_schema(
         &self,
         req: crate::model::CreateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.create_schema(req, options).await
     }
 
@@ -276,8 +276,8 @@ where
     async fn get_schema(
         &self,
         req: crate::model::GetSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.get_schema(req, options).await
     }
 
@@ -285,8 +285,8 @@ where
     async fn list_schemas(
         &self,
         req: crate::model::ListSchemasRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSchemasResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSchemasResponse>> {
         self.inner.list_schemas(req, options).await
     }
 
@@ -294,8 +294,8 @@ where
     async fn list_schema_revisions(
         &self,
         req: crate::model::ListSchemaRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListSchemaRevisionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSchemaRevisionsResponse>> {
         self.inner.list_schema_revisions(req, options).await
     }
 
@@ -303,8 +303,8 @@ where
     async fn commit_schema(
         &self,
         req: crate::model::CommitSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.commit_schema(req, options).await
     }
 
@@ -312,8 +312,8 @@ where
     async fn rollback_schema(
         &self,
         req: crate::model::RollbackSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.rollback_schema(req, options).await
     }
 
@@ -321,8 +321,8 @@ where
     async fn delete_schema_revision(
         &self,
         req: crate::model::DeleteSchemaRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Schema>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Schema>> {
         self.inner.delete_schema_revision(req, options).await
     }
 
@@ -330,8 +330,8 @@ where
     async fn delete_schema(
         &self,
         req: crate::model::DeleteSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_schema(req, options).await
     }
 
@@ -339,8 +339,8 @@ where
     async fn validate_schema(
         &self,
         req: crate::model::ValidateSchemaRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ValidateSchemaResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ValidateSchemaResponse>> {
         self.inner.validate_schema(req, options).await
     }
 
@@ -348,8 +348,8 @@ where
     async fn validate_message(
         &self,
         req: crate::model::ValidateMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ValidateMessageResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ValidateMessageResponse>> {
         self.inner.validate_message(req, options).await
     }
 
@@ -357,8 +357,8 @@ where
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -366,8 +366,8 @@ where
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::Policy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -375,9 +375,8 @@ where
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }

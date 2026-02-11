@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_type;
 extern crate lazy_static;
 extern crate serde;
@@ -2827,7 +2827,7 @@ impl wkt::message::Message for ListConstraintsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListConstraintsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListConstraintsResponse {
     type PageItem = crate::model::Constraint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2979,7 +2979,7 @@ impl wkt::message::Message for ListPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPoliciesResponse {
     type PageItem = crate::model::Policy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3538,7 +3538,7 @@ impl wkt::message::Message for ListCustomConstraintsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCustomConstraintsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCustomConstraintsResponse {
     type PageItem = crate::model::CustomConstraint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

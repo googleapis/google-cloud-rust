@@ -20,476 +20,474 @@ pub trait ContactCenterInsights: std::fmt::Debug + Send + Sync {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>>;
 
     async fn upload_conversation(
         &self,
         req: crate::model::UploadConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_conversation(
         &self,
         req: crate::model::UpdateConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>>;
 
     async fn get_conversation(
         &self,
         req: crate::model::GetConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>>;
 
     async fn list_conversations(
         &self,
         req: crate::model::ListConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConversationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConversationsResponse>>;
 
     async fn delete_conversation(
         &self,
         req: crate::model::DeleteConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_analysis(
         &self,
         req: crate::model::CreateAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_analysis(
         &self,
         req: crate::model::GetAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Analysis>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Analysis>>;
 
     async fn list_analyses(
         &self,
         req: crate::model::ListAnalysesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAnalysesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAnalysesResponse>>;
 
     async fn delete_analysis(
         &self,
         req: crate::model::DeleteAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn bulk_analyze_conversations(
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn bulk_delete_conversations(
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn ingest_conversations(
         &self,
         req: crate::model::IngestConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_insights_data(
         &self,
         req: crate::model::ExportInsightsDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_issue_model(
         &self,
         req: crate::model::CreateIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_issue_model(
         &self,
         req: crate::model::UpdateIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IssueModel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IssueModel>>;
 
     async fn get_issue_model(
         &self,
         req: crate::model::GetIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IssueModel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IssueModel>>;
 
     async fn list_issue_models(
         &self,
         req: crate::model::ListIssueModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIssueModelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIssueModelsResponse>>;
 
     async fn delete_issue_model(
         &self,
         req: crate::model::DeleteIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn deploy_issue_model(
         &self,
         req: crate::model::DeployIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undeploy_issue_model(
         &self,
         req: crate::model::UndeployIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn export_issue_model(
         &self,
         req: crate::model::ExportIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_issue_model(
         &self,
         req: crate::model::ImportIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_issue(
         &self,
         req: crate::model::GetIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Issue>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Issue>>;
 
     async fn list_issues(
         &self,
         req: crate::model::ListIssuesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIssuesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIssuesResponse>>;
 
     async fn update_issue(
         &self,
         req: crate::model::UpdateIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Issue>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Issue>>;
 
     async fn delete_issue(
         &self,
         req: crate::model::DeleteIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn calculate_issue_model_stats(
         &self,
         req: crate::model::CalculateIssueModelStatsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CalculateIssueModelStatsResponse>>;
 
     async fn create_phrase_matcher(
         &self,
         req: crate::model::CreatePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>>;
 
     async fn get_phrase_matcher(
         &self,
         req: crate::model::GetPhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>>;
 
     async fn list_phrase_matchers(
         &self,
         req: crate::model::ListPhraseMatchersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPhraseMatchersResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPhraseMatchersResponse>>;
 
     async fn delete_phrase_matcher(
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_phrase_matcher(
         &self,
         req: crate::model::UpdatePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>>;
 
     async fn calculate_stats(
         &self,
         req: crate::model::CalculateStatsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateStatsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CalculateStatsResponse>>;
 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>>;
 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>>;
 
     async fn create_analysis_rule(
         &self,
         req: crate::model::CreateAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>>;
 
     async fn get_analysis_rule(
         &self,
         req: crate::model::GetAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>>;
 
     async fn list_analysis_rules(
         &self,
         req: crate::model::ListAnalysisRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAnalysisRulesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAnalysisRulesResponse>>;
 
     async fn update_analysis_rule(
         &self,
         req: crate::model::UpdateAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>>;
 
     async fn delete_analysis_rule(
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_encryption_spec(
         &self,
         req: crate::model::GetEncryptionSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EncryptionSpec>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EncryptionSpec>>;
 
     async fn initialize_encryption_spec(
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_view(
         &self,
         req: crate::model::CreateViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>>;
 
     async fn get_view(
         &self,
         req: crate::model::GetViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>>;
 
     async fn list_views(
         &self,
         req: crate::model::ListViewsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListViewsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListViewsResponse>>;
 
     async fn update_view(
         &self,
         req: crate::model::UpdateViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>>;
 
     async fn delete_view(
         &self,
         req: crate::model::DeleteViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn query_metrics(
         &self,
         req: crate::model::QueryMetricsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_qa_question(
         &self,
         req: crate::model::CreateQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>>;
 
     async fn get_qa_question(
         &self,
         req: crate::model::GetQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>>;
 
     async fn update_qa_question(
         &self,
         req: crate::model::UpdateQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>>;
 
     async fn delete_qa_question(
         &self,
         req: crate::model::DeleteQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_qa_questions(
         &self,
         req: crate::model::ListQaQuestionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaQuestionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaQuestionsResponse>>;
 
     async fn create_qa_scorecard(
         &self,
         req: crate::model::CreateQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>>;
 
     async fn get_qa_scorecard(
         &self,
         req: crate::model::GetQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>>;
 
     async fn update_qa_scorecard(
         &self,
         req: crate::model::UpdateQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>>;
 
     async fn delete_qa_scorecard(
         &self,
         req: crate::model::DeleteQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_qa_scorecards(
         &self,
         req: crate::model::ListQaScorecardsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaScorecardsResponse>>;
 
     async fn create_qa_scorecard_revision(
         &self,
         req: crate::model::CreateQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>>;
 
     async fn get_qa_scorecard_revision(
         &self,
         req: crate::model::GetQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>>;
 
     async fn tune_qa_scorecard_revision(
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn deploy_qa_scorecard_revision(
         &self,
         req: crate::model::DeployQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>>;
 
     async fn undeploy_qa_scorecard_revision(
         &self,
         req: crate::model::UndeployQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>>;
 
     async fn delete_qa_scorecard_revision(
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_qa_scorecard_revisions(
         &self,
         req: crate::model::ListQaScorecardRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaScorecardRevisionsResponse>>;
 
     async fn create_feedback_label(
         &self,
         req: crate::model::CreateFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>>;
 
     async fn list_feedback_labels(
         &self,
         req: crate::model::ListFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFeedbackLabelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFeedbackLabelsResponse>>;
 
     async fn get_feedback_label(
         &self,
         req: crate::model::GetFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>>;
 
     async fn update_feedback_label(
         &self,
         req: crate::model::UpdateFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>>;
 
     async fn delete_feedback_label(
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_all_feedback_labels(
         &self,
         req: crate::model::ListAllFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAllFeedbackLabelsResponse>>;
 
     async fn bulk_upload_feedback_labels(
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn bulk_download_feedback_labels(
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ContactCenterInsights] also implement [ContactCenterInsights].
@@ -499,8 +497,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>> {
         T::create_conversation(self, req, options).await
     }
 
@@ -508,8 +506,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn upload_conversation(
         &self,
         req: crate::model::UploadConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::upload_conversation(self, req, options).await
     }
 
@@ -517,8 +515,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_conversation(
         &self,
         req: crate::model::UpdateConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>> {
         T::update_conversation(self, req, options).await
     }
 
@@ -526,8 +524,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_conversation(
         &self,
         req: crate::model::GetConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Conversation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>> {
         T::get_conversation(self, req, options).await
     }
 
@@ -535,8 +533,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_conversations(
         &self,
         req: crate::model::ListConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConversationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListConversationsResponse>> {
         T::list_conversations(self, req, options).await
     }
 
@@ -544,8 +542,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_conversation(
         &self,
         req: crate::model::DeleteConversationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_conversation(self, req, options).await
     }
 
@@ -553,8 +551,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_analysis(
         &self,
         req: crate::model::CreateAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_analysis(self, req, options).await
     }
 
@@ -562,8 +560,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_analysis(
         &self,
         req: crate::model::GetAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Analysis>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Analysis>> {
         T::get_analysis(self, req, options).await
     }
 
@@ -571,8 +569,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_analyses(
         &self,
         req: crate::model::ListAnalysesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAnalysesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAnalysesResponse>> {
         T::list_analyses(self, req, options).await
     }
 
@@ -580,8 +578,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_analysis(
         &self,
         req: crate::model::DeleteAnalysisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_analysis(self, req, options).await
     }
 
@@ -589,8 +587,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn bulk_analyze_conversations(
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_analyze_conversations(self, req, options).await
     }
 
@@ -598,8 +596,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn bulk_delete_conversations(
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_delete_conversations(self, req, options).await
     }
 
@@ -607,8 +605,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn ingest_conversations(
         &self,
         req: crate::model::IngestConversationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::ingest_conversations(self, req, options).await
     }
 
@@ -616,8 +614,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn export_insights_data(
         &self,
         req: crate::model::ExportInsightsDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::export_insights_data(self, req, options).await
     }
 
@@ -625,8 +623,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_issue_model(
         &self,
         req: crate::model::CreateIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_issue_model(self, req, options).await
     }
 
@@ -634,8 +632,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_issue_model(
         &self,
         req: crate::model::UpdateIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IssueModel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IssueModel>> {
         T::update_issue_model(self, req, options).await
     }
 
@@ -643,8 +641,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_issue_model(
         &self,
         req: crate::model::GetIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::IssueModel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::IssueModel>> {
         T::get_issue_model(self, req, options).await
     }
 
@@ -652,8 +650,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_issue_models(
         &self,
         req: crate::model::ListIssueModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIssueModelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIssueModelsResponse>> {
         T::list_issue_models(self, req, options).await
     }
 
@@ -661,8 +659,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_issue_model(
         &self,
         req: crate::model::DeleteIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_issue_model(self, req, options).await
     }
 
@@ -670,8 +668,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn deploy_issue_model(
         &self,
         req: crate::model::DeployIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::deploy_issue_model(self, req, options).await
     }
 
@@ -679,8 +677,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn undeploy_issue_model(
         &self,
         req: crate::model::UndeployIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::undeploy_issue_model(self, req, options).await
     }
 
@@ -688,8 +686,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn export_issue_model(
         &self,
         req: crate::model::ExportIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::export_issue_model(self, req, options).await
     }
 
@@ -697,8 +695,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn import_issue_model(
         &self,
         req: crate::model::ImportIssueModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::import_issue_model(self, req, options).await
     }
 
@@ -706,8 +704,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_issue(
         &self,
         req: crate::model::GetIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Issue>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Issue>> {
         T::get_issue(self, req, options).await
     }
 
@@ -715,8 +713,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_issues(
         &self,
         req: crate::model::ListIssuesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListIssuesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListIssuesResponse>> {
         T::list_issues(self, req, options).await
     }
 
@@ -724,8 +722,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_issue(
         &self,
         req: crate::model::UpdateIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Issue>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Issue>> {
         T::update_issue(self, req, options).await
     }
 
@@ -733,8 +731,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_issue(
         &self,
         req: crate::model::DeleteIssueRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_issue(self, req, options).await
     }
 
@@ -742,9 +740,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn calculate_issue_model_stats(
         &self,
         req: crate::model::CalculateIssueModelStatsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CalculateIssueModelStatsResponse>> {
         T::calculate_issue_model_stats(self, req, options).await
     }
 
@@ -752,8 +749,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_phrase_matcher(
         &self,
         req: crate::model::CreatePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>> {
         T::create_phrase_matcher(self, req, options).await
     }
 
@@ -761,8 +758,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_phrase_matcher(
         &self,
         req: crate::model::GetPhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>> {
         T::get_phrase_matcher(self, req, options).await
     }
 
@@ -770,8 +767,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_phrase_matchers(
         &self,
         req: crate::model::ListPhraseMatchersRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPhraseMatchersResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPhraseMatchersResponse>> {
         T::list_phrase_matchers(self, req, options).await
     }
 
@@ -779,8 +776,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_phrase_matcher(
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_phrase_matcher(self, req, options).await
     }
 
@@ -788,8 +785,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_phrase_matcher(
         &self,
         req: crate::model::UpdatePhraseMatcherRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PhraseMatcher>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PhraseMatcher>> {
         T::update_phrase_matcher(self, req, options).await
     }
 
@@ -797,8 +794,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn calculate_stats(
         &self,
         req: crate::model::CalculateStatsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CalculateStatsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CalculateStatsResponse>> {
         T::calculate_stats(self, req, options).await
     }
 
@@ -806,8 +803,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>> {
         T::get_settings(self, req, options).await
     }
 
@@ -815,8 +812,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>> {
         T::update_settings(self, req, options).await
     }
 
@@ -824,8 +821,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_analysis_rule(
         &self,
         req: crate::model::CreateAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>> {
         T::create_analysis_rule(self, req, options).await
     }
 
@@ -833,8 +830,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_analysis_rule(
         &self,
         req: crate::model::GetAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>> {
         T::get_analysis_rule(self, req, options).await
     }
 
@@ -842,8 +839,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_analysis_rules(
         &self,
         req: crate::model::ListAnalysisRulesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAnalysisRulesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAnalysisRulesResponse>> {
         T::list_analysis_rules(self, req, options).await
     }
 
@@ -851,8 +848,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_analysis_rule(
         &self,
         req: crate::model::UpdateAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::AnalysisRule>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AnalysisRule>> {
         T::update_analysis_rule(self, req, options).await
     }
 
@@ -860,8 +857,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_analysis_rule(
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_analysis_rule(self, req, options).await
     }
 
@@ -869,8 +866,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_encryption_spec(
         &self,
         req: crate::model::GetEncryptionSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::EncryptionSpec>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EncryptionSpec>> {
         T::get_encryption_spec(self, req, options).await
     }
 
@@ -878,8 +875,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn initialize_encryption_spec(
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::initialize_encryption_spec(self, req, options).await
     }
 
@@ -887,8 +884,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_view(
         &self,
         req: crate::model::CreateViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>> {
         T::create_view(self, req, options).await
     }
 
@@ -896,8 +893,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_view(
         &self,
         req: crate::model::GetViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>> {
         T::get_view(self, req, options).await
     }
 
@@ -905,8 +902,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_views(
         &self,
         req: crate::model::ListViewsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListViewsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListViewsResponse>> {
         T::list_views(self, req, options).await
     }
 
@@ -914,8 +911,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_view(
         &self,
         req: crate::model::UpdateViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::View>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::View>> {
         T::update_view(self, req, options).await
     }
 
@@ -923,8 +920,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_view(
         &self,
         req: crate::model::DeleteViewRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_view(self, req, options).await
     }
 
@@ -932,8 +929,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn query_metrics(
         &self,
         req: crate::model::QueryMetricsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::query_metrics(self, req, options).await
     }
 
@@ -941,8 +938,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_qa_question(
         &self,
         req: crate::model::CreateQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>> {
         T::create_qa_question(self, req, options).await
     }
 
@@ -950,8 +947,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_qa_question(
         &self,
         req: crate::model::GetQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>> {
         T::get_qa_question(self, req, options).await
     }
 
@@ -959,8 +956,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_qa_question(
         &self,
         req: crate::model::UpdateQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaQuestion>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaQuestion>> {
         T::update_qa_question(self, req, options).await
     }
 
@@ -968,8 +965,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_qa_question(
         &self,
         req: crate::model::DeleteQaQuestionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_qa_question(self, req, options).await
     }
 
@@ -977,8 +974,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_qa_questions(
         &self,
         req: crate::model::ListQaQuestionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaQuestionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaQuestionsResponse>> {
         T::list_qa_questions(self, req, options).await
     }
 
@@ -986,8 +983,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_qa_scorecard(
         &self,
         req: crate::model::CreateQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>> {
         T::create_qa_scorecard(self, req, options).await
     }
 
@@ -995,8 +992,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_qa_scorecard(
         &self,
         req: crate::model::GetQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>> {
         T::get_qa_scorecard(self, req, options).await
     }
 
@@ -1004,8 +1001,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_qa_scorecard(
         &self,
         req: crate::model::UpdateQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecard>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecard>> {
         T::update_qa_scorecard(self, req, options).await
     }
 
@@ -1013,8 +1010,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_qa_scorecard(
         &self,
         req: crate::model::DeleteQaScorecardRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_qa_scorecard(self, req, options).await
     }
 
@@ -1022,8 +1019,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_qa_scorecards(
         &self,
         req: crate::model::ListQaScorecardsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaScorecardsResponse>> {
         T::list_qa_scorecards(self, req, options).await
     }
 
@@ -1031,8 +1028,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_qa_scorecard_revision(
         &self,
         req: crate::model::CreateQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>> {
         T::create_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1040,8 +1037,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_qa_scorecard_revision(
         &self,
         req: crate::model::GetQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>> {
         T::get_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1049,8 +1046,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn tune_qa_scorecard_revision(
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::tune_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1058,8 +1055,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn deploy_qa_scorecard_revision(
         &self,
         req: crate::model::DeployQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>> {
         T::deploy_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1067,8 +1064,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn undeploy_qa_scorecard_revision(
         &self,
         req: crate::model::UndeployQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QaScorecardRevision>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QaScorecardRevision>> {
         T::undeploy_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1076,8 +1073,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_qa_scorecard_revision(
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_qa_scorecard_revision(self, req, options).await
     }
 
@@ -1085,9 +1082,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_qa_scorecard_revisions(
         &self,
         req: crate::model::ListQaScorecardRevisionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListQaScorecardRevisionsResponse>> {
         T::list_qa_scorecard_revisions(self, req, options).await
     }
 
@@ -1095,8 +1091,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn create_feedback_label(
         &self,
         req: crate::model::CreateFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>> {
         T::create_feedback_label(self, req, options).await
     }
 
@@ -1104,8 +1100,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_feedback_labels(
         &self,
         req: crate::model::ListFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFeedbackLabelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFeedbackLabelsResponse>> {
         T::list_feedback_labels(self, req, options).await
     }
 
@@ -1113,8 +1109,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_feedback_label(
         &self,
         req: crate::model::GetFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>> {
         T::get_feedback_label(self, req, options).await
     }
 
@@ -1122,8 +1118,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn update_feedback_label(
         &self,
         req: crate::model::UpdateFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FeedbackLabel>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FeedbackLabel>> {
         T::update_feedback_label(self, req, options).await
     }
 
@@ -1131,8 +1127,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn delete_feedback_label(
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_feedback_label(self, req, options).await
     }
 
@@ -1140,8 +1136,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_all_feedback_labels(
         &self,
         req: crate::model::ListAllFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAllFeedbackLabelsResponse>> {
         T::list_all_feedback_labels(self, req, options).await
     }
 
@@ -1149,8 +1145,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn bulk_upload_feedback_labels(
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_upload_feedback_labels(self, req, options).await
     }
 
@@ -1158,8 +1154,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn bulk_download_feedback_labels(
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::bulk_download_feedback_labels(self, req, options).await
     }
 
@@ -1167,10 +1163,9 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1178,8 +1173,8 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1187,22 +1182,22 @@ impl<T: super::ContactCenterInsights> ContactCenterInsights for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

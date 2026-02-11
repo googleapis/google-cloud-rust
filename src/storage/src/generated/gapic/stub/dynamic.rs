@@ -20,86 +20,86 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     async fn delete_bucket(
         &self,
         req: crate::model::DeleteBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_bucket(
         &self,
         req: crate::model::GetBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>>;
 
     async fn create_bucket(
         &self,
         req: crate::model::CreateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>>;
 
     async fn list_buckets(
         &self,
         req: crate::model::ListBucketsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBucketsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBucketsResponse>>;
 
     async fn lock_bucket_retention_policy(
         &self,
         req: crate::model::LockBucketRetentionPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>>;
 
     async fn update_bucket(
         &self,
         req: crate::model::UpdateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>>;
 
     async fn compose_object(
         &self,
         req: crate::model::ComposeObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>>;
 
     async fn delete_object(
         &self,
         req: crate::model::DeleteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn restore_object(
         &self,
         req: crate::model::RestoreObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>>;
 
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>>;
 
     async fn update_object(
         &self,
         req: crate::model::UpdateObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>>;
 
     async fn list_objects(
         &self,
         req: crate::model::ListObjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListObjectsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListObjectsResponse>>;
 
     async fn rewrite_object(
         &self,
         req: crate::model::RewriteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RewriteResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RewriteResponse>>;
 
     async fn move_object(
         &self,
         req: crate::model::MoveObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>>;
 }
 
 /// All implementations of [super::StorageControl] also implement [StorageControl].
@@ -109,8 +109,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn delete_bucket(
         &self,
         req: crate::model::DeleteBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_bucket(self, req, options).await
     }
 
@@ -118,8 +118,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn get_bucket(
         &self,
         req: crate::model::GetBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>> {
         T::get_bucket(self, req, options).await
     }
 
@@ -127,8 +127,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn create_bucket(
         &self,
         req: crate::model::CreateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>> {
         T::create_bucket(self, req, options).await
     }
 
@@ -136,8 +136,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn list_buckets(
         &self,
         req: crate::model::ListBucketsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListBucketsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBucketsResponse>> {
         T::list_buckets(self, req, options).await
     }
 
@@ -145,8 +145,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn lock_bucket_retention_policy(
         &self,
         req: crate::model::LockBucketRetentionPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>> {
         T::lock_bucket_retention_policy(self, req, options).await
     }
 
@@ -154,8 +154,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn update_bucket(
         &self,
         req: crate::model::UpdateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Bucket>> {
         T::update_bucket(self, req, options).await
     }
 
@@ -163,8 +163,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn compose_object(
         &self,
         req: crate::model::ComposeObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>> {
         T::compose_object(self, req, options).await
     }
 
@@ -172,8 +172,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn delete_object(
         &self,
         req: crate::model::DeleteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_object(self, req, options).await
     }
 
@@ -181,8 +181,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn restore_object(
         &self,
         req: crate::model::RestoreObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>> {
         T::restore_object(self, req, options).await
     }
 
@@ -190,8 +190,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>> {
         T::get_object(self, req, options).await
     }
 
@@ -199,8 +199,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn update_object(
         &self,
         req: crate::model::UpdateObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>> {
         T::update_object(self, req, options).await
     }
 
@@ -208,8 +208,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn list_objects(
         &self,
         req: crate::model::ListObjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListObjectsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListObjectsResponse>> {
         T::list_objects(self, req, options).await
     }
 
@@ -217,8 +217,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn rewrite_object(
         &self,
         req: crate::model::RewriteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RewriteResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RewriteResponse>> {
         T::rewrite_object(self, req, options).await
     }
 
@@ -226,8 +226,8 @@ impl<T: super::StorageControl> StorageControl for T {
     async fn move_object(
         &self,
         req: crate::model::MoveObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Object>> {
         T::move_object(self, req, options).await
     }
 }

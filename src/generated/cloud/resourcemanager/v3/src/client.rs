@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -68,13 +68,13 @@ impl Folders {
     /// Returns a builder for [Folders].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// let client = Folders::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::folders::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::folders::client::Factory)
+        crate::new_client_builder(super::builder::folders::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +92,14 @@ impl Folders {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +108,13 @@ impl Folders {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Folders> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Folders> {
         super::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Folders> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Folders> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Folders::new)
@@ -154,6 +154,26 @@ impl Folders {
     /// of their display_name.
     /// The caller must have `resourcemanager.folders.list` permission on the
     /// identified parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Folders,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_folders()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_folders(&self) -> super::builder::folders::ListFolders {
         super::builder::folders::ListFolders::new(self.inner.clone())
     }
@@ -164,6 +184,25 @@ impl Folders {
     ///
     /// This will only return folders on which the caller has the
     /// permission `resourcemanager.folders.get`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_folders()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_folders(&self) -> super::builder::folders::SearchFolders {
         super::builder::folders::SearchFolders::new(self.inner.clone())
     }
@@ -535,7 +574,7 @@ impl Folders {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -581,13 +620,13 @@ impl Organizations {
     /// Returns a builder for [Organizations].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// let client = Organizations::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organizations::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::organizations::client::Factory)
+        crate::new_client_builder(super::builder::organizations::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -605,14 +644,14 @@ impl Organizations {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -621,13 +660,13 @@ impl Organizations {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Organizations> {
         super::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Organizations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Organizations::new)
@@ -663,6 +702,25 @@ impl Organizations {
     ///
     /// Search will only return organizations on which the user has the permission
     /// `resourcemanager.organizations.get`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_organizations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_organizations(&self) -> super::builder::organizations::SearchOrganizations {
         super::builder::organizations::SearchOrganizations::new(self.inner.clone())
     }
@@ -776,7 +834,7 @@ impl Organizations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -822,13 +880,13 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// let client = Projects::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
+        crate::new_client_builder(super::builder::projects::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -846,14 +904,14 @@ impl Projects {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -862,13 +920,13 @@ impl Projects {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Projects> {
+    ) -> crate::ClientBuilderResult<impl super::stub::Projects> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Projects::new)
@@ -907,6 +965,26 @@ impl Projects {
     /// projects sorted based upon the (ascending) lexical ordering of their
     /// `display_name`. The caller must have `resourcemanager.projects.list`
     /// permission on the identified parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Projects,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_projects()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_projects(&self) -> super::builder::projects::ListProjects {
         super::builder::projects::ListProjects::new(self.inner.clone())
     }
@@ -923,6 +1001,25 @@ impl Projects {
     /// [GetProject][google.cloud.resourcemanager.v3.Projects.GetProject] method.
     ///
     /// [google.cloud.resourcemanager.v3.Projects.GetProject]: crate::client::Projects::get_project
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .search_projects()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_projects(&self) -> super::builder::projects::SearchProjects {
         super::builder::projects::SearchProjects::new(self.inner.clone())
     }
@@ -1304,7 +1401,7 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1351,13 +1448,13 @@ impl TagBindings {
     /// Returns a builder for [TagBindings].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
     /// let client = TagBindings::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_bindings::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::tag_bindings::client::Factory)
+        crate::new_client_builder(super::builder::tag_bindings::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1375,14 +1472,14 @@ impl TagBindings {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1391,13 +1488,13 @@ impl TagBindings {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagBindings> {
         super::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagBindings::new)
@@ -1408,6 +1505,26 @@ impl TagBindings {
     ///
     /// NOTE: The `parent` field is expected to be a full resource name:
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagBindings,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_bindings(&self) -> super::builder::tag_bindings::ListTagBindings {
         super::builder::tag_bindings::ListTagBindings::new(self.inner.clone())
     }
@@ -1482,6 +1599,25 @@ impl TagBindings {
 
     /// Return a list of effective tags for the given Google Cloud resource, as
     /// specified in `parent`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagBindings
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_effective_tags()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_effective_tags(&self) -> super::builder::tag_bindings::ListEffectiveTags {
         super::builder::tag_bindings::ListEffectiveTags::new(self.inner.clone())
     }
@@ -1515,7 +1651,7 @@ impl TagBindings {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1565,13 +1701,13 @@ impl TagHolds {
     /// Returns a builder for [TagHolds].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
     /// let client = TagHolds::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_holds::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::tag_holds::client::Factory)
+        crate::new_client_builder(super::builder::tag_holds::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1589,14 +1725,14 @@ impl TagHolds {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1605,13 +1741,13 @@ impl TagHolds {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagHolds> {
         super::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagHolds> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagHolds::new)
@@ -1687,6 +1823,26 @@ impl TagHolds {
     }
 
     /// Lists TagHolds under a TagValue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagHolds;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagHolds,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_holds()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_holds(&self) -> super::builder::tag_holds::ListTagHolds {
         super::builder::tag_holds::ListTagHolds::new(self.inner.clone())
     }
@@ -1720,7 +1876,7 @@ impl TagHolds {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -1766,13 +1922,13 @@ impl TagKeys {
     /// Returns a builder for [TagKeys].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// let client = TagKeys::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_keys::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::tag_keys::client::Factory)
+        crate::new_client_builder(super::builder::tag_keys::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1790,14 +1946,14 @@ impl TagKeys {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1806,19 +1962,39 @@ impl TagKeys {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagKeys> {
         super::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagKeys::new)
     }
 
     /// Lists all TagKeys for a parent resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagKeys,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_keys()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_keys(&self) -> super::builder::tag_keys::ListTagKeys {
         super::builder::tag_keys::ListTagKeys::new(self.inner.clone())
     }
@@ -2087,7 +2263,7 @@ impl TagKeys {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
@@ -2133,13 +2309,13 @@ impl TagValues {
     /// Returns a builder for [TagValues].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// let client = TagValues::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_values::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::tag_values::client::Factory)
+        crate::new_client_builder(super::builder::tag_values::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2157,14 +2333,14 @@ impl TagValues {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2173,19 +2349,39 @@ impl TagValues {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagValues> {
         super::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
+    ) -> crate::ClientBuilderResult<impl super::stub::TagValues> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagValues::new)
     }
 
     /// Lists all TagValues for a specific TagKey.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_resourcemanager_v3::Result;
+    /// async fn sample(
+    ///    client: &TagValues,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_tag_values()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tag_values(&self) -> super::builder::tag_values::ListTagValues {
         super::builder::tag_values::ListTagValues::new(self.inner.clone())
     }

@@ -20,7 +20,7 @@ pub mod managed_schema_registry {
     /// A builder for [ManagedSchemaRegistry][crate::client::ManagedSchemaRegistry].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::*;
     /// # use builder::managed_schema_registry::ClientBuilder;
     /// # use client::ManagedSchemaRegistry;
@@ -30,19 +30,18 @@ pub mod managed_schema_registry {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ManagedSchemaRegistry;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ManagedSchemaRegistry;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod managed_schema_registry {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedSchemaRegistry>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod managed_schema_registry {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaRegistry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_schema_registry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRegistryRequest::name].
@@ -130,8 +129,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchemaRegistry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchemaRegistry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -141,7 +140,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaRegistries;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -172,7 +171,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -182,7 +181,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_schema_registries(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaRegistriesRequest::parent].
@@ -195,8 +194,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemaRegistries {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemaRegistries {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -206,7 +205,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateSchemaRegistry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -237,7 +236,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -247,7 +246,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .create_schema_registry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaRegistryRequest::parent].
@@ -290,8 +289,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSchemaRegistry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSchemaRegistry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -301,7 +300,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaRegistry;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -332,7 +331,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -342,7 +341,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_schema_registry(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRegistryRequest::name].
@@ -355,8 +354,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchemaRegistry {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchemaRegistry {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -366,7 +365,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetContext;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -394,7 +393,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -404,7 +403,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_context(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetContextRequest::name].
@@ -417,8 +416,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetContext {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetContext {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -428,7 +427,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListContexts;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -456,7 +455,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -466,7 +465,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_contexts(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListContextsRequest::parent].
@@ -479,8 +478,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListContexts {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListContexts {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -490,7 +489,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -518,7 +517,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -528,7 +527,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -559,8 +558,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -570,7 +569,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -598,7 +597,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -608,7 +607,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_raw_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -639,8 +638,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRawSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRawSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -650,7 +649,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaVersions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -681,7 +680,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -691,7 +690,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_schema_versions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaVersionsRequest::parent].
@@ -740,8 +739,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemaVersions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemaVersions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -751,7 +750,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaTypes;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -779,7 +778,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -789,7 +788,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_schema_types(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSchemaTypesRequest::parent].
@@ -802,8 +801,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemaTypes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemaTypes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -813,7 +812,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjects;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -841,7 +840,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -851,7 +850,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_subjects(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSubjectsRequest::parent].
@@ -900,8 +899,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSubjects {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSubjects {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -911,7 +910,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjectsBySchemaId;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -942,7 +941,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -952,7 +951,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_subjects_by_schema_id(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListSubjectsBySchemaIdRequest::parent].
@@ -1001,8 +1000,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSubjectsBySchemaId {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSubjectsBySchemaId {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1012,7 +1011,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSubject;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1040,7 +1039,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1050,7 +1049,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_subject(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSubjectRequest::name].
@@ -1081,8 +1080,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSubject {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSubject {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1092,7 +1091,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::LookupVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1120,7 +1119,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1130,7 +1129,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .lookup_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupVersionRequest::parent].
@@ -1216,8 +1215,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for LookupVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for LookupVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1227,7 +1226,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1255,7 +1254,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1265,7 +1264,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -1296,8 +1295,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1307,7 +1306,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchemaVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1335,7 +1334,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1345,7 +1344,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_raw_schema_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -1376,8 +1375,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRawSchemaVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRawSchemaVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1387,7 +1386,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListVersions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1415,7 +1414,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1425,7 +1424,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_versions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
@@ -1456,8 +1455,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListVersions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListVersions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1467,7 +1466,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1495,7 +1494,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1505,7 +1504,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .create_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVersionRequest::parent].
@@ -1609,8 +1608,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1620,7 +1619,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteVersion;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1648,7 +1647,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1658,7 +1657,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
@@ -1689,8 +1688,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteVersion {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteVersion {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1700,7 +1699,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListReferencedSchemas;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1731,7 +1730,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1741,7 +1740,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_referenced_schemas(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListReferencedSchemasRequest::parent].
@@ -1754,8 +1753,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListReferencedSchemas {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListReferencedSchemas {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1765,7 +1764,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CheckCompatibility;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1796,7 +1795,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1806,7 +1805,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .check_compatibility(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckCompatibilityRequest::name].
@@ -1874,8 +1873,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CheckCompatibility {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CheckCompatibility {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1885,7 +1884,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1913,7 +1912,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1923,7 +1922,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_schema_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaConfigRequest::name].
@@ -1954,8 +1953,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchemaConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchemaConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1965,7 +1964,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1996,7 +1995,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2006,7 +2005,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .update_schema_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSchemaConfigRequest::name].
@@ -2059,8 +2058,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSchemaConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSchemaConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2070,7 +2069,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2101,7 +2100,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2111,7 +2110,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_schema_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaConfigRequest::name].
@@ -2124,8 +2123,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchemaConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchemaConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2135,7 +2134,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaMode;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2163,7 +2162,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2173,7 +2172,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_schema_mode(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaModeRequest::name].
@@ -2186,8 +2185,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchemaMode {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchemaMode {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2197,7 +2196,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaMode;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2228,7 +2227,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2238,7 +2237,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .update_schema_mode(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSchemaModeRequest::name].
@@ -2259,8 +2258,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSchemaMode {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSchemaMode {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2270,7 +2269,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaMode;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2301,7 +2300,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2311,7 +2310,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_schema_mode(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaModeRequest::name].
@@ -2324,8 +2323,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchemaMode {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchemaMode {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2335,8 +2334,8 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2370,7 +2369,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2380,15 +2379,15 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2397,17 +2396,17 @@ pub mod managed_schema_registry {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2437,8 +2436,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2448,7 +2447,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2479,7 +2478,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2489,7 +2488,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -2500,8 +2499,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2511,8 +2510,8 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2548,7 +2547,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2558,15 +2557,15 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2575,17 +2574,17 @@ pub mod managed_schema_registry {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2621,8 +2620,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2632,7 +2631,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2663,7 +2662,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2673,7 +2672,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -2684,8 +2683,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2695,7 +2694,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2728,7 +2727,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2738,7 +2737,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -2749,8 +2748,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2760,7 +2759,7 @@ pub mod managed_schema_registry {
     /// # Example
     /// ```
     /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_managedkafka_schemaregistry_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2793,7 +2792,7 @@ pub mod managed_schema_registry {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2803,7 +2802,7 @@ pub mod managed_schema_registry {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -2814,8 +2813,8 @@ pub mod managed_schema_registry {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

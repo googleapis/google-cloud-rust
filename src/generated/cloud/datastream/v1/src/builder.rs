@@ -20,7 +20,7 @@ pub mod datastream {
     /// A builder for [Datastream][crate::client::Datastream].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_datastream_v1::*;
     /// # use builder::datastream::ClientBuilder;
     /// # use client::Datastream;
@@ -30,19 +30,18 @@ pub mod datastream {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::Datastream;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = Datastream;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod datastream {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod datastream {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListConnectionProfiles;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -111,7 +110,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -121,15 +120,15 @@ pub mod datastream {
             (*self.0.stub)
                 .list_connection_profiles(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListConnectionProfilesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -138,17 +137,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListConnectionProfilesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -186,8 +185,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListConnectionProfiles {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListConnectionProfiles {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -197,7 +196,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetConnectionProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -228,7 +227,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -238,7 +237,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_connection_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
@@ -251,8 +250,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetConnectionProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetConnectionProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -262,7 +261,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateConnectionProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -296,7 +295,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -311,7 +310,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_connection_profile`.
@@ -330,7 +329,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -415,8 +414,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateConnectionProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateConnectionProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -426,7 +425,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::UpdateConnectionProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -460,7 +459,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -475,7 +474,7 @@ pub mod datastream {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_connection_profile`.
@@ -494,7 +493,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -581,8 +580,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateConnectionProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateConnectionProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -592,7 +591,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteConnectionProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -626,7 +625,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -641,7 +640,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_connection_profile`.
@@ -653,7 +652,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -696,8 +695,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteConnectionProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteConnectionProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -707,7 +706,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DiscoverConnectionProfile;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -740,7 +739,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -750,7 +749,7 @@ pub mod datastream {
             (*self.0.stub)
                 .discover_connection_profile(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DiscoverConnectionProfileRequest::parent].
@@ -941,8 +940,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DiscoverConnectionProfile {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DiscoverConnectionProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -952,8 +951,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListStreams;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -984,7 +983,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -994,13 +993,13 @@ pub mod datastream {
             (*self.0.stub)
                 .list_streams(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListStreamsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListStreamsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1009,15 +1008,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStreamsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListStreamsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1055,8 +1056,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListStreams {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListStreams {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1066,7 +1067,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetStream;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1094,7 +1095,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1104,7 +1105,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_stream(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStreamRequest::name].
@@ -1117,8 +1118,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetStream {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1128,7 +1129,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateStream;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1157,7 +1158,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1172,7 +1173,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_stream(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_stream`.
@@ -1189,7 +1190,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1274,8 +1275,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateStream {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1285,7 +1286,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::UpdateStream;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1314,7 +1315,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1329,7 +1330,7 @@ pub mod datastream {
             (*self.0.stub)
                 .update_stream(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_stream`.
@@ -1346,7 +1347,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1433,8 +1434,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateStream {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1444,7 +1445,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteStream;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1473,7 +1474,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1488,7 +1489,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_stream(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_stream`.
@@ -1500,7 +1501,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1543,8 +1544,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteStream {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1554,7 +1555,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::RunStream;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1583,7 +1584,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1598,7 +1599,7 @@ pub mod datastream {
             (*self.0.stub)
                 .run_stream(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `run_stream`.
@@ -1615,7 +1616,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1676,8 +1677,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RunStream {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RunStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1687,7 +1688,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetStreamObject;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1715,7 +1716,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1725,7 +1726,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_stream_object(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStreamObjectRequest::name].
@@ -1738,8 +1739,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetStreamObject {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetStreamObject {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1749,7 +1750,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::LookupStreamObject;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1780,7 +1781,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1790,7 +1791,7 @@ pub mod datastream {
             (*self.0.stub)
                 .lookup_stream_object(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupStreamObjectRequest::parent].
@@ -1825,8 +1826,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for LookupStreamObject {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for LookupStreamObject {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1836,8 +1837,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListStreamObjects;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1871,7 +1872,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1881,14 +1882,16 @@ pub mod datastream {
             (*self.0.stub)
                 .list_stream_objects(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListStreamObjectsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListStreamObjectsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1896,15 +1899,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStreamObjectsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListStreamObjectsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1930,8 +1935,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListStreamObjects {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListStreamObjects {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1941,7 +1946,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::StartBackfillJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1972,7 +1977,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1982,7 +1987,7 @@ pub mod datastream {
             (*self.0.stub)
                 .start_backfill_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [object][crate::model::StartBackfillJobRequest::object].
@@ -1995,8 +2000,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartBackfillJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StartBackfillJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2006,7 +2011,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::StopBackfillJob;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2034,7 +2039,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2044,7 +2049,7 @@ pub mod datastream {
             (*self.0.stub)
                 .stop_backfill_job(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [object][crate::model::StopBackfillJobRequest::object].
@@ -2057,8 +2062,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StopBackfillJob {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for StopBackfillJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2068,7 +2073,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::FetchStaticIps;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2096,7 +2101,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2106,7 +2111,7 @@ pub mod datastream {
             (*self.0.stub)
                 .fetch_static_ips(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
@@ -2131,8 +2136,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchStaticIps {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchStaticIps {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2142,7 +2147,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreatePrivateConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2176,7 +2181,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2191,7 +2196,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_private_connection`.
@@ -2210,7 +2215,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2295,8 +2300,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreatePrivateConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreatePrivateConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2306,7 +2311,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetPrivateConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2337,7 +2342,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2347,7 +2352,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_private_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
@@ -2360,8 +2365,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPrivateConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPrivateConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2371,8 +2376,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListPrivateConnections;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2406,7 +2411,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2416,15 +2421,15 @@ pub mod datastream {
             (*self.0.stub)
                 .list_private_connections(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2433,17 +2438,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListPrivateConnectionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2481,8 +2486,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPrivateConnections {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPrivateConnections {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2492,7 +2497,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeletePrivateConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2526,7 +2531,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2541,7 +2546,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_private_connection`.
@@ -2553,7 +2558,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2602,8 +2607,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePrivateConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePrivateConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2613,7 +2618,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CreateRoute;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2642,7 +2647,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2657,7 +2662,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_route(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_route`.
@@ -2674,7 +2679,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -2747,8 +2752,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateRoute {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateRoute {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2758,7 +2763,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetRoute;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2786,7 +2791,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2796,7 +2801,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_route(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouteRequest::name].
@@ -2809,8 +2814,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRoute {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRoute {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2820,8 +2825,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListRoutes;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2852,7 +2857,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2862,13 +2867,13 @@ pub mod datastream {
             (*self.0.stub)
                 .list_routes(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRoutesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListRoutesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2877,15 +2882,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRoutesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListRoutesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2923,8 +2930,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRoutes {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRoutes {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2934,7 +2941,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteRoute;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -2963,7 +2970,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2978,7 +2985,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_route(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_route`.
@@ -2990,7 +2997,7 @@ pub mod datastream {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -3033,8 +3040,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteRoute {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteRoute {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3044,8 +3051,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3079,7 +3086,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3089,15 +3096,15 @@ pub mod datastream {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3106,17 +3113,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3146,8 +3153,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3157,7 +3164,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3188,7 +3195,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3198,7 +3205,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -3209,8 +3216,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3220,8 +3227,8 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::ListOperations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -3257,7 +3264,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3267,15 +3274,15 @@ pub mod datastream {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3284,17 +3291,17 @@ pub mod datastream {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_longrunning::model::ListOperationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -3330,8 +3337,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListOperations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3341,7 +3348,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3372,7 +3379,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3382,7 +3389,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -3393,8 +3400,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3404,7 +3411,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::DeleteOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3437,7 +3444,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3447,7 +3454,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
@@ -3458,8 +3465,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3469,7 +3476,7 @@ pub mod datastream {
     /// # Example
     /// ```
     /// # use google_cloud_datastream_v1::builder::datastream::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_datastream_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3502,7 +3509,7 @@ pub mod datastream {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3512,7 +3519,7 @@ pub mod datastream {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -3523,8 +3530,8 @@ pub mod datastream {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

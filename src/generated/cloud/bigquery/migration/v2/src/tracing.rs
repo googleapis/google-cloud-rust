@@ -41,8 +41,8 @@ where
     async fn create_migration_workflow(
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MigrationWorkflow>> {
         self.inner.create_migration_workflow(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_migration_workflow(
         &self,
         req: crate::model::GetMigrationWorkflowRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MigrationWorkflow>> {
         self.inner.get_migration_workflow(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_migration_workflows(
         &self,
         req: crate::model::ListMigrationWorkflowsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMigrationWorkflowsResponse>> {
         self.inner.list_migration_workflows(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_migration_workflow(
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_migration_workflow(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn start_migration_workflow(
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.start_migration_workflow(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn get_migration_subtask(
         &self,
         req: crate::model::GetMigrationSubtaskRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::MigrationSubtask>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MigrationSubtask>> {
         self.inner.get_migration_subtask(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn list_migration_subtasks(
         &self,
         req: crate::model::ListMigrationSubtasksRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMigrationSubtasksResponse>> {
         self.inner.list_migration_subtasks(req, options).await
     }
 }

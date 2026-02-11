@@ -20,32 +20,32 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
     async fn create_device_session(
         &self,
         req: crate::model::CreateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>>;
 
     async fn list_device_sessions(
         &self,
         req: crate::model::ListDeviceSessionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeviceSessionsResponse>>;
 
     async fn get_device_session(
         &self,
         req: crate::model::GetDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>>;
 
     async fn cancel_device_session(
         &self,
         req: crate::model::CancelDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn update_device_session(
         &self,
         req: crate::model::UpdateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>>;
 }
 
 /// All implementations of [super::DirectAccessService] also implement [DirectAccessService].
@@ -55,8 +55,8 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     async fn create_device_session(
         &self,
         req: crate::model::CreateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>> {
         T::create_device_session(self, req, options).await
     }
 
@@ -64,8 +64,8 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     async fn list_device_sessions(
         &self,
         req: crate::model::ListDeviceSessionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeviceSessionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeviceSessionsResponse>> {
         T::list_device_sessions(self, req, options).await
     }
 
@@ -73,8 +73,8 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     async fn get_device_session(
         &self,
         req: crate::model::GetDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>> {
         T::get_device_session(self, req, options).await
     }
 
@@ -82,8 +82,8 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     async fn cancel_device_session(
         &self,
         req: crate::model::CancelDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_device_session(self, req, options).await
     }
 
@@ -91,8 +91,8 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
     async fn update_device_session(
         &self,
         req: crate::model::UpdateDeviceSessionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DeviceSession>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeviceSession>> {
         T::update_device_session(self, req, options).await
     }
 }

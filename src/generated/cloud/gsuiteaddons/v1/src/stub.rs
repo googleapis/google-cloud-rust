@@ -42,9 +42,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn get_authorization(
         &self,
         _req: crate::model::GetAuthorizationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Authorization>>,
+        Output = crate::Result<crate::Response<crate::model::Authorization>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn create_deployment(
         &self,
         _req: crate::model::CreateDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn replace_deployment(
         &self,
         _req: crate::model::ReplaceDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn get_deployment(
         &self,
         _req: crate::model::GetDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Deployment>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,9 +83,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn list_deployments(
         &self,
         _req: crate::model::ListDeploymentsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,8 +94,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn delete_deployment(
         &self,
         _req: crate::model::DeleteDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -106,8 +103,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn install_deployment(
         &self,
         _req: crate::model::InstallDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -115,8 +112,8 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn uninstall_deployment(
         &self,
         _req: crate::model::UninstallDeploymentRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -124,9 +121,9 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     fn get_install_status(
         &self,
         _req: crate::model::GetInstallStatusRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::InstallStatus>>,
+        Output = crate::Result<crate::Response<crate::model::InstallStatus>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

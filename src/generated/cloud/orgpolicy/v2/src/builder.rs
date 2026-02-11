@@ -20,7 +20,7 @@ pub mod org_policy {
     /// A builder for [OrgPolicy][crate::client::OrgPolicy].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_orgpolicy_v2::*;
     /// # use builder::org_policy::ClientBuilder;
     /// # use client::OrgPolicy;
@@ -30,19 +30,18 @@ pub mod org_policy {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::OrgPolicy;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = OrgPolicy;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod org_policy {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod org_policy {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,8 +75,8 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::ListConstraints;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -108,7 +107,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -118,14 +117,16 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_constraints(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListConstraintsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -133,15 +134,17 @@ pub mod org_policy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConstraintsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListConstraintsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -167,8 +170,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListConstraints {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListConstraints {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -178,8 +181,8 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::ListPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -210,7 +213,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -220,13 +223,13 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListPoliciesResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -235,15 +238,17 @@ pub mod org_policy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -269,8 +274,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -280,7 +285,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::GetPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -308,7 +313,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -318,7 +323,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -331,8 +336,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -342,7 +347,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::GetEffectivePolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -373,7 +378,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -383,7 +388,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_effective_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
@@ -396,8 +401,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetEffectivePolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetEffectivePolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -407,7 +412,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::CreatePolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -435,7 +440,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -445,7 +450,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -480,8 +485,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreatePolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreatePolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -491,7 +496,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::UpdatePolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -519,7 +524,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -529,7 +534,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -574,8 +579,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdatePolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdatePolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -585,7 +590,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::DeletePolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -613,7 +618,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -623,7 +628,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
@@ -642,8 +647,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeletePolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeletePolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -653,7 +658,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::CreateCustomConstraint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -684,7 +689,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -694,7 +699,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .create_custom_constraint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
@@ -729,8 +734,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateCustomConstraint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateCustomConstraint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -740,7 +745,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::UpdateCustomConstraint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -771,7 +776,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -781,7 +786,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .update_custom_constraint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
@@ -808,8 +813,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateCustomConstraint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateCustomConstraint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -819,7 +824,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::GetCustomConstraint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -850,7 +855,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -860,7 +865,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_custom_constraint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
@@ -873,8 +878,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetCustomConstraint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetCustomConstraint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -884,8 +889,8 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::ListCustomConstraints;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -919,7 +924,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -929,14 +934,16 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_custom_constraints(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListCustomConstraintsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -944,17 +951,17 @@ pub mod org_policy {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListCustomConstraintsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -980,8 +987,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListCustomConstraints {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListCustomConstraints {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -991,7 +998,7 @@ pub mod org_policy {
     /// # Example
     /// ```
     /// # use google_cloud_orgpolicy_v2::builder::org_policy::DeleteCustomConstraint;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_orgpolicy_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1022,7 +1029,7 @@ pub mod org_policy {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1032,7 +1039,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .delete_custom_constraint(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
@@ -1045,8 +1052,8 @@ pub mod org_policy {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteCustomConstraint {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteCustomConstraint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

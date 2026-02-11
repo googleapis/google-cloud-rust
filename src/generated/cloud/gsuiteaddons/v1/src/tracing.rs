@@ -41,8 +41,8 @@ where
     async fn get_authorization(
         &self,
         req: crate::model::GetAuthorizationRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Authorization>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Authorization>> {
         self.inner.get_authorization(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.create_deployment(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn replace_deployment(
         &self,
         req: crate::model::ReplaceDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.replace_deployment(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Deployment>> {
         self.inner.get_deployment(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDeploymentsResponse>> {
         self.inner.list_deployments(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn delete_deployment(
         &self,
         req: crate::model::DeleteDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_deployment(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn install_deployment(
         &self,
         req: crate::model::InstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.install_deployment(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn uninstall_deployment(
         &self,
         req: crate::model::UninstallDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.uninstall_deployment(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn get_install_status(
         &self,
         req: crate::model::GetInstallStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::InstallStatus>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstallStatus>> {
         self.inner.get_install_status(req, options).await
     }
 }

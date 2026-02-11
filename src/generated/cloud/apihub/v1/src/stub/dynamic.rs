@@ -20,268 +20,266 @@ pub trait ApiHub: std::fmt::Debug + Send + Sync {
     async fn create_api(
         &self,
         req: crate::model::CreateApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>>;
 
     async fn get_api(
         &self,
         req: crate::model::GetApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>>;
 
     async fn list_apis(
         &self,
         req: crate::model::ListApisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListApisResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListApisResponse>>;
 
     async fn update_api(
         &self,
         req: crate::model::UpdateApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>>;
 
     async fn delete_api(
         &self,
         req: crate::model::DeleteApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>>;
 
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>>;
 
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVersionsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVersionsResponse>>;
 
     async fn update_version(
         &self,
         req: crate::model::UpdateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>>;
 
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_spec(
         &self,
         req: crate::model::CreateSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>>;
 
     async fn get_spec(
         &self,
         req: crate::model::GetSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>>;
 
     async fn get_spec_contents(
         &self,
         req: crate::model::GetSpecContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SpecContents>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SpecContents>>;
 
     async fn list_specs(
         &self,
         req: crate::model::ListSpecsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSpecsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSpecsResponse>>;
 
     async fn update_spec(
         &self,
         req: crate::model::UpdateSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>>;
 
     async fn delete_spec(
         &self,
         req: crate::model::DeleteSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_api_operation(
         &self,
         req: crate::model::CreateApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>>;
 
     async fn get_api_operation(
         &self,
         req: crate::model::GetApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>>;
 
     async fn list_api_operations(
         &self,
         req: crate::model::ListApiOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListApiOperationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListApiOperationsResponse>>;
 
     async fn update_api_operation(
         &self,
         req: crate::model::UpdateApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>>;
 
     async fn delete_api_operation(
         &self,
         req: crate::model::DeleteApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn get_definition(
         &self,
         req: crate::model::GetDefinitionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Definition>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Definition>>;
 
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentsResponse>>;
 
     async fn update_deployment(
         &self,
         req: crate::model::UpdateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>>;
 
     async fn delete_deployment(
         &self,
         req: crate::model::DeleteDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn create_attribute(
         &self,
         req: crate::model::CreateAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>>;
 
     async fn get_attribute(
         &self,
         req: crate::model::GetAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>>;
 
     async fn update_attribute(
         &self,
         req: crate::model::UpdateAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>>;
 
     async fn delete_attribute(
         &self,
         req: crate::model::DeleteAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_attributes(
         &self,
         req: crate::model::ListAttributesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttributesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttributesResponse>>;
 
     async fn search_resources(
         &self,
         req: crate::model::SearchResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchResourcesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchResourcesResponse>>;
 
     async fn create_external_api(
         &self,
         req: crate::model::CreateExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>>;
 
     async fn get_external_api(
         &self,
         req: crate::model::GetExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>>;
 
     async fn update_external_api(
         &self,
         req: crate::model::UpdateExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>>;
 
     async fn delete_external_api(
         &self,
         req: crate::model::DeleteExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_external_apis(
         &self,
         req: crate::model::ListExternalApisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExternalApisResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExternalApisResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ApiHub] also implement [ApiHub].
@@ -291,8 +289,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_api(
         &self,
         req: crate::model::CreateApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>> {
         T::create_api(self, req, options).await
     }
 
@@ -300,8 +298,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_api(
         &self,
         req: crate::model::GetApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>> {
         T::get_api(self, req, options).await
     }
 
@@ -309,8 +307,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_apis(
         &self,
         req: crate::model::ListApisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListApisResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListApisResponse>> {
         T::list_apis(self, req, options).await
     }
 
@@ -318,8 +316,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_api(
         &self,
         req: crate::model::UpdateApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Api>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Api>> {
         T::update_api(self, req, options).await
     }
 
@@ -327,8 +325,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_api(
         &self,
         req: crate::model::DeleteApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_api(self, req, options).await
     }
 
@@ -336,8 +334,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>> {
         T::create_version(self, req, options).await
     }
 
@@ -345,8 +343,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>> {
         T::get_version(self, req, options).await
     }
 
@@ -354,8 +352,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVersionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVersionsResponse>> {
         T::list_versions(self, req, options).await
     }
 
@@ -363,8 +361,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_version(
         &self,
         req: crate::model::UpdateVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Version>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Version>> {
         T::update_version(self, req, options).await
     }
 
@@ -372,8 +370,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_version(self, req, options).await
     }
 
@@ -381,8 +379,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_spec(
         &self,
         req: crate::model::CreateSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>> {
         T::create_spec(self, req, options).await
     }
 
@@ -390,8 +388,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_spec(
         &self,
         req: crate::model::GetSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>> {
         T::get_spec(self, req, options).await
     }
 
@@ -399,8 +397,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_spec_contents(
         &self,
         req: crate::model::GetSpecContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SpecContents>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SpecContents>> {
         T::get_spec_contents(self, req, options).await
     }
 
@@ -408,8 +406,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_specs(
         &self,
         req: crate::model::ListSpecsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListSpecsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSpecsResponse>> {
         T::list_specs(self, req, options).await
     }
 
@@ -417,8 +415,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_spec(
         &self,
         req: crate::model::UpdateSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Spec>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Spec>> {
         T::update_spec(self, req, options).await
     }
 
@@ -426,8 +424,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_spec(
         &self,
         req: crate::model::DeleteSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_spec(self, req, options).await
     }
 
@@ -435,8 +433,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_api_operation(
         &self,
         req: crate::model::CreateApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>> {
         T::create_api_operation(self, req, options).await
     }
 
@@ -444,8 +442,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_api_operation(
         &self,
         req: crate::model::GetApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>> {
         T::get_api_operation(self, req, options).await
     }
 
@@ -453,8 +451,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_api_operations(
         &self,
         req: crate::model::ListApiOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListApiOperationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListApiOperationsResponse>> {
         T::list_api_operations(self, req, options).await
     }
 
@@ -462,8 +460,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_api_operation(
         &self,
         req: crate::model::UpdateApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiOperation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiOperation>> {
         T::update_api_operation(self, req, options).await
     }
 
@@ -471,8 +469,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_api_operation(
         &self,
         req: crate::model::DeleteApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_api_operation(self, req, options).await
     }
 
@@ -480,8 +478,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_definition(
         &self,
         req: crate::model::GetDefinitionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Definition>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Definition>> {
         T::get_definition(self, req, options).await
     }
 
@@ -489,8 +487,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::create_deployment(self, req, options).await
     }
 
@@ -498,8 +496,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::get_deployment(self, req, options).await
     }
 
@@ -507,8 +505,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentsResponse>> {
         T::list_deployments(self, req, options).await
     }
 
@@ -516,8 +514,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_deployment(
         &self,
         req: crate::model::UpdateDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Deployment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Deployment>> {
         T::update_deployment(self, req, options).await
     }
 
@@ -525,8 +523,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_deployment(
         &self,
         req: crate::model::DeleteDeploymentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_deployment(self, req, options).await
     }
 
@@ -534,8 +532,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_attribute(
         &self,
         req: crate::model::CreateAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>> {
         T::create_attribute(self, req, options).await
     }
 
@@ -543,8 +541,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_attribute(
         &self,
         req: crate::model::GetAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>> {
         T::get_attribute(self, req, options).await
     }
 
@@ -552,8 +550,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_attribute(
         &self,
         req: crate::model::UpdateAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Attribute>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Attribute>> {
         T::update_attribute(self, req, options).await
     }
 
@@ -561,8 +559,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_attribute(
         &self,
         req: crate::model::DeleteAttributeRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_attribute(self, req, options).await
     }
 
@@ -570,8 +568,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_attributes(
         &self,
         req: crate::model::ListAttributesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListAttributesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAttributesResponse>> {
         T::list_attributes(self, req, options).await
     }
 
@@ -579,8 +577,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn search_resources(
         &self,
         req: crate::model::SearchResourcesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SearchResourcesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchResourcesResponse>> {
         T::search_resources(self, req, options).await
     }
 
@@ -588,8 +586,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn create_external_api(
         &self,
         req: crate::model::CreateExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>> {
         T::create_external_api(self, req, options).await
     }
 
@@ -597,8 +595,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_external_api(
         &self,
         req: crate::model::GetExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>> {
         T::get_external_api(self, req, options).await
     }
 
@@ -606,8 +604,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn update_external_api(
         &self,
         req: crate::model::UpdateExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ExternalApi>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExternalApi>> {
         T::update_external_api(self, req, options).await
     }
 
@@ -615,8 +613,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_external_api(
         &self,
         req: crate::model::DeleteExternalApiRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_external_api(self, req, options).await
     }
 
@@ -624,8 +622,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_external_apis(
         &self,
         req: crate::model::ListExternalApisRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListExternalApisResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListExternalApisResponse>> {
         T::list_external_apis(self, req, options).await
     }
 
@@ -633,9 +631,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -643,8 +640,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -652,10 +649,9 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -663,8 +659,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -672,8 +668,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -681,8 +677,8 @@ impl<T: super::ApiHub> ApiHub for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -693,70 +689,68 @@ pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
     async fn create_dependency(
         &self,
         req: crate::model::CreateDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>>;
 
     async fn get_dependency(
         &self,
         req: crate::model::GetDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>>;
 
     async fn update_dependency(
         &self,
         req: crate::model::UpdateDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>>;
 
     async fn delete_dependency(
         &self,
         req: crate::model::DeleteDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_dependencies(
         &self,
         req: crate::model::ListDependenciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDependenciesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDependenciesResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ApiHubDependencies] also implement [ApiHubDependencies].
@@ -766,8 +760,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn create_dependency(
         &self,
         req: crate::model::CreateDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>> {
         T::create_dependency(self, req, options).await
     }
 
@@ -775,8 +769,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn get_dependency(
         &self,
         req: crate::model::GetDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>> {
         T::get_dependency(self, req, options).await
     }
 
@@ -784,8 +778,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn update_dependency(
         &self,
         req: crate::model::UpdateDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Dependency>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Dependency>> {
         T::update_dependency(self, req, options).await
     }
 
@@ -793,8 +787,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn delete_dependency(
         &self,
         req: crate::model::DeleteDependencyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_dependency(self, req, options).await
     }
 
@@ -802,8 +796,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn list_dependencies(
         &self,
         req: crate::model::ListDependenciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDependenciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDependenciesResponse>> {
         T::list_dependencies(self, req, options).await
     }
 
@@ -811,9 +805,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -821,8 +814,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -830,10 +823,9 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -841,8 +833,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -850,8 +842,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -859,8 +851,8 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -871,56 +863,54 @@ pub trait ApiHubCollect: std::fmt::Debug + Send + Sync {
     async fn collect_api_data(
         &self,
         req: crate::model::CollectApiDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ApiHubCollect] also implement [ApiHubCollect].
@@ -930,8 +920,8 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn collect_api_data(
         &self,
         req: crate::model::CollectApiDataRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::collect_api_data(self, req, options).await
     }
 
@@ -939,9 +929,8 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -949,8 +938,8 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -958,10 +947,9 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -969,8 +957,8 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -978,8 +966,8 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -987,22 +975,22 @@ impl<T: super::ApiHubCollect> ApiHubCollect for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -1013,70 +1001,68 @@ pub trait ApiHubCurate: std::fmt::Debug + Send + Sync {
     async fn create_curation(
         &self,
         req: crate::model::CreateCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>>;
 
     async fn get_curation(
         &self,
         req: crate::model::GetCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>>;
 
     async fn list_curations(
         &self,
         req: crate::model::ListCurationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCurationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCurationsResponse>>;
 
     async fn update_curation(
         &self,
         req: crate::model::UpdateCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>>;
 
     async fn delete_curation(
         &self,
         req: crate::model::DeleteCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ApiHubCurate] also implement [ApiHubCurate].
@@ -1086,8 +1072,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn create_curation(
         &self,
         req: crate::model::CreateCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>> {
         T::create_curation(self, req, options).await
     }
 
@@ -1095,8 +1081,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn get_curation(
         &self,
         req: crate::model::GetCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>> {
         T::get_curation(self, req, options).await
     }
 
@@ -1104,8 +1090,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn list_curations(
         &self,
         req: crate::model::ListCurationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListCurationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCurationsResponse>> {
         T::list_curations(self, req, options).await
     }
 
@@ -1113,8 +1099,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn update_curation(
         &self,
         req: crate::model::UpdateCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Curation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Curation>> {
         T::update_curation(self, req, options).await
     }
 
@@ -1122,8 +1108,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn delete_curation(
         &self,
         req: crate::model::DeleteCurationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_curation(self, req, options).await
     }
 
@@ -1131,9 +1117,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1141,8 +1126,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1150,10 +1135,9 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1161,8 +1145,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1170,8 +1154,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1179,8 +1163,8 @@ impl<T: super::ApiHubCurate> ApiHubCurate for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1191,64 +1175,62 @@ pub trait ApiHubDiscovery: std::fmt::Debug + Send + Sync {
     async fn list_discovered_api_observations(
         &self,
         req: crate::model::ListDiscoveredApiObservationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDiscoveredApiObservationsResponse>>;
 
     async fn get_discovered_api_observation(
         &self,
         req: crate::model::GetDiscoveredApiObservationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiObservation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiscoveredApiObservation>>;
 
     async fn list_discovered_api_operations(
         &self,
         req: crate::model::ListDiscoveredApiOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDiscoveredApiOperationsResponse>>;
 
     async fn get_discovered_api_operation(
         &self,
         req: crate::model::GetDiscoveredApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiOperation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiscoveredApiOperation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::ApiHubDiscovery] also implement [ApiHubDiscovery].
@@ -1258,9 +1240,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn list_discovered_api_observations(
         &self,
         req: crate::model::ListDiscoveredApiObservationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiObservationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDiscoveredApiObservationsResponse>> {
         T::list_discovered_api_observations(self, req, options).await
     }
 
@@ -1268,8 +1249,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn get_discovered_api_observation(
         &self,
         req: crate::model::GetDiscoveredApiObservationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiObservation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiscoveredApiObservation>> {
         T::get_discovered_api_observation(self, req, options).await
     }
 
@@ -1277,9 +1258,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn list_discovered_api_operations(
         &self,
         req: crate::model::ListDiscoveredApiOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredApiOperationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDiscoveredApiOperationsResponse>> {
         T::list_discovered_api_operations(self, req, options).await
     }
 
@@ -1287,8 +1267,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn get_discovered_api_operation(
         &self,
         req: crate::model::GetDiscoveredApiOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredApiOperation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DiscoveredApiOperation>> {
         T::get_discovered_api_operation(self, req, options).await
     }
 
@@ -1296,9 +1276,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1306,8 +1285,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1315,10 +1294,9 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1326,8 +1304,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1335,8 +1313,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1344,8 +1322,8 @@ impl<T: super::ApiHubDiscovery> ApiHubDiscovery for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1356,58 +1334,56 @@ pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
     async fn create_host_project_registration(
         &self,
         req: crate::model::CreateHostProjectRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::HostProjectRegistration>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostProjectRegistration>>;
 
     async fn get_host_project_registration(
         &self,
         req: crate::model::GetHostProjectRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::HostProjectRegistration>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostProjectRegistration>>;
 
     async fn list_host_project_registrations(
         &self,
         req: crate::model::ListHostProjectRegistrationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListHostProjectRegistrationsResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::HostProjectRegistrationService] also implement [HostProjectRegistrationService].
@@ -1417,8 +1393,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn create_host_project_registration(
         &self,
         req: crate::model::CreateHostProjectRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::HostProjectRegistration>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostProjectRegistration>> {
         T::create_host_project_registration(self, req, options).await
     }
 
@@ -1426,8 +1402,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn get_host_project_registration(
         &self,
         req: crate::model::GetHostProjectRegistrationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::HostProjectRegistration>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HostProjectRegistration>> {
         T::get_host_project_registration(self, req, options).await
     }
 
@@ -1435,9 +1411,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn list_host_project_registrations(
         &self,
         req: crate::model::ListHostProjectRegistrationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListHostProjectRegistrationsResponse>> {
         T::list_host_project_registrations(self, req, options).await
     }
 
@@ -1445,9 +1420,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1455,8 +1429,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1464,10 +1438,9 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1475,8 +1448,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1484,8 +1457,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1493,8 +1466,8 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1505,64 +1478,62 @@ pub trait LintingService: std::fmt::Debug + Send + Sync {
     async fn get_style_guide(
         &self,
         req: crate::model::GetStyleGuideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuide>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuide>>;
 
     async fn update_style_guide(
         &self,
         req: crate::model::UpdateStyleGuideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuide>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuide>>;
 
     async fn get_style_guide_contents(
         &self,
         req: crate::model::GetStyleGuideContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuideContents>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuideContents>>;
 
     async fn lint_spec(
         &self,
         req: crate::model::LintSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::LintingService] also implement [LintingService].
@@ -1572,8 +1543,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn get_style_guide(
         &self,
         req: crate::model::GetStyleGuideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuide>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuide>> {
         T::get_style_guide(self, req, options).await
     }
 
@@ -1581,8 +1552,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn update_style_guide(
         &self,
         req: crate::model::UpdateStyleGuideRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuide>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuide>> {
         T::update_style_guide(self, req, options).await
     }
 
@@ -1590,8 +1561,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn get_style_guide_contents(
         &self,
         req: crate::model::GetStyleGuideContentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StyleGuideContents>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StyleGuideContents>> {
         T::get_style_guide_contents(self, req, options).await
     }
 
@@ -1599,8 +1570,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn lint_spec(
         &self,
         req: crate::model::LintSpecRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::lint_spec(self, req, options).await
     }
 
@@ -1608,9 +1579,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1618,8 +1588,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1627,10 +1597,9 @@ impl<T: super::LintingService> LintingService for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1638,8 +1607,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1647,8 +1616,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1656,8 +1625,8 @@ impl<T: super::LintingService> LintingService for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -1668,134 +1637,132 @@ pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
     async fn get_plugin(
         &self,
         req: crate::model::GetPluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>>;
 
     async fn enable_plugin(
         &self,
         req: crate::model::EnablePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>>;
 
     async fn disable_plugin(
         &self,
         req: crate::model::DisablePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>>;
 
     async fn create_plugin(
         &self,
         req: crate::model::CreatePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>>;
 
     async fn list_plugins(
         &self,
         req: crate::model::ListPluginsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluginsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluginsResponse>>;
 
     async fn delete_plugin(
         &self,
         req: crate::model::DeletePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn create_plugin_instance(
         &self,
         req: crate::model::CreatePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn execute_plugin_instance_action(
         &self,
         req: crate::model::ExecutePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_plugin_instance(
         &self,
         req: crate::model::GetPluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluginInstance>>;
 
     async fn list_plugin_instances(
         &self,
         req: crate::model::ListPluginInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluginInstancesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluginInstancesResponse>>;
 
     async fn enable_plugin_instance_action(
         &self,
         req: crate::model::EnablePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn disable_plugin_instance_action(
         &self,
         req: crate::model::DisablePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_plugin_instance(
         &self,
         req: crate::model::UpdatePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluginInstance>>;
 
     async fn delete_plugin_instance(
         &self,
         req: crate::model::DeletePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ApiHubPlugin] also implement [ApiHubPlugin].
@@ -1805,8 +1772,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn get_plugin(
         &self,
         req: crate::model::GetPluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>> {
         T::get_plugin(self, req, options).await
     }
 
@@ -1814,8 +1781,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn enable_plugin(
         &self,
         req: crate::model::EnablePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>> {
         T::enable_plugin(self, req, options).await
     }
 
@@ -1823,8 +1790,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn disable_plugin(
         &self,
         req: crate::model::DisablePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>> {
         T::disable_plugin(self, req, options).await
     }
 
@@ -1832,8 +1799,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn create_plugin(
         &self,
         req: crate::model::CreatePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Plugin>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Plugin>> {
         T::create_plugin(self, req, options).await
     }
 
@@ -1841,8 +1808,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn list_plugins(
         &self,
         req: crate::model::ListPluginsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluginsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluginsResponse>> {
         T::list_plugins(self, req, options).await
     }
 
@@ -1850,8 +1817,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn delete_plugin(
         &self,
         req: crate::model::DeletePluginRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_plugin(self, req, options).await
     }
 
@@ -1859,8 +1826,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn create_plugin_instance(
         &self,
         req: crate::model::CreatePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_plugin_instance(self, req, options).await
     }
 
@@ -1868,8 +1835,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn execute_plugin_instance_action(
         &self,
         req: crate::model::ExecutePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::execute_plugin_instance_action(self, req, options).await
     }
 
@@ -1877,8 +1844,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn get_plugin_instance(
         &self,
         req: crate::model::GetPluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluginInstance>> {
         T::get_plugin_instance(self, req, options).await
     }
 
@@ -1886,8 +1853,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn list_plugin_instances(
         &self,
         req: crate::model::ListPluginInstancesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPluginInstancesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListPluginInstancesResponse>> {
         T::list_plugin_instances(self, req, options).await
     }
 
@@ -1895,8 +1862,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn enable_plugin_instance_action(
         &self,
         req: crate::model::EnablePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::enable_plugin_instance_action(self, req, options).await
     }
 
@@ -1904,8 +1871,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn disable_plugin_instance_action(
         &self,
         req: crate::model::DisablePluginInstanceActionRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::disable_plugin_instance_action(self, req, options).await
     }
 
@@ -1913,8 +1880,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn update_plugin_instance(
         &self,
         req: crate::model::UpdatePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PluginInstance>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PluginInstance>> {
         T::update_plugin_instance(self, req, options).await
     }
 
@@ -1922,8 +1889,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn delete_plugin_instance(
         &self,
         req: crate::model::DeletePluginInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_plugin_instance(self, req, options).await
     }
 
@@ -1931,9 +1898,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1941,8 +1907,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1950,10 +1916,9 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -1961,8 +1926,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1970,8 +1935,8 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -1979,22 +1944,22 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -2005,74 +1970,72 @@ pub trait Provisioning: std::fmt::Debug + Send + Sync {
     async fn create_api_hub_instance(
         &self,
         req: crate::model::CreateApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_api_hub_instance(
         &self,
         req: crate::model::DeleteApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn get_api_hub_instance(
         &self,
         req: crate::model::GetApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiHubInstance>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiHubInstance>>;
 
     async fn lookup_api_hub_instance(
         &self,
         req: crate::model::LookupApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupApiHubInstanceResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupApiHubInstanceResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::Provisioning] also implement [Provisioning].
@@ -2082,8 +2045,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn create_api_hub_instance(
         &self,
         req: crate::model::CreateApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_api_hub_instance(self, req, options).await
     }
 
@@ -2091,8 +2054,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn delete_api_hub_instance(
         &self,
         req: crate::model::DeleteApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_api_hub_instance(self, req, options).await
     }
 
@@ -2100,8 +2063,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn get_api_hub_instance(
         &self,
         req: crate::model::GetApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ApiHubInstance>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ApiHubInstance>> {
         T::get_api_hub_instance(self, req, options).await
     }
 
@@ -2109,8 +2072,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn lookup_api_hub_instance(
         &self,
         req: crate::model::LookupApiHubInstanceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupApiHubInstanceResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupApiHubInstanceResponse>> {
         T::lookup_api_hub_instance(self, req, options).await
     }
 
@@ -2118,9 +2081,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -2128,8 +2090,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2137,10 +2099,9 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -2148,8 +2109,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -2157,8 +2118,8 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -2166,22 +2127,22 @@ impl<T: super::Provisioning> Provisioning for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }
@@ -2192,70 +2153,68 @@ pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {
     async fn create_runtime_project_attachment(
         &self,
         req: crate::model::CreateRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RuntimeProjectAttachment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RuntimeProjectAttachment>>;
 
     async fn get_runtime_project_attachment(
         &self,
         req: crate::model::GetRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RuntimeProjectAttachment>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RuntimeProjectAttachment>>;
 
     async fn list_runtime_project_attachments(
         &self,
         req: crate::model::ListRuntimeProjectAttachmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRuntimeProjectAttachmentsResponse>>;
 
     async fn delete_runtime_project_attachment(
         &self,
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn lookup_runtime_project_attachment(
         &self,
         req: crate::model::LookupRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupRuntimeProjectAttachmentResponse>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::RuntimeProjectAttachmentService] also implement [RuntimeProjectAttachmentService].
@@ -2265,8 +2224,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn create_runtime_project_attachment(
         &self,
         req: crate::model::CreateRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RuntimeProjectAttachment>> {
         T::create_runtime_project_attachment(self, req, options).await
     }
 
@@ -2274,8 +2233,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn get_runtime_project_attachment(
         &self,
         req: crate::model::GetRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RuntimeProjectAttachment>> {
         T::get_runtime_project_attachment(self, req, options).await
     }
 
@@ -2283,9 +2242,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn list_runtime_project_attachments(
         &self,
         req: crate::model::ListRuntimeProjectAttachmentsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRuntimeProjectAttachmentsResponse>> {
         T::list_runtime_project_attachments(self, req, options).await
     }
 
@@ -2293,8 +2251,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn delete_runtime_project_attachment(
         &self,
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_runtime_project_attachment(self, req, options).await
     }
 
@@ -2302,9 +2260,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn lookup_runtime_project_attachment(
         &self,
         req: crate::model::LookupRuntimeProjectAttachmentRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupRuntimeProjectAttachmentResponse>> {
         T::lookup_runtime_project_attachment(self, req, options).await
     }
 
@@ -2312,9 +2269,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -2322,8 +2278,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -2331,10 +2287,9 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -2342,8 +2297,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -2351,8 +2306,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -2360,8 +2315,8 @@ impl<T: super::RuntimeProjectAttachmentService> RuntimeProjectAttachmentService 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }

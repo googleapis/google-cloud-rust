@@ -42,10 +42,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn create_contact(
         &self,
         _req: crate::model::CreateContactRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Contact>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Contact>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -53,10 +52,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn update_contact(
         &self,
         _req: crate::model::UpdateContactRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Contact>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Contact>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,9 +62,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn list_contacts(
         &self,
         _req: crate::model::ListContactsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListContactsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListContactsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,10 +73,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn get_contact(
         &self,
         _req: crate::model::GetContactRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Contact>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Contact>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +83,8 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn delete_contact(
         &self,
         _req: crate::model::DeleteContactRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,9 +92,9 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn compute_contacts(
         &self,
         _req: crate::model::ComputeContactsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ComputeContactsResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ComputeContactsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,8 +103,8 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     fn send_test_message(
         &self,
         _req: crate::model::SendTestMessageRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }

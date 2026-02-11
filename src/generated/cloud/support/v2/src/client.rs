@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// let client = CaseAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -66,15 +66,13 @@ impl CaseAttachmentService {
     /// Returns a builder for [CaseAttachmentService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseAttachmentService;
     /// let client = CaseAttachmentService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::case_attachment_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::case_attachment_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::case_attachment_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,14 +90,14 @@ impl CaseAttachmentService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -109,13 +107,13 @@ impl CaseAttachmentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CaseAttachmentService> {
         super::transport::CaseAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CaseAttachmentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CaseAttachmentService::new)
@@ -131,7 +129,7 @@ impl CaseAttachmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseService;
 /// let client = CaseService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -177,13 +175,13 @@ impl CaseService {
     /// Returns a builder for [CaseService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseService;
     /// let client = CaseService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::case_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::case_service::client::Factory)
+        crate::new_client_builder(super::builder::case_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -201,14 +199,14 @@ impl CaseService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -217,13 +215,13 @@ impl CaseService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CaseService> {
         super::transport::CaseService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CaseService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CaseService::new)
@@ -299,7 +297,7 @@ impl CaseService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CommentService;
 /// let client = CommentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
@@ -345,13 +343,13 @@ impl CommentService {
     /// Returns a builder for [CommentService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CommentService;
     /// let client = CommentService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::comment_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::comment_service::client::Factory)
+        crate::new_client_builder(super::builder::comment_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -369,14 +367,14 @@ impl CommentService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -385,13 +383,13 @@ impl CommentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CommentService> {
         super::transport::CommentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::CommentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CommentService::new)

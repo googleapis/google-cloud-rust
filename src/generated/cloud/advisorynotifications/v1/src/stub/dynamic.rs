@@ -20,26 +20,26 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
     async fn list_notifications(
         &self,
         req: crate::model::ListNotificationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNotificationsResponse>>;
 
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Notification>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Notification>>;
 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>>;
 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>>;
 }
 
 /// All implementations of [super::AdvisoryNotificationsService] also implement [AdvisoryNotificationsService].
@@ -49,8 +49,8 @@ impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T 
     async fn list_notifications(
         &self,
         req: crate::model::ListNotificationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListNotificationsResponse>> {
         T::list_notifications(self, req, options).await
     }
 
@@ -58,8 +58,8 @@ impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T 
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Notification>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Notification>> {
         T::get_notification(self, req, options).await
     }
 
@@ -67,8 +67,8 @@ impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>> {
         T::get_settings(self, req, options).await
     }
 
@@ -76,8 +76,8 @@ impl<T: super::AdvisoryNotificationsService> AdvisoryNotificationsService for T 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Settings>> {
         T::update_settings(self, req, options).await
     }
 }

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1366,7 +1366,7 @@ impl wkt::message::Message for ListRecognizersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListRecognizersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRecognizersResponse {
     type PageItem = crate::model::Recognizer;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9049,7 +9049,7 @@ impl wkt::message::Message for ListCustomClassesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCustomClassesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCustomClassesResponse {
     type PageItem = crate::model::CustomClass;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9646,7 +9646,7 @@ impl wkt::message::Message for ListPhraseSetsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPhraseSetsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPhraseSetsResponse {
     type PageItem = crate::model::PhraseSet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

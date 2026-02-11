@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
@@ -8197,7 +8197,7 @@ impl wkt::message::Message for ListCertificatesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCertificatesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCertificatesResponse {
     type PageItem = crate::model::Certificate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -9163,7 +9163,9 @@ impl wkt::message::Message for ListCertificateAuthoritiesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCertificateAuthoritiesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListCertificateAuthoritiesResponse
+{
     type PageItem = crate::model::CertificateAuthority;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10227,7 +10229,7 @@ impl wkt::message::Message for ListCaPoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCaPoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCaPoolsResponse {
     type PageItem = crate::model::CaPool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -10488,7 +10490,9 @@ impl wkt::message::Message for ListCertificateRevocationListsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCertificateRevocationListsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListCertificateRevocationListsResponse
+{
     type PageItem = crate::model::CertificateRevocationList;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11068,7 +11072,7 @@ impl wkt::message::Message for ListCertificateTemplatesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCertificateTemplatesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCertificateTemplatesResponse {
     type PageItem = crate::model::CertificateTemplate;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

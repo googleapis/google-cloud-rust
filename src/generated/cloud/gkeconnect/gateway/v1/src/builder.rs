@@ -20,7 +20,7 @@ pub mod gateway_control {
     /// A builder for [GatewayControl][crate::client::GatewayControl].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_gkeconnect_gateway_v1::*;
     /// # use builder::gateway_control::ClientBuilder;
     /// # use client::GatewayControl;
@@ -30,19 +30,18 @@ pub mod gateway_control {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::GatewayControl;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = GatewayControl;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod gateway_control {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod gateway_control {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod gateway_control {
     /// # Example
     /// ```
     /// # use google_cloud_gkeconnect_gateway_v1::builder::gateway_control::GenerateCredentials;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_gkeconnect_gateway_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod gateway_control {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod gateway_control {
             (*self.0.stub)
                 .generate_credentials(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateCredentialsRequest::name].
@@ -159,8 +158,8 @@ pub mod gateway_control {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GenerateCredentials {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GenerateCredentials {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

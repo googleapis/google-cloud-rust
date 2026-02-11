@@ -15,14 +15,14 @@
 use super::keepalive;
 use super::retry_policy::StreamRetryPolicy;
 use super::stub::{Stub, TonicStreaming};
+use crate::RequestOptions;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::{Error, Result};
-use gax::backoff_policy::BackoffPolicy;
-use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::options::RequestOptions;
-use gax::retry_loop_internal::retry_loop;
-use gax::retry_throttler::CircuitBreaker;
 use gaxi::grpc::tonic::Result as TonicResult;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_throttler::CircuitBreaker;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc;
@@ -101,6 +101,8 @@ where
     // The only writes we perform are keepalives, which are sent so infrequently
     // that we don't fear any back pressure on this channel.
     let (request_tx, request_rx) = mpsc::channel(1);
+    let request_params = format!("subscription={}", initial_req.subscription);
+
     request_tx.send(initial_req).await.map_err(Error::io)?;
 
     // Start the keepalive task **before** we open the stream.
@@ -116,7 +118,7 @@ where
     keepalive::spawn(request_tx, shutdown.clone());
 
     let stream = inner
-        .streaming_pull(request_rx, RequestOptions::default())
+        .streaming_pull(&request_params, request_rx, RequestOptions::default())
         .await?
         .into_inner();
 
@@ -156,10 +158,10 @@ mod tests {
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::google::pubsub::v1::{ReceivedMessage, StreamingPullResponse};
-    use gax::backoff_policy::BackoffPolicy;
-    use gax::error::rpc::{Code, Status};
-    use gax::retry_state::RetryState;
     use gaxi::grpc::tonic::Response as TonicResponse;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_state::RetryState;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -216,8 +218,9 @@ mod tests {
 
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
-            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
 
         response_tx.send(Ok(test_response(1..10))).await?;
         response_tx.send(Ok(test_response(11..20))).await?;
@@ -242,8 +245,9 @@ mod tests {
 
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
-            .return_once(move |mut request_rx, _o| {
+            .return_once(move |_s, mut request_rx, _o| {
                 tokio::spawn(async move {
                     // Note that this task stays alive as long as we hold
                     // `recover_writes_rx`.
@@ -281,8 +285,9 @@ mod tests {
     async fn error() -> anyhow::Result<()> {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
-            .return_once(|_, _| Err(Error::io("fail")));
+            .return_once(|_, _, _| Err(Error::io("fail")));
 
         let err = open_stream(Arc::new(mock), initial_request())
             .await
@@ -302,9 +307,12 @@ mod tests {
             // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
+                .withf(|s, _, _| {
+                    s == "subscription=projects/my-project/subscriptions/my-subscription"
+                })
                 .times(1)
                 .in_sequence(&mut seq)
-                .return_once(|_, _| Err(transient_error()));
+                .return_once(|_, _, _| Err(transient_error()));
             mock_backoff
                 .expect_on_failure()
                 .times(1)
@@ -319,9 +327,10 @@ mod tests {
 
         mock_stub
             .expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_r, _o| Ok(TonicResponse::from(response_rx)));
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
 
         let mut stream = Stream::new_with_backoff(
             Arc::new(mock_stub),
@@ -345,9 +354,12 @@ mod tests {
             // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
+                .withf(|s, _, _| {
+                    s == "subscription=projects/my-project/subscriptions/my-subscription"
+                })
                 .times(1)
                 .in_sequence(&mut seq)
-                .return_once(|_, _| Err(transient_error()));
+                .return_once(|_, _, _| Err(transient_error()));
             mock_backoff
                 .expect_on_failure()
                 .times(1)
@@ -358,9 +370,10 @@ mod tests {
         // Simulate a permanent error.
         mock_stub
             .expect_streaming_pull()
+            .withf(|s, _, _| s == "subscription=projects/my-project/subscriptions/my-subscription")
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(|_, _| Err(permanent_error()));
+            .return_once(|_, _, _| Err(permanent_error()));
         // The retry loop calculates the backoff delay before determining
         // whether a retry should occur. Hence, we expect this extra call to
         // `on_failure()`.
@@ -379,7 +392,10 @@ mod tests {
         .expect_err("opening stream should fail");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
 
         Ok(())

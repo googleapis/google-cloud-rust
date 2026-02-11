@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_gax::Result;
+use google_cloud_gax::response::Response;
+
 pub const UNIMPLEMENTED: &str = concat!(
     "to prevent breaking changes as services gain new RPCs, the stub ",
     "traits provide default implementations of each method. In the client ",
@@ -24,6 +27,6 @@ pub const UNIMPLEMENTED: &str = concat!(
     "https://github.com/googleapis/google-cloud-rust/issues"
 );
 
-pub async fn unimplemented_stub<T: Send>() -> gax::Result<gax::response::Response<T>> {
+pub async fn unimplemented_stub<T: Send>() -> Result<Response<T>> {
     unimplemented!("{UNIMPLEMENTED}");
 }

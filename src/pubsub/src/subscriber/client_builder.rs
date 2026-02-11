@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::client::Subscriber;
-use gax::client_builder::Result as BuilderResult;
+use crate::ClientBuilderResult as BuilderResult;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
 

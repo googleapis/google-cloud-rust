@@ -20,66 +20,66 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeysResponse>>;
 
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>>;
 
     async fn get_key_string(
         &self,
         req: crate::model::GetKeyStringRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetKeyStringResponse>>;
 
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn undelete_key(
         &self,
         req: crate::model::UndeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn lookup_key(
         &self,
         req: crate::model::LookupKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupKeyResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupKeyResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ApiKeys] also implement [ApiKeys].
@@ -89,8 +89,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_key(self, req, options).await
     }
 
@@ -98,8 +98,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListKeysResponse>> {
         T::list_keys(self, req, options).await
     }
 
@@ -107,8 +107,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Key>> {
         T::get_key(self, req, options).await
     }
 
@@ -116,8 +116,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn get_key_string(
         &self,
         req: crate::model::GetKeyStringRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GetKeyStringResponse>> {
         T::get_key_string(self, req, options).await
     }
 
@@ -125,8 +125,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_key(self, req, options).await
     }
 
@@ -134,8 +134,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_key(self, req, options).await
     }
 
@@ -143,8 +143,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn undelete_key(
         &self,
         req: crate::model::UndeleteKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::undelete_key(self, req, options).await
     }
 
@@ -152,8 +152,8 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn lookup_key(
         &self,
         req: crate::model::LookupKeyRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupKeyResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupKeyResponse>> {
         T::lookup_key(self, req, options).await
     }
 
@@ -161,22 +161,22 @@ impl<T: super::ApiKeys> ApiKeys for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

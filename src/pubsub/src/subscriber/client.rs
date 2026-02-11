@@ -15,7 +15,7 @@
 use super::builder::StreamingPull;
 use super::client_builder::ClientBuilder;
 use super::transport::Transport;
-use gax::client_builder::Result as BuilderResult;
+use crate::ClientBuilderResult as BuilderResult;
 use std::sync::Arc;
 
 /// A Subscriber client for the [Cloud Pub/Sub] API.
@@ -36,6 +36,31 @@ use std::sync::Arc;
 /// }
 /// # Ok(()) }
 /// ```
+///
+/// # Ordered Delivery
+///
+/// If [ordered delivery] is enabled on the subscription, the subscriber yields
+/// messages to the application in order on each call to
+/// [`Session::next()`][next]. Messages for a given ordering key are only
+/// delivered by one `Session` at a time.
+///
+/// [next]: crate::subscriber::session::Session::next
+/// [ordered delivery]: https://docs.cloud.google.com/pubsub/docs/ordering
+///
+/// # Exactly-once Delivery
+///
+/// The subscriber does **not** support [exactly-once] delivery yet.
+///
+/// If you subscribe to a subscription with exactly-once delivery enabled, the
+/// subscriber will deliver you messages with at-least-once semantics. There is
+/// no way for you to confirm the acknowledgements from the server. Messages may
+/// get redelivered.
+///
+/// Adding support for exactly-once delivery is planned. You can track the
+/// progress in [google-cloud-rust#3964].
+///
+/// [exactly-once]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
+/// [google-cloud-rust#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
 ///
 /// # Configuration
 ///
@@ -78,6 +103,7 @@ use std::sync::Arc;
 pub struct Subscriber {
     inner: Arc<Transport>,
     client_id: String,
+    grpc_subchannel_count: usize,
 }
 
 impl Subscriber {
@@ -122,14 +148,18 @@ impl Subscriber {
             self.inner.clone(),
             subscription.into(),
             self.client_id.clone(),
+            self.grpc_subchannel_count,
         )
     }
 
     pub(super) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
+        let grpc_subchannel_count =
+            std::cmp::max(1, builder.config.grpc_subchannel_count.unwrap_or(1));
         let transport = Transport::new(builder.config).await?;
         Ok(Self {
             inner: Arc::new(transport),
             client_id: uuid::Uuid::new_v4().to_string(),
+            grpc_subchannel_count,
         })
     }
 }
@@ -167,8 +197,39 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(
+            status.code,
+            google_cloud_gax::error::rpc::Code::FailedPrecondition
+        );
         assert_eq!(status.message, "fail");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn grpc_subchannel_count() -> anyhow::Result<()> {
+        let client = Subscriber::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        assert_eq!(client.grpc_subchannel_count, 1);
+
+        let client = Subscriber::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_grpc_subchannel_count(0)
+            .build()
+            .await?;
+        assert_eq!(client.grpc_subchannel_count, 1);
+
+        let client = Subscriber::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_grpc_subchannel_count(8)
+            .build()
+            .await?;
+        assert_eq!(client.grpc_subchannel_count, 8);
+
+        let builder = client.streaming_pull("projects/p/subscriptions/s");
+        assert_eq!(builder.grpc_subchannel_count, 8);
 
         Ok(())
     }

@@ -42,9 +42,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     fn analyze_sentiment(
         &self,
         _req: crate::model::AnalyzeSentimentRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AnalyzeSentimentResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,9 +53,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     fn analyze_entities(
         &self,
         _req: crate::model::AnalyzeEntitiesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AnalyzeEntitiesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -64,9 +64,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     fn classify_text(
         &self,
         _req: crate::model::ClassifyTextRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ClassifyTextResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ClassifyTextResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -75,9 +75,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     fn moderate_text(
         &self,
         _req: crate::model::ModerateTextRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ModerateTextResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ModerateTextResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -86,9 +86,9 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
     fn annotate_text(
         &self,
         _req: crate::model::AnnotateTextRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>>,
+        Output = crate::Result<crate::Response<crate::model::AnnotateTextResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

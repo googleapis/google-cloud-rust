@@ -20,7 +20,7 @@ pub mod data_policy_service {
     /// A builder for [DataPolicyService][crate::client::DataPolicyService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datapolicies_v1::*;
     /// # use builder::data_policy_service::ClientBuilder;
     /// # use client::DataPolicyService;
@@ -30,19 +30,18 @@ pub mod data_policy_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::DataPolicyService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = DataPolicyService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod data_policy_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod data_policy_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::CreateDataPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -107,7 +106,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -117,7 +116,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .create_data_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataPolicyRequest::parent].
@@ -152,8 +151,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateDataPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateDataPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -163,7 +162,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::UpdateDataPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -194,7 +193,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -204,7 +203,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .update_data_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
@@ -249,8 +248,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateDataPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateDataPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -260,7 +259,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::RenameDataPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -291,7 +290,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -301,7 +300,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .rename_data_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameDataPolicyRequest::name].
@@ -322,8 +321,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RenameDataPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RenameDataPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -333,7 +332,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::DeleteDataPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -364,7 +363,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -374,7 +373,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .delete_data_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataPolicyRequest::name].
@@ -387,8 +386,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteDataPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteDataPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -398,7 +397,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::GetDataPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -426,7 +425,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -436,7 +435,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .get_data_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDataPolicyRequest::name].
@@ -449,8 +448,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetDataPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetDataPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -460,8 +459,8 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::ListDataPolicies;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -495,7 +494,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -505,14 +504,16 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .list_data_policies(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDataPoliciesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDataPoliciesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -520,15 +521,17 @@ pub mod data_policy_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataPoliciesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDataPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -560,8 +563,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListDataPolicies {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListDataPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -571,7 +574,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -602,7 +605,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -612,7 +615,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -643,8 +646,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -654,7 +657,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -685,7 +688,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -695,7 +698,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -748,8 +751,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -759,7 +762,7 @@ pub mod data_policy_service {
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_datapolicies_v1::builder::data_policy_service::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_bigquery_datapolicies_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -792,7 +795,7 @@ pub mod data_policy_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -802,7 +805,7 @@ pub mod data_policy_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -828,8 +831,8 @@ pub mod data_policy_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

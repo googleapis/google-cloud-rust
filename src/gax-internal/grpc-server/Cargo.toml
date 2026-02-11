@@ -21,8 +21,8 @@ publish           = false
 edition.workspace = true
 license.workspace = true
 
-[features]
-_generate-protos = ["dep:tonic-prost-build"]
+[lints]
+workspace = true
 
 [dependencies]
 async-trait.workspace = true
@@ -36,8 +36,9 @@ tonic                 = { workspace = true, default-features = true }
 tonic-prost.workspace = true
 # Local dependencies
 google-cloud-auth.workspace = true
-gax.workspace               = true
+google-cloud-gax.workspace  = true
 gaxi                        = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
-tonic-prost-build = { workspace = true, optional = true }
+prost-build       = { workspace = true }
+tonic-prost-build = { workspace = true }

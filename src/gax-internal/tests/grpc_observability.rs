@@ -14,8 +14,9 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_tracing))]
 mod tests {
-    use gax::options::RequestOptions;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::options::{RequestOptions, internal::set_resource_name};
+    use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_gax_internal::grpc;
     use google_cloud_test_utils::test_layer::TestLayer;
     use grpc_server::{google, start_echo_server};
@@ -206,7 +207,7 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_regional_endpoint() -> anyhow::Result<()> {
-        use gax::retry_policy::RetryPolicyExt;
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
         use google_cloud_gax_internal::observability::attributes::keys::*;
         use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
         use std::sync::Arc;
@@ -218,9 +219,7 @@ mod tests {
         config.cred = Some(test_credentials());
         config.endpoint = Some("https://foo.bar.rep.googleapis.com".to_string());
         // Disable retries to avoid multiple spans on connection failure
-        config.retry_policy = Some(Arc::new(
-            gax::retry_policy::Aip194Strict.with_attempt_limit(1),
-        ));
+        config.retry_policy = Some(Arc::new(Aip194Strict.with_attempt_limit(1)));
 
         // We don't need a real server, just need the client to attempt a request.
         // The request will fail, but the span should be created.
@@ -654,10 +653,7 @@ mod tests {
         let client = grpc::Client::new(config, &endpoint).await?;
 
         let options = RequestOptions::default();
-        let options = gax::options::internal::set_resource_name(
-            options,
-            "projects/p/locations/l/resources/r".into(),
-        );
+        let options = set_resource_name(options, "projects/p/locations/l/resources/r".into());
 
         let extensions = {
             let mut e = tonic::Extensions::new();

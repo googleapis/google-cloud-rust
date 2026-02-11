@@ -23,10 +23,10 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use gax::backoff_policy::BackoffPolicy;
-    use gax::exponential_backoff::ExponentialBackoffBuilder;
-    use gax::options::*;
-    use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::options::*;
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use http::StatusCode;

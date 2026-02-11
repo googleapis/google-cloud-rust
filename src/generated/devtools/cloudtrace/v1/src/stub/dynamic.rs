@@ -20,20 +20,20 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
     async fn list_traces(
         &self,
         req: crate::model::ListTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTracesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTracesResponse>>;
 
     async fn get_trace(
         &self,
         req: crate::model::GetTraceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Trace>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Trace>>;
 
     async fn patch_traces(
         &self,
         req: crate::model::PatchTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::TraceService] also implement [TraceService].
@@ -43,8 +43,8 @@ impl<T: super::TraceService> TraceService for T {
     async fn list_traces(
         &self,
         req: crate::model::ListTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTracesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTracesResponse>> {
         T::list_traces(self, req, options).await
     }
 
@@ -52,8 +52,8 @@ impl<T: super::TraceService> TraceService for T {
     async fn get_trace(
         &self,
         req: crate::model::GetTraceRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Trace>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Trace>> {
         T::get_trace(self, req, options).await
     }
 
@@ -61,8 +61,8 @@ impl<T: super::TraceService> TraceService for T {
     async fn patch_traces(
         &self,
         req: crate::model::PatchTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::patch_traces(self, req, options).await
     }
 }

@@ -20,26 +20,26 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAccessTokenResponse>>;
 
     async fn generate_id_token(
         &self,
         req: crate::model::GenerateIdTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateIdTokenResponse>>;
 
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SignBlobResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SignBlobResponse>>;
 
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SignJwtResponse>>;
 }
 
 /// All implementations of [super::IAMCredentials] also implement [IAMCredentials].
@@ -49,8 +49,8 @@ impl<T: super::IAMCredentials> IAMCredentials for T {
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
         T::generate_access_token(self, req, options).await
     }
 
@@ -58,8 +58,8 @@ impl<T: super::IAMCredentials> IAMCredentials for T {
     async fn generate_id_token(
         &self,
         req: crate::model::GenerateIdTokenRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::GenerateIdTokenResponse>> {
         T::generate_id_token(self, req, options).await
     }
 
@@ -67,8 +67,8 @@ impl<T: super::IAMCredentials> IAMCredentials for T {
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SignBlobResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SignBlobResponse>> {
         T::sign_blob(self, req, options).await
     }
 
@@ -76,8 +76,8 @@ impl<T: super::IAMCredentials> IAMCredentials for T {
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SignJwtResponse>> {
         T::sign_jwt(self, req, options).await
     }
 }

@@ -41,8 +41,8 @@ where
     async fn list_data_sets(
         &self,
         req: crate::model::ListDataSetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataSetsResponse>> {
         self.inner.list_data_sets(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_data_set(
         &self,
         req: crate::model::CreateDataSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DataSet>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataSet>> {
         self.inner.create_data_set(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn delete_data_set(
         &self,
         req: crate::model::DeleteDataSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_data_set(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn append_events(
         &self,
         req: crate::model::AppendEventsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AppendEventsResponse>> {
         self.inner.append_events(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn query_data_set(
         &self,
         req: crate::model::QueryDataSetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryDataSetResponse>> {
         self.inner.query_data_set(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn evaluate_slice(
         &self,
         req: crate::model::EvaluateSliceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_slice(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn evaluate_timeseries(
         &self,
         req: crate::model::EvaluateTimeseriesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_timeseries(req, options).await
     }
 }

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_rpc;
 extern crate lazy_static;
@@ -2015,7 +2015,7 @@ impl wkt::message::Message for ListReservationsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListReservationsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListReservationsResponse {
     type PageItem = crate::model::Reservation;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2519,7 +2519,7 @@ impl wkt::message::Message for ListReservationGroupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListReservationGroupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListReservationGroupsResponse {
     type PageItem = crate::model::ReservationGroup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2817,7 +2817,7 @@ impl wkt::message::Message for ListCapacityCommitmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListCapacityCommitmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListCapacityCommitmentsResponse {
     type PageItem = crate::model::CapacityCommitment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3967,7 +3967,7 @@ impl wkt::message::Message for ListAssignmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAssignmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4268,7 +4268,7 @@ impl wkt::message::Message for SearchAssignmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchAssignmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4345,7 +4345,7 @@ impl wkt::message::Message for SearchAllAssignmentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchAllAssignmentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchAllAssignmentsResponse {
     type PageItem = crate::model::Assignment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

@@ -17,13 +17,13 @@ use crate::client::Publisher;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::actor::Dispatcher;
 use crate::publisher::base_publisher::{BasePublisher, BasePublisherBuilder};
-use gax::{
+use google_cloud_gax::{
     backoff_policy::BackoffPolicyArg, retry_policy::RetryPolicyArg,
     retry_throttler::RetryThrottlerArg,
 };
 use std::time::Duration;
 
-/// A builder for a `Publisher`.
+/// A builder for a [`Publisher`].
 #[derive(Clone, Debug)]
 pub struct PublisherBuilder {
     topic: String,
@@ -41,7 +41,7 @@ impl PublisherBuilder {
     }
 
     /// Creates a new [`Publisher`] from the builder's configuration.
-    pub async fn build(self) -> Result<Publisher, gax::client_builder::Error> {
+    pub async fn build(self) -> crate::ClientBuilderResult<Publisher> {
         let base_publisher = self.base_builder.build().await?;
         let publisher = base_publisher
             .publisher(&self.topic)
@@ -186,7 +186,7 @@ impl PublisherBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
@@ -205,7 +205,7 @@ impl PublisherBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
     /// let client = Publisher::builder("projects/my-project/topics/my-topic")
@@ -233,7 +233,7 @@ impl PublisherBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build().await?;
@@ -270,7 +270,7 @@ impl PublisherBuilder {
     }
 }
 
-/// Creates `Publisher`s with a preconfigured client.
+/// Creates [`Publisher`]s with a preconfigured client.
 ///
 /// # Example
 ///
@@ -367,11 +367,18 @@ impl PublisherPartialBuilder {
     }
 
     /// Creates a new [`Publisher`] from the builder's configuration.
+    pub fn build(self) -> Publisher {
+        self.build_return_handle().0
+    }
+
     // This method starts a background task to manage the batching
     // and sending of messages. The returned `Publisher` is a
     // lightweight handle for sending messages to that background task
     // over a channel.
-    pub fn build(self) -> Publisher {
+    //
+    // This also returns a handle to the background task, which can be
+    // used in testing to manage the task's lifecycle.
+    pub(crate) fn build_return_handle(self) -> (Publisher, tokio::task::JoinHandle<()>) {
         // Enforce limits by clamping the user-provided options.
         let batching_options = BatchingOptions::new()
             .set_delay_threshold(
@@ -392,12 +399,15 @@ impl PublisherPartialBuilder {
         // Dropping the Publisher will drop the only sender to the channel.
         // This will cause the dispatcher to gracefully exit.
         let dispatcher = Dispatcher::new(self.topic, self.inner, batching_options.clone(), rx);
-        tokio::spawn(dispatcher.run());
+        let handle = tokio::spawn(dispatcher.run());
 
-        Publisher {
-            batching_options,
-            tx,
-        }
+        (
+            Publisher {
+                batching_options,
+                tx,
+            },
+            handle,
+        )
     }
 }
 
@@ -485,14 +495,16 @@ mod tests {
     async fn publisher_builder_sets_client_config() {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
-        use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-        let throttler = gax::retry_throttler::CircuitBreaker::default();
+        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        let throttler = google_cloud_gax::retry_throttler::CircuitBreaker::default();
         let pub_builder = Publisher::builder("projects/my-project/topics/my-topic")
             .with_endpoint("test-endpoint.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_backoff_policy(
+                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
+            )
             .with_retry_throttler(throttler.clone())
             .with_grpc_subchannel_count(16);
         let base_builder = BasePublisher::builder()
@@ -500,7 +512,9 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .with_tracing()
             .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_backoff_policy(
+                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
+            )
             .with_retry_throttler(throttler)
             .with_grpc_subchannel_count(16);
 

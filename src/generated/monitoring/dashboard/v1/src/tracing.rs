@@ -41,8 +41,8 @@ where
     async fn create_dashboard(
         &self,
         req: crate::model::CreateDashboardRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dashboard>> {
         self.inner.create_dashboard(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn list_dashboards(
         &self,
         req: crate::model::ListDashboardsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListDashboardsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDashboardsResponse>> {
         self.inner.list_dashboards(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_dashboard(
         &self,
         req: crate::model::GetDashboardRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dashboard>> {
         self.inner.get_dashboard(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn delete_dashboard(
         &self,
         req: crate::model::DeleteDashboardRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_dashboard(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn update_dashboard(
         &self,
         req: crate::model::UpdateDashboardRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dashboard>> {
         self.inner.update_dashboard(req, options).await
     }
 }

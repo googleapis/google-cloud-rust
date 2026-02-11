@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::retry_policy::at_least_once_options;
 use super::stub::Stub;
+use crate::RequestOptions;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
-use gax::options::RequestOptions;
-use gax::retry_policy::NeverRetry;
 use std::sync::Arc;
 
 /// A trait representing leaser actions.
@@ -61,20 +61,19 @@ impl<T> DefaultLeaser<T>
 where
     T: Stub,
 {
-    pub(super) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
+    pub(super) fn new(
+        inner: Arc<T>,
+        subscription: String,
+        ack_deadline_seconds: i32,
+        grpc_subchannel_count: usize,
+    ) -> Self {
         DefaultLeaser {
             inner,
-            options: no_retry(),
+            options: at_least_once_options(grpc_subchannel_count),
             subscription,
             ack_deadline_seconds,
         }
     }
-}
-
-fn no_retry() -> RequestOptions {
-    let mut o = RequestOptions::default();
-    o.set_retry_policy(NeverRetry);
-    o
 }
 
 #[async_trait::async_trait]
@@ -113,9 +112,10 @@ where
 #[cfg(test)]
 pub(super) mod tests {
     use super::super::lease_state::tests::test_ids;
+    use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
-    use gax::response::Response;
+    use crate::Response;
     use std::sync::Arc;
     use tokio::sync::Mutex;
 
@@ -162,6 +162,7 @@ pub(super) mod tests {
             Arc::new(MockStub::new()),
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
+            1_usize,
         );
 
         let clone = leaser.clone();
@@ -179,10 +180,7 @@ pub(super) mod tests {
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(r.ack_ids, test_ids(0..10));
-            assert!(
-                format!("{o:?}").contains("NeverRetry"),
-                "Basic acks should not have a retry policy. o={o:?}"
-            );
+            verify_policies(o, 16);
             Ok(Response::from(()))
         });
 
@@ -190,6 +188,7 @@ pub(super) mod tests {
             Arc::new(mock),
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
+            16_usize,
         );
         leaser.ack(test_ids(0..10)).await;
     }
@@ -206,10 +205,7 @@ pub(super) mod tests {
                     "projects/my-project/subscriptions/my-subscription"
                 );
                 assert_eq!(r.ack_ids, test_ids(0..10));
-                assert!(
-                    format!("{o:?}").contains("NeverRetry"),
-                    "Basic modacks should not have a retry policy. o={o:?}"
-                );
+                verify_policies(o, 16);
                 Ok(Response::from(()))
             });
 
@@ -217,6 +213,7 @@ pub(super) mod tests {
             Arc::new(mock),
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
+            16_usize,
         );
         leaser.nack(test_ids(0..10)).await;
     }
@@ -233,10 +230,7 @@ pub(super) mod tests {
                     "projects/my-project/subscriptions/my-subscription"
                 );
                 assert_eq!(r.ack_ids, test_ids(0..10));
-                assert!(
-                    format!("{o:?}").contains("NeverRetry"),
-                    "Basic acks should not have a retry policy. o={o:?}"
-                );
+                verify_policies(o, 16);
                 Ok(Response::from(()))
             });
 
@@ -244,6 +238,7 @@ pub(super) mod tests {
             Arc::new(mock),
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
+            16_usize,
         );
         leaser.extend(test_ids(0..10)).await;
     }

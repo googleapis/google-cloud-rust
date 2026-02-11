@@ -41,8 +41,8 @@ where
     async fn analyze_sentiment(
         &self,
         req: crate::model::AnalyzeSentimentRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnalyzeSentimentResponse>> {
         self.inner.analyze_sentiment(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn analyze_entities(
         &self,
         req: crate::model::AnalyzeEntitiesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnalyzeEntitiesResponse>> {
         self.inner.analyze_entities(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn classify_text(
         &self,
         req: crate::model::ClassifyTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ClassifyTextResponse>> {
         self.inner.classify_text(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn moderate_text(
         &self,
         req: crate::model::ModerateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ModerateTextResponse>> {
         self.inner.moderate_text(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn annotate_text(
         &self,
         req: crate::model::AnnotateTextRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AnnotateTextResponse>> {
         self.inner.annotate_text(req, options).await
     }
 }

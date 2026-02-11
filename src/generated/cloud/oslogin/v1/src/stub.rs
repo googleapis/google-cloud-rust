@@ -42,11 +42,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn create_ssh_public_key(
         &self,
         _req: crate::model::CreateSshPublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>,
-        >,
+        Output = crate::Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -55,8 +53,8 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn delete_posix_account(
         &self,
         _req: crate::model::DeletePosixAccountRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,8 +62,8 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn delete_ssh_public_key(
         &self,
         _req: crate::model::DeleteSshPublicKeyRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -73,9 +71,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn get_login_profile(
         &self,
         _req: crate::model::GetLoginProfileRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::LoginProfile>>,
+        Output = crate::Result<crate::Response<crate::model::LoginProfile>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -84,11 +82,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn get_ssh_public_key(
         &self,
         _req: crate::model::GetSshPublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>,
-        >,
+        Output = crate::Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -97,9 +93,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn import_ssh_public_key(
         &self,
         _req: crate::model::ImportSshPublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ImportSshPublicKeyResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -108,11 +104,9 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
     fn update_ssh_public_key(
         &self,
         _req: crate::model::UpdateSshPublicKeyRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<google_cloud_oslogin_common::model::SshPublicKey>,
-        >,
+        Output = crate::Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

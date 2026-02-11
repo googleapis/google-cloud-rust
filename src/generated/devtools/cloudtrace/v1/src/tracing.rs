@@ -41,8 +41,8 @@ where
     async fn list_traces(
         &self,
         req: crate::model::ListTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListTracesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTracesResponse>> {
         self.inner.list_traces(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_trace(
         &self,
         req: crate::model::GetTraceRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Trace>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Trace>> {
         self.inner.get_trace(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn patch_traces(
         &self,
         req: crate::model::PatchTracesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.patch_traces(req, options).await
     }
 }

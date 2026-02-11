@@ -18,6 +18,7 @@ mod control;
 mod objects;
 mod quickstart;
 
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::throttle_result::ThrottleResult;
@@ -37,16 +38,7 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use std::time::Duration;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let zone = "us-central1-f";
     tracing::info!("Create bucket for anywhere cache examples");
@@ -76,16 +68,7 @@ pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::R
 }
 
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
@@ -290,16 +273,7 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 }
 
 pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let client = control_client().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
@@ -324,8 +298,10 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     control::create_folder::sample(&client, &id).await?;
     tracing::info!("running control::get_folder example");
     control::get_folder::sample(&client, &id).await?;
-    tracing::info!("running control::rename_folder example");
-    control::rename_folder::sample(&client, &id).await?;
+    if !custom_project_billing("the control::rename_folder example").await? {
+        tracing::info!("running control::rename_folder example");
+        control::rename_folder::sample(&client, &id).await?;
+    }
     tracing::info!("running control::list_folders example");
     control::list_folders::sample(&client, &id).await?;
 
@@ -344,16 +320,7 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
 }
 
 pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
@@ -544,22 +511,30 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::remove_file_owner::sample(&control, &id, &service_account).await?;
     tracing::info!("running set_object_retention_policy example");
     objects::set_object_retention_policy::sample(&control, &id).await?;
+    Ok(())
+}
 
+pub async fn run_signed_url_examples() -> anyhow::Result<()> {
+    match CredentialsBuilder::default().build_signer() {
+        Err(err) if err.is_not_supported() => {
+            tracing::warn!(
+                "skipping signed_urls examples because the credentials type is not supported"
+            );
+            return Ok(());
+        }
+        Err(e) => return Err(e.into()),
+        Ok(_) => {}
+    };
+    let id = random_bucket_id();
+    tracing::info!("running generate_signed_url_v4 example");
+    objects::generate_signed_url_v4::sample(&id, "object-to-read").await?;
+    tracing::info!("running generate_upload_signed_url_v4 example");
+    objects::generate_upload_signed_url_v4::sample(&id, "object-to-upload").await?;
     Ok(())
 }
 
 pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .with_max_level(tracing::Level::TRACE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = enable_info_tracing();
 
     let control = control_client().await?;
     let client = Storage::builder().build().await?;
@@ -763,6 +738,23 @@ pub async fn cleanup_stale_buckets(
     Ok(())
 }
 
+pub async fn custom_project_billing(msg: &str) -> anyhow::Result<bool> {
+    let credentials = CredentialsBuilder::default().build()?;
+    let headers = match credentials.headers(http::Extensions::new()).await? {
+        CacheableResource::NotModified => unreachable!("no caching requested"),
+        CacheableResource::New { data, .. } => data,
+    };
+    let Some(project) = headers.get("x-goog-user-project") else {
+        return Ok(false);
+    };
+    tracing::warn!(
+        r#"Skipping: {msg} does not support custom billing projects.
+The default credentials (see below) are configured to use project {project:?}.
+{credentials:?}"#
+    );
+    Ok(true)
+}
+
 pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Result<()> {
     use google_cloud_gax::{Result as GaxResult, paginator::ItemPaginator};
     use google_cloud_wkt::FieldMask;
@@ -872,6 +864,18 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
 
     client.delete_bucket().set_name(&name).send().await?;
     Ok(())
+}
+
+fn enable_info_tracing() -> tracing::subscriber::DefaultGuard {
+    use tracing_subscriber::fmt::format::FmtSpan;
+    let subscriber = tracing_subscriber::fmt()
+        .with_level(true)
+        .with_thread_ids(true)
+        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+        .with_max_level(tracing::Level::INFO)
+        .finish();
+
+    tracing::subscriber::set_default(subscriber)
 }
 
 trait RetryPolicyExt2: Sized {

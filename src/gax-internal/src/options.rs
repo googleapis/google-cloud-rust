@@ -15,7 +15,7 @@
 pub use google_cloud_auth::credentials::Credentials;
 
 // The client configuration for [crate::http::ReqwestClient] and [crate::grpc::Client].
-pub type ClientConfig = gax::client_builder::internal::ClientConfig<Credentials>;
+pub type ClientConfig = google_cloud_gax::client_builder::internal::ClientConfig<Credentials>;
 
 pub(crate) const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
 

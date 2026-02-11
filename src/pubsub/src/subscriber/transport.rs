@@ -47,8 +47,9 @@ impl Stub for Transport {
     type Stream = Streaming<StreamingPullResponse>;
     async fn streaming_pull(
         &self,
+        request_params: &str,
         request_rx: Receiver<StreamingPullRequest>,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     ) -> Result<TonicResponse<Self::Stream>> {
         use gaxi::grpc::tonic::{Extensions, GrpcMethod};
         let request = ReceiverStream::new(request_rx);
@@ -69,7 +70,7 @@ impl Stub for Transport {
                 request,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
-                "",
+                request_params,
             )
             .await
     }
@@ -77,16 +78,16 @@ impl Stub for Transport {
     async fn modify_ack_deadline(
         &self,
         req: crate::model::ModifyAckDeadlineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         GapicStub::modify_ack_deadline(self, req, options).await
     }
 
     async fn acknowledge(
         &self,
         req: crate::model::AcknowledgeRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         GapicStub::acknowledge(self, req, options).await
     }
 }
@@ -131,14 +132,23 @@ pub(super) mod tests {
         request_tx.send(StreamingPullRequest::default()).await?;
 
         let mut mock = MockSubscriber::new();
-        mock.expect_streaming_pull()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_streaming_pull().return_once(|request| {
+            let metadata = request.metadata();
+            assert_eq!(
+                metadata
+                    .get("x-goog-request-params")
+                    .expect("routing header missing"),
+                "subscription=projects/p/subscriptions/s"
+            );
+            Ok(TonicResponse::from(response_rx))
+        });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let mut stream = Stub::streaming_pull(
             &transport,
+            "subscription=projects/p/subscriptions/s",
             request_rx,
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?
         .into_inner();
@@ -161,7 +171,7 @@ pub(super) mod tests {
         let _ = Stub::modify_ack_deadline(
             &transport,
             crate::model::ModifyAckDeadlineRequest::new(),
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?;
         Ok(())
@@ -177,7 +187,7 @@ pub(super) mod tests {
         let _ = Stub::acknowledge(
             &transport,
             crate::model::AcknowledgeRequest::new(),
-            gax::options::RequestOptions::default(),
+            crate::RequestOptions::default(),
         )
         .await?;
         Ok(())

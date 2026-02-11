@@ -76,15 +76,15 @@ mod tests {
     use super::*;
     use crate::client::StorageControl;
     use crate::model::{Object, RewriteObjectRequest, RewriteResponse};
-    use gax::error::rpc::{Code, Status};
-    use gax::options::RequestOptions;
-    use gax::response::Response;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response;
 
     mockall::mock! {
         #[derive(Debug)]
         StorageControl {}
         impl crate::stub::StorageControl for StorageControl {
-            async fn rewrite_object( &self, _req: RewriteObjectRequest, _options: RequestOptions) -> gax::Result<Response<RewriteResponse>>;
+            async fn rewrite_object( &self, _req: RewriteObjectRequest, _options: RequestOptions) -> crate::Result<Response<RewriteResponse>>;
         }
     }
 
@@ -135,7 +135,7 @@ mod tests {
             .withf(|req: &RewriteObjectRequest, _| req.rewrite_token.is_empty())
             .times(1)
             .returning(|_, _| {
-                Err(gax::error::Error::service(
+                Err(crate::Error::service(
                     Status::default().set_code(Code::Unavailable),
                 ))
             });

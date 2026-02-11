@@ -19,7 +19,9 @@
 //! use any types contained within.
 
 use crate::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
-use gax::polling_state::PollingState;
+use google_cloud_gax::polling_state::PollingState;
+use google_cloud_wkt::Empty;
+use google_cloud_wkt::message::Message;
 use std::sync::Arc;
 
 pub type Operation<R, M> = crate::details::Operation<R, M>;
@@ -35,10 +37,8 @@ pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
 where
-    ResponseType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    MetadataType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -62,12 +62,11 @@ pub fn new_unit_response_poller<MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<(), MetadataType>
 where
-    MetadataType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<wkt::Empty, MetadataType>>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<wkt::Empty, MetadataType>>> + Send + 'static,
+    QF: std::future::Future<Output = Result<Operation<Empty, MetadataType>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitResponsePoller::new(poller)
@@ -84,12 +83,11 @@ pub fn new_unit_metadata_poller<ResponseType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, ()>
 where
-    ResponseType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<ResponseType, wkt::Empty>>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<ResponseType, wkt::Empty>>> + Send + 'static,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, Empty>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitMetadataPoller::new(poller)
@@ -107,9 +105,9 @@ pub fn new_unit_poller<S, SF, Q, QF>(
 ) -> impl Poller<(), ()>
 where
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<Operation<wkt::Empty, wkt::Empty>>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<Operation<wkt::Empty, wkt::Empty>>> + Send + 'static,
+    QF: std::future::Future<Output = Result<Operation<Empty, Empty>>> + Send + 'static,
 {
     let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitResponsePoller::new(UnitMetadataPoller::new(poller))
@@ -129,7 +127,7 @@ impl<P> crate::sealed::Poller for UnitResponsePoller<P> {}
 
 impl<P, M> Poller<(), M> for UnitResponsePoller<P>
 where
-    P: Poller<wkt::Empty, M>,
+    P: Poller<Empty, M>,
 {
     async fn poll(&mut self) -> Option<PollingResult<(), M>> {
         self.poller.poll().await.map(self::map_polling_result)
@@ -158,7 +156,7 @@ impl<P> crate::sealed::Poller for UnitMetadataPoller<P> {}
 
 impl<P, R> Poller<R, ()> for UnitMetadataPoller<P>
 where
-    P: Poller<R, wkt::Empty>,
+    P: Poller<R, Empty>,
 {
     async fn poll(&mut self) -> Option<PollingResult<R, ()>> {
         self.poller.poll().await.map(self::map_polling_metadata)
@@ -173,7 +171,7 @@ where
     }
 }
 
-fn map_polling_result<M>(result: PollingResult<wkt::Empty, M>) -> PollingResult<(), M> {
+fn map_polling_result<M>(result: PollingResult<Empty, M>) -> PollingResult<(), M> {
     match result {
         PollingResult::Completed(r) => PollingResult::Completed(r.map(|_| ())),
         PollingResult::InProgress(m) => PollingResult::InProgress(m),
@@ -181,7 +179,7 @@ fn map_polling_result<M>(result: PollingResult<wkt::Empty, M>) -> PollingResult<
     }
 }
 
-fn map_polling_metadata<R>(result: PollingResult<R, wkt::Empty>) -> PollingResult<R, ()> {
+fn map_polling_metadata<R>(result: PollingResult<R, Empty>) -> PollingResult<R, ()> {
     match result {
         PollingResult::Completed(r) => PollingResult::Completed(r),
         PollingResult::InProgress(m) => PollingResult::InProgress(m.map(|_| ())),
@@ -249,10 +247,8 @@ impl<S, Q> PollerImpl<S, Q> {
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
     for PollerImpl<S, P>
 where
-    ResponseType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
-    MetadataType:
-        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    ResponseType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType: Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -308,8 +304,8 @@ where
         self,
     ) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>> + Unpin
     where
-        ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
-        MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+        ResponseType: Message + serde::de::DeserializeOwned,
+        MetadataType: Message + serde::de::DeserializeOwned,
     {
         use futures::stream::unfold;
         Box::pin(unfold(Some(self), move |state| async move {
@@ -329,25 +325,26 @@ impl<S, Q> crate::sealed::Poller for PollerImpl<S, Q> {}
 mod tests {
     use super::*;
     use crate::Error;
-    use gax::error::rpc::{Code, Status};
-    use gax::exponential_backoff::ExponentialBackoff;
-    use gax::exponential_backoff::ExponentialBackoffBuilder;
-    use gax::polling_error_policy::*;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::polling_error_policy::{Aip194Strict, AlwaysContinue};
     use google_cloud_longrunning::model::{
         Operation as OperationAny, operation::Result as ResultAny,
     };
-    use std::time::Duration;
+    use google_cloud_wkt::{Any, Duration, Timestamp};
+    use std::time::Duration as StdDuration;
 
-    type ResponseType = wkt::Duration;
-    type MetadataType = wkt::Timestamp;
+    type ResponseType = Duration;
+    type MetadataType = Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
-    type EmptyResponseOperation = Operation<wkt::Empty, MetadataType>;
-    type EmptyMetadataOperation = Operation<ResponseType, wkt::Empty>;
+    type EmptyResponseOperation = Operation<Empty, MetadataType>;
+    type EmptyMetadataOperation = Operation<ResponseType, Empty>;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -357,7 +354,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
+            let any = Any::from_msg(&Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -375,7 +372,7 @@ mod tests {
         let p0 = poller.poll().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             r => {
                 panic!("{r:?}");
@@ -386,7 +383,7 @@ mod tests {
         match p1.unwrap() {
             PollingResult::Completed(r) => {
                 let response = r.unwrap();
-                assert_eq!(response, wkt::Duration::clamp(234, 0));
+                assert_eq!(response, Duration::clamp(234, 0));
             }
             r => {
                 panic!("{r:?}");
@@ -400,7 +397,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -410,7 +407,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
+            let any = Any::from_msg(&Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -430,7 +427,7 @@ mod tests {
         let p0 = stream.next().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             r => {
                 panic!("{r:?}");
@@ -441,7 +438,7 @@ mod tests {
         match p1.unwrap() {
             PollingResult::Completed(r) => {
                 let response = r.unwrap();
-                assert_eq!(response, wkt::Duration::clamp(234, 0));
+                assert_eq!(response, Duration::clamp(234, 0));
             }
             r => {
                 panic!("{r:?}");
@@ -455,7 +452,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -465,7 +462,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
+            let any = Any::from_msg(&Duration::clamp(234, 0))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -478,14 +475,14 @@ mod tests {
             Arc::new(AlwaysContinue),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
             query,
         );
         let response = poller.until_done().await?;
-        assert_eq!(response, wkt::Duration::clamp(234, 0));
+        assert_eq!(response, Duration::clamp(234, 0));
 
         Ok(())
     }
@@ -493,7 +490,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -503,7 +500,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -521,7 +518,7 @@ mod tests {
         let p0 = poller.poll().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             r => {
                 panic!("{r:?}");
@@ -546,7 +543,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -556,7 +553,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -576,7 +573,7 @@ mod tests {
         let p0 = stream.next().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
-                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+                assert_eq!(m, Some(Timestamp::clamp(123, 0)));
             }
             r => {
                 panic!("{r:?}");
@@ -601,7 +598,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -611,7 +608,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -624,7 +621,7 @@ mod tests {
             Arc::new(AlwaysContinue),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
@@ -637,7 +634,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_poll_basic_flow() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -647,7 +644,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
+            let any = Any::from_msg(&Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -690,7 +687,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_poll_basic_stream() {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -700,7 +697,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
+            let any = Any::from_msg(&Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -730,7 +727,7 @@ mod tests {
         let p1 = stream.next().await;
         match p1.unwrap() {
             PollingResult::Completed(Ok(d)) => {
-                assert_eq!(d, wkt::Duration::clamp(123, 456));
+                assert_eq!(d, Duration::clamp(123, 456));
             }
             PollingResult::Completed(Err(e)) => {
                 panic!("{e}");
@@ -747,7 +744,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_metadata_until_done_basic_flow() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -757,7 +754,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
+            let any = Any::from_msg(&Duration::clamp(123, 456))
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -770,22 +767,22 @@ mod tests {
             Arc::new(AlwaysContinue),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
             query,
         );
         let d = poller.until_done().await?;
-        assert_eq!(d, wkt::Duration::clamp(123, 456));
+        assert_eq!(d, Duration::clamp(123, 456));
         Ok(())
     }
 
     #[test]
     fn unit_result_map() {
         use PollingResult::{Completed, InProgress, PollingError};
-        type TestResult = PollingResult<wkt::Empty, wkt::Timestamp>;
-        let got = map_polling_result(TestResult::Completed(Ok(wkt::Empty::default())));
+        type TestResult = PollingResult<Empty, Timestamp>;
+        let got = map_polling_result(TestResult::Completed(Ok(Empty::default())));
         assert!(matches!(got, Completed(Ok(_))), "{got:?}");
         let got = map_polling_result(TestResult::Completed(Err(service_error())));
         assert!(
@@ -794,10 +791,8 @@ mod tests {
         );
         let got = map_polling_result(TestResult::InProgress(None));
         assert!(matches!(got, InProgress(None)), "{got:?}");
-        let got = map_polling_result(TestResult::InProgress(Some(wkt::Timestamp::clamp(
-            123, 456,
-        ))));
-        assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
+        let got = map_polling_result(TestResult::InProgress(Some(Timestamp::clamp(123, 456))));
+        assert!(matches!(got, InProgress(Some(t)) if t == Timestamp::clamp(123, 456)));
         let got = map_polling_result(TestResult::PollingError(polling_error()));
         assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
     }
@@ -805,9 +800,9 @@ mod tests {
     // The other cases are already tested.
     #[tokio::test(flavor = "multi_thread")]
     async fn unit_both_until_done_basic_flow() -> Result<()> {
-        type EmptyOperation = Operation<wkt::Empty, wkt::Empty>;
+        type EmptyOperation = Operation<Empty, Empty>;
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -817,7 +812,7 @@ mod tests {
         };
 
         let query = |_: String| async move {
-            let any = wkt::Any::from_msg(&wkt::Empty::default())
+            let any = Any::from_msg(&Empty::default())
                 .expect("test message deserializes via Any::from_msg");
             let result = ResultAny::Response(any.into());
             let op = OperationAny::default().set_done(true).set_result(result);
@@ -830,7 +825,7 @@ mod tests {
             Arc::new(AlwaysContinue),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
@@ -843,8 +838,8 @@ mod tests {
     #[test]
     fn unit_metadata_map() {
         use PollingResult::{Completed, InProgress, PollingError};
-        type TestResult = PollingResult<wkt::Duration, wkt::Empty>;
-        let got = map_polling_metadata(TestResult::Completed(Ok(wkt::Duration::clamp(123, 456))));
+        type TestResult = PollingResult<Duration, Empty>;
+        let got = map_polling_metadata(TestResult::Completed(Ok(Duration::clamp(123, 456))));
         assert!(matches!(got, Completed(Ok(_))), "{got:?}");
         let got = map_polling_metadata(TestResult::Completed(Err(service_error())));
         assert!(
@@ -853,7 +848,7 @@ mod tests {
         );
         let got = map_polling_metadata(TestResult::InProgress(None));
         assert!(matches!(got, InProgress(None)), "{got:?}");
-        let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
+        let got = map_polling_metadata(TestResult::InProgress(Some(Empty::default())));
         assert!(matches!(got, InProgress(Some(_))), "{got:?}");
         let got = map_polling_metadata(TestResult::PollingError(polling_error()));
         assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
@@ -862,7 +857,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_with_recoverable_polling_error() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -881,7 +876,7 @@ mod tests {
                 if c == 0 {
                     return Err::<TestOperation, Error>(polling_error());
                 }
-                let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
+                let any = Any::from_msg(&Duration::clamp(234, 0))
                     .expect("test message deserializes via Any::from_msg");
                 let result = ResultAny::Response(any.into());
                 let op = OperationAny::default().set_done(true).set_result(result);
@@ -895,14 +890,14 @@ mod tests {
             Arc::new(AlwaysContinue),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
             query,
         );
         let response = poller.until_done().await?;
-        assert_eq!(response, wkt::Duration::clamp(234, 0));
+        assert_eq!(response, Duration::clamp(234, 0));
 
         Ok(())
     }
@@ -910,7 +905,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread")]
     async fn until_done_with_unrecoverable_polling_error() -> Result<()> {
         let start = || async move {
-            let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
+            let any = Any::from_msg(&Timestamp::clamp(123, 0))
                 .expect("test message deserializes via Any::from_msg");
             let op = OperationAny::default()
                 .set_name("test-only-name")
@@ -925,7 +920,7 @@ mod tests {
             Arc::new(Aip194Strict),
             Arc::new(
                 ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
+                    .with_initial_delay(StdDuration::from_millis(1))
                     .clamp(),
             ),
             start,
@@ -941,23 +936,23 @@ mod tests {
         Ok(())
     }
 
-    fn service_error() -> gax::error::Error {
-        gax::error::Error::service(
+    fn service_error() -> Error {
+        Error::service(
             Status::default()
                 .set_code(Code::ResourceExhausted)
                 .set_message("too many things"),
         )
     }
 
-    fn unrecoverable() -> gax::error::Error {
-        gax::error::Error::service(
+    fn unrecoverable() -> Error {
+        Error::service(
             Status::default()
                 .set_code(Code::Aborted)
                 .set_message("unrecoverable"),
         )
     }
 
-    fn polling_error() -> gax::error::Error {
-        gax::error::Error::io("something failed")
+    fn polling_error() -> Error {
+        Error::io("something failed")
     }
 }

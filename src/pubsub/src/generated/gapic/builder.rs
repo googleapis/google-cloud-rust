@@ -20,7 +20,7 @@ pub mod topic_admin {
     /// A builder for [TopicAdmin][crate::client::TopicAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::topic_admin::ClientBuilder;
     /// # use client::TopicAdmin;
@@ -30,19 +30,18 @@ pub mod topic_admin {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::TopicAdmin;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = TopicAdmin;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod topic_admin {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TopicAdmin>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod topic_admin {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::CreateTopic;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .create_topic(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Topic::name].
@@ -256,8 +255,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateTopic {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateTopic {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -267,7 +266,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::UpdateTopic;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -295,7 +294,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -305,7 +304,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .update_topic(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::UpdateTopicRequest::topic].
@@ -354,8 +353,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateTopic {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateTopic {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -365,7 +364,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::GetTopic;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -393,7 +392,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -403,7 +402,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .get_topic(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::GetTopicRequest::topic].
@@ -416,8 +415,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetTopic {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetTopic {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -427,8 +426,8 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopics;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -459,7 +458,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -469,13 +468,13 @@ pub mod topic_admin {
             (*self.0.stub)
                 .list_topics(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTopicsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListTopicsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -484,15 +483,17 @@ pub mod topic_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTopicsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTopicsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -518,8 +519,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTopics {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTopics {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -529,7 +530,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSubscriptions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -560,7 +561,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -570,7 +571,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .list_topic_subscriptions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::ListTopicSubscriptionsRequest::topic].
@@ -595,8 +596,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTopicSubscriptions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTopicSubscriptions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -606,7 +607,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSnapshots;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -637,7 +638,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -647,7 +648,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .list_topic_snapshots(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::ListTopicSnapshotsRequest::topic].
@@ -672,8 +673,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListTopicSnapshots {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListTopicSnapshots {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -683,7 +684,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::DeleteTopic;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -711,7 +712,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -721,7 +722,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .delete_topic(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [topic][crate::model::DeleteTopicRequest::topic].
@@ -734,8 +735,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteTopic {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteTopic {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -745,7 +746,7 @@ pub mod topic_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::DetachSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -776,7 +777,7 @@ pub mod topic_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -786,7 +787,7 @@ pub mod topic_admin {
             (*self.0.stub)
                 .detach_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::DetachSubscriptionRequest::subscription].
@@ -799,8 +800,8 @@ pub mod topic_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DetachSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DetachSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -812,7 +813,7 @@ pub mod subscription_admin {
     /// A builder for [SubscriptionAdmin][crate::client::SubscriptionAdmin].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::subscription_admin::ClientBuilder;
     /// # use client::SubscriptionAdmin;
@@ -822,19 +823,18 @@ pub mod subscription_admin {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SubscriptionAdmin;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SubscriptionAdmin;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -845,7 +845,7 @@ pub mod subscription_admin {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SubscriptionAdmin>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -858,7 +858,7 @@ pub mod subscription_admin {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -868,7 +868,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::CreateSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -896,7 +896,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -906,7 +906,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .create_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Subscription::name].
@@ -1173,8 +1173,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1184,7 +1184,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::GetSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1212,7 +1212,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1222,7 +1222,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .get_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::GetSubscriptionRequest::subscription].
@@ -1235,8 +1235,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1246,7 +1246,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1277,7 +1277,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1287,7 +1287,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .update_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::UpdateSubscriptionRequest::subscription].
@@ -1336,8 +1336,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1347,8 +1347,8 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ListSubscriptions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1382,7 +1382,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1392,14 +1392,16 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .list_subscriptions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSubscriptionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1407,15 +1409,17 @@ pub mod subscription_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSubscriptionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1441,8 +1445,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSubscriptions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSubscriptions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1452,7 +1456,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSubscription;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1483,7 +1487,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1493,7 +1497,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .delete_subscription(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::DeleteSubscriptionRequest::subscription].
@@ -1506,8 +1510,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSubscription {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSubscription {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1517,7 +1521,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ModifyPushConfig;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1548,7 +1552,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1558,7 +1562,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .modify_push_config(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::ModifyPushConfigRequest::subscription].
@@ -1593,8 +1597,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ModifyPushConfig {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ModifyPushConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1604,7 +1608,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::GetSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1632,7 +1636,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1642,7 +1646,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .get_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::GetSnapshotRequest::snapshot].
@@ -1655,8 +1659,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1666,8 +1670,8 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::ListSnapshots;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1698,7 +1702,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1708,13 +1712,13 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .list_snapshots(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSnapshotsResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1723,15 +1727,17 @@ pub mod subscription_admin {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSnapshotsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1757,8 +1763,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSnapshots {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSnapshots {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1768,7 +1774,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::CreateSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1796,7 +1802,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1806,7 +1812,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CreateSnapshotRequest::name].
@@ -1849,8 +1855,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1860,7 +1866,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1888,7 +1894,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1898,7 +1904,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
@@ -1947,8 +1953,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1958,7 +1964,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSnapshot;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1986,7 +1992,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1996,7 +2002,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [snapshot][crate::model::DeleteSnapshotRequest::snapshot].
@@ -2009,8 +2015,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSnapshot {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSnapshot {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2020,7 +2026,7 @@ pub mod subscription_admin {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::subscription_admin::Seek;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2048,7 +2054,7 @@ pub mod subscription_admin {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2058,7 +2064,7 @@ pub mod subscription_admin {
             (*self.0.stub)
                 .seek(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [subscription][crate::model::SeekRequest::subscription].
@@ -2106,8 +2112,8 @@ pub mod subscription_admin {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for Seek {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for Seek {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2119,7 +2125,7 @@ pub mod schema_service {
     /// A builder for [SchemaService][crate::client::SchemaService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::schema_service::ClientBuilder;
     /// # use client::SchemaService;
@@ -2129,19 +2135,18 @@ pub mod schema_service {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::SchemaService;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = SchemaService;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2152,7 +2157,7 @@ pub mod schema_service {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SchemaService>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -2165,7 +2170,7 @@ pub mod schema_service {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -2175,7 +2180,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::CreateSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2203,7 +2208,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2213,7 +2218,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .create_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaRequest::parent].
@@ -2254,8 +2259,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2265,7 +2270,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::GetSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2293,7 +2298,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2303,7 +2308,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .get_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSchemaRequest::name].
@@ -2322,8 +2327,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2333,8 +2338,8 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ListSchemas;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2365,7 +2370,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2375,13 +2380,13 @@ pub mod schema_service {
             (*self.0.stub)
                 .list_schemas(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSchemasResponse, gax::error::Error>
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSchemasResponse, crate::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2390,15 +2395,17 @@ pub mod schema_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemasResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSchemasResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2430,8 +2437,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemas {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemas {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2441,8 +2448,8 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ListSchemaRevisions;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -2476,7 +2483,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2486,14 +2493,16 @@ pub mod schema_service {
             (*self.0.stub)
                 .list_schema_revisions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSchemaRevisionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSchemaRevisionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2501,17 +2510,17 @@ pub mod schema_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::ListSchemaRevisionsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -2543,8 +2552,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListSchemaRevisions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListSchemaRevisions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2554,7 +2563,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::CommitSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2582,7 +2591,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2592,7 +2601,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .commit_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CommitSchemaRequest::name].
@@ -2627,8 +2636,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CommitSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CommitSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2638,7 +2647,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::RollbackSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2666,7 +2675,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2676,7 +2685,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .rollback_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackSchemaRequest::name].
@@ -2697,8 +2706,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for RollbackSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for RollbackSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2708,7 +2717,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::DeleteSchemaRevision;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2739,7 +2748,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2749,7 +2758,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .delete_schema_revision(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRevisionRequest::name].
@@ -2769,8 +2778,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchemaRevision {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchemaRevision {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2780,7 +2789,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::DeleteSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2808,7 +2817,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2818,7 +2827,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .delete_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRequest::name].
@@ -2831,8 +2840,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2842,7 +2851,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ValidateSchema;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2870,7 +2879,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2880,7 +2889,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .validate_schema(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ValidateSchemaRequest::parent].
@@ -2915,8 +2924,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ValidateSchema {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ValidateSchema {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -2926,7 +2935,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::ValidateMessage;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -2954,7 +2963,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -2964,7 +2973,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .validate_message(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ValidateMessageRequest::parent].
@@ -3026,8 +3035,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ValidateMessage {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ValidateMessage {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3037,7 +3046,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3068,7 +3077,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3078,7 +3087,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -3131,8 +3140,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3142,7 +3151,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3173,7 +3182,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3183,7 +3192,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -3214,8 +3223,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -3225,7 +3234,7 @@ pub mod schema_service {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::builder::schema_service::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_pubsub::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -3258,7 +3267,7 @@ pub mod schema_service {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -3268,7 +3277,7 @@ pub mod schema_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3294,8 +3303,8 @@ pub mod schema_service {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

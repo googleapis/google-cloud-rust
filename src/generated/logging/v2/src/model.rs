@@ -19,9 +19,9 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
 extern crate google_cloud_api;
+extern crate google_cloud_gax;
 extern crate google_cloud_logging_type;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -1448,7 +1448,7 @@ impl wkt::message::Message for ListLogEntriesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLogEntriesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLogEntriesResponse {
     type PageItem = crate::model::LogEntry;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1577,7 +1577,9 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMonitoredResourceDescriptorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMonitoredResourceDescriptorsResponse
+{
     type PageItem = google_cloud_api::model::MonitoredResourceDescriptor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3631,7 +3633,7 @@ impl wkt::message::Message for ListBucketsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBucketsResponse {
     type PageItem = crate::model::LogBucket;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4136,7 +4138,7 @@ impl wkt::message::Message for ListViewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListViewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListViewsResponse {
     type PageItem = crate::model::LogView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4587,7 +4589,7 @@ impl wkt::message::Message for ListSinksResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSinksResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSinksResponse {
     type PageItem = crate::model::LogSink;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5229,7 +5231,7 @@ impl wkt::message::Message for ListLinksResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLinksResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLinksResponse {
     type PageItem = crate::model::Link;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5595,7 +5597,7 @@ impl wkt::message::Message for ListExclusionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListExclusionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListExclusionsResponse {
     type PageItem = crate::model::LogExclusion;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8049,7 +8051,7 @@ impl wkt::message::Message for ListLogMetricsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLogMetricsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLogMetricsResponse {
     type PageItem = crate::model::LogMetric;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

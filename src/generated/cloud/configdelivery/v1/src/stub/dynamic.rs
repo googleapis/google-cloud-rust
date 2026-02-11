@@ -20,200 +20,198 @@ pub trait ConfigDelivery: std::fmt::Debug + Send + Sync {
     async fn list_resource_bundles(
         &self,
         req: crate::model::ListResourceBundlesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceBundlesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceBundlesResponse>>;
 
     async fn get_resource_bundle(
         &self,
         req: crate::model::GetResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceBundle>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceBundle>>;
 
     async fn create_resource_bundle(
         &self,
         req: crate::model::CreateResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_resource_bundle(
         &self,
         req: crate::model::UpdateResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_resource_bundle(
         &self,
         req: crate::model::DeleteResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_fleet_packages(
         &self,
         req: crate::model::ListFleetPackagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFleetPackagesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFleetPackagesResponse>>;
 
     async fn get_fleet_package(
         &self,
         req: crate::model::GetFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FleetPackage>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FleetPackage>>;
 
     async fn create_fleet_package(
         &self,
         req: crate::model::CreateFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_fleet_package(
         &self,
         req: crate::model::UpdateFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_fleet_package(
         &self,
         req: crate::model::DeleteFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_releases(
         &self,
         req: crate::model::ListReleasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReleasesResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReleasesResponse>>;
 
     async fn get_release(
         &self,
         req: crate::model::GetReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Release>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Release>>;
 
     async fn create_release(
         &self,
         req: crate::model::CreateReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_release(
         &self,
         req: crate::model::UpdateReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_release(
         &self,
         req: crate::model::DeleteReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_variants(
         &self,
         req: crate::model::ListVariantsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVariantsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVariantsResponse>>;
 
     async fn get_variant(
         &self,
         req: crate::model::GetVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Variant>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Variant>>;
 
     async fn create_variant(
         &self,
         req: crate::model::CreateVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn update_variant(
         &self,
         req: crate::model::UpdateVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_variant(
         &self,
         req: crate::model::DeleteVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_rollouts(
         &self,
         req: crate::model::ListRolloutsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRolloutsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRolloutsResponse>>;
 
     async fn get_rollout(
         &self,
         req: crate::model::GetRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Rollout>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>>;
 
     async fn suspend_rollout(
         &self,
         req: crate::model::SuspendRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn resume_rollout(
         &self,
         req: crate::model::ResumeRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn abort_rollout(
         &self,
         req: crate::model::AbortRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    >;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ConfigDelivery] also implement [ConfigDelivery].
@@ -223,8 +221,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_resource_bundles(
         &self,
         req: crate::model::ListResourceBundlesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListResourceBundlesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListResourceBundlesResponse>> {
         T::list_resource_bundles(self, req, options).await
     }
 
@@ -232,8 +230,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_resource_bundle(
         &self,
         req: crate::model::GetResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ResourceBundle>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ResourceBundle>> {
         T::get_resource_bundle(self, req, options).await
     }
 
@@ -241,8 +239,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn create_resource_bundle(
         &self,
         req: crate::model::CreateResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_resource_bundle(self, req, options).await
     }
 
@@ -250,8 +248,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn update_resource_bundle(
         &self,
         req: crate::model::UpdateResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_resource_bundle(self, req, options).await
     }
 
@@ -259,8 +257,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn delete_resource_bundle(
         &self,
         req: crate::model::DeleteResourceBundleRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_resource_bundle(self, req, options).await
     }
 
@@ -268,8 +266,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_fleet_packages(
         &self,
         req: crate::model::ListFleetPackagesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFleetPackagesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFleetPackagesResponse>> {
         T::list_fleet_packages(self, req, options).await
     }
 
@@ -277,8 +275,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_fleet_package(
         &self,
         req: crate::model::GetFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FleetPackage>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FleetPackage>> {
         T::get_fleet_package(self, req, options).await
     }
 
@@ -286,8 +284,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn create_fleet_package(
         &self,
         req: crate::model::CreateFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_fleet_package(self, req, options).await
     }
 
@@ -295,8 +293,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn update_fleet_package(
         &self,
         req: crate::model::UpdateFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_fleet_package(self, req, options).await
     }
 
@@ -304,8 +302,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn delete_fleet_package(
         &self,
         req: crate::model::DeleteFleetPackageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_fleet_package(self, req, options).await
     }
 
@@ -313,8 +311,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_releases(
         &self,
         req: crate::model::ListReleasesRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListReleasesResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListReleasesResponse>> {
         T::list_releases(self, req, options).await
     }
 
@@ -322,8 +320,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_release(
         &self,
         req: crate::model::GetReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Release>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Release>> {
         T::get_release(self, req, options).await
     }
 
@@ -331,8 +329,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn create_release(
         &self,
         req: crate::model::CreateReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_release(self, req, options).await
     }
 
@@ -340,8 +338,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn update_release(
         &self,
         req: crate::model::UpdateReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_release(self, req, options).await
     }
 
@@ -349,8 +347,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn delete_release(
         &self,
         req: crate::model::DeleteReleaseRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_release(self, req, options).await
     }
 
@@ -358,8 +356,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_variants(
         &self,
         req: crate::model::ListVariantsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVariantsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListVariantsResponse>> {
         T::list_variants(self, req, options).await
     }
 
@@ -367,8 +365,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_variant(
         &self,
         req: crate::model::GetVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Variant>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Variant>> {
         T::get_variant(self, req, options).await
     }
 
@@ -376,8 +374,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn create_variant(
         &self,
         req: crate::model::CreateVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_variant(self, req, options).await
     }
 
@@ -385,8 +383,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn update_variant(
         &self,
         req: crate::model::UpdateVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_variant(self, req, options).await
     }
 
@@ -394,8 +392,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn delete_variant(
         &self,
         req: crate::model::DeleteVariantRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_variant(self, req, options).await
     }
 
@@ -403,8 +401,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_rollouts(
         &self,
         req: crate::model::ListRolloutsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListRolloutsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRolloutsResponse>> {
         T::list_rollouts(self, req, options).await
     }
 
@@ -412,8 +410,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_rollout(
         &self,
         req: crate::model::GetRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Rollout>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Rollout>> {
         T::get_rollout(self, req, options).await
     }
 
@@ -421,8 +419,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn suspend_rollout(
         &self,
         req: crate::model::SuspendRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::suspend_rollout(self, req, options).await
     }
 
@@ -430,8 +428,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn resume_rollout(
         &self,
         req: crate::model::ResumeRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::resume_rollout(self, req, options).await
     }
 
@@ -439,8 +437,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn abort_rollout(
         &self,
         req: crate::model::AbortRolloutRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::abort_rollout(self, req, options).await
     }
 
@@ -448,9 +446,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::ListLocationsResponse>>
-    {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -458,8 +455,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_location::model::Location>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -467,10 +464,9 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-    > {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
         T::list_operations(self, req, options).await
     }
 
@@ -478,8 +474,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<google_cloud_longrunning::model::Operation>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -487,8 +483,8 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -496,22 +492,22 @@ impl<T: super::ConfigDelivery> ConfigDelivery for T {
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
 }

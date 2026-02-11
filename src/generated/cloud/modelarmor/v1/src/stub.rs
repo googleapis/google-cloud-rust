@@ -42,9 +42,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn list_templates(
         &self,
         _req: crate::model::ListTemplatesRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListTemplatesResponse>>,
+        Output = crate::Result<crate::Response<crate::model::ListTemplatesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -53,10 +53,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn get_template(
         &self,
         _req: crate::model::GetTemplateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Template>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -64,10 +63,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn create_template(
         &self,
         _req: crate::model::CreateTemplateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Template>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -75,10 +73,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn update_template(
         &self,
         _req: crate::model::UpdateTemplateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Template>>,
-    > + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -86,8 +83,8 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn delete_template(
         &self,
         _req: crate::model::DeleteTemplateRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -95,9 +92,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn get_floor_setting(
         &self,
         _req: crate::model::GetFloorSettingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FloorSetting>>,
+        Output = crate::Result<crate::Response<crate::model::FloorSetting>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -106,9 +103,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn update_floor_setting(
         &self,
         _req: crate::model::UpdateFloorSettingRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::FloorSetting>>,
+        Output = crate::Result<crate::Response<crate::model::FloorSetting>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -117,9 +114,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn sanitize_user_prompt(
         &self,
         _req: crate::model::SanitizeUserPromptRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>>,
+        Output = crate::Result<crate::Response<crate::model::SanitizeUserPromptResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -128,11 +125,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn sanitize_model_response(
         &self,
         _req: crate::model::SanitizeModelResponseRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::SanitizeModelResponseResponse>,
-        >,
+        Output = crate::Result<crate::Response<crate::model::SanitizeModelResponseResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -141,10 +136,10 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: google_cloud_location::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            gax::response::Response<google_cloud_location::model::ListLocationsResponse>,
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -154,9 +149,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: google_cloud_location::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<google_cloud_location::model::Location>>,
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

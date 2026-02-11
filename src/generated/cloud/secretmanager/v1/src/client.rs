@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
 /// let client = SecretManagerService::builder().build().await?;
 /// // use `client` to make requests to the Secret Manager API.
@@ -75,15 +75,13 @@ impl SecretManagerService {
     /// Returns a builder for [SecretManagerService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// let client = SecretManagerService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::secret_manager_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::secret_manager_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::secret_manager_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -101,14 +99,14 @@ impl SecretManagerService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -118,13 +116,13 @@ impl SecretManagerService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecretManagerService> {
         super::transport::SecretManagerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::SecretManagerService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SecretManagerService::new)
@@ -133,6 +131,26 @@ impl SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_secrets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets {
         super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
     }
@@ -268,6 +286,26 @@ impl SecretManagerService {
     /// call does not return secret data.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_secret_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_secret_versions(
         &self,
     ) -> super::builder::secret_manager_service::ListSecretVersions {
@@ -515,6 +553,25 @@ impl SecretManagerService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let mut list = client
+    ///         .list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations {
         super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
     }

@@ -20,7 +20,7 @@ pub mod repository_manager {
     /// A builder for [RepositoryManager][crate::client::RepositoryManager].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::*;
     /// # use builder::repository_manager::ClientBuilder;
     /// # use client::RepositoryManager;
@@ -30,19 +30,18 @@ pub mod repository_manager {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::RepositoryManager;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = RepositoryManager;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod repository_manager {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod repository_manager {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CreateConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -108,7 +107,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -123,7 +122,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_connection`.
@@ -140,7 +139,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -207,8 +206,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -218,7 +217,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -246,7 +245,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -256,7 +255,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -269,8 +268,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -280,8 +279,8 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::ListConnections;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -312,7 +311,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -322,14 +321,16 @@ pub mod repository_manager {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListConnectionsResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -337,15 +338,17 @@ pub mod repository_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListConnectionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -371,8 +374,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListConnections {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListConnections {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -382,7 +385,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::UpdateConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -414,7 +417,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -429,7 +432,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_connection`.
@@ -446,7 +449,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -527,8 +530,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for UpdateConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for UpdateConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -538,7 +541,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::DeleteConnection;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -570,7 +573,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -585,7 +588,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_connection`.
@@ -597,7 +600,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -646,8 +649,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteConnection {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteConnection {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -657,7 +660,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CreateRepository;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -689,7 +692,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -704,7 +707,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_repository`.
@@ -721,7 +724,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -788,8 +791,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateRepository {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateRepository {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -799,7 +802,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::BatchCreateRepositories;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -833,7 +836,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -848,7 +851,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `batch_create_repositories`.
@@ -867,7 +870,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -917,8 +920,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for BatchCreateRepositories {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for BatchCreateRepositories {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -928,7 +931,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetRepository;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -956,7 +959,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -966,7 +969,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_repository(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -979,8 +982,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetRepository {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetRepository {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -990,8 +993,8 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::ListRepositories;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1025,7 +1028,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1035,14 +1038,16 @@ pub mod repository_manager {
             (*self.0.stub)
                 .list_repositories(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListRepositoriesResponse,
+            crate::Error,
+        > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1050,15 +1055,17 @@ pub mod repository_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
-            use gax::paginator::Paginator;
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListRepositoriesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1090,8 +1097,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListRepositories {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListRepositories {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1101,7 +1108,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::DeleteRepository;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     /// use google_cloud_lro::Poller;
     ///
     /// let builder = prepare_request_builder();
@@ -1133,7 +1140,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1148,7 +1155,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_repository`.
@@ -1160,7 +1167,7 @@ pub mod repository_manager {
 
             let stub = self.0.stub.clone();
             let mut options = self.0.options.clone();
-            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
             let query = move |name| {
                 let stub = stub.clone();
                 let options = options.clone();
@@ -1209,8 +1216,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for DeleteRepository {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for DeleteRepository {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1220,7 +1227,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchReadWriteToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1251,7 +1258,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1261,7 +1268,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_read_write_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
@@ -1274,8 +1281,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchReadWriteToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchReadWriteToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1285,7 +1292,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchReadToken;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1313,7 +1320,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1323,7 +1330,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_read_token(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
@@ -1336,8 +1343,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchReadToken {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchReadToken {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1347,8 +1354,8 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchLinkableRepositories;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -1384,7 +1391,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1394,15 +1401,15 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_linkable_repositories(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             crate::model::FetchLinkableRepositoriesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1411,17 +1418,17 @@ pub mod repository_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             crate::model::FetchLinkableRepositoriesResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -1447,8 +1454,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchLinkableRepositories {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchLinkableRepositories {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1458,7 +1465,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::FetchGitRefs;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1486,7 +1493,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1496,7 +1503,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_git_refs(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
@@ -1518,8 +1525,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for FetchGitRefs {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for FetchGitRefs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1529,7 +1536,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::SetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1560,7 +1567,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1570,7 +1577,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
@@ -1623,8 +1630,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1634,7 +1641,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetIamPolicy;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1665,7 +1672,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1675,7 +1682,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
@@ -1706,8 +1713,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1717,7 +1724,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::TestIamPermissions;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1750,7 +1757,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1760,7 +1767,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1786,8 +1793,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1797,7 +1804,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::GetOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1828,7 +1835,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1838,7 +1845,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
@@ -1849,8 +1856,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -1860,7 +1867,7 @@ pub mod repository_manager {
     /// # Example
     /// ```
     /// # use google_cloud_build_v2::builder::repository_manager::CancelOperation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_build_v2::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -1893,7 +1900,7 @@ pub mod repository_manager {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -1903,7 +1910,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
@@ -1914,8 +1921,8 @@ pub mod repository_manager {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelOperation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }

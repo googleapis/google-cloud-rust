@@ -20,44 +20,44 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>>;
 
     async fn update_contact(
         &self,
         req: crate::model::UpdateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>>;
 
     async fn list_contacts(
         &self,
         req: crate::model::ListContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListContactsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListContactsResponse>>;
 
     async fn get_contact(
         &self,
         req: crate::model::GetContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>>;
 
     async fn delete_contact(
         &self,
         req: crate::model::DeleteContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 
     async fn compute_contacts(
         &self,
         req: crate::model::ComputeContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ComputeContactsResponse>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeContactsResponse>>;
 
     async fn send_test_message(
         &self,
         req: crate::model::SendTestMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>>;
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::EssentialContactsService] also implement [EssentialContactsService].
@@ -67,8 +67,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>> {
         T::create_contact(self, req, options).await
     }
 
@@ -76,8 +76,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn update_contact(
         &self,
         req: crate::model::UpdateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>> {
         T::update_contact(self, req, options).await
     }
 
@@ -85,8 +85,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn list_contacts(
         &self,
         req: crate::model::ListContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListContactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListContactsResponse>> {
         T::list_contacts(self, req, options).await
     }
 
@@ -94,8 +94,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn get_contact(
         &self,
         req: crate::model::GetContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Contact>> {
         T::get_contact(self, req, options).await
     }
 
@@ -103,8 +103,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn delete_contact(
         &self,
         req: crate::model::DeleteContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::delete_contact(self, req, options).await
     }
 
@@ -112,8 +112,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn compute_contacts(
         &self,
         req: crate::model::ComputeContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ComputeContactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ComputeContactsResponse>> {
         T::compute_contacts(self, req, options).await
     }
 
@@ -121,8 +121,8 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     async fn send_test_message(
         &self,
         req: crate::model::SendTestMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
         T::send_test_message(self, req, options).await
     }
 }

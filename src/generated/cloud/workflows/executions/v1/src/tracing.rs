@@ -41,8 +41,8 @@ where
     async fn list_executions(
         &self,
         req: crate::model::ListExecutionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListExecutionsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListExecutionsResponse>> {
         self.inner.list_executions(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn create_execution(
         &self,
         req: crate::model::CreateExecutionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Execution>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Execution>> {
         self.inner.create_execution(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Execution>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Execution>> {
         self.inner.get_execution(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn cancel_execution(
         &self,
         req: crate::model::CancelExecutionRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Execution>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Execution>> {
         self.inner.cancel_execution(req, options).await
     }
 }

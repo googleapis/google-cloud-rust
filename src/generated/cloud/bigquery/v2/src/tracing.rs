@@ -41,8 +41,8 @@ where
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dataset>> {
         self.inner.get_dataset(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn insert_dataset(
         &self,
         req: crate::model::InsertDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dataset>> {
         self.inner.insert_dataset(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn patch_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dataset>> {
         self.inner.patch_dataset(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn update_dataset(
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dataset>> {
         self.inner.update_dataset(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_dataset(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::DatasetList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DatasetList>> {
         self.inner.list_datasets(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn undelete_dataset(
         &self,
         req: crate::model::UndeleteDatasetRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Dataset>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Dataset>> {
         self.inner.undelete_dataset(req, options).await
     }
 }
@@ -127,8 +127,8 @@ where
     async fn cancel_job(
         &self,
         req: crate::model::CancelJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::JobCancelResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::JobCancelResponse>> {
         self.inner.cancel_job(req, options).await
     }
 
@@ -136,8 +136,8 @@ where
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.get_job(req, options).await
     }
 
@@ -145,8 +145,8 @@ where
     async fn insert_job(
         &self,
         req: crate::model::InsertJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Job>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Job>> {
         self.inner.insert_job(req, options).await
     }
 
@@ -154,8 +154,8 @@ where
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_job(req, options).await
     }
 
@@ -163,8 +163,8 @@ where
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::JobList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::JobList>> {
         self.inner.list_jobs(req, options).await
     }
 
@@ -172,8 +172,8 @@ where
     async fn get_query_results(
         &self,
         req: crate::model::GetQueryResultsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GetQueryResultsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GetQueryResultsResponse>> {
         self.inner.get_query_results(req, options).await
     }
 
@@ -181,8 +181,8 @@ where
     async fn query(
         &self,
         req: crate::model::PostQueryRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryResponse>> {
         self.inner.query(req, options).await
     }
 }
@@ -213,8 +213,8 @@ where
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Model>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Model>> {
         self.inner.get_model(req, options).await
     }
 
@@ -222,8 +222,8 @@ where
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListModelsResponse>> {
         self.inner.list_models(req, options).await
     }
 
@@ -231,8 +231,8 @@ where
     async fn patch_model(
         &self,
         req: crate::model::PatchModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Model>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Model>> {
         self.inner.patch_model(req, options).await
     }
 
@@ -240,8 +240,8 @@ where
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_model(req, options).await
     }
 }
@@ -272,8 +272,8 @@ where
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GetServiceAccountResponse>> {
         self.inner.get_service_account(req, options).await
     }
 }
@@ -304,8 +304,8 @@ where
     async fn get_routine(
         &self,
         req: crate::model::GetRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Routine>> {
         self.inner.get_routine(req, options).await
     }
 
@@ -313,8 +313,8 @@ where
     async fn insert_routine(
         &self,
         req: crate::model::InsertRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Routine>> {
         self.inner.insert_routine(req, options).await
     }
 
@@ -322,8 +322,8 @@ where
     async fn update_routine(
         &self,
         req: crate::model::UpdateRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Routine>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Routine>> {
         self.inner.update_routine(req, options).await
     }
 
@@ -331,8 +331,8 @@ where
     async fn delete_routine(
         &self,
         req: crate::model::DeleteRoutineRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_routine(req, options).await
     }
 
@@ -340,8 +340,8 @@ where
     async fn list_routines(
         &self,
         req: crate::model::ListRoutinesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRoutinesResponse>> {
         self.inner.list_routines(req, options).await
     }
 }
@@ -372,8 +372,8 @@ where
     async fn list_row_access_policies(
         &self,
         req: crate::model::ListRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRowAccessPoliciesResponse>> {
         self.inner.list_row_access_policies(req, options).await
     }
 
@@ -381,8 +381,8 @@ where
     async fn get_row_access_policy(
         &self,
         req: crate::model::GetRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
         self.inner.get_row_access_policy(req, options).await
     }
 
@@ -390,8 +390,8 @@ where
     async fn create_row_access_policy(
         &self,
         req: crate::model::CreateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
         self.inner.create_row_access_policy(req, options).await
     }
 
@@ -399,8 +399,8 @@ where
     async fn update_row_access_policy(
         &self,
         req: crate::model::UpdateRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RowAccessPolicy>> {
         self.inner.update_row_access_policy(req, options).await
     }
 
@@ -408,8 +408,8 @@ where
     async fn delete_row_access_policy(
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_row_access_policy(req, options).await
     }
 
@@ -417,8 +417,8 @@ where
     async fn batch_delete_row_access_policies(
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner
             .batch_delete_row_access_policies(req, options)
             .await
@@ -451,8 +451,8 @@ where
     async fn get_table(
         &self,
         req: crate::model::GetTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Table>> {
         self.inner.get_table(req, options).await
     }
 
@@ -460,8 +460,8 @@ where
     async fn insert_table(
         &self,
         req: crate::model::InsertTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Table>> {
         self.inner.insert_table(req, options).await
     }
 
@@ -469,8 +469,8 @@ where
     async fn patch_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Table>> {
         self.inner.patch_table(req, options).await
     }
 
@@ -478,8 +478,8 @@ where
     async fn update_table(
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Table>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Table>> {
         self.inner.update_table(req, options).await
     }
 
@@ -487,8 +487,8 @@ where
     async fn delete_table(
         &self,
         req: crate::model::DeleteTableRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_table(req, options).await
     }
 
@@ -496,8 +496,8 @@ where
     async fn list_tables(
         &self,
         req: crate::model::ListTablesRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TableList>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TableList>> {
         self.inner.list_tables(req, options).await
     }
 }

@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -5926,7 +5926,7 @@ impl wkt::message::Message for ListClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListClustersResponse {
     type PageItem = crate::model::Cluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6871,7 +6871,7 @@ impl wkt::message::Message for ListNodePoolsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListNodePoolsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListNodePoolsResponse {
     type PageItem = crate::model::NodePool;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7357,7 +7357,7 @@ impl wkt::message::Message for ListMachinesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMachinesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMachinesResponse {
     type PageItem = crate::model::Machine;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7579,7 +7579,7 @@ impl wkt::message::Message for ListVpnConnectionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListVpnConnectionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListVpnConnectionsResponse {
     type PageItem = crate::model::VpnConnection;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

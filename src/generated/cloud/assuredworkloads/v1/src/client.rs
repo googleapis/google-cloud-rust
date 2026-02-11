@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// let client = AssuredWorkloadsService::builder().build().await?;
 /// // use `client` to make requests to the Assured Workloads API.
@@ -66,15 +66,13 @@ impl AssuredWorkloadsService {
     /// Returns a builder for [AssuredWorkloadsService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// let client = AssuredWorkloadsService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::assured_workloads_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::assured_workloads_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::assured_workloads_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,16 +90,15 @@ impl AssuredWorkloadsService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
-    > {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +107,13 @@ impl AssuredWorkloadsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AssuredWorkloadsService> {
         super::transport::AssuredWorkloadsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::AssuredWorkloadsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssuredWorkloadsService::new)

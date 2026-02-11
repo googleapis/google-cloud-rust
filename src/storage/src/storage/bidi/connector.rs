@@ -104,7 +104,10 @@ where
                 Err(e) => Err(Error::timeout(e)),
             }
         };
-        gax::retry_loop_internal::retry_loop(inner, sleep, true, throttler, retry, backoff).await
+        google_cloud_gax::retry_loop_internal::retry_loop(
+            inner, sleep, true, throttler, retry, backoff,
+        )
+        .await
     }
 
     pub async fn reconnect(
@@ -153,7 +156,7 @@ where
             .strip_prefix("projects/_/buckets/")
             .is_none_or(|x| x.is_empty())
         {
-            use gax::error::binding::*;
+            use google_cloud_gax::error::binding::*;
             let problem = SubstitutionFail::MismatchExpecting(
                 bucket_name.to_string(),
                 "projects/_/buckets/*",
@@ -237,10 +240,10 @@ mod tests {
     use crate::google::storage::v2::{BidiReadHandle, Object, ObjectRangeData};
     use crate::read_resume_policy::{AlwaysResume, ReadResumePolicyExt};
     use anyhow::Result;
-    use gax::error::binding::{BindingError, SubstitutionFail};
-    use gax::retry_policy::NeverRetry;
     use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_gax::error::binding::{BindingError, SubstitutionFail};
+    use google_cloud_gax::retry_policy::NeverRetry;
     use static_assertions::assert_impl_all;
     use std::error::Error as _;
     use std::sync::Arc;

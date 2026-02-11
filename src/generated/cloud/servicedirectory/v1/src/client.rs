@@ -20,7 +20,7 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::LookupService;
 /// let client = LookupService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
@@ -66,13 +66,13 @@ impl LookupService {
     /// Returns a builder for [LookupService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::LookupService;
     /// let client = LookupService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::lookup_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::lookup_service::client::Factory)
+        crate::new_client_builder(super::builder::lookup_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -90,14 +90,14 @@ impl LookupService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LookupService>> {
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::LookupService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl LookupService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LookupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LookupService> {
         super::transport::LookupService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::LookupService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::LookupService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LookupService::new)
@@ -142,7 +142,7 @@ impl LookupService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
 /// let client = RegistrationService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
@@ -207,15 +207,13 @@ impl RegistrationService {
     /// Returns a builder for [RegistrationService].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// let client = RegistrationService::builder().build().await?;
     /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::registration_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::registration_service::client::Factory,
-        )
+        crate::new_client_builder(super::builder::registration_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -233,14 +231,14 @@ impl RegistrationService {
 
     pub(crate) async fn new(
         config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    ) -> crate::ClientBuilderResult<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RegistrationService>>
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RegistrationService>>
     {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
@@ -250,13 +248,13 @@ impl RegistrationService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegistrationService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RegistrationService> {
         super::transport::RegistrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RegistrationService> {
+    ) -> crate::ClientBuilderResult<impl super::stub::RegistrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RegistrationService::new)

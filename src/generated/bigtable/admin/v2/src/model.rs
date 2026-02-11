@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -2041,7 +2041,7 @@ impl wkt::message::Message for ListAppProfilesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAppProfilesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAppProfilesResponse {
     type PageItem = crate::model::AppProfile;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2448,7 +2448,7 @@ impl wkt::message::Message for ListHotTabletsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListHotTabletsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListHotTabletsResponse {
     type PageItem = crate::model::HotTablet;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2843,7 +2843,7 @@ impl wkt::message::Message for ListLogicalViewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListLogicalViewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListLogicalViewsResponse {
     type PageItem = crate::model::LogicalView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3519,7 +3519,7 @@ impl wkt::message::Message for ListMaterializedViewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListMaterializedViewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMaterializedViewsResponse {
     type PageItem = crate::model::MaterializedView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4767,7 +4767,7 @@ impl wkt::message::Message for ListTablesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListTablesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTablesResponse {
     type PageItem = crate::model::Table;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -6243,7 +6243,7 @@ impl wkt::message::Message for ListSnapshotsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
     type PageItem = crate::model::Snapshot;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7194,7 +7194,7 @@ impl wkt::message::Message for ListBackupsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupsResponse {
     type PageItem = crate::model::Backup;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -7830,7 +7830,7 @@ impl wkt::message::Message for ListAuthorizedViewsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAuthorizedViewsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthorizedViewsResponse {
     type PageItem = crate::model::AuthorizedView;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -8822,7 +8822,7 @@ impl wkt::message::Message for ListSchemaBundlesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListSchemaBundlesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSchemaBundlesResponse {
     type PageItem = crate::model::SchemaBundle;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -11933,6 +11933,15 @@ pub struct Table {
     /// Note one can still delete the data stored in the table through Data APIs.
     pub deletion_protection: bool,
 
+    /// Rules to specify what data is stored in each storage tier.
+    /// Different tiers store data differently, providing different trade-offs
+    /// between cost and performance. Different parts of a table can be stored
+    /// separately on different tiers.
+    /// If a config is specified, tiered storage is enabled for this table.
+    /// Otherwise, tiered storage is disabled.
+    /// Only SSD instances can configure tiered storage.
+    pub tiered_storage_config: std::option::Option<crate::model::TieredStorageConfig>,
+
     /// The row key schema for this table. The schema is used to decode the raw row
     /// key bytes into a structured format. The order of field declarations in this
     /// schema is important, as it reflects how the raw row key bytes are
@@ -12149,6 +12158,39 @@ impl Table {
     /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
+        self
+    }
+
+    /// Sets the value of [tiered_storage_config][crate::model::Table::tiered_storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::model::TieredStorageConfig;
+    /// let x = Table::new().set_tiered_storage_config(TieredStorageConfig::default()/* use setters */);
+    /// ```
+    pub fn set_tiered_storage_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TieredStorageConfig>,
+    {
+        self.tiered_storage_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tiered_storage_config][crate::model::Table::tiered_storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::model::TieredStorageConfig;
+    /// let x = Table::new().set_or_clear_tiered_storage_config(Some(TieredStorageConfig::default()/* use setters */));
+    /// let x = Table::new().set_or_clear_tiered_storage_config(None::<TieredStorageConfig>);
+    /// ```
+    pub fn set_or_clear_tiered_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TieredStorageConfig>,
+    {
+        self.tiered_storage_config = v.map(|x| x.into());
         self
     }
 
@@ -15047,6 +15089,161 @@ impl BackupInfo {
 impl wkt::message::Message for BackupInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.bigtable.admin.v2.BackupInfo"
+    }
+}
+
+/// Config for tiered storage.
+/// A valid config must have a valid TieredStorageRule. Otherwise the whole
+/// TieredStorageConfig must be unset.
+/// By default all data is stored in the SSD tier (only SSD instances can
+/// configure tiered storage).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TieredStorageConfig {
+    /// Rule to specify what data is stored in the infrequent access(IA) tier.
+    /// The IA tier allows storing more data per node with reduced performance.
+    pub infrequent_access: std::option::Option<crate::model::TieredStorageRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TieredStorageConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [infrequent_access][crate::model::TieredStorageConfig::infrequent_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::TieredStorageConfig;
+    /// use google_cloud_bigtable_admin_v2::model::TieredStorageRule;
+    /// let x = TieredStorageConfig::new().set_infrequent_access(TieredStorageRule::default()/* use setters */);
+    /// ```
+    pub fn set_infrequent_access<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TieredStorageRule>,
+    {
+        self.infrequent_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [infrequent_access][crate::model::TieredStorageConfig::infrequent_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::TieredStorageConfig;
+    /// use google_cloud_bigtable_admin_v2::model::TieredStorageRule;
+    /// let x = TieredStorageConfig::new().set_or_clear_infrequent_access(Some(TieredStorageRule::default()/* use setters */));
+    /// let x = TieredStorageConfig::new().set_or_clear_infrequent_access(None::<TieredStorageRule>);
+    /// ```
+    pub fn set_or_clear_infrequent_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TieredStorageRule>,
+    {
+        self.infrequent_access = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TieredStorageConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.TieredStorageConfig"
+    }
+}
+
+/// Rule to specify what data is stored in a storage tier.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TieredStorageRule {
+    /// Rules to specify what data is stored in this tier.
+    pub rule: std::option::Option<crate::model::tiered_storage_rule::Rule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TieredStorageRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rule][crate::model::TieredStorageRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::TieredStorageRule;
+    /// use wkt::Duration;
+    /// let x = TieredStorageRule::new().set_rule(Some(
+    ///     google_cloud_bigtable_admin_v2::model::tiered_storage_rule::Rule::IncludeIfOlderThan(Duration::default().into())));
+    /// ```
+    pub fn set_rule<
+        T: std::convert::Into<std::option::Option<crate::model::tiered_storage_rule::Rule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rule = v.into();
+        self
+    }
+
+    /// The value of [rule][crate::model::TieredStorageRule::rule]
+    /// if it holds a `IncludeIfOlderThan`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn include_if_older_than(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.rule.as_ref().and_then(|v| match v {
+            crate::model::tiered_storage_rule::Rule::IncludeIfOlderThan(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [rule][crate::model::TieredStorageRule::rule]
+    /// to hold a `IncludeIfOlderThan`.
+    ///
+    /// Note that all the setters affecting `rule` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::TieredStorageRule;
+    /// use wkt::Duration;
+    /// let x = TieredStorageRule::new().set_include_if_older_than(Duration::default()/* use setters */);
+    /// assert!(x.include_if_older_than().is_some());
+    /// ```
+    pub fn set_include_if_older_than<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rule = std::option::Option::Some(
+            crate::model::tiered_storage_rule::Rule::IncludeIfOlderThan(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for TieredStorageRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.TieredStorageRule"
+    }
+}
+
+/// Defines additional types related to [TieredStorageRule].
+pub mod tiered_storage_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Rules to specify what data is stored in this tier.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Rule {
+        /// Include cells older than the given age.
+        /// For the infrequent access tier, this value must be at least 30 days.
+        IncludeIfOlderThan(std::boxed::Box<wkt::Duration>),
     }
 }
 

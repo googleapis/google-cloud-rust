@@ -41,8 +41,8 @@ where
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Contact>> {
         self.inner.create_contact(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn update_contact(
         &self,
         req: crate::model::UpdateContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Contact>> {
         self.inner.update_contact(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn list_contacts(
         &self,
         req: crate::model::ListContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListContactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListContactsResponse>> {
         self.inner.list_contacts(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn get_contact(
         &self,
         req: crate::model::GetContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Contact>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Contact>> {
         self.inner.get_contact(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn delete_contact(
         &self,
         req: crate::model::DeleteContactRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_contact(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn compute_contacts(
         &self,
         req: crate::model::ComputeContactsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ComputeContactsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ComputeContactsResponse>> {
         self.inner.compute_contacts(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn send_test_message(
         &self,
         req: crate::model::SendTestMessageRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.send_test_message(req, options).await
     }
 }

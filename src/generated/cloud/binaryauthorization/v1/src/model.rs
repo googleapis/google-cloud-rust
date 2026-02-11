@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_grafeas_v1;
 extern crate lazy_static;
 extern crate serde;
@@ -2074,7 +2074,7 @@ impl wkt::message::Message for ListAttestorsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListAttestorsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAttestorsResponse {
     type PageItem = crate::model::Attestor;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

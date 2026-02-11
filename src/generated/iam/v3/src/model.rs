@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
@@ -1316,7 +1316,7 @@ impl wkt::message::Message for ListPolicyBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPolicyBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPolicyBindingsResponse {
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -1497,7 +1497,9 @@ impl wkt::message::Message for SearchTargetPolicyBindingsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchTargetPolicyBindingsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for SearchTargetPolicyBindingsResponse
+{
     type PageItem = crate::model::PolicyBinding;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2005,7 +2007,9 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPrincipalAccessBoundaryPoliciesResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListPrincipalAccessBoundaryPoliciesResponse
+{
     type PageItem = crate::model::PrincipalAccessBoundaryPolicy;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2155,7 +2159,7 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsRespon
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse
+impl google_cloud_gax::paginator::internal::PageableResponse
     for SearchPrincipalAccessBoundaryPolicyBindingsResponse
 {
     type PageItem = crate::model::PolicyBinding;

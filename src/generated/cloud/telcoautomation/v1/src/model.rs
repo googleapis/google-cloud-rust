@@ -19,8 +19,8 @@
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
-extern crate gax;
 extern crate gaxi;
+extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
@@ -2434,7 +2434,7 @@ impl wkt::message::Message for ListOrchestrationClustersResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListOrchestrationClustersResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListOrchestrationClustersResponse {
     type PageItem = crate::model::OrchestrationCluster;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -2834,7 +2834,7 @@ impl wkt::message::Message for ListEdgeSlmsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListEdgeSlmsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListEdgeSlmsResponse {
     type PageItem = crate::model::EdgeSlm;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3473,7 +3473,7 @@ impl wkt::message::Message for ListBlueprintsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBlueprintsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBlueprintsResponse {
     type PageItem = crate::model::Blueprint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3715,7 +3715,7 @@ impl wkt::message::Message for ListBlueprintRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListBlueprintRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBlueprintRevisionsResponse {
     type PageItem = crate::model::Blueprint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -3879,7 +3879,7 @@ impl wkt::message::Message for SearchBlueprintRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchBlueprintRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchBlueprintRevisionsResponse {
     type PageItem = crate::model::Blueprint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4073,7 +4073,7 @@ impl wkt::message::Message for ListPublicBlueprintsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListPublicBlueprintsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListPublicBlueprintsResponse {
     type PageItem = crate::model::PublicBlueprint;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4535,7 +4535,7 @@ impl wkt::message::Message for ListDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4674,7 +4674,7 @@ impl wkt::message::Message for ListDeploymentRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListDeploymentRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentRevisionsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -4839,7 +4839,7 @@ impl wkt::message::Message for SearchDeploymentRevisionsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for SearchDeploymentRevisionsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchDeploymentRevisionsResponse {
     type PageItem = crate::model::Deployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
@@ -5439,7 +5439,7 @@ impl wkt::message::Message for ListHydratedDeploymentsResponse {
 }
 
 #[doc(hidden)]
-impl gax::paginator::internal::PageableResponse for ListHydratedDeploymentsResponse {
+impl google_cloud_gax::paginator::internal::PageableResponse for ListHydratedDeploymentsResponse {
     type PageItem = crate::model::HydratedDeployment;
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {

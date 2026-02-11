@@ -41,8 +41,8 @@ where
     async fn delete_bucket(
         &self,
         req: crate::model::DeleteBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_bucket(req, options).await
     }
 
@@ -50,8 +50,8 @@ where
     async fn get_bucket(
         &self,
         req: crate::model::GetBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Bucket>> {
         self.inner.get_bucket(req, options).await
     }
 
@@ -59,8 +59,8 @@ where
     async fn create_bucket(
         &self,
         req: crate::model::CreateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Bucket>> {
         self.inner.create_bucket(req, options).await
     }
 
@@ -68,8 +68,8 @@ where
     async fn list_buckets(
         &self,
         req: crate::model::ListBucketsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBucketsResponse>> {
         self.inner.list_buckets(req, options).await
     }
 
@@ -77,8 +77,8 @@ where
     async fn lock_bucket_retention_policy(
         &self,
         req: crate::model::LockBucketRetentionPolicyRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Bucket>> {
         self.inner.lock_bucket_retention_policy(req, options).await
     }
 
@@ -86,8 +86,8 @@ where
     async fn update_bucket(
         &self,
         req: crate::model::UpdateBucketRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Bucket>> {
         self.inner.update_bucket(req, options).await
     }
 
@@ -95,8 +95,8 @@ where
     async fn compose_object(
         &self,
         req: crate::model::ComposeObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Object>> {
         self.inner.compose_object(req, options).await
     }
 
@@ -104,8 +104,8 @@ where
     async fn delete_object(
         &self,
         req: crate::model::DeleteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<()>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
         self.inner.delete_object(req, options).await
     }
 
@@ -113,8 +113,8 @@ where
     async fn restore_object(
         &self,
         req: crate::model::RestoreObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Object>> {
         self.inner.restore_object(req, options).await
     }
 
@@ -122,8 +122,8 @@ where
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Object>> {
         self.inner.get_object(req, options).await
     }
 
@@ -131,8 +131,8 @@ where
     async fn update_object(
         &self,
         req: crate::model::UpdateObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Object>> {
         self.inner.update_object(req, options).await
     }
 
@@ -140,8 +140,8 @@ where
     async fn list_objects(
         &self,
         req: crate::model::ListObjectsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListObjectsResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListObjectsResponse>> {
         self.inner.list_objects(req, options).await
     }
 
@@ -149,8 +149,8 @@ where
     async fn rewrite_object(
         &self,
         req: crate::model::RewriteObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RewriteResponse>> {
         self.inner.rewrite_object(req, options).await
     }
 
@@ -158,8 +158,8 @@ where
     async fn move_object(
         &self,
         req: crate::model::MoveObjectRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::Object>> {
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Object>> {
         self.inner.move_object(req, options).await
     }
 }

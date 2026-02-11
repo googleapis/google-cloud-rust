@@ -20,7 +20,7 @@ pub mod confidential_computing {
     /// A builder for [ConfidentialComputing][crate::client::ConfidentialComputing].
     ///
     /// ```
-    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
     /// # use google_cloud_confidentialcomputing_v1::*;
     /// # use builder::confidential_computing::ClientBuilder;
     /// # use client::ConfidentialComputing;
@@ -30,19 +30,18 @@ pub mod confidential_computing {
     ///     .build().await?;
     /// # Ok(()) }
     /// ```
-    pub type ClientBuilder =
-        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
     pub(crate) mod client {
         use super::super::super::client::ConfidentialComputing;
         pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
+        impl crate::ClientFactory for Factory {
             type Client = ConfidentialComputing;
             type Credentials = gaxi::options::Credentials;
             async fn build(
                 self,
                 config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            ) -> crate::ClientBuilderResult<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -53,7 +52,7 @@ pub mod confidential_computing {
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         request: R,
-        options: gax::options::RequestOptions,
+        options: crate::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
@@ -66,7 +65,7 @@ pub mod confidential_computing {
             Self {
                 stub,
                 request: R::default(),
-                options: gax::options::RequestOptions::default(),
+                options: crate::RequestOptions::default(),
             }
         }
     }
@@ -76,7 +75,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::CreateChallenge;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -104,7 +103,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -114,7 +113,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .create_challenge(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
@@ -149,8 +148,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CreateChallenge {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for CreateChallenge {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -160,7 +159,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyAttestation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -191,7 +190,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -201,7 +200,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .verify_attestation(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
@@ -340,8 +339,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for VerifyAttestation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for VerifyAttestation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -351,7 +350,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialSpace;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -384,7 +383,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -394,7 +393,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .verify_confidential_space(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyConfidentialSpaceRequest::challenge].
@@ -520,8 +519,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for VerifyConfidentialSpace {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for VerifyConfidentialSpace {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -531,7 +530,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialGke;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -562,7 +561,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -572,7 +571,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .verify_confidential_gke(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyConfidentialGkeRequest::challenge].
@@ -614,8 +613,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for VerifyConfidentialGke {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for VerifyConfidentialGke {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -625,8 +624,8 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::ListLocations;
-    /// # async fn sample() -> gax::Result<()> {
-    /// use gax::paginator::ItemPaginator;
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
@@ -660,7 +659,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -670,15 +669,15 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Streams each page in the collection.
         pub fn by_page(
             self,
-        ) -> impl gax::paginator::Paginator<
+        ) -> impl google_cloud_gax::paginator::Paginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -687,17 +686,17 @@ pub mod confidential_computing {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::internal::new_paginator(token, execute)
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Streams each item in the collection.
         pub fn by_item(
             self,
-        ) -> impl gax::paginator::ItemPaginator<
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
             google_cloud_location::model::ListLocationsResponse,
-            gax::error::Error,
+            crate::Error,
         > {
-            use gax::paginator::Paginator;
+            use google_cloud_gax::paginator::Paginator;
             self.by_page().items()
         }
 
@@ -727,8 +726,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for ListLocations {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
@@ -738,7 +737,7 @@ pub mod confidential_computing {
     /// # Example
     /// ```
     /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::GetLocation;
-    /// # async fn sample() -> gax::Result<()> {
+    /// # async fn sample() -> google_cloud_confidentialcomputing_v1::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
@@ -769,7 +768,7 @@ pub mod confidential_computing {
         }
 
         /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
             self.0.options = v.into();
             self
         }
@@ -779,7 +778,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
-                .map(gax::response::Response::into_body)
+                .map(crate::Response::into_body)
         }
 
         /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
@@ -790,8 +789,8 @@ pub mod confidential_computing {
     }
 
     #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for GetLocation {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
     }
