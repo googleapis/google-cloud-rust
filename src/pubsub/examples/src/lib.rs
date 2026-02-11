@@ -145,6 +145,16 @@ pub async fn create_test_subscription(
     create_test_subscription_with_request(topic_name, Subscription::new()).await
 }
 
+pub async fn create_ordered_test_subscription(
+    topic_name: &str,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    create_test_subscription_with_request(
+        topic_name,
+        Subscription::new().set_enable_message_ordering(true),
+    )
+    .await
+}
+
 async fn create_test_subscription_with_request(
     topic_name: &str,
     request: Subscription,
