@@ -15,6 +15,7 @@
 use futures::future::join_all;
 use google_cloud_pubsub::client::{Publisher, Subscriber};
 use google_cloud_pubsub::model::Message;
+use std::collections::HashMap;
 
 pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Result<()> {
     const MESSAGES_PER_KEY: i32 = 1_000;
@@ -32,22 +33,22 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     let mut session = subscriber.streaming_pull(subscription_name).start();
 
     let subscribe = tokio::spawn(async move {
-        let mut expected_index = [0; NUM_KEYS];
-        while expected_index.iter().all(|&v| v == MESSAGES_PER_KEY) {
+        let mut expected_indices = HashMap::new();
+        while expected_indices.values().all(|&v| v == MESSAGES_PER_KEY) {
             let Some((m, h)) = session.next().await.transpose()? else {
                 anyhow::bail!("Stream somehow ended.")
             };
-            let Some(key) = m.ordering_key.strip_prefix(ORDERING_PREFIX) else {
+            if !m.ordering_key.starts_with(ORDERING_PREFIX) {
                 continue;
-            };
-            let key = key.parse::<usize>()?;
+            }
             let index = parse_index(&m.data)?;
-            if index > expected_index[key] {
+            let expected_index = expected_indices.entry(m.ordering_key).or_default();
+            if index > *expected_index {
                 // Messages can be redelivered. The only guarantee we can make
                 // is that there is not a gap in delivery for each key.
                 anyhow::bail!("Received messages out of order.")
-            } else if index == expected_index[key] {
-                expected_index[key] += 1;
+            } else if index == *expected_index {
+                *expected_index += 1;
             }
             h.ack();
         }
