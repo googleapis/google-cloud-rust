@@ -20,34 +20,24 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn topic_samples() -> anyhow::Result<()> {
-        topics().await
+    async fn topics_samples() -> anyhow::Result<()> {
+        let client = TopicAdmin::builder().build().await?;
+        let mut topics = Vec::new();
+
+        let result = run_topic_samples(&mut topics).await;
+
+        for name in topics {
+            if let Err(e) = cleanup_test_topic(&client, &name).await {
+                println!("Error cleaning up test topic {name}: {e:?}");
+            }
+        }
+        result
     }
 
     #[tokio::test]
-    async fn subscription_samples() -> anyhow::Result<()> {
-        subscriptions().await
-    }
-}
+    async fn subscriptions_samples() -> anyhow::Result<()> {
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
 
-pub async fn topics() -> anyhow::Result<()> {
-    let client = TopicAdmin::builder().build().await?;
-    let mut topics = Vec::new();
-
-    let result = run_topic_samples(&mut topics).await;
-
-    for name in topics {
-        if let Err(e) = cleanup_test_topic(&client, &name).await {
-            println!("Error cleaning up test topic {name}: {e:?}");
-        }
-    }
-    result
-}
-
-pub async fn subscriptions() -> anyhow::Result<()> {
-    let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-
-    let res = async {
         let client = SubscriptionAdmin::builder().build().await?;
         let mut subscriptions = Vec::new();
 
@@ -58,13 +48,11 @@ pub async fn subscriptions() -> anyhow::Result<()> {
                 println!("Error cleaning up test subscription {name}: {e:?}");
             }
         }
+
+        if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
+            println!("Error cleaning up test topic {}: {:?}", topic.name, e);
+        }
+
         result
     }
-    .await;
-
-    if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
-        println!("Error cleaning up test topic {}: {:?}", topic.name, e);
-    }
-
-    res
 }
