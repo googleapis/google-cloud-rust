@@ -1061,7 +1061,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
-    async fn fetch_access_token_with_access_boundary() -> TestResult {
+    async fn fetch_access_token_with_flaky_access_boundary() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -1123,7 +1123,7 @@ mod tests {
 
     #[tokio::test]
     #[serial]
-    async fn test_access_boundary() -> TestResult {
+    async fn e2e_access_boundary() -> TestResult {
         let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
 
         let mut service_account_key = get_mock_service_key();
