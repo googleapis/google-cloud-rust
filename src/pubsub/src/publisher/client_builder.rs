@@ -228,7 +228,7 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[test]
-    fn defaults() {
+    fn defaults() -> anyhow::Result<()> {
         let builder = ClientBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
@@ -244,10 +244,12 @@ mod tests {
             builder.config.grpc_subchannel_count.is_none(),
             "{builder:?}"
         );
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn setters() {
+    async fn setters() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
@@ -273,5 +275,7 @@ mod tests {
         assert!(builder.config.retry_policy.is_some(), "{builder:?}");
         assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
+
+        Ok(())
     }
 }
