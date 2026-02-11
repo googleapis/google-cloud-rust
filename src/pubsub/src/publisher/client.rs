@@ -249,7 +249,7 @@ mod tests {
                             .set_data(msg.clone()),
                     )
                     .await;
-                assert_eq!(got.expect("expected message id"), msg);
+                assert_eq!(got?, msg);
             )+
         };
     }
@@ -280,7 +280,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn publisher_publish_successfully() {
+    async fn publisher_publish_successfully() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -303,14 +303,16 @@ mod tests {
         }
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn worker_handles_forced_shutdown_gracefully() {
+    async fn worker_handles_forced_shutdown_gracefully() -> anyhow::Result<()> {
         let mock = MockGapicPublisher::new();
 
         let client = GapicPublisher::from_stub(mock);
@@ -335,10 +337,12 @@ mod tests {
             rx.await
                 .expect_err("expected error when background task canceled");
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn dropping_publisher_flushes_pending_messages() {
+    async fn dropping_publisher_flushes_pending_messages() -> anyhow::Result<()> {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
@@ -368,15 +372,17 @@ mod tests {
         drop(publisher); // This should trigger the publisher to send all pending messages.
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
             assert_eq!(start.elapsed(), Duration::ZERO);
         }
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn publisher_handles_publish_errors() {
+    async fn publisher_handles_publish_errors() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -403,10 +409,12 @@ mod tests {
             let got = rx.await;
             assert!(got.is_err(), "{got:?}");
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn flush_sends_pending_messages_immediately() {
+    async fn flush_sends_pending_messages_immediately() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -435,22 +443,24 @@ mod tests {
 
         let post = publisher.publish(Message::new().set_data("after"));
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
             assert_eq!(start.elapsed(), Duration::ZERO);
         }
 
         // Validate that the post message is only sent after the next timeout.
         // I.e., the Publisher does not continuously flush new messages.
-        let got = post.await.expect("expected message id");
+        let got = post.await?;
         assert_eq!(got, "after");
         assert_eq!(start.elapsed(), Duration::from_secs(60));
+
+        Ok(())
     }
 
     // User's should be able to drop handles and the messages will still send.
     #[tokio::test(start_paused = true)]
-    async fn dropping_handles_does_not_prevent_publishing() {
+    async fn dropping_handles_does_not_prevent_publishing() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
             move |r, o| {
@@ -484,10 +494,12 @@ mod tests {
 
         publisher.flush().await;
         assert_eq!(start.elapsed(), Duration::ZERO);
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn flush_with_no_messages_is_noop() {
+    async fn flush_with_no_messages_is_noop() -> anyhow::Result<()> {
         let mock = MockGapicPublisher::new();
 
         let client = GapicPublisher::from_stub(mock);
@@ -496,10 +508,12 @@ mod tests {
         let start = tokio::time::Instant::now();
         publisher.flush().await;
         assert_eq!(start.elapsed(), Duration::ZERO);
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn batch_sends_on_message_count_threshold_success() {
+    async fn batch_sends_on_message_count_threshold_success() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -527,14 +541,16 @@ mod tests {
         }
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
         }
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn batch_sends_on_message_count_threshold_error() {
+    async fn batch_sends_on_message_count_threshold_error() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -565,10 +581,12 @@ mod tests {
             let got = rx.await;
             assert!(got.is_err(), "{got:?}");
         }
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn batch_sends_on_byte_threshold() {
+    async fn batch_sends_on_byte_threshold() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -598,14 +616,16 @@ mod tests {
         }
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn batch_sends_on_delay_threshold() {
+    async fn batch_sends_on_delay_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -639,8 +659,8 @@ mod tests {
             }
 
             for (id, rx) in handles.into_iter() {
-                let got = rx.await.expect("expected message id");
-                let id = String::from_utf8(id.data.to_vec()).unwrap();
+                let got = rx.await?;
+                let id = String::from_utf8(id.data.to_vec())?;
                 assert_eq!(got, id);
                 assert_eq!(
                     start.elapsed(),
@@ -650,11 +670,13 @@ mod tests {
                 )
             }
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn batching_separates_by_ordering_key() {
+    async fn batching_separates_by_ordering_key() -> anyhow::Result<()> {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
@@ -696,15 +718,17 @@ mod tests {
         }
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn batching_handles_empty_ordering_key() {
+    async fn batching_handles_empty_ordering_key() -> anyhow::Result<()> {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
@@ -744,15 +768,17 @@ mod tests {
         }
 
         for (id, rx) in handles.into_iter() {
-            let got = rx.await.expect("expected message id");
-            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
             assert_eq!(got, id);
         }
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn ordering_key_limits_to_one_outstanding_batch() {
+    async fn ordering_key_limits_to_one_outstanding_batch() -> anyhow::Result<()> {
         // Verify that Publisher must only have 1 outstanding batch inflight at a time.
         // This is done by validating that the 2 expected publish calls are done in sequence
         // with a sleep delay in the first Publish reply.
@@ -803,7 +829,7 @@ mod tests {
         let start = tokio::time::Instant::now();
         let msg1_handle = publisher.publish(messages.get(0).unwrap().clone());
         let msg2_handle = publisher.publish(messages.get(1).unwrap().clone());
-        assert_eq!(msg2_handle.await.expect("expected message id"), "hello 2");
+        assert_eq!(msg2_handle.await?, "hello 2");
         assert_eq!(
             start.elapsed(),
             Duration::from_millis(10),
@@ -811,12 +837,14 @@ mod tests {
             Duration::from_millis(10)
         );
         // Also validate the content of the first publish.
-        assert_eq!(msg1_handle.await.expect("expected message id"), "hello 1");
+        assert_eq!(msg1_handle.await?, "hello 1");
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn empty_ordering_key_allows_concurrent_batches() {
+    async fn empty_ordering_key_allows_concurrent_batches() -> anyhow::Result<()> {
         // Verify that for empty ordering key, the Publisher will send multiple batches without
         // awaiting for the results.
         // This is done by adding a delay in the first Publish reply and validating that
@@ -865,18 +893,20 @@ mod tests {
         let start = tokio::time::Instant::now();
         let msg1_handle = publisher.publish(messages.get(0).unwrap().clone());
         let msg2_handle = publisher.publish(messages.get(1).unwrap().clone());
-        assert_eq!(msg2_handle.await.expect("expected message id"), "hello 2");
+        assert_eq!(msg2_handle.await?, "hello 2");
         assert_eq!(
             start.elapsed(),
             Duration::from_millis(0),
             "the second batch of messages should have sent without any delay"
         );
         // Also validate the content of the first publish.
-        assert_eq!(msg1_handle.await.expect("expected message id"), "hello 1");
+        assert_eq!(msg1_handle.await?, "hello 1");
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn ordering_key_error_pauses_publisher() {
+    async fn ordering_key_error_pauses_publisher() -> anyhow::Result<()> {
         // Verify that a Publish send error will pause the publisher for an ordering key.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -928,10 +958,12 @@ mod tests {
 
         // Verify that the other ordering keys are not paused.
         assert_publishing_is_ok!(publisher, "", "without_error");
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn batch_error_pauses_ordering_key() {
+    async fn batch_error_pauses_ordering_key() -> anyhow::Result<()> {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().times(1).returning({
@@ -961,10 +993,12 @@ mod tests {
 
         // Assert that new publish messages returns an error because the Publisher is paused.
         assert_publishing_is_paused!(publisher, key);
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn flush_on_paused_ordering_key_returns_error() {
+    async fn flush_on_paused_ordering_key_returns_error() -> anyhow::Result<()> {
         // Verify that Flush on a paused ordering key returns an error.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -996,10 +1030,12 @@ mod tests {
 
         // Verify that the other ordering keys are not paused.
         assert_publishing_is_ok!(publisher, "", "without_error");
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn resuming_non_paused_ordering_key_is_noop() {
+    async fn resuming_non_paused_ordering_key_is_noop() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
@@ -1025,10 +1061,12 @@ mod tests {
         // Test resume and publish after the BatchActor has been created.
         publisher.resume_publish(key);
         assert_publishing_is_ok!(publisher, key);
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn resuming_paused_ordering_key_allows_publishing() {
+    async fn resuming_paused_ordering_key_allows_publishing() -> anyhow::Result<()> {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1062,10 +1100,12 @@ mod tests {
 
         // Verify that the other ordering keys continue to work as expected.
         assert_publishing_is_ok!(publisher, "", "without_error");
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn resuming_ordering_key_twice_is_safe() {
+    async fn resuming_ordering_key_twice_is_safe() -> anyhow::Result<()> {
         // Validate that resuming twice sequentially does not have bad side effects.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1099,10 +1139,12 @@ mod tests {
         publisher.resume_publish(key);
         publisher.resume_publish(key);
         assert_publishing_is_ok!(publisher, key);
+
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn resuming_one_ordering_key_does_not_resume_others() {
+    async fn resuming_one_ordering_key_does_not_resume_others() -> anyhow::Result<()> {
         // Validate that resume_publish only resumes the paused ordering key .
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1143,6 +1185,8 @@ mod tests {
 
         // Validate the other ordering key is still paused.
         assert_publishing_is_paused!(publisher, key_1);
+
+        Ok(())
     }
 
     #[tokio::test]
