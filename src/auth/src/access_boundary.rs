@@ -28,6 +28,7 @@ use tokio::time::{Duration, sleep};
 const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
+#[allow(dead_code)]
 // TTL: 6 hours
 const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
 // Refresh interval: every hour

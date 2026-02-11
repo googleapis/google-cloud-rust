@@ -674,7 +674,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let mut extensions = Extensions::new();
@@ -718,7 +718,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: Some(quota_project.to_string()),
-            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -747,7 +747,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");

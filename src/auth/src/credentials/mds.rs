@@ -591,7 +591,7 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: cache.clone(),
-            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let mut extensions = Extensions::new();
@@ -653,7 +653,7 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: cache.clone(),
-            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
