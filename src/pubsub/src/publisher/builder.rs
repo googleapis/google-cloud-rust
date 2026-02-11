@@ -492,7 +492,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn publisher_builder_sets_client_config() {
+    async fn publisher_builder_sets_client_config() -> anyhow::Result<()> {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
@@ -522,5 +522,7 @@ mod tests {
         let base_config = &base_builder.config;
 
         assert_eq_client_config(pub_config, base_config);
+
+        Ok(())
     }
 }
