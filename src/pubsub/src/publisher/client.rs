@@ -283,9 +283,9 @@ mod tests {
     async fn publisher_publish_successfully() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .times(2)
             .withf(|req, _o| req.topic == TOPIC)
-            .returning(publish_ok)
-            .times(2);
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -385,9 +385,9 @@ mod tests {
     async fn publisher_handles_publish_errors() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .times(2)
             .withf(|req, _o| req.topic == TOPIC)
-            .returning(publish_err)
-            .times(2);
+            .returning(publish_err);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -462,19 +462,13 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn dropping_handles_does_not_prevent_publishing() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            move |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                assert_eq!(
-                    r.messages,
-                    vec![
-                        Message::new().set_data("hello"),
-                        Message::new().set_data("world")
-                    ]
-                );
-                publish_ok(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| {
+                r.messages.len() == 2
+                    && r.messages[0].data == "hello"
+                    && r.messages[1].data == "world"
+            })
+            .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -516,12 +510,9 @@ mod tests {
     async fn batch_sends_on_message_count_threshold_success() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                publish_ok(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| r.messages.len() == 2)
+            .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -553,12 +544,9 @@ mod tests {
     async fn batch_sends_on_message_count_threshold_error() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                publish_err(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| r.messages.len() == 2)
+            .return_once(publish_err);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -589,12 +577,9 @@ mod tests {
     async fn batch_sends_on_byte_threshold() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                publish_ok(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| r.messages.len() == 2)
+            .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
@@ -628,7 +613,7 @@ mod tests {
     async fn batch_sends_on_delay_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|req, _o| req.topic == TOPIC)
+            .withf(|req, _| req.topic == TOPIC)
             .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
@@ -679,16 +664,11 @@ mod tests {
     async fn batching_separates_by_ordering_key() -> anyhow::Result<()> {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                assert_eq!(
-                    r.messages.get(0).unwrap().ordering_key,
-                    r.messages.get(1).unwrap().ordering_key
-                );
-                publish_ok(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| {
+                r.messages.len() == 2 && r.messages[0].ordering_key == r.messages[1].ordering_key
+            })
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
@@ -731,16 +711,11 @@ mod tests {
     async fn batching_handles_empty_ordering_key() -> anyhow::Result<()> {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                assert_eq!(
-                    r.messages.get(0).unwrap().ordering_key,
-                    r.messages.get(1).unwrap().ordering_key
-                );
-                publish_ok(r, o)
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| {
+                r.messages.len() == 2 && r.messages[0].ordering_key == r.messages[1].ordering_key
+            })
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
@@ -787,11 +762,11 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
+            .withf(|r, _| r.messages.len() == 1)
             .returning({
                 |r, o| {
                     Box::pin(async move {
                         tokio::time::sleep(Duration::from_millis(10)).await;
-                        assert_eq!(r.messages.len(), 1);
                         publish_ok(r, o)
                     })
                 }
@@ -800,14 +775,8 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .returning({
-                |r, o| {
-                    Box::pin(async move {
-                        assert_eq!(r.messages.len(), 1);
-                        publish_ok(r, o)
-                    })
-                }
-            });
+            .withf(|r, _| r.messages.len() == 1)
+            .returning(|r, o| Box::pin(async move { publish_ok(r, o) }));
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
@@ -854,28 +823,19 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .returning({
-                |r, o| {
-                    Box::pin(async move {
-                        tokio::time::sleep(Duration::from_millis(10)).await;
-                        assert_eq!(r.messages.len(), 1);
-                        publish_ok(r, o)
-                    })
-                }
+            .withf(|r, _| r.messages.len() == 1)
+            .returning(|r, o| {
+                Box::pin(async move {
+                    tokio::time::sleep(Duration::from_millis(10)).await;
+                    publish_ok(r, o)
+                })
             });
 
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .returning({
-                |r, o| {
-                    Box::pin(async move {
-                        assert_eq!(r.topic, TOPIC);
-                        assert_eq!(r.messages.len(), 1);
-                        publish_ok(r, o)
-                    })
-                }
-            });
+            .withf(|r, _| r.topic == TOPIC && r.messages.len() == 1)
+            .returning(|r, o| Box::pin(async move { publish_ok(r, o) }));
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
@@ -966,12 +926,10 @@ mod tests {
     async fn batch_error_pauses_ordering_key() -> anyhow::Result<()> {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().times(1).returning({
-            |r, o| {
-                assert_eq!(r.messages.len(), 2);
-                publish_err(r, o)
-            }
-        });
+        mock.expect_publish()
+            .times(1)
+            .withf(|r, _| r.topic == TOPIC && r.messages.len() == 2)
+            .returning(publish_err);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
@@ -1111,15 +1069,14 @@ mod tests {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(1)
             .in_sequence(&mut seq)
+            .times(1)
             .returning(publish_err);
 
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(3)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
