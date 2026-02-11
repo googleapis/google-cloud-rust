@@ -24,7 +24,7 @@ use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
-const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
+pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 // TTL: 6 hours
@@ -190,10 +190,12 @@ where
     }
 }
 
-pub(crate) fn service_account_lookup_url(email: &str) -> String {
-    format!(
-        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations"
-    )
+pub(crate) fn service_account_lookup_url(
+    email: &str,
+    iam_endpoint_override: Option<&str>,
+) -> String {
+    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
+    format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations",)
 }
 
 #[cfg(test)]
@@ -226,7 +228,7 @@ pub(crate) mod tests {
     #[parallel]
     fn test_service_account_url() {
         assert_eq!(
-            service_account_lookup_url("sa@project.iam.gserviceaccount.com"),
+            service_account_lookup_url("sa@project.iam.gserviceaccount.com", None),
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/sa@project.iam.gserviceaccount.com/allowedLocations"
         );
     }
