@@ -114,6 +114,7 @@ use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
+use crate::access_boundary::{AccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
@@ -359,16 +360,20 @@ impl ExternalAccountConfig {
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
+        let access_boundary_url = external_account_lookup_url(&config.audience);
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
+        let access_boundary =
+            access_boundary_url.map(|url| Arc::new(AccessBoundary::new(cache.clone(), url)));
         AccessTokenCredentials {
             inner: Arc::new(ExternalAccountCredentials {
                 token_provider: cache,
                 quota_project_id,
+                access_boundary,
             }),
         }
     }
@@ -457,6 +462,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    access_boundary: Option<Arc<AccessBoundary>>,
 }
 
 /// A builder for external account [Credentials] instances.
@@ -1279,9 +1285,14 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
+        let access_boundary = self
+            .access_boundary
+            .as_ref()
+            .and_then(|ab| ab.header_value());
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }

@@ -74,6 +74,7 @@
 //! [gke-link]: https://cloud.google.com/kubernetes-engine
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
+use crate::access_boundary::AccessBoundary;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::headers_util::AuthHeadersBuilder;
@@ -107,6 +108,7 @@ where
 {
     quota_project_id: Option<String>,
     token_provider: T,
+    access_boundary: Arc<AccessBoundary>,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -127,6 +129,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     created_by_adc: bool,
     retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -243,6 +246,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     // This method is used to build mds credentials from ADC
     pub(crate) fn from_adc() -> Self {
         Self {
@@ -282,9 +291,19 @@ impl Builder {
     /// # });
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        let quota_project_id = self.quota_project_id.clone();
+        let mds_client = MDSClient::new(self.endpoint.clone());
+        let token_provider = TokenCache::new(self.build_token_provider());
+
+        let access_boundary = Arc::new(AccessBoundary::new_for_mds(
+            token_provider.clone(),
+            mds_client.clone(),
+        ));
+
         let mdsc = MDSCredentials {
-            quota_project_id: self.quota_project_id.clone(),
-            token_provider: TokenCache::new(self.build_token_provider()),
+            quota_project_id,
+            token_provider,
+            access_boundary,
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
@@ -309,15 +328,8 @@ impl Builder {
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        self.build_signer_with_iam_endpoint_override(None)
-    }
-
-    // only used for testing
-    fn build_signer_with_iam_endpoint_override(
-        self,
-        iam_endpoint: Option<String>,
-    ) -> BuildResult<crate::signer::Signer> {
         let client = MDSClient::new(self.endpoint.clone());
+        let iam_endpoint = self.iam_endpoint_override.clone();
         let credentials = self.build()?;
         let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
         let signing_provider = iam_endpoint
@@ -338,9 +350,11 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
+        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }
@@ -573,9 +587,11 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
+        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let mut extensions = Extensions::new();
@@ -633,9 +649,11 @@ mod tests {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
+        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
+            access_boundary: Arc::new(AccessBoundary::new(cache, "http://localhost".to_string())),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -1076,7 +1094,8 @@ mod tests {
 
         let signer = Builder::default()
             .with_endpoint(&endpoint)
-            .build_signer_with_iam_endpoint_override(Some(endpoint))?;
+            .maybe_iam_endpoint_override(Some(endpoint))
+            .build_signer()?;
 
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, "test-client-email");
