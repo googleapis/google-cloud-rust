@@ -1069,15 +1069,14 @@ mod tests {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(1)
             .in_sequence(&mut seq)
+            .times(1)
             .returning(publish_err);
 
         mock.expect_publish()
             .withf(|req, _o| req.topic == TOPIC)
-            .times(3)
             .in_sequence(&mut seq)
-            .returning(publish_ok);
+            .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
