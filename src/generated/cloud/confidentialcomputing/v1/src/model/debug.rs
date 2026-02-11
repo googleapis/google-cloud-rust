@@ -54,6 +54,87 @@ impl std::fmt::Debug for super::VerifyAttestationRequest {
         debug_struct.field("token_options", &self.token_options);
         debug_struct.field("attester", &self.attester);
         debug_struct.field("tee_attestation", &self.tee_attestation);
+        debug_struct.field("device_attestation", &self.device_attestation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NvidiaAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NvidiaAttestation");
+        debug_struct.field("cc_feature", &self.cc_feature);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::nvidia_attestation::GpuInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GpuInfo");
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field("driver_version", &self.driver_version);
+        debug_struct.field("vbios_version", &self.vbios_version);
+        debug_struct.field("gpu_architecture_type", &self.gpu_architecture_type);
+        debug_struct.field(
+            "attestation_certificate_chain",
+            &self.attestation_certificate_chain,
+        );
+        debug_struct.field("attestation_report", &self.attestation_report);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::nvidia_attestation::SwitchInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SwitchInfo");
+        debug_struct.field("uuid", &self.uuid);
+        debug_struct.field(
+            "attestation_certificate_chain",
+            &self.attestation_certificate_chain,
+        );
+        debug_struct.field("attestation_report", &self.attestation_report);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::nvidia_attestation::SinglePassthroughAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SinglePassthroughAttestation");
+        debug_struct.field("gpu_quote", &self.gpu_quote);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::nvidia_attestation::ProtectedPcieAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProtectedPcieAttestation");
+        debug_struct.field("gpu_quotes", &self.gpu_quotes);
+        debug_struct.field("switch_quotes", &self.switch_quotes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::nvidia_attestation::MultiGpuSecurePassthroughAttestation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MultiGpuSecurePassthroughAttestation");
+        debug_struct.field("gpu_quotes", &self.gpu_quotes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -238,6 +319,7 @@ impl std::fmt::Debug for super::VerifyConfidentialSpaceRequest {
         debug_struct.field("signed_entities", &self.signed_entities);
         debug_struct.field("gce_shielded_identity", &self.gce_shielded_identity);
         debug_struct.field("options", &self.options);
+        debug_struct.field("nvidia_attestation", &self.nvidia_attestation);
         debug_struct.field("tee_attestation", &self.tee_attestation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -289,7 +371,21 @@ impl std::fmt::Debug for super::VerifyConfidentialGkeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VerifyConfidentialGkeRequest");
         debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("options", &self.options);
         debug_struct.field("tee_attestation", &self.tee_attestation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::verify_confidential_gke_request::ConfidentialGkeOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConfidentialGkeOptions");
+        debug_struct.field("audience", &self.audience);
+        debug_struct.field("nonce", &self.nonce);
+        debug_struct.field("signature_type", &self.signature_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

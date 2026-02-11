@@ -336,6 +336,35 @@ pub mod confidential_computing {
             self.0.request = self.0.request.set_sev_snp_attestation(v);
             self
         }
+
+        /// Sets the value of [device_attestation][crate::model::VerifyAttestationRequest::device_attestation].
+        ///
+        /// Note that all the setters affecting `device_attestation` are
+        /// mutually exclusive.
+        pub fn set_device_attestation<
+            T: Into<Option<crate::model::verify_attestation_request::DeviceAttestation>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.device_attestation = v.into();
+            self
+        }
+
+        /// Sets the value of [device_attestation][crate::model::VerifyAttestationRequest::device_attestation]
+        /// to hold a `NvidiaAttestation`.
+        ///
+        /// Note that all the setters affecting `device_attestation` are
+        /// mutually exclusive.
+        pub fn set_nvidia_attestation<
+            T: std::convert::Into<std::boxed::Box<crate::model::NvidiaAttestation>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_nvidia_attestation(v);
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -473,6 +502,24 @@ pub mod confidential_computing {
             self
         }
 
+        /// Sets the value of [nvidia_attestation][crate::model::VerifyConfidentialSpaceRequest::nvidia_attestation].
+        pub fn set_nvidia_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NvidiaAttestation>,
+        {
+            self.0.request.nvidia_attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [nvidia_attestation][crate::model::VerifyConfidentialSpaceRequest::nvidia_attestation].
+        pub fn set_or_clear_nvidia_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NvidiaAttestation>,
+        {
+            self.0.request.nvidia_attestation = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialSpaceRequest::tee_attestation].
         ///
         /// Note that all the setters affecting `tee_attestation` are
@@ -579,6 +626,28 @@ pub mod confidential_computing {
         /// This is a **required** field for requests.
         pub fn set_challenge<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.challenge = v.into();
+            self
+        }
+
+        /// Sets the value of [options][crate::model::VerifyConfidentialGkeRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::verify_confidential_gke_request::ConfidentialGkeOptions,
+                >,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][crate::model::VerifyConfidentialGkeRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::verify_confidential_gke_request::ConfidentialGkeOptions,
+                >,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
 

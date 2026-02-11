@@ -329,6 +329,9 @@ impl serde::ser::Serialize for super::batch_prediction_job::InputConfig {
         if let Some(value) = self.bigquery_source() {
             state.serialize_entry("bigquerySource", value)?;
         }
+        if let Some(value) = self.vertex_multimodal_dataset_source() {
+            state.serialize_entry("vertexMultimodalDatasetSource", value)?;
+        }
         if !self.instances_format.is_empty() {
             state.serialize_entry("instancesFormat", &self.instances_format)?;
         }
@@ -390,6 +393,9 @@ impl serde::ser::Serialize for super::batch_prediction_job::OutputConfig {
         if let Some(value) = self.bigquery_destination() {
             state.serialize_entry("bigqueryDestination", value)?;
         }
+        if let Some(value) = self.vertex_multimodal_dataset_destination() {
+            state.serialize_entry("vertexMultimodalDatasetDestination", value)?;
+        }
         if !self.predictions_format.is_empty() {
             state.serialize_entry("predictionsFormat", &self.predictions_format)?;
         }
@@ -418,6 +424,9 @@ impl serde::ser::Serialize for super::batch_prediction_job::OutputInfo {
         }
         if let Some(value) = self.bigquery_output_dataset() {
             state.serialize_entry("bigqueryOutputDataset", value)?;
+        }
+        if let Some(value) = self.vertex_multimodal_dataset_name() {
+            state.serialize_entry("vertexMultimodalDatasetName", value)?;
         }
         if !self.bigquery_output_table.is_empty() {
             state.serialize_entry("bigqueryOutputTable", &self.bigquery_output_table)?;
@@ -17862,6 +17871,55 @@ impl serde::ser::Serialize for super::BigQueryDestination {
     }
 }
 
+#[cfg(feature = "job-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VertexMultimodalDatasetSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dataset_name.is_empty() {
+            state.serialize_entry("datasetName", &self.dataset_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "job-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VertexMultimodalDatasetDestination {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.bigquery_destination.is_some() {
+            state.serialize_entry("bigqueryDestination", &self.bigquery_destination)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "featurestore-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CsvDestination {
@@ -31283,6 +31341,21 @@ impl serde::ser::Serialize for super::Schedule {
             state.serialize_entry(
                 "maxConcurrentRunCount",
                 &__With(&self.max_concurrent_run_count),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.max_concurrent_active_run_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "maxConcurrentActiveRunCount",
+                &__With(&self.max_concurrent_active_run_count),
             )?;
         }
         if !wkt::internal::is_default(&self.allow_queueing) {

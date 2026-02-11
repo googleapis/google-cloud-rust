@@ -140,6 +140,23 @@ impl std::fmt::Debug for super::RenameFolderRequest {
     }
 }
 
+impl std::fmt::Debug for super::DeleteFolderRecursiveRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFolderRecursiveRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("if_metageneration_match", &self.if_metageneration_match);
+        debug_struct.field(
+            "if_metageneration_not_match",
+            &self.if_metageneration_not_match,
+        );
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CommonLongRunningOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommonLongRunningOperationMetadata");
@@ -162,6 +179,18 @@ impl std::fmt::Debug for super::RenameFolderMetadata {
         debug_struct.field("common_metadata", &self.common_metadata);
         debug_struct.field("source_folder_id", &self.source_folder_id);
         debug_struct.field("destination_folder_id", &self.destination_folder_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteFolderRecursiveMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteFolderRecursiveMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("folder_id", &self.folder_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -92,6 +92,9 @@ impl serde::ser::Serialize for super::VerifyAttestationRequest {
         if let Some(value) = self.sev_snp_attestation() {
             state.serialize_entry("sevSnpAttestation", value)?;
         }
+        if let Some(value) = self.nvidia_attestation() {
+            state.serialize_entry("nvidiaAttestation", value)?;
+        }
         if !self.challenge.is_empty() {
             state.serialize_entry("challenge", &self.challenge)?;
         }
@@ -109,6 +112,210 @@ impl serde::ser::Serialize for super::VerifyAttestationRequest {
         }
         if !self.attester.is_empty() {
             state.serialize_entry("attester", &self.attester)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NvidiaAttestation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.spt() {
+            state.serialize_entry("spt", value)?;
+        }
+        if let Some(value) = self.ppcie() {
+            state.serialize_entry("ppcie", value)?;
+        }
+        if let Some(value) = self.mpt() {
+            state.serialize_entry("mpt", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::nvidia_attestation::GpuInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uuid.is_empty() {
+            state.serialize_entry("uuid", &self.uuid)?;
+        }
+        if !self.driver_version.is_empty() {
+            state.serialize_entry("driverVersion", &self.driver_version)?;
+        }
+        if !self.vbios_version.is_empty() {
+            state.serialize_entry("vbiosVersion", &self.vbios_version)?;
+        }
+        if !wkt::internal::is_default(&self.gpu_architecture_type) {
+            state.serialize_entry("gpuArchitectureType", &self.gpu_architecture_type)?;
+        }
+        if !self.attestation_certificate_chain.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "attestationCertificateChain",
+                &__With(&self.attestation_certificate_chain),
+            )?;
+        }
+        if !self.attestation_report.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("attestationReport", &__With(&self.attestation_report))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::nvidia_attestation::SwitchInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uuid.is_empty() {
+            state.serialize_entry("uuid", &self.uuid)?;
+        }
+        if !self.attestation_certificate_chain.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "attestationCertificateChain",
+                &__With(&self.attestation_certificate_chain),
+            )?;
+        }
+        if !self.attestation_report.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("attestationReport", &__With(&self.attestation_report))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::nvidia_attestation::SinglePassthroughAttestation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.gpu_quote.is_some() {
+            state.serialize_entry("gpuQuote", &self.gpu_quote)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::nvidia_attestation::ProtectedPcieAttestation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.gpu_quotes.is_empty() {
+            state.serialize_entry("gpuQuotes", &self.gpu_quotes)?;
+        }
+        if !self.switch_quotes.is_empty() {
+            state.serialize_entry("switchQuotes", &self.switch_quotes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::nvidia_attestation::MultiGpuSecurePassthroughAttestation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.gpu_quotes.is_empty() {
+            state.serialize_entry("gpuQuotes", &self.gpu_quotes)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -649,6 +856,9 @@ impl serde::ser::Serialize for super::VerifyConfidentialSpaceRequest {
         if self.options.is_some() {
             state.serialize_entry("options", &self.options)?;
         }
+        if self.nvidia_attestation.is_some() {
+            state.serialize_entry("nvidiaAttestation", &self.nvidia_attestation)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -777,6 +987,37 @@ impl serde::ser::Serialize for super::VerifyConfidentialGkeRequest {
         }
         if !self.challenge.is_empty() {
             state.serialize_entry("challenge", &self.challenge)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::verify_confidential_gke_request::ConfidentialGkeOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.audience.is_empty() {
+            state.serialize_entry("audience", &self.audience)?;
+        }
+        if !self.nonce.is_empty() {
+            state.serialize_entry("nonce", &self.nonce)?;
+        }
+        if !wkt::internal::is_default(&self.signature_type) {
+            state.serialize_entry("signatureType", &self.signature_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

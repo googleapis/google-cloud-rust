@@ -698,6 +698,174 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::delete_folder_recursive][crate::client::StorageControl::delete_folder_recursive] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::DeleteFolderRecursive;
+    /// # async fn sample() -> google_cloud_storage::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteFolderRecursive {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteFolderRecursive(RequestBuilder<crate::model::DeleteFolderRecursiveRequest>);
+
+    impl DeleteFolderRecursive {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteFolderRecursiveRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_folder_recursive][crate::client::StorageControl::delete_folder_recursive].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
+            (*self.0.stub)
+                .delete_folder_recursive(req, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_folder_recursive`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<(), crate::model::DeleteFolderRecursiveMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteFolderRecursiveMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        fn auto_populate(
+            mut req: crate::model::DeleteFolderRecursiveRequest,
+            force: bool,
+        ) -> crate::model::DeleteFolderRecursiveRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
+        }
+
+        /// Sets the value of [name][crate::model::DeleteFolderRecursiveRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_match].
+        pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_match].
+        pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_match = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_not_match].
+        pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_not_match].
+        pub fn set_or_clear_if_metageneration_not_match<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.0.request.if_metageneration_not_match = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteFolderRecursiveRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteFolderRecursive {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [StorageControl::get_storage_layout][crate::client::StorageControl::get_storage_layout] calls.
     ///
     /// # Example
