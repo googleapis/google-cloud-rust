@@ -1029,7 +1029,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn fetch_access_token_with_access_boundary() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -1071,6 +1071,10 @@ mod tests {
             access_boundary.is_none(),
             "should be None on startup/error: {access_boundary:?}"
         );
+
+        // advance time so that the access boundary refresh task runs
+        tokio::time::advance(Duration::from_secs(15 * 60)).await;
+        tokio::task::yield_now().await;
 
         // should work, but now with cached location
         let headers = sac.headers(Extensions::new()).await?;
