@@ -18,12 +18,12 @@ mod tests {
     use pubsub_samples::*;
 
     #[tokio::test]
-    async fn topic_examples() -> anyhow::Result<()> {
+    async fn topics_samples() -> anyhow::Result<()> {
         let client = TopicAdmin::builder().build().await?;
-
         let mut topics = Vec::new();
-        let result = run_topic_examples(&mut topics).await;
-        // Ignore cleanup errors.
+
+        let result = run_topic_samples(&mut topics).await;
+
         for name in topics {
             if let Err(e) = cleanup_test_topic(&client, &name).await {
                 println!("Error cleaning up test topic {name}: {e:?}");
@@ -33,21 +33,24 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn subscription_examples() -> anyhow::Result<()> {
+    async fn subscriptions_samples() -> anyhow::Result<()> {
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let client = SubscriptionAdmin::builder().build().await?;
 
+        let client = SubscriptionAdmin::builder().build().await?;
         let mut subscriptions = Vec::new();
-        let result = run_subscription_examples(&mut subscriptions, &topic.name).await;
+
+        let result = run_subscription_samples(&mut subscriptions, &topic.name).await;
 
         for name in subscriptions {
             if let Err(e) = cleanup_test_subscription(&client, &name).await {
                 println!("Error cleaning up test subscription {name}: {e:?}");
             }
         }
+
         if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
-            println!("Error cleaning up test topic {e:?}");
+            println!("Error cleaning up test topic {}: {e:?}", topic.name);
         }
+
         result
     }
 }
