@@ -137,7 +137,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_push_and_flush_batch() {
+    async fn test_push_and_flush_batch() -> anyhow::Result<()> {
         let mut batch = Batch::new("topic".len() as u32);
         assert!(batch.is_empty(), "{batch:?}");
 
@@ -165,10 +165,12 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn test_size() {
+    async fn test_size() -> anyhow::Result<()> {
         use std::collections::HashMap;
 
         let topic = "topic";
@@ -207,6 +209,8 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.size(), "topic".len() as u32);
+
+        Ok(())
     }
 
     fn create_bundled_message_from_bytes<T: Into<::bytes::Bytes>>(

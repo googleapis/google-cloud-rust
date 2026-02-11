@@ -80,16 +80,17 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn resolve_publish_future_success() {
+    async fn resolve_publish_future_success() -> anyhow::Result<()> {
         let (tx, rx) = oneshot::channel();
         let handle = PublishFuture { rx };
         let _ = tx.send(Ok("message_id".to_string()));
-        let id = handle.await.expect("should have received a message ID");
-        assert_eq!(id, "message_id");
+        assert_eq!(handle.await?, "message_id");
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn resolve_publish_future_error() {
+    async fn resolve_publish_future_error() -> anyhow::Result<()> {
         use std::error::Error as _;
 
         let (tx, rx) = oneshot::channel();
@@ -107,10 +108,12 @@ mod tests {
             crate::error::PublishError::OrderingKeyPaused(_) => {}
             _ => panic!("expected OrderingKeyPaused error"),
         }
+
+        Ok(())
     }
 
     #[tokio::test]
-    async fn resolve_publish_future_error_send_error() {
+    async fn resolve_publish_future_error_send_error() -> anyhow::Result<()> {
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
         drop(tx);
@@ -118,5 +121,7 @@ mod tests {
             .await
             .expect_err("dropped channel should resolve to error");
         assert!(err.to_string().contains("shutdown"));
+
+        Ok(())
     }
 }
