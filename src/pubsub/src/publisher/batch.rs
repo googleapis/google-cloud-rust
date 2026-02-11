@@ -154,13 +154,9 @@ mod tests {
         assert_eq!(batch.len(), 3);
 
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "topic");
-                assert_eq!(r.messages.len(), 3);
-                Ok(crate::Response::from(PublishResponse::new()))
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| r.topic == "topic" && r.messages.len() == 3)
+            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
         let client = GapicPublisher::from_stub(mock);
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
@@ -198,13 +194,9 @@ mod tests {
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "topic");
-                assert_eq!(r.messages.len(), 3);
-                Ok(crate::Response::from(PublishResponse::new()))
-            }
-        });
+        mock.expect_publish()
+            .withf(|r, _| r.topic == "topic" && r.messages.len() == 3)
+            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
         let client = GapicPublisher::from_stub(mock);
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
