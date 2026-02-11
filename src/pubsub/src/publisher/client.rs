@@ -463,7 +463,11 @@ mod tests {
     async fn dropping_handles_does_not_prevent_publishing() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|r, _| r.messages.len() == 2 && r.messages[0].data == r.messages[1].data)
+            .withf(|r, _| {
+                r.messages.len() == 2
+                    && r.messages[0].data == "hello"
+                    && r.messages[1].data == "world"
+            })
             .return_once(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
