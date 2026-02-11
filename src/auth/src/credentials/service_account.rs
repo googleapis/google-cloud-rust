@@ -697,7 +697,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
+            access_boundary: Arc::new(AccessBoundary::new_with_value(None)),
         };
 
         let mut extensions = Extensions::new();
@@ -742,7 +742,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: Some(quota_project.to_string()),
-            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
+            access_boundary: Arc::new(AccessBoundary::new_with_value(None)),
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -772,7 +772,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: cache.clone(),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new_with_override(None)),
+            access_boundary: Arc::new(AccessBoundary::new_with_value(None)),
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");

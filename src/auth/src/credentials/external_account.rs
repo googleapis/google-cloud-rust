@@ -1288,7 +1288,7 @@ where
         let access_boundary = self
             .access_boundary
             .as_ref()
-            .and_then(|tb| tb.header_value());
+            .and_then(|ab| ab.header_value());
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
