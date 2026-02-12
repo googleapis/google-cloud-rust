@@ -141,10 +141,7 @@ impl SecretManagerService {
     ///    client: &SecretManagerService,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_secrets()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_secrets().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -168,11 +165,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_secret()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.create_secret()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -195,11 +188,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .add_secret_version()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.add_secret_version()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -220,11 +209,7 @@ impl SecretManagerService {
     ///    client: &SecretManagerService,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_secret()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_secret().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -245,11 +230,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_secret()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.update_secret()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -270,11 +251,7 @@ impl SecretManagerService {
     ///    client: &SecretManagerService,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_secret()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     client.delete_secret().set_name(resource_name).send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -296,10 +273,7 @@ impl SecretManagerService {
     ///    client: &SecretManagerService,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_secret_versions()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_secret_versions().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -328,11 +302,7 @@ impl SecretManagerService {
     ///    client: &SecretManagerService,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_secret_version()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_secret_version().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -356,11 +326,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .access_secret_version()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.access_secret_version()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -388,11 +354,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .disable_secret_version()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.disable_secret_version()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -420,11 +382,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .enable_secret_version()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.enable_secret_version()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -453,11 +411,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .destroy_secret_version()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.destroy_secret_version()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -486,11 +440,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -509,11 +459,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -537,11 +483,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -562,10 +504,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_locations()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.list_locations()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -585,11 +524,7 @@ impl SecretManagerService {
     /// async fn sample(
     ///    client: &SecretManagerService
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_location()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_location()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }

@@ -2146,6 +2146,37 @@ impl serde::ser::Serialize for super::KeyAccessJustificationsPolicy {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::RetiredResource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.original_resource.is_empty() {
+            state.serialize_entry("originalResource", &self.original_resource)?;
+        }
+        if !self.resource_type.is_empty() {
+            state.serialize_entry("resourceType", &self.resource_type)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListKeyRingsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2324,6 +2355,43 @@ impl serde::ser::Serialize for super::ListImportJobsRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ListRetiredResourcesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListKeyRingsResponse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2472,6 +2540,43 @@ impl serde::ser::Serialize for super::ListImportJobsResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ListRetiredResourcesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.retired_resources.is_empty() {
+            state.serialize_entry("retiredResources", &self.retired_resources)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !wkt::internal::is_default(&self.total_size) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalSize", &__With(&self.total_size))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GetKeyRingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2585,6 +2690,28 @@ impl serde::ser::Serialize for super::GetImportJobRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GetRetiredResourceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::CreateKeyRingRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2661,6 +2788,50 @@ impl serde::ser::Serialize for super::CreateCryptoKeyVersionRequest {
         }
         if self.crypto_key_version.is_some() {
             state.serialize_entry("cryptoKeyVersion", &self.crypto_key_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteCryptoKeyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteCryptoKeyVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4239,6 +4410,47 @@ impl serde::ser::Serialize for super::LocationMetadata {
                 &self.hsm_single_tenant_available,
             )?;
         }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteCryptoKeyMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.retired_resource.is_empty() {
+            state.serialize_entry("retiredResource", &self.retired_resource)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteCryptoKeyVersionMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

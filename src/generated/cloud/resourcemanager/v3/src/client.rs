@@ -134,11 +134,7 @@ impl Folders {
     ///    client: &Folders,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_folder()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_folder().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -164,10 +160,7 @@ impl Folders {
     ///    client: &Folders,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_folders()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_folders().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -193,10 +186,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .search_folders()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.search_folders()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -253,12 +243,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_folder()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_folder()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -305,12 +290,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_folder()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_folder()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -357,12 +337,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .move_folder()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.move_folder()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -405,12 +380,7 @@ impl Folders {
     ///    client: &Folders,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_folder()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_folder().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -453,12 +423,7 @@ impl Folders {
     ///    client: &Folders,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_folder()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.undelete_folder().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -480,11 +445,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -506,11 +467,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -532,11 +489,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -556,11 +509,7 @@ impl Folders {
     /// async fn sample(
     ///    client: &Folders
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -682,11 +631,7 @@ impl Organizations {
     ///    client: &Organizations,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_organization()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_organization().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -711,10 +656,7 @@ impl Organizations {
     /// async fn sample(
     ///    client: &Organizations
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .search_organizations()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.search_organizations()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -739,11 +681,7 @@ impl Organizations {
     /// async fn sample(
     ///    client: &Organizations
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -766,11 +704,7 @@ impl Organizations {
     /// async fn sample(
     ///    client: &Organizations
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -792,11 +726,7 @@ impl Organizations {
     /// async fn sample(
     ///    client: &Organizations
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -816,11 +746,7 @@ impl Organizations {
     /// async fn sample(
     ///    client: &Organizations
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -946,11 +872,7 @@ impl Projects {
     ///    client: &Projects,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_project()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_project().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -975,10 +897,7 @@ impl Projects {
     ///    client: &Projects,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_projects()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_projects().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -1010,10 +929,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .search_projects()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.search_projects()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -1048,12 +964,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_project()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_project()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1087,12 +998,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_project()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_project()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1134,12 +1040,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .move_project()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.move_project()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1205,12 +1106,7 @@ impl Projects {
     ///    client: &Projects,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_project()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_project().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1248,12 +1144,7 @@ impl Projects {
     ///    client: &Projects,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_project()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.undelete_project().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1273,11 +1164,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1336,11 +1223,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1359,11 +1242,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1383,11 +1262,7 @@ impl Projects {
     /// async fn sample(
     ///    client: &Projects
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1515,10 +1390,7 @@ impl TagBindings {
     ///    client: &TagBindings,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_tag_bindings()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_tag_bindings().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -1549,12 +1421,7 @@ impl TagBindings {
     /// async fn sample(
     ///    client: &TagBindings
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_tag_binding()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_tag_binding()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1584,12 +1451,7 @@ impl TagBindings {
     ///    client: &TagBindings,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_tag_binding()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     client.delete_tag_binding().set_name(resource_name).poller().until_done().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -1608,10 +1470,7 @@ impl TagBindings {
     /// async fn sample(
     ///    client: &TagBindings
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_effective_tags()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.list_effective_tags()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -1633,11 +1492,7 @@ impl TagBindings {
     /// async fn sample(
     ///    client: &TagBindings
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1774,12 +1629,7 @@ impl TagHolds {
     /// async fn sample(
     ///    client: &TagHolds
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_tag_hold()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_tag_hold()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1809,12 +1659,7 @@ impl TagHolds {
     ///    client: &TagHolds,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_tag_hold()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     client.delete_tag_hold().set_name(resource_name).poller().until_done().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -1833,10 +1678,7 @@ impl TagHolds {
     ///    client: &TagHolds,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_tag_holds()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_tag_holds().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -1858,11 +1700,7 @@ impl TagHolds {
     /// async fn sample(
     ///    client: &TagHolds
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1985,10 +1823,7 @@ impl TagKeys {
     ///    client: &TagKeys,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_tag_keys()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_tag_keys().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -2010,11 +1845,7 @@ impl TagKeys {
     ///    client: &TagKeys,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_tag_key()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_tag_key().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2035,11 +1866,7 @@ impl TagKeys {
     ///    client: &TagKeys,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_namespaced_tag_key()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_namespaced_tag_key().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2071,12 +1898,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_tag_key()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_tag_key()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2105,12 +1927,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_tag_key()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_tag_key()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2141,12 +1958,7 @@ impl TagKeys {
     ///    client: &TagKeys,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_tag_key()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_tag_key().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2169,11 +1981,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2195,11 +2003,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2221,11 +2025,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2245,11 +2045,7 @@ impl TagKeys {
     /// async fn sample(
     ///    client: &TagKeys
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2372,10 +2168,7 @@ impl TagValues {
     ///    client: &TagValues,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_tag_values()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_tag_values().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -2397,11 +2190,7 @@ impl TagValues {
     ///    client: &TagValues,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_tag_value()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_tag_value().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2422,11 +2211,7 @@ impl TagValues {
     ///    client: &TagValues,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_namespaced_tag_value()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_namespaced_tag_value().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2458,12 +2243,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_tag_value()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_tag_value()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2492,12 +2272,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_tag_value()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_tag_value()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2528,12 +2303,7 @@ impl TagValues {
     ///    client: &TagValues,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_tag_value()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_tag_value().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2556,11 +2326,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2582,11 +2348,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.set_iam_policy()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2608,11 +2370,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.test_iam_permissions()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -2632,11 +2390,7 @@ impl TagValues {
     /// async fn sample(
     ///    client: &TagValues
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }

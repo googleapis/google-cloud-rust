@@ -817,6 +817,12 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListImportJobsResponse>>;
 
+    async fn list_retired_resources(
+        &self,
+        req: crate::model::ListRetiredResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRetiredResourcesResponse>>;
+
     async fn get_key_ring(
         &self,
         req: crate::model::GetKeyRingRequest,
@@ -847,6 +853,12 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ImportJob>>;
 
+    async fn get_retired_resource(
+        &self,
+        req: crate::model::GetRetiredResourceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetiredResource>>;
+
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
@@ -864,6 +876,18 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateCryptoKeyVersionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>>;
+
+    async fn delete_crypto_key(
+        &self,
+        req: crate::model::DeleteCryptoKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_crypto_key_version(
+        &self,
+        req: crate::model::DeleteCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn import_crypto_key_version(
         &self,
@@ -1002,6 +1026,16 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::KeyManagementService] also implement [KeyManagementService].
@@ -1041,6 +1075,15 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListImportJobsResponse>> {
         T::list_import_jobs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_retired_resources(
+        &self,
+        req: crate::model::ListRetiredResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRetiredResourcesResponse>> {
+        T::list_retired_resources(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1089,6 +1132,15 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_retired_resource(
+        &self,
+        req: crate::model::GetRetiredResourceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetiredResource>> {
+        T::get_retired_resource(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
@@ -1113,6 +1165,24 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CryptoKeyVersion>> {
         T::create_crypto_key_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_crypto_key(
+        &self,
+        req: crate::model::DeleteCryptoKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_crypto_key(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_crypto_key_version(
+        &self,
+        req: crate::model::DeleteCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_crypto_key_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1321,5 +1391,19 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }

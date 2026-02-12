@@ -14410,6 +14410,9 @@ impl serde::ser::Serialize for super::Instance {
         if self.tags.is_some() {
             state.serialize_entry("tags", &self.tags)?;
         }
+        if self.workload_identity_config.is_some() {
+            state.serialize_entry("workloadIdentityConfig", &self.workload_identity_config)?;
+        }
         if self.zone.is_some() {
             state.serialize_entry("zone", &self.zone)?;
         }
@@ -15605,6 +15608,9 @@ impl serde::ser::Serialize for super::InstanceGroupManagerInstanceLifecyclePolic
         }
         if self.force_update_on_repair.is_some() {
             state.serialize_entry("forceUpdateOnRepair", &self.force_update_on_repair)?;
+        }
+        if self.on_failed_health_check.is_some() {
+            state.serialize_entry("onFailedHealthCheck", &self.on_failed_health_check)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -17687,6 +17693,9 @@ impl serde::ser::Serialize for super::InstanceProperties {
         if self.tags.is_some() {
             state.serialize_entry("tags", &self.tags)?;
         }
+        if self.workload_identity_config.is_some() {
+            state.serialize_entry("workloadIdentityConfig", &self.workload_identity_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -18838,6 +18847,9 @@ impl serde::ser::Serialize for super::InstantSnapshot {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.region.is_some() {
             state.serialize_entry("region", &self.region)?;
         }
@@ -19056,6 +19068,29 @@ impl serde::ser::Serialize for super::instant_snapshot_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instant-snapshots", feature = "region-instant-snapshots",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstantSnapshotParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -26252,6 +26287,9 @@ impl serde::ser::Serialize for super::NetworkInterface {
         }
         if !self.alias_ip_ranges.is_empty() {
             state.serialize_entry("aliasIpRanges", &self.alias_ip_ranges)?;
+        }
+        if self.enable_vpc_scoped_dns.is_some() {
+            state.serialize_entry("enableVpcScopedDns", &self.enable_vpc_scoped_dns)?;
         }
         if self.fingerprint.is_some() {
             struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
@@ -34470,6 +34508,9 @@ impl serde::ser::Serialize for super::Reservation {
         }
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
+        }
+        if self.early_access_maintenance.is_some() {
+            state.serialize_entry("earlyAccessMaintenance", &self.early_access_maintenance)?;
         }
         if self.enable_emergent_maintenance.is_some() {
             state.serialize_entry(
@@ -51876,6 +51917,41 @@ impl serde::ser::Serialize for super::WireProperties {
         }
         if self.fault_response.is_some() {
             state.serialize_entry("faultResponse", &self.fault_response)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::WorkloadIdentityConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.identity.is_some() {
+            state.serialize_entry("identity", &self.identity)?;
+        }
+        if self.identity_certificate_enabled.is_some() {
+            state.serialize_entry(
+                "identityCertificateEnabled",
+                &self.identity_certificate_enabled,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

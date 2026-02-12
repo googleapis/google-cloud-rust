@@ -10194,6 +10194,123 @@ impl wkt::message::Message for KeyAccessJustificationsPolicy {
     }
 }
 
+/// A RetiredResource resource represents the record of a deleted
+/// [CryptoKey][google.cloud.kms.v1.CryptoKey]. Its purpose is to provide
+/// visibility into retained user data and to prevent reuse of these names for
+/// new [CryptoKeys][google.cloud.kms.v1.CryptoKey].
+///
+/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetiredResource {
+    /// Output only. Identifier. The resource name for this
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] in the format
+    /// `projects/*/locations/*/retiredResources/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub name: std::string::String,
+
+    /// Output only. The full resource name of the original
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] that was deleted in the format
+    /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    pub original_resource: std::string::String,
+
+    /// Output only. The resource type of the original deleted resource.
+    pub resource_type: std::string::String,
+
+    /// Output only. The time at which the original resource was deleted and this
+    /// RetiredResource record was created.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetiredResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RetiredResource::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [original_resource][crate::model::RetiredResource::original_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_original_resource("example");
+    /// ```
+    pub fn set_original_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::RetiredResource::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::RetiredResource::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// use wkt::Timestamp;
+    /// let x = RetiredResource::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::RetiredResource::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// use wkt::Timestamp;
+    /// let x = RetiredResource::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RetiredResource::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RetiredResource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.RetiredResource"
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
@@ -10710,6 +10827,90 @@ impl wkt::message::Message for ListImportJobsRequest {
     }
 }
 
+/// Request message for
+/// [KeyManagementService.ListRetiredResources][google.cloud.kms.v1.KeyManagementService.ListRetiredResources].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ListRetiredResources]: crate::client::KeyManagementService::list_retired_resources
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRetiredResourcesRequest {
+    /// Required. The project-specific location holding the
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource], in the format
+    /// `projects/*/locations/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub parent: std::string::String,
+
+    /// Optional. Optional limit on the number of
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource] to be included in
+    /// the response. Further
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource] can subsequently be
+    /// obtained by including the
+    /// [ListRetiredResourcesResponse.next_page_token][google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]
+    /// in a subsequent request. If unspecified, the server will pick an
+    /// appropriate default.
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]: crate::model::ListRetiredResourcesResponse::next_page_token
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub page_size: i32,
+
+    /// Optional. Optional pagination token, returned earlier via
+    /// [ListRetiredResourcesResponse.next_page_token][google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token].
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]: crate::model::ListRetiredResourcesResponse::next_page_token
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRetiredResourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRetiredResourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRetiredResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRetiredResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRetiredResourcesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListRetiredResourcesRequest"
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
@@ -11131,6 +11332,106 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListImportJobsR
     }
 }
 
+/// Response message for
+/// [KeyManagementService.ListRetiredResources][google.cloud.kms.v1.KeyManagementService.ListRetiredResources].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ListRetiredResources]: crate::client::KeyManagementService::list_retired_resources
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRetiredResourcesResponse {
+    /// The list of [RetiredResources][google.cloud.kms.v1.RetiredResource].
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub retired_resources: std::vec::Vec<crate::model::RetiredResource>,
+
+    /// A token to retrieve the next page of results. Pass this value in
+    /// [ListRetiredResourcesRequest.page_token][google.cloud.kms.v1.ListRetiredResourcesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesRequest.page_token]: crate::model::ListRetiredResourcesRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// The total number of [RetiredResources][google.cloud.kms.v1.RetiredResource]
+    /// that matched the query.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub total_size: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRetiredResourcesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retired_resources][crate::model::ListRetiredResourcesResponse::retired_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = ListRetiredResourcesResponse::new()
+    ///     .set_retired_resources([
+    ///         RetiredResource::default()/* use setters */,
+    ///         RetiredResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_retired_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RetiredResource>,
+    {
+        use std::iter::Iterator;
+        self.retired_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRetiredResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// let x = ListRetiredResourcesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_size][crate::model::ListRetiredResourcesResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// let x = ListRetiredResourcesResponse::new().set_total_size(42);
+    /// ```
+    pub fn set_total_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRetiredResourcesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListRetiredResourcesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRetiredResourcesResponse {
+    type PageItem = crate::model::RetiredResource;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.retired_resources
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetKeyRing][google.cloud.kms.v1.KeyManagementService.GetKeyRing].
 ///
@@ -11366,6 +11667,47 @@ impl GetImportJobRequest {
 impl wkt::message::Message for GetImportJobRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.GetImportJobRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.GetRetiredResource][google.cloud.kms.v1.KeyManagementService.GetRetiredResource].
+///
+/// [google.cloud.kms.v1.KeyManagementService.GetRetiredResource]: crate::client::KeyManagementService::get_retired_resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRetiredResourceRequest {
+    /// Required. The [name][google.cloud.kms.v1.RetiredResource.name] of the
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] to get.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    /// [google.cloud.kms.v1.RetiredResource.name]: crate::model::RetiredResource::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRetiredResourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRetiredResourceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetRetiredResourceRequest;
+    /// let x = GetRetiredResourceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRetiredResourceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.GetRetiredResourceRequest"
     }
 }
 
@@ -11667,6 +12009,88 @@ impl CreateCryptoKeyVersionRequest {
 impl wkt::message::Message for CreateCryptoKeyVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.CreateCryptoKeyVersionRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.DeleteCryptoKey][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey].
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]: crate::client::KeyManagementService::delete_crypto_key
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to delete.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCryptoKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyRequest;
+    /// let x = DeleteCryptoKeyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.DeleteCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion].
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]: crate::client::KeyManagementService::delete_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyVersionRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to delete.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyVersionRequest;
+    /// let x = DeleteCryptoKeyVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyVersionRequest"
     }
 }
 
@@ -16264,6 +16688,75 @@ impl LocationMetadata {
 impl wkt::message::Message for LocationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.LocationMetadata"
+    }
+}
+
+/// Represents the metadata of the
+/// [KeyManagementService.DeleteCryptoKey][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]
+/// long-running operation.
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]: crate::client::KeyManagementService::delete_crypto_key
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyMetadata {
+    /// Output only. The resource name of the
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] created as a result
+    /// of this operation, in the format
+    /// `projects/*/locations/*/retiredResources/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub retired_resource: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retired_resource][crate::model::DeleteCryptoKeyMetadata::retired_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyMetadata;
+    /// let x = DeleteCryptoKeyMetadata::new().set_retired_resource("example");
+    /// ```
+    pub fn set_retired_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retired_resource = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyMetadata"
+    }
+}
+
+/// Represents the metadata of the
+/// [KeyManagementService.DeleteCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]
+/// long-running operation.
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]: crate::client::KeyManagementService::delete_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyVersionMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyVersionMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyVersionMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyVersionMetadata"
     }
 }
 

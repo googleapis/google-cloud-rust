@@ -3134,11 +3134,10 @@ pub struct ListGlossaryCategoriesRequest {
     ///
     /// - immediate_parent
     ///
-    /// ## Examples of using a filter are:
+    /// Examples of using a filter are:
     ///
-    /// ## `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
-    ///
-    /// `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
+    /// - `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
+    /// - `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
     ///
     /// This will only return the GlossaryCategories that are directly nested
     /// under the specified parent.
@@ -3599,11 +3598,10 @@ pub struct ListGlossaryTermsRequest {
     ///
     /// - immediate_parent
     ///
-    /// ## Examples of using a filter are:
+    /// Examples of using a filter are:
     ///
-    /// ## `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
-    ///
-    /// `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
+    /// - `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}"`
+    /// - `immediate_parent="projects/{project_id_or_number}/locations/{location_id}/glossaries/{glossary_id}/categories/{category_id}"`
     ///
     /// This will only return the GlossaryTerms that are directly nested under the
     /// specified parent.
