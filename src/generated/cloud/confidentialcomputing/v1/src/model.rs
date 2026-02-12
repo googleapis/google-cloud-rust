@@ -279,6 +279,10 @@ pub struct VerifyAttestationRequest {
     pub tee_attestation:
         std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
 
+    /// An optional device attestation report.
+    pub device_attestation:
+        std::option::Option<crate::model::verify_attestation_request::DeviceAttestation>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -546,6 +550,72 @@ impl VerifyAttestationRequest {
         );
         self
     }
+
+    /// Sets the value of [device_attestation][crate::model::VerifyAttestationRequest::device_attestation].
+    ///
+    /// Note that all the setters affecting `device_attestation` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// let x = VerifyAttestationRequest::new().set_device_attestation(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::verify_attestation_request::DeviceAttestation::NvidiaAttestation(NvidiaAttestation::default().into())));
+    /// ```
+    pub fn set_device_attestation<
+        T: std::convert::Into<
+                std::option::Option<crate::model::verify_attestation_request::DeviceAttestation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.device_attestation = v.into();
+        self
+    }
+
+    /// The value of [device_attestation][crate::model::VerifyAttestationRequest::device_attestation]
+    /// if it holds a `NvidiaAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn nvidia_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NvidiaAttestation>> {
+        #[allow(unreachable_patterns)]
+        self.device_attestation.as_ref().and_then(|v| match v {
+            crate::model::verify_attestation_request::DeviceAttestation::NvidiaAttestation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [device_attestation][crate::model::VerifyAttestationRequest::device_attestation]
+    /// to hold a `NvidiaAttestation`.
+    ///
+    /// Note that all the setters affecting `device_attestation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// let x = VerifyAttestationRequest::new().set_nvidia_attestation(NvidiaAttestation::default()/* use setters */);
+    /// assert!(x.nvidia_attestation().is_some());
+    /// ```
+    pub fn set_nvidia_attestation<
+        T: std::convert::Into<std::boxed::Box<crate::model::NvidiaAttestation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.device_attestation = std::option::Option::Some(
+            crate::model::verify_attestation_request::DeviceAttestation::NvidiaAttestation(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for VerifyAttestationRequest {
@@ -568,6 +638,715 @@ pub mod verify_attestation_request {
         TdCcel(std::boxed::Box<crate::model::TdxCcelAttestation>),
         /// Optional. An SEV-SNP Attestation Report.
         SevSnpAttestation(std::boxed::Box<crate::model::SevSnpAttestation>),
+    }
+
+    /// An optional device attestation report.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DeviceAttestation {
+        /// Optional. An Nvidia attestation report for GPU and NVSwitch devices.
+        NvidiaAttestation(std::boxed::Box<crate::model::NvidiaAttestation>),
+    }
+}
+
+/// An Nvidia attestation report for GPU and NVSwitch devices.
+/// Contains necessary attestation evidence that the client collects for
+/// verification.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NvidiaAttestation {
+    /// The Confidential Computing feature that the attestation is for.
+    pub cc_feature: std::option::Option<crate::model::nvidia_attestation::CcFeature>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NvidiaAttestation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cc_feature][crate::model::NvidiaAttestation::cc_feature].
+    ///
+    /// Note that all the setters affecting `cc_feature` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SinglePassthroughAttestation;
+    /// let x = NvidiaAttestation::new().set_cc_feature(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::nvidia_attestation::CcFeature::Spt(SinglePassthroughAttestation::default().into())));
+    /// ```
+    pub fn set_cc_feature<
+        T: std::convert::Into<std::option::Option<crate::model::nvidia_attestation::CcFeature>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cc_feature = v.into();
+        self
+    }
+
+    /// The value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// if it holds a `Spt`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn spt(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::nvidia_attestation::SinglePassthroughAttestation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.cc_feature.as_ref().and_then(|v| match v {
+            crate::model::nvidia_attestation::CcFeature::Spt(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// to hold a `Spt`.
+    ///
+    /// Note that all the setters affecting `cc_feature` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SinglePassthroughAttestation;
+    /// let x = NvidiaAttestation::new().set_spt(SinglePassthroughAttestation::default()/* use setters */);
+    /// assert!(x.spt().is_some());
+    /// assert!(x.ppcie().is_none());
+    /// assert!(x.mpt().is_none());
+    /// ```
+    pub fn set_spt<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::nvidia_attestation::SinglePassthroughAttestation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cc_feature =
+            std::option::Option::Some(crate::model::nvidia_attestation::CcFeature::Spt(v.into()));
+        self
+    }
+
+    /// The value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// if it holds a `Ppcie`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ppcie(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::nvidia_attestation::ProtectedPcieAttestation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.cc_feature.as_ref().and_then(|v| match v {
+            crate::model::nvidia_attestation::CcFeature::Ppcie(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// to hold a `Ppcie`.
+    ///
+    /// Note that all the setters affecting `cc_feature` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::ProtectedPcieAttestation;
+    /// let x = NvidiaAttestation::new().set_ppcie(ProtectedPcieAttestation::default()/* use setters */);
+    /// assert!(x.ppcie().is_some());
+    /// assert!(x.spt().is_none());
+    /// assert!(x.mpt().is_none());
+    /// ```
+    pub fn set_ppcie<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::nvidia_attestation::ProtectedPcieAttestation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cc_feature =
+            std::option::Option::Some(crate::model::nvidia_attestation::CcFeature::Ppcie(v.into()));
+        self
+    }
+
+    /// The value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// if it holds a `Mpt`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mpt(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.cc_feature.as_ref().and_then(|v| match v {
+            crate::model::nvidia_attestation::CcFeature::Mpt(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cc_feature][crate::model::NvidiaAttestation::cc_feature]
+    /// to hold a `Mpt`.
+    ///
+    /// Note that all the setters affecting `cc_feature` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation;
+    /// let x = NvidiaAttestation::new().set_mpt(MultiGpuSecurePassthroughAttestation::default()/* use setters */);
+    /// assert!(x.mpt().is_some());
+    /// assert!(x.spt().is_none());
+    /// assert!(x.ppcie().is_none());
+    /// ```
+    pub fn set_mpt<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cc_feature =
+            std::option::Option::Some(crate::model::nvidia_attestation::CcFeature::Mpt(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for NvidiaAttestation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation"
+    }
+}
+
+/// Defines additional types related to [NvidiaAttestation].
+pub mod nvidia_attestation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// GpuInfo contains the attestation evidence for a GPU device.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GpuInfo {
+        /// Optional. The UUID of the GPU device.
+        pub uuid: std::string::String,
+
+        /// Optional. The driver version of the GPU.
+        pub driver_version: std::string::String,
+
+        /// Optional. The vBIOS version of the GPU.
+        pub vbios_version: std::string::String,
+
+        /// Optional. The GPU architecture type.
+        pub gpu_architecture_type: crate::model::nvidia_attestation::GpuArchitectureType,
+
+        /// Optional. The raw attestation certificate chain for the GPU device.
+        pub attestation_certificate_chain: ::bytes::Bytes,
+
+        /// Optional. The raw attestation report for the GPU device.
+        /// This field contains SPDM request/response defined in
+        /// <https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.1.0.pdf>
+        pub attestation_report: ::bytes::Bytes,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GpuInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uuid][crate::model::nvidia_attestation::GpuInfo::uuid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = GpuInfo::new().set_uuid("example");
+        /// ```
+        pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uuid = v.into();
+            self
+        }
+
+        /// Sets the value of [driver_version][crate::model::nvidia_attestation::GpuInfo::driver_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = GpuInfo::new().set_driver_version("example");
+        /// ```
+        pub fn set_driver_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.driver_version = v.into();
+            self
+        }
+
+        /// Sets the value of [vbios_version][crate::model::nvidia_attestation::GpuInfo::vbios_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = GpuInfo::new().set_vbios_version("example");
+        /// ```
+        pub fn set_vbios_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.vbios_version = v.into();
+            self
+        }
+
+        /// Sets the value of [gpu_architecture_type][crate::model::nvidia_attestation::GpuInfo::gpu_architecture_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuArchitectureType;
+        /// let x0 = GpuInfo::new().set_gpu_architecture_type(GpuArchitectureType::Hopper);
+        /// let x1 = GpuInfo::new().set_gpu_architecture_type(GpuArchitectureType::Blackwell);
+        /// ```
+        pub fn set_gpu_architecture_type<
+            T: std::convert::Into<crate::model::nvidia_attestation::GpuArchitectureType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.gpu_architecture_type = v.into();
+            self
+        }
+
+        /// Sets the value of [attestation_certificate_chain][crate::model::nvidia_attestation::GpuInfo::attestation_certificate_chain].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = GpuInfo::new().set_attestation_certificate_chain(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_attestation_certificate_chain<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.attestation_certificate_chain = v.into();
+            self
+        }
+
+        /// Sets the value of [attestation_report][crate::model::nvidia_attestation::GpuInfo::attestation_report].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = GpuInfo::new().set_attestation_report(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_attestation_report<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.attestation_report = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GpuInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation.GpuInfo"
+        }
+    }
+
+    /// SwitchInfo contains the attestation evidence for a NVSwitch device.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SwitchInfo {
+        /// Optional. The UUID of the NVSwitch device.
+        pub uuid: std::string::String,
+
+        /// Optional. The raw attestation certificate chain for the NVSwitch device.
+        pub attestation_certificate_chain: ::bytes::Bytes,
+
+        /// Optional. The raw attestation report for the NvSwitch device.
+        /// This field contains SPDM request/response defined in
+        /// <https://www.dmtf.org/sites/default/files/standards/documents/DSP0274_1.1.0.pdf>
+        pub attestation_report: ::bytes::Bytes,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SwitchInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uuid][crate::model::nvidia_attestation::SwitchInfo::uuid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SwitchInfo;
+        /// let x = SwitchInfo::new().set_uuid("example");
+        /// ```
+        pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uuid = v.into();
+            self
+        }
+
+        /// Sets the value of [attestation_certificate_chain][crate::model::nvidia_attestation::SwitchInfo::attestation_certificate_chain].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SwitchInfo;
+        /// let x = SwitchInfo::new().set_attestation_certificate_chain(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_attestation_certificate_chain<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.attestation_certificate_chain = v.into();
+            self
+        }
+
+        /// Sets the value of [attestation_report][crate::model::nvidia_attestation::SwitchInfo::attestation_report].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SwitchInfo;
+        /// let x = SwitchInfo::new().set_attestation_report(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_attestation_report<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.attestation_report = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SwitchInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation.SwitchInfo"
+        }
+    }
+
+    /// Single GPU Passthrough (SPT) attestation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SinglePassthroughAttestation {
+        /// Optional. Single GPU quote.
+        pub gpu_quote: std::option::Option<crate::model::nvidia_attestation::GpuInfo>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SinglePassthroughAttestation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [gpu_quote][crate::model::nvidia_attestation::SinglePassthroughAttestation::gpu_quote].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SinglePassthroughAttestation;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = SinglePassthroughAttestation::new().set_gpu_quote(GpuInfo::default()/* use setters */);
+        /// ```
+        pub fn set_gpu_quote<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::nvidia_attestation::GpuInfo>,
+        {
+            self.gpu_quote = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gpu_quote][crate::model::nvidia_attestation::SinglePassthroughAttestation::gpu_quote].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SinglePassthroughAttestation;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = SinglePassthroughAttestation::new().set_or_clear_gpu_quote(Some(GpuInfo::default()/* use setters */));
+        /// let x = SinglePassthroughAttestation::new().set_or_clear_gpu_quote(None::<GpuInfo>);
+        /// ```
+        pub fn set_or_clear_gpu_quote<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::nvidia_attestation::GpuInfo>,
+        {
+            self.gpu_quote = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SinglePassthroughAttestation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation.SinglePassthroughAttestation"
+        }
+    }
+
+    /// Protected PCIe (PPCIE) attestation.
+    /// Eight Hopper GPUs with Four NVSwitch Passthrough.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ProtectedPcieAttestation {
+        /// Optional. A list of GPU infos.
+        pub gpu_quotes: std::vec::Vec<crate::model::nvidia_attestation::GpuInfo>,
+
+        /// Optional. A list of SWITCH infos.
+        pub switch_quotes: std::vec::Vec<crate::model::nvidia_attestation::SwitchInfo>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ProtectedPcieAttestation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [gpu_quotes][crate::model::nvidia_attestation::ProtectedPcieAttestation::gpu_quotes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::ProtectedPcieAttestation;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = ProtectedPcieAttestation::new()
+        ///     .set_gpu_quotes([
+        ///         GpuInfo::default()/* use setters */,
+        ///         GpuInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_gpu_quotes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::nvidia_attestation::GpuInfo>,
+        {
+            use std::iter::Iterator;
+            self.gpu_quotes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [switch_quotes][crate::model::nvidia_attestation::ProtectedPcieAttestation::switch_quotes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::ProtectedPcieAttestation;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::SwitchInfo;
+        /// let x = ProtectedPcieAttestation::new()
+        ///     .set_switch_quotes([
+        ///         SwitchInfo::default()/* use setters */,
+        ///         SwitchInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_switch_quotes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::nvidia_attestation::SwitchInfo>,
+        {
+            use std::iter::Iterator;
+            self.switch_quotes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProtectedPcieAttestation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation.ProtectedPcieAttestation"
+        }
+    }
+
+    /// MultiGpuSecurePassthroughAttestation contains the attestation evidence
+    /// for a Multi-GPU Secure Passthrough (MPT) attestation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MultiGpuSecurePassthroughAttestation {
+        /// Optional. A list of GPU quotes.
+        pub gpu_quotes: std::vec::Vec<crate::model::nvidia_attestation::GpuInfo>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MultiGpuSecurePassthroughAttestation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [gpu_quotes][crate::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation::gpu_quotes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation;
+        /// use google_cloud_confidentialcomputing_v1::model::nvidia_attestation::GpuInfo;
+        /// let x = MultiGpuSecurePassthroughAttestation::new()
+        ///     .set_gpu_quotes([
+        ///         GpuInfo::default()/* use setters */,
+        ///         GpuInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_gpu_quotes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::nvidia_attestation::GpuInfo>,
+        {
+            use std::iter::Iterator;
+            self.gpu_quotes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MultiGpuSecurePassthroughAttestation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.NvidiaAttestation.MultiGpuSecurePassthroughAttestation"
+        }
+    }
+
+    /// GpuArchitectureType enumerates the supported GPU architecture types.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GpuArchitectureType {
+        /// Unspecified GPU architecture type.
+        Unspecified,
+        /// Hopper GPU architecture type.
+        Hopper,
+        /// Blackwell GPU architecture type.
+        Blackwell,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GpuArchitectureType::value] or
+        /// [GpuArchitectureType::name].
+        UnknownValue(gpu_architecture_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod gpu_architecture_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl GpuArchitectureType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Hopper => std::option::Option::Some(8),
+                Self::Blackwell => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GPU_ARCHITECTURE_TYPE_UNSPECIFIED"),
+                Self::Hopper => std::option::Option::Some("GPU_ARCHITECTURE_TYPE_HOPPER"),
+                Self::Blackwell => std::option::Option::Some("GPU_ARCHITECTURE_TYPE_BLACKWELL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for GpuArchitectureType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GpuArchitectureType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GpuArchitectureType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                8 => Self::Hopper,
+                10 => Self::Blackwell,
+                _ => Self::UnknownValue(gpu_architecture_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GpuArchitectureType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GPU_ARCHITECTURE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GPU_ARCHITECTURE_TYPE_HOPPER" => Self::Hopper,
+                "GPU_ARCHITECTURE_TYPE_BLACKWELL" => Self::Blackwell,
+                _ => Self::UnknownValue(gpu_architecture_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GpuArchitectureType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Hopper => serializer.serialize_i32(8),
+                Self::Blackwell => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GpuArchitectureType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GpuArchitectureType>::new(
+                ".google.cloud.confidentialcomputing.v1.NvidiaAttestation.GpuArchitectureType",
+            ))
+        }
+    }
+
+    /// The Confidential Computing feature that the attestation is for.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CcFeature {
+        /// Single GPU Passthrough (SPT) attestation.
+        Spt(std::boxed::Box<crate::model::nvidia_attestation::SinglePassthroughAttestation>),
+        /// Protected PCIe (PPCIE) attestation.
+        Ppcie(std::boxed::Box<crate::model::nvidia_attestation::ProtectedPcieAttestation>),
+        /// Multi-GPU Secure Passthrough (MPT) attestation.
+        Mpt(
+            std::boxed::Box<crate::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation>,
+        ),
     }
 }
 
@@ -1561,6 +2340,10 @@ pub struct VerifyConfidentialSpaceRequest {
         crate::model::verify_confidential_space_request::ConfidentialSpaceOptions,
     >,
 
+    /// Optional. An optional Nvidia attestation report, used to populate hardware
+    /// rooted claims for Nvidia devices.
+    pub nvidia_attestation: std::option::Option<crate::model::NvidiaAttestation>,
+
     /// Required. A tee attestation report, used to populate hardware rooted
     /// claims.
     pub tee_attestation:
@@ -1708,6 +2491,39 @@ impl VerifyConfidentialSpaceRequest {
             >,
     {
         self.options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [nvidia_attestation][crate::model::VerifyConfidentialSpaceRequest::nvidia_attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_nvidia_attestation(NvidiaAttestation::default()/* use setters */);
+    /// ```
+    pub fn set_nvidia_attestation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NvidiaAttestation>,
+    {
+        self.nvidia_attestation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [nvidia_attestation][crate::model::VerifyConfidentialSpaceRequest::nvidia_attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::NvidiaAttestation;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_nvidia_attestation(Some(NvidiaAttestation::default()/* use setters */));
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_nvidia_attestation(None::<NvidiaAttestation>);
+    /// ```
+    pub fn set_or_clear_nvidia_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NvidiaAttestation>,
+    {
+        self.nvidia_attestation = v.map(|x| x.into());
         self
     }
 
@@ -2157,6 +2973,10 @@ pub struct VerifyConfidentialGkeRequest {
     /// provided Challenge will be consumed, and cannot be used again.
     pub challenge: std::string::String,
 
+    /// Optional. A collection of fields that modify the token output.
+    pub options:
+        std::option::Option<crate::model::verify_confidential_gke_request::ConfidentialGkeOptions>,
+
     /// Required. A tee attestation report, used to populate hardware rooted
     /// claims.
     pub tee_attestation:
@@ -2179,6 +2999,43 @@ impl VerifyConfidentialGkeRequest {
     /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::model::VerifyConfidentialGkeRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::ConfidentialGkeOptions;
+    /// let x = VerifyConfidentialGkeRequest::new().set_options(ConfidentialGkeOptions::default()/* use setters */);
+    /// ```
+    pub fn set_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::verify_confidential_gke_request::ConfidentialGkeOptions,
+            >,
+    {
+        self.options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [options][crate::model::VerifyConfidentialGkeRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::ConfidentialGkeOptions;
+    /// let x = VerifyConfidentialGkeRequest::new().set_or_clear_options(Some(ConfidentialGkeOptions::default()/* use setters */));
+    /// let x = VerifyConfidentialGkeRequest::new().set_or_clear_options(None::<ConfidentialGkeOptions>);
+    /// ```
+    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::verify_confidential_gke_request::ConfidentialGkeOptions,
+            >,
+    {
+        self.options = v.map(|x| x.into());
         self
     }
 
@@ -2257,6 +3114,84 @@ impl wkt::message::Message for VerifyConfidentialGkeRequest {
 pub mod verify_confidential_gke_request {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Token options for Confidential GKE attestation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConfidentialGkeOptions {
+        /// Optional. Optional string to issue the token with a custom audience
+        /// claim. Required if custom nonces are specified.
+        pub audience: std::string::String,
+
+        /// Optional. Optional parameter to place one or more nonces in the eat_nonce
+        /// claim in the output token. The minimum size for JSON-encoded EATs is 10
+        /// bytes and the maximum size is 74 bytes.
+        pub nonce: std::vec::Vec<std::string::String>,
+
+        /// Optional. Optional specification for how to sign the attestation token.
+        /// Defaults to SIGNATURE_TYPE_OIDC if unspecified.
+        pub signature_type: crate::model::SignatureType,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConfidentialGkeOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [audience][crate::model::verify_confidential_gke_request::ConfidentialGkeOptions::audience].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::ConfidentialGkeOptions;
+        /// let x = ConfidentialGkeOptions::new().set_audience("example");
+        /// ```
+        pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.audience = v.into();
+            self
+        }
+
+        /// Sets the value of [nonce][crate::model::verify_confidential_gke_request::ConfidentialGkeOptions::nonce].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::ConfidentialGkeOptions;
+        /// let x = ConfidentialGkeOptions::new().set_nonce(["a", "b", "c"]);
+        /// ```
+        pub fn set_nonce<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.nonce = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [signature_type][crate::model::verify_confidential_gke_request::ConfidentialGkeOptions::signature_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::ConfidentialGkeOptions;
+        /// use google_cloud_confidentialcomputing_v1::model::SignatureType;
+        /// let x0 = ConfidentialGkeOptions::new().set_signature_type(SignatureType::Oidc);
+        /// let x1 = ConfidentialGkeOptions::new().set_signature_type(SignatureType::Pki);
+        /// ```
+        pub fn set_signature_type<T: std::convert::Into<crate::model::SignatureType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.signature_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConfidentialGkeOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeRequest.ConfidentialGkeOptions"
+        }
+    }
 
     /// Required. A tee attestation report, used to populate hardware rooted
     /// claims.

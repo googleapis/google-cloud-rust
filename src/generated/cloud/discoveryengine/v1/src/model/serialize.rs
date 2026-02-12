@@ -4386,6 +4386,12 @@ impl serde::ser::Serialize for super::DataStore {
                 &self.advanced_site_search_config,
             )?;
         }
+        if self.natural_language_query_understanding_config.is_some() {
+            state.serialize_entry(
+                "naturalLanguageQueryUnderstandingConfig",
+                &self.natural_language_query_understanding_config,
+            )?;
+        }
         if !self.kms_key_name.is_empty() {
             state.serialize_entry("kmsKeyName", &self.kms_key_name)?;
         }
@@ -4512,6 +4518,29 @@ impl serde::ser::Serialize for super::AdvancedSiteSearchConfig {
         }
         if self.disable_automatic_refresh.is_some() {
             state.serialize_entry("disableAutomaticRefresh", &self.disable_automatic_refresh)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "data-store-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NaturalLanguageQueryUnderstandingConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9891,6 +9920,9 @@ impl serde::ser::Serialize for super::SearchRequest {
         if !self.query.is_empty() {
             state.serialize_entry("query", &self.query)?;
         }
+        if !self.page_categories.is_empty() {
+            state.serialize_entry("pageCategories", &self.page_categories)?;
+        }
         if self.image_query.is_some() {
             state.serialize_entry("imageQuery", &self.image_query)?;
         }
@@ -9972,17 +10004,32 @@ impl serde::ser::Serialize for super::SearchRequest {
         if self.content_search_spec.is_some() {
             state.serialize_entry("contentSearchSpec", &self.content_search_spec)?;
         }
+        if !self.ranking_expression.is_empty() {
+            state.serialize_entry("rankingExpression", &self.ranking_expression)?;
+        }
+        if !wkt::internal::is_default(&self.ranking_expression_backend) {
+            state.serialize_entry("rankingExpressionBackend", &self.ranking_expression_backend)?;
+        }
         if !wkt::internal::is_default(&self.safe_search) {
             state.serialize_entry("safeSearch", &self.safe_search)?;
         }
         if !self.user_labels.is_empty() {
             state.serialize_entry("userLabels", &self.user_labels)?;
         }
+        if self.natural_language_query_understanding_spec.is_some() {
+            state.serialize_entry(
+                "naturalLanguageQueryUnderstandingSpec",
+                &self.natural_language_query_understanding_spec,
+            )?;
+        }
         if self.search_as_you_type_spec.is_some() {
             state.serialize_entry("searchAsYouTypeSpec", &self.search_as_you_type_spec)?;
         }
         if self.display_spec.is_some() {
             state.serialize_entry("displaySpec", &self.display_spec)?;
+        }
+        if !self.crowding_specs.is_empty() {
+            state.serialize_entry("crowdingSpecs", &self.crowding_specs)?;
         }
         if !self.session.is_empty() {
             state.serialize_entry("session", &self.session)?;
@@ -9995,12 +10042,6 @@ impl serde::ser::Serialize for super::SearchRequest {
         }
         if self.relevance_score_spec.is_some() {
             state.serialize_entry("relevanceScoreSpec", &self.relevance_score_spec)?;
-        }
-        if !self.ranking_expression.is_empty() {
-            state.serialize_entry("rankingExpression", &self.ranking_expression)?;
-        }
-        if !wkt::internal::is_default(&self.ranking_expression_backend) {
-            state.serialize_entry("rankingExpressionBackend", &self.ranking_expression_backend)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10731,6 +10772,49 @@ impl serde::ser::Serialize for super::search_request::content_search_spec::Chunk
     feature = "serving-config-service",
 ))]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::NaturalLanguageQueryUnderstandingSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.filter_extraction_condition) {
+            state.serialize_entry(
+                "filterExtractionCondition",
+                &self.filter_extraction_condition,
+            )?;
+        }
+        if !self.geo_search_query_detection_field_names.is_empty() {
+            state.serialize_entry(
+                "geoSearchQueryDetectionFieldNames",
+                &self.geo_search_query_detection_field_names,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.extracted_filter_behavior) {
+            state.serialize_entry("extractedFilterBehavior", &self.extracted_filter_behavior)?;
+        }
+        if !self.allowed_field_names.is_empty() {
+            state.serialize_entry("allowedFieldNames", &self.allowed_field_names)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::search_request::SearchAsYouTypeSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -10773,6 +10857,49 @@ impl serde::ser::Serialize for super::search_request::DisplaySpec {
                 "matchHighlightingCondition",
                 &self.match_highlighting_condition,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::CrowdingSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.field.is_empty() {
+            state.serialize_entry("field", &self.field)?;
+        }
+        if !wkt::internal::is_default(&self.max_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxCount", &__With(&self.max_count))?;
+        }
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10903,11 +11030,20 @@ impl serde::ser::Serialize for super::SearchResponse {
         if self.query_expansion_info.is_some() {
             state.serialize_entry("queryExpansionInfo", &self.query_expansion_info)?;
         }
+        if self.natural_language_query_understanding_info.is_some() {
+            state.serialize_entry(
+                "naturalLanguageQueryUnderstandingInfo",
+                &self.natural_language_query_understanding_info,
+            )?;
+        }
         if self.session_info.is_some() {
             state.serialize_entry("sessionInfo", &self.session_info)?;
         }
         if !self.search_link_promotions.is_empty() {
             state.serialize_entry("searchLinkPromotions", &self.search_link_promotions)?;
+        }
+        if !wkt::internal::is_default(&self.semantic_state) {
+            state.serialize_entry("semanticState", &self.semantic_state)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11477,6 +11613,279 @@ impl serde::ser::Serialize for super::search_response::QueryExpansionInfo {
                 }
             }
             state.serialize_entry("pinnedResultCount", &__With(&self.pinned_result_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::NaturalLanguageQueryUnderstandingInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.extracted_filters.is_empty() {
+            state.serialize_entry("extractedFilters", &self.extracted_filters)?;
+        }
+        if !self.rewritten_query.is_empty() {
+            state.serialize_entry("rewrittenQuery", &self.rewritten_query)?;
+        }
+        if !self.classified_intents.is_empty() {
+            state.serialize_entry("classifiedIntents", &self.classified_intents)?;
+        }
+        if self.structured_extracted_filter.is_some() {
+            state.serialize_entry(
+                "structuredExtractedFilter",
+                &self.structured_extracted_filter,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::search_response::natural_language_query_understanding_info::StructuredExtractedFilter
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.expression.is_some() {
+            state.serialize_entry("expression", &self.expression)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.field_name.is_empty() {
+            state.serialize_entry("fieldName", &self.field_name)?;
+        }
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self.query_segment.is_empty() {
+            state.serialize_entry("querySegment", &self.query_segment)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.field_name.is_empty() {
+            state.serialize_entry("fieldName", &self.field_name)?;
+        }
+        if !wkt::internal::is_default(&self.comparison) {
+            state.serialize_entry("comparison", &self.comparison)?;
+        }
+        if !wkt::internal::is_default(&self.value) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("value", &__With(&self.value))?;
+        }
+        if !self.query_segment.is_empty() {
+            state.serialize_entry("querySegment", &self.query_segment)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.field_name.is_empty() {
+            state.serialize_entry("fieldName", &self.field_name)?;
+        }
+        if !self.address.is_empty() {
+            state.serialize_entry("address", &self.address)?;
+        }
+        if !wkt::internal::is_default(&self.latitude) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("latitude", &__With(&self.latitude))?;
+        }
+        if !wkt::internal::is_default(&self.longitude) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("longitude", &__With(&self.longitude))?;
+        }
+        if !wkt::internal::is_default(&self.radius_in_meters) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("radiusInMeters", &__With(&self.radius_in_meters))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.expressions.is_empty() {
+            state.serialize_entry("expressions", &self.expressions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.expressions.is_empty() {
+            state.serialize_entry("expressions", &self.expressions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.string_constraint() {
+            state.serialize_entry("stringConstraint", value)?;
+        }
+        if let Some(value) = self.number_constraint() {
+            state.serialize_entry("numberConstraint", value)?;
+        }
+        if let Some(value) = self.geolocation_constraint() {
+            state.serialize_entry("geolocationConstraint", value)?;
+        }
+        if let Some(value) = self.and_expr() {
+            state.serialize_entry("andExpr", value)?;
+        }
+        if let Some(value) = self.or_expr() {
+            state.serialize_entry("orExpr", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
