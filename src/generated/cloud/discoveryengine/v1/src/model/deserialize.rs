@@ -14889,6 +14889,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataStore {
             __content_config,
             __create_time,
             __advanced_site_search_config,
+            __natural_language_query_understanding_config,
             __kms_key_name,
             __cmek_config,
             __billing_estimation,
@@ -14936,6 +14937,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DataStore {
                             }
                             "advanced_site_search_config" => {
                                 Ok(__FieldTag::__advanced_site_search_config)
+                            }
+                            "naturalLanguageQueryUnderstandingConfig" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_config)
+                            }
+                            "natural_language_query_understanding_config" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_config)
                             }
                             "kmsKeyName" => Ok(__FieldTag::__kms_key_name),
                             "kms_key_name" => Ok(__FieldTag::__kms_key_name),
@@ -15058,6 +15065,19 @@ impl<'de> serde::de::Deserialize<'de> for super::DataStore {
                             }
                             result.advanced_site_search_config = map.next_value::<std::option::Option<crate::model::AdvancedSiteSearchConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__natural_language_query_understanding_config => {
+                            if !fields
+                                .insert(__FieldTag::__natural_language_query_understanding_config)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for natural_language_query_understanding_config",
+                                ));
+                            }
+                            result.natural_language_query_understanding_config =
+                                map.next_value::<std::option::Option<
+                                    crate::model::NaturalLanguageQueryUnderstandingConfig,
+                                >>()?;
                         }
                         __FieldTag::__kms_key_name => {
                             if !fields.insert(__FieldTag::__kms_key_name) {
@@ -15426,6 +15446,90 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedSiteSearchConfig {
                             }
                             result.disable_automatic_refresh =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "data-store-service")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::NaturalLanguageQueryUnderstandingConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for NaturalLanguageQueryUnderstandingConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "mode" => Ok(__FieldTag::__mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::NaturalLanguageQueryUnderstandingConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NaturalLanguageQueryUnderstandingConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__mode => {
+                            if !fields.insert(__FieldTag::__mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mode",
+                                ));
+                            }
+                            result.mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::natural_language_query_understanding_config::Mode,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -33764,6 +33868,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
             __serving_config,
             __branch,
             __query,
+            __page_categories,
             __image_query,
             __page_size,
             __page_token,
@@ -33782,16 +33887,18 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
             __spell_correction_spec,
             __user_pseudo_id,
             __content_search_spec,
+            __ranking_expression,
+            __ranking_expression_backend,
             __safe_search,
             __user_labels,
+            __natural_language_query_understanding_spec,
             __search_as_you_type_spec,
             __display_spec,
+            __crowding_specs,
             __session,
             __session_spec,
             __relevance_threshold,
             __relevance_score_spec,
-            __ranking_expression,
-            __ranking_expression_backend,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -33816,6 +33923,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             "serving_config" => Ok(__FieldTag::__serving_config),
                             "branch" => Ok(__FieldTag::__branch),
                             "query" => Ok(__FieldTag::__query),
+                            "pageCategories" => Ok(__FieldTag::__page_categories),
+                            "page_categories" => Ok(__FieldTag::__page_categories),
                             "imageQuery" => Ok(__FieldTag::__image_query),
                             "image_query" => Ok(__FieldTag::__image_query),
                             "pageSize" => Ok(__FieldTag::__page_size),
@@ -33849,21 +33958,6 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             "user_pseudo_id" => Ok(__FieldTag::__user_pseudo_id),
                             "contentSearchSpec" => Ok(__FieldTag::__content_search_spec),
                             "content_search_spec" => Ok(__FieldTag::__content_search_spec),
-                            "safeSearch" => Ok(__FieldTag::__safe_search),
-                            "safe_search" => Ok(__FieldTag::__safe_search),
-                            "userLabels" => Ok(__FieldTag::__user_labels),
-                            "user_labels" => Ok(__FieldTag::__user_labels),
-                            "searchAsYouTypeSpec" => Ok(__FieldTag::__search_as_you_type_spec),
-                            "search_as_you_type_spec" => Ok(__FieldTag::__search_as_you_type_spec),
-                            "displaySpec" => Ok(__FieldTag::__display_spec),
-                            "display_spec" => Ok(__FieldTag::__display_spec),
-                            "session" => Ok(__FieldTag::__session),
-                            "sessionSpec" => Ok(__FieldTag::__session_spec),
-                            "session_spec" => Ok(__FieldTag::__session_spec),
-                            "relevanceThreshold" => Ok(__FieldTag::__relevance_threshold),
-                            "relevance_threshold" => Ok(__FieldTag::__relevance_threshold),
-                            "relevanceScoreSpec" => Ok(__FieldTag::__relevance_score_spec),
-                            "relevance_score_spec" => Ok(__FieldTag::__relevance_score_spec),
                             "rankingExpression" => Ok(__FieldTag::__ranking_expression),
                             "ranking_expression" => Ok(__FieldTag::__ranking_expression),
                             "rankingExpressionBackend" => {
@@ -33872,6 +33966,29 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             "ranking_expression_backend" => {
                                 Ok(__FieldTag::__ranking_expression_backend)
                             }
+                            "safeSearch" => Ok(__FieldTag::__safe_search),
+                            "safe_search" => Ok(__FieldTag::__safe_search),
+                            "userLabels" => Ok(__FieldTag::__user_labels),
+                            "user_labels" => Ok(__FieldTag::__user_labels),
+                            "naturalLanguageQueryUnderstandingSpec" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_spec)
+                            }
+                            "natural_language_query_understanding_spec" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_spec)
+                            }
+                            "searchAsYouTypeSpec" => Ok(__FieldTag::__search_as_you_type_spec),
+                            "search_as_you_type_spec" => Ok(__FieldTag::__search_as_you_type_spec),
+                            "displaySpec" => Ok(__FieldTag::__display_spec),
+                            "display_spec" => Ok(__FieldTag::__display_spec),
+                            "crowdingSpecs" => Ok(__FieldTag::__crowding_specs),
+                            "crowding_specs" => Ok(__FieldTag::__crowding_specs),
+                            "session" => Ok(__FieldTag::__session),
+                            "sessionSpec" => Ok(__FieldTag::__session_spec),
+                            "session_spec" => Ok(__FieldTag::__session_spec),
+                            "relevanceThreshold" => Ok(__FieldTag::__relevance_threshold),
+                            "relevance_threshold" => Ok(__FieldTag::__relevance_threshold),
+                            "relevanceScoreSpec" => Ok(__FieldTag::__relevance_score_spec),
+                            "relevance_score_spec" => Ok(__FieldTag::__relevance_score_spec),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -33926,6 +34043,14 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             result.query = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__page_categories => {
+                            if !fields.insert(__FieldTag::__page_categories) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_categories",
+                                ));
+                            }
+                            result.page_categories = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__image_query => {
                             if !fields.insert(__FieldTag::__image_query) {
@@ -34138,6 +34263,28 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                                 crate::model::search_request::ContentSearchSpec,
                             >>()?;
                         }
+                        __FieldTag::__ranking_expression => {
+                            if !fields.insert(__FieldTag::__ranking_expression) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ranking_expression",
+                                ));
+                            }
+                            result.ranking_expression = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ranking_expression_backend => {
+                            if !fields.insert(__FieldTag::__ranking_expression_backend) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ranking_expression_backend",
+                                ));
+                            }
+                            result.ranking_expression_backend = map
+                                .next_value::<std::option::Option<
+                                    crate::model::search_request::RankingExpressionBackend,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__safe_search => {
                             if !fields.insert(__FieldTag::__safe_search) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -34163,6 +34310,17 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__natural_language_query_understanding_spec => {
+                            if !fields
+                                .insert(__FieldTag::__natural_language_query_understanding_spec)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for natural_language_query_understanding_spec",
+                                ));
+                            }
+                            result.natural_language_query_understanding_spec = map.next_value::<std::option::Option<crate::model::search_request::NaturalLanguageQueryUnderstandingSpec>>()?
+                                ;
+                        }
                         __FieldTag::__search_as_you_type_spec => {
                             if !fields.insert(__FieldTag::__search_as_you_type_spec) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -34181,6 +34339,18 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             }
                             result.display_spec = map.next_value::<std::option::Option<crate::model::search_request::DisplaySpec>>()?
                                 ;
+                        }
+                        __FieldTag::__crowding_specs => {
+                            if !fields.insert(__FieldTag::__crowding_specs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for crowding_specs",
+                                ));
+                            }
+                            result.crowding_specs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::search_request::CrowdingSpec>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__session => {
                             if !fields.insert(__FieldTag::__session) {
@@ -34222,28 +34392,6 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchRequest {
                             result.relevance_score_spec = map.next_value::<std::option::Option<
                                 crate::model::search_request::RelevanceScoreSpec,
                             >>()?;
-                        }
-                        __FieldTag::__ranking_expression => {
-                            if !fields.insert(__FieldTag::__ranking_expression) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for ranking_expression",
-                                ));
-                            }
-                            result.ranking_expression = map
-                                .next_value::<std::option::Option<std::string::String>>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__ranking_expression_backend => {
-                            if !fields.insert(__FieldTag::__ranking_expression_backend) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for ranking_expression_backend",
-                                ));
-                            }
-                            result.ranking_expression_backend = map
-                                .next_value::<std::option::Option<
-                                    crate::model::search_request::RankingExpressionBackend,
-                                >>()?
-                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -36369,6 +36517,140 @@ impl<'de> serde::de::Deserialize<'de> for super::search_request::content_search_
     feature = "serving-config-service",
 ))]
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::search_request::NaturalLanguageQueryUnderstandingSpec
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __filter_extraction_condition,
+            __geo_search_query_detection_field_names,
+            __extracted_filter_behavior,
+            __allowed_field_names,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for NaturalLanguageQueryUnderstandingSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "filterExtractionCondition" => {
+                                Ok(__FieldTag::__filter_extraction_condition)
+                            }
+                            "filter_extraction_condition" => {
+                                Ok(__FieldTag::__filter_extraction_condition)
+                            }
+                            "geoSearchQueryDetectionFieldNames" => {
+                                Ok(__FieldTag::__geo_search_query_detection_field_names)
+                            }
+                            "geo_search_query_detection_field_names" => {
+                                Ok(__FieldTag::__geo_search_query_detection_field_names)
+                            }
+                            "extractedFilterBehavior" => {
+                                Ok(__FieldTag::__extracted_filter_behavior)
+                            }
+                            "extracted_filter_behavior" => {
+                                Ok(__FieldTag::__extracted_filter_behavior)
+                            }
+                            "allowedFieldNames" => Ok(__FieldTag::__allowed_field_names),
+                            "allowed_field_names" => Ok(__FieldTag::__allowed_field_names),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_request::NaturalLanguageQueryUnderstandingSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NaturalLanguageQueryUnderstandingSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__filter_extraction_condition => {
+                            if !fields.insert(__FieldTag::__filter_extraction_condition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter_extraction_condition",
+                                ));
+                            }
+                            result.filter_extraction_condition = map.next_value::<std::option::Option<crate::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__geo_search_query_detection_field_names => {
+                            if !fields.insert(__FieldTag::__geo_search_query_detection_field_names)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for geo_search_query_detection_field_names",
+                                ));
+                            }
+                            result.geo_search_query_detection_field_names = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__extracted_filter_behavior => {
+                            if !fields.insert(__FieldTag::__extracted_filter_behavior) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extracted_filter_behavior",
+                                ));
+                            }
+                            result.extracted_filter_behavior = map.next_value::<std::option::Option<crate::model::search_request::natural_language_query_understanding_spec::ExtractedFilterBehavior>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__allowed_field_names => {
+                            if !fields.insert(__FieldTag::__allowed_field_names) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_field_names",
+                                ));
+                            }
+                            result.allowed_field_names = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::search_request::SearchAsYouTypeSpec {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -36521,6 +36803,128 @@ impl<'de> serde::de::Deserialize<'de> for super::search_request::DisplaySpec {
                                 ));
                             }
                             result.match_highlighting_condition = map.next_value::<std::option::Option<crate::model::search_request::display_spec::MatchHighlightingCondition>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_request::CrowdingSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field,
+            __max_count,
+            __mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CrowdingSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "field" => Ok(__FieldTag::__field),
+                            "maxCount" => Ok(__FieldTag::__max_count),
+                            "max_count" => Ok(__FieldTag::__max_count),
+                            "mode" => Ok(__FieldTag::__mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_request::CrowdingSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CrowdingSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field => {
+                            if !fields.insert(__FieldTag::__field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field",
+                                ));
+                            }
+                            result.field = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__max_count => {
+                            if !fields.insert(__FieldTag::__max_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__mode => {
+                            if !fields.insert(__FieldTag::__mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mode",
+                                ));
+                            }
+                            result.mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::search_request::crowding_spec::Mode,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -36755,8 +37159,10 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchResponse {
             __corrected_query,
             __summary,
             __query_expansion_info,
+            __natural_language_query_understanding_info,
             __session_info,
             __search_link_promotions,
+            __semantic_state,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -36792,10 +37198,18 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchResponse {
                             "summary" => Ok(__FieldTag::__summary),
                             "queryExpansionInfo" => Ok(__FieldTag::__query_expansion_info),
                             "query_expansion_info" => Ok(__FieldTag::__query_expansion_info),
+                            "naturalLanguageQueryUnderstandingInfo" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_info)
+                            }
+                            "natural_language_query_understanding_info" => {
+                                Ok(__FieldTag::__natural_language_query_understanding_info)
+                            }
                             "sessionInfo" => Ok(__FieldTag::__session_info),
                             "session_info" => Ok(__FieldTag::__session_info),
                             "searchLinkPromotions" => Ok(__FieldTag::__search_link_promotions),
                             "search_link_promotions" => Ok(__FieldTag::__search_link_promotions),
+                            "semanticState" => Ok(__FieldTag::__semantic_state),
+                            "semantic_state" => Ok(__FieldTag::__semantic_state),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -36923,6 +37337,17 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchResponse {
                                 crate::model::search_response::QueryExpansionInfo,
                             >>()?;
                         }
+                        __FieldTag::__natural_language_query_understanding_info => {
+                            if !fields
+                                .insert(__FieldTag::__natural_language_query_understanding_info)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for natural_language_query_understanding_info",
+                                ));
+                            }
+                            result.natural_language_query_understanding_info = map.next_value::<std::option::Option<crate::model::search_response::NaturalLanguageQueryUnderstandingInfo>>()?
+                                ;
+                        }
                         __FieldTag::__session_info => {
                             if !fields.insert(__FieldTag::__session_info) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -36941,6 +37366,18 @@ impl<'de> serde::de::Deserialize<'de> for super::SearchResponse {
                             result.search_link_promotions = map
                                 .next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::SearchLinkPromotion>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__semantic_state => {
+                            if !fields.insert(__FieldTag::__semantic_state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for semantic_state",
+                                ));
+                            }
+                            result.semantic_state =
+                                map.next_value::<std::option::Option<
+                                    crate::model::search_response::SemanticState,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -38635,6 +39072,871 @@ impl<'de> serde::de::Deserialize<'de> for super::search_response::QueryExpansion
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::search_response::NaturalLanguageQueryUnderstandingInfo
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __extracted_filters,
+            __rewritten_query,
+            __classified_intents,
+            __structured_extracted_filter,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for NaturalLanguageQueryUnderstandingInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "extractedFilters" => Ok(__FieldTag::__extracted_filters),
+                            "extracted_filters" => Ok(__FieldTag::__extracted_filters),
+                            "rewrittenQuery" => Ok(__FieldTag::__rewritten_query),
+                            "rewritten_query" => Ok(__FieldTag::__rewritten_query),
+                            "classifiedIntents" => Ok(__FieldTag::__classified_intents),
+                            "classified_intents" => Ok(__FieldTag::__classified_intents),
+                            "structuredExtractedFilter" => {
+                                Ok(__FieldTag::__structured_extracted_filter)
+                            }
+                            "structured_extracted_filter" => {
+                                Ok(__FieldTag::__structured_extracted_filter)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::NaturalLanguageQueryUnderstandingInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NaturalLanguageQueryUnderstandingInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__extracted_filters => {
+                            if !fields.insert(__FieldTag::__extracted_filters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extracted_filters",
+                                ));
+                            }
+                            result.extracted_filters = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__rewritten_query => {
+                            if !fields.insert(__FieldTag::__rewritten_query) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rewritten_query",
+                                ));
+                            }
+                            result.rewritten_query = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__classified_intents => {
+                            if !fields.insert(__FieldTag::__classified_intents) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for classified_intents",
+                                ));
+                            }
+                            result.classified_intents = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__structured_extracted_filter => {
+                            if !fields.insert(__FieldTag::__structured_extracted_filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for structured_extracted_filter",
+                                ));
+                            }
+                            result.structured_extracted_filter = map.next_value::<std::option::Option<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::search_response::natural_language_query_understanding_info::StructuredExtractedFilter
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __expression,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StructuredExtractedFilter")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "expression" => Ok(__FieldTag::__expression),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::StructuredExtractedFilter;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StructuredExtractedFilter")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__expression => {
+                            if !fields.insert(__FieldTag::__expression) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expression",
+                                ));
+                            }
+                            result.expression = map.next_value::<std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field_name,
+            __values,
+            __query_segment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StringConstraint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fieldName" => Ok(__FieldTag::__field_name),
+                            "field_name" => Ok(__FieldTag::__field_name),
+                            "values" => Ok(__FieldTag::__values),
+                            "querySegment" => Ok(__FieldTag::__query_segment),
+                            "query_segment" => Ok(__FieldTag::__query_segment),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StringConstraint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field_name => {
+                            if !fields.insert(__FieldTag::__field_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name"));
+                            }
+                            result.field_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__values => {
+                            if !fields.insert(__FieldTag::__values) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for values"));
+                            }
+                            result.values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__query_segment => {
+                            if !fields.insert(__FieldTag::__query_segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for query_segment"));
+                            }
+                            result.query_segment = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field_name,
+            __comparison,
+            __value,
+            __query_segment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NumberConstraint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fieldName" => Ok(__FieldTag::__field_name),
+                            "field_name" => Ok(__FieldTag::__field_name),
+                            "comparison" => Ok(__FieldTag::__comparison),
+                            "value" => Ok(__FieldTag::__value),
+                            "querySegment" => Ok(__FieldTag::__query_segment),
+                            "query_segment" => Ok(__FieldTag::__query_segment),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NumberConstraint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field_name => {
+                            if !fields.insert(__FieldTag::__field_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name"));
+                            }
+                            result.field_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__comparison => {
+                            if !fields.insert(__FieldTag::__comparison) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for comparison"));
+                            }
+                            result.comparison = map.next_value::<std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::number_constraint::Comparison>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for value"));
+                            }
+                            struct __With( std::option::Option<f64> );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.value = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
+                        __FieldTag::__query_segment => {
+                            if !fields.insert(__FieldTag::__query_segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for query_segment"));
+                            }
+                            result.query_segment = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field_name,
+            __address,
+            __latitude,
+            __longitude,
+            __radius_in_meters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GeolocationConstraint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fieldName" => Ok(__FieldTag::__field_name),
+                            "field_name" => Ok(__FieldTag::__field_name),
+                            "address" => Ok(__FieldTag::__address),
+                            "latitude" => Ok(__FieldTag::__latitude),
+                            "longitude" => Ok(__FieldTag::__longitude),
+                            "radiusInMeters" => Ok(__FieldTag::__radius_in_meters),
+                            "radius_in_meters" => Ok(__FieldTag::__radius_in_meters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GeolocationConstraint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field_name => {
+                            if !fields.insert(__FieldTag::__field_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for field_name"));
+                            }
+                            result.field_name = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__address => {
+                            if !fields.insert(__FieldTag::__address) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for address"));
+                            }
+                            result.address = map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::__latitude => {
+                            if !fields.insert(__FieldTag::__latitude) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for latitude"));
+                            }
+                            struct __With( std::option::Option<f64> );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.latitude = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
+                        __FieldTag::__longitude => {
+                            if !fields.insert(__FieldTag::__longitude) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for longitude"));
+                            }
+                            struct __With( std::option::Option<f64> );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.longitude = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
+                        __FieldTag::__radius_in_meters => {
+                            if !fields.insert(__FieldTag::__radius_in_meters) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for radius_in_meters"));
+                            }
+                            struct __With( std::option::Option<f32> );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.radius_in_meters = map.next_value::< __With >()?.0.unwrap_or_default();
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __expressions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AndExpression")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "expressions" => Ok(__FieldTag::__expressions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AndExpression")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__expressions => {
+                            if !fields.insert(__FieldTag::__expressions) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for expressions"));
+                            }
+                            result.expressions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __expressions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OrExpression")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "expressions" => Ok(__FieldTag::__expressions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OrExpression")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__expressions => {
+                            if !fields.insert(__FieldTag::__expressions) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for expressions"));
+                            }
+                            result.expressions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>>>()?.unwrap_or_default();
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __string_constraint,
+            __number_constraint,
+            __geolocation_constraint,
+            __and_expr,
+            __or_expr,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Expression")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "stringConstraint" => Ok(__FieldTag::__string_constraint),
+                            "string_constraint" => Ok(__FieldTag::__string_constraint),
+                            "numberConstraint" => Ok(__FieldTag::__number_constraint),
+                            "number_constraint" => Ok(__FieldTag::__number_constraint),
+                            "geolocationConstraint" => Ok(__FieldTag::__geolocation_constraint),
+                            "geolocation_constraint" => Ok(__FieldTag::__geolocation_constraint),
+                            "andExpr" => Ok(__FieldTag::__and_expr),
+                            "and_expr" => Ok(__FieldTag::__and_expr),
+                            "orExpr" => Ok(__FieldTag::__or_expr),
+                            "or_expr" => Ok(__FieldTag::__or_expr),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Expression")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                use std::option::Option::Some;
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__string_constraint => {
+                            if !fields.insert(__FieldTag::__string_constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for string_constraint"));
+                            }
+                            if result.expr.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `expr`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression.string_constraint, latest field was stringConstraint",
+                                ));
+                            }
+                            result.expr = std::option::Option::Some(
+                                crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::StringConstraint(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
+                        __FieldTag::__number_constraint => {
+                            if !fields.insert(__FieldTag::__number_constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for number_constraint"));
+                            }
+                            if result.expr.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `expr`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression.number_constraint, latest field was numberConstraint",
+                                ));
+                            }
+                            result.expr = std::option::Option::Some(
+                                crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::NumberConstraint(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
+                        __FieldTag::__geolocation_constraint => {
+                            if !fields.insert(__FieldTag::__geolocation_constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for geolocation_constraint"));
+                            }
+                            if result.expr.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `expr`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression.geolocation_constraint, latest field was geolocationConstraint",
+                                ));
+                            }
+                            result.expr = std::option::Option::Some(
+                                crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::GeolocationConstraint(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
+                        __FieldTag::__and_expr => {
+                            if !fields.insert(__FieldTag::__and_expr) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for and_expr"));
+                            }
+                            if result.expr.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `expr`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression.and_expr, latest field was andExpr",
+                                ));
+                            }
+                            result.expr = std::option::Option::Some(
+                                crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::AndExpr(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
+                        __FieldTag::__or_expr => {
+                            if !fields.insert(__FieldTag::__or_expr) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for or_expr"));
+                            }
+                            if result.expr.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `expr`, a oneof with full ID .google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression.or_expr, latest field was orExpr",
+                                ));
+                            }
+                            result.expr = std::option::Option::Some(
+                                crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::OrExpr(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        },
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
                     }
                 }
                 std::result::Result::Ok(result)

@@ -6188,6 +6188,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("status", &self.status);
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("tags", &self.tags);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -6604,6 +6605,7 @@ impl std::fmt::Debug for super::InstanceGroupManagerInstanceLifecyclePolicy {
         let mut debug_struct = f.debug_struct("InstanceGroupManagerInstanceLifecyclePolicy");
         debug_struct.field("default_action_on_failure", &self.default_action_on_failure);
         debug_struct.field("force_update_on_repair", &self.force_update_on_repair);
+        debug_struct.field("on_failed_health_check", &self.on_failed_health_check);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7627,6 +7629,7 @@ impl std::fmt::Debug for super::InstanceProperties {
         debug_struct.field("service_accounts", &self.service_accounts);
         debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
         debug_struct.field("tags", &self.tags);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8198,6 +8201,7 @@ impl std::fmt::Debug for super::InstantSnapshot {
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("region", &self.region);
         debug_struct.field("resource_status", &self.resource_status);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
@@ -8297,6 +8301,18 @@ impl std::fmt::Debug for super::instant_snapshot_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instant-snapshots", feature = "region-instant-snapshots",))]
+impl std::fmt::Debug for super::InstantSnapshotParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantSnapshotParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11482,6 +11498,7 @@ impl std::fmt::Debug for super::NetworkInterface {
         let mut debug_struct = f.debug_struct("NetworkInterface");
         debug_struct.field("access_configs", &self.access_configs);
         debug_struct.field("alias_ip_ranges", &self.alias_ip_ranges);
+        debug_struct.field("enable_vpc_scoped_dns", &self.enable_vpc_scoped_dns);
         debug_struct.field("fingerprint", &self.fingerprint);
         debug_struct.field("igmp_query", &self.igmp_query);
         debug_struct.field(
@@ -15468,6 +15485,7 @@ impl std::fmt::Debug for super::Reservation {
         debug_struct.field("delete_at_time", &self.delete_at_time);
         debug_struct.field("deployment_type", &self.deployment_type);
         debug_struct.field("description", &self.description);
+        debug_struct.field("early_access_maintenance", &self.early_access_maintenance);
         debug_struct.field(
             "enable_emergent_maintenance",
             &self.enable_emergent_maintenance,
@@ -23135,6 +23153,28 @@ impl std::fmt::Debug for super::WireProperties {
     }
 }
 
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::WorkloadIdentityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadIdentityConfig");
+        debug_struct.field("identity", &self.identity);
+        debug_struct.field(
+            "identity_certificate_enabled",
+            &self.identity_certificate_enabled,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "projects")]
 impl std::fmt::Debug for super::XpnHostList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -24728,6 +24768,10 @@ impl std::fmt::Debug for super::firewall_policies::ListRequest {
 impl std::fmt::Debug for super::firewall_policies::ListAssociationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListAssociationsRequest");
+        debug_struct.field(
+            "include_inherited_policies",
+            &self.include_inherited_policies,
+        );
         debug_struct.field("target_resource", &self.target_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

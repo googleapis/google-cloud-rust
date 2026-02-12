@@ -214,6 +214,30 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolder
     }
 }
 
+impl gaxi::prost::ToProto<DeleteFolderRecursiveRequest> for crate::generated::gapic_control::model::DeleteFolderRecursiveRequest {
+    type Output = DeleteFolderRecursiveRequest;
+    fn to_proto(self) -> std::result::Result<DeleteFolderRecursiveRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteFolderRecursiveRequest> for DeleteFolderRecursiveRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DeleteFolderRecursiveRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DeleteFolderRecursiveRequest::new()
+                .set_name(self.name)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<CommonLongRunningOperationMetadata> for crate::generated::gapic_control::model::CommonLongRunningOperationMetadata {
     type Output = CommonLongRunningOperationMetadata;
     fn to_proto(self) -> std::result::Result<CommonLongRunningOperationMetadata, gaxi::prost::ConvertError> {
@@ -260,6 +284,26 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolder
                 .set_or_clear_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
                 .set_source_folder_id(self.source_folder_id)
                 .set_destination_folder_id(self.destination_folder_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<DeleteFolderRecursiveMetadata> for crate::generated::gapic_control::model::DeleteFolderRecursiveMetadata {
+    type Output = DeleteFolderRecursiveMetadata;
+    fn to_proto(self) -> std::result::Result<DeleteFolderRecursiveMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            folder_id: self.folder_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteFolderRecursiveMetadata> for DeleteFolderRecursiveMetadata {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DeleteFolderRecursiveMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DeleteFolderRecursiveMetadata::new()
+                .set_or_clear_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_folder_id(self.folder_id)
         )
     }
 }

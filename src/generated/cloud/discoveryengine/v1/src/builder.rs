@@ -11368,6 +11368,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [image_query][crate::model::SearchRequest::image_query].
         pub fn set_image_query<T>(mut self, v: T) -> Self
         where
@@ -11563,6 +11574,23 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
+        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ranking_expression = v.into();
+            self
+        }
+
+        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
+        pub fn set_ranking_expression_backend<
+            T: Into<crate::model::search_request::RankingExpressionBackend>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.ranking_expression_backend = v.into();
+            self
+        }
+
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
@@ -11577,6 +11605,32 @@ pub mod search_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+        pub fn set_natural_language_query_understanding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::NaturalLanguageQueryUnderstandingSpec,
+                >,
+        {
+            self.0.request.natural_language_query_understanding_spec =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+        pub fn set_or_clear_natural_language_query_understanding_spec<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::NaturalLanguageQueryUnderstandingSpec,
+                >,
+        {
+            self.0.request.natural_language_query_understanding_spec = v.map(|x| x.into());
             self
         }
 
@@ -11613,6 +11667,17 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::DisplaySpec>,
         {
             self.0.request.display_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [crowding_specs][crate::model::SearchRequest::crowding_specs].
+        pub fn set_crowding_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::CrowdingSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.crowding_specs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -11666,23 +11731,6 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
-        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.ranking_expression = v.into();
-            self
-        }
-
-        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
-        pub fn set_ranking_expression_backend<
-            T: Into<crate::model::search_request::RankingExpressionBackend>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ranking_expression_backend = v.into();
             self
         }
     }
@@ -11788,6 +11836,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [image_query][crate::model::SearchRequest::image_query].
         pub fn set_image_query<T>(mut self, v: T) -> Self
         where
@@ -11983,6 +12042,23 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
+        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ranking_expression = v.into();
+            self
+        }
+
+        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
+        pub fn set_ranking_expression_backend<
+            T: Into<crate::model::search_request::RankingExpressionBackend>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.ranking_expression_backend = v.into();
+            self
+        }
+
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
@@ -11997,6 +12073,32 @@ pub mod search_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+        pub fn set_natural_language_query_understanding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::NaturalLanguageQueryUnderstandingSpec,
+                >,
+        {
+            self.0.request.natural_language_query_understanding_spec =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+        pub fn set_or_clear_natural_language_query_understanding_spec<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::search_request::NaturalLanguageQueryUnderstandingSpec,
+                >,
+        {
+            self.0.request.natural_language_query_understanding_spec = v.map(|x| x.into());
             self
         }
 
@@ -12033,6 +12135,17 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::DisplaySpec>,
         {
             self.0.request.display_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [crowding_specs][crate::model::SearchRequest::crowding_specs].
+        pub fn set_crowding_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::CrowdingSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.crowding_specs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -12086,23 +12199,6 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
-        pub fn set_ranking_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.ranking_expression = v.into();
-            self
-        }
-
-        /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
-        pub fn set_ranking_expression_backend<
-            T: Into<crate::model::search_request::RankingExpressionBackend>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ranking_expression_backend = v.into();
             self
         }
     }

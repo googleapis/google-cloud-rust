@@ -1072,6 +1072,18 @@ impl KeyManagementService {
         super::builder::key_management_service::ListImportJobs::new(self.inner.clone())
     }
 
+    /// Lists the [RetiredResources][google.cloud.kms.v1.RetiredResource] which are
+    /// the records of deleted [CryptoKeys][google.cloud.kms.v1.CryptoKey].
+    /// RetiredResources prevent the reuse of these resource names after deletion.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub fn list_retired_resources(
+        &self,
+    ) -> super::builder::key_management_service::ListRetiredResources {
+        super::builder::key_management_service::ListRetiredResources::new(self.inner.clone())
+    }
+
     /// Returns metadata for a given [KeyRing][google.cloud.kms.v1.KeyRing].
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
@@ -1122,6 +1134,18 @@ impl KeyManagementService {
         super::builder::key_management_service::GetImportJob::new(self.inner.clone())
     }
 
+    /// Retrieves a specific [RetiredResource][google.cloud.kms.v1.RetiredResource]
+    /// resource, which represents the record of a deleted
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub fn get_retired_resource(
+        &self,
+    ) -> super::builder::key_management_service::GetRetiredResource {
+        super::builder::key_management_service::GetRetiredResource::new(self.inner.clone())
+    }
+
     /// Create a new [KeyRing][google.cloud.kms.v1.KeyRing] in a given Project and
     /// Location.
     ///
@@ -1160,6 +1184,60 @@ impl KeyManagementService {
         &self,
     ) -> super::builder::key_management_service::CreateCryptoKeyVersion {
         super::builder::key_management_service::CreateCryptoKeyVersion::new(self.inner.clone())
+    }
+
+    /// Permanently deletes the given [CryptoKey][google.cloud.kms.v1.CryptoKey].
+    /// All child [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] must
+    /// have been previously deleted using
+    /// [KeyManagementService.DeleteCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion].
+    /// The specified crypto key will be immediately and permanently deleted upon
+    /// calling this method. This action cannot be undone.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]: crate::client::KeyManagementService::delete_crypto_key_version
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_crypto_key(&self) -> super::builder::key_management_service::DeleteCryptoKey {
+        super::builder::key_management_service::DeleteCryptoKey::new(self.inner.clone())
+    }
+
+    /// Permanently deletes the given
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. Only possible if
+    /// the version has not been previously imported and if its
+    /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] is one of
+    /// [DESTROYED][CryptoKeyVersionState.DESTROYED],
+    /// [IMPORT_FAILED][CryptoKeyVersionState.IMPORT_FAILED], or
+    /// [GENERATION_FAILED][CryptoKeyVersionState.GENERATION_FAILED].
+    /// Successfully imported
+    /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] cannot be deleted
+    /// at this time. The specified version will be immediately and permanently
+    /// deleted upon calling this method. This action cannot be undone.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_crypto_key_version(
+        &self,
+    ) -> super::builder::key_management_service::DeleteCryptoKeyVersion {
+        super::builder::key_management_service::DeleteCryptoKeyVersion::new(self.inner.clone())
     }
 
     /// Import wrapped key material into a
