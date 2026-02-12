@@ -170,7 +170,7 @@ async fn setup_echo_client() -> (
 async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
-    use std::collections::HashMap;
+    use std::collections::BTreeMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
     let server_addr = echo_server.addr();
@@ -202,14 +202,18 @@ async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
     let t3_span = client_request_spans[0];
     let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
-    let expected_attributes: HashMap<String, AttributeValue> = [
+    // In general it is bad practice to use the "got" data in a comparison. We
+    // care that the key exists, and we cannot hard-code the value because the
+    // client library version is bumped from time to time.
+    let version = t3_span.attributes.get("gcp.client.version").unwrap();
+    let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
         ("rpc.system", "http".into()),
         ("rpc.service", "showcase".into()),
         ("rpc.method", "echo".into()),
         ("gcp.client.service", "showcase".into()),
-        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         (
             "gcp.client.artifact",
@@ -235,7 +239,8 @@ async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    assert_eq!(t3_span.attributes, expected_attributes);
+    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    assert_eq!(got, expected_attributes);
 
     Ok(())
 }
@@ -245,7 +250,7 @@ async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
 async fn http_tracing_parse_error() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
-    use std::collections::HashMap;
+    use std::collections::BTreeMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
     let server_addr = echo_server.addr();
@@ -279,14 +284,18 @@ async fn http_tracing_parse_error() -> anyhow::Result<()> {
     let t3_span = client_request_spans[0];
     let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
-    let expected_attributes: HashMap<String, AttributeValue> = [
+    // In general it is bad practice to use the "got" data in a comparison. We
+    // care that the key exists, and we cannot hard-code the value because the
+    // client library version is bumped from time to time.
+    let version = t3_span.attributes.get("gcp.client.version").unwrap();
+    let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
         ("rpc.system", "http".into()),
         ("rpc.service", "showcase".into()),
         ("rpc.method", "echo".into()),
         ("gcp.client.service", "showcase".into()),
-        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         (
             "gcp.client.artifact",
@@ -318,7 +327,8 @@ async fn http_tracing_parse_error() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    assert_eq!(t3_span.attributes, expected_attributes);
+    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    assert_eq!(got, expected_attributes);
 
     Ok(())
 }
@@ -328,7 +338,7 @@ async fn http_tracing_parse_error() -> anyhow::Result<()> {
 async fn http_tracing_api_error() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
-    use std::collections::HashMap;
+    use std::collections::BTreeMap;
 
     let (guard, echo_server, client, server_port) = setup_echo_client().await;
     let server_addr = echo_server.addr();
@@ -362,14 +372,18 @@ async fn http_tracing_api_error() -> anyhow::Result<()> {
     let t3_span = client_request_spans[0];
     let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
 
-    let expected_attributes: HashMap<String, AttributeValue> = [
+    // In general it is bad practice to use the "got" data in a comparison. We
+    // care that the key exists, and we cannot hard-code the value because the
+    // client library version is bumped from time to time.
+    let version = t3_span.attributes.get("gcp.client.version").unwrap();
+    let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
         ("rpc.system", "http".into()),
         ("rpc.service", "showcase".into()),
         ("rpc.method", "echo".into()),
         ("gcp.client.service", "showcase".into()),
-        ("gcp.client.version", "1.0.0".into()),
+        ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         (
             "gcp.client.artifact",
@@ -400,7 +414,8 @@ async fn http_tracing_api_error() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    assert_eq!(t3_span.attributes, expected_attributes);
+    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    assert_eq!(got, expected_attributes);
 
     Ok(())
 }
