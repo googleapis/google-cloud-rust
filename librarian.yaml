@@ -151,6 +151,40 @@ libraries:
         - broken_intra_doc_links
         - invalid_html_tags
       per_service_features: true
+      default_features:
+        - data-foundry-service
+        - dataset-service
+        - deployment-resource-pool-service
+        - endpoint-service
+        - evaluation-service
+        - feature-online-store-admin-service
+        - feature-online-store-service
+        - feature-registry-service
+        - featurestore-online-serving-service
+        - featurestore-service
+        - gen-ai-cache-service
+        - gen-ai-tuning-service
+        - index-endpoint-service
+        - index-service
+        - job-service
+        - llm-utility-service
+        - match-service
+        - metadata-service
+        - migration-service
+        - model-garden-service
+        - model-service
+        - notebook-service
+        - persistent-resource-service
+        - pipeline-service
+        - prediction-service
+        - reasoning-engine-execution-service
+        - reasoning-engine-service
+        - schedule-service
+        - specialist-pool-service
+        - tensorboard-service
+        - vertex-rag-data-service
+        - vertex-rag-service
+        - vizier-service
   - name: google-cloud-aiplatform-v1-schema-predict-instance
     version: 1.0.0
     copyright_year: "2025"
@@ -634,16 +668,82 @@ libraries:
     copyright_year: "2025"
     rust:
       per_service_features: true
+      default_features:
+        - agents
+        - changelogs
+        - deployments
+        - entity-types
+        - environments
+        - examples
+        - experiments
+        - flows
+        - generators
+        - intents
+        - pages
+        - playbooks
+        - security-settings-service
+        - session-entity-types
+        - sessions
+        - test-cases
+        - tools
+        - transition-route-groups
+        - versions
+        - webhooks
   - name: google-cloud-dialogflow-v2
     version: 1.7.0
     copyright_year: "2025"
     rust:
       per_service_features: true
+      default_features:
+        - agents
+        - answer-records
+        - contexts
+        - conversation-datasets
+        - conversation-models
+        - conversation-profiles
+        - conversations
+        - documents
+        - encryption-spec-service
+        - entity-types
+        - environments
+        - fulfillments
+        - generator-evaluations
+        - generators
+        - intents
+        - knowledge-bases
+        - participants
+        - session-entity-types
+        - sessions
+        - sip-trunks
+        - tools
+        - versions
   - name: google-cloud-discoveryengine-v1
     version: 2.6.0
     copyright_year: "2025"
     rust:
       per_service_features: true
+      default_features:
+        - assistant-service
+        - cmek-config-service
+        - completion-service
+        - control-service
+        - conversational-search-service
+        - data-store-service
+        - document-service
+        - engine-service
+        - grounded-generation-service
+        - identity-mapping-store-service
+        - project-service
+        - rank-service
+        - recommendation-service
+        - schema-service
+        - search-service
+        - search-tuning-service
+        - serving-config-service
+        - session-service
+        - site-search-engine-service
+        - user-event-service
+        - user-license-service
   - name: google-cloud-dns-v1
     version: 1.1.0
     copyright_year: "2026"
