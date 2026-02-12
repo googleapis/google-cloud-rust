@@ -140,12 +140,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_recognizer()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_recognizer()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -165,10 +160,7 @@ impl Speech {
     ///    client: &Speech,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_recognizers()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_recognizers().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -194,11 +186,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_recognizer()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_recognizer().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -229,12 +217,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_recognizer()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_recognizer()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -266,12 +249,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_recognizer()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_recognizer().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -303,12 +281,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_recognizer()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.undelete_recognizer().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -327,11 +300,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .recognize()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.recognize()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -362,12 +331,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .batch_recognize()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.batch_recognize()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -388,11 +352,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_config()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_config().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -412,11 +372,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_config()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.update_config()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -447,12 +403,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_custom_class()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_custom_class()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -472,10 +423,7 @@ impl Speech {
     ///    client: &Speech,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_custom_classes()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_custom_classes().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -499,11 +447,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_custom_class()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_custom_class().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -534,12 +478,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_custom_class()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_custom_class()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -571,12 +510,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_custom_class()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_custom_class().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -608,12 +542,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_custom_class()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.undelete_custom_class().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -644,12 +573,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_phrase_set()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_phrase_set()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -669,10 +593,7 @@ impl Speech {
     ///    client: &Speech,
     ///    parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_phrase_sets()
-    ///         .set_parent(parent)
-    ///         .by_item();
+    ///     let mut list = client.list_phrase_sets().set_parent(parent).by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -696,11 +617,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_phrase_set()
-    ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_phrase_set().set_name(resource_name).send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -731,12 +648,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_phrase_set()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_phrase_set()/* set fields */.poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -768,12 +680,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_phrase_set()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.delete_phrase_set().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -805,12 +712,7 @@ impl Speech {
     ///    client: &Speech,
     ///    resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_phrase_set()
-    ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.undelete_phrase_set().set_name(resource_name).poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -829,10 +731,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_locations()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.list_locations()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -852,11 +751,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_location()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_location()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -877,10 +772,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_operations()
-    ///         /* set fields */
-    ///         .by_item();
+    ///     let mut list = client.list_operations()/* set fields */.by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
     ///     }
@@ -902,11 +794,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.get_operation()/* set fields */.send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -926,11 +814,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     client.delete_operation()/* set fields */.send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -949,11 +833,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     client
-    ///         .cancel_operation()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     client.cancel_operation()/* set fields */.send().await?;
     ///     Ok(())
     /// }
     /// ```
