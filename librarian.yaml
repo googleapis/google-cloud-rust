@@ -174,7 +174,7 @@ libraries:
     version: 1.6.0
     copyright_year: "2025"
   - name: google-cloud-api
-    version: 1.2.0
+    version: 1.3.0
     apis:
       - path: google/api
     copyright_year: "2025"
@@ -311,7 +311,7 @@ libraries:
     copyright_year: "2025"
     output: src/generated/apps/script/gtype
   - name: google-cloud-apps-script-type-calendar
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/calendar
     copyright_year: "2025"
@@ -322,7 +322,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-docs
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/docs
     copyright_year: "2025"
@@ -333,7 +333,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-drive
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/drive
     copyright_year: "2025"
@@ -344,7 +344,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-gmail
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/gmail
     copyright_year: "2025"
@@ -355,7 +355,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-sheets
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/sheets
     copyright_year: "2025"
@@ -366,7 +366,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-slides
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type/slides
     copyright_year: "2025"
@@ -1179,7 +1179,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2025"
   - name: google-cloud-recommender-logging-v1
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2025"
     rust:
       package_dependencies:
