@@ -512,6 +512,7 @@ storage-samples         = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_resource_name)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trusted_boundaries)',
