@@ -1084,7 +1084,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api"
-version = "1.2.0"
+version = "1.3.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -1339,7 +1339,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-calendar"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1352,7 +1352,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-docs"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1365,7 +1365,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-drive"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1378,7 +1378,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-gmail"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1391,7 +1391,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-sheets"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1404,7 +1404,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-slides"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -4162,7 +4162,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recommender-logging-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "bytes",
  "google-cloud-recommender-v1",
