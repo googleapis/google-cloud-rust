@@ -36,11 +36,19 @@ const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
 
 #[derive(Debug)]
 pub(crate) struct AccessBoundary {
+    /// A channel to keep track of the boundary state.
+    /// - `None`: We haven't fetched anything yet (uninitialized).
+    /// - `Some(...)`: We successfully talked to the IAM service or have a customer provided override.
+    ///   These values come with a TTL so we know how long to keep them around.
     rx_header: watch::Receiver<Option<BoundaryValue>>,
 }
 
 #[derive(Debug, Clone)]
 struct BoundaryValue {
+    /// This is an `Option` because the IAM service can signal that the
+    /// given credential has no access boundary. In that case, we save it as `None`
+    /// (along with the TTL in `expires_at`) so we don't repeatedly
+    /// fetch a non-existent boundary.
     value: Option<String>,
     expires_at: Instant,
 }
@@ -466,7 +474,8 @@ mod tests {
         let (tx, rx_header) = watch::channel::<Option<BoundaryValue>>(None);
         let access_boundary = AccessBoundary { rx_header };
 
-        let expires_at = Instant::now() + Duration::from_secs(10);
+        let ttl = Duration::from_secs(10);
+        let expires_at = Instant::now() + ttl;
         let _ = tx.send(Some(BoundaryValue {
             value: Some("old-value".to_string()),
             expires_at,
@@ -476,8 +485,8 @@ mod tests {
         let val = access_boundary.header_value();
         assert_eq!(val.as_deref(), Some("old-value"), "{val:?}");
 
-        // advance time to expire the value
-        tokio::time::advance(Duration::from_secs(11)).await;
+        // advance time plus some buffer to expire the value
+        tokio::time::advance(ttl + Duration::from_secs(1)).await;
 
         // value should return None if expired (non-blocking)
         let val = access_boundary.header_value();
