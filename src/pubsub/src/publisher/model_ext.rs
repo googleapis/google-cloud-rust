@@ -61,17 +61,6 @@ impl Future for PublishFuture {
     }
 }
 
-// fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
-//     // TODO(#3689): The error type for these are not ideal, we will need will
-//     // need to handle error propagation better.
-//     match e {
-//         crate::error::PublishError::SendError(s) => s,
-//         crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
-//             crate::error::PublishError::OrderingKeyPaused(e),
-//         )),
-//     }
-// }
-
 #[cfg(test)]
 mod tests {
     use super::*;
