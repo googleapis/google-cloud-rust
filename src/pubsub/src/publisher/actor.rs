@@ -198,7 +198,7 @@ pub(crate) struct BatchActorContext {
     topic: String,
     client: GapicPublisher,
     rx: mpsc::UnboundedReceiver<ToBatchActor>,
-    pending_batch: Batch, // TOD(NOW): Not needed anymore.
+    batching_options: BatchingOptions,
 }
 
 impl BatchActorContext {
@@ -209,10 +209,10 @@ impl BatchActorContext {
         rx: mpsc::UnboundedReceiver<ToBatchActor>,
     ) -> Self {
         BatchActorContext {
-            pending_batch: Batch::new(topic.len() as u32, batching_options),
             topic,
             client,
             rx,
+            batching_options,
         }
     }
 }
@@ -253,6 +253,10 @@ impl ConcurrentBatchActor {
     pub(crate) async fn run(mut self) {
         // We have multiple inflight batches concurrently.
         let mut inflight = JoinSet::new();
+        let mut batch = Batch::new(
+            self.context.topic.len() as u32,
+            self.context.batching_options.clone(),
+        );
         loop {
             tokio::select! {
                 // Remove completed inflight batches.
@@ -262,10 +266,10 @@ impl ConcurrentBatchActor {
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
-                            self.move_to_batch_and_flush_at_threshold(&mut inflight, msg);
+                            self.add_msg_and_flush(&mut inflight, &mut batch, msg);
                         },
                         Some(ToBatchActor::Flush(tx)) => {
-                            self.flush(&mut inflight);
+                            self.flush(&mut inflight, &mut batch);
                             inflight.join_all().await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
@@ -276,7 +280,7 @@ impl ConcurrentBatchActor {
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishFutures.
-                            self.flush(&mut inflight);
+                            self.flush(&mut inflight, &mut batch);
                             inflight.join_all().await;
                             break;
                         }
@@ -287,9 +291,9 @@ impl ConcurrentBatchActor {
     }
 
     // Flush the pending batch if it's not empty.
-    pub(crate) fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>) {
-        if !self.context.pending_batch.is_empty() {
-            self.context.pending_batch.flush(
+    pub(crate) fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
+        if !batch.is_empty() {
+            batch.flush(
                 self.context.client.clone(),
                 self.context.topic.clone(),
                 inflight,
@@ -299,17 +303,18 @@ impl ConcurrentBatchActor {
 
     // Move message to the pending batch respecting batch thresholds
     // and flush the batch if it is full.
-    pub(crate) fn move_to_batch_and_flush_at_threshold(
+    pub(crate) fn add_msg_and_flush(
         &mut self,
         inflight: &mut JoinSet<crate::Result<()>>,
+        batch: &mut Batch,
         msg: BundledMessage,
     ) {
-        if !self.context.pending_batch.within_byte_threshold(&msg) {
-            self.flush(inflight);
+        if !batch.can_add(&msg) {
+            self.flush(inflight, batch);
         }
-        self.context.pending_batch.push(msg);
-        if self.context.pending_batch.at_threshold() {
-            self.flush(inflight);
+        batch.push(msg);
+        if batch.at_threshold() {
+            self.flush(inflight, batch);
         }
     }
 }
@@ -359,6 +364,10 @@ impl SequentialBatchActor {
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
         let mut inflight: JoinSet<crate::Result<()>> = JoinSet::new();
+        let mut batch = Batch::new(
+            self.context.topic.len() as u32,
+            self.context.batching_options.clone(),
+        );
         loop {
             if self.paused {
                 // When paused, we do not need to check inflight as handle_inflight_join()
@@ -389,18 +398,18 @@ impl SequentialBatchActor {
             tokio::select! {
                 join = inflight.join_next(), if !inflight.is_empty() => {
                     self.handle_inflight_join(join);
-                    self.move_to_batch_and_flush_at_threshold(&mut inflight);
+                    self.move_to_batch_and_flush(&mut inflight, &mut batch);
                 }
                 msg = self.context.rx.recv() => {
                     match msg {
                         Some(ToBatchActor::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
                             if inflight.is_empty() {
-                                self.move_to_batch_and_flush_at_threshold(&mut inflight);
+                                self.move_to_batch_and_flush(&mut inflight, &mut batch);
                             }
                         },
                         Some(ToBatchActor::Flush(tx)) => {
-                            self.flush(&mut inflight).await;
+                            self.flush(&mut inflight, &mut batch).await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
@@ -410,7 +419,7 @@ impl SequentialBatchActor {
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishFutures.
-                            self.flush(&mut inflight).await;
+                            self.flush(&mut inflight, &mut batch).await;
                             break;
                         }
                     }
@@ -420,15 +429,15 @@ impl SequentialBatchActor {
     }
 
     // Flush the pending messages by sending the messages in sequential batches.
-    async fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>) {
+    async fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
         self.handle_inflight_join(inflight.join_next().await);
         while !self.pending_msgs.is_empty() {
-            self.move_to_batch_and_flush_at_threshold(inflight);
+            self.move_to_batch_and_flush(inflight, batch);
             self.handle_inflight_join(inflight.join_next().await);
         }
         // Flush the pending batch even if it does not fill the batch.
-        if !self.context.pending_batch.is_empty() {
-            self.context.pending_batch.flush(
+        if !batch.is_empty() {
+            batch.flush(
                 self.context.client.clone(),
                 self.context.topic.clone(),
                 inflight,
@@ -439,32 +448,34 @@ impl SequentialBatchActor {
 
     // Move message to the pending batch respecting batch thresholds
     // and flush the batch if it is full.
-    pub(crate) fn move_to_batch_and_flush_at_threshold(
+    pub(crate) fn move_to_batch_and_flush(
         &mut self,
         inflight: &mut JoinSet<crate::Result<()>>,
+        batch: &mut Batch,
     ) {
+        let mut should_flush = false;
         while let Some(next) = self.pending_msgs.front() {
-            if !self.context.pending_batch.within_byte_threshold(next) {
-                self.context.pending_batch.flush(
-                    self.context.client.clone(),
-                    self.context.topic.clone(),
-                    inflight,
-                );
+            if !batch.can_add(next) {
+                should_flush = true;
                 break;
             }
             let publish = self
                 .pending_msgs
                 .pop_front()
                 .expect("front should contain an element");
-            self.context.pending_batch.push(publish);
-            if self.context.pending_batch.at_threshold() {
-                self.context.pending_batch.flush(
-                    self.context.client.clone(),
-                    self.context.topic.clone(),
-                    inflight,
-                );
+            batch.push(publish);
+            if batch.at_threshold() {
+                should_flush = true;
                 break;
             }
+        }
+
+        if should_flush {
+            batch.flush(
+                self.context.client.clone(),
+                self.context.topic.clone(),
+                inflight,
+            );
         }
     }
 

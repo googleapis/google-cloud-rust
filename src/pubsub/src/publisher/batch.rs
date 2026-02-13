@@ -72,7 +72,7 @@ impl Batch {
     }
 
     // Return true if adding the next message is within the byte threshold.
-    pub(crate) fn within_byte_threshold(&mut self, next: &BundledMessage) -> bool {
+    pub(crate) fn can_add(&mut self, next: &BundledMessage) -> bool {
         self.size() + Self::message_size(&next.msg) as u32 <= self.batching_options.byte_threshold
     }
 
