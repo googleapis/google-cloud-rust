@@ -24,7 +24,7 @@ use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
-const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
+pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 // TTL: 6 hours
@@ -57,6 +57,24 @@ impl AccessBoundary {
         Self { rx_header }
     }
 
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_noop(val: Option<String>) -> Self {
+        let (_tx, rx_header) = watch::channel(val);
+        Self { rx_header }
+    }
+
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
+    where
+        T: AccessBoundaryProvider + 'static,
+    {
+        let (tx_header, rx_header) = watch::channel(None);
+        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+        Self { rx_header }
+    }
+
     fn is_enabled() -> bool {
         std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase())
@@ -78,7 +96,7 @@ impl AccessBoundary {
 // which causes issues with tokio::time::advance and tokio::task::yield_now
 
 #[async_trait::async_trait]
-trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
+pub(crate) trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
     async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
 }
 
@@ -172,14 +190,16 @@ where
     }
 }
 
-pub(crate) fn service_account_lookup_url(email: &str) -> String {
-    format!(
-        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations"
-    )
+pub(crate) fn service_account_lookup_url(
+    email: &str,
+    iam_endpoint_override: Option<&str>,
+) -> String {
+    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
+    format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations",)
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::token::Token;
     use crate::token::tests::MockTokenProvider;
@@ -193,6 +213,7 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         pub AccessBoundaryProvider { }
@@ -207,7 +228,7 @@ mod tests {
     #[parallel]
     fn test_service_account_url() {
         assert_eq!(
-            service_account_lookup_url("sa@project.iam.gserviceaccount.com"),
+            service_account_lookup_url("sa@project.iam.gserviceaccount.com", None),
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/sa@project.iam.gserviceaccount.com/allowedLocations"
         );
     }
