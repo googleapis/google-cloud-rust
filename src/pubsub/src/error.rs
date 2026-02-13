@@ -33,4 +33,5 @@ pub(crate) enum PublishError {
     /// To resume publishing messages with this ordering key, call `Publisher::resume_publish(...)`.
     #[error("the ordering key was paused")]
     OrderingKeyPaused(()),
+    // TODO(#4650): Return an error when message size > batch byte threshold.
 }
