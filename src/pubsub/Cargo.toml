@@ -59,6 +59,7 @@ default = ["default-rustls-provider"]
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = []
+tokio-unstable-tests    = []
 
 [dev-dependencies]
 anyhow.workspace     = true
