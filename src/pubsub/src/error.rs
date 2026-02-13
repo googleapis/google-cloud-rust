@@ -20,7 +20,7 @@
 /// Represents an error that can occur when publishing a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub(crate) enum PublishError {
+pub enum PublishError {
     /// Publish operation failed sending the RPC.
     #[error("the publish operation was interrupted by an error: {0}")]
     SendError(#[source] std::sync::Arc<crate::Error>),
@@ -33,5 +33,9 @@ pub(crate) enum PublishError {
     /// To resume publishing messages with this ordering key, call `Publisher::resume_publish(...)`.
     #[error("the ordering key was paused")]
     OrderingKeyPaused(()),
+
+    /// The publisher is shutdown and is no longer running.
+    #[error("publisher is shutdown")]
+    ShutdownError(()),
     // TODO(#4650): Return an error when message size > batch byte threshold.
 }

@@ -14,7 +14,6 @@
 
 use std::future::Future;
 use std::pin::Pin;
-use std::sync::Arc;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
@@ -49,31 +48,29 @@ impl Future for PublishFuture {
     /// The result of the publish operation.
     /// - `Ok(String)`: The server-assigned message ID.
     /// - `Err(Arc<Error>)`: An error indicating the publish failed.
-    type Output = std::result::Result<String, Arc<crate::Error>>;
+    type Output = std::result::Result<String, crate::error::PublishError>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
         // An error will only occur if the sender of the self.rx was dropped,
         // which can happen when the Dispatcher is dropped.
         match result {
-            Ok(result) => Poll::Ready(result.map_err(convert_error)),
-            Err(_) => Poll::Ready(Err(Arc::new(google_cloud_gax::error::Error::io(
-                "publisher is shutdown",
-            )))),
+            Ok(result) => Poll::Ready(result),
+            Err(_) => Poll::Ready(Err(crate::error::PublishError::ShutdownError(()))),
         }
     }
 }
 
-fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
-    // TODO(#3689): The error type for these are not ideal, we will need will
-    // need to handle error propagation better.
-    match e {
-        crate::error::PublishError::SendError(s) => s,
-        crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
-            crate::error::PublishError::OrderingKeyPaused(e),
-        )),
-    }
-}
+// fn convert_error(e: crate::error::PublishError) -> Arc<crate::Error> {
+//     // TODO(#3689): The error type for these are not ideal, we will need will
+//     // need to handle error propagation better.
+//     match e {
+//         crate::error::PublishError::SendError(s) => s,
+//         crate::error::PublishError::OrderingKeyPaused(e) => Arc::new(crate::Error::io(
+//             crate::error::PublishError::OrderingKeyPaused(e),
+//         )),
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
@@ -91,23 +88,14 @@ mod tests {
 
     #[tokio::test]
     async fn resolve_publish_future_error() -> anyhow::Result<()> {
-        use std::error::Error as _;
-
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
         let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
-        let err = fut
-            .await
-            .expect_err("errors on channel should resolve to error");
-        let err = err
-            .source()
-            .unwrap()
-            .downcast_ref::<crate::error::PublishError>()
-            .unwrap();
-        match err {
-            crate::error::PublishError::OrderingKeyPaused(_) => {}
-            _ => panic!("expected OrderingKeyPaused error"),
-        }
+        let res = fut.await;
+        assert!(
+            matches!(res, Err(crate::error::PublishError::OrderingKeyPaused(()))),
+            "{res:?}"
+        );
 
         Ok(())
     }
@@ -117,10 +105,11 @@ mod tests {
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
         drop(tx);
-        let err = fut
-            .await
-            .expect_err("dropped channel should resolve to error");
-        assert!(err.to_string().contains("shutdown"));
+        let res = fut.await;
+        assert!(
+            matches!(res, Err(crate::error::PublishError::ShutdownError(()))),
+            "{res:?}"
+        );
 
         Ok(())
     }
