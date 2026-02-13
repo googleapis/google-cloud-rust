@@ -20,6 +20,8 @@ pub mod auth;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod e2e;
 #[cfg(google_cloud_unstable_tracing)]
+pub mod http_tracing;
+#[cfg(google_cloud_unstable_tracing)]
 pub mod mock_collector;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod otlp;
