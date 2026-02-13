@@ -221,10 +221,18 @@ mod tests {
     }
 
     #[track_caller]
-    fn assert_publish_err(got_err: std::sync::Arc<google_cloud_gax::error::Error>) {
-        assert!(got_err.status().is_some(), "{got_err:?}");
+    fn assert_publish_err(got_err: crate::error::PublishError) {
+        assert!(
+            matches!(got_err, crate::error::PublishError::SendError(_)),
+            "{got_err:?}"
+        );
+        let source = got_err
+            .source()
+            .and_then(|e| e.downcast_ref::<std::sync::Arc<crate::Error>>())
+            .expect("send error should contain a source");
+        assert!(source.status().is_some(), "{got_err:?}");
         assert_eq!(
-            got_err.status().unwrap().code,
+            source.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Unknown,
             "{got_err:?}"
         );
@@ -263,16 +271,9 @@ mod tests {
                             .set_ordering_key($ordering_key)
                             .set_data(generate_random_data()),
                     )
-                    .await
-                    .unwrap_err();
-                let source = got_err
-                    .source()
-                    .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+                    .await;
                 assert!(
-                    matches!(
-                        source,
-                        Some(crate::error::PublishError::OrderingKeyPaused(()))
-                    ),
+                    matches!(got_err, Err(crate::error::PublishError::OrderingKeyPaused(()))),
                     "{got_err:?}"
                 );
             )+
@@ -897,14 +898,8 @@ mod tests {
 
         // Assert that the pending message error is caused by the Publisher being paused.
         got_err = msg_1_handle.await.unwrap_err();
-        let source = got_err
-            .source()
-            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
         assert!(
-            matches!(
-                source,
-                Some(crate::error::PublishError::OrderingKeyPaused(()))
-            ),
+            matches!(got_err, crate::error::PublishError::OrderingKeyPaused(())),
             "{got_err:?}"
         );
 
