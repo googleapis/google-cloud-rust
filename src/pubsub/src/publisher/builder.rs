@@ -277,8 +277,8 @@ impl PublisherBuilder {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use google_cloud_pubsub::client::BasePublisher;
-/// let client = BasePublisher::builder().build().await?;
+/// # use google_cloud_pubsub::publisher::client::BasePublisher;
+/// let client: BasePublisher = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
 /// ```
@@ -307,9 +307,9 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = BasePublisher::builder().build().await?;
+    /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
     ///     .publisher("projects/my-project/topics/my-topic")
     ///     .set_message_count_threshold(100)
@@ -329,9 +329,9 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = BasePublisher::builder().build().await?;
+    /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
     ///     .publisher("projects/my-project/topics/my-topic")
     ///     .set_byte_threshold(1024) // 1 KiB
@@ -351,10 +351,10 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = BasePublisher::builder().build().await?;
+    /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
     ///     .publisher("projects/my-project/topics/my-topic")
     ///     .set_delay_threshold(Duration::from_millis(50))
@@ -417,7 +417,7 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = BasePublisher::builder().build().await?;
+        let client: BasePublisher = BasePublisher::builder().build().await?;
         let builder = client.publisher("projects/my-project/topics/my-topic");
         let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
