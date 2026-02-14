@@ -13,3 +13,4 @@
 // limitations under the License.
 
 pub mod create_topic;
+pub mod list_topics;
