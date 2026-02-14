@@ -143,6 +143,28 @@ pub mod model_ext {
 /// # Ok(())
 /// # }
 /// ```
+///
+/// # Example: Receiving Messages
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_pubsub::client::Subscriber;
+///
+/// // Create a subscriber client.
+/// let client = Subscriber::builder().build().await?;
+///
+/// // Start a streaming pull session to receive messages from a subscription.
+/// let mut session = client
+///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+///     .start();
+///
+/// // Receive messages from the session and acknowledge.
+/// while let Some((m, h)) = session.next().await.transpose()? {
+///     println!("Received message m={m:?}");
+///     h.ack();
+/// }
+/// # Ok(()) }
+/// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::base_publisher::BasePublisher;
