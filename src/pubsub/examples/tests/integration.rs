@@ -53,4 +53,20 @@ mod tests {
 
         result
     }
+
+    #[tokio::test]
+    async fn schema_samples() -> anyhow::Result<()> {
+        let client = SchemaService::builder().build().await?;
+        let mut schemas = Vec::new();
+
+        let result = run_schema_samples(&mut schemas).await;
+
+        for name in schemas {
+            if let Err(e) = cleanup_test_schema(&client, &name).await {
+                println!("Error cleaning up test schema {name}: {e:?}");
+            }
+        }
+
+        result
+    }
 }

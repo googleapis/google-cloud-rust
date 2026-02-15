@@ -6796,6 +6796,7 @@ dependencies = [
  "futures",
  "google-cloud-gax",
  "google-cloud-pubsub",
+ "google-cloud-wkt",
  "rand 0.10.0",
  "tokio",
  "tracing",
