@@ -24,6 +24,7 @@ sources:
   googleapis:
     commit: 5b2aa2c08c23f26d6e8abe65377077c624878d12
     sha256: a59bf9479397b0e99aa06ca901494e8151c3d61c4121b0f6fb9a4c9368eb14e8
+    dir: /Users/loite/googleapis
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -1371,10 +1372,53 @@ libraries:
     rust:
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
-    copyright_year: "2025"
     output: src/spanner
-    skip_publish: true
     veneer: true
+    skip_publish: true
+    rust:
+      modules:
+        - included_ids:
+            - .google.spanner.v1.Spanner.CreateSession
+            - .google.spanner.v1.Spanner.ExecuteSql
+            - .google.spanner.v1.Spanner.ExecuteStreamingSql
+            - .google.spanner.v1.Spanner.Read
+            - .google.spanner.v1.Spanner.StreamingRead
+            - .google.spanner.v1.Spanner.BeginTransaction
+            - .google.spanner.v1.Spanner.Rollback
+            - .google.spanner.v1.Spanner.Commit
+          module_path: crate::generated::gapic_dataplane::model
+          output: src/spanner/src/generated/convert/spanner
+          source: google/spanner/v1
+          template: convert-prost
+        - extend_grpc_transport: true
+          generate_setter_samples: "false"
+          has_veneer: true
+          included_ids:
+            - .google.spanner.v1.Spanner.CreateSession
+            - .google.spanner.v1.Spanner.ExecuteSql
+            - .google.spanner.v1.Spanner.ExecuteStreamingSql
+            - .google.spanner.v1.Spanner.Read
+            - .google.spanner.v1.Spanner.StreamingRead
+            - .google.spanner.v1.Spanner.BeginTransaction
+            - .google.spanner.v1.Spanner.Rollback
+            - .google.spanner.v1.Spanner.Commit
+          internal_builders: true
+          output: src/spanner/src/generated/gapic_dataplane
+          service_config: google/spanner/v1/spanner.yaml
+          source: google/spanner/v1
+          template: grpc-client
+        - included_ids:
+            - .google.spanner.v1.Spanner.CreateSession
+            - .google.spanner.v1.Spanner.ExecuteSql
+            - .google.spanner.v1.Spanner.ExecuteStreamingSql
+            - .google.spanner.v1.Spanner.Read
+            - .google.spanner.v1.Spanner.StreamingRead
+            - .google.spanner.v1.Spanner.BeginTransaction
+            - .google.spanner.v1.Spanner.Rollback
+            - .google.spanner.v1.Spanner.Commit
+          output: src/spanner/src/generated/protos/spanner
+          source: google/spanner/v1
+          template: prost
   - name: google-cloud-spanner-admin-database-v1
     version: 1.6.0
     apis:
