@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.2-0.20260212080748-b633e83f93a5
+version: v0.8.4-0.20260216162532-e323d455c92b
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -126,7 +126,7 @@ libraries:
     output: src/wkt/tests/common
     roots:
       - src/wkt/tests/protos
-    skip_publish: true
+    skip_release: true
     veneer: true
     rust:
       modules:
@@ -471,7 +471,7 @@ libraries:
   - name: google-cloud-bigquery
     copyright_year: "2025"
     output: src/bigquery
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.6.0
@@ -497,13 +497,13 @@ libraries:
   - name: google-cloud-bigquery-v2
     version: 1.0.0
     copyright_year: "2025"
-    skip_publish: true
+    skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
   - name: google-cloud-bigtable
     copyright_year: "2025"
     output: src/bigtable
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: google-cloud-bigtable-admin-v2
     version: 1.6.0
@@ -639,7 +639,7 @@ libraries:
   - name: google-cloud-datastore
     copyright_year: "2025"
     output: src/datastore
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: google-cloud-datastore-admin-v1
     version: 1.6.0
@@ -793,7 +793,7 @@ libraries:
   - name: google-cloud-firestore
     copyright_year: "2025"
     output: src/firestore
-    skip_publish: true
+    skip_release: true
     veneer: true
     rust:
       modules:
@@ -1367,13 +1367,13 @@ libraries:
     roots:
       - showcase
       - googleapis
-    skip_publish: true
+    skip_release: true
     rust:
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2025"
     output: src/spanner
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: google-cloud-spanner-admin-database-v1
     version: 1.6.0
@@ -1580,7 +1580,7 @@ libraries:
   - name: google-cloud-test-utils
     copyright_year: "2025"
     output: src/test-utils
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: google-cloud-texttospeech-v1
     version: 1.7.0
@@ -1679,14 +1679,14 @@ libraries:
   - name: grpc-server
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
     roots:
       - conformance
-    skip_publish: true
+    skip_release: true
     veneer: true
     rust:
       modules:
@@ -1716,12 +1716,12 @@ libraries:
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: pubsub-samples
     copyright_year: "2025"
     output: src/pubsub/examples
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: secretmanager-openapi-v1
     version: 1.0.0
@@ -1729,32 +1729,32 @@ libraries:
       - path: testdata/secretmanager_openapi_v1.json
     copyright_year: "2024"
     output: src/generated/openapi-validation
-    skip_publish: true
+    skip_release: true
     specification_format: openapi
     rust:
       package_name_override: secretmanager-openapi-v1
   - name: storage-grpc-mock
     copyright_year: "2025"
     output: src/storage/grpc-mock
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: storage-random
     copyright_year: "2025"
     output: src/storage/benchmarks/random
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: storage-samples
     copyright_year: "2025"
     output: src/storage/examples
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: storage-scenarios
     copyright_year: "2025"
     output: src/storage/tests/scenarios
-    skip_publish: true
+    skip_release: true
     veneer: true
   - name: storage-w1r3
     copyright_year: "2025"
     output: src/storage/benchmarks/w1r3
-    skip_publish: true
+    skip_release: true
     veneer: true
