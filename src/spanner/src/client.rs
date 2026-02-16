@@ -94,7 +94,6 @@ impl Spanner {
         self.inner.rollback().with_request(request).send().await
     }
 
-
     /// Executes an SQL statement, returning a stream of results.
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
@@ -519,10 +518,7 @@ mod tests {
         let mut req = CommitRequest::new();
         req.session = "test_session".to_string();
 
-        let response = client
-            .commit(req)
-            .await
-            .expect("Failed to call commit");
+        let response = client.commit(req).await.expect("Failed to call commit");
         assert!(response.commit_timestamp.is_some());
     }
 
@@ -531,9 +527,9 @@ mod tests {
         use crate::model::RollbackRequest;
 
         let mut mock = MockSpanner::new();
-        mock.expect_rollback().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(()))
-        });
+        mock.expect_rollback()
+            .once()
+            .returning(|_| Ok(gaxi::grpc::tonic::Response::new(())));
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -548,9 +544,6 @@ mod tests {
         let mut req = RollbackRequest::new();
         req.session = "test_session".to_string();
 
-        client
-            .rollback(req)
-            .await
-            .expect("Failed to call rollback");
+        client.rollback(req).await.expect("Failed to call rollback");
     }
 }
