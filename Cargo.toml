@@ -387,7 +387,7 @@ time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.45.1" }
 tokio-metrics         = { default-features = false, version = "0.4.7" }
 tokio-util            = { default-features = false, version = "0.7.9" }
-toml_edit             = { default-features = false, version = "0.24" }
+toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
