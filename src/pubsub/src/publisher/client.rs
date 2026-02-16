@@ -221,10 +221,18 @@ mod tests {
     }
 
     #[track_caller]
-    fn assert_publish_err(got_err: std::sync::Arc<google_cloud_gax::error::Error>) {
-        assert!(got_err.status().is_some(), "{got_err:?}");
+    fn assert_publish_err(got_err: crate::error::PublishError) {
+        assert!(
+            matches!(got_err, crate::error::PublishError::SendError(_)),
+            "{got_err:?}"
+        );
+        let source = got_err
+            .source()
+            .and_then(|e| e.downcast_ref::<std::sync::Arc<crate::Error>>())
+            .expect("send error should contain a source");
+        assert!(source.status().is_some(), "{got_err:?}");
         assert_eq!(
-            got_err.status().unwrap().code,
+            source.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Unknown,
             "{got_err:?}"
         );
@@ -263,16 +271,9 @@ mod tests {
                             .set_ordering_key($ordering_key)
                             .set_data(generate_random_data()),
                     )
-                    .await
-                    .unwrap_err();
-                let source = got_err
-                    .source()
-                    .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+                    .await;
                 assert!(
-                    matches!(
-                        source,
-                        Some(crate::error::PublishError::OrderingKeyPaused(()))
-                    ),
+                    matches!(got_err, Err(crate::error::PublishError::OrderingKeyPaused(()))),
                     "{got_err:?}"
                 );
             )+
@@ -573,38 +574,35 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn batch_sends_on_byte_threshold() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|r, _| r.messages.len() == 2)
-            .return_once(publish_ok);
+            .withf(|r, _| r.messages.len() == 1)
+            .times(2)
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
-        let byte_threshold = TOPIC.len() + "hello".len() + 1;
+        let byte_threshold: usize = TOPIC.len() + "hello".len() + "key".len() + 1;
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(byte_threshold as u32)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = [
-            Message::new().set_data("hello"),
-            Message::new().set_data("world"),
-        ];
-        let mut handles = Vec::new();
-        for msg in messages {
-            let handle = publisher.publish(msg.clone());
-            handles.push((msg, handle));
-        }
+        // Validate without ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello"));
+        // Publish a second message to trigger send on threshold.
+        publisher.publish(Message::new().set_data("world"));
+        assert_eq!(handle.await?, "hello");
 
-        for (id, rx) in handles.into_iter() {
-            let got = rx.await?;
-            let id = String::from_utf8(id.data.to_vec())?;
-            assert_eq!(got, id);
-        }
+        // Validate with ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello").set_ordering_key("key"));
+        // Publish a second message to trigger send on threshold.
+        publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
+        assert_eq!(handle.await?, "hello");
 
         Ok(())
     }
@@ -900,14 +898,8 @@ mod tests {
 
         // Assert that the pending message error is caused by the Publisher being paused.
         got_err = msg_1_handle.await.unwrap_err();
-        let source = got_err
-            .source()
-            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
         assert!(
-            matches!(
-                source,
-                Some(crate::error::PublishError::OrderingKeyPaused(()))
-            ),
+            matches!(got_err, crate::error::PublishError::OrderingKeyPaused(())),
             "{got_err:?}"
         );
 

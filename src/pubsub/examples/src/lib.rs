@@ -31,6 +31,7 @@ pub async fn run_topic_samples(topic_names: &mut Vec<String>) -> anyhow::Result<
     let id = random_topic_id();
     topic_names.push(format!("projects/{project_id}/topics/{id}"));
     topic::create_topic::sample(&client, &project_id, &id).await?;
+    topic::list_topics::sample(&client, &project_id).await?;
 
     Ok(())
 }
@@ -46,6 +47,7 @@ pub async fn run_subscription_samples(
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
+    subscription::list_subscriptions::sample(&client, &project_id).await?;
 
     quickstart_publisher::sample(&project_id, topic_id).await?;
     quickstart_subscriber::sample(&project_id, &id).await?;

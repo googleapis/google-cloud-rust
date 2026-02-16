@@ -12,5 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_pull_subscription;
-pub mod list_subscriptions;
+// [START pubsub_list_topics]
+use google_cloud_gax::paginator::ItemPaginator;
+use google_cloud_pubsub::client::TopicAdmin;
+
+pub async fn sample(client: &TopicAdmin, project: &str) -> anyhow::Result<()> {
+    let mut topics = client
+        .list_topics()
+        .set_project(format!("projects/{}", project))
+        .by_item();
+
+    println!("listing topics");
+    while let Some(topic) = topics.next().await.transpose()? {
+        println!("{topic:?}");
+    }
+    println!("DONE");
+    Ok(())
+}
+// [END pubsub_list_topics]
