@@ -23,7 +23,11 @@ pub async fn sample(client: &SchemaService, project: &str, schema_id: &str) -> a
         .create_schema()
         .set_parent(format!("projects/{project}"))
         .set_schema_id(schema_id)
-        .set_schema(Schema::new().set_type(Type::Avro).set_definition(avro_schema))
+        .set_schema(
+            Schema::new()
+                .set_type(Type::Avro)
+                .set_definition(avro_schema),
+        )
         .send()
         .await?;
 
