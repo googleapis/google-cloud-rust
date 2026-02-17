@@ -106,14 +106,12 @@ pub trait ResultExt {
 impl<T> ResultExt for std::result::Result<T, Error> {
     fn record_in_span(self, span: &Span) -> Self {
         match &self {
-            Ok(_) => {
-                span.record(OTEL_STATUS_CODE, otel_status_codes::OK);
-            }
+            Ok(_) => span.record(OTEL_STATUS_CODE, otel_status_codes::OK),
             Err(e) => {
                 span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
                 let error_type = ErrorType::from_gax_error(e);
                 span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-                span.record(OTEL_STATUS_DESCRIPTION, e.to_string());
+                span.record(OTEL_STATUS_DESCRIPTION, e.to_string())
             }
         };
         self
