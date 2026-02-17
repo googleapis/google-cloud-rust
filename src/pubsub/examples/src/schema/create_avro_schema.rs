@@ -17,7 +17,7 @@ use google_cloud_pubsub::client::SchemaService;
 use google_cloud_pubsub::model::{Schema, schema::Type};
 
 pub async fn sample(client: &SchemaService, project: &str, schema_id: &str) -> anyhow::Result<()> {
-    let avro_schema =
+    const AVRO_SCHEMA: &str =
         r#"{"type": "record", "name": "User", "fields": [{"name": "name", "type": "string"}]}"#;
     let schema = client
         .create_schema()
