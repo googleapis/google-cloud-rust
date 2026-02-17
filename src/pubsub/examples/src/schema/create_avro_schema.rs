@@ -16,17 +16,14 @@
 use google_cloud_pubsub::client::SchemaService;
 use google_cloud_pubsub::model::{Schema, schema::Type};
 
-pub async fn sample(
-    client: &SchemaService,
-    project: &str,
-    schema_id: &str,
-    contents: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &SchemaService, project: &str, schema_id: &str) -> anyhow::Result<()> {
+    let avro_schema =
+        r#"{"type": "record", "name": "User", "fields": [{"name": "name", "type": "string"}]}"#;
     let schema = client
         .create_schema()
         .set_parent(format!("projects/{project}"))
         .set_schema_id(schema_id)
-        .set_schema(Schema::new().set_type(Type::Avro).set_definition(contents))
+        .set_schema(Schema::new().set_type(Type::Avro).set_definition(avro_schema))
         .send()
         .await?;
 

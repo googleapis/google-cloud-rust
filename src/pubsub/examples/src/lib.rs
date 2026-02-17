@@ -66,9 +66,7 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
 
     let id = random_schema_id();
     schema_names.push(format!("projects/{project}/schemas/{id}"));
-    let avro_schema =
-        r#"{"type": "record", "name": "User","fields": [{"name": "name", "type": "string"}]}"#;
-    schema::create_avro_schema::sample(&client, &project, &id, &avro_schema).await?;
+    schema::create_avro_schema::sample(&client, &project, &id).await?;
     schema::list_schemas::sample(&client, &project).await?;
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
 
