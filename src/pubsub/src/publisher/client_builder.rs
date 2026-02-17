@@ -44,7 +44,7 @@ impl ClientBuilder {
             super::backoff_policy::default_backoff_policy(),
         ));
         config.retry_policy = Some(std::sync::Arc::new(
-            super::retry_policy::default_publisher_retry_policy(),
+            super::retry_policy::default_retry_policy(),
         ));
         Self { config }
     }

@@ -43,7 +43,7 @@ use std::time::Duration;
 ///
 /// The client will retry all the errors shown as retryable in the service
 /// documentation, and stop retrying after 10 minutes.
-pub(crate) fn default_publisher_retry_policy() -> impl RetryPolicy {
+pub(crate) fn default_retry_policy() -> impl RetryPolicy {
     RetryableErrors.with_time_limit(Duration::from_secs(600))
 }
 
@@ -135,6 +135,17 @@ mod tests {
         );
     }
 
+    #[test_case(409)]
+    #[test_case(400)]
+    #[test_case(404)]
+    fn permanent_http(code: u16) {
+        let p = RetryableErrors;
+        assert!(
+            p.on_error(&RetryState::default(), http_error(code))
+                .is_permanent()
+        );
+    }
+
     #[test_case(Code::Unavailable)]
     #[test_case(Code::Internal)]
     #[test_case(Code::Aborted)]
@@ -165,6 +176,28 @@ mod tests {
     fn io() {
         let p = RetryableErrors;
         assert!(p.on_error(&RetryState::default(), io_error()).is_continue());
+    }
+
+    #[test]
+    fn permanent_auth() {
+        let p = RetryableErrors;
+        let auth_error =
+            google_cloud_gax::error::CredentialsError::from_msg(false, "permanent auth error");
+        assert!(
+            p.on_error(&RetryState::default(), Error::authentication(auth_error))
+                .is_permanent()
+        );
+    }
+
+    #[test]
+    fn transient_auth() {
+        let p = RetryableErrors;
+        let auth_error =
+            google_cloud_gax::error::CredentialsError::from_msg(true, "transient auth error");
+        assert!(
+            p.on_error(&RetryState::default(), Error::authentication(auth_error))
+                .is_continue()
+        );
     }
 
     fn transport_err() -> Error {
