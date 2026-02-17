@@ -43,6 +43,9 @@ impl ClientBuilder {
         config.backoff_policy = Some(std::sync::Arc::new(
             super::backoff_policy::default_backoff_policy(),
         ));
+        config.retry_policy = Some(std::sync::Arc::new(
+            super::retry_policy::default_publisher_retry_policy(),
+        ));
         Self { config }
     }
 
@@ -240,7 +243,6 @@ mod tests {
             "{:?}",
             builder.config
         );
-        assert!(builder.config.retry_policy.is_none(), "{builder:?}");
         assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
         let debug_str = format!("{:?}", &builder.config);
         assert!(
@@ -252,6 +254,7 @@ mod tests {
             "actual: {debug_str}"
         );
         assert!(debug_str.contains("scaling: 4.0"), "actual: {debug_str}");
+        assert!(builder.config.retry_policy.is_some(), "{builder:?}");
         assert!(
             builder.config.grpc_subchannel_count.is_none(),
             "{builder:?}"
