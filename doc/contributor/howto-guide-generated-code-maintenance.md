@@ -77,7 +77,6 @@ V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
 go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-cargo update --workspace
 git commit -m"chore: update discovery and googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
