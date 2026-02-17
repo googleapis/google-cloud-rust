@@ -89,6 +89,33 @@ impl Spanner {
         super::builder::spanner::CreateSession::new(self.inner.clone())
     }
 
+    /// Creates multiple new sessions.
+    ///
+    /// This API can be used to initialize a session cache on the clients.
+    /// See <https://goo.gl/TgSFN2> for best practices on session cache management.
+    pub(crate) fn batch_create_sessions(&self) -> super::builder::spanner::BatchCreateSessions {
+        super::builder::spanner::BatchCreateSessions::new(self.inner.clone())
+    }
+
+    /// Gets a session. Returns `NOT_FOUND` if the session doesn't exist.
+    /// This is mainly useful for determining whether a session is still
+    /// alive.
+    pub(crate) fn get_session(&self) -> super::builder::spanner::GetSession {
+        super::builder::spanner::GetSession::new(self.inner.clone())
+    }
+
+    /// Lists all sessions in a given database.
+    pub(crate) fn list_sessions(&self) -> super::builder::spanner::ListSessions {
+        super::builder::spanner::ListSessions::new(self.inner.clone())
+    }
+
+    /// Ends a session, releasing server resources associated with it. This
+    /// asynchronously triggers the cancellation of any operations that are running
+    /// with this session.
+    pub(crate) fn delete_session(&self) -> super::builder::spanner::DeleteSession {
+        super::builder::spanner::DeleteSession::new(self.inner.clone())
+    }
+
     /// Executes an SQL statement, returning all results in a single reply. This
     /// method can't be used to return a result set larger than 10 MiB;
     /// if the query yields more data than that, the query fails with
@@ -109,6 +136,25 @@ impl Spanner {
     /// [google.spanner.v1.Transaction]: crate::model::Transaction
     pub(crate) fn execute_sql(&self) -> super::builder::spanner::ExecuteSql {
         super::builder::spanner::ExecuteSql::new(self.inner.clone())
+    }
+
+    /// Executes a batch of SQL DML statements. This method allows many statements
+    /// to be run with lower latency than submitting them sequentially with
+    /// [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql].
+    ///
+    /// Statements are executed in sequential order. A request can succeed even if
+    /// a statement fails. The
+    /// [ExecuteBatchDmlResponse.status][google.spanner.v1.ExecuteBatchDmlResponse.status]
+    /// field in the response provides information about the statement that failed.
+    /// Clients must inspect this field to determine whether an error occurred.
+    ///
+    /// Execution stops after the first failed statement; the remaining statements
+    /// are not executed.
+    ///
+    /// [google.spanner.v1.ExecuteBatchDmlResponse.status]: crate::model::ExecuteBatchDmlResponse::status
+    /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
+    pub(crate) fn execute_batch_dml(&self) -> super::builder::spanner::ExecuteBatchDml {
+        super::builder::spanner::ExecuteBatchDml::new(self.inner.clone())
     }
 
     /// Reads rows from the database using key lookups and scans, as a
@@ -177,5 +223,39 @@ impl Spanner {
     /// [google.spanner.v1.Spanner.Read]: crate::client::Spanner::read
     pub(crate) fn rollback(&self) -> super::builder::spanner::Rollback {
         super::builder::spanner::Rollback::new(self.inner.clone())
+    }
+
+    /// Creates a set of partition tokens that can be used to execute a query
+    /// operation in parallel. Each of the returned partition tokens can be used
+    /// by [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] to
+    /// specify a subset of the query result to read. The same session and
+    /// read-only transaction must be used by the `PartitionQueryRequest` used to
+    /// create the partition tokens and the `ExecuteSqlRequests` that use the
+    /// partition tokens.
+    ///
+    /// Partition tokens become invalid when the session used to create them
+    /// is deleted, is idle for too long, begins a new transaction, or becomes too
+    /// old. When any of these happen, it isn't possible to resume the query, and
+    /// the whole operation must be restarted from the beginning.
+    pub(crate) fn partition_query(&self) -> super::builder::spanner::PartitionQuery {
+        super::builder::spanner::PartitionQuery::new(self.inner.clone())
+    }
+
+    /// Creates a set of partition tokens that can be used to execute a read
+    /// operation in parallel. Each of the returned partition tokens can be used
+    /// by [StreamingRead][google.spanner.v1.Spanner.StreamingRead] to specify a
+    /// subset of the read result to read. The same session and read-only
+    /// transaction must be used by the `PartitionReadRequest` used to create the
+    /// partition tokens and the `ReadRequests` that use the partition tokens.
+    /// There are no ordering guarantees on rows returned among the returned
+    /// partition tokens, or even within each individual `StreamingRead` call
+    /// issued with a `partition_token`.
+    ///
+    /// Partition tokens become invalid when the session used to create them
+    /// is deleted, is idle for too long, begins a new transaction, or becomes too
+    /// old. When any of these happen, it isn't possible to resume the read, and
+    /// the whole operation must be restarted from the beginning.
+    pub(crate) fn partition_read(&self) -> super::builder::spanner::PartitionRead {
+        super::builder::spanner::PartitionRead::new(self.inner.clone())
     }
 }

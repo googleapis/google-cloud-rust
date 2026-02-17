@@ -15,8 +15,10 @@
 use crate::Error;
 use crate::Result;
 use crate::client::stream::ServerStream;
+use crate::client::stream::BatchWriteStream;
 use crate::model::ExecuteSqlRequest;
 use crate::model::ReadRequest;
+use crate::model::BatchWriteRequest;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
@@ -285,6 +287,85 @@ impl StreamingRead {
 }
 
 impl crate::RequestBuilder for StreamingRead {
+    fn request_options(&mut self) -> &mut crate::RequestOptions {
+        &mut self.options
+    }
+}
+
+/// The request builder for [SpannerImpl::batch_write][crate::client::SpannerImpl::batch_write] calls.
+#[derive(Clone, Debug)]
+pub struct BatchWrite {
+    grpc_client: gaxi::grpc::Client,
+    request: BatchWriteRequest,
+    options: crate::RequestOptions,
+}
+
+impl BatchWrite {
+    pub(crate) fn new(grpc_client: gaxi::grpc::Client) -> Self {
+        Self {
+            grpc_client,
+            request: BatchWriteRequest::default(),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Sets the full request, replacing any prior values.
+    pub fn with_request<V: Into<BatchWriteRequest>>(mut self, v: V) -> Self {
+        self.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Start the server streaming request and receive the stream.
+    pub async fn send(self) -> Result<BatchWriteStream> {
+        let options =
+            google_cloud_gax::options::internal::set_default_idempotency(self.options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "BatchWrite",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchWrite");
+        let x_goog_request_params = [Some(&self.request)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let ac = gaxi::api_header::XGoogApiClient {
+            // we can hardcode the name/version or use env!("CARGO_PKG_NAME") etc
+            name: env!("CARGO_PKG_NAME"),
+            version: env!("CARGO_PKG_VERSION"),
+            library_type: gaxi::api_header::GAPIC,
+        };
+        let api_client_header = Box::leak(ac.grpc_header_value().into_boxed_str());
+
+        let stream_res = self.grpc_client
+            .server_streaming::<crate::google::spanner::v1::BatchWriteRequest, crate::google::spanner::v1::BatchWriteResponse>(
+                extensions,
+                path,
+                self.request.to_proto().map_err(Error::deser)?,
+                options,
+                api_client_header,
+                &x_goog_request_params,
+            )
+            .await?;
+
+        Ok(BatchWriteStream::new(stream_res.into_inner()))
+    }
+}
+
+impl crate::RequestBuilder for BatchWrite {
     fn request_options(&mut self) -> &mut crate::RequestOptions {
         &mut self.options
     }

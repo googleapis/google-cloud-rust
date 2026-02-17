@@ -1375,48 +1375,22 @@ libraries:
     output: src/spanner
     veneer: true
     skip_publish: true
+    copyright_year: "2026"
     rust:
       modules:
-        - included_ids:
-            - .google.spanner.v1.Spanner.CreateSession
-            - .google.spanner.v1.Spanner.ExecuteSql
-            - .google.spanner.v1.Spanner.ExecuteStreamingSql
-            - .google.spanner.v1.Spanner.Read
-            - .google.spanner.v1.Spanner.StreamingRead
-            - .google.spanner.v1.Spanner.BeginTransaction
-            - .google.spanner.v1.Spanner.Rollback
-            - .google.spanner.v1.Spanner.Commit
-          module_path: crate::generated::gapic_dataplane::model
+        - module_path: crate::generated::gapic_dataplane::model
           output: src/spanner/src/generated/convert/spanner
           source: google/spanner/v1
           template: convert-prost
         - extend_grpc_transport: true
           generate_setter_samples: "false"
           has_veneer: true
-          included_ids:
-            - .google.spanner.v1.Spanner.CreateSession
-            - .google.spanner.v1.Spanner.ExecuteSql
-            - .google.spanner.v1.Spanner.ExecuteStreamingSql
-            - .google.spanner.v1.Spanner.Read
-            - .google.spanner.v1.Spanner.StreamingRead
-            - .google.spanner.v1.Spanner.BeginTransaction
-            - .google.spanner.v1.Spanner.Rollback
-            - .google.spanner.v1.Spanner.Commit
           internal_builders: true
           output: src/spanner/src/generated/gapic_dataplane
           service_config: google/spanner/v1/spanner.yaml
           source: google/spanner/v1
           template: grpc-client
-        - included_ids:
-            - .google.spanner.v1.Spanner.CreateSession
-            - .google.spanner.v1.Spanner.ExecuteSql
-            - .google.spanner.v1.Spanner.ExecuteStreamingSql
-            - .google.spanner.v1.Spanner.Read
-            - .google.spanner.v1.Spanner.StreamingRead
-            - .google.spanner.v1.Spanner.BeginTransaction
-            - .google.spanner.v1.Spanner.Rollback
-            - .google.spanner.v1.Spanner.Commit
-          output: src/spanner/src/generated/protos/spanner
+        - output: src/spanner/src/generated/protos/spanner
           source: google/spanner/v1
           template: prost
   - name: google-cloud-spanner-admin-database-v1

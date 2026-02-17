@@ -98,6 +98,165 @@ impl super::stub::Spanner for Spanner {
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Session>)
     }
 
+    async fn batch_create_sessions(
+        &self,
+        req: crate::model::BatchCreateSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "BatchCreateSessions",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchCreateSessions");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::BatchCreateSessionsResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::BatchCreateSessionsResponse>)
+    }
+
+    async fn get_session(
+        &self,
+        req: crate::model::GetSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.spanner.v1.Spanner", "GetSession"));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/GetSession");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::Session;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Session>)
+    }
+
+    async fn list_sessions(
+        &self,
+        req: crate::model::ListSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.spanner.v1.Spanner", "ListSessions"));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ListSessions");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::ListSessionsResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListSessionsResponse>)
+    }
+
+    async fn delete_session(
+        &self,
+        req: crate::model::DeleteSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "DeleteSession",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/DeleteSession");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = ();
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
+    }
+
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
@@ -134,6 +293,48 @@ impl super::stub::Spanner for Spanner {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ResultSet>)
+    }
+
+    async fn execute_batch_dml(
+        &self,
+        req: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "ExecuteBatchDml",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ExecuteBatchDml");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::ExecuteBatchDmlResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ExecuteBatchDmlResponse>)
     }
 
     async fn read(
@@ -290,5 +491,88 @@ impl super::stub::Spanner for Spanner {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
+    }
+
+    async fn partition_query(
+        &self,
+        req: crate::model::PartitionQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartitionResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "PartitionQuery",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/PartitionQuery");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::PartitionResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PartitionResponse>)
+    }
+
+    async fn partition_read(
+        &self,
+        req: crate::model::PartitionReadRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartitionResponse>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "PartitionRead",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/PartitionRead");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::spanner::v1::PartitionResponse;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PartitionResponse>)
     }
 }

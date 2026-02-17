@@ -62,6 +62,24 @@ impl Spanner {
         self.inner.execute_sql().with_request(request).send().await
     }
 
+    pub async fn execute_batch_dml(
+        &self,
+        request: crate::model::ExecuteBatchDmlRequest,
+    ) -> Result<crate::model::ExecuteBatchDmlResponse, crate::Error> {
+        self.inner
+            .execute_batch_dml()
+            .with_request(request)
+            .send()
+            .await
+    }
+
+    pub fn batch_write(
+        &self,
+        request: crate::model::BatchWriteRequest,
+    ) -> builder::BatchWrite {
+        builder::BatchWrite::new(self.grpc_client.clone()).with_request(request)
+    }
+
     pub async fn read(
         &self,
         request: crate::model::ReadRequest,
@@ -262,6 +280,103 @@ mod tests {
             .await
             .expect("Failed to call execute_sql");
         assert!(result_set.metadata.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_execute_batch_dml() {
+        use crate::model::ExecuteBatchDmlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_batch_dml().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![],
+                    status: Some(spanner_grpc_mock::google::rpc::Status {
+                        code: 0,
+                        message: "OK".to_string(),
+                        details: vec![],
+                    }),
+                    precommit_token: None,
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteBatchDmlRequest::new();
+        req.session = "test_session".to_string();
+
+        let response = client
+            .execute_batch_dml(req)
+            .await
+            .expect("Failed to call execute_batch_dml");
+        assert!(response.status.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_batch_write() {
+        use crate::model::BatchWriteRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_batch_write().once().returning(|_| {
+            let stream = tokio_stream::iter(vec![
+                Ok(spanner_grpc_mock::google::spanner::v1::BatchWriteResponse {
+                    indexes: vec![1, 2],
+                    status: Some(spanner_grpc_mock::google::rpc::Status {
+                        code: 0,
+                        message: "OK".to_string(),
+                        details: vec![],
+                    }),
+                    commit_timestamp: Some(prost_types::Timestamp {
+                        seconds: 12345,
+                        nanos: 0,
+                    }),
+                })
+            ]);
+            Ok(gaxi::grpc::tonic::Response::new(
+                Box::pin(stream) as <MockSpanner as spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner>::BatchWriteStream
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = BatchWriteRequest::new();
+        req.session = "test_session".to_string();
+
+        let mut stream = client
+            .batch_write(req)
+            .send()
+            .await
+            .expect("Failed to call batch_write");
+
+        let chunk1 = stream
+            .next_message()
+            .await
+            .expect("Failed to get first stream message")
+            .expect("First stream message should exist");
+        assert!(chunk1.status.is_some());
+
+        let chunk2 = stream
+            .next_message()
+            .await
+            .expect("Stream shouldn't return error");
+        assert!(chunk2.is_none(), "Stream should be exhausted");
     }
 
     #[tokio::test]

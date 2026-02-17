@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::google::spanner::v1::PartialResultSet;
+use crate::google::spanner::v1::BatchWriteResponse;
 use gaxi::grpc::tonic::Result as TonicResult;
 use gaxi::grpc::tonic::Streaming;
 
@@ -32,6 +33,26 @@ impl ServerStream {
     /// Returns `Ok(Some(PartialResultSet))` when a message is successfully received,
     /// `Ok(None)` when the stream concludes naturally, or `Err(_)` on RPC errors.
     pub async fn next_message(&mut self) -> TonicResult<Option<PartialResultSet>> {
+        self.inner.message().await
+    }
+}
+
+/// Representation for the `BatchWrite` RPC stream.
+#[derive(Debug)]
+pub struct BatchWriteStream {
+    pub(crate) inner: Streaming<crate::google::spanner::v1::BatchWriteResponse>,
+}
+
+impl BatchWriteStream {
+    pub(crate) fn new(inner: Streaming<crate::google::spanner::v1::BatchWriteResponse>) -> Self {
+        Self { inner }
+    }
+
+    /// Fetches the next `BatchWriteResponse` from the stream.
+    ///
+    /// Returns `Ok(Some(BatchWriteResponse))` when a message is successfully received,
+    /// `Ok(None)` when the stream concludes naturally, or `Err(_)` on RPC errors.
+    pub async fn next_message(&mut self) -> TonicResult<Option<BatchWriteResponse>> {
         self.inner.message().await
     }
 }

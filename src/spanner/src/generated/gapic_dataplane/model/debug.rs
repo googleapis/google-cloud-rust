@@ -17,6 +17,165 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::ChangeStreamRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChangeStreamRecord");
+        debug_struct.field("record", &self.record);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::DataChangeRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataChangeRecord");
+        debug_struct.field("commit_timestamp", &self.commit_timestamp);
+        debug_struct.field("record_sequence", &self.record_sequence);
+        debug_struct.field("server_transaction_id", &self.server_transaction_id);
+        debug_struct.field(
+            "is_last_record_in_transaction_in_partition",
+            &self.is_last_record_in_transaction_in_partition,
+        );
+        debug_struct.field("table", &self.table);
+        debug_struct.field("column_metadata", &self.column_metadata);
+        debug_struct.field("mods", &self.mods);
+        debug_struct.field("mod_type", &self.mod_type);
+        debug_struct.field("value_capture_type", &self.value_capture_type);
+        debug_struct.field(
+            "number_of_records_in_transaction",
+            &self.number_of_records_in_transaction,
+        );
+        debug_struct.field(
+            "number_of_partitions_in_transaction",
+            &self.number_of_partitions_in_transaction,
+        );
+        debug_struct.field("transaction_tag", &self.transaction_tag);
+        debug_struct.field("is_system_transaction", &self.is_system_transaction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::data_change_record::ColumnMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ColumnMetadata");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("is_primary_key", &self.is_primary_key);
+        debug_struct.field("ordinal_position", &self.ordinal_position);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::data_change_record::ModValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ModValue");
+        debug_struct.field("column_metadata_index", &self.column_metadata_index);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::data_change_record::Mod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Mod");
+        debug_struct.field("keys", &self.keys);
+        debug_struct.field("old_values", &self.old_values);
+        debug_struct.field("new_values", &self.new_values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::HeartbeatRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HeartbeatRecord");
+        debug_struct.field("timestamp", &self.timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::PartitionStartRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionStartRecord");
+        debug_struct.field("start_timestamp", &self.start_timestamp);
+        debug_struct.field("record_sequence", &self.record_sequence);
+        debug_struct.field("partition_tokens", &self.partition_tokens);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::PartitionEndRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionEndRecord");
+        debug_struct.field("end_timestamp", &self.end_timestamp);
+        debug_struct.field("record_sequence", &self.record_sequence);
+        debug_struct.field("partition_token", &self.partition_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::PartitionEventRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionEventRecord");
+        debug_struct.field("commit_timestamp", &self.commit_timestamp);
+        debug_struct.field("record_sequence", &self.record_sequence);
+        debug_struct.field("partition_token", &self.partition_token);
+        debug_struct.field("move_in_events", &self.move_in_events);
+        debug_struct.field("move_out_events", &self.move_out_events);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::partition_event_record::MoveInEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveInEvent");
+        debug_struct.field("source_partition_token", &self.source_partition_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::change_stream_record::partition_event_record::MoveOutEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MoveOutEvent");
+        debug_struct.field(
+            "destination_partition_token",
+            &self.destination_partition_token,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CommitResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommitResponse");
@@ -410,6 +569,30 @@ impl std::fmt::Debug for super::CreateSessionRequest {
     }
 }
 
+impl std::fmt::Debug for super::BatchCreateSessionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateSessionsRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("session_template", &self.session_template);
+        debug_struct.field("session_count", &self.session_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchCreateSessionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchCreateSessionsResponse");
+        debug_struct.field("session", &self.session);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Session {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Session");
@@ -419,6 +602,54 @@ impl std::fmt::Debug for super::Session {
         debug_struct.field("approximate_last_use_time", &self.approximate_last_use_time);
         debug_struct.field("creator_role", &self.creator_role);
         debug_struct.field("multiplexed", &self.multiplexed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSessionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSessionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionsRequest");
+        debug_struct.field("database", &self.database);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSessionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSessionsResponse");
+        debug_struct.field("sessions", &self.sessions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteSessionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSessionRequest");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -537,6 +768,116 @@ impl std::fmt::Debug for super::execute_sql_request::QueryOptions {
     }
 }
 
+impl std::fmt::Debug for super::ExecuteBatchDmlRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteBatchDmlRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("statements", &self.statements);
+        debug_struct.field("seqno", &self.seqno);
+        debug_struct.field("request_options", &self.request_options);
+        debug_struct.field("last_statements", &self.last_statements);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::execute_batch_dml_request::Statement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Statement");
+        debug_struct.field("sql", &self.sql);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("param_types", &self.param_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteBatchDmlResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteBatchDmlResponse");
+        debug_struct.field("result_sets", &self.result_sets);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("precommit_token", &self.precommit_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartitionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionOptions");
+        debug_struct.field("partition_size_bytes", &self.partition_size_bytes);
+        debug_struct.field("max_partitions", &self.max_partitions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartitionQueryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionQueryRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("sql", &self.sql);
+        debug_struct.field("params", &self.params);
+        debug_struct.field("param_types", &self.param_types);
+        debug_struct.field("partition_options", &self.partition_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartitionReadRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionReadRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("transaction", &self.transaction);
+        debug_struct.field("table", &self.table);
+        debug_struct.field("index", &self.index);
+        debug_struct.field("columns", &self.columns);
+        debug_struct.field("key_set", &self.key_set);
+        debug_struct.field("partition_options", &self.partition_options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Partition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Partition");
+        debug_struct.field("partition_token", &self.partition_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartitionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartitionResponse");
+        debug_struct.field("partitions", &self.partitions);
+        debug_struct.field("transaction", &self.transaction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ReadRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReadRequest");
@@ -598,6 +939,47 @@ impl std::fmt::Debug for super::RollbackRequest {
         let mut debug_struct = f.debug_struct("RollbackRequest");
         debug_struct.field("session", &self.session);
         debug_struct.field("transaction_id", &self.transaction_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchWriteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchWriteRequest");
+        debug_struct.field("session", &self.session);
+        debug_struct.field("request_options", &self.request_options);
+        debug_struct.field("mutation_groups", &self.mutation_groups);
+        debug_struct.field(
+            "exclude_txn_from_change_streams",
+            &self.exclude_txn_from_change_streams,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::batch_write_request::MutationGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MutationGroup");
+        debug_struct.field("mutations", &self.mutations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchWriteResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchWriteResponse");
+        debug_struct.field("indexes", &self.indexes);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("commit_timestamp", &self.commit_timestamp);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

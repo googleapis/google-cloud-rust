@@ -18,6 +18,7 @@
 
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
+mod status;
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -42,23 +43,6 @@ pub mod client;
 
 pub mod stub {
     pub use crate::generated::gapic_dataplane::stub::*;
-}
-
-const DEFAULT_HOST: &str = "https://spanner.googleapis.com";
-
-mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GAPIC,
-            };
-            ac.grpc_header_value()
-        };
-    }
 }
 
 #[allow(dead_code)]

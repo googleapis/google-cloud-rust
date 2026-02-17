@@ -21,6 +21,1553 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Spanner Change Streams enable customers to capture and stream out changes to
+/// their Spanner databases in real-time. A change stream
+/// can be created with option partition_mode='IMMUTABLE_KEY_RANGE' or
+/// partition_mode='MUTABLE_KEY_RANGE'.
+///
+/// This message is only used in Change Streams created with the option
+/// partition_mode='MUTABLE_KEY_RANGE'. Spanner automatically creates a special
+/// Table-Valued Function (TVF) along with each Change Streams. The function
+/// provides access to the change stream's records. The function is named
+/// READ_<change_stream_name> (where <change_stream_name> is the
+/// name of the change stream), and it returns a table with only one column
+/// called ChangeRecord.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ChangeStreamRecord {
+    /// One of the change stream subrecords.
+    pub record: std::option::Option<crate::model::change_stream_record::Record>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ChangeStreamRecord {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record].
+    ///
+    /// Note that all the setters affecting `record` are mutually
+    /// exclusive.
+    pub fn set_record<
+        T: std::convert::Into<std::option::Option<crate::model::change_stream_record::Record>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = v.into();
+        self
+    }
+
+    /// The value of [record][crate::model::ChangeStreamRecord::record]
+    /// if it holds a `DataChangeRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_change_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::change_stream_record::DataChangeRecord>>
+    {
+        #[allow(unreachable_patterns)]
+        self.record.as_ref().and_then(|v| match v {
+            crate::model::change_stream_record::Record::DataChangeRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record]
+    /// to hold a `DataChangeRecord`.
+    ///
+    /// Note that all the setters affecting `record` are
+    /// mutually exclusive.
+    pub fn set_data_change_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::change_stream_record::DataChangeRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = std::option::Option::Some(
+            crate::model::change_stream_record::Record::DataChangeRecord(v.into()),
+        );
+        self
+    }
+
+    /// The value of [record][crate::model::ChangeStreamRecord::record]
+    /// if it holds a `HeartbeatRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn heartbeat_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::change_stream_record::HeartbeatRecord>>
+    {
+        #[allow(unreachable_patterns)]
+        self.record.as_ref().and_then(|v| match v {
+            crate::model::change_stream_record::Record::HeartbeatRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record]
+    /// to hold a `HeartbeatRecord`.
+    ///
+    /// Note that all the setters affecting `record` are
+    /// mutually exclusive.
+    pub fn set_heartbeat_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::change_stream_record::HeartbeatRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = std::option::Option::Some(
+            crate::model::change_stream_record::Record::HeartbeatRecord(v.into()),
+        );
+        self
+    }
+
+    /// The value of [record][crate::model::ChangeStreamRecord::record]
+    /// if it holds a `PartitionStartRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn partition_start_record(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::change_stream_record::PartitionStartRecord>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.record.as_ref().and_then(|v| match v {
+            crate::model::change_stream_record::Record::PartitionStartRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record]
+    /// to hold a `PartitionStartRecord`.
+    ///
+    /// Note that all the setters affecting `record` are
+    /// mutually exclusive.
+    pub fn set_partition_start_record<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::PartitionStartRecord>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = std::option::Option::Some(
+            crate::model::change_stream_record::Record::PartitionStartRecord(v.into()),
+        );
+        self
+    }
+
+    /// The value of [record][crate::model::ChangeStreamRecord::record]
+    /// if it holds a `PartitionEndRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn partition_end_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::change_stream_record::PartitionEndRecord>>
+    {
+        #[allow(unreachable_patterns)]
+        self.record.as_ref().and_then(|v| match v {
+            crate::model::change_stream_record::Record::PartitionEndRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record]
+    /// to hold a `PartitionEndRecord`.
+    ///
+    /// Note that all the setters affecting `record` are
+    /// mutually exclusive.
+    pub fn set_partition_end_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::change_stream_record::PartitionEndRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = std::option::Option::Some(
+            crate::model::change_stream_record::Record::PartitionEndRecord(v.into()),
+        );
+        self
+    }
+
+    /// The value of [record][crate::model::ChangeStreamRecord::record]
+    /// if it holds a `PartitionEventRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn partition_event_record(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::change_stream_record::PartitionEventRecord>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.record.as_ref().and_then(|v| match v {
+            crate::model::change_stream_record::Record::PartitionEventRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [record][crate::model::ChangeStreamRecord::record]
+    /// to hold a `PartitionEventRecord`.
+    ///
+    /// Note that all the setters affecting `record` are
+    /// mutually exclusive.
+    pub fn set_partition_event_record<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::PartitionEventRecord>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.record = std::option::Option::Some(
+            crate::model::change_stream_record::Record::PartitionEventRecord(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ChangeStreamRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.ChangeStreamRecord"
+    }
+}
+
+/// Defines additional types related to [ChangeStreamRecord].
+pub mod change_stream_record {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A data change record contains a set of changes to a table with the same
+    /// modification type (insert, update, or delete) committed at the same commit
+    /// timestamp in one change stream partition for the same transaction. Multiple
+    /// data change records can be returned for the same transaction across
+    /// multiple change stream partitions.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataChangeRecord {
+        /// Indicates the timestamp in which the change was committed.
+        /// DataChangeRecord.commit_timestamps,
+        /// PartitionStartRecord.start_timestamps,
+        /// PartitionEventRecord.commit_timestamps, and
+        /// PartitionEndRecord.end_timestamps can have the same value in the same
+        /// partition.
+        pub commit_timestamp: std::option::Option<wkt::Timestamp>,
+
+        /// Record sequence numbers are unique and monotonically increasing (but not
+        /// necessarily contiguous) for a specific timestamp across record
+        /// types in the same partition. To guarantee ordered processing, the reader
+        /// should process records (of potentially different types) in
+        /// record_sequence order for a specific timestamp in the same partition.
+        ///
+        /// The record sequence number ordering across partitions is only meaningful
+        /// in the context of a specific transaction. Record sequence numbers are
+        /// unique across partitions for a specific transaction. Sort the
+        /// DataChangeRecords for the same
+        /// [server_transaction_id][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.server_transaction_id]
+        /// by
+        /// [record_sequence][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.record_sequence]
+        /// to reconstruct the ordering of the changes within the transaction.
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.record_sequence]: crate::model::change_stream_record::DataChangeRecord::record_sequence
+        /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.server_transaction_id]: crate::model::change_stream_record::DataChangeRecord::server_transaction_id
+        pub record_sequence: std::string::String,
+
+        /// Provides a globally unique string that represents the transaction in
+        /// which the change was committed. Multiple transactions can have the same
+        /// commit timestamp, but each transaction has a unique
+        /// server_transaction_id.
+        pub server_transaction_id: std::string::String,
+
+        /// Indicates whether this is the last record for a transaction in the
+        /// current partition. Clients can use this field to determine when all
+        /// records for a transaction in the current partition have been received.
+        pub is_last_record_in_transaction_in_partition: bool,
+
+        /// Name of the table affected by the change.
+        pub table: std::string::String,
+
+        /// Provides metadata describing the columns associated with the
+        /// [mods][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.mods] listed
+        /// below.
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.mods]: crate::model::change_stream_record::DataChangeRecord::mods
+        pub column_metadata:
+            std::vec::Vec<crate::model::change_stream_record::data_change_record::ColumnMetadata>,
+
+        /// Describes the changes that were made.
+        pub mods: std::vec::Vec<crate::model::change_stream_record::data_change_record::Mod>,
+
+        /// Describes the type of change.
+        pub mod_type: crate::model::change_stream_record::data_change_record::ModType,
+
+        /// Describes the value capture type that was specified in the change stream
+        /// configuration when this change was captured.
+        pub value_capture_type:
+            crate::model::change_stream_record::data_change_record::ValueCaptureType,
+
+        /// Indicates the number of data change records that are part of this
+        /// transaction across all change stream partitions. This value can be used
+        /// to assemble all the records associated with a particular transaction.
+        pub number_of_records_in_transaction: i32,
+
+        /// Indicates the number of partitions that return data change records for
+        /// this transaction. This value can be helpful in assembling all records
+        /// associated with a particular transaction.
+        pub number_of_partitions_in_transaction: i32,
+
+        /// Indicates the transaction tag associated with this transaction.
+        pub transaction_tag: std::string::String,
+
+        /// Indicates whether the transaction is a system transaction. System
+        /// transactions include those issued by time-to-live (TTL), column backfill,
+        /// etc.
+        pub is_system_transaction: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataChangeRecord {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [commit_timestamp][crate::model::change_stream_record::DataChangeRecord::commit_timestamp].
+        pub fn set_commit_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.commit_timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [commit_timestamp][crate::model::change_stream_record::DataChangeRecord::commit_timestamp].
+        pub fn set_or_clear_commit_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.commit_timestamp = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [record_sequence][crate::model::change_stream_record::DataChangeRecord::record_sequence].
+        pub fn set_record_sequence<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.record_sequence = v.into();
+            self
+        }
+
+        /// Sets the value of [server_transaction_id][crate::model::change_stream_record::DataChangeRecord::server_transaction_id].
+        pub fn set_server_transaction_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.server_transaction_id = v.into();
+            self
+        }
+
+        /// Sets the value of [is_last_record_in_transaction_in_partition][crate::model::change_stream_record::DataChangeRecord::is_last_record_in_transaction_in_partition].
+        pub fn set_is_last_record_in_transaction_in_partition<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.is_last_record_in_transaction_in_partition = v.into();
+            self
+        }
+
+        /// Sets the value of [table][crate::model::change_stream_record::DataChangeRecord::table].
+        pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.table = v.into();
+            self
+        }
+
+        /// Sets the value of [column_metadata][crate::model::change_stream_record::DataChangeRecord::column_metadata].
+        pub fn set_column_metadata<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::change_stream_record::data_change_record::ColumnMetadata,
+                >,
+        {
+            use std::iter::Iterator;
+            self.column_metadata = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [mods][crate::model::change_stream_record::DataChangeRecord::mods].
+        pub fn set_mods<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::change_stream_record::data_change_record::Mod>,
+        {
+            use std::iter::Iterator;
+            self.mods = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [mod_type][crate::model::change_stream_record::DataChangeRecord::mod_type].
+        pub fn set_mod_type<
+            T: std::convert::Into<crate::model::change_stream_record::data_change_record::ModType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mod_type = v.into();
+            self
+        }
+
+        /// Sets the value of [value_capture_type][crate::model::change_stream_record::DataChangeRecord::value_capture_type].
+        pub fn set_value_capture_type<
+            T: std::convert::Into<
+                    crate::model::change_stream_record::data_change_record::ValueCaptureType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value_capture_type = v.into();
+            self
+        }
+
+        /// Sets the value of [number_of_records_in_transaction][crate::model::change_stream_record::DataChangeRecord::number_of_records_in_transaction].
+        pub fn set_number_of_records_in_transaction<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.number_of_records_in_transaction = v.into();
+            self
+        }
+
+        /// Sets the value of [number_of_partitions_in_transaction][crate::model::change_stream_record::DataChangeRecord::number_of_partitions_in_transaction].
+        pub fn set_number_of_partitions_in_transaction<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.number_of_partitions_in_transaction = v.into();
+            self
+        }
+
+        /// Sets the value of [transaction_tag][crate::model::change_stream_record::DataChangeRecord::transaction_tag].
+        pub fn set_transaction_tag<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.transaction_tag = v.into();
+            self
+        }
+
+        /// Sets the value of [is_system_transaction][crate::model::change_stream_record::DataChangeRecord::is_system_transaction].
+        pub fn set_is_system_transaction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.is_system_transaction = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataChangeRecord {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.DataChangeRecord"
+        }
+    }
+
+    /// Defines additional types related to [DataChangeRecord].
+    pub mod data_change_record {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Metadata for a column.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ColumnMetadata {
+            /// Name of the column.
+            pub name: std::string::String,
+
+            /// Type of the column.
+            pub r#type: std::option::Option<crate::model::Type>,
+
+            /// Indicates whether the column is a primary key column.
+            pub is_primary_key: bool,
+
+            /// Ordinal position of the column based on the original table definition
+            /// in the schema starting with a value of 1.
+            pub ordinal_position: i64,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ColumnMetadata {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [name][crate::model::change_stream_record::data_change_record::ColumnMetadata::name].
+            pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.name = v.into();
+                self
+            }
+
+            /// Sets the value of [r#type][crate::model::change_stream_record::data_change_record::ColumnMetadata::type].
+            pub fn set_type<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::Type>,
+            {
+                self.r#type = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [r#type][crate::model::change_stream_record::data_change_record::ColumnMetadata::type].
+            pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::Type>,
+            {
+                self.r#type = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [is_primary_key][crate::model::change_stream_record::data_change_record::ColumnMetadata::is_primary_key].
+            pub fn set_is_primary_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.is_primary_key = v.into();
+                self
+            }
+
+            /// Sets the value of [ordinal_position][crate::model::change_stream_record::data_change_record::ColumnMetadata::ordinal_position].
+            pub fn set_ordinal_position<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.ordinal_position = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ColumnMetadata {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ColumnMetadata"
+            }
+        }
+
+        /// Returns the value and associated metadata for a particular field of the
+        /// [Mod][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.Mod].
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.Mod]: crate::model::change_stream_record::data_change_record::Mod
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ModValue {
+            /// Index within the repeated
+            /// [column_metadata][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.column_metadata]
+            /// field, to obtain the column metadata for the column that was modified.
+            ///
+            /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.column_metadata]: crate::model::change_stream_record::DataChangeRecord::column_metadata
+            pub column_metadata_index: i32,
+
+            /// The value of the column.
+            pub value: std::option::Option<wkt::Value>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ModValue {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [column_metadata_index][crate::model::change_stream_record::data_change_record::ModValue::column_metadata_index].
+            pub fn set_column_metadata_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.column_metadata_index = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::change_stream_record::data_change_record::ModValue::value].
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Value>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::change_stream_record::data_change_record::ModValue::value].
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Value>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for ModValue {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModValue"
+            }
+        }
+
+        /// A mod describes all data changes in a watched table row.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Mod {
+            /// Returns the value of the primary key of the modified row.
+            pub keys:
+                std::vec::Vec<crate::model::change_stream_record::data_change_record::ModValue>,
+
+            /// Returns the old values before the change for the modified columns.
+            /// Always empty for
+            /// [INSERT][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModType.INSERT],
+            /// or if old values are not being captured specified by
+            /// [value_capture_type][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ValueCaptureType].
+            ///
+            /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModType.INSERT]: crate::model::change_stream_record::data_change_record::ModType::Insert
+            /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ValueCaptureType]: crate::model::change_stream_record::data_change_record::ValueCaptureType
+            pub old_values:
+                std::vec::Vec<crate::model::change_stream_record::data_change_record::ModValue>,
+
+            /// Returns the new values after the change for the modified columns.
+            /// Always empty for
+            /// [DELETE][google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModType.DELETE].
+            ///
+            /// [google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModType.DELETE]: crate::model::change_stream_record::data_change_record::ModType::Delete
+            pub new_values:
+                std::vec::Vec<crate::model::change_stream_record::data_change_record::ModValue>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Mod {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [keys][crate::model::change_stream_record::data_change_record::Mod::keys].
+            pub fn set_keys<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::change_stream_record::data_change_record::ModValue,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.keys = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [old_values][crate::model::change_stream_record::data_change_record::Mod::old_values].
+            pub fn set_old_values<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::change_stream_record::data_change_record::ModValue,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.old_values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [new_values][crate::model::change_stream_record::data_change_record::Mod::new_values].
+            pub fn set_new_values<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::change_stream_record::data_change_record::ModValue,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.new_values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Mod {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.DataChangeRecord.Mod"
+            }
+        }
+
+        /// Mod type describes the type of change Spanner applied to the data. For
+        /// example, if the client submits an INSERT_OR_UPDATE request, Spanner will
+        /// perform an insert if there is no existing row and return ModType INSERT.
+        /// Alternatively, if there is an existing row, Spanner will perform an
+        /// update and return ModType UPDATE.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ModType {
+            /// Not specified.
+            Unspecified,
+            /// Indicates data was inserted.
+            Insert,
+            /// Indicates existing data was updated.
+            Update,
+            /// Indicates existing data was deleted.
+            Delete,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ModType::value] or
+            /// [ModType::name].
+            UnknownValue(mod_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod mod_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ModType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Insert => std::option::Option::Some(10),
+                    Self::Update => std::option::Option::Some(20),
+                    Self::Delete => std::option::Option::Some(30),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("MOD_TYPE_UNSPECIFIED"),
+                    Self::Insert => std::option::Option::Some("INSERT"),
+                    Self::Update => std::option::Option::Some("UPDATE"),
+                    Self::Delete => std::option::Option::Some("DELETE"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ModType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ModType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ModType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    10 => Self::Insert,
+                    20 => Self::Update,
+                    30 => Self::Delete,
+                    _ => Self::UnknownValue(mod_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ModType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "MOD_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "INSERT" => Self::Insert,
+                    "UPDATE" => Self::Update,
+                    "DELETE" => Self::Delete,
+                    _ => Self::UnknownValue(mod_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ModType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Insert => serializer.serialize_i32(10),
+                    Self::Update => serializer.serialize_i32(20),
+                    Self::Delete => serializer.serialize_i32(30),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ModType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ModType>::new(
+                    ".google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ModType",
+                ))
+            }
+        }
+
+        /// Value capture type describes which values are recorded in the data
+        /// change record.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ValueCaptureType {
+            /// Not specified.
+            Unspecified,
+            /// Records both old and new values of the modified watched columns.
+            OldAndNewValues,
+            /// Records only new values of the modified watched columns.
+            NewValues,
+            /// Records new values of all watched columns, including modified and
+            /// unmodified columns.
+            NewRow,
+            /// Records the new values of all watched columns, including modified and
+            /// unmodified columns. Also records the old values of the modified
+            /// columns.
+            NewRowAndOldValues,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ValueCaptureType::value] or
+            /// [ValueCaptureType::name].
+            UnknownValue(value_capture_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod value_capture_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ValueCaptureType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::OldAndNewValues => std::option::Option::Some(10),
+                    Self::NewValues => std::option::Option::Some(20),
+                    Self::NewRow => std::option::Option::Some(30),
+                    Self::NewRowAndOldValues => std::option::Option::Some(40),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("VALUE_CAPTURE_TYPE_UNSPECIFIED")
+                    }
+                    Self::OldAndNewValues => std::option::Option::Some("OLD_AND_NEW_VALUES"),
+                    Self::NewValues => std::option::Option::Some("NEW_VALUES"),
+                    Self::NewRow => std::option::Option::Some("NEW_ROW"),
+                    Self::NewRowAndOldValues => std::option::Option::Some("NEW_ROW_AND_OLD_VALUES"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ValueCaptureType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ValueCaptureType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ValueCaptureType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    10 => Self::OldAndNewValues,
+                    20 => Self::NewValues,
+                    30 => Self::NewRow,
+                    40 => Self::NewRowAndOldValues,
+                    _ => Self::UnknownValue(value_capture_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ValueCaptureType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "VALUE_CAPTURE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "OLD_AND_NEW_VALUES" => Self::OldAndNewValues,
+                    "NEW_VALUES" => Self::NewValues,
+                    "NEW_ROW" => Self::NewRow,
+                    "NEW_ROW_AND_OLD_VALUES" => Self::NewRowAndOldValues,
+                    _ => Self::UnknownValue(value_capture_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ValueCaptureType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::OldAndNewValues => serializer.serialize_i32(10),
+                    Self::NewValues => serializer.serialize_i32(20),
+                    Self::NewRow => serializer.serialize_i32(30),
+                    Self::NewRowAndOldValues => serializer.serialize_i32(40),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ValueCaptureType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueCaptureType>::new(
+                    ".google.spanner.v1.ChangeStreamRecord.DataChangeRecord.ValueCaptureType",
+                ))
+            }
+        }
+    }
+
+    /// A heartbeat record is returned as a progress indicator, when there are no
+    /// data changes or any other partition record types in the change stream
+    /// partition.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct HeartbeatRecord {
+        /// Indicates the timestamp at which the query has returned all the records
+        /// in the change stream partition with timestamp <= heartbeat timestamp.
+        /// The heartbeat timestamp will not be the same as the timestamps of other
+        /// record types in the same partition.
+        pub timestamp: std::option::Option<wkt::Timestamp>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl HeartbeatRecord {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [timestamp][crate::model::change_stream_record::HeartbeatRecord::timestamp].
+        pub fn set_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timestamp][crate::model::change_stream_record::HeartbeatRecord::timestamp].
+        pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.timestamp = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for HeartbeatRecord {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.HeartbeatRecord"
+        }
+    }
+
+    /// A partition start record serves as a notification that the client should
+    /// schedule the partitions to be queried. PartitionStartRecord returns
+    /// information about one or more partitions.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PartitionStartRecord {
+        /// Start timestamp at which the partitions should be queried to return
+        /// change stream records with timestamps >= start_timestamp.
+        /// DataChangeRecord.commit_timestamps,
+        /// PartitionStartRecord.start_timestamps,
+        /// PartitionEventRecord.commit_timestamps, and
+        /// PartitionEndRecord.end_timestamps can have the same value in the same
+        /// partition.
+        pub start_timestamp: std::option::Option<wkt::Timestamp>,
+
+        /// Record sequence numbers are unique and monotonically increasing (but not
+        /// necessarily contiguous) for a specific timestamp across record
+        /// types in the same partition. To guarantee ordered processing, the reader
+        /// should process records (of potentially different types) in
+        /// record_sequence order for a specific timestamp in the same partition.
+        pub record_sequence: std::string::String,
+
+        /// Unique partition identifiers to be used in queries.
+        pub partition_tokens: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PartitionStartRecord {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_timestamp][crate::model::change_stream_record::PartitionStartRecord::start_timestamp].
+        pub fn set_start_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_timestamp][crate::model::change_stream_record::PartitionStartRecord::start_timestamp].
+        pub fn set_or_clear_start_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.start_timestamp = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [record_sequence][crate::model::change_stream_record::PartitionStartRecord::record_sequence].
+        pub fn set_record_sequence<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.record_sequence = v.into();
+            self
+        }
+
+        /// Sets the value of [partition_tokens][crate::model::change_stream_record::PartitionStartRecord::partition_tokens].
+        pub fn set_partition_tokens<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.partition_tokens = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PartitionStartRecord {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.PartitionStartRecord"
+        }
+    }
+
+    /// A partition end record serves as a notification that the client should stop
+    /// reading the partition. No further records are expected to be retrieved on
+    /// it.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PartitionEndRecord {
+        /// End timestamp at which the change stream partition is terminated. All
+        /// changes generated by this partition will have timestamps <=
+        /// end_timestamp. DataChangeRecord.commit_timestamps,
+        /// PartitionStartRecord.start_timestamps,
+        /// PartitionEventRecord.commit_timestamps, and
+        /// PartitionEndRecord.end_timestamps can have the same value in the same
+        /// partition. PartitionEndRecord is the last record returned for a
+        /// partition.
+        pub end_timestamp: std::option::Option<wkt::Timestamp>,
+
+        /// Record sequence numbers are unique and monotonically increasing (but not
+        /// necessarily contiguous) for a specific timestamp across record
+        /// types in the same partition. To guarantee ordered processing, the reader
+        /// should process records (of potentially different types) in
+        /// record_sequence order for a specific timestamp in the same partition.
+        pub record_sequence: std::string::String,
+
+        /// Unique partition identifier describing the terminated change stream
+        /// partition.
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEndRecord.partition_token]
+        /// is equal to the partition token of the change stream partition currently
+        /// queried to return this PartitionEndRecord.
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEndRecord.partition_token]: crate::model::change_stream_record::PartitionEndRecord::partition_token
+        pub partition_token: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PartitionEndRecord {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [end_timestamp][crate::model::change_stream_record::PartitionEndRecord::end_timestamp].
+        pub fn set_end_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_timestamp][crate::model::change_stream_record::PartitionEndRecord::end_timestamp].
+        pub fn set_or_clear_end_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.end_timestamp = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [record_sequence][crate::model::change_stream_record::PartitionEndRecord::record_sequence].
+        pub fn set_record_sequence<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.record_sequence = v.into();
+            self
+        }
+
+        /// Sets the value of [partition_token][crate::model::change_stream_record::PartitionEndRecord::partition_token].
+        pub fn set_partition_token<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.partition_token = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PartitionEndRecord {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.PartitionEndRecord"
+        }
+    }
+
+    /// A partition event record describes key range changes for a change stream
+    /// partition. The changes to a row defined by its primary key can be captured
+    /// in one change stream partition for a specific time range, and then be
+    /// captured in a different change stream partition for a different time range.
+    /// This movement of key ranges across change stream partitions is a reflection
+    /// of activities, such as Spanner's dynamic splitting and load balancing, etc.
+    /// Processing this event is needed if users want to guarantee processing of
+    /// the changes for any key in timestamp order. If time ordered processing of
+    /// changes for a primary key is not needed, this event can be ignored.
+    /// To guarantee time ordered processing for each primary key, if the event
+    /// describes move-ins, the reader of this partition needs to wait until the
+    /// readers of the source partitions have processed all records with timestamps
+    /// <= this PartitionEventRecord.commit_timestamp, before advancing beyond this
+    /// PartitionEventRecord. If the event describes move-outs, the reader can
+    /// notify the readers of the destination partitions that they can continue
+    /// processing.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PartitionEventRecord {
+        /// Indicates the commit timestamp at which the key range change occurred.
+        /// DataChangeRecord.commit_timestamps,
+        /// PartitionStartRecord.start_timestamps,
+        /// PartitionEventRecord.commit_timestamps, and
+        /// PartitionEndRecord.end_timestamps can have the same value in the same
+        /// partition.
+        pub commit_timestamp: std::option::Option<wkt::Timestamp>,
+
+        /// Record sequence numbers are unique and monotonically increasing (but not
+        /// necessarily contiguous) for a specific timestamp across record
+        /// types in the same partition. To guarantee ordered processing, the reader
+        /// should process records (of potentially different types) in
+        /// record_sequence order for a specific timestamp in the same partition.
+        pub record_sequence: std::string::String,
+
+        /// Unique partition identifier describing the partition this event
+        /// occurred on.
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]
+        /// is equal to the partition token of the change stream partition currently
+        /// queried to return this PartitionEventRecord.
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]: crate::model::change_stream_record::PartitionEventRecord::partition_token
+        pub partition_token: std::string::String,
+
+        /// Set when one or more key ranges are moved into the change stream
+        /// partition identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token].
+        ///
+        /// Example: Two key ranges are moved into partition (P1) from partition (P2)
+        /// and partition (P3) in a single transaction at timestamp T.
+        ///
+        /// The PartitionEventRecord returned in P1 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P1"
+        /// move_in_events {
+        /// source_partition_token: "P2"
+        /// }
+        /// move_in_events {
+        /// source_partition_token: "P3"
+        /// }
+        /// }
+        ///
+        /// The PartitionEventRecord returned in P2 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P2"
+        /// move_out_events {
+        /// destination_partition_token: "P1"
+        /// }
+        /// }
+        ///
+        /// The PartitionEventRecord returned in P3 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P3"
+        /// move_out_events {
+        /// destination_partition_token: "P1"
+        /// }
+        /// }
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]: crate::model::change_stream_record::PartitionEventRecord::partition_token
+        pub move_in_events:
+            std::vec::Vec<crate::model::change_stream_record::partition_event_record::MoveInEvent>,
+
+        /// Set when one or more key ranges are moved out of the change stream
+        /// partition identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token].
+        ///
+        /// Example: Two key ranges are moved out of partition (P1) to partition (P2)
+        /// and partition (P3) in a single transaction at timestamp T.
+        ///
+        /// The PartitionEventRecord returned in P1 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P1"
+        /// move_out_events {
+        /// destination_partition_token: "P2"
+        /// }
+        /// move_out_events {
+        /// destination_partition_token: "P3"
+        /// }
+        /// }
+        ///
+        /// The PartitionEventRecord returned in P2 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P2"
+        /// move_in_events {
+        /// source_partition_token: "P1"
+        /// }
+        /// }
+        ///
+        /// The PartitionEventRecord returned in P3 will reflect the move as:
+        ///
+        /// PartitionEventRecord {
+        /// commit_timestamp: T
+        /// partition_token: "P3"
+        /// move_in_events {
+        /// source_partition_token: "P1"
+        /// }
+        /// }
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]: crate::model::change_stream_record::PartitionEventRecord::partition_token
+        pub move_out_events:
+            std::vec::Vec<crate::model::change_stream_record::partition_event_record::MoveOutEvent>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PartitionEventRecord {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [commit_timestamp][crate::model::change_stream_record::PartitionEventRecord::commit_timestamp].
+        pub fn set_commit_timestamp<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.commit_timestamp = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [commit_timestamp][crate::model::change_stream_record::PartitionEventRecord::commit_timestamp].
+        pub fn set_or_clear_commit_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.commit_timestamp = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [record_sequence][crate::model::change_stream_record::PartitionEventRecord::record_sequence].
+        pub fn set_record_sequence<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.record_sequence = v.into();
+            self
+        }
+
+        /// Sets the value of [partition_token][crate::model::change_stream_record::PartitionEventRecord::partition_token].
+        pub fn set_partition_token<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.partition_token = v.into();
+            self
+        }
+
+        /// Sets the value of [move_in_events][crate::model::change_stream_record::PartitionEventRecord::move_in_events].
+        pub fn set_move_in_events<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::change_stream_record::partition_event_record::MoveInEvent,
+                >,
+        {
+            use std::iter::Iterator;
+            self.move_in_events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [move_out_events][crate::model::change_stream_record::PartitionEventRecord::move_out_events].
+        pub fn set_move_out_events<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::change_stream_record::partition_event_record::MoveOutEvent,
+                >,
+        {
+            use std::iter::Iterator;
+            self.move_out_events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PartitionEventRecord {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.PartitionEventRecord"
+        }
+    }
+
+    /// Defines additional types related to [PartitionEventRecord].
+    pub mod partition_event_record {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Describes move-in of the key ranges into the change stream partition
+        /// identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token].
+        ///
+        /// To maintain processing the changes for a particular key in timestamp
+        /// order, the query processing the change stream partition identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]
+        /// should not advance beyond the partition event record commit timestamp
+        /// until the queries processing the source change stream partitions have
+        /// processed all change stream records with timestamps <= the partition
+        /// event record commit timestamp.
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]: crate::model::change_stream_record::PartitionEventRecord::partition_token
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MoveInEvent {
+            /// An unique partition identifier describing the source change stream
+            /// partition that recorded changes for the key range that is moving
+            /// into this partition.
+            pub source_partition_token: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MoveInEvent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [source_partition_token][crate::model::change_stream_record::partition_event_record::MoveInEvent::source_partition_token].
+            pub fn set_source_partition_token<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.source_partition_token = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MoveInEvent {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.MoveInEvent"
+            }
+        }
+
+        /// Describes move-out of the key ranges out of the change stream partition
+        /// identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token].
+        ///
+        /// To maintain processing the changes for a particular key in timestamp
+        /// order, the query processing the
+        /// [MoveOutEvent][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.MoveOutEvent]
+        /// in the partition identified by
+        /// [partition_token][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]
+        /// should inform the queries processing the destination partitions that
+        /// they can unblock and proceed processing records past the
+        /// [commit_timestamp][google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.commit_timestamp].
+        ///
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.MoveOutEvent]: crate::model::change_stream_record::partition_event_record::MoveOutEvent
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.commit_timestamp]: crate::model::change_stream_record::PartitionEventRecord::commit_timestamp
+        /// [google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.partition_token]: crate::model::change_stream_record::PartitionEventRecord::partition_token
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MoveOutEvent {
+            /// An unique partition identifier describing the destination change
+            /// stream partition that will record changes for the key range that is
+            /// moving out of this partition.
+            pub destination_partition_token: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MoveOutEvent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [destination_partition_token][crate::model::change_stream_record::partition_event_record::MoveOutEvent::destination_partition_token].
+            pub fn set_destination_partition_token<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.destination_partition_token = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MoveOutEvent {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.spanner.v1.ChangeStreamRecord.PartitionEventRecord.MoveOutEvent"
+            }
+        }
+    }
+
+    /// One of the change stream subrecords.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Record {
+        /// Data change record describing a data change for a change stream
+        /// partition.
+        DataChangeRecord(std::boxed::Box<crate::model::change_stream_record::DataChangeRecord>),
+        /// Heartbeat record describing a heartbeat for a change stream partition.
+        HeartbeatRecord(std::boxed::Box<crate::model::change_stream_record::HeartbeatRecord>),
+        /// Partition start record describing a new change stream partition.
+        PartitionStartRecord(
+            std::boxed::Box<crate::model::change_stream_record::PartitionStartRecord>,
+        ),
+        /// Partition end record describing a terminated change stream partition.
+        PartitionEndRecord(std::boxed::Box<crate::model::change_stream_record::PartitionEndRecord>),
+        /// Partition event record describing key range changes for a change stream
+        /// partition.
+        PartitionEventRecord(
+            std::boxed::Box<crate::model::change_stream_record::PartitionEventRecord>,
+        ),
+    }
+
+    impl Record {
+        /// Initializes the enum to the [DataChangeRecord](Self::DataChangeRecord) branch.
+        pub fn from_data_change_record(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::DataChangeRecord>,
+            >,
+        ) -> Self {
+            Self::DataChangeRecord(value.into())
+        }
+        /// Initializes the enum to the [HeartbeatRecord](Self::HeartbeatRecord) branch.
+        pub fn from_heartbeat_record(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::HeartbeatRecord>,
+            >,
+        ) -> Self {
+            Self::HeartbeatRecord(value.into())
+        }
+        /// Initializes the enum to the [PartitionStartRecord](Self::PartitionStartRecord) branch.
+        pub fn from_partition_start_record(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::PartitionStartRecord>,
+            >,
+        ) -> Self {
+            Self::PartitionStartRecord(value.into())
+        }
+        /// Initializes the enum to the [PartitionEndRecord](Self::PartitionEndRecord) branch.
+        pub fn from_partition_end_record(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::PartitionEndRecord>,
+            >,
+        ) -> Self {
+            Self::PartitionEndRecord(value.into())
+        }
+        /// Initializes the enum to the [PartitionEventRecord](Self::PartitionEventRecord) branch.
+        pub fn from_partition_event_record(
+            value: impl std::convert::Into<
+                std::boxed::Box<crate::model::change_stream_record::PartitionEventRecord>,
+            >,
+        ) -> Self {
+            Self::PartitionEventRecord(value.into())
+        }
+    }
+}
+
 /// The response for [Commit][google.spanner.v1.Spanner.Commit].
 ///
 /// [google.spanner.v1.Spanner.Commit]: crate::client::Spanner::commit
@@ -3942,6 +5489,110 @@ impl wkt::message::Message for CreateSessionRequest {
     }
 }
 
+/// The request for
+/// [BatchCreateSessions][google.spanner.v1.Spanner.BatchCreateSessions].
+///
+/// [google.spanner.v1.Spanner.BatchCreateSessions]: crate::client::Spanner::batch_create_sessions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchCreateSessionsRequest {
+    /// Required. The database in which the new sessions are created.
+    pub database: std::string::String,
+
+    /// Parameters to apply to each created session.
+    pub session_template: std::option::Option<crate::model::Session>,
+
+    /// Required. The number of sessions to be created in this batch call. At least
+    /// one session is created. The API can return fewer than the requested number
+    /// of sessions. If a specific number of sessions are desired, the client can
+    /// make additional calls to `BatchCreateSessions` (adjusting
+    /// [session_count][google.spanner.v1.BatchCreateSessionsRequest.session_count]
+    /// as necessary).
+    ///
+    /// [google.spanner.v1.BatchCreateSessionsRequest.session_count]: crate::model::BatchCreateSessionsRequest::session_count
+    pub session_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchCreateSessionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::BatchCreateSessionsRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [session_template][crate::model::BatchCreateSessionsRequest::session_template].
+    pub fn set_session_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Session>,
+    {
+        self.session_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [session_template][crate::model::BatchCreateSessionsRequest::session_template].
+    pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Session>,
+    {
+        self.session_template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [session_count][crate::model::BatchCreateSessionsRequest::session_count].
+    pub fn set_session_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.session_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchCreateSessionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.BatchCreateSessionsRequest"
+    }
+}
+
+/// The response for
+/// [BatchCreateSessions][google.spanner.v1.Spanner.BatchCreateSessions].
+///
+/// [google.spanner.v1.Spanner.BatchCreateSessions]: crate::client::Spanner::batch_create_sessions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchCreateSessionsResponse {
+    /// The freshly created sessions.
+    pub session: std::vec::Vec<crate::model::Session>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchCreateSessionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session][crate::model::BatchCreateSessionsResponse::session].
+    pub fn set_session<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Session>,
+    {
+        use std::iter::Iterator;
+        self.session = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchCreateSessionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.BatchCreateSessionsResponse"
+    }
+}
+
 /// A session in the Cloud Spanner API.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4061,6 +5712,201 @@ impl Session {
 impl wkt::message::Message for Session {
     fn typename() -> &'static str {
         "type.googleapis.com/google.spanner.v1.Session"
+    }
+}
+
+/// The request for [GetSession][google.spanner.v1.Spanner.GetSession].
+///
+/// [google.spanner.v1.Spanner.GetSession]: crate::client::Spanner::get_session
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSessionRequest {
+    /// Required. The name of the session to retrieve.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSessionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.GetSessionRequest"
+    }
+}
+
+/// The request for [ListSessions][google.spanner.v1.Spanner.ListSessions].
+///
+/// [google.spanner.v1.Spanner.ListSessions]: crate::client::Spanner::list_sessions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSessionsRequest {
+    /// Required. The database in which to list sessions.
+    pub database: std::string::String,
+
+    /// Number of sessions to be returned in the response. If 0 or less, defaults
+    /// to the server's maximum allowed page size.
+    pub page_size: i32,
+
+    /// If non-empty, `page_token` should contain a
+    /// [next_page_token][google.spanner.v1.ListSessionsResponse.next_page_token]
+    /// from a previous
+    /// [ListSessionsResponse][google.spanner.v1.ListSessionsResponse].
+    ///
+    /// [google.spanner.v1.ListSessionsResponse]: crate::model::ListSessionsResponse
+    /// [google.spanner.v1.ListSessionsResponse.next_page_token]: crate::model::ListSessionsResponse::next_page_token
+    pub page_token: std::string::String,
+
+    /// An expression for filtering the results of the request. Filter rules are
+    /// case insensitive. The fields eligible for filtering are:
+    ///
+    /// * `labels.key` where key is the name of a label
+    ///
+    /// Some examples of using filters are:
+    ///
+    /// * `labels.env:*` --> The session has the label "env".
+    /// * `labels.env:dev` --> The session has the label "env" and the value of
+    ///   the label contains the string "dev".
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSessionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::ListSessionsRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSessionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSessionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSessionsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSessionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.ListSessionsRequest"
+    }
+}
+
+/// The response for [ListSessions][google.spanner.v1.Spanner.ListSessions].
+///
+/// [google.spanner.v1.Spanner.ListSessions]: crate::client::Spanner::list_sessions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSessionsResponse {
+    /// The list of requested sessions.
+    pub sessions: std::vec::Vec<crate::model::Session>,
+
+    /// `next_page_token` can be sent in a subsequent
+    /// [ListSessions][google.spanner.v1.Spanner.ListSessions] call to fetch more
+    /// of the matching sessions.
+    ///
+    /// [google.spanner.v1.Spanner.ListSessions]: crate::client::Spanner::list_sessions
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSessionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sessions][crate::model::ListSessionsResponse::sessions].
+    pub fn set_sessions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Session>,
+    {
+        use std::iter::Iterator;
+        self.sessions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSessionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSessionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.ListSessionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSessionsResponse {
+    type PageItem = crate::model::Session;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.sessions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request for [DeleteSession][google.spanner.v1.Spanner.DeleteSession].
+///
+/// [google.spanner.v1.Spanner.DeleteSession]: crate::client::Spanner::delete_session
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSessionRequest {
+    /// Required. The name of the session to delete.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.DeleteSessionRequest"
     }
 }
 
@@ -5345,6 +7191,794 @@ pub mod execute_sql_request {
     }
 }
 
+/// The request for [ExecuteBatchDml][google.spanner.v1.Spanner.ExecuteBatchDml].
+///
+/// [google.spanner.v1.Spanner.ExecuteBatchDml]: crate::client::Spanner::execute_batch_dml
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteBatchDmlRequest {
+    /// Required. The session in which the DML statements should be performed.
+    pub session: std::string::String,
+
+    /// Required. The transaction to use. Must be a read-write transaction.
+    ///
+    /// To protect against replays, single-use transactions are not supported. The
+    /// caller must either supply an existing transaction ID or begin a new
+    /// transaction.
+    pub transaction: std::option::Option<crate::model::TransactionSelector>,
+
+    /// Required. The list of statements to execute in this batch. Statements are
+    /// executed serially, such that the effects of statement `i` are visible to
+    /// statement `i+1`. Each statement must be a DML statement. Execution stops at
+    /// the first failed statement; the remaining statements are not executed.
+    ///
+    /// Callers must provide at least one statement.
+    pub statements: std::vec::Vec<crate::model::execute_batch_dml_request::Statement>,
+
+    /// Required. A per-transaction sequence number used to identify this request.
+    /// This field makes each request idempotent such that if the request is
+    /// received multiple times, at most one succeeds.
+    ///
+    /// The sequence number must be monotonically increasing within the
+    /// transaction. If a request arrives for the first time with an out-of-order
+    /// sequence number, the transaction might be aborted. Replays of previously
+    /// handled requests yield the same response as the first execution.
+    pub seqno: i64,
+
+    /// Common options for this request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
+    /// Optional. If set to `true`, this request marks the end of the transaction.
+    /// After these statements execute, you must commit or abort the transaction.
+    /// Attempts to execute any other requests against this transaction
+    /// (including reads and queries) are rejected.
+    ///
+    /// Setting this option might cause some error reporting to be deferred until
+    /// commit time (for example, validation of unique constraints). Given this,
+    /// successful execution of statements shouldn't be assumed until a subsequent
+    /// `Commit` call completes successfully.
+    pub last_statements: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteBatchDmlRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session][crate::model::ExecuteBatchDmlRequest::session].
+    pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session = v.into();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::ExecuteBatchDmlRequest::transaction].
+    pub fn set_transaction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction][crate::model::ExecuteBatchDmlRequest::transaction].
+    pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [statements][crate::model::ExecuteBatchDmlRequest::statements].
+    pub fn set_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::execute_batch_dml_request::Statement>,
+    {
+        use std::iter::Iterator;
+        self.statements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [seqno][crate::model::ExecuteBatchDmlRequest::seqno].
+    pub fn set_seqno<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.seqno = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::ExecuteBatchDmlRequest::request_options].
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::ExecuteBatchDmlRequest::request_options].
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_statements][crate::model::ExecuteBatchDmlRequest::last_statements].
+    pub fn set_last_statements<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.last_statements = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteBatchDmlRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.ExecuteBatchDmlRequest"
+    }
+}
+
+/// Defines additional types related to [ExecuteBatchDmlRequest].
+pub mod execute_batch_dml_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A single DML statement.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Statement {
+        /// Required. The DML string.
+        pub sql: std::string::String,
+
+        /// Parameter names and values that bind to placeholders in the DML string.
+        ///
+        /// A parameter placeholder consists of the `@` character followed by the
+        /// parameter name (for example, `@firstName`). Parameter names can contain
+        /// letters, numbers, and underscores.
+        ///
+        /// Parameters can appear anywhere that a literal value is expected. The
+        /// same parameter name can be used more than once, for example:
+        ///
+        /// `"WHERE id > @msg_id AND id < @msg_id + 100"`
+        ///
+        /// It's an error to execute a SQL statement with unbound parameters.
+        pub params: std::option::Option<wkt::Struct>,
+
+        /// It isn't always possible for Cloud Spanner to infer the right SQL type
+        /// from a JSON value. For example, values of type `BYTES` and values
+        /// of type `STRING` both appear in
+        /// [params][google.spanner.v1.ExecuteBatchDmlRequest.Statement.params] as
+        /// JSON strings.
+        ///
+        /// In these cases, `param_types` can be used to specify the exact
+        /// SQL type for some or all of the SQL statement parameters. See the
+        /// definition of [Type][google.spanner.v1.Type] for more information
+        /// about SQL types.
+        ///
+        /// [google.spanner.v1.ExecuteBatchDmlRequest.Statement.params]: crate::model::execute_batch_dml_request::Statement::params
+        /// [google.spanner.v1.Type]: crate::model::Type
+        pub param_types: std::collections::HashMap<std::string::String, crate::model::Type>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Statement {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [sql][crate::model::execute_batch_dml_request::Statement::sql].
+        pub fn set_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.sql = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::execute_batch_dml_request::Statement::params].
+        pub fn set_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [params][crate::model::execute_batch_dml_request::Statement::params].
+        pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [param_types][crate::model::execute_batch_dml_request::Statement::param_types].
+        pub fn set_param_types<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::Type>,
+        {
+            use std::iter::Iterator;
+            self.param_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Statement {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.ExecuteBatchDmlRequest.Statement"
+        }
+    }
+}
+
+/// The response for
+/// [ExecuteBatchDml][google.spanner.v1.Spanner.ExecuteBatchDml]. Contains a list
+/// of [ResultSet][google.spanner.v1.ResultSet] messages, one for each DML
+/// statement that has successfully executed, in the same order as the statements
+/// in the request. If a statement fails, the status in the response body
+/// identifies the cause of the failure.
+///
+/// To check for DML statements that failed, use the following approach:
+///
+/// 1. Check the status in the response message. The
+///    [google.rpc.Code][google.rpc.Code] enum
+///    value `OK` indicates that all statements were executed successfully.
+/// 1. If the status was not `OK`, check the number of result sets in the
+///    response. If the response contains `N`
+///    [ResultSet][google.spanner.v1.ResultSet] messages, then statement `N+1` in
+///    the request failed.
+///
+/// Example 1:
+///
+/// * Request: 5 DML statements, all executed successfully.
+/// * Response: 5 [ResultSet][google.spanner.v1.ResultSet] messages, with the
+///   status `OK`.
+///
+/// Example 2:
+///
+/// * Request: 5 DML statements. The third statement has a syntax error.
+/// * Response: 2 [ResultSet][google.spanner.v1.ResultSet] messages, and a syntax
+///   error (`INVALID_ARGUMENT`)
+///   status. The number of [ResultSet][google.spanner.v1.ResultSet] messages
+///   indicates that the third statement failed, and the fourth and fifth
+///   statements were not executed.
+///
+/// [google.spanner.v1.ResultSet]: crate::model::ResultSet
+/// [google.spanner.v1.Spanner.ExecuteBatchDml]: crate::client::Spanner::execute_batch_dml
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteBatchDmlResponse {
+    /// One [ResultSet][google.spanner.v1.ResultSet] for each statement in the
+    /// request that ran successfully, in the same order as the statements in the
+    /// request. Each [ResultSet][google.spanner.v1.ResultSet] does not contain any
+    /// rows. The [ResultSetStats][google.spanner.v1.ResultSetStats] in each
+    /// [ResultSet][google.spanner.v1.ResultSet] contain the number of rows
+    /// modified by the statement.
+    ///
+    /// Only the first [ResultSet][google.spanner.v1.ResultSet] in the response
+    /// contains valid [ResultSetMetadata][google.spanner.v1.ResultSetMetadata].
+    ///
+    /// [google.spanner.v1.ResultSet]: crate::model::ResultSet
+    /// [google.spanner.v1.ResultSetMetadata]: crate::model::ResultSetMetadata
+    /// [google.spanner.v1.ResultSetStats]: crate::model::ResultSetStats
+    pub result_sets: std::vec::Vec<crate::model::ResultSet>,
+
+    /// If all DML statements are executed successfully, the status is `OK`.
+    /// Otherwise, the error status of the first failed statement.
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Optional. A precommit token is included if the read-write transaction
+    /// is on a multiplexed session. Pass the precommit token with the highest
+    /// sequence number from this transaction attempt should be passed to the
+    /// [Commit][google.spanner.v1.Spanner.Commit] request for this transaction.
+    ///
+    /// [google.spanner.v1.Spanner.Commit]: crate::client::Spanner::commit
+    pub precommit_token: std::option::Option<crate::model::MultiplexedSessionPrecommitToken>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteBatchDmlResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [result_sets][crate::model::ExecuteBatchDmlResponse::result_sets].
+    pub fn set_result_sets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResultSet>,
+    {
+        use std::iter::Iterator;
+        self.result_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::ExecuteBatchDmlResponse::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::ExecuteBatchDmlResponse::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [precommit_token][crate::model::ExecuteBatchDmlResponse::precommit_token].
+    pub fn set_precommit_token<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiplexedSessionPrecommitToken>,
+    {
+        self.precommit_token = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [precommit_token][crate::model::ExecuteBatchDmlResponse::precommit_token].
+    pub fn set_or_clear_precommit_token<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MultiplexedSessionPrecommitToken>,
+    {
+        self.precommit_token = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteBatchDmlResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.ExecuteBatchDmlResponse"
+    }
+}
+
+/// Options for a `PartitionQueryRequest` and `PartitionReadRequest`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartitionOptions {
+    /// **Note:** This hint is currently ignored by `PartitionQuery` and
+    /// `PartitionRead` requests.
+    ///
+    /// The desired data size for each partition generated. The default for this
+    /// option is currently 1 GiB. This is only a hint. The actual size of each
+    /// partition can be smaller or larger than this size request.
+    pub partition_size_bytes: i64,
+
+    /// **Note:** This hint is currently ignored by `PartitionQuery` and
+    /// `PartitionRead` requests.
+    ///
+    /// The desired maximum number of partitions to return. For example, this
+    /// might be set to the number of workers available. The default for this
+    /// option is currently 10,000. The maximum value is currently 200,000. This
+    /// is only a hint. The actual number of partitions returned can be smaller or
+    /// larger than this maximum count request.
+    pub max_partitions: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartitionOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partition_size_bytes][crate::model::PartitionOptions::partition_size_bytes].
+    pub fn set_partition_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.partition_size_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [max_partitions][crate::model::PartitionOptions::max_partitions].
+    pub fn set_max_partitions<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_partitions = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartitionOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.PartitionOptions"
+    }
+}
+
+/// The request for [PartitionQuery][google.spanner.v1.Spanner.PartitionQuery]
+///
+/// [google.spanner.v1.Spanner.PartitionQuery]: crate::client::Spanner::partition_query
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartitionQueryRequest {
+    /// Required. The session used to create the partitions.
+    pub session: std::string::String,
+
+    /// Read-only snapshot transactions are supported, read and write and
+    /// single-use transactions are not.
+    pub transaction: std::option::Option<crate::model::TransactionSelector>,
+
+    /// Required. The query request to generate partitions for. The request fails
+    /// if the query isn't root partitionable. For a query to be root
+    /// partitionable, it needs to satisfy a few conditions. For example, if the
+    /// query execution plan contains a distributed union operator, then it must be
+    /// the first operator in the plan. For more information about other
+    /// conditions, see [Read data in
+    /// parallel](https://cloud.google.com/spanner/docs/reads#read_data_in_parallel).
+    ///
+    /// The query request must not contain DML commands, such as `INSERT`,
+    /// `UPDATE`, or `DELETE`. Use
+    /// [`ExecuteStreamingSql`][google.spanner.v1.Spanner.ExecuteStreamingSql] with
+    /// a `PartitionedDml` transaction for large, partition-friendly DML
+    /// operations.
+    pub sql: std::string::String,
+
+    /// Optional. Parameter names and values that bind to placeholders in the SQL
+    /// string.
+    ///
+    /// A parameter placeholder consists of the `@` character followed by the
+    /// parameter name (for example, `@firstName`). Parameter names can contain
+    /// letters, numbers, and underscores.
+    ///
+    /// Parameters can appear anywhere that a literal value is expected. The same
+    /// parameter name can be used more than once, for example:
+    ///
+    /// `"WHERE id > @msg_id AND id < @msg_id + 100"`
+    ///
+    /// It's an error to execute a SQL statement with unbound parameters.
+    pub params: std::option::Option<wkt::Struct>,
+
+    /// Optional. It isn't always possible for Cloud Spanner to infer the right SQL
+    /// type from a JSON value. For example, values of type `BYTES` and values of
+    /// type `STRING` both appear in
+    /// [params][google.spanner.v1.PartitionQueryRequest.params] as JSON strings.
+    ///
+    /// In these cases, `param_types` can be used to specify the exact
+    /// SQL type for some or all of the SQL query parameters. See the
+    /// definition of [Type][google.spanner.v1.Type] for more information
+    /// about SQL types.
+    ///
+    /// [google.spanner.v1.PartitionQueryRequest.params]: crate::model::PartitionQueryRequest::params
+    /// [google.spanner.v1.Type]: crate::model::Type
+    pub param_types: std::collections::HashMap<std::string::String, crate::model::Type>,
+
+    /// Additional options that affect how many partitions are created.
+    pub partition_options: std::option::Option<crate::model::PartitionOptions>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartitionQueryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session][crate::model::PartitionQueryRequest::session].
+    pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session = v.into();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::PartitionQueryRequest::transaction].
+    pub fn set_transaction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction][crate::model::PartitionQueryRequest::transaction].
+    pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [sql][crate::model::PartitionQueryRequest::sql].
+    pub fn set_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sql = v.into();
+        self
+    }
+
+    /// Sets the value of [params][crate::model::PartitionQueryRequest::params].
+    pub fn set_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [params][crate::model::PartitionQueryRequest::params].
+    pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [param_types][crate::model::PartitionQueryRequest::param_types].
+    pub fn set_param_types<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Type>,
+    {
+        use std::iter::Iterator;
+        self.param_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [partition_options][crate::model::PartitionQueryRequest::partition_options].
+    pub fn set_partition_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartitionOptions>,
+    {
+        self.partition_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [partition_options][crate::model::PartitionQueryRequest::partition_options].
+    pub fn set_or_clear_partition_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartitionOptions>,
+    {
+        self.partition_options = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PartitionQueryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.PartitionQueryRequest"
+    }
+}
+
+/// The request for [PartitionRead][google.spanner.v1.Spanner.PartitionRead]
+///
+/// [google.spanner.v1.Spanner.PartitionRead]: crate::client::Spanner::partition_read
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartitionReadRequest {
+    /// Required. The session used to create the partitions.
+    pub session: std::string::String,
+
+    /// Read only snapshot transactions are supported, read/write and single use
+    /// transactions are not.
+    pub transaction: std::option::Option<crate::model::TransactionSelector>,
+
+    /// Required. The name of the table in the database to be read.
+    pub table: std::string::String,
+
+    /// If non-empty, the name of an index on
+    /// [table][google.spanner.v1.PartitionReadRequest.table]. This index is used
+    /// instead of the table primary key when interpreting
+    /// [key_set][google.spanner.v1.PartitionReadRequest.key_set] and sorting
+    /// result rows. See [key_set][google.spanner.v1.PartitionReadRequest.key_set]
+    /// for further information.
+    ///
+    /// [google.spanner.v1.PartitionReadRequest.key_set]: crate::model::PartitionReadRequest::key_set
+    /// [google.spanner.v1.PartitionReadRequest.table]: crate::model::PartitionReadRequest::table
+    pub index: std::string::String,
+
+    /// The columns of [table][google.spanner.v1.PartitionReadRequest.table] to be
+    /// returned for each row matching this request.
+    ///
+    /// [google.spanner.v1.PartitionReadRequest.table]: crate::model::PartitionReadRequest::table
+    pub columns: std::vec::Vec<std::string::String>,
+
+    /// Required. `key_set` identifies the rows to be yielded. `key_set` names the
+    /// primary keys of the rows in
+    /// [table][google.spanner.v1.PartitionReadRequest.table] to be yielded, unless
+    /// [index][google.spanner.v1.PartitionReadRequest.index] is present. If
+    /// [index][google.spanner.v1.PartitionReadRequest.index] is present, then
+    /// [key_set][google.spanner.v1.PartitionReadRequest.key_set] instead names
+    /// index keys in [index][google.spanner.v1.PartitionReadRequest.index].
+    ///
+    /// It isn't an error for the `key_set` to name rows that don't
+    /// exist in the database. Read yields nothing for nonexistent rows.
+    ///
+    /// [google.spanner.v1.PartitionReadRequest.index]: crate::model::PartitionReadRequest::index
+    /// [google.spanner.v1.PartitionReadRequest.key_set]: crate::model::PartitionReadRequest::key_set
+    /// [google.spanner.v1.PartitionReadRequest.table]: crate::model::PartitionReadRequest::table
+    pub key_set: std::option::Option<crate::model::KeySet>,
+
+    /// Additional options that affect how many partitions are created.
+    pub partition_options: std::option::Option<crate::model::PartitionOptions>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartitionReadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session][crate::model::PartitionReadRequest::session].
+    pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session = v.into();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::PartitionReadRequest::transaction].
+    pub fn set_transaction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction][crate::model::PartitionReadRequest::transaction].
+    pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransactionSelector>,
+    {
+        self.transaction = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [table][crate::model::PartitionReadRequest::table].
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [index][crate::model::PartitionReadRequest::index].
+    pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.index = v.into();
+        self
+    }
+
+    /// Sets the value of [columns][crate::model::PartitionReadRequest::columns].
+    pub fn set_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [key_set][crate::model::PartitionReadRequest::key_set].
+    pub fn set_key_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::KeySet>,
+    {
+        self.key_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [key_set][crate::model::PartitionReadRequest::key_set].
+    pub fn set_or_clear_key_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::KeySet>,
+    {
+        self.key_set = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [partition_options][crate::model::PartitionReadRequest::partition_options].
+    pub fn set_partition_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartitionOptions>,
+    {
+        self.partition_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [partition_options][crate::model::PartitionReadRequest::partition_options].
+    pub fn set_or_clear_partition_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartitionOptions>,
+    {
+        self.partition_options = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PartitionReadRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.PartitionReadRequest"
+    }
+}
+
+/// Information returned for each partition returned in a
+/// PartitionResponse.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Partition {
+    /// This token can be passed to `Read`, `StreamingRead`, `ExecuteSql`, or
+    /// `ExecuteStreamingSql` requests to restrict the results to those identified
+    /// by this partition token.
+    pub partition_token: ::bytes::Bytes,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Partition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partition_token][crate::model::Partition::partition_token].
+    pub fn set_partition_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.partition_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Partition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.Partition"
+    }
+}
+
+/// The response for [PartitionQuery][google.spanner.v1.Spanner.PartitionQuery]
+/// or [PartitionRead][google.spanner.v1.Spanner.PartitionRead]
+///
+/// [google.spanner.v1.Spanner.PartitionQuery]: crate::client::Spanner::partition_query
+/// [google.spanner.v1.Spanner.PartitionRead]: crate::client::Spanner::partition_read
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartitionResponse {
+    /// Partitions created by this request.
+    pub partitions: std::vec::Vec<crate::model::Partition>,
+
+    /// Transaction created by this request.
+    pub transaction: std::option::Option<crate::model::Transaction>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartitionResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partitions][crate::model::PartitionResponse::partitions].
+    pub fn set_partitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Partition>,
+    {
+        use std::iter::Iterator;
+        self.partitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::PartitionResponse::transaction].
+    pub fn set_transaction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Transaction>,
+    {
+        self.transaction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [transaction][crate::model::PartitionResponse::transaction].
+    pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Transaction>,
+    {
+        self.transaction = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PartitionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.PartitionResponse"
+    }
+}
+
 /// The request for [Read][google.spanner.v1.Spanner.Read] and
 /// [StreamingRead][google.spanner.v1.Spanner.StreamingRead].
 ///
@@ -6325,6 +8959,206 @@ impl RollbackRequest {
 impl wkt::message::Message for RollbackRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.spanner.v1.RollbackRequest"
+    }
+}
+
+/// The request for [BatchWrite][google.spanner.v1.Spanner.BatchWrite].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchWriteRequest {
+    /// Required. The session in which the batch request is to be run.
+    pub session: std::string::String,
+
+    /// Common options for this request.
+    pub request_options: std::option::Option<crate::model::RequestOptions>,
+
+    /// Required. The groups of mutations to be applied.
+    pub mutation_groups: std::vec::Vec<crate::model::batch_write_request::MutationGroup>,
+
+    /// Optional. If you don't set the `exclude_txn_from_change_streams` option or
+    /// if it's set to `false`, then any change streams monitoring columns modified
+    /// by transactions will capture the updates made within that transaction.
+    pub exclude_txn_from_change_streams: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchWriteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [session][crate::model::BatchWriteRequest::session].
+    pub fn set_session<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session = v.into();
+        self
+    }
+
+    /// Sets the value of [request_options][crate::model::BatchWriteRequest::request_options].
+    pub fn set_request_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_options][crate::model::BatchWriteRequest::request_options].
+    pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RequestOptions>,
+    {
+        self.request_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mutation_groups][crate::model::BatchWriteRequest::mutation_groups].
+    pub fn set_mutation_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::batch_write_request::MutationGroup>,
+    {
+        use std::iter::Iterator;
+        self.mutation_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [exclude_txn_from_change_streams][crate::model::BatchWriteRequest::exclude_txn_from_change_streams].
+    pub fn set_exclude_txn_from_change_streams<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.exclude_txn_from_change_streams = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchWriteRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.BatchWriteRequest"
+    }
+}
+
+/// Defines additional types related to [BatchWriteRequest].
+pub mod batch_write_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A group of mutations to be committed together. Related mutations should be
+    /// placed in a group. For example, two mutations inserting rows with the same
+    /// primary key prefix in both parent and child tables are related.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MutationGroup {
+        /// Required. The mutations in this group.
+        pub mutations: std::vec::Vec<crate::model::Mutation>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MutationGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mutations][crate::model::batch_write_request::MutationGroup::mutations].
+        pub fn set_mutations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Mutation>,
+        {
+            use std::iter::Iterator;
+            self.mutations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MutationGroup {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.v1.BatchWriteRequest.MutationGroup"
+        }
+    }
+}
+
+/// The result of applying a batch of mutations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchWriteResponse {
+    /// The mutation groups applied in this batch. The values index into the
+    /// `mutation_groups` field in the corresponding `BatchWriteRequest`.
+    pub indexes: std::vec::Vec<i32>,
+
+    /// An `OK` status indicates success. Any other status indicates a failure.
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// The commit timestamp of the transaction that applied this batch.
+    /// Present if status is OK and the mutation groups were applied, absent
+    /// otherwise.
+    ///
+    /// For mutation groups with conditions, a status=OK and missing
+    /// commit_timestamp means that the mutation groups were not applied due to the
+    /// condition not being satisfied after evaluation.
+    pub commit_timestamp: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchWriteResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [indexes][crate::model::BatchWriteResponse::indexes].
+    pub fn set_indexes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.indexes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::BatchWriteResponse::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::BatchWriteResponse::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [commit_timestamp][crate::model::BatchWriteResponse::commit_timestamp].
+    pub fn set_commit_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.commit_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [commit_timestamp][crate::model::BatchWriteResponse::commit_timestamp].
+    pub fn set_or_clear_commit_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.commit_timestamp = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BatchWriteResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.v1.BatchWriteResponse"
     }
 }
 

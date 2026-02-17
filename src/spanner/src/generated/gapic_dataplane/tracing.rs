@@ -47,12 +47,57 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn batch_create_sessions(
+        &self,
+        req: crate::model::BatchCreateSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
+        self.inner.batch_create_sessions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_session(
+        &self,
+        req: crate::model::GetSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
+        self.inner.get_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_sessions(
+        &self,
+        req: crate::model::ListSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
+        self.inner.list_sessions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_session(
+        &self,
+        req: crate::model::DeleteSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ResultSet>> {
         self.inner.execute_sql(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn execute_batch_dml(
+        &self,
+        req: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
+        self.inner.execute_batch_dml(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -89,5 +134,23 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
         self.inner.rollback(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn partition_query(
+        &self,
+        req: crate::model::PartitionQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartitionResponse>> {
+        self.inner.partition_query(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn partition_read(
+        &self,
+        req: crate::model::PartitionReadRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartitionResponse>> {
+        self.inner.partition_read(req, options).await
     }
 }

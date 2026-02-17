@@ -28,6 +28,328 @@ impl gaxi::prost::ToProto<TypeAnnotationCode> for crate::generated::gapic_datapl
     }
 }
 
+impl gaxi::prost::ToProto<change_stream_record::data_change_record::ColumnMetadata> for crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata {
+    type Output = change_stream_record::data_change_record::ColumnMetadata;
+    fn to_proto(self) -> std::result::Result<change_stream_record::data_change_record::ColumnMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            r#type: self.r#type.map(|v| v.to_proto()).transpose()?,
+            is_primary_key: self.is_primary_key.to_proto()?,
+            ordinal_position: self.ordinal_position.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata> for change_stream_record::data_change_record::ColumnMetadata {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata::new()
+                .set_name(self.name)
+                .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
+                .set_is_primary_key(self.is_primary_key)
+                .set_ordinal_position(self.ordinal_position)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::data_change_record::ModValue> for crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue {
+    type Output = change_stream_record::data_change_record::ModValue;
+    fn to_proto(self) -> std::result::Result<change_stream_record::data_change_record::ModValue, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            column_metadata_index: self.column_metadata_index.to_proto()?,
+            value: self.value.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue> for change_stream_record::data_change_record::ModValue {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue::new()
+                .set_column_metadata_index(self.column_metadata_index)
+                .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::data_change_record::Mod> for crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod {
+    type Output = change_stream_record::data_change_record::Mod;
+    fn to_proto(self) -> std::result::Result<change_stream_record::data_change_record::Mod, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            keys: self.keys
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            old_values: self.old_values
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            new_values: self.new_values
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod> for change_stream_record::data_change_record::Mod {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod::new()
+                .set_keys(self.keys.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_old_values(self.old_values.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_new_values(self.new_values.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::data_change_record::ModType> for crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModType {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModType"))
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::data_change_record::ValueCaptureType> for crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ValueCaptureType {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ValueCaptureType"))
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::DataChangeRecord> for crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord {
+    type Output = change_stream_record::DataChangeRecord;
+    fn to_proto(self) -> std::result::Result<change_stream_record::DataChangeRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            commit_timestamp: self.commit_timestamp.map(|v| v.to_proto()).transpose()?,
+            record_sequence: self.record_sequence.to_proto()?,
+            server_transaction_id: self.server_transaction_id.to_proto()?,
+            is_last_record_in_transaction_in_partition: self.is_last_record_in_transaction_in_partition.to_proto()?,
+            table: self.table.to_proto()?,
+            column_metadata: self.column_metadata
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            mods: self.mods
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            mod_type: self.mod_type.to_proto()?,
+            value_capture_type: self.value_capture_type.to_proto()?,
+            number_of_records_in_transaction: self.number_of_records_in_transaction.to_proto()?,
+            number_of_partitions_in_transaction: self.number_of_partitions_in_transaction.to_proto()?,
+            transaction_tag: self.transaction_tag.to_proto()?,
+            is_system_transaction: self.is_system_transaction.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord> for change_stream_record::DataChangeRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord::new()
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_record_sequence(self.record_sequence)
+                .set_server_transaction_id(self.server_transaction_id)
+                .set_is_last_record_in_transaction_in_partition(self.is_last_record_in_transaction_in_partition)
+                .set_table(self.table)
+                .set_column_metadata(self.column_metadata.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_mods(self.mods.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_mod_type(self.mod_type)
+                .set_value_capture_type(self.value_capture_type)
+                .set_number_of_records_in_transaction(self.number_of_records_in_transaction)
+                .set_number_of_partitions_in_transaction(self.number_of_partitions_in_transaction)
+                .set_transaction_tag(self.transaction_tag)
+                .set_is_system_transaction(self.is_system_transaction)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::HeartbeatRecord> for crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord {
+    type Output = change_stream_record::HeartbeatRecord;
+    fn to_proto(self) -> std::result::Result<change_stream_record::HeartbeatRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            timestamp: self.timestamp.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord> for change_stream_record::HeartbeatRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord::new()
+                .set_or_clear_timestamp(self.timestamp.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::PartitionStartRecord> for crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord {
+    type Output = change_stream_record::PartitionStartRecord;
+    fn to_proto(self) -> std::result::Result<change_stream_record::PartitionStartRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            start_timestamp: self.start_timestamp.map(|v| v.to_proto()).transpose()?,
+            record_sequence: self.record_sequence.to_proto()?,
+            partition_tokens: self.partition_tokens
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord> for change_stream_record::PartitionStartRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord::new()
+                .set_or_clear_start_timestamp(self.start_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_record_sequence(self.record_sequence)
+                .set_partition_tokens(self.partition_tokens.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::PartitionEndRecord> for crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord {
+    type Output = change_stream_record::PartitionEndRecord;
+    fn to_proto(self) -> std::result::Result<change_stream_record::PartitionEndRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            end_timestamp: self.end_timestamp.map(|v| v.to_proto()).transpose()?,
+            record_sequence: self.record_sequence.to_proto()?,
+            partition_token: self.partition_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord> for change_stream_record::PartitionEndRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord::new()
+                .set_or_clear_end_timestamp(self.end_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_record_sequence(self.record_sequence)
+                .set_partition_token(self.partition_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::partition_event_record::MoveInEvent> for crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveInEvent {
+    type Output = change_stream_record::partition_event_record::MoveInEvent;
+    fn to_proto(self) -> std::result::Result<change_stream_record::partition_event_record::MoveInEvent, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            source_partition_token: self.source_partition_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveInEvent> for change_stream_record::partition_event_record::MoveInEvent {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveInEvent, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveInEvent::new()
+                .set_source_partition_token(self.source_partition_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::partition_event_record::MoveOutEvent> for crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveOutEvent {
+    type Output = change_stream_record::partition_event_record::MoveOutEvent;
+    fn to_proto(self) -> std::result::Result<change_stream_record::partition_event_record::MoveOutEvent, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            destination_partition_token: self.destination_partition_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveOutEvent> for change_stream_record::partition_event_record::MoveOutEvent {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveOutEvent, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveOutEvent::new()
+                .set_destination_partition_token(self.destination_partition_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::PartitionEventRecord> for crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord {
+    type Output = change_stream_record::PartitionEventRecord;
+    fn to_proto(self) -> std::result::Result<change_stream_record::PartitionEventRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            commit_timestamp: self.commit_timestamp.map(|v| v.to_proto()).transpose()?,
+            record_sequence: self.record_sequence.to_proto()?,
+            partition_token: self.partition_token.to_proto()?,
+            move_in_events: self.move_in_events
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            move_out_events: self.move_out_events
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord> for change_stream_record::PartitionEventRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord::new()
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_record_sequence(self.record_sequence)
+                .set_partition_token(self.partition_token)
+                .set_move_in_events(self.move_in_events.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_move_out_events(self.move_out_events.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<change_stream_record::Record> for crate::generated::gapic_dataplane::model::change_stream_record::Record {
+    type Output = change_stream_record::Record;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::DataChangeRecord(v) => Ok(Self::Output::DataChangeRecord((*v).to_proto()?)),
+            Self::HeartbeatRecord(v) => Ok(Self::Output::HeartbeatRecord((*v).to_proto()?)),
+            Self::PartitionStartRecord(v) => Ok(Self::Output::PartitionStartRecord((*v).to_proto()?)),
+            Self::PartitionEndRecord(v) => Ok(Self::Output::PartitionEndRecord((*v).to_proto()?)),
+            Self::PartitionEventRecord(v) => Ok(Self::Output::PartitionEventRecord((*v).to_proto()?)),
+        }
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_stream_record::Record> for change_stream_record::Record {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::Record, gaxi::prost::ConvertError> {
+        use crate::generated::gapic_dataplane::model::change_stream_record::Record as T;
+        match self {
+            Self::DataChangeRecord(v) => Ok(T::from_data_change_record(v.cnv()?)),
+            Self::HeartbeatRecord(v) => Ok(T::from_heartbeat_record(v.cnv()?)),
+            Self::PartitionStartRecord(v) => Ok(T::from_partition_start_record(v.cnv()?)),
+            Self::PartitionEndRecord(v) => Ok(T::from_partition_end_record(v.cnv()?)),
+            Self::PartitionEventRecord(v) => Ok(T::from_partition_event_record(v.cnv()?)),
+        }
+    }
+}
+
+impl gaxi::prost::ToProto<ChangeStreamRecord> for crate::generated::gapic_dataplane::model::ChangeStreamRecord {
+    type Output = ChangeStreamRecord;
+    fn to_proto(self) -> std::result::Result<ChangeStreamRecord, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            record: self.record.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ChangeStreamRecord> for ChangeStreamRecord {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ChangeStreamRecord, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::ChangeStreamRecord::new()
+                .set_record(self.record.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<commit_response::CommitStats> for crate::generated::gapic_dataplane::model::commit_response::CommitStats {
     type Output = commit_response::CommitStats;
     fn to_proto(self) -> std::result::Result<commit_response::CommitStats, gaxi::prost::ConvertError> {
@@ -953,6 +1275,50 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CreateSess
     }
 }
 
+impl gaxi::prost::ToProto<BatchCreateSessionsRequest> for crate::generated::gapic_dataplane::model::BatchCreateSessionsRequest {
+    type Output = BatchCreateSessionsRequest;
+    fn to_proto(self) -> std::result::Result<BatchCreateSessionsRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            database: self.database.to_proto()?,
+            session_template: self.session_template.map(|v| v.to_proto()).transpose()?,
+            session_count: self.session_count.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchCreateSessionsRequest> for BatchCreateSessionsRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchCreateSessionsRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::BatchCreateSessionsRequest::new()
+                .set_database(self.database)
+                .set_or_clear_session_template(self.session_template.map(|v| v.cnv()).transpose()?)
+                .set_session_count(self.session_count)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<BatchCreateSessionsResponse> for crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse {
+    type Output = BatchCreateSessionsResponse;
+    fn to_proto(self) -> std::result::Result<BatchCreateSessionsResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            session: self.session
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse> for BatchCreateSessionsResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse::new()
+                .set_session(self.session.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<Session> for crate::generated::gapic_dataplane::model::Session {
     type Output = Session;
     fn to_proto(self) -> std::result::Result<Session, gaxi::prost::ConvertError> {
@@ -984,6 +1350,90 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Session> f
                 .set_or_clear_approximate_last_use_time(self.approximate_last_use_time.map(|v| v.cnv()).transpose()?)
                 .set_creator_role(self.creator_role)
                 .set_multiplexed(self.multiplexed)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<GetSessionRequest> for crate::generated::gapic_dataplane::model::GetSessionRequest {
+    type Output = GetSessionRequest;
+    fn to_proto(self) -> std::result::Result<GetSessionRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::GetSessionRequest> for GetSessionRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::GetSessionRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::GetSessionRequest::new()
+                .set_name(self.name)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ListSessionsRequest> for crate::generated::gapic_dataplane::model::ListSessionsRequest {
+    type Output = ListSessionsRequest;
+    fn to_proto(self) -> std::result::Result<ListSessionsRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            database: self.database.to_proto()?,
+            page_size: self.page_size.to_proto()?,
+            page_token: self.page_token.to_proto()?,
+            filter: self.filter.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ListSessionsRequest> for ListSessionsRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ListSessionsRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::ListSessionsRequest::new()
+                .set_database(self.database)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_filter(self.filter)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ListSessionsResponse> for crate::generated::gapic_dataplane::model::ListSessionsResponse {
+    type Output = ListSessionsResponse;
+    fn to_proto(self) -> std::result::Result<ListSessionsResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            sessions: self.sessions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ListSessionsResponse> for ListSessionsResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ListSessionsResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::ListSessionsResponse::new()
+                .set_sessions(self.sessions.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_next_page_token(self.next_page_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<DeleteSessionRequest> for crate::generated::gapic_dataplane::model::DeleteSessionRequest {
+    type Output = DeleteSessionRequest;
+    fn to_proto(self) -> std::result::Result<DeleteSessionRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::DeleteSessionRequest> for DeleteSessionRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::DeleteSessionRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::DeleteSessionRequest::new()
+                .set_name(self.name)
         )
     }
 }
@@ -1235,6 +1685,224 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteSql
     }
 }
 
+impl gaxi::prost::ToProto<execute_batch_dml_request::Statement> for crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement {
+    type Output = execute_batch_dml_request::Statement;
+    fn to_proto(self) -> std::result::Result<execute_batch_dml_request::Statement, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            sql: self.sql.to_proto()?,
+            params: self.params.map(|v| v.to_proto()).transpose()?,
+            param_types: self.param_types
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement> for execute_batch_dml_request::Statement {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement::new()
+                .set_sql(self.sql)
+                .set_or_clear_params(self.params.map(|v| v.cnv()).transpose()?)
+                .set_param_types(self.param_types.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ExecuteBatchDmlRequest> for crate::generated::gapic_dataplane::model::ExecuteBatchDmlRequest {
+    type Output = ExecuteBatchDmlRequest;
+    fn to_proto(self) -> std::result::Result<ExecuteBatchDmlRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            session: self.session.to_proto()?,
+            transaction: self.transaction.map(|v| v.to_proto()).transpose()?,
+            statements: self.statements
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            seqno: self.seqno.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            last_statements: self.last_statements.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteBatchDmlRequest> for ExecuteBatchDmlRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ExecuteBatchDmlRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::ExecuteBatchDmlRequest::new()
+                .set_session(self.session)
+                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_statements(self.statements.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_seqno(self.seqno)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_last_statements(self.last_statements)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ExecuteBatchDmlResponse> for crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse {
+    type Output = ExecuteBatchDmlResponse;
+    fn to_proto(self) -> std::result::Result<ExecuteBatchDmlResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            result_sets: self.result_sets
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            status: self.status.map(|v| v.to_proto()).transpose()?,
+            precommit_token: self.precommit_token.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse> for ExecuteBatchDmlResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse::new()
+                .set_result_sets(self.result_sets.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<PartitionOptions> for crate::generated::gapic_dataplane::model::PartitionOptions {
+    type Output = PartitionOptions;
+    fn to_proto(self) -> std::result::Result<PartitionOptions, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            partition_size_bytes: self.partition_size_bytes.to_proto()?,
+            max_partitions: self.max_partitions.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionOptions> for PartitionOptions {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartitionOptions, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::PartitionOptions::new()
+                .set_partition_size_bytes(self.partition_size_bytes)
+                .set_max_partitions(self.max_partitions)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<PartitionQueryRequest> for crate::generated::gapic_dataplane::model::PartitionQueryRequest {
+    type Output = PartitionQueryRequest;
+    fn to_proto(self) -> std::result::Result<PartitionQueryRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            session: self.session.to_proto()?,
+            transaction: self.transaction.map(|v| v.to_proto()).transpose()?,
+            sql: self.sql.to_proto()?,
+            params: self.params.map(|v| v.to_proto()).transpose()?,
+            param_types: self.param_types
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            partition_options: self.partition_options.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionQueryRequest> for PartitionQueryRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartitionQueryRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::PartitionQueryRequest::new()
+                .set_session(self.session)
+                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_sql(self.sql)
+                .set_or_clear_params(self.params.map(|v| v.cnv()).transpose()?)
+                .set_param_types(self.param_types.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_partition_options(self.partition_options.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<PartitionReadRequest> for crate::generated::gapic_dataplane::model::PartitionReadRequest {
+    type Output = PartitionReadRequest;
+    fn to_proto(self) -> std::result::Result<PartitionReadRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            session: self.session.to_proto()?,
+            transaction: self.transaction.map(|v| v.to_proto()).transpose()?,
+            table: self.table.to_proto()?,
+            index: self.index.to_proto()?,
+            columns: self.columns
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            key_set: self.key_set.map(|v| v.to_proto()).transpose()?,
+            partition_options: self.partition_options.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionReadRequest> for PartitionReadRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartitionReadRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::PartitionReadRequest::new()
+                .set_session(self.session)
+                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_table(self.table)
+                .set_index(self.index)
+                .set_columns(self.columns.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_key_set(self.key_set.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_partition_options(self.partition_options.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<Partition> for crate::generated::gapic_dataplane::model::Partition {
+    type Output = Partition;
+    fn to_proto(self) -> std::result::Result<Partition, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            partition_token: self.partition_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Partition> for Partition {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::Partition, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::Partition::new()
+                .set_partition_token(self.partition_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<PartitionResponse> for crate::generated::gapic_dataplane::model::PartitionResponse {
+    type Output = PartitionResponse;
+    fn to_proto(self) -> std::result::Result<PartitionResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            partitions: self.partitions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            transaction: self.transaction.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionResponse> for PartitionResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartitionResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::PartitionResponse::new()
+                .set_partitions(self.partitions.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<read_request::OrderBy> for crate::generated::gapic_dataplane::model::read_request::OrderBy {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1393,6 +2061,82 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::RollbackRe
             crate::generated::gapic_dataplane::model::RollbackRequest::new()
                 .set_session(self.session)
                 .set_transaction_id(self.transaction_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<batch_write_request::MutationGroup> for crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup {
+    type Output = batch_write_request::MutationGroup;
+    fn to_proto(self) -> std::result::Result<batch_write_request::MutationGroup, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mutations: self.mutations
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup> for batch_write_request::MutationGroup {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup::new()
+                .set_mutations(self.mutations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<BatchWriteRequest> for crate::generated::gapic_dataplane::model::BatchWriteRequest {
+    type Output = BatchWriteRequest;
+    fn to_proto(self) -> std::result::Result<BatchWriteRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            session: self.session.to_proto()?,
+            request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
+            mutation_groups: self.mutation_groups
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            exclude_txn_from_change_streams: self.exclude_txn_from_change_streams.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWriteRequest> for BatchWriteRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchWriteRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::BatchWriteRequest::new()
+                .set_session(self.session)
+                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_mutation_groups(self.mutation_groups.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<BatchWriteResponse> for crate::generated::gapic_dataplane::model::BatchWriteResponse {
+    type Output = BatchWriteResponse;
+    fn to_proto(self) -> std::result::Result<BatchWriteResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            indexes: self.indexes
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            status: self.status.map(|v| v.to_proto()).transpose()?,
+            commit_timestamp: self.commit_timestamp.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWriteResponse> for BatchWriteResponse {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchWriteResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_dataplane::model::BatchWriteResponse::new()
+                .set_indexes(self.indexes.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
         )
     }
 }

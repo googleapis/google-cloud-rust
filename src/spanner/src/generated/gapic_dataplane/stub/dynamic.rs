@@ -23,11 +23,41 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Session>>;
 
+    async fn batch_create_sessions(
+        &self,
+        req: crate::model::BatchCreateSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchCreateSessionsResponse>>;
+
+    async fn get_session(
+        &self,
+        req: crate::model::GetSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Session>>;
+
+    async fn list_sessions(
+        &self,
+        req: crate::model::ListSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSessionsResponse>>;
+
+    async fn delete_session(
+        &self,
+        req: crate::model::DeleteSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ResultSet>>;
+
+    async fn execute_batch_dml(
+        &self,
+        req: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteBatchDmlResponse>>;
 
     async fn read(
         &self,
@@ -52,6 +82,18 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         req: crate::model::RollbackRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
+
+    async fn partition_query(
+        &self,
+        req: crate::model::PartitionQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionResponse>>;
+
+    async fn partition_read(
+        &self,
+        req: crate::model::PartitionReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionResponse>>;
 }
 
 /// All implementations of [super::Spanner] also implement [Spanner].
@@ -67,12 +109,57 @@ impl<T: super::Spanner> Spanner for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn batch_create_sessions(
+        &self,
+        req: crate::model::BatchCreateSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchCreateSessionsResponse>> {
+        T::batch_create_sessions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_session(
+        &self,
+        req: crate::model::GetSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Session>> {
+        T::get_session(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_sessions(
+        &self,
+        req: crate::model::ListSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSessionsResponse>> {
+        T::list_sessions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_session(
+        &self,
+        req: crate::model::DeleteSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_session(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn execute_sql(
         &self,
         req: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ResultSet>> {
         T::execute_sql(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_batch_dml(
+        &self,
+        req: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteBatchDmlResponse>> {
+        T::execute_batch_dml(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -109,5 +196,23 @@ impl<T: super::Spanner> Spanner for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::rollback(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn partition_query(
+        &self,
+        req: crate::model::PartitionQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionResponse>> {
+        T::partition_query(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn partition_read(
+        &self,
+        req: crate::model::PartitionReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartitionResponse>> {
+        T::partition_read(self, req, options).await
     }
 }
