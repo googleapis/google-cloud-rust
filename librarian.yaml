@@ -1205,9 +1205,6 @@ libraries:
     output: src/pubsub
     veneer: true
     rust:
-      pagination_overrides:
-        - id: .google.pubsub.v1.Publisher.ListTopicSubscriptions
-          item_field: subscriptions
       modules:
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
@@ -1275,6 +1272,9 @@ libraries:
           output: src/pubsub/src/generated/protos/pubsub
           source: google/pubsub/v1
           template: prost
+      pagination_overrides:
+        - id: .google.pubsub.v1.Publisher.ListTopicSubscriptions
+          item_field: subscriptions
   - name: google-cloud-rapidmigrationassessment-v1
     version: 1.6.0
     copyright_year: "2025"
