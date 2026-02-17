@@ -130,6 +130,27 @@ impl Spanner {
     pub fn streaming_read(&self, request: crate::model::ReadRequest) -> builder::StreamingRead {
         builder::StreamingRead::new(self.grpc_client.clone()).with_request(request)
     }
+
+    /// Returns a new `DatabaseClient` for interacting with a specific database.
+    /// This automatically creates and manages a single multiplexed session.
+    pub async fn database_client(
+        &self,
+        database: impl Into<String>,
+    ) -> Result<crate::database_client::DatabaseClient, crate::Error> {
+        let mut request = crate::model::CreateSessionRequest::new();
+        request.database = database.into();
+        
+        let mut session_template = crate::model::Session::new();
+        session_template.multiplexed = true;
+        request.session = Some(session_template);
+
+        let session = self.create_session(request).await?;
+        
+        Ok(crate::database_client::DatabaseClient {
+            client: std::sync::Arc::new(self.clone()),
+            session: std::sync::Arc::new(session),
+        })
+    }
 }
 
 #[cfg(test)]
