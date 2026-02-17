@@ -385,7 +385,7 @@ impl Client {
         } else {
             endpoint
         };
-        Ok(endpoint.origin(origin))
+        Ok(endpoint.origin(origin).concurrency_limit(100))
     }
 
     async fn make_credentials(
