@@ -39,9 +39,11 @@ pub struct ClientBuilder {
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
-        Self {
-            config: ClientConfig::default(),
-        }
+        let mut config = ClientConfig::default();
+        config.backoff_policy = Some(std::sync::Arc::new(
+            super::backoff_policy::default_backoff_policy(),
+        ));
+        Self { config }
     }
 
     /// Creates a new client.
@@ -239,7 +241,17 @@ mod tests {
             builder.config
         );
         assert!(builder.config.retry_policy.is_none(), "{builder:?}");
-        assert!(builder.config.backoff_policy.is_none(), "{builder:?}");
+        assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
+        let debug_str = format!("{:?}", &builder.config);
+        assert!(
+            debug_str.contains("initial_delay: 100ms"),
+            "actual: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("maximum_delay: 60s"),
+            "actual: {debug_str}"
+        );
+        assert!(debug_str.contains("scaling: 4.0"), "actual: {debug_str}");
         assert!(
             builder.config.grpc_subchannel_count.is_none(),
             "{builder:?}"
