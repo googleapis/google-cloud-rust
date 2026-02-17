@@ -29,6 +29,7 @@ chrono                     = { workspace = true, features = ["now"] }
 futures.workspace          = true
 google-cloud-pubsub        = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-gax.workspace = true
+google-cloud-wkt.workspace = true
 rand.workspace             = true
 tokio.workspace            = true
 tracing-subscriber         = { workspace = true, features = ["fmt", "std"] }
