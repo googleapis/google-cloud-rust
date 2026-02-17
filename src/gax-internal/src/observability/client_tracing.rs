@@ -81,11 +81,51 @@ pub fn record_client_request_span<T>(result: &Result<Response<T>, Error>, span: 
     }
 }
 
+/// This trait simplifies the implementation of tracing.
+///
+/// # Example
+/// ```
+/// use google_cloud_gax::error::Error;
+/// async fn some_method_with_tracing() -> Result<String, Error> {
+///     use tracing::Instrument;
+///     use google_cloud_gax_internal::observability::ResultExt;
+///     let span = tracing::info_span!("my span");
+///     some_method()
+///         .instrument(span.clone())
+///         .await
+///         .record_in_span(&span)
+/// }
+/// async fn some_method() -> Result<String, Error> {
+/// # panic!()
+/// }
+/// ```
+pub trait ResultExt {
+    fn record_in_span(self, span: &Span) -> Self;
+}
+
+impl<T> ResultExt for std::result::Result<T, Error> {
+    fn record_in_span(self, span: &Span) -> Self {
+        match &self {
+            Ok(_) => {
+                span.record(OTEL_STATUS_CODE, otel_status_codes::OK);
+            }
+            Err(e) => {
+                span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+                let error_type = ErrorType::from_gax_error(e);
+                span.record(otel_trace::ERROR_TYPE, error_type.as_str());
+                span.record(OTEL_STATUS_DESCRIPTION, e.to_string());
+            }
+        };
+        self
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use std::collections::BTreeMap;
     use std::collections::HashMap;
 
     const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
@@ -172,5 +212,78 @@ mod tests {
             attributes.get(OTEL_STATUS_DESCRIPTION),
             Some(&"the request exceeded the request deadline test timeout".into())
         );
+    }
+
+    #[test]
+    fn result_ext_ok() {
+        use ResultExt;
+        let guard = TestLayer::initialize();
+        let result = {
+            let span = tracing::info_span!(
+                "test-only",
+                { OTEL_STATUS_CODE } = field::Empty,
+                { otel_trace::ERROR_TYPE } = field::Empty,
+                { OTEL_STATUS_DESCRIPTION } = field::Empty,
+            );
+            let _enter = span.enter();
+            Ok("unused").record_in_span(&span)
+        };
+        assert!(matches!(result, Ok("unused")), "{result:?}");
+        let captured = TestLayer::capture(&guard);
+        let attributes = match &captured[..] {
+            [span] => &span.attributes,
+            _ => panic!("expected exactly one span in capture: {captured:?}"),
+        };
+        let want = BTreeMap::from_iter(
+            [
+                (OTEL_STATUS_CODE, Some("OK")),
+                (otel_trace::ERROR_TYPE, None),
+                (OTEL_STATUS_DESCRIPTION, None),
+            ]
+            .map(|(k, v)| (k, v.map(str::to_string))),
+        );
+        let got = want
+            .keys()
+            .map(|k| (*k, attributes.get(*k).and_then(|v| v.as_string())))
+            .collect::<BTreeMap<_, _>>();
+        assert_eq!(want, got, "attributes = {attributes:?}");
+    }
+
+    #[test]
+    fn result_ext_error() {
+        use ResultExt;
+        let guard = TestLayer::initialize();
+        let result = {
+            let span = tracing::info_span!(
+                "test-only",
+                { OTEL_STATUS_CODE } = field::Empty,
+                { otel_trace::ERROR_TYPE } = field::Empty,
+                { OTEL_STATUS_DESCRIPTION } = field::Empty,
+            );
+            let _enter = span.enter();
+            Err::<&str, Error>(Error::timeout("test timeout")).record_in_span(&span)
+        };
+        assert!(matches!(result, Err(ref e) if e.is_timeout()), "{result:?}");
+        let captured = TestLayer::capture(&guard);
+        let attributes = match &captured[..] {
+            [span] => &span.attributes,
+            _ => panic!("expected exactly one span in capture: {captured:?}"),
+        };
+        let want = BTreeMap::from_iter(
+            [
+                (OTEL_STATUS_CODE, Some("ERROR")),
+                (otel_trace::ERROR_TYPE, Some("CLIENT_TIMEOUT")),
+                (
+                    OTEL_STATUS_DESCRIPTION,
+                    Some("the request exceeded the request deadline test timeout"),
+                ),
+            ]
+            .map(|(k, v)| (k, v.map(str::to_string))),
+        );
+        let got = want
+            .keys()
+            .map(|k| (*k, attributes.get(*k).and_then(|v| v.as_string())))
+            .collect::<BTreeMap<_, _>>();
+        assert_eq!(want, got, "attributes = {attributes:?}");
     }
 }
