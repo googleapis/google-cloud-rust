@@ -32,6 +32,7 @@ workspace = true
 [dependencies]
 async-trait.workspace  = true
 bytes.workspace        = true
+chrono.workspace       = true
 futures.workspace      = true
 futures-util           = "0.3.31"
 http.workspace         = true
@@ -43,6 +44,7 @@ serde.workspace        = true
 serde_json.workspace   = true
 serde_with.workspace   = true
 thiserror.workspace    = true
+tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
 tracing.workspace      = true
 

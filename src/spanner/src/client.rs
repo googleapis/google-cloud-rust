@@ -73,10 +73,7 @@ impl Spanner {
             .await
     }
 
-    pub fn batch_write(
-        &self,
-        request: crate::model::BatchWriteRequest,
-    ) -> builder::BatchWrite {
+    pub fn batch_write(&self, request: crate::model::BatchWriteRequest) -> builder::BatchWrite {
         builder::BatchWrite::new(self.grpc_client.clone()).with_request(request)
     }
 
@@ -139,13 +136,13 @@ impl Spanner {
     ) -> Result<crate::database_client::DatabaseClient, crate::Error> {
         let mut request = crate::model::CreateSessionRequest::new();
         request.database = database.into();
-        
+
         let mut session_template = crate::model::Session::new();
         session_template.multiplexed = true;
         request.session = Some(session_template);
 
         let session = self.create_session(request).await?;
-        
+
         Ok(crate::database_client::DatabaseClient {
             client: std::sync::Arc::new(self.clone()),
             session: std::sync::Arc::new(session),

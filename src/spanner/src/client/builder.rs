@@ -14,11 +14,11 @@
 
 use crate::Error;
 use crate::Result;
-use crate::client::stream::ServerStream;
 use crate::client::stream::BatchWriteStream;
+use crate::client::stream::ServerStream;
+use crate::model::BatchWriteRequest;
 use crate::model::ExecuteSqlRequest;
 use crate::model::ReadRequest;
-use crate::model::BatchWriteRequest;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
@@ -327,10 +327,7 @@ impl BatchWrite {
             google_cloud_gax::options::internal::set_default_idempotency(self.options, false);
         let extensions = {
             let mut e = Extensions::new();
-            e.insert(GrpcMethod::new(
-                "google.spanner.v1.Spanner",
-                "BatchWrite",
-            ));
+            e.insert(GrpcMethod::new("google.spanner.v1.Spanner", "BatchWrite"));
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchWrite");

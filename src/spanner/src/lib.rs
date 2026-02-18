@@ -41,7 +41,10 @@ pub mod model {
 
 pub mod client;
 pub mod database_client;
+pub mod read_context;
 pub mod result_set;
+pub mod statement;
+pub mod types;
 pub mod stub {
     pub use crate::generated::gapic_dataplane::stub::*;
 }

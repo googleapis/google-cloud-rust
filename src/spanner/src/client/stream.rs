@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::google::spanner::v1::PartialResultSet;
 use crate::google::spanner::v1::BatchWriteResponse;
+use crate::google::spanner::v1::PartialResultSet;
 use gaxi::grpc::tonic::Result as TonicResult;
 use gaxi::grpc::tonic::Streaming;
 
