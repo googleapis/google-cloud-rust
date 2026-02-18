@@ -460,18 +460,14 @@ mod tests {
     }
 
     #[cfg_attr(
-        feature = "tokio-unstable-tests",
-        cfg(tokio_unstable),
+        tokio_unstable,
         tokio::test(
             start_paused = true,
             flavor = "current_thread",
             unhandled_panic = "shutdown_runtime"
         )
     )]
-    #[cfg_attr(
-        not(feature = "tokio-unstable-tests"),
-        tokio::test(start_paused = true)
-    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     // User's should be able to drop handles and the messages will still send.
     async fn dropping_handles_does_not_prevent_publishing() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
