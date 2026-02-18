@@ -134,7 +134,7 @@ libraries:
           generate_setter_samples: "false"
           module_path: crate::generated
           output: src/wkt/tests/common/src/generated
-          source: src/wkt/tests/protos
+          api_path: src/wkt/tests/protos
           template: mod
   - name: google-cloud-accessapproval-v1
     version: 1.5.0
@@ -804,12 +804,12 @@ libraries:
             - .google.firestore.v1.ExecutePipelineRequest
             - .google.firestore.v1.ExecutePipelineResponse
             - .google.firestore.v1.ExplainStats
-          source: google/firestore/v1
+          api_path: google/firestore/v1
           template: convert-prost
         - include_list: latlng.proto
           module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
-          source: google/type
+          api_path: google/type
           template: convert-prost
         - output: src/firestore/src/generated/gapic
           skipped_ids:
@@ -817,10 +817,10 @@ libraries:
             - .google.firestore.v1.ExecutePipelineRequest
             - .google.firestore.v1.ExecutePipelineResponse
             - .google.firestore.v1.ExplainStats
-          source: google/firestore/v1
+          api_path: google/firestore/v1
           template: grpc-client
         - output: src/firestore/src/generated/protos/firestore
-          source: google/firestore/v1
+          api_path: google/firestore/v1
           template: prost
   - name: google-cloud-firestore-admin-v1
     version: 1.6.0
@@ -846,10 +846,10 @@ libraries:
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
             - .google.rpc.Status
-          source: google/rpc
+          api_path: google/rpc
           template: convert-prost
         - output: src/gax-internal/src/generated/protos/rpc
-          source: google/rpc
+          api_path: google/rpc
           template: prost
   - name: google-cloud-gkebackup-v1
     version: 1.6.0
@@ -1213,7 +1213,7 @@ libraries:
             - .google.pubsub.v1.Subscriber.ModifyAckDeadline
           module_path: crate::generated::gapic_dataplane::model
           output: src/pubsub/src/generated/convert/pubsub
-          source: google/pubsub/v1
+          api_path: google/pubsub/v1
           template: convert-prost
         - documentation_overrides:
             - id: .google.pubsub.v1.Publisher
@@ -1252,7 +1252,7 @@ libraries:
           name_overrides: .google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin
           output: src/pubsub/src/generated/gapic
           service_config: google/pubsub/v1/pubsub_v1.yaml
-          source: google/pubsub/v1
+          api_path: google/pubsub/v1
           template: http-client
         - extend_grpc_transport: true
           generate_setter_samples: "false"
@@ -1265,12 +1265,12 @@ libraries:
           internal_builders: true
           output: src/pubsub/src/generated/gapic_dataplane
           service_config: google/pubsub/v1/pubsub_v1.yaml
-          source: google/pubsub/v1
+          api_path: google/pubsub/v1
           template: grpc-client
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
           output: src/pubsub/src/generated/protos/pubsub
-          source: google/pubsub/v1
+          api_path: google/pubsub/v1
           template: prost
       pagination_overrides:
         - id: .google.pubsub.v1.Publisher.ListTopicSubscriptions
@@ -1442,19 +1442,19 @@ libraries:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/convert/control
-          source: google/storage/control/v2
+          api_path: google/storage/control/v2
           template: convert-prost
         - module_path: google_cloud_iam_v1::model
           output: src/storage/src/generated/convert/iam
           skipped_ids:
             - .google.iam.v1.ResourcePolicyMember
-          source: google/iam/v1
+          api_path: google/iam/v1
           template: convert-prost
         - module_path: google_cloud_longrunning::model
           output: src/storage/src/generated/convert/longrunning
           skipped_ids:
             - .google.longrunning.Operation
-          source: google/longrunning
+          api_path: google/longrunning
           template: convert-prost
         - included_ids:
             - .google.storage.v2.Storage.DeleteBucket
@@ -1476,12 +1476,12 @@ libraries:
             - .google.storage.v2.Storage.MoveObject
           module_path: crate::generated::gapic::model
           output: src/storage/src/generated/convert/storage
-          source: google/storage/v2
+          api_path: google/storage/v2
           template: convert-prost
         - include_list: date.proto,expr.proto
           module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
-          source: google/type
+          api_path: google/type
           template: convert-prost
         - has_veneer: true
           included_ids:
@@ -1506,7 +1506,7 @@ libraries:
           output: src/storage/src/generated/gapic
           routing_required: true
           service_config: google/storage/v2/storage_v2.yaml
-          source: google/storage/v2
+          api_path: google/storage/v2
           template: grpc-client
         - has_veneer: true
           include_grpc_only_methods: true
@@ -1514,7 +1514,7 @@ libraries:
           output: src/storage/src/generated/gapic_control
           routing_required: true
           service_config: google/storage/control/v2/storage_v2.yaml
-          source: google/storage/control/v2
+          api_path: google/storage/control/v2
           template: grpc-client
         - output: src/storage/src/generated/protos/control
           post_process_protos: |-
@@ -1545,15 +1545,15 @@ libraries:
             );
             std::fs::write(&name, content.as_bytes())
                 .expect(format!("should be able to write '{name}'").as_str());
-          source: google/storage/control/v2
+          api_path: google/storage/control/v2
           template: prost
         - output: src/storage/src/generated/protos/storage
-          source: google/storage/v2
+          api_path: google/storage/v2
           template: prost
         - language: rust_storage
           output: src/storage/src/control/generated
           specification_format: none
-          source: ""
+          api_path: ""
           template: ""
   - name: google-cloud-storagebatchoperations-v1
     version: 1.6.0
@@ -1662,7 +1662,7 @@ libraries:
         - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
           module_path: crate
           output: src/wkt/src/generated
-          source: google/protobuf
+          api_path: google/protobuf
           template: mod
   - name: google-cloud-workflows-executions-v1
     version: 1.5.0
@@ -1696,25 +1696,25 @@ libraries:
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/convert
-          source: conformance
+          api_path: conformance
           template: convert-prost
         - generate_setter_samples: "false"
           include_list: conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/gapic
-          source: conformance
+          api_path: conformance
           template: grpc-client
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/protos
           root_name: conformance-root
-          source: conformance
+          api_path: conformance
           template: prost
         - generate_setter_samples: "false"
           include_list: test_messages_proto3.proto
           module_path: crate::generated::test_protos
           output: tests/protojson-conformance/src/generated/test_protos
-          source: src/google/protobuf
+          api_path: src/google/protobuf
           template: mod
   - name: pubsub-grpc-mock
     copyright_year: "2025"
