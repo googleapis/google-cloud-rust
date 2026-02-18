@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub(crate) mod actor;
+pub(crate) mod backoff_policy;
 pub(crate) mod base_publisher;
 pub(crate) mod batch;
 pub(crate) mod builder;
@@ -21,3 +22,4 @@ pub(crate) mod client_builder;
 pub(crate) mod constants;
 pub(crate) mod model_ext;
 pub(crate) mod options;
+pub(crate) mod retry_policy;

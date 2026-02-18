@@ -34,6 +34,7 @@ pub async fn run_topic_samples(topic_names: &mut Vec<String>) -> anyhow::Result<
     topic_names.push(format!("projects/{project_id}/topics/{id}"));
     topic::create_topic::sample(&client, &project_id, &id).await?;
     topic::list_topics::sample(&client, &project_id).await?;
+    topic::list_topic_subscriptions::sample(&client, &project_id, &id).await?;
 
     Ok(())
 }

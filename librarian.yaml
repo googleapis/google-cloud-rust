@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260216162532-e323d455c92b
+version: v0.8.4-0.20260217201626-1015eadde3c6
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -1273,6 +1273,9 @@ libraries:
           output: src/pubsub/src/generated/protos/pubsub
           source: google/pubsub/v1
           template: prost
+      pagination_overrides:
+        - id: .google.pubsub.v1.Publisher.ListTopicSubscriptions
+          item_field: subscriptions
   - name: google-cloud-rapidmigrationassessment-v1
     version: 1.6.0
     copyright_year: "2025"

@@ -3861,6 +3861,20 @@ impl wkt::message::Message for ListTopicSubscriptionsResponse {
     }
 }
 
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTopicSubscriptionsResponse {
+    type PageItem = std::string::String;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.subscriptions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request for the `ListTopicSnapshots` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

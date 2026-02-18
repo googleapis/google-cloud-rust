@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_tracing)]
-use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+//! Defines the backoff policies for the Google Cloud Pub/Sub Publisher.
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use std::time::Duration;
 
-#[cfg(google_cloud_unstable_tracing)]
-pub mod auth;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod e2e;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod http_tracing;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod mock_collector;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod otlp;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod tracing;
+/// The default backoff policy for the Pub/Sub publisher.
+pub(crate) fn default_backoff_policy() -> impl BackoffPolicy {
+    ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_millis(100))
+        .with_maximum_delay(Duration::from_secs(60))
+        .with_scaling(4)
+        .clamp()
+}
