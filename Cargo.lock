@@ -607,6 +607,7 @@ dependencies = [
 name = "echo-server"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "axum",
  "bytes",
  "google-cloud-auth",
