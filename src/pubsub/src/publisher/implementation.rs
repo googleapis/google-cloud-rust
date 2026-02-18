@@ -126,11 +126,9 @@ impl Publisher {
     /// ```
     pub async fn flush(&self) {
         let (tx, rx) = oneshot::channel();
-        if self.tx.send(ToDispatcher::Flush(tx)).is_err() {
-            // `tx` is dropped here if the send errors.
+        if self.tx.send(ToDispatcher::Flush(tx)).is_ok() {
+            let _ = rx.await;
         }
-        rx.await
-            .expect("the client library should not release the sender");
     }
 
     /// Resume accepting publish for a paused ordering key.

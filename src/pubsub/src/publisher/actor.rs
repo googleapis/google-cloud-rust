@@ -15,7 +15,6 @@
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
-use crate::publisher::constants;
 use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
@@ -106,11 +105,11 @@ impl Dispatcher {
                 // If needed, this can be moved into the batch actors such that each are running
                 // on a separate timer.
                 _ = &mut timer => {
-                    for (_, batch_actor) in batch_actors.iter_mut() {
+                    for (_, batch_actor) in batch_actors.iter() {
                         let (tx, _) = oneshot::channel();
-                        batch_actor
-                            .send(ToBatchActor::Flush(tx))
-                            .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                        if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                            return; // Stop the dispatcher if a batch actor is dropped.
+                        }
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -149,17 +148,17 @@ impl Dispatcher {
                                     }
                                     tx
                                 });
-                            batch_actor
-                                .send(ToBatchActor::Publish(msg))
-                                .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                            if batch_actor.send(ToBatchActor::Publish(msg)).is_err() {
+                                return; // Stop the dispatcher if a batch actor is dropped.
+                            }
                         },
                         Some(ToDispatcher::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
-                            for (_, batch_actor) in batch_actors.iter_mut() {
+                            for (_, batch_actor) in batch_actors.iter() {
                                 let (tx, rx) = oneshot::channel();
-                                batch_actor
-                                    .send(ToBatchActor::Flush(tx))
-                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                                if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                                    return; // Stop the dispatcher if a batch actor is dropped.
+                                }
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
@@ -174,9 +173,9 @@ impl Dispatcher {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
                                 // Send down the same tx for the BatchActors to directly signal completion
                                 // instead of spawning a new task.
-                                batch_actor
-                                    .send(ToBatchActor::ResumePublish())
-                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                                if batch_actor.send(ToBatchActor::ResumePublish()).is_err() {
+                                    return; // Stop the dispatcher if a batch actor is dropped.
+                                }
                             }
                         }
                         None => {
