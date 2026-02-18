@@ -88,7 +88,7 @@ impl ReqwestClient {
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
-            .map_err(|e| e.to_builder())?;
+            .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint

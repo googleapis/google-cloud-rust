@@ -89,7 +89,7 @@ pub(crate) enum HostError {
 }
 
 impl HostError {
-    pub fn to_builder(self) -> BuilderError {
+    pub fn client_builder(self) -> BuilderError {
         match self {
             Self::Uri(e) => BuilderError::transport(e),
             Self::MissingAuthority(e) => BuilderError::transport(Self::error_message(e)),
@@ -97,7 +97,7 @@ impl HostError {
     }
 
     #[allow(dead_code)]
-    pub fn to_gax(self) -> Error {
+    pub fn gax(self) -> Error {
         match self {
             Self::Uri(e) => Error::io(e),
             Self::MissingAuthority(e) => Error::io(Self::error_message(e)),
@@ -111,7 +111,8 @@ impl HostError {
 
 #[cfg(test)]
 mod tests {
-    use super::HostError;
+    use super::*;
+    use std::error::Error as _;
     use test_case::test_case;
 
     #[test_case("http://www.googleapis.com", "test.googleapis.com"; "global")]
@@ -127,7 +128,7 @@ mod tests {
     #[test_case("localhost:5678", "test.googleapis.com"; "emulator")]
     #[test_case("https://localhost:5678", "test.googleapis.com"; "emulator with scheme")]
     fn header_success(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = super::header(Some(input), "https://test.googleapis.com")?;
+        let got = header(Some(input), "https://test.googleapis.com")?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -140,7 +141,7 @@ mod tests {
     #[test_case("localhost:5678", "localhost"; "emulator")]
     #[test_case("https://localhost:5678", "localhost"; "emulator with scheme")]
     fn header_default(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = super::header(None, input)?;
+        let got = header(None, input)?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -158,7 +159,7 @@ mod tests {
     #[test_case("localhost:5678", "https://test.googleapis.com"; "emulator")]
     #[test_case("http://localhost:5678", "https://test.googleapis.com"; "emulator with scheme")]
     fn origin_success(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = super::origin(Some(input), "https://test.googleapis.com")?;
+        let got = origin(Some(input), "https://test.googleapis.com")?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -171,21 +172,65 @@ mod tests {
     #[test_case("https://localhost:5678", "https://localhost:5678")]
     #[test_case("http://localhost:5678", "http://localhost:5678")]
     fn origin_default(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = super::origin(None, input)?;
+        let got = origin(None, input)?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
 
     #[test]
     fn errors() {
-        let got = super::origin_and_header(Some("https:///a/b/c"), "https://test.googleapis.com");
+        let got = origin_and_header(Some("https:///a/b/c"), "https://test.googleapis.com");
         assert!(matches!(got, Err(HostError::Uri(_))), "{got:?}");
-        let got = super::origin_and_header(Some("/a/b/c"), "https://test.googleapis.com");
+        let got = origin_and_header(Some("/a/b/c"), "https://test.googleapis.com");
         assert!(
             matches!(got, Err(HostError::MissingAuthority(ref e)) if e == "/a/b/c"),
             "{got:?}"
         );
-        let got = super::origin_and_header(None, "https:///");
+        let got = origin_and_header(None, "https:///");
         assert!(matches!(got, Err(HostError::Uri(_))), "{got:?}");
+    }
+
+    #[test]
+    fn uri_as_builder() {
+        let p = Uri::from_str("https:///a/b/c").unwrap_err();
+        let got = HostError::Uri(p).client_builder();
+        assert!(got.is_transport(), "{got:?}");
+        let source = got.source();
+        assert!(
+            source
+                .and_then(|e| e.downcast_ref::<http::uri::InvalidUri>())
+                .is_some(),
+            "{got:?}"
+        );
+    }
+
+    #[test]
+    fn uri_as_gax() {
+        let p = Uri::from_str("https:///a/b/c").unwrap_err();
+        let got = HostError::Uri(p).gax();
+        assert!(got.is_io(), "{got:?}");
+        let source = got.source();
+        assert!(
+            source
+                .and_then(|e| e.downcast_ref::<http::uri::InvalidUri>())
+                .is_some(),
+            "{got:?}"
+        );
+    }
+
+    #[test]
+    fn missing_authority_as_builder() {
+        let got = HostError::MissingAuthority("a".to_string()).client_builder();
+        assert!(got.is_transport(), "{got:?}");
+        let source = got.source();
+        assert!(source.is_some(), "{got:?}");
+    }
+
+    #[test]
+    fn missing_authority_as_gax() {
+        let got = HostError::MissingAuthority("a".to_string()).gax();
+        assert!(got.is_io(), "{got:?}");
+        let source = got.source();
+        assert!(source.is_some(), "{got:?}");
     }
 }
