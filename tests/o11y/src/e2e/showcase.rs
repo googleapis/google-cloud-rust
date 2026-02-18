@@ -87,7 +87,7 @@ pub async fn run() -> anyhow::Result<()> {
         .collect::<BTreeSet<_>>();
     let required = BTreeSet::from_iter([
         ROOT_SPAN_NAME,
-        "google-cloud-showcase-v1beta1::client::Echo::echo",
+        "google_cloud_showcase_v1beta1::client::Echo::echo",
     ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
     assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
