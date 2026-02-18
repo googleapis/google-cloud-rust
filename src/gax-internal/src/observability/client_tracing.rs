@@ -15,11 +15,10 @@
 use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
-use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::response::Response;
 use opentelemetry_semantic_conventions::trace as otel_trace;
-use tracing::{Span, field};
+use tracing::Span;
 
 /// Creates a new tracing span for a client request.
 ///
@@ -39,58 +38,37 @@ use tracing::{Span, field};
 /// ```
 #[macro_export]
 macro_rules! client_request_span {
-    ($client:expr, $method:expr, $info:expr) => {
-        $crate::observability::create_client_request_span(
-            concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
-            $method,
-            $info,
+    ($client:expr, $method:expr, $info:expr) => {{
+        use $crate::observability::attributes::keys::*;
+        use $crate::observability::attributes::{
+            GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
+            RPC_SYSTEM_HTTP, otel_status_codes::UNSET,
+        };
+        tracing::info_span!(
+            "client_request",
+            "gax.client.span" = true, // Marker field
+            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
+            { OTEL_KIND } = OTEL_KIND_INTERNAL,
+            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
+            { RPC_SERVICE } = $info.service_name,
+            { RPC_METHOD } = $method,
+            { GCP_CLIENT_SERVICE } = $info.service_name,
+            { GCP_CLIENT_VERSION } = $info.client_version,
+            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
+            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
+            { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
+            // Fields to be recorded later
+            { OTEL_STATUS_CODE } = UNSET,
+            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
+            { ERROR_TYPE } = ::tracing::field::Empty,
+            { SERVER_ADDRESS } = ::tracing::field::Empty,
+            { SERVER_PORT } = ::tracing::field::Empty,
+            { URL_FULL } = ::tracing::field::Empty,
+            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
+            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
+            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
         )
-    };
-}
-
-/// Creates a new tracing span for a client request.
-///
-/// This span represents the logical request operation and is used to track
-/// the overall duration and status of the request, including retries.
-///
-/// # Example
-///
-/// ```compile_fail
-/// let span = create_client_request_span(
-///     "google_cloud_storage::client::Client::upload_chunk",
-///     "upload_chunk",
-///     &INSTRUMENTATION_CLIENT_INFO
-/// );
-/// ```
-pub fn create_client_request_span(
-    span_name: &str,
-    method_name: &str,
-    instrumentation: &'static InstrumentationClientInfo,
-) -> Span {
-    tracing::info_span!(
-        "client_request",
-        "gax.client.span" = true, // Marker field
-        { OTEL_NAME } = span_name,
-        { OTEL_KIND } = OTEL_KIND_INTERNAL,
-        { otel_trace::RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
-        { otel_trace::RPC_SERVICE } = instrumentation.service_name,
-        { otel_trace::RPC_METHOD } = method_name,
-        { GCP_CLIENT_SERVICE } = instrumentation.service_name,
-        { GCP_CLIENT_VERSION } = instrumentation.client_version,
-        { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-        { GCP_CLIENT_ARTIFACT } = instrumentation.client_artifact,
-        { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
-        // Fields to be recorded later
-        { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-        { OTEL_STATUS_DESCRIPTION } = field::Empty,
-        { otel_trace::ERROR_TYPE } = field::Empty,
-        { otel_trace::SERVER_ADDRESS } = field::Empty,
-        { otel_trace::SERVER_PORT } = field::Empty,
-        { otel_trace::URL_FULL } = field::Empty,
-        { otel_trace::HTTP_REQUEST_METHOD } = field::Empty,
-        { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
-        { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
-    )
+    }};
 }
 
 /// Records the final status on the client request span.
@@ -151,6 +129,7 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use std::collections::BTreeMap;
+    use tracing::field;
 
     const INFO: InstrumentationClientInfo = InstrumentationClientInfo {
         service_name: "test.service",
@@ -193,48 +172,9 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_create_client_request_span() {
-        let guard = TestLayer::initialize();
-        let _span = create_client_request_span(
-            "google_cloud_test::service::TestMethod",
-            "TestMethod",
-            &INFO,
-        );
-
-        let want: BTreeMap<String, AttributeValue> = [
-            (OTEL_NAME, "google_cloud_test::service::TestMethod".into()),
-            (OTEL_KIND, "Internal".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
-            (otel_trace::RPC_SERVICE, "test.service".into()),
-            (otel_trace::RPC_METHOD, "TestMethod".into()),
-            (GCP_CLIENT_SERVICE, "test.service".into()),
-            (GCP_CLIENT_VERSION, "1.2.3".into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            ("gax.client.span", true.into()),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-
-        let captured = TestLayer::capture(&guard);
-        let got = match &captured[..] {
-            [span] => BTreeMap::from_iter(span.attributes.clone()),
-            _ => panic!("expected a single span to be captured: {captured:?}"),
-        };
-        assert_eq!(got, want);
-    }
-
-    #[tokio::test]
     async fn test_record_client_request_span_ok() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span(
-            "google_cloud_test::service::TestMethod",
-            "TestMethod",
-            &INFO,
-        );
+        let span = client_request_span!("Service", "test_method", &INFO);
         let _enter = span.enter();
 
         let response = google_cloud_gax::response::Response::from(());
@@ -251,11 +191,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_client_request_span_err() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span(
-            "google_cloud_test::service::TestMethod",
-            "TestMethod",
-            &INFO,
-        );
+        let span = client_request_span!("Service", "test_method", &INFO);
         let _enter = span.enter();
 
         let error = google_cloud_gax::error::Error::timeout("test timeout");
