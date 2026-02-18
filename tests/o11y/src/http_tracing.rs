@@ -187,7 +187,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the
@@ -263,7 +263,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the
@@ -348,7 +348,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the
