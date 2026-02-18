@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use google_cloud_gax::client_builder::Error as BuilderError;
-#[cfg(test)]
 use google_cloud_gax::error::Error;
 use http::Uri;
 use std::str::FromStr;
@@ -99,7 +98,6 @@ impl HostError {
         }
     }
 
-    #[cfg(test)]
     pub fn gax(self) -> Error {
         match self {
             Self::Uri(e) => Error::io(e),

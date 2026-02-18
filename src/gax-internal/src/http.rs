@@ -21,6 +21,7 @@
 //! without having to link `reqwest` directly. That leads to unexpected breaking
 //! changes.
 
+pub mod http_request_builder;
 pub mod reqwest;
 
 use crate::as_inner::as_inner;
@@ -49,6 +50,7 @@ use google_cloud_gax::retry_policy::{
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::Extensions;
+pub use http_request_builder::HttpRequestBuilder;
 use reqwest::Method;
 use std::sync::Arc;
 use std::time::Duration;
@@ -131,6 +133,7 @@ impl ReqwestClient {
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
         self.inner
             .request(method, format!("{}{path}", &self.endpoint))
+            .header(::reqwest::header::HOST, &self.host)
     }
 
     /// Creates a builder for a complete URL.
@@ -141,6 +144,83 @@ impl ReqwestClient {
     /// for uploads dynamically, and needs to make requests to arbitrary URLs.
     pub fn builder_with_url(&self, method: Method, url: &str) -> reqwest::RequestBuilder {
         self.inner.request(method, url)
+    }
+
+    /// Creates a builder for a plain HTTP request.
+    ///
+    /// Most crates in google-cloud-rust use this struct to make RPCs over HTTP,
+    /// with a JSON payload and response. The Storage client (and maybe others)
+    /// use plain HTTP requests, with streaming requests and responses,
+    /// alternative endpoints and a number of other features.
+    ///
+    /// This function is used to make such requests. It returns a builder that
+    /// is more constrained than a `reqwest::RequestBuilder`, but also harder to
+    /// use incorrectly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax_internal::http::ReqwestClient;
+    /// use google_cloud_gax_internal::http::reqwest::Method;
+    /// use google_cloud_gax::options::RequestOptions;
+    /// async fn sample(client: &ReqwestClient, options: RequestOptions) -> anyhow::Result<()> {
+    ///     let builder = client.http_builder(Method::GET, "storage/v1/b/my-bucket/o/my-object")
+    ///         .query("alt", "media")
+    ///         .header("x-goog-api-client", "client/1.2.3");
+    ///     let response = builder.send(options, None, 0).await?;
+    ///     println!("status={:?}", response.status());
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn http_builder(&self, method: Method, path: &str) -> HttpRequestBuilder {
+        let builder = self
+            .inner
+            .request(method, format!("{}{path}", &self.endpoint))
+            .header(::reqwest::header::HOST, &self.host);
+        HttpRequestBuilder::new(self.clone(), builder)
+    }
+
+    /// Creates a builder for a plain HTTP request.
+    ///
+    /// Most crates in google-cloud-rust use this struct to make RPCs over HTTP,
+    /// with a JSON payload and response. The Storage client (and maybe others)
+    /// use plain HTTP requests, with streaming requests and responses,
+    /// alternative endpoints and a number of other features.
+    ///
+    /// This function is used to make such requests. It returns a builder that
+    /// is more constrained than a `reqwest::RequestBuilder`, but also harder to
+    /// use incorrectly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax_internal::http::ReqwestClient;
+    /// use google_cloud_gax_internal::http::reqwest::Method;
+    /// use google_cloud_gax::options::RequestOptions;
+    /// async fn sample(client: &ReqwestClient, options: RequestOptions) -> anyhow::Result<()> {
+    ///     let builder = client.http_builder_with_url(
+    ///         Method::GET,
+    ///         "https://storage.googleapis.com/storage/v1/b/my-bucket/o/my-object",
+    ///         "https://storage.googleapis.com",
+    ///     )?
+    ///     .query("alt", "media")
+    ///     .header("x-goog-api-client", "client/1.2.3");
+    ///     let response = builder.send(options, None, 0).await?;
+    ///     println!("status={:?}", response.status());
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn http_builder_with_url(
+        &self,
+        method: Method,
+        url: &str,
+        default_endpoint: &str,
+    ) -> Result<HttpRequestBuilder> {
+        let host = crate::host::header(Some(url), default_endpoint).map_err(|e| e.gax())?;
+        let builder = self
+            .inner
+            .request(method, url)
+            .header(::reqwest::header::HOST, &host);
+
+        Ok(HttpRequestBuilder::new(self.clone(), builder))
     }
 
     pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
@@ -156,6 +236,19 @@ impl ReqwestClient {
         self.retry_loop::<O>(builder, options).await
     }
 
+    pub(crate) async fn execute_http(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        options: RequestOptions,
+        remaining_time: Option<Duration>,
+        _attempt_count: u32,
+    ) -> Result<reqwest::Response> {
+        builder = self.configure_builder(builder, &options)?;
+        let request = self.request(builder, &options, remaining_time).await?;
+        self.inner.execute(request).await.map_err(map_send_error)
+    }
+
+    #[deprecated]
     /// Executes a streaming request.
     ///
     /// The `builder` should be configured with the HTTP method, URL, and any
@@ -200,7 +293,6 @@ impl ReqwestClient {
                 reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
-        builder = builder.header(::reqwest::header::HOST, &self.host);
         Ok(builder)
     }
 
@@ -245,13 +337,12 @@ impl ReqwestClient {
         retry_loop(inner, sleep, idempotent, throttler, retry, backoff).await
     }
 
-    async fn request_attempt(
+    async fn request(
         &self,
         mut builder: reqwest::RequestBuilder,
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
-        _attempt_count: u32,
-    ) -> Result<reqwest::Response> {
+    ) -> Result<reqwest::Request> {
         builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
@@ -261,8 +352,17 @@ impl ReqwestClient {
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
+        builder.build().map_err(map_send_error)
+    }
 
-        let request = builder.build().map_err(map_send_error)?;
+    async fn request_attempt(
+        &self,
+        builder: reqwest::RequestBuilder,
+        options: &RequestOptions,
+        remaining_time: Option<std::time::Duration>,
+        _attempt_count: u32,
+    ) -> Result<reqwest::Response> {
+        let request = self.request(builder, options, remaining_time).await?;
         #[cfg(google_cloud_unstable_tracing)]
         let method = request.method().clone();
         #[cfg(google_cloud_unstable_tracing)]
@@ -714,6 +814,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[allow(deprecated)]
     async fn execute_streaming_success() -> TestResult {
         let server = httptest::Server::run();
         server.expect(
@@ -747,6 +848,7 @@ mod tests {
     /// We need to ensure that `execute_streaming_once` treats this as an error (and not a success)
     /// so that the caller can handle the 308 status code appropriately (e.g., to query the upload status).
     #[tokio::test]
+    #[allow(deprecated)]
     async fn execute_streaming_308() -> TestResult {
         let server = httptest::Server::run();
         server.expect(
