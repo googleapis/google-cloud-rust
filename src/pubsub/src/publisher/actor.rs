@@ -371,7 +371,7 @@ impl SequentialBatchActor {
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
         let mut inflight: JoinSet<crate::Result<()>> = JoinSet::new();
-        let mut batch = Batch::new(
+        let mut batch = Batch::new_with_ordering_key(
             self.context.topic.len() as u32,
             self.context.batching_options.clone(),
         );
@@ -1133,12 +1133,81 @@ mod tests {
         )
     )]
     #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    async fn sequential_actor_overrides_retry() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = Sequence::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|_, o| o.retry_policy().is_some())
+            .returning(|r, o| Box::pin(async { publish_ok(r, o) }));
+
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            SequentialBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default().set_message_count_threshold(1_u32),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        assert_publish_is_ok!(actor_tx, 1);
+        Ok(())
+    }
+
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    async fn concurrent_actor_uses_default_retry() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = Sequence::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|_, o| o.retry_policy().is_none())
+            .returning(|r, o| Box::pin(async { publish_ok(r, o) }));
+
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default().set_message_count_threshold(1_u32),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        assert_publish_is_ok!(actor_tx, 1);
+        Ok(())
+    }
+
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn sequential_actor_byte_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|req, _o| {
                 // Recreate the batch from req to calculate the batch size.
-                let mut batch = Batch::new(req.topic.len() as u32, BatchingOptions::default());
+                let mut batch = Batch::new_with_ordering_key(
+                    req.topic.len() as u32,
+                    BatchingOptions::default(),
+                );
                 req.messages.iter().for_each(|msg| {
                     let (tx, _rx) = tokio::sync::oneshot::channel();
                     batch.push(BundledMessage {
