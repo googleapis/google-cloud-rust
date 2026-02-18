@@ -461,6 +461,7 @@ mod tests {
 
     #[cfg_attr(
         feature = "tokio-unstable-tests",
+        cfg(tokio_unstable),
         tokio::test(
             start_paused = true,
             flavor = "current_thread",

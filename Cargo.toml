@@ -518,4 +518,5 @@ unexpected_cfgs = { level = "deny", check-cfg = [
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.
   'cfg(google_cloud_generate_protos)',
+  'cfg(tokio_unstable)',
 ] }
