@@ -20,15 +20,15 @@ use google_cloud_gax::error::rpc::Code;
 use google_cloud_trace_v1::client::TraceService;
 use google_cloud_trace_v1::model::Trace;
 use opentelemetry_sdk::trace::SdkTracerProvider;
-use tracing::subscriber::DefaultGuard;
+use tokio::sync::OnceCell;
 use tracing_subscriber::layer::SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
 
 pub const SERVICE_NAME: &str = "e2e-telemetry-test";
+static PROVIDER: OnceCell<anyhow::Result<SdkTracerProvider>> = OnceCell::const_new();
 
 /// Waits for a trace to appear in Cloud Trace.
 ///
-/// Traces may take a few seconds to propagate from the collector endpoints to
+/// Traces may take a few minutes to propagate from the collector endpoints to
 /// the service. This function retrieves the trace, polling if the trace is
 /// not found.
 pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<Trace> {
@@ -73,19 +73,30 @@ pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<
     Ok(trace)
 }
 
-/// Sets up a OTLP provider tracing provider to use with Cloud Trace.
+/// Sets up a OTLP tracing provider to use with Cloud Trace.
 ///
-/// This function configures a OpenTelemetry provider that sends traces to Google
-/// Trace via the OTLP endpoint (telemetry.googleapis.com).
+/// This function configures a global OpenTelemetry provider that sends traces
+/// to Cloud Trace via the OTLP endpoint (telemetry.googleapis.com). Only the
+/// first call creates a provider. All the tests will use the same provider.
+pub async fn set_up_otel_provider(project_id: &str) -> anyhow::Result<&SdkTracerProvider> {
+    PROVIDER
+        .get_or_init(|| self::new_provider(project_id))
+        .await
+        // `get_or_init()` returns a `&Result<T>` so we need some mapping.
+        .as_ref()
+        // Cannot clone anyhow::Error, so do this instead:
+        .map_err(|e| anyhow::anyhow!("badly initialized provider: {e:?}"))
+}
+
+/// Creates a new provider for the tests.
 ///
 /// This uses ADC, and configure a quota project for user credentials because
 /// telemetry endpoint rejects user credentials without the quota user project.
 ///
-/// Note that some other services reject requests *with* a quota user project, so
-/// we cannot assume it is set.
-pub async fn set_up_otel_provider(
-    project_id: &str,
-) -> anyhow::Result<(SdkTracerProvider, DefaultGuard)> {
+/// Note that some other services reject requests *with* a quota user project.
+/// Therefore, we cannot require that the credentials have a quota user prorject
+/// set.
+async fn new_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
     let credentials = CredentialsBuilder::default().build()?;
     let credentials = if format!("{credentials:?}").contains("UserCredentials") {
         CredentialsBuilder::default()
@@ -99,10 +110,10 @@ pub async fn set_up_otel_provider(
         .build()
         .await?;
 
-    // Install subscriber
-    let guard = tracing_subscriber::Registry::default()
-        .with(super::tracing::layer(provider.clone()))
-        .set_default();
+    // Install subscriber, ignore any other subscriber already installed.
+    let _ = tracing::subscriber::set_global_default(
+        tracing_subscriber::Registry::default().with(super::tracing::layer(provider.clone())),
+    );
 
-    Ok((provider, guard))
+    Ok(provider)
 }

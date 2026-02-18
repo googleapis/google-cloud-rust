@@ -37,7 +37,7 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Setup Telemetry (Real Google Cloud Destination)
     // This requires GOOGLE_CLOUD_PROJECT to be set.
     let project_id = project_id()?;
-    let (provider, _guard) = set_up_otel_provider(&project_id).await?;
+    let provider = set_up_otel_provider(&project_id).await?;
 
     // 3. Generate Trace
     // Start a root span
