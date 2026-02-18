@@ -17,7 +17,7 @@ use google_cloud_gax::error::Error;
 use http::Uri;
 use std::str::FromStr;
 
-/// Calcutate the host header given the endpoint and default endpoint.
+/// Calculate the host header given the endpoint and default endpoint.
 ///
 /// Notably, locational and regional endpoints are detected and used as the
 /// host. For VIPs and private networks, we need to use the default host.
@@ -25,7 +25,7 @@ pub(crate) fn header(endpoint: Option<&str>, default_endpoint: &str) -> Result<S
     origin_and_header(endpoint, default_endpoint).map(|(_, header)| header)
 }
 
-/// Calcutate the gRPC authority given the endpoint and default endpoint.
+/// Calculate the gRPC authority given the endpoint and default endpoint.
 ///
 /// Notably, locational and regional endpoints are detected and used as the
 /// host. For VIPs and private networks, we need to use the default host.
